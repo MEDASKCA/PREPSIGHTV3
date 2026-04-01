@@ -11,6 +11,7 @@ const appId = process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 const AUTH_PROXY_HOSTS = new Set([
   "prepsight.medaskca.com",
   "prepsight.vercel.app",
+  "prepsightv3.vercel.app",
   "ps.medaskca.com",
   "ps-two-dusky.vercel.app",
 ])
