@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "OrthoPediatrics",
+    "system_name": "OrthoPediatrics Hip preservation Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "OrthoPediatrics Hip Preservation Portfolio",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_ORTHOPEDIATRICS_HIP_PRESERVATION_PORTFOLIO",
+      "system_name": "OrthoPediatrics Hip preservation Portfolio",
+      "supplier": "OrthoPediatrics",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public OrthoPediatrics hip portfolio and hip preservation pages used as source anchors for the hip preservation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_ORTHOPEDIATRICS_HIP_PRESERVATION_PORTFOLIO",
+      "component_name": "Hip Preservation Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Hip Preservation Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to OrthoPediatrics hip preservation public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_ORTHOPEDIATRICS_HIP_PRESERVATION_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_ORTHOPEDIATRICS_HIP_PRESERVATION_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

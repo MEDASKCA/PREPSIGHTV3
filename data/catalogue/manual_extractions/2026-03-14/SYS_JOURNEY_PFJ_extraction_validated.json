@@ -1,0 +1,98 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Journey PFJ System",
+    "source_type": "product_page",
+    "source_document": "JOURNEY II PFJ Patellofemoral Joint with Oxidized Zirconium",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_JOURNEY_PFJ_SYSTEM_JOURNEY_PFJ_INSTRUMENTATION",
+        "Tray Name": "JOURNEY PFJ Instrumentation",
+        "System ID": "SYS_JOURNEY_PFJ",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Smith+Nephew materials expose the JOURNEY PFJ surgical technique, implying a dedicated operative instrumentation set."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_JOURNEY_PFJ_SYSTEM_JOURNEY_PFJ_FEMORAL_COMPONENT",
+        "Component Name": "JOURNEY PFJ Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_JOURNEY_PFJ",
+        "Component Notes": "Official product materials describe the patellofemoral femoral implant within the JOURNEY PFJ system."
+      },
+      {
+        "Component ID": "COMP_JOURNEY_PFJ_SYSTEM_JOURNEY_PFJ_PATELLAR_COMPONENT",
+        "Component Name": "JOURNEY PFJ Patellar Component",
+        "Component Role": "Patellar Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_JOURNEY_PFJ",
+        "Component Notes": "Official product materials describe the patellar resurfacing component within the JOURNEY PFJ construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Journey PFJ System",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Patellofemoral Joint System",
+          "system_notes": "Patellofemoral arthroplasty platform within the JOURNEY knee family using OXINIUM material technology."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Journey PFJ System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Patellofemoral Joint System",
+        "system_notes": "Patellofemoral arthroplasty platform within the JOURNEY knee family using OXINIUM material technology."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Journey PFJ System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Patellofemoral Joint System",
+        "system_notes": "Patellofemoral arthroplasty platform within the JOURNEY knee family using OXINIUM material technology."
+      }
+    }
+  ]
+}

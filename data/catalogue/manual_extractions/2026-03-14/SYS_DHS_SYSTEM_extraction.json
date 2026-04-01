@@ -1,0 +1,81 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "DHS \u2014 Dynamic Hip Screw",
+    "source_type": "inventory_control_form_pdf",
+    "source_document": "Inventory Control Form - LCP Dynamic Helical Hip System (DHHS)",
+    "source_version": "J5047-E",
+    "source_date": "2011-02"
+  },
+  "systems": [
+    {
+      "system_name": "DHS \u2014 Dynamic Hip Screw",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Dynamic Hip Screw",
+      "system_notes": "Sliding hip screw / dynamic helical hip system family anchored to the official LCP Dynamic Helical Hip System inventory control form."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "DHHS Instrumentation",
+      "system_name": "DHS \u2014 Dynamic Hip Screw",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official DHHS inventory control materials support a dedicated instrumentation and implant configuration workflow for dynamic hip screw fixation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "LCP DHHS Plate",
+      "system_name": "DHS \u2014 Dynamic Hip Screw",
+      "component_role": "Side Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The official inventory control form lists LCP DHHS plate options by hole count and angle."
+    },
+    {
+      "component_name": "LCP DHHS Compression Screw",
+      "system_name": "DHS \u2014 Dynamic Hip Screw",
+      "component_role": "Compression Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The official form explicitly lists the LCP DHHS compression screw as part of the implant construct."
+    },
+    {
+      "component_name": "LCP DHHS Enhanced Compression Screw",
+      "system_name": "DHS \u2014 Dynamic Hip Screw",
+      "component_role": "Enhanced Compression Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The official form explicitly lists the sterile LCP DHHS enhanced compression screw within the construct."
+    },
+    {
+      "component_name": "DHHS Locking Screw",
+      "system_name": "DHS \u2014 Dynamic Hip Screw",
+      "component_role": "Locking Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The official form lists 3.5 mm and 5.0 mm locking screw options used with the DHHS construct."
+    },
+    {
+      "component_name": "DHHS Cortex Screw",
+      "system_name": "DHS \u2014 Dynamic Hip Screw",
+      "component_role": "Cortex Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The official form lists 4.5 mm cortex screw options used with the DHHS construct."
+    }
+  ],
+  "products": [
+    {
+      "sku": "02.224.030S",
+      "product_name": "LCP DHHS Enhanced Compression Screw, sterile",
+      "component_name": "LCP DHHS Enhanced Compression Screw",
+      "packaging_type": "Sterile",
+      "product_notes": "Catalog code explicitly listed on the official DHHS inventory control form."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The official form lists multiple plate and screw code matrices, but this pass only captures the named enhanced compression screw product row.",
+      "reason": "A deeper product-code pass is still needed to expand the full DHHS plate and screw catalogue matrix.",
+      "source_excerpt": "Current extraction adds the first reliable coded product without expanding every size and plate variation yet."
+    }
+  ]
+}

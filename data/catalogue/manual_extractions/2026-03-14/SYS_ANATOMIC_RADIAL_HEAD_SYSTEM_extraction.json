@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Anatomic Radial Head System",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "Anatomic Radial Head Solutions Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Anatomic Radial Head System",
+      "supplier_name": "Acumed",
+      "system_category": "Elbow Arthroplasty / Radial Head Replacement System",
+      "system_notes": "Anatomic radial head replacement platform with head, stem and instrumentation families."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Anatomic Radial Head Instrumentation",
+      "system_name": "Anatomic Radial Head System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product and technique materials reference dedicated radial head system instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Anatomic Radial Head Component",
+      "system_name": "Anatomic Radial Head System",
+      "component_role": "Radial Head Component",
+      "implant_category": "Elbow Implant",
+      "component_notes": "Core radial head implant family referenced in the product and technique materials."
+    },
+    {
+      "component_name": "Anatomic Radial Head Stem",
+      "system_name": "Anatomic Radial Head System",
+      "component_role": "Stem",
+      "implant_category": "Elbow Implant",
+      "component_notes": "Core stem family referenced in the product and technique materials."
+    },
+    {
+      "component_name": "Anatomic Radial Head Trial",
+      "system_name": "Anatomic Radial Head System",
+      "component_role": "Trial",
+      "implant_category": "Instrumentation",
+      "component_notes": "Trial family referenced within the system workflow."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "System includes multiple head diameters and stem options.",
+      "reason": "Needs deeper catalogue review before splitting detailed radial head implant variants.",
+      "source_excerpt": "Current extraction keeps the main implant families only."
+    }
+  ]
+}

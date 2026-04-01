@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "Gorilla Ankle Fracture Plating System",
+    "source_type": "product_page",
+    "source_document": "Gorilla Ankle Fracture Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Gorilla Ankle Fracture Plating System",
+      "supplier_name": "Paragon 28",
+      "system_category": "Foot and Ankle Trauma Fixation System",
+      "system_notes": "Ankle fracture fixation platform with plates, screws and instrumentation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Gorilla Ankle Fracture Instrumentation",
+      "system_name": "Gorilla Ankle Fracture Plating System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated fracture plating instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Gorilla Ankle Plate",
+      "system_name": "Gorilla Ankle Fracture Plating System",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Core ankle plate family referenced on the product page."
+    },
+    {
+      "component_name": "Gorilla Ankle Screw",
+      "system_name": "Gorilla Ankle Fracture Plating System",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Core screw family referenced on the product page."
+    },
+    {
+      "component_name": "Gorilla Ankle Guide",
+      "system_name": "Gorilla Ankle Fracture Plating System",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Guide and instrumentation family referenced by the fixation system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "System includes multiple plate shapes and fixation options.",
+      "reason": "Needs deeper catalogue review before splitting all plate families.",
+      "source_excerpt": "Current extraction keeps the main fixation families only."
+    }
+  ]
+}

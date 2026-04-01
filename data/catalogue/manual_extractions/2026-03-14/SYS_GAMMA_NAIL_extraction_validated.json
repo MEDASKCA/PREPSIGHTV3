@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Gamma Nail System",
+    "source_type": "product_page",
+    "source_document": "Gamma4 Hip Fracture Nailing System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_GAMMA_NAIL_SYSTEM_GAMMA4_IMN_BASIC_INSTRUMENT_PLATFORM",
+        "Tray Name": "Gamma4 IMN Basic Instrument Platform",
+        "System ID": "SYS_GAMMA_NAIL",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Gamma4 materials describe an integrated instrument platform shared across the Gamma4 nail family."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_GAMMA_NAIL_SYSTEM_GAMMA4_TROCHANTERIC_NAIL",
+        "Component Name": "Gamma4 Trochanteric Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_GAMMA_NAIL",
+        "Component Notes": "Official Gamma4 materials describe the trochanteric nail for stable and unstable intertrochanteric fractures."
+      },
+      {
+        "Component ID": "COMP_GAMMA_NAIL_SYSTEM_GAMMA4_INTERMEDIATE_NAIL",
+        "Component Name": "Gamma4 Intermediate Nail",
+        "Component Role": "Intermediate Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_GAMMA_NAIL",
+        "Component Notes": "Official Gamma4 materials describe the intermediate nail within the hip fracture nailing system."
+      },
+      {
+        "Component ID": "COMP_GAMMA_NAIL_SYSTEM_GAMMA4_LONG_NAIL",
+        "Component Name": "Gamma4 Long Nail",
+        "Component Role": "Long Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_GAMMA_NAIL",
+        "Component Notes": "Official Gamma4 materials describe the long nail for proximal femur and associated femoral shaft fractures."
+      },
+      {
+        "Component ID": "COMP_GAMMA_NAIL_SYSTEM_GAMMA4_LAG_SCREW",
+        "Component Name": "Gamma4 Lag Screw",
+        "Component Role": "Lag Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_GAMMA_NAIL",
+        "Component Notes": "Official Gamma4 materials describe cephalic lag screw options, including the RC lag screw expansion."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Gamma Nail System",
+          "supplier_name": "Stryker",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Cephalomedullary femoral nailing platform for intertrochanteric, subtrochanteric, and selected femoral shaft fracture fixation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Gamma Nail System",
+        "supplier_name": "Stryker",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Cephalomedullary femoral nailing platform for intertrochanteric, subtrochanteric, and selected femoral shaft fracture fixation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Gamma Nail System",
+        "supplier_name": "Stryker",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Cephalomedullary femoral nailing platform for intertrochanteric, subtrochanteric, and selected femoral shaft fracture fixation."
+      }
+    }
+  ]
+}

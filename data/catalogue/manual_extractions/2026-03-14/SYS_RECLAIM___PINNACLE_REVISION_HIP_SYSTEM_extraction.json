@@ -1,0 +1,73 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Reclaim / Pinnacle Revision Hip System",
+    "source_type": "product_page",
+    "source_document": "RECLAIM Modular Revision Hip System and PINNACLE Acetabular Cup System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Reclaim / Pinnacle Revision Hip System",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Hip Revision System",
+      "system_notes": "Revision total hip construct anchored to official RECLAIM modular/monobloc revision stem pages and the PINNACLE acetabular system page."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "RECLAIM / Pinnacle Revision Instrumentation",
+      "system_name": "Reclaim / Pinnacle Revision Hip System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official RECLAIM revision materials support dedicated modular revision instrumentation paired with compatible Pinnacle acetabular workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "RECLAIM Distal Stem",
+      "system_name": "Reclaim / Pinnacle Revision Hip System",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official RECLAIM modular revision materials describe distal stem options across multiple lengths and diameters."
+    },
+    {
+      "component_name": "RECLAIM Proximal Body",
+      "system_name": "Reclaim / Pinnacle Revision Hip System",
+      "component_role": "Proximal Body",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official RECLAIM modular revision materials describe modular proximal body options used to reconstruct revision anatomy."
+    },
+    {
+      "component_name": "PINNACLE Revision Acetabular Shell",
+      "system_name": "Reclaim / Pinnacle Revision Hip System",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official PINNACLE materials describe the acetabular shell family used in DePuy revision hip constructs."
+    },
+    {
+      "component_name": "PINNACLE Acetabular Liner",
+      "system_name": "Reclaim / Pinnacle Revision Hip System",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official PINNACLE materials describe compatible liner and bearing options used with the revision acetabular construct."
+    },
+    {
+      "component_name": "Femoral Head",
+      "system_name": "Reclaim / Pinnacle Revision Hip System",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official DePuy revision construct materials describe modular femoral head options used with RECLAIM and PINNACLE."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The current RECLAIM and PINNACLE public source set confirms the revision construct and component families but this pass does not include a clean single revision implant code matrix row.",
+      "reason": "A deeper catalogue, IFU, or supply-chain resource pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

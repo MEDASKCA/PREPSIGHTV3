@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Orthofix",
+    "system_name": "Orthofix Limb Reconstruction Portfolio",
+    "source_type": "procedure_page",
+    "source_document": "Limb Reconstruction - Orthofix",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Orthofix Limb Reconstruction Portfolio",
+      "supplier_name": "Orthofix",
+      "system_category": "Complex reconstruction",
+      "system_notes": "Official Orthofix limb reconstruction materials used as the public source anchors for this complex reconstruction portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Limb Reconstruction Portfolio Framework",
+      "system_name": "Orthofix Limb Reconstruction Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Complex Reconstruction",
+      "component_notes": "Framework component anchored to Orthofix public limb reconstruction source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public limb reconstruction source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Limb Reconstruction - Orthofix; LRS ADVanced - Orthofix"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public limb reconstruction source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Limb Reconstruction - Orthofix; LRS ADVanced - Orthofix"
+    }
+  ]
+}

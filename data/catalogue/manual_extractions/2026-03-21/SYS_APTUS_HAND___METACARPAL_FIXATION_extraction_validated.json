@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Medartis",
+    "system_name": "Aptus Hand / Metacarpal Fixation",
+    "source_type": "portfolio_page",
+    "source_document": "Medartis | Hand Solutions",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_APTUS_HAND_METACARPAL_FIXATION_METACARPAL_FIXATION_FRAMEWORK",
+        "Component Name": "Metacarpal Fixation Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Hand Trauma Portfolio",
+        "System ID": "SYS_APTUS_HAND___METACARPAL_FIXATION",
+        "Component Notes": "Framework component anchored to Medartis public Aptus hand and metacarpal fixation source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Aptus Hand / Metacarpal Fixation",
+          "supplier_name": "Medartis",
+          "system_category": "hand_wrist_trauma",
+          "system_notes": "Official Medartis Hand Solutions and Hand 1.2-2.3 System materials used as the source anchors for the metacarpal fixation entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Aptus Hand / Metacarpal Fixation",
+        "supplier_name": "Medartis",
+        "system_category": "hand_wrist_trauma",
+        "system_notes": "Official Medartis Hand Solutions and Hand 1.2-2.3 System materials used as the source anchors for the metacarpal fixation entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Aptus Hand / Metacarpal Fixation",
+        "supplier_name": "Medartis",
+        "system_category": "hand_wrist_trauma",
+        "system_notes": "Official Medartis Hand Solutions and Hand 1.2-2.3 System materials used as the source anchors for the metacarpal fixation entry."
+      }
+    }
+  ]
+}

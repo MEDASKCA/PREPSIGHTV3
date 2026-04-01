@@ -1,0 +1,28 @@
+[
+  {
+    "supplier_id": "SUP_WL_GORE",
+    "supplier_name": "W. L. Gore",
+    "system_id": "SYS_PTFE_GRAFT",
+    "system_name": "PTFE Vascular Graft",
+    "sources": [
+      {
+        "source_type": "specifications_page",
+        "title": "Specifications | GORE-TEX Vascular Grafts",
+        "url": "https://www.goremedical.com/products/vg/specifications",
+        "notes": "Official Gore Medical specifications page listing GORE-TEX vascular graft catalogue numbers, diameters, and lengths."
+      },
+      {
+        "source_type": "resource_library_page",
+        "title": "Physician Resources for GORE-TEX STRETCH Vascular Grafts",
+        "url": "https://www.goremedical.com/en-emea/products/vg-stretch/physician-resources",
+        "notes": "Official Gore Medical physician resources page referencing vascular graft configuration resources and related product literature."
+      },
+      {
+        "source_type": "ifu_reference",
+        "title": "Gore Medical eIFU Portal",
+        "url": "https://eifu.goremedical.com",
+        "notes": "Official Gore Medical instructions-for-use portal referenced from the vascular graft product and specifications pages."
+      }
+    ]
+  }
+]

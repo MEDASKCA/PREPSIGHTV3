@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Biedermann Motech",
+    "system_name": "Biedermann Motech Thoracolumbar fusion Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Spine | Biedermann Motech GmbH & Co. KG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Biedermann Motech Thoracolumbar fusion Portfolio",
+      "supplier_name": "Biedermann Motech",
+      "system_category": "spine",
+      "system_notes": "Official Biedermann thoracolumbar fusion materials used as the public source anchors for this thoracolumbar fusion portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Thoracolumbar Fusion Framework",
+      "system_name": "Biedermann Motech Thoracolumbar fusion Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Framework component anchored to Biedermann public thoracolumbar fusion source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public thoracolumbar fusion source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Spine | Biedermann Motech GmbH & Co. KG; Home | Biedermann Motech GmbH & Co. KG; eIFU | Biedermann Motech GmbH & Co. KG; About us | Biedermann Motech GmbH & Co. KG"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public thoracolumbar fusion source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Spine | Biedermann Motech GmbH & Co. KG; Home | Biedermann Motech GmbH & Co. KG; eIFU | Biedermann Motech GmbH & Co. KG; About us | Biedermann Motech GmbH & Co. KG"
+    }
+  ]
+}

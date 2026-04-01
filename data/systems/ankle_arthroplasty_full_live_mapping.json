@@ -1,0 +1,142 @@
+{
+  "specialty": "Trauma and Orthopaedics",
+  "subspecialty": "Arthroplasty",
+  "anatomy": "Ankle",
+  "structure": "subanatomy_group -> procedure -> variants -> systems[]",
+  "updated_at": "2026-03-13T20:18:47.727Z",
+  "subanatomy_groups": [
+    {
+      "name": "Whole Joint",
+      "procedures": [
+        {
+          "procedure_id": "PROC_PRIMARY_TOTAL_ANKLE_REPLACEMENT",
+          "procedure_name": "Primary Total Ankle Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_PRIMARY_TAR_FIXED",
+              "variant_name": "Fixed-Bearing Total Ankle Replacement",
+              "systems": [
+                {
+                  "system_id": "SYS_INFINITY_ANKLE",
+                  "system_name": "INFINITY Total Ankle",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "fixed_bearing",
+                  "procedure_class": "primary_total_ankle",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog total ankle system.",
+                  "approach_compatibility": [
+                    "Fixed-Bearing Total Ankle Replacement"
+                  ]
+                },
+                {
+                  "system_id": "SYS_SALTO_TALARIS",
+                  "system_name": "SALTO Talaris",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "fixed_bearing",
+                  "procedure_class": "primary_total_ankle",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog total ankle system.",
+                  "approach_compatibility": [
+                    "Fixed-Bearing Total Ankle Replacement"
+                  ]
+                },
+                {
+                  "system_id": "SYS_VANTAGE_ANKLE",
+                  "system_name": "Vantage Total Ankle",
+                  "supplier_name": "Exactech",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "fixed_bearing",
+                  "procedure_class": "primary_total_ankle",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog total ankle system.",
+                  "approach_compatibility": [
+                    "Fixed-Bearing Total Ankle Replacement"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_PRIMARY_TAR_MOBILE",
+              "variant_name": "Mobile-Bearing Total Ankle Replacement",
+              "systems": [
+                {
+                  "system_id": "SYS_STAR_ANKLE",
+                  "system_name": "STAR Total Ankle",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "mobile_bearing",
+                  "procedure_class": "primary_total_ankle",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog total ankle system.",
+                  "approach_compatibility": [
+                    "Mobile-Bearing Total Ankle Replacement"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ZENITH_ANKLE",
+                  "system_name": "Zenith Total Ankle",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "mobile_bearing",
+                  "procedure_class": "primary_total_ankle",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog total ankle system.",
+                  "approach_compatibility": [
+                    "Mobile-Bearing Total Ankle Replacement"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_REVISION_TOTAL_ANKLE_REPLACEMENT",
+          "procedure_name": "Revision Total Ankle Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_REVISION_TAR_STANDARD",
+              "variant_name": "Revision Total Ankle Replacement",
+              "systems": [
+                {
+                  "system_id": "SYS_INBONE_STAR_PORTFOLIO",
+                  "system_name": "INBONE / STAR Total Ankle Portfolio",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_ankle",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Revision ankle platform candidate.",
+                  "approach_compatibility": [
+                    "Revision Total Ankle Replacement"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_ANKLE_REVISION_PORTFOLIO",
+                  "system_name": "Corin Revision Ankle Portfolio",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_ankle",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Revision ankle platform candidate.",
+                  "approach_compatibility": [
+                    "Revision Total Ankle Replacement"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

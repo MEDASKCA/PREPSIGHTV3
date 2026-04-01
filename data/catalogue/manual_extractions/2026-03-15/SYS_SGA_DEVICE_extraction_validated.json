@@ -1,0 +1,22 @@
+{
+  "schema_errors": [
+    "products[0] is missing field sku.",
+    "products[0] is missing field packaging_type."
+  ],
+  "ready_to_import": {},
+  "needs_review": {},
+  "rejected": {},
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SCHEMA",
+      "reason": "products[0] is missing field sku."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "products[0] is missing field packaging_type."
+    }
+  ]
+}

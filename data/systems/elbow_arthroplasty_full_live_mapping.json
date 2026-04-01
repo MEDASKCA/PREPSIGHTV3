@@ -1,0 +1,145 @@
+{
+  "specialty": "Trauma and Orthopaedics",
+  "subspecialty": "Arthroplasty",
+  "anatomy": "Elbow",
+  "structure": "subanatomy_group -> procedure -> variants -> systems[]",
+  "updated_at": "2026-03-13T20:18:47.727Z",
+  "subanatomy_groups": [
+    {
+      "name": "Whole Joint",
+      "procedures": [
+        {
+          "procedure_id": "PROC_PRIMARY_TOTAL_ELBOW_REPLACEMENT",
+          "procedure_name": "Primary Total Elbow Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_PRIMARY_TER_LINKED",
+              "variant_name": "Linked Total Elbow Replacement",
+              "systems": [
+                {
+                  "system_id": "SYS_COONRAD_MORREY",
+                  "system_name": "Coonrad-Morrey Total Elbow",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "linked",
+                  "procedure_class": "primary_elbow",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog total elbow system.",
+                  "approach_compatibility": [
+                    "Linked Total Elbow Replacement"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_PRIMARY_TER_UNLINKED",
+              "variant_name": "Unlinked Total Elbow Replacement",
+              "systems": [
+                {
+                  "system_id": "SYS_LATITUDE_ELBOW",
+                  "system_name": "Latitude EV Total Elbow",
+                  "supplier_name": "Integra LifeSciences",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unlinked",
+                  "procedure_class": "primary_elbow",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog total elbow system.",
+                  "approach_compatibility": [
+                    "Unlinked Total Elbow Replacement"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_REVISION_TOTAL_ELBOW_REPLACEMENT",
+          "procedure_name": "Revision Total Elbow Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_REVISION_TER_STANDARD",
+              "variant_name": "Revision Total Elbow",
+              "systems": [
+                {
+                  "system_id": "SYS_COONRAD_MORREY",
+                  "system_name": "Coonrad-Morrey Total Elbow",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "linked",
+                  "procedure_class": "revision_elbow",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Revision-capable elbow platform.",
+                  "approach_compatibility": [
+                    "Revision Total Elbow"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LATITUDE_ELBOW",
+                  "system_name": "Latitude EV Total Elbow",
+                  "supplier_name": "Integra LifeSciences",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unlinked",
+                  "procedure_class": "revision_elbow",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Revision-capable elbow platform.",
+                  "approach_compatibility": [
+                    "Revision Total Elbow"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Radial Head",
+      "procedures": [
+        {
+          "procedure_id": "PROC_RADIAL_HEAD_ARTHROPLASTY",
+          "procedure_name": "Radial Head Arthroplasty",
+          "variants": [
+            {
+              "variant_id": "PV_RADIAL_HEAD_ARTHROPLASTY_STANDARD",
+              "variant_name": "Standard Radial Head Replacement",
+              "systems": [
+                {
+                  "system_id": "SYS_RADIAL_HEAD_PLATFORM_STRYKER",
+                  "system_name": "Stryker Radial Head Platform",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "hemi",
+                  "procedure_class": "radial_head",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Radial head arthroplasty candidate.",
+                  "approach_compatibility": [
+                    "Standard Radial Head Replacement"
+                  ]
+                },
+                {
+                  "system_id": "SYS_RADIAL_HEAD_PLATFORM_ZB",
+                  "system_name": "Zimmer Biomet Radial Head Platform",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "hemi",
+                  "procedure_class": "radial_head",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Radial head arthroplasty candidate.",
+                  "approach_compatibility": [
+                    "Standard Radial Head Replacement"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

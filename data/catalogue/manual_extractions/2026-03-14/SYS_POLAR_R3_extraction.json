@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Polar / R3",
+    "source_type": "product_page",
+    "source_document": "POLAR3 Total Hip Solution",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Polar / R3",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Primary total hip arthroplasty platform built around the POLARSTEM femoral system and the R3 acetabular system."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "POLAR / R3 Instrumentation",
+      "system_name": "Polar / R3",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Smith+Nephew hip materials describe flexible instrumentation for the R3 acetabular system and the POLARSTEM hip reconstruction system."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "POLARSTEM Femoral Stem",
+      "system_name": "Polar / R3",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official product materials describe the POLARSTEM hip reconstruction system as the stem family within the solution."
+    },
+    {
+      "component_name": "R3 Acetabular Shell",
+      "system_name": "Polar / R3",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official product materials describe the R3 acetabular system as the cup platform within the solution."
+    },
+    {
+      "component_name": "R3 Acetabular Liner",
+      "system_name": "Polar / R3",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official product materials describe highly cross-linked polyethylene liner options for the R3 acetabular system."
+    },
+    {
+      "component_name": "OXINIUM Femoral Head",
+      "system_name": "Polar / R3",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official product materials describe OXINIUM oxidized zirconium heads as part of the bearing construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The official product pages define the construct clearly but this pass does not expose a direct public SKU table.",
+      "reason": "A deeper brochure or IFU pass is needed for product-code level detail.",
+      "source_excerpt": "Current extraction stays at tray and implant-family level only."
+    }
+  ]
+}

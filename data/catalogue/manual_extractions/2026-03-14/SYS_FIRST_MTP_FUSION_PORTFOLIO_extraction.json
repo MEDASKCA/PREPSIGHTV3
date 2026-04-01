@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "First MTP Fusion Portfolio",
+    "source_type": "product_page",
+    "source_document": "Gorilla First MTP Fusion Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "First MTP Fusion Portfolio",
+      "supplier_name": "Paragon 28",
+      "system_category": "First MTP Fusion Fixation System",
+      "system_notes": "First MTP fusion fixation platform with plates, screws and instrumentation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "First MTP Fusion Instrumentation",
+      "system_name": "First MTP Fusion Portfolio",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated first MTP fusion instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "First MTP Fusion Plate",
+      "system_name": "First MTP Fusion Portfolio",
+      "component_role": "Plate",
+      "implant_category": "Foot and Ankle Implant",
+      "component_notes": "Core plate family referenced on the product page."
+    },
+    {
+      "component_name": "First MTP Fusion Screw",
+      "system_name": "First MTP Fusion Portfolio",
+      "component_role": "Screw",
+      "implant_category": "Foot and Ankle Implant",
+      "component_notes": "Core screw family referenced on the product page."
+    },
+    {
+      "component_name": "First MTP Fusion Guide",
+      "system_name": "First MTP Fusion Portfolio",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Guide/instrument family referenced by the fixation system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "System includes multiple plate shapes and fixation options.",
+      "reason": "Needs deeper catalogue review before splitting detailed fixation families.",
+      "source_excerpt": "Current extraction keeps the main fixation families only."
+    }
+  ]
+}

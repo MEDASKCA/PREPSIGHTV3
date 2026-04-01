@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "First MTP Fusion Portfolio",
+    "source_type": "product_page",
+    "source_document": "Gorilla First MTP Fusion Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_FIRST_MTP_FUSION_PORTFOLIO_FIRST_MTP_FUSION_INSTRUMENTATION",
+        "Tray Name": "First MTP Fusion Instrumentation",
+        "System ID": "SYS_FIRST_MTP_FUSION_PORTFOLIO",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated first MTP fusion instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_FIRST_MTP_FUSION_PORTFOLIO_FIRST_MTP_FUSION_PLATE",
+        "Component Name": "First MTP Fusion Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Foot and Ankle Implant",
+        "System ID": "SYS_FIRST_MTP_FUSION_PORTFOLIO",
+        "Component Notes": "Core plate family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_FIRST_MTP_FUSION_PORTFOLIO_FIRST_MTP_FUSION_SCREW",
+        "Component Name": "First MTP Fusion Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Foot and Ankle Implant",
+        "System ID": "SYS_FIRST_MTP_FUSION_PORTFOLIO",
+        "Component Notes": "Core screw family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_FIRST_MTP_FUSION_PORTFOLIO_FIRST_MTP_FUSION_GUIDE",
+        "Component Name": "First MTP Fusion Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_FIRST_MTP_FUSION_PORTFOLIO",
+        "Component Notes": "Guide/instrument family referenced by the fixation system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "First MTP Fusion Portfolio",
+          "supplier_name": "Paragon 28",
+          "system_category": "First MTP Fusion Fixation System",
+          "system_notes": "First MTP fusion fixation platform with plates, screws and instrumentation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "First MTP Fusion Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "First MTP Fusion Fixation System",
+        "system_notes": "First MTP fusion fixation platform with plates, screws and instrumentation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "First MTP Fusion Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "First MTP Fusion Fixation System",
+        "system_notes": "First MTP fusion fixation platform with plates, screws and instrumentation."
+      }
+    }
+  ]
+}

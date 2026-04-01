@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Biedermann Motech",
+    "system_name": "Biedermann Motech Orthopaedic oncology Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Extremities | Biedermann Motech GmbH & Co. KG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Biedermann Motech Orthopaedic oncology Portfolio",
+      "supplier_name": "Biedermann Motech",
+      "system_category": "Orthopaedic oncology",
+      "system_notes": "Official Biedermann extremities, company, and eIFU pages used as the source anchors for the orthopaedic oncology portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Orthopaedic Oncology Portfolio Framework",
+      "system_name": "Biedermann Motech Orthopaedic oncology Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Orthopaedic oncology",
+      "component_notes": "Portfolio-level informational framework anchored to Biedermann public extremity implant and IFU sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Biedermann source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Extremities; About us; eIFU"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public Biedermann source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Extremities; About us; eIFU"
+    }
+  ]
+}

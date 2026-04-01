@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "ARCOS Modular",
+    "source_type": "product_page",
+    "source_document": "Arcos Modular Femoral Revision System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "ARCOS Modular",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Hip Revision System",
+      "system_notes": "Modular cementless femoral revision platform for complex hip revision arthroplasty and femoral reconstruction."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "ARCOS Revision Instrumentation",
+      "system_name": "ARCOS Modular",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet materials describe a single instrumentation platform for the ARCOS modular revision system."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "ARCOS Proximal Body",
+      "system_name": "ARCOS Modular",
+      "component_role": "Proximal Body",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official materials describe cone, broach, and calcar proximal body options within the ARCOS modular system."
+    },
+    {
+      "component_name": "ARCOS Distal Stem",
+      "system_name": "ARCOS Modular",
+      "component_role": "Distal Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official materials describe multiple distal stem geometries including STS, slotted, bullet-tip, and interlocking options."
+    },
+    {
+      "component_name": "ARCOS Femoral Head",
+      "system_name": "ARCOS Modular",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "The modular revision construct supports compatible head options across the revision platform."
+    },
+    {
+      "component_name": "ARCOS Auxiliary Fixation Implant",
+      "system_name": "ARCOS Modular",
+      "component_role": "Auxiliary Fixation",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official brochure describes claw, bolt, and button auxiliary fixation implants for trochanteric reattachment and stability."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The ARCOS brochure describes multiple body and stem combinations but this pass does not expand the full revision product-code matrix.",
+      "reason": "A deeper catalogue or IFU pass is needed for detailed revision SKU coverage.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

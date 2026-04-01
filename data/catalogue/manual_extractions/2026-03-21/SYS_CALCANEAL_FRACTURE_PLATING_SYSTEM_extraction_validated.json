@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Calcaneal Fracture Plating System",
+    "source_type": "product_page",
+    "source_document": "Calcaneal Plating System | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CALCANEAL_FRACTURE_PLATING_SYSTEM_CALCANEAL_FRACTURE_PLATING_FRAMEWORK",
+        "Component Name": "Calcaneal Fracture Plating Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Foot and Ankle Trauma",
+        "System ID": "SYS_CALCANEAL_FRACTURE_PLATING_SYSTEM",
+        "Component Notes": "Framework component anchored to Acumed public calcaneal plating source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Calcaneal Fracture Plating System",
+          "supplier_name": "Acumed",
+          "system_category": "foot_ankle_trauma",
+          "system_notes": "Official Acumed calcaneal fracture plating materials used as the public source anchors for this foot and ankle trauma system entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Calcaneal Fracture Plating System",
+        "supplier_name": "Acumed",
+        "system_category": "foot_ankle_trauma",
+        "system_notes": "Official Acumed calcaneal fracture plating materials used as the public source anchors for this foot and ankle trauma system entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Calcaneal Fracture Plating System",
+        "supplier_name": "Acumed",
+        "system_category": "foot_ankle_trauma",
+        "system_notes": "Official Acumed calcaneal fracture plating materials used as the public source anchors for this foot and ankle trauma system entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Pelvic / Acetabular Plating System",
+    "source_type": "product_page",
+    "source_document": "Intrapelvic Acetabular System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Pelvic / Acetabular Plating System",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "trauma",
+      "system_notes": "Public DePuy Synthes intrapelvic acetabular, low-profile pelvic, and curved LCP plating materials used as the source anchors for the pelvic and acetabular plating system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Pelvic / Acetabular Plating Framework",
+      "system_name": "Pelvic / Acetabular Plating System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Portfolio-level informational framework anchored to DePuy Synthes public pelvic and acetabular plating sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public DePuy Synthes source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Intrapelvic Acetabular System, Low Profile Pelvic System (3.5 mm), and Curved Locking Compression Plates"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public DePuy Synthes source anchors do not provide a complete SKU-level extraction for this system entry.",
+      "source_excerpt": "Intrapelvic Acetabular System, Low Profile Pelvic System (3.5 mm), and Curved Locking Compression Plates"
+    }
+  ]
+}

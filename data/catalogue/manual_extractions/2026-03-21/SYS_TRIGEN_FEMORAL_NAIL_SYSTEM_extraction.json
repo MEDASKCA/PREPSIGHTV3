@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "TRIGEN Femoral Nail System",
+    "source_type": "product_page",
+    "source_document": "TRIGEN META-TAN Trochanteric Antegrade Nail",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "TRIGEN Femoral Nail System",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "trauma",
+      "system_notes": "Official Smith+Nephew TRIGEN femoral nailing materials used as the public source anchors for this femoral nail system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Femoral Nail System Framework",
+      "system_name": "TRIGEN Femoral Nail System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to Smith+Nephew public TRIGEN femoral nailing source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public TRIGEN femoral nail source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "TRIGEN META-TAN Trochanteric Antegrade Nail; TRIGEN META-NAIL Tibia and Retrograde Femoral Nailing System"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public TRIGEN femoral nail source anchors do not provide a complete SKU-level extraction for this system entry.",
+      "source_excerpt": "TRIGEN META-TAN Trochanteric Antegrade Nail; TRIGEN META-NAIL Tibia and Retrograde Femoral Nailing System"
+    }
+  ]
+}

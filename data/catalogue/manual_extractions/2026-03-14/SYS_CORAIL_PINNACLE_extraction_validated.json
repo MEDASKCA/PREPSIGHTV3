@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Corail / Pinnacle",
+    "source_type": "product_page",
+    "source_document": "CORAIL Total Hip System and PINNACLE Acetabular Cup System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_CORAIL_PINNACLE_CORAIL_PINNACLE_INSTRUMENTATION",
+        "Tray Name": "Corail / Pinnacle Instrumentation",
+        "System ID": "SYS_CORAIL_PINNACLE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official product materials support the combined stem and acetabular platform with dedicated operative instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CORAIL_PINNACLE_CORAIL_FEMORAL_STEM",
+        "Component Name": "CORAIL Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CORAIL_PINNACLE",
+        "Component Notes": "Official DePuy Synthes materials describe CORAIL as the HA-coated primary femoral stem family."
+      },
+      {
+        "Component ID": "COMP_CORAIL_PINNACLE_PINNACLE_ACETABULAR_CUP",
+        "Component Name": "PINNACLE Acetabular Cup",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CORAIL_PINNACLE",
+        "Component Notes": "Official product materials describe PINNACLE as the core acetabular cup family."
+      },
+      {
+        "Component ID": "COMP_CORAIL_PINNACLE_PINNACLE_ACETABULAR_LINER",
+        "Component Name": "PINNACLE Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CORAIL_PINNACLE",
+        "Component Notes": "Official product materials describe crosslinked polyethylene and related PINNACLE liner options."
+      },
+      {
+        "Component ID": "COMP_CORAIL_PINNACLE_ARTICUL_EZE_FEMORAL_HEAD",
+        "Component Name": "ARTICUL/EZE Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CORAIL_PINNACLE",
+        "Component Notes": "DePuy hip portfolio materials pair the platform with modular femoral head options."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Corail / Pinnacle",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Primary total hip arthroplasty platform combining the CORAIL femoral stem family with the PINNACLE acetabular cup system."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Corail / Pinnacle",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform combining the CORAIL femoral stem family with the PINNACLE acetabular cup system."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Corail / Pinnacle",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform combining the CORAIL femoral stem family with the PINNACLE acetabular cup system."
+      }
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Attune Knee System",
+    "source_type": "product_brochure",
+    "source_document": "ATTUNE AFFIXIUM Product Brochure",
+    "source_version": "168686-210301",
+    "source_date": "2021-03"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ATTUNE_KNEE_SYSTEM_TIBIAL_TRIAL_AND_PREPARATION_CASE",
+        "Tray Name": "Tibial Trial and Preparation Case",
+        "System ID": "SYS_ATTUNE_KNEE",
+        "Tray Type": "Instrumentation Case",
+        "Tray Notes": "Listed as part of the INTUITION Instruments set configuration."
+      },
+      {
+        "Tray ID": "TRAY_ATTUNE_KNEE_SYSTEM_FB_TIBIAL_PREPARATION_CASE",
+        "Tray Name": "FB Tibial Preparation Case",
+        "System ID": "SYS_ATTUNE_KNEE",
+        "Tray Type": "Instrumentation Case",
+        "Tray Notes": "Listed as part of the INTUITION Instruments set configuration."
+      },
+      {
+        "Tray ID": "TRAY_ATTUNE_KNEE_SYSTEM_FEMORAL_CUT_ASSESSMENT_INSTRUMENTS",
+        "Tray Name": "Femoral Cut Assessment Instruments",
+        "System ID": "SYS_ATTUNE_KNEE",
+        "Tray Type": "Instrumentation Case",
+        "Tray Notes": "Listed as part of the INTUITION Instruments set configuration."
+      },
+      {
+        "Tray ID": "TRAY_ATTUNE_KNEE_SYSTEM_TIBIAL_PROTECTION_PLATE_CASE",
+        "Tray Name": "Tibial Protection Plate Case",
+        "System ID": "SYS_ATTUNE_KNEE",
+        "Tray Type": "Instrumentation Case",
+        "Tray Notes": "Listed as part of the INTUITION Instruments set configuration."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ATTUNE_KNEE_SYSTEM_ATTUNE_FEMORAL_COMPONENT",
+        "Component Name": "ATTUNE Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_ATTUNE_KNEE",
+        "Component Notes": "Brochure explicitly references CR and PS femoral components."
+      },
+      {
+        "Component ID": "COMP_ATTUNE_KNEE_SYSTEM_ATTUNE_TIBIAL_BASE_COMPONENT",
+        "Component Name": "ATTUNE Tibial Base Component",
+        "Component Role": "Tibial Baseplate",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_ATTUNE_KNEE",
+        "Component Notes": "ATTUNE fixed-bearing construct references tibial preparation and tibial base workflow."
+      },
+      {
+        "Component ID": "COMP_ATTUNE_KNEE_SYSTEM_ATTUNE_FIXED_BEARING_INSERT",
+        "Component Name": "ATTUNE Fixed Bearing Insert",
+        "Component Role": "Tibial Insert",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_ATTUNE_KNEE",
+        "Component Notes": "Source brochure is specific to the fixed-bearing construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Attune Knee System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Knee Arthroplasty System",
+          "system_notes": "ATTUNE cementless fixed-bearing knee platform supported by INTUITION instrumentation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Attune Knee System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Knee Arthroplasty System",
+        "system_notes": "ATTUNE cementless fixed-bearing knee platform supported by INTUITION instrumentation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Attune Knee System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Knee Arthroplasty System",
+        "system_notes": "ATTUNE cementless fixed-bearing knee platform supported by INTUITION instrumentation."
+      }
+    }
+  ]
+}

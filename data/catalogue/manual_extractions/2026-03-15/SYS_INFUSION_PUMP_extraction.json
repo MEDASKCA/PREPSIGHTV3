@@ -1,0 +1,67 @@
+{
+  "source_meta": {
+    "supplier_name": "B. Braun",
+    "system_name": "Infusion Pump",
+    "source_type": "product_page",
+    "source_document": "Infusomat Space Large Volume Pump",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Infusion Pump",
+      "supplier_name": "B. Braun",
+      "system_category": "Drug Delivery",
+      "system_notes": "Official source anchor for the B. Braun Infusomat Space infusion pump platform."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Infusomat Space Large Volume Pump",
+      "system_name": "Infusion Pump",
+      "component_role": "Infusion Pump Console",
+      "implant_category": "Drug Delivery Device",
+      "component_notes": "B. Braun large-volume infusion pump for acute-care infusion workflows."
+    },
+    {
+      "component_name": "SpaceStation Docking Platform",
+      "system_name": "Infusion Pump",
+      "component_role": "Docking Station",
+      "implant_category": "Drug Delivery Accessory",
+      "component_notes": "Docking platform that integrates multiple Space infusion pumps in one workstation."
+    },
+    {
+      "component_name": "Infusomat Space Pump IV Set",
+      "system_name": "Infusion Pump",
+      "component_role": "IV Pump Set",
+      "implant_category": "Drug Delivery Consumable",
+      "component_notes": "B. Braun pump IV set consumable configured for Infusomat Space pump use."
+    }
+  ],
+  "products": [
+    {
+      "component_name": "Infusomat Space Large Volume Pump",
+      "product_code": "8713051U",
+      "product_name": "Infusomat Space Large Volume Pump, Wireless",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded wireless infusion pump product."
+    },
+    {
+      "component_name": "Infusomat Space Pump IV Set",
+      "product_code": "363030",
+      "product_name": "Infusomat Space Pump IV Set with ASV",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded IV administration set product."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "The public Infusomat platform pages do not define a tray or instrument case in the current pass.",
+      "reason": "Tray rows should only be added from site-specific drug-delivery carts or packaged device-set sources.",
+      "source_excerpt": "Current extraction remains platform-based."
+    }
+  ]
+}

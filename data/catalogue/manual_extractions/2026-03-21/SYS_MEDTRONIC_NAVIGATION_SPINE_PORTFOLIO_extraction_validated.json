@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Medtronic Navigation + Spine Portfolio",
+    "source_type": "product_page",
+    "source_document": "StealthStation S8 Navigation Platform | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_MEDTRONIC_NAVIGATION_SPINE_PORTFOLIO_NAVIGATION_AND_SPINE_FRAMEWORK",
+        "Component Name": "Navigation and Spine Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Spine",
+        "System ID": "SYS_MEDTRONIC_NAVIGATION_SPINE_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Medtronic public navigation and spine source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Medtronic Navigation + Spine Portfolio",
+          "supplier_name": "Medtronic",
+          "system_category": "spine",
+          "system_notes": "Official Medtronic navigation and spine-enablement materials used as the public source anchors for this navigation and spine portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Medtronic Navigation + Spine Portfolio",
+        "supplier_name": "Medtronic",
+        "system_category": "spine",
+        "system_notes": "Official Medtronic navigation and spine-enablement materials used as the public source anchors for this navigation and spine portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Medtronic Navigation + Spine Portfolio",
+        "supplier_name": "Medtronic",
+        "system_category": "spine",
+        "system_notes": "Official Medtronic navigation and spine-enablement materials used as the public source anchors for this navigation and spine portfolio entry."
+      }
+    }
+  ]
+}

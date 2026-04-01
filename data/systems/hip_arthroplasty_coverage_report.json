@@ -1,0 +1,396 @@
+{
+  "generated_at": "2026-03-13T19:57:57.763Z",
+  "coverage": [
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_PRIMARY_TOTAL_HIP_REPLACEMENT",
+      "procedure_name": "Primary Total Hip Replacement",
+      "variant_id": "PV_PRIMARY_THR_POSTERIOR",
+      "variant_name": "Posterior Approach",
+      "system_count": 24,
+      "confirmed_count": 9,
+      "review_required_count": 15,
+      "suppliers": [
+        "AK Medical",
+        "Aesculap",
+        "Amplitude",
+        "Corentec",
+        "Corin",
+        "DePuy Synthes",
+        "Enovis",
+        "FH Orthopedics",
+        "JRI Orthopaedics",
+        "LimaCorporate",
+        "Mathys",
+        "Medacta",
+        "MicroPort",
+        "Peter Brehm",
+        "Smith+Nephew",
+        "Stryker",
+        "United Orthopedic",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_PRIMARY_TOTAL_HIP_REPLACEMENT",
+      "procedure_name": "Primary Total Hip Replacement",
+      "variant_id": "PV_PRIMARY_THR_ANTERIOR",
+      "variant_name": "Direct Anterior Approach",
+      "system_count": 21,
+      "confirmed_count": 6,
+      "review_required_count": 15,
+      "suppliers": [
+        "AK Medical",
+        "Aesculap",
+        "Amplitude",
+        "Corentec",
+        "Corin",
+        "DePuy Synthes",
+        "Enovis",
+        "FH Orthopedics",
+        "JRI Orthopaedics",
+        "LimaCorporate",
+        "Mathys",
+        "Medacta",
+        "MicroPort",
+        "Peter Brehm",
+        "Smith+Nephew",
+        "Stryker",
+        "United Orthopedic",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_PRIMARY_TOTAL_HIP_REPLACEMENT",
+      "procedure_name": "Primary Total Hip Replacement",
+      "variant_id": "PV_PRIMARY_THR_LATERAL",
+      "variant_name": "Direct Lateral Approach",
+      "system_count": 24,
+      "confirmed_count": 9,
+      "review_required_count": 15,
+      "suppliers": [
+        "AK Medical",
+        "Aesculap",
+        "Amplitude",
+        "Corentec",
+        "Corin",
+        "DePuy Synthes",
+        "Enovis",
+        "FH Orthopedics",
+        "JRI Orthopaedics",
+        "LimaCorporate",
+        "Mathys",
+        "Medacta",
+        "MicroPort",
+        "Peter Brehm",
+        "Smith+Nephew",
+        "Stryker",
+        "United Orthopedic",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_PRIMARY_TOTAL_HIP_REPLACEMENT",
+      "procedure_name": "Primary Total Hip Replacement",
+      "variant_id": "PV_PRIMARY_THR_ANTEROLATERAL",
+      "variant_name": "Anterolateral Approach",
+      "system_count": 24,
+      "confirmed_count": 9,
+      "review_required_count": 15,
+      "suppliers": [
+        "AK Medical",
+        "Aesculap",
+        "Amplitude",
+        "Corentec",
+        "Corin",
+        "DePuy Synthes",
+        "Enovis",
+        "FH Orthopedics",
+        "JRI Orthopaedics",
+        "LimaCorporate",
+        "Mathys",
+        "Medacta",
+        "MicroPort",
+        "Peter Brehm",
+        "Smith+Nephew",
+        "Stryker",
+        "United Orthopedic",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_REVISION_TOTAL_HIP_REPLACEMENT",
+      "procedure_name": "Revision Total Hip Replacement",
+      "variant_id": "PV_REVISION_THR_POSTERIOR",
+      "variant_name": "Posterior",
+      "system_count": 8,
+      "confirmed_count": 3,
+      "review_required_count": 5,
+      "suppliers": [
+        "Corin",
+        "DePuy Synthes",
+        "LimaCorporate",
+        "Stryker",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_REVISION_TOTAL_HIP_REPLACEMENT",
+      "procedure_name": "Revision Total Hip Replacement",
+      "variant_id": "PV_REVISION_THR_ETO",
+      "variant_name": "Extended Trochanteric Osteotomy",
+      "system_count": 8,
+      "confirmed_count": 3,
+      "review_required_count": 5,
+      "suppliers": [
+        "Corin",
+        "DePuy Synthes",
+        "LimaCorporate",
+        "Stryker",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_REVISION_TOTAL_HIP_REPLACEMENT",
+      "procedure_name": "Revision Total Hip Replacement",
+      "variant_id": "PV_REVISION_THR_TRANSFEMORAL",
+      "variant_name": "Transfemoral",
+      "system_count": 8,
+      "confirmed_count": 3,
+      "review_required_count": 5,
+      "suppliers": [
+        "Corin",
+        "DePuy Synthes",
+        "LimaCorporate",
+        "Stryker",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_TWO_STAGE_REVISION_TOTAL_HIP_REPLACEMENT",
+      "procedure_name": "Two-Stage Revision Total Hip Replacement",
+      "variant_id": "PV_TWO_STAGE_REVISION_THR_STAGE_ONE",
+      "variant_name": "Stage 1 Explant and Spacer",
+      "system_count": 8,
+      "confirmed_count": 3,
+      "review_required_count": 5,
+      "suppliers": [
+        "Corin",
+        "DePuy Synthes",
+        "LimaCorporate",
+        "Stryker",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_TWO_STAGE_REVISION_TOTAL_HIP_REPLACEMENT",
+      "procedure_name": "Two-Stage Revision Total Hip Replacement",
+      "variant_id": "PV_TWO_STAGE_REVISION_THR_STAGE_TWO",
+      "variant_name": "Stage 2 Reimplantation",
+      "system_count": 8,
+      "confirmed_count": 3,
+      "review_required_count": 5,
+      "suppliers": [
+        "Corin",
+        "DePuy Synthes",
+        "LimaCorporate",
+        "Stryker",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_HIP_RESURFACING",
+      "procedure_name": "Hip Resurfacing",
+      "variant_id": "PV_HIP_RESURFACING_POSTERIOR",
+      "variant_name": "Posterior Approach",
+      "system_count": 3,
+      "confirmed_count": 2,
+      "review_required_count": 1,
+      "suppliers": [
+        "Medacta",
+        "Smith+Nephew",
+        "Stryker"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_HIP_RESURFACING",
+      "procedure_name": "Hip Resurfacing",
+      "variant_id": "PV_HIP_RESURFACING_LATERAL",
+      "variant_name": "Direct Lateral Approach",
+      "system_count": 3,
+      "confirmed_count": 2,
+      "review_required_count": 1,
+      "suppliers": [
+        "Medacta",
+        "Smith+Nephew",
+        "Stryker"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_HEMIARTHROPLASTY_OF_HIP",
+      "procedure_name": "Hip Hemiarthroplasty",
+      "variant_id": "PV_HIP_HEMI_CEMENTED",
+      "variant_name": "Cemented Stem",
+      "system_count": 4,
+      "confirmed_count": 2,
+      "review_required_count": 2,
+      "suppliers": [
+        "JRI Orthopaedics",
+        "Smith+Nephew",
+        "Stryker",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_HEMIARTHROPLASTY_OF_HIP",
+      "procedure_name": "Hip Hemiarthroplasty",
+      "variant_id": "PV_HIP_HEMI_UNCEMENTED",
+      "variant_name": "Uncemented Stem",
+      "system_count": 3,
+      "confirmed_count": 1,
+      "review_required_count": 2,
+      "suppliers": [
+        "DePuy Synthes",
+        "JRI Orthopaedics",
+        "Smith+Nephew"
+      ]
+    },
+    {
+      "subanatomy_group": "Whole Joint",
+      "procedure_id": "PROC_CONVERSION_OF_HIP_HEMIARTHROPLASTY_TO_TOTAL_HIP_REPLACEMENT",
+      "procedure_name": "Conversion Hemiarthroplasty to THR",
+      "variant_id": "PV_CONVERSION_HEMI_TO_THR_STANDARD",
+      "variant_name": "Standard Conversion",
+      "system_count": 18,
+      "confirmed_count": 9,
+      "review_required_count": 9,
+      "suppliers": [
+        "Aesculap",
+        "Corin",
+        "DePuy Synthes",
+        "Enovis",
+        "JRI Orthopaedics",
+        "LimaCorporate",
+        "Mathys",
+        "Medacta",
+        "MicroPort",
+        "Smith+Nephew",
+        "Stryker",
+        "United Orthopedic",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Acetabulum",
+      "procedure_id": "PROC_ACETABULAR_REVISION_OF_HIP_REPLACEMENT",
+      "procedure_name": "Acetabular Component Revision",
+      "variant_id": "PV_ACETABULAR_REVISION_ISOLATED_CUP",
+      "variant_name": "Isolated Cup Revision",
+      "system_count": 3,
+      "confirmed_count": 1,
+      "review_required_count": 2,
+      "suppliers": [
+        "DePuy Synthes",
+        "Stryker",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Acetabulum",
+      "procedure_id": "PROC_ACETABULAR_REVISION_OF_HIP_REPLACEMENT",
+      "procedure_name": "Acetabular Component Revision",
+      "variant_id": "PV_ACETABULAR_REVISION_RECONSTRUCTION",
+      "variant_name": "Acetabular Reconstruction",
+      "system_count": 4,
+      "confirmed_count": 1,
+      "review_required_count": 3,
+      "suppliers": [
+        "DePuy Synthes",
+        "Stryker",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Acetabulum",
+      "procedure_id": "PROC_ACETABULAR_REVISION_OF_HIP_REPLACEMENT",
+      "procedure_name": "Acetabular Component Revision",
+      "variant_id": "PV_ACETABULAR_REVISION_CUP_CAGE",
+      "variant_name": "Cup-Cage Reconstruction",
+      "system_count": 4,
+      "confirmed_count": 1,
+      "review_required_count": 3,
+      "suppliers": [
+        "DePuy Synthes",
+        "Stryker",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Proximal Femur",
+      "procedure_id": "PROC_FEMORAL_REVISION_OF_HIP_REPLACEMENT",
+      "procedure_name": "Femoral Stem Revision",
+      "variant_id": "PV_FEMORAL_REVISION_CEMENTED",
+      "variant_name": "Cemented Stem Revision",
+      "system_count": 2,
+      "confirmed_count": 1,
+      "review_required_count": 1,
+      "suppliers": [
+        "DePuy Synthes",
+        "Stryker"
+      ]
+    },
+    {
+      "subanatomy_group": "Proximal Femur",
+      "procedure_id": "PROC_FEMORAL_REVISION_OF_HIP_REPLACEMENT",
+      "procedure_name": "Femoral Stem Revision",
+      "variant_id": "PV_FEMORAL_REVISION_TAPERED_FLUTED",
+      "variant_name": "Tapered Fluted Stem Revision",
+      "system_count": 4,
+      "confirmed_count": 3,
+      "review_required_count": 1,
+      "suppliers": [
+        "DePuy Synthes",
+        "Stryker",
+        "Zimmer Biomet"
+      ]
+    },
+    {
+      "subanatomy_group": "Proximal Femur",
+      "procedure_id": "PROC_PROXIMAL_FEMORAL_REPLACEMENT",
+      "procedure_name": "Proximal Femoral Replacement",
+      "variant_id": "PV_PROXIMAL_FEMORAL_REPLACEMENT_STANDARD",
+      "variant_name": "Standard Reconstruction",
+      "system_count": 3,
+      "confirmed_count": 0,
+      "review_required_count": 3,
+      "suppliers": [
+        "Stryker",
+        "Waldemar Link",
+        "Zimmer Biomet"
+      ]
+    }
+  ]
+}

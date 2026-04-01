@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "MultiLoc Proximal Humeral Nail",
+    "source_type": "accompanying_information_page",
+    "source_document": "Accompanying Product Information",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "MultiLoc Proximal Humeral Nail",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Intramedullary Nail System",
+      "system_notes": "Proximal humeral intramedullary nailing platform listed in official DePuy Synthes trauma accompanying product information."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "MultiLoc Proximal Humeral Nail Instrumentation",
+      "system_name": "MultiLoc Proximal Humeral Nail",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official DePuy Synthes materials list a dedicated MultiLoc proximal humeral nail technique and associated instrumentation workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "MultiLoc Proximal Humeral Nail",
+      "system_name": "MultiLoc Proximal Humeral Nail",
+      "component_role": "Intramedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Primary proximal humeral nail component described by the MultiLoc humeral nail technique listing."
+    },
+    {
+      "component_name": "MultiLoc Locking Screw",
+      "system_name": "MultiLoc Proximal Humeral Nail",
+      "component_role": "Locking Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The MultiLoc proximal humerus construct uses locking fixation options as part of the nail system."
+    },
+    {
+      "component_name": "MultiLoc End Cap",
+      "system_name": "MultiLoc Proximal Humeral Nail",
+      "component_role": "End Cap",
+      "implant_category": "Trauma Implant",
+      "component_notes": "End-cap compatibility is part of the MultiLoc humeral nail construct family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The official source confirms the MultiLoc Proximal Humeral Nail but this pass does not include a sterile implant code matrix.",
+      "reason": "A deeper IFU, inventory control form, or catalogue pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

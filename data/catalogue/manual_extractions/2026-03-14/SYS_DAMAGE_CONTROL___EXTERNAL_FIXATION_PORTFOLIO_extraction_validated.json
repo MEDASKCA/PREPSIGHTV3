@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Orthofix",
+    "system_name": "Damage Control / External Fixation Portfolio",
+    "source_type": "product_page",
+    "source_document": "ProCallus Hybrid Fixation and TL-HEX TrueLok Hexapod System Trauma",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_DAMAGE_CONTROL_EXTERNAL_FIXATION_PORTFOLIO_DAMAGE_CONTROL_EXTERNAL_FIXATION_INSTRUMENTATION",
+        "Tray Name": "Damage Control External Fixation Instrumentation",
+        "System ID": "SYS_DAMAGE_CONTROL___EXTERNAL_FIXATION_PORTFOLIO",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated hybrid and external fixation instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_DAMAGE_CONTROL_EXTERNAL_FIXATION_PORTFOLIO_DAMAGE_CONTROL_RING",
+        "Component Name": "Damage Control Ring",
+        "Component Role": "Ring",
+        "Implant Category": "External Fixation Implant",
+        "System ID": "SYS_DAMAGE_CONTROL___EXTERNAL_FIXATION_PORTFOLIO",
+        "Component Notes": "Ring family referenced in the source materials."
+      },
+      {
+        "Component ID": "COMP_DAMAGE_CONTROL_EXTERNAL_FIXATION_PORTFOLIO_DAMAGE_CONTROL_STRUT",
+        "Component Name": "Damage Control Strut",
+        "Component Role": "Strut",
+        "Implant Category": "External Fixation Implant",
+        "System ID": "SYS_DAMAGE_CONTROL___EXTERNAL_FIXATION_PORTFOLIO",
+        "Component Notes": "Strut family referenced in the source materials."
+      },
+      {
+        "Component ID": "COMP_DAMAGE_CONTROL_EXTERNAL_FIXATION_PORTFOLIO_DAMAGE_CONTROL_WIRE",
+        "Component Name": "Damage Control Wire",
+        "Component Role": "Wire",
+        "Implant Category": "External Fixation Implant",
+        "System ID": "SYS_DAMAGE_CONTROL___EXTERNAL_FIXATION_PORTFOLIO",
+        "Component Notes": "Wire family referenced in the source materials."
+      },
+      {
+        "Component ID": "COMP_DAMAGE_CONTROL_EXTERNAL_FIXATION_PORTFOLIO_DAMAGE_CONTROL_HALF_PIN",
+        "Component Name": "Damage Control Half Pin",
+        "Component Role": "Half Pin",
+        "Implant Category": "External Fixation Implant",
+        "System ID": "SYS_DAMAGE_CONTROL___EXTERNAL_FIXATION_PORTFOLIO",
+        "Component Notes": "Half pin family referenced in the source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Damage Control / External Fixation Portfolio",
+          "supplier_name": "Orthofix",
+          "system_category": "External Fixation System",
+          "system_notes": "Damage-control and complex-fracture external fixation platform."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Damage Control / External Fixation Portfolio",
+        "supplier_name": "Orthofix",
+        "system_category": "External Fixation System",
+        "system_notes": "Damage-control and complex-fracture external fixation platform."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Damage Control / External Fixation Portfolio",
+        "supplier_name": "Orthofix",
+        "system_category": "External Fixation System",
+        "system_notes": "Damage-control and complex-fracture external fixation platform."
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Medartis",
+    "system_name": "Aptus Wrist Fusion System",
+    "source_type": "product_page",
+    "source_document": "Medartis | APTUS Wrist",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_APTUS_WRIST_FUSION_SYSTEM_APTUS_WRIST_FUSION_SYSTEM_FRAMEWORK",
+        "Component Name": "Aptus Wrist Fusion System Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Aptus Wrist Fusion System",
+        "System ID": "SYS_APTUS_WRIST_FUSION_SYSTEM",
+        "Component Notes": "Portfolio-level informational framework anchored to Medartis public wrist fusion and wrist product sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Aptus Wrist Fusion System",
+          "supplier_name": "Medartis",
+          "system_category": "hand_wrist",
+          "system_notes": "Public Medartis hand solutions, APTUS Wrist product, and documents pages used as the source anchors for the Aptus wrist fusion system entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Aptus Wrist Fusion System",
+        "supplier_name": "Medartis",
+        "system_category": "hand_wrist",
+        "system_notes": "Public Medartis hand solutions, APTUS Wrist product, and documents pages used as the source anchors for the Aptus wrist fusion system entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Aptus Wrist Fusion System",
+        "supplier_name": "Medartis",
+        "system_category": "hand_wrist",
+        "system_notes": "Public Medartis hand solutions, APTUS Wrist product, and documents pages used as the source anchors for the Aptus wrist fusion system entry."
+      }
+    }
+  ]
+}

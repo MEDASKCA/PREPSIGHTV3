@@ -1,0 +1,128 @@
+[
+  { "procedure_id": "PROC_CRANIOTOMY_FOR_BRAIN_TUMOUR", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_CRANIOTOMY_FOR_BRAIN_TUMOUR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CRANIOTOMY_FOR_EVACUATION_OF_SUBDURAL_HAEMATOMA", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_CRANIOTOMY_FOR_EVACUATION_OF_SUBDURAL_HAEMATOMA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_BURR_HOLE_DRAINAGE_OF_SUBDURAL_HAEMATOMA", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_BURR_HOLE_DRAINAGE_OF_SUBDURAL_HAEMATOMA", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_BURR_HOLE_DRAINAGE_OF_SUBDURAL_HAEMATOMA", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_CRANIOTOMY_FOR_INTRACEREBRAL_HAEMATOMA", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_CRANIOTOMY_FOR_INTRACEREBRAL_HAEMATOMA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CRANIOTOMY_FOR_ANEURYSM_CLIPPING", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_CRANIOTOMY_FOR_ANEURYSM_CLIPPING", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DECOMPRESSIVE_CRANIECTOMY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_DECOMPRESSIVE_CRANIECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CRANIOPLASTY", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_CRANIOPLASTY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_VENTRICULOPERITONEAL_SHUNT_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_VENTRICULOPERITONEAL_SHUNT_INSERTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_EXTERNAL_VENTRICULAR_DRAIN_INSERTION", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_EXTERNAL_VENTRICULAR_DRAIN_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ENDOSCOPIC_THIRD_VENTRICULOSTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ENDOSCOPIC_THIRD_VENTRICULOSTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_TRANSSPHENOIDAL_RESECTION_OF_PITUITARY_TUMOUR", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_TRANSSPHENOIDAL_RESECTION_OF_PITUITARY_TUMOUR", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_TRANSSPHENOIDAL_RESECTION_OF_PITUITARY_TUMOUR", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_LUMBAR_MICRODISCECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LUMBAR_MICRODISCECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_LUMBAR_MICRODISCECTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_LUMBAR_LAMINECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LUMBAR_LAMINECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CERVICAL_LAMINECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CERVICAL_LAMINECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ANTERIOR_CERVICAL_DISCECTOMY_AND_FUSION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ANTERIOR_CERVICAL_DISCECTOMY_AND_FUSION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ANTERIOR_CERVICAL_DISCECTOMY_AND_FUSION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_CERVICAL_CORPECTOMY_AND_FUSION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CERVICAL_CORPECTOMY_AND_FUSION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_CERVICAL_CORPECTOMY_AND_FUSION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_THORACIC_DECOMPRESSION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_THORACIC_DECOMPRESSION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_LUMBAR_FUSION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LUMBAR_FUSION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_LUMBAR_FUSION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_THORACOLUMBAR_FUSION_BY_NEUROSURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_THORACOLUMBAR_FUSION_BY_NEUROSURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_THORACOLUMBAR_FUSION_BY_NEUROSURGERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_SPINAL_STABILISATION_FOR_TRAUMA", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_SPINAL_STABILISATION_FOR_TRAUMA", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_SPINAL_STABILISATION_FOR_TRAUMA", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_VERTEBROPLASTY_BY_NEUROSURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_VERTEBROPLASTY_BY_NEUROSURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_VERTEBROPLASTY_BY_NEUROSURGERY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_KYPHOPLASTY_BY_NEUROSURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_KYPHOPLASTY_BY_NEUROSURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_KYPHOPLASTY_BY_NEUROSURGERY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_DEEP_BRAIN_STIMULATION_LEAD_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_DEEP_BRAIN_STIMULATION_LEAD_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DEEP_BRAIN_STIMULATION_GENERATOR_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_DEEP_BRAIN_STIMULATION_GENERATOR_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_VAGUS_NERVE_STIMULATOR_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_VAGUS_NERVE_STIMULATOR_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_STEREOTACTIC_BRAIN_BIOPSY", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_STEREOTACTIC_BRAIN_BIOPSY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_EPILEPSY_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EPILEPSY_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_INTRATHECAL_BACLOFEN_PUMP_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_INTRATHECAL_BACLOFEN_PUMP_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_RESECTION_OF_GLIOMA", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RESECTION_OF_GLIOMA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_RESECTION_OF_MENINGIOMA", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RESECTION_OF_MENINGIOMA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_RESECTION_OF_VESTIBULAR_SCHWANNOMA", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RESECTION_OF_VESTIBULAR_SCHWANNOMA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_RESECTION_OF_SPINAL_TUMOUR", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RESECTION_OF_SPINAL_TUMOUR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_AWAKE_CRANIOTOMY_FOR_TUMOUR_RESECTION", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_AWAKE_CRANIOTOMY_FOR_TUMOUR_RESECTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PAEDIATRIC_VENTRICULOPERITONEAL_SHUNT_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PAEDIATRIC_VENTRICULOPERITONEAL_SHUNT_INSERTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_PAEDIATRIC_ENDOSCOPIC_THIRD_VENTRICULOSTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PAEDIATRIC_ENDOSCOPIC_THIRD_VENTRICULOSTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_REPAIR_OF_MYELOMENINGOCELE", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_REPAIR_OF_MYELOMENINGOCELE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TETHERED_CORD_RELEASE", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_TETHERED_CORD_RELEASE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PAEDIATRIC_CRANIOSYNOSTOSIS_SURGERY_BY_NEUROSURGERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_PAEDIATRIC_CRANIOSYNOSTOSIS_SURGERY_BY_NEUROSURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PAEDIATRIC_POSTERIOR_FOSSA_DECOMPRESSION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PAEDIATRIC_POSTERIOR_FOSSA_DECOMPRESSION", "case_tag_id": "CASE_RECONSTRUCTION" }
+]

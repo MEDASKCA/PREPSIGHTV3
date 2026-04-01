@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Suction Diathermy Set",
+    "source_type": "product_page",
+    "source_document": "Valleylab Suction Coagulator | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_SUCTION_DIATHERMY_SET_SUCTION_DIATHERMY_FRAMEWORK",
+        "Component Name": "Suction Diathermy Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "General Surgery",
+        "System ID": "SYS_SUCTION_DIATHERMY",
+        "Component Notes": "Framework component anchored to Medtronic public suction coagulation and electrosurgical source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Suction Diathermy Set",
+          "supplier_name": "Medtronic",
+          "system_category": "surgical_energy",
+          "system_notes": "Official Medtronic suction-coagulation and electrosurgical-energy materials used as the closest current public source anchors for this suction diathermy set entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Suction Diathermy Set",
+        "supplier_name": "Medtronic",
+        "system_category": "surgical_energy",
+        "system_notes": "Official Medtronic suction-coagulation and electrosurgical-energy materials used as the closest current public source anchors for this suction diathermy set entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Suction Diathermy Set",
+        "supplier_name": "Medtronic",
+        "system_category": "surgical_energy",
+        "system_notes": "Official Medtronic suction-coagulation and electrosurgical-energy materials used as the closest current public source anchors for this suction diathermy set entry."
+      }
+    }
+  ]
+}

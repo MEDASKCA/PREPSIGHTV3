@@ -1,0 +1,89 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(uid) {
+      return isSignedIn() && request.auth.uid == uid;
+    }
+
+    function membershipDocBelongsToCaller() {
+      return isSignedIn() &&
+        (
+          request.resource.data.uid == request.auth.uid ||
+          resource.data.uid == request.auth.uid
+        );
+    }
+
+    match /users/{uid} {
+      allow read, create, update: if isOwner(uid);
+    }
+
+    match /organizations/{organizationId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn() &&
+        request.resource.data.createdBy == request.auth.uid &&
+        request.resource.data.internalName is string &&
+        request.resource.data.internalName.size() > 0;
+      allow update: if false;
+      allow delete: if false;
+    }
+
+    match /organization_memberships/{membershipId} {
+      allow read: if isSignedIn() && resource.data.uid == request.auth.uid;
+      allow create, update: if membershipDocBelongsToCaller();
+      allow delete: if false;
+    }
+
+    match /hospitals/{hospitalId} {
+      allow read: if true;
+      allow create: if isSignedIn() && request.resource.data.addedBy == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    match /surgeons/{surgeonId} {
+      allow read: if true;
+      allow create: if isSignedIn() && request.resource.data.addedBy == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    match /card_checklists/{docId} {
+      allow read, create, update: if isSignedIn() &&
+        (
+          request.resource.data.updatedBy == request.auth.uid ||
+          resource.data.updatedBy == request.auth.uid
+        );
+      allow delete: if false;
+    }
+
+    match /card_custom_sections/{docId} {
+      allow read, create, update: if isSignedIn() &&
+        (
+          request.resource.data.updatedBy == request.auth.uid ||
+          resource.data.updatedBy == request.auth.uid
+        );
+      allow delete: if false;
+    }
+
+    match /collection_runs/{runId} {
+      allow read, create: if isSignedIn() &&
+        (
+          request.resource.data.uid == request.auth.uid ||
+          resource.data.uid == request.auth.uid
+        );
+      allow update, delete: if false;
+    }
+
+    match /admin_content/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

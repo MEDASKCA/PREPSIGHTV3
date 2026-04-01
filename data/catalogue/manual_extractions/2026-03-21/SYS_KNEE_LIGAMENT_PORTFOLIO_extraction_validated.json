@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Knee Ligament Portfolio",
+    "source_type": "product_page",
+    "source_document": "ULTRABUTTON Adjustable Fixation Device Family",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_KNEE_LIGAMENT_PORTFOLIO_KNEE_LIGAMENT_RECONSTRUCTION_FRAMEWORK",
+        "Component Name": "Knee Ligament Reconstruction Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Sports Medicine",
+        "System ID": "SYS_KNEE_LIGAMENT_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Smith+Nephew public knee-ligament source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Knee Ligament Portfolio",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "sports_medicine_knee",
+          "system_notes": "Official Smith+Nephew knee-ligament reconstruction materials used as the public source anchors for this knee ligament portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Knee Ligament Portfolio",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "sports_medicine_knee",
+        "system_notes": "Official Smith+Nephew knee-ligament reconstruction materials used as the public source anchors for this knee ligament portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Knee Ligament Portfolio",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "sports_medicine_knee",
+        "system_notes": "Official Smith+Nephew knee-ligament reconstruction materials used as the public source anchors for this knee ligament portfolio entry."
+      }
+    }
+  ]
+}

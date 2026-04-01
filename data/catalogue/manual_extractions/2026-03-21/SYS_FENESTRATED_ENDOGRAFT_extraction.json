@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Cook Medical",
+    "system_name": "Fenestrated Endograft",
+    "source_type": "product_page",
+    "source_document": "Zenith Fenestrated AAA Endovascular Graft Proximal Body Grafts | Cook Medical",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Fenestrated Endograft",
+      "supplier_name": "Cook Medical",
+      "system_category": "endovascular_aortic",
+      "system_notes": "Official Cook Medical fenestrated endograft materials used as the public source anchors for this fenestrated endograft entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Fenestrated Endograft Framework",
+      "system_name": "Fenestrated Endograft",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to Cook Medical public fenestrated endograft source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public fenestrated endograft source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Zenith Fenestrated AAA Endovascular Graft Proximal Body Grafts | Cook Medical; Zenith Fenestrated AAA Endovascular Graft Distal Bifurcated Body Grafts | Cook Medical; Zenith Fenestrated AAA Endovacular Graft | Cook Medical; FDA approves clinical study of Zenith Fenestrated+ Endovascular Graft for treatment of aortic aneurysms | Cook Medical"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public fenestrated endograft source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Zenith Fenestrated AAA Endovascular Graft Proximal Body Grafts | Cook Medical; Zenith Fenestrated AAA Endovascular Graft Distal Bifurcated Body Grafts | Cook Medical; Zenith Fenestrated AAA Endovacular Graft | Cook Medical; FDA approves clinical study of Zenith Fenestrated+ Endovascular Graft for treatment of aortic aneurysms | Cook Medical"
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "ACL Reconstruction Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Sports Medicine Products",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "ACL Reconstruction Portfolio Framework",
+      "system_name": "ACL Reconstruction Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "ACL reconstruction",
+      "component_notes": "Public Zimmer Biomet sports medicine sources describe the ACL reconstruction portfolio at a family level spanning fixation implants and instrumentation."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Zimmer Biomet lists ACL instrumentation families on the sports medicine page without a normalized tray bill of materials.",
+      "reason": "Tray detail should be added from narrower ACL instrumentation literature rather than the broad public portfolio page.",
+      "source_excerpt": "Current extraction remains portfolio-level."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "The ACL portfolio page references multiple implants and techniques but does not expose a normalized SKU table for the whole portfolio.",
+      "reason": "Device-specific ACL pages and PDFs should be parsed separately for product rows if needed.",
+      "source_excerpt": "This extraction creates a source-backed family anchor only."
+    }
+  ]
+}

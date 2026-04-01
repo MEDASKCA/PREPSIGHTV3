@@ -1,0 +1,37 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Hip Fracture / Hemiarthroplasty Portfolio",
+    "source_type": "product_page",
+    "source_document": "Echo Hip System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Hip Fracture / Hemiarthroplasty Portfolio Family",
+      "system_name": "Hip Fracture / Hemiarthroplasty Portfolio",
+      "component_role": "Portfolio Family",
+      "implant_category": "Hip fracture arthroplasty",
+      "component_notes": "Public Zimmer Biomet hip sources identify fracture-capable femoral stem families relevant to hemiarthroplasty and hip fracture workflows."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "The captured public hip sources do not provide a discrete tray-level manifest for this broad fracture and hemiarthroplasty portfolio.",
+      "reason": "Tray detail should be added from narrower hip instrumentation literature if needed.",
+      "source_excerpt": "Current extraction is anchored to public hip product sources."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "The portfolio spans multiple stem variants and fracture-capable options without a normalized product table in this pass.",
+      "reason": "Detailed SKU extraction should be performed from system-specific brochures or technique documents if needed later.",
+      "source_excerpt": "This extraction remains family-level."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Large / Small External Fixator Portfolio",
+    "source_type": "product_page",
+    "source_document": "Large External Fixation System | DePuy Synthes",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Large / Small External Fixator Portfolio",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "trauma",
+      "system_notes": "Official DePuy Synthes Large External Fixation System, Mini External Fixator, and Accompanying Product Information materials used as the source anchors for the large and small external fixator portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Large and Small External Fixator Framework",
+      "system_name": "Large / Small External Fixator Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "External Fixation",
+      "component_notes": "Framework component anchored to DePuy Synthes public large and mini external fixation sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public large and small external fixator source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Large External Fixation System; Mini External Fixator; Accompanying Product Information"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public large and small external fixator source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Large External Fixation System; Mini External Fixator; Accompanying Product Information"
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+[
+  { "procedure_id": "PROC_PHACOEMULSIFICATION_AND_INTRAOCULAR_LENS_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PHACOEMULSIFICATION_AND_INTRAOCULAR_LENS_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PHACOEMULSIFICATION_AND_INTRAOCULAR_LENS_INSERTION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_EXTRACAPSULAR_CATARACT_EXTRACTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXTRACAPSULAR_CATARACT_EXTRACTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SECONDARY_INTRAOCULAR_LENS_INSERTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_SECONDARY_INTRAOCULAR_LENS_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_YAG_LASER_CAPSULOTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+  { "procedure_id": "PROC_YAG_LASER_CAPSULOTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PARS_PLANA_VITRECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PARS_PLANA_VITRECTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_REPAIR_OF_RETINAL_DETACHMENT", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_REPAIR_OF_RETINAL_DETACHMENT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SCLERAL_BUCKLE", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_SCLERAL_BUCKLE", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_MEMBRANE_PEELING", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_MEMBRANE_PEELING", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_MACULAR_HOLE_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_MACULAR_HOLE_SURGERY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_INTRAOCULAR_FOREIGN_BODY_REMOVAL", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_INTRAOCULAR_FOREIGN_BODY_REMOVAL", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TRABECULECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TRABECULECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_GLAUCOMA_DRAINAGE_DEVICE_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_GLAUCOMA_DRAINAGE_DEVICE_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_MINIMALLY_INVASIVE_GLAUCOMA_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_MINIMALLY_INVASIVE_GLAUCOMA_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_MINIMALLY_INVASIVE_GLAUCOMA_SURGERY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_GONIOTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_GONIOTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_CYCLODESTRUCTIVE_PROCEDURE", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_CYCLODESTRUCTIVE_PROCEDURE", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_PENETRATING_KERATOPLASTY", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_PENETRATING_KERATOPLASTY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ANTERIOR_LAMELLAR_KERATOPLASTY", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_ANTERIOR_LAMELLAR_KERATOPLASTY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ENDOTHELIAL_KERATOPLASTY", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_ENDOTHELIAL_KERATOPLASTY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PTERYGIUM_EXCISION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PTERYGIUM_EXCISION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CORNEAL_LACERATION_REPAIR", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_CORNEAL_LACERATION_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ANTERIOR_CHAMBER_WASHOUT", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_ANTERIOR_CHAMBER_WASHOUT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PTOSIS_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PTOSIS_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_BLEPHAROPLASTY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_BLEPHAROPLASTY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ENTROPION_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ENTROPION_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_ECTROPION_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ECTROPION_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_DACRYOCYSTORHINOSTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_DACRYOCYSTORHINOSTOMY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_EYELID_LACERATION_REPAIR", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_EYELID_LACERATION_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ORBITAL_DECOMPRESSION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ORBITAL_DECOMPRESSION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_ENUCLEATION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ENUCLEATION", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_EVISCERATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SQUINT_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SQUINT_SURGERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_PROBING_OF_NASOLACRIMAL_DUCT", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PROBING_OF_NASOLACRIMAL_DUCT", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_EXAMINATION_UNDER_ANAESTHESIA_OF_EYE", "case_tag_id": "CASE_DIAGNOSTIC" },
+
+  { "procedure_id": "PROC_PAEDIATRIC_CATARACT_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PAEDIATRIC_CATARACT_SURGERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_PRIMARY_REPAIR_OF_OPEN_GLOBE_IN_CHILD", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_PRIMARY_REPAIR_OF_OPEN_GLOBE_IN_CHILD", "case_tag_id": "CASE_EMERGENCY" }
+]

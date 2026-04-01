@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "UK Foot & Ankle Trauma Distribution Portfolio",
+    "source_type": "supplier_homepage",
+    "source_document": "LEDA Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "UK Foot & Ankle Trauma Distribution Portfolio",
+      "supplier_name": "LEDA Orthopaedics",
+      "system_category": "foot_ankle_trauma",
+      "system_notes": "Official LEDA Orthopaedics homepage, carbon footprint report, and Extremities and Osteosynthesis Ranges brochure used as the source anchors for the UK foot and ankle trauma distribution portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Foot and Ankle Trauma Distribution Framework",
+      "system_name": "UK Foot & Ankle Trauma Distribution Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to LEDA public company and extremities catalogue materials used as closest-match distribution evidence."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public LEDA distribution source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "LEDA Orthopaedics; LEDA Orthopaedics Carbon Footprint Report 2024; Extremities and Osteosynthesis Ranges"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public LEDA distribution source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "LEDA Orthopaedics; LEDA Orthopaedics Carbon Footprint Report 2024; Extremities and Osteosynthesis Ranges"
+    }
+  ]
+}

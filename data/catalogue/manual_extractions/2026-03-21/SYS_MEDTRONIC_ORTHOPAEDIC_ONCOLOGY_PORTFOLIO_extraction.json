@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Medtronic Orthopaedic oncology Portfolio",
+    "source_type": "product_page",
+    "source_document": "OsteoCool 2.0 Bone Tumor Ablation System | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Medtronic Orthopaedic oncology Portfolio",
+      "supplier_name": "Medtronic",
+      "system_category": "Orthopaedic oncology",
+      "system_notes": "Official Medtronic OsteoCool 2.0, T2 Altitude Expandable Corpectomy System, and OsteoCool clearance materials used as the source anchors for the orthopaedic oncology portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Orthopaedic Oncology Portfolio Framework",
+      "system_name": "Medtronic Orthopaedic oncology Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Orthopaedic oncology",
+      "component_notes": "Portfolio-level informational framework anchored to Medtronic public bone tumor ablation and tumor-related reconstruction sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Medtronic source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "OsteoCool 2.0 Bone Tumor Ablation System; T2 Altitude Expandable Corpectomy System; OsteoCool clearance announcement"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public Medtronic source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "OsteoCool 2.0 Bone Tumor Ablation System; T2 Altitude Expandable Corpectomy System; OsteoCool clearance announcement"
+    }
+  ]
+}

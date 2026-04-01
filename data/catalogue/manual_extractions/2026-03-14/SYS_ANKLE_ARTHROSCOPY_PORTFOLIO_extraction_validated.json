@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Ankle Arthroscopy Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Foot and Ankle Arthroscopy",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ANKLE_ARTHROSCOPY_PORTFOLIO_ANKLE_ARTHROSCOPY_PORTFOLIO_FAMILY",
+        "Component Name": "Ankle Arthroscopy Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Ankle Arthroscopy Workflow",
+        "System ID": "SYS_ANKLE_ARTHROSCOPY_PORTFOLIO",
+        "Component Notes": "Official Arthrex portfolio sources describe the broader ankle arthroscopy workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Ankle Arthroscopy Portfolio",
+          "supplier_name": "Arthrex",
+          "system_category": "Ankle arthroscopy",
+          "system_notes": "Portfolio-level public anchor for ankle arthroscopy workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Ankle Arthroscopy Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Ankle arthroscopy",
+        "system_notes": "Portfolio-level public anchor for ankle arthroscopy workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Ankle Arthroscopy Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Ankle arthroscopy",
+        "system_notes": "Portfolio-level public anchor for ankle arthroscopy workflow resources."
+      }
+    }
+  ]
+}

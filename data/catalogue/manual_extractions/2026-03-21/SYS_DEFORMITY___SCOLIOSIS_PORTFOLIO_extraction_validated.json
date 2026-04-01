@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "NuVasive",
+    "system_name": "Deformity / Scoliosis Portfolio",
+    "source_type": "company_program_page",
+    "source_document": "NuVasive is Embracing the Journey Together",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_DEFORMITY_SCOLIOSIS_PORTFOLIO_DEFORMITY_AND_SCOLIOSIS_FRAMEWORK",
+        "Component Name": "Deformity and Scoliosis Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Spine",
+        "System ID": "SYS_DEFORMITY___SCOLIOSIS_PORTFOLIO",
+        "Component Notes": "Framework component anchored to NuVasive public scoliosis and deformity source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Deformity / Scoliosis Portfolio",
+          "supplier_name": "NuVasive",
+          "system_category": "spine",
+          "system_notes": "Official NuVasive scoliosis and complex deformity materials used as the public source anchors for this deformity and scoliosis portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Deformity / Scoliosis Portfolio",
+        "supplier_name": "NuVasive",
+        "system_category": "spine",
+        "system_notes": "Official NuVasive scoliosis and complex deformity materials used as the public source anchors for this deformity and scoliosis portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Deformity / Scoliosis Portfolio",
+        "supplier_name": "NuVasive",
+        "system_category": "spine",
+        "system_notes": "Official NuVasive scoliosis and complex deformity materials used as the public source anchors for this deformity and scoliosis portfolio entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Acetabular Fracture Fixation Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Trauma and Extremities",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACETABULAR_FRACTURE_FIXATION_PORTFOLIO_ACETABULAR_FRACTURE_FIXATION_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Acetabular Fracture Fixation Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "trauma",
+        "System ID": "SYS_ACETABULAR_FRACTURE_FIXATION_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Stryker public pelvic and acetabular fracture fixation source anchors."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Acetabular Fracture Fixation Portfolio",
+          "supplier_name": "Stryker",
+          "system_category": "trauma",
+          "system_notes": "Official Stryker trauma and extremities, Linear Reduction Clamp, and Tibia and Femur materials used as the source anchors for the acetabular fracture fixation portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Acetabular Fracture Fixation Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "trauma",
+        "system_notes": "Official Stryker trauma and extremities, Linear Reduction Clamp, and Tibia and Femur materials used as the source anchors for the acetabular fracture fixation portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Acetabular Fracture Fixation Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "trauma",
+        "system_notes": "Official Stryker trauma and extremities, Linear Reduction Clamp, and Tibia and Femur materials used as the source anchors for the acetabular fracture fixation portfolio entry."
+      }
+    }
+  ]
+}

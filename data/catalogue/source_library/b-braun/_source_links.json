@@ -1,0 +1,280 @@
+[
+  {
+    "supplier_id": "SUP_BBRAUN",
+    "supplier_name": "B. Braun",
+    "system_id": "SYS_SYRINGE_PUMP",
+    "system_name": "Syringe Pump",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Perfusor Space Syringe Pump",
+        "url": "https://www.bbraunusa.com/en/products-and-therapies/infusion-therapy/syringe-pumps/perfusor-space.html",
+        "notes": "Official B. Braun syringe pump product page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Infusion Therapy",
+        "url": "https://www.bbraunusa.com/en/products-and-therapies/infusion-therapy.html",
+        "notes": "Official B. Braun infusion therapy page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BBRAUN",
+    "supplier_name": "B. Braun",
+    "system_id": "SYS_EPIDURAL_KIT",
+    "system_name": "Epidural Kit",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "PERIFIX Continuous Epidural Set 18 Ga. x 3 1/2 in. Tuohy Needle Set with 20 Ga. Open Tip Nylon Catheter",
+        "url": "https://www.bbraunusa.com/en/products/b/perifix-continuousepiduralset18gax312in90mmtuohyneedlesetwith20g0.html",
+        "notes": "Official B. Braun product page used as the primary source anchor for the epidural kit row."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PERIFIX 18 Ga. x 3 1/2 in. Tuohy, 5 mL Glass Luer Lock LOR Tray (Kit)",
+        "url": "https://www.bbraunusa.com/en/products/b2/perifix-18-ga-x-3in90mmtuohy5mlglassluerlocklortraykit.html",
+        "notes": "Official B. Braun single-dose epidural tray page used for tray-level detail."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Perifix Epidural Anesthesia Catheter",
+        "url": "https://www.bbraunusa.com/en/products/b/perifix-epiduralanesthesiacatheter.html",
+        "notes": "Official B. Braun epidural catheter family page used for component detail."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BBRAUN",
+    "supplier_name": "B. Braun",
+    "system_id": "SYS_INFUSION_PUMP",
+    "system_name": "Infusion Pump",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Infusomat Space Large Volume Pump",
+        "url": "https://www.bbraunusa.com/en/products/b4/infusomat-space-largevolumepump.html",
+        "notes": "Official B. Braun large-volume infusion pump page used as the primary source anchor."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Infusomat Space Pump IV Set with ASV",
+        "url": "https://www.bbraunusa.com/en/products/b/15-drops-ml-primingvolume22mllength119insafeline.html",
+        "notes": "Official B. Braun infusion-pump set product page used for coded consumable detail."
+      },
+      {
+        "source_type": "product_page",
+        "title": "SpaceStation",
+        "url": "https://www.bbraunusa.com/en/products/b4/spacestation.html",
+        "notes": "Official B. Braun docking-station page used for platform accessory detail."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BBRAUN",
+    "supplier_name": "B. Braun",
+    "system_id": "SYS_SPINAL_KIT",
+    "system_name": "Spinal Anaesthesia Kit",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "Spinocan Spinal Anesthesia Trays",
+        "url": "https://www.bbraunusa.com/en/products/b/spinocan-spinal-anesthesiatrays.html",
+        "notes": "Official B. Braun Spinocan tray family page used as the primary source anchor."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "Pencan Spinal Anesthesia Trays",
+        "url": "https://www.bbraunusa.com/en/products/b/pencan-spinal-anesthesiatrays.html",
+        "notes": "Official B. Braun Pencan tray family page used for pencil-point tray detail."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Spinocan 22 Ga. x 3½ in. (90 mm) Tray (Kit) S22SK",
+        "url": "https://www.bbraunusa.com/en/products/b2/spinocan-22-ga-x3in90mmtraykit.html",
+        "notes": "Official B. Braun coded tray product page used for product-level detail."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BBRAUN",
+    "supplier_name": "B. Braun",
+    "system_id": "SYS_CSE_KIT",
+    "system_name": "Combined Spinal Epidural Kit",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "Combined Spinal Epidural Needles",
+        "url": "https://www.bbraunusa.com/en/products/b/combined-spinal-epiduralneedles.html",
+        "notes": "Official B. Braun Espocan combined spinal-epidural needle family page used as the primary source anchor."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "Combined Spinal Epidural Trays (Kits)",
+        "url": "https://www.bbraunusa.com/en/products/b/combined-spinal-epiduraltrayskits.html",
+        "notes": "Official B. Braun combined spinal-epidural tray family page used for tray-level detail."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ESPOCAN 18 Ga. x 3½ in. Tuohy, PENCAN 27 Ga. x 5½ in. Pencil-Point Spinal Needle, PERIFIX 20 Ga. SoftTip Closed Tip, 5 mL Glass Luer Lock LOR, ESPOCAN Docking System Tray (Kit)",
+        "url": "https://www.bbraunusa.com/en/products/b2/espocan-18-ga-x-3intuohypencan27gax5inpencil-pointspinalneedlepe1.html",
+        "notes": "Official B. Braun coded CSE tray product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BBRAUN",
+    "supplier_name": "B. Braun",
+    "system_id": "SYS_NERVE_STIMULATOR",
+    "system_name": "Nerve Stimulator",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Stimuplex HNS 12 Nerve Stimulator",
+        "url": "https://www.bbraunusa.com/en/products/b4/stimuplex-hns-12nervestimulator4892098.html",
+        "notes": "Official B. Braun peripheral nerve stimulator page used as the primary source anchor."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Stimuplex D, 22 Ga. x 3-1/8 in. (80 mm) Insulated Needle with Extension Set, 30° Bevel (STIMD2280/30)",
+        "url": "https://www.bbraunusa.com/en/products/b3/stimuplex-d-22-gax3-18in80mminsulatedneedlewithextensionset30bev.html",
+        "notes": "Official B. Braun stimulating nerve-block needle page used for coded accessory detail."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Contiplex S",
+        "url": "https://www.bbraunusa.com/en/products/b/contiplex-s.html",
+        "notes": "Official B. Braun continuous nerve block catheter system page used for catheter-system component detail."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BBRAUN",
+    "supplier_name": "B. Braun",
+    "system_id": "SYS_PATCH_ANGIOPLASTY_SET",
+    "system_name": "Patch Angioplasty Set",
+    "sources": [
+      {
+        "source_type": "product_brochure_pdf",
+        "title": "Vascular Patch",
+        "url": "https://www.bbraun.com/content/dam/catalog/bbraun/bbraunProductCatalog/S/AEM2015/en-01/b182/vascular-patch.pdf",
+        "notes": "Official B. Braun Vascular Patch brochure used as the primary public source anchor for the patch angioplasty set entry."
+      },
+      {
+        "source_type": "product_brochure_pdf",
+        "title": "Uni-Graft K DV Patch",
+        "url": "https://cloud-bbraun-com.dispatcher.dev.cw.bbraun.com/content/dam/catalog/bbraun/bbraunProductCatalog/S/AEM2015/en-01/b29/uni-graft-k-dv-patch.pdf",
+        "notes": "Official B. Braun Uni-Graft K DV Patch brochure used as supporting public evidence for synthetic vascular patch reconstruction options."
+      },
+      {
+        "source_type": "ifu_request_page",
+        "title": "IFU Request Form | B. Braun",
+        "url": "https://www.bbraun.com/en/products-and-solutions/therapies/information-on-the-european-medical-device-regulation/ifu-request-form.html",
+        "notes": "Official B. Braun IFU request page used as the closest public IFU-style source anchor for the patch angioplasty set entry."
+      },
+      {
+        "source_type": "catalogue_brochure_pdf",
+        "title": "Uni-Graft W",
+        "url": "https://www.bbraun.com/content/dam/catalog/bbraun/bbraunProductCatalog/S/AEM2015/en-01/b183/uni-graft-w.pdf",
+        "notes": "Official B. Braun vascular graft brochure used as broader vascular reconstruction catalogue context for the patch angioplasty set entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BBRAUN",
+    "supplier_name": "B. Braun",
+    "system_id": "SYS_VASCULAR_CLAMP_SET",
+    "system_name": "Vascular Clamp Set",
+    "sources": [
+      {
+        "source_type": "catalogue_page",
+        "title": "AESCULAP Surgical Instruments",
+        "url": "https://surgical-instruments.bbraun.com/en-01/c/ACI_NEW/aesculap-surgical-instruments",
+        "notes": "Official B. Braun Aesculap surgical instruments online catalog used as the main catalogue anchor for the vascular clamp set entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "DE BAKEY ATRAUMATA Vascular Clamp, straight, 130 mm",
+        "url": "https://surgical-instruments.bbraun.com/en-01/p/FB540R/de-bakey-atraumata-vascular-clamp-straight-130-mm-5-1-8-toothing-de-bakey-jaw-length-53-mm",
+        "notes": "Official B. Braun Aesculap product page used as primary public evidence for open vascular clamp instrumentation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GLOVER ATRAUMATA Vascular Clamp, curved, 215 mm",
+        "url": "https://surgical-instruments.bbraun.com/en-01/p/FB458R/glover-atraumata-vascular-clamp-curved-215-mm-8-1-2-toothing-de-bakey-jaw-length-55-mm",
+        "notes": "Official B. Braun Aesculap product page used as supporting evidence for curved vascular clamp options within the set."
+      },
+      {
+        "source_type": "ifu_reprocessing_page",
+        "title": "Surgical Instruments Reprocessing and Instruction for Use Services",
+        "url": "https://www.bbraun.com/en/products-and-solutions/therapies/surgical-instruments-and-sterile-container-systems/reprocessing.html",
+        "notes": "Official B. Braun Aesculap reprocessing and eIFU page used as the closest public IFU-style source anchor for reusable vascular clamp instruments."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BBRAUN",
+    "supplier_name": "B. Braun",
+    "system_id": "SYS_VEIN_HARVEST_SET",
+    "system_name": "Vein Harvest Set",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Venostrip Extirpation Set",
+        "url": "https://catalogs.bbraun.com/en-01/p/PRID00000054/venostrip-extirpation-set",
+        "notes": "Official B. Braun Venostrip product page used as the primary public source anchor for the vein harvest set entry."
+      },
+      {
+        "source_type": "product_brochure_pdf",
+        "title": "Venostrip Disposable Vein Extirpation Set",
+        "url": "https://www.bbraun.com/content/dam/catalog/bbraun/bbraunProductCatalog/S/AEM2015/en-01/b182/venostrip.pdf",
+        "notes": "Official B. Braun Venostrip brochure used as supporting product and catalogue evidence for conduit-harvest instrumentation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "VARADY Phlebodissector, curved, 170 mm",
+        "url": "https://surgical-instruments.bbraun.com/en-01/p/FB124R/varady-phlebodissector-curved-170-mm-6-3-4-double-ended-tip-blunt-blunt-jaw-width-0-60-mm-1-20-mm",
+        "notes": "Official B. Braun Aesculap product page used as supporting public evidence for vein-harvest style dissection instrumentation."
+      },
+      {
+        "source_type": "ifu_reprocessing_page",
+        "title": "Surgical Instruments Reprocessing and Instruction for Use Services",
+        "url": "https://www.bbraun.com/en/products-and-solutions/therapies/surgical-instruments-and-sterile-container-systems/reprocessing.html",
+        "notes": "Official B. Braun Aesculap reprocessing and eIFU page used as the closest public IFU-style source anchor for reusable vein harvest instruments."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BBRAUN",
+    "supplier_name": "B. Braun",
+    "system_id": "SYS_STRIPPING_SET",
+    "system_name": "Vein Stripping Set",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Venostrip Extirpation Set",
+        "url": "https://catalogs.bbraun.com/en-01/p/PRID00000054/venostrip-extirpation-set",
+        "notes": "Official B. Braun Venostrip product page used as the primary public source anchor for the vein stripping set entry."
+      },
+      {
+        "source_type": "product_brochure_pdf",
+        "title": "Venostrip Disposable Vein Extirpation Set",
+        "url": "https://www.bbraun.com/content/dam/catalog/bbraun/bbraunProductCatalog/S/AEM2015/en-01/b182/venostrip.pdf",
+        "notes": "Official B. Braun Venostrip brochure used as supporting product and catalogue evidence for the vein stripping set."
+      },
+      {
+        "source_type": "ifu_request_page",
+        "title": "IFU Request Form | B. Braun",
+        "url": "https://www.bbraun.com/en/products-and-solutions/therapies/information-on-the-european-medical-device-regulation/ifu-request-form.html",
+        "notes": "Official B. Braun IFU request page used as the closest public IFU-style source anchor for the disposable vein stripping set."
+      },
+      {
+        "source_type": "catalogue_page",
+        "title": "AESCULAP Surgical Instruments",
+        "url": "https://surgical-instruments.bbraun.com/en-01/c/ACI_NEW/aesculap-surgical-instruments",
+        "notes": "Official B. Braun Aesculap catalog landing page used as broader catalogue context for venous surgery instrumentation associated with the vein stripping set."
+      }
+    ]
+  }
+]

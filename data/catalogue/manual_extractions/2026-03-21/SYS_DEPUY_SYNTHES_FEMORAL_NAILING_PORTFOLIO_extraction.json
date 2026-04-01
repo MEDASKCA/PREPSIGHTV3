@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "DePuy Synthes Femoral Nailing Portfolio",
+    "source_type": "campaign_page",
+    "source_document": "Femur Focus | DePuy Synthes | J&J MedTech US",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "DePuy Synthes Femoral Nailing Portfolio",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Trauma fixation",
+      "system_notes": "Official DePuy Synthes femur-focus and trauma materials used as the public source anchors for this femoral nailing portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Femoral Nailing Portfolio Framework",
+      "system_name": "DePuy Synthes Femoral Nailing Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to DePuy Synthes public femoral nailing portfolio sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public DePuy Synthes femoral nailing source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Femur Focus | DePuy Synthes | J&J MedTech US; Trauma & Extremities | DePuy Synthes | J&J MedTech US; RFN-ADVANCED Retrograde Femoral Nailing System"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public DePuy Synthes femoral nailing source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "Femur Focus | DePuy Synthes | J&J MedTech US; Trauma & Extremities | DePuy Synthes | J&J MedTech US; RFN-ADVANCED Retrograde Femoral Nailing System"
+    }
+  ]
+}

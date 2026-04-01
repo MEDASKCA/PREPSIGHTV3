@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "TFNA Proximal Femoral Nailing System",
+    "source_type": "product_page",
+    "source_document": "TFN-ADVANCED Proximal Femoral Nailing System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TFNA_PROXIMAL_FEMORAL_NAILING_SYSTEM_TFNA_PROXIMAL_FEMORAL_INSTRUMENTATION",
+        "Tray Name": "TFNA Proximal Femoral Instrumentation",
+        "System ID": "SYS_TFNA_PROXIMAL_FEMORAL_NAILING_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official TFNA materials expose dedicated proximal femoral instrumentation, surgical technique resources, and screw-only workflow guides."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TFNA_PROXIMAL_FEMORAL_NAILING_SYSTEM_TFNA_PROXIMAL_FEMORAL_NAIL",
+        "Component Name": "TFNA Proximal Femoral Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TFNA_PROXIMAL_FEMORAL_NAILING_SYSTEM",
+        "Component Notes": "Official materials describe the proximal femoral nail platform for hip fracture fixation."
+      },
+      {
+        "Component ID": "COMP_TFNA_PROXIMAL_FEMORAL_NAILING_SYSTEM_TFNA_HELICAL_BLADE",
+        "Component Name": "TFNA Helical Blade",
+        "Component Role": "Helical Blade",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TFNA_PROXIMAL_FEMORAL_NAILING_SYSTEM",
+        "Component Notes": "Official TFNA resources describe the helical blade fixation option within the proximal femoral construct."
+      },
+      {
+        "Component ID": "COMP_TFNA_PROXIMAL_FEMORAL_NAILING_SYSTEM_TFNA_LAG_SCREW",
+        "Component Name": "TFNA Lag Screw",
+        "Component Role": "Lag Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TFNA_PROXIMAL_FEMORAL_NAILING_SYSTEM",
+        "Component Notes": "Official TFNA resources describe lag screw fixation options and screw-only instrumentation within the platform."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "TFNA Proximal Femoral Nailing System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Proximal femoral cephalomedullary nailing platform for intertrochanteric, subtrochanteric, and associated proximal femur fracture fixation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "TFNA Proximal Femoral Nailing System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Proximal femoral cephalomedullary nailing platform for intertrochanteric, subtrochanteric, and associated proximal femur fracture fixation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "TFNA Proximal Femoral Nailing System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Proximal femoral cephalomedullary nailing platform for intertrochanteric, subtrochanteric, and associated proximal femur fracture fixation."
+      }
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "TRIGEN InterTAN Long Nail",
+    "source_type": "product_page",
+    "source_document": "TRIGEN INTERTAN Intertrochanteric Antegrade Nail",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TRIGEN_INTERTAN_LONG_NAIL_TRIGEN_INTERTAN_LONG_NAIL_INSTRUMENTATION",
+        "Tray Name": "TRIGEN InterTAN Long Nail Instrumentation",
+        "System ID": "SYS_TRIGEN_INTERTAN_LONG_NAIL",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official INTERTAN materials support dedicated long-nail instrumentation and integrated hip fracture fixation workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TRIGEN_INTERTAN_LONG_NAIL_TRIGEN_INTERTAN_LONG_NAIL",
+        "Component Name": "TRIGEN InterTAN Long Nail",
+        "Component Role": "Cephalomedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_INTERTAN_LONG_NAIL",
+        "Component Notes": "Primary long INTERTAN nail component described within the official Smith+Nephew hip fracture nailing platform."
+      },
+      {
+        "Component ID": "COMP_TRIGEN_INTERTAN_LONG_NAIL_INTERTAN_INTEGRATED_LAG_SCREW",
+        "Component Name": "InterTAN Integrated Lag Screw",
+        "Component Role": "Lag Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_INTERTAN_LONG_NAIL",
+        "Component Notes": "The INTERTAN construct includes the integrated lag screw fixation mechanism."
+      },
+      {
+        "Component ID": "COMP_TRIGEN_INTERTAN_LONG_NAIL_TRIGEN_LOCKING_SCREW",
+        "Component Name": "TRIGEN Locking Screw",
+        "Component Role": "Locking Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_INTERTAN_LONG_NAIL",
+        "Component Notes": "The long INTERTAN construct includes distal locking fixation options."
+      },
+      {
+        "Component ID": "COMP_TRIGEN_INTERTAN_LONG_NAIL_TRIGEN_END_CAP",
+        "Component Name": "TRIGEN End Cap",
+        "Component Role": "End Cap",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_INTERTAN_LONG_NAIL",
+        "Component Notes": "End-cap compatibility is part of the TRIGEN INTERTAN long nail construct family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "TRIGEN InterTAN Long Nail",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Cephalomedullary Nail System",
+          "system_notes": "Long cephalomedullary proximal femoral nailing platform anchored to the official Smith+Nephew INTERTAN product family materials."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "TRIGEN InterTAN Long Nail",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Cephalomedullary Nail System",
+        "system_notes": "Long cephalomedullary proximal femoral nailing platform anchored to the official Smith+Nephew INTERTAN product family materials."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "TRIGEN InterTAN Long Nail",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Cephalomedullary Nail System",
+        "system_notes": "Long cephalomedullary proximal femoral nailing platform anchored to the official Smith+Nephew INTERTAN product family materials."
+      }
+    }
+  ]
+}

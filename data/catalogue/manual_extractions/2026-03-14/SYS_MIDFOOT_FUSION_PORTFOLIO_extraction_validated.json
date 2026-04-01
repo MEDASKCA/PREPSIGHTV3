@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "Midfoot Fusion Portfolio",
+    "source_type": "product_page",
+    "source_document": "Gorilla Midfoot Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_MIDFOOT_FUSION_PORTFOLIO_MIDFOOT_FUSION_INSTRUMENTATION",
+        "Tray Name": "Midfoot Fusion Instrumentation",
+        "System ID": "SYS_MIDFOOT_FUSION_PORTFOLIO",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated midfoot fixation instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_MIDFOOT_FUSION_PORTFOLIO_MIDFOOT_FUSION_PLATE",
+        "Component Name": "Midfoot Fusion Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Foot and Ankle Implant",
+        "System ID": "SYS_MIDFOOT_FUSION_PORTFOLIO",
+        "Component Notes": "Core plate family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_MIDFOOT_FUSION_PORTFOLIO_MIDFOOT_FUSION_SCREW",
+        "Component Name": "Midfoot Fusion Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Foot and Ankle Implant",
+        "System ID": "SYS_MIDFOOT_FUSION_PORTFOLIO",
+        "Component Notes": "Core screw family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_MIDFOOT_FUSION_PORTFOLIO_MIDFOOT_FUSION_GUIDE",
+        "Component Name": "Midfoot Fusion Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_MIDFOOT_FUSION_PORTFOLIO",
+        "Component Notes": "Guide/instrument family referenced by the fixation system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Midfoot Fusion Portfolio",
+          "supplier_name": "Paragon 28",
+          "system_category": "Foot Fusion Fixation System",
+          "system_notes": "Midfoot fusion fixation platform with plates, screws and instrumentation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Midfoot Fusion Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "Foot Fusion Fixation System",
+        "system_notes": "Midfoot fusion fixation platform with plates, screws and instrumentation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Midfoot Fusion Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "Foot Fusion Fixation System",
+        "system_notes": "Midfoot fusion fixation platform with plates, screws and instrumentation."
+      }
+    }
+  ]
+}

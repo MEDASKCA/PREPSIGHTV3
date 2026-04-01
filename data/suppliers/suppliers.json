@@ -1,0 +1,588 @@
+[
+  {
+    "id": "SUP_STRYKER",
+    "name": "Stryker",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_DEPUY_SYNTHES",
+    "name": "DePuy Synthes",
+    "aliases": [
+      "Depuy",
+      "DePuy"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_ZIMMER_BIOMET",
+    "name": "Zimmer Biomet",
+    "aliases": [
+      "Zimmer"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_SMITH_NEPHEW",
+    "name": "Smith+Nephew",
+    "aliases": [
+      "Smith and Nephew",
+      "Smith & Nephew"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_ARTHREX",
+    "name": "Arthrex",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_MEDTRONIC",
+    "name": "Medtronic",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_ETHICON",
+    "name": "Ethicon",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_BBRAUN",
+    "name": "B. Braun",
+    "aliases": [
+      "B Braun"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_BD",
+    "name": "Becton Dickinson",
+    "aliases": [
+      "BD"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_COOK_MEDICAL",
+    "name": "Cook Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_BOSTON_SCIENTIFIC",
+    "name": "Boston Scientific",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_OLYMPUS",
+    "name": "Olympus",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_KARL_STORZ",
+    "name": "Karl Storz",
+    "aliases": [
+      "Storz"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_CONMED",
+    "name": "CONMED",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_ALCON",
+    "name": "Alcon",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_HOLOGIC",
+    "name": "Hologic",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_INTEGRA_LIFESCIENCES",
+    "name": "Integra LifeSciences",
+    "aliases": [
+      "Integra"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_KLS_MARTIN",
+    "name": "KLS Martin",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_GLOBUS_MEDICAL",
+    "name": "Globus Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_NUVASIVE",
+    "name": "NuVasive",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_MICROPORT",
+    "name": "MicroPort Orthopedics",
+    "aliases": [
+      "MicroPort"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_DJO",
+    "name": "DJO Global",
+    "aliases": [
+      "Enovis"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_ACUMED",
+    "name": "Acumed",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_CORIN",
+    "name": "Corin",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_EXACTECH",
+    "name": "Exactech",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_LIMA_CORPORATE",
+    "name": "LimaCorporate",
+    "aliases": [
+      "Lima"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_MATHYS",
+    "name": "Mathys",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_AESCULAP",
+    "name": "Aesculap",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_SPINEART",
+    "name": "Spineart",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_SEASPINE",
+    "name": "SeaSpine",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_RTISURGICAL",
+    "name": "RTI Surgical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_KYOCERA_MEDICAL",
+    "name": "Kyocera Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_PARAGON28",
+    "name": "Paragon 28",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_OSSUR",
+    "name": "Össur",
+    "aliases": [
+      "Ossur"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_VILEX",
+    "name": "Vilex",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_MERETE",
+    "name": "Merete Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_MIZUHO",
+    "name": "Mizuho",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_SINTX",
+    "name": "SINTX Technologies",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_ANSSELL",
+    "name": "Ansell",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_CARDINAL_HEALTH",
+    "name": "Cardinal Health",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_MOLNLYCKE",
+    "name": "Mölnlycke",
+    "aliases": [
+      "Molnlycke"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_MEDLINE",
+    "name": "Medline",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_TELEFLEX",
+    "name": "Teleflex",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_DRAGER",
+    "name": "Dräger",
+    "aliases": [
+      "Draeger"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_GETINGE",
+    "name": "Getinge",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_HILLROM",
+    "name": "Hillrom",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_GE_HEALTHCARE",
+    "name": "GE Healthcare",
+    "aliases": [
+      "GE"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_SIEMENS_HEALTHINEERS",
+    "name": "Siemens Healthineers",
+    "aliases": [
+      "Siemens"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_PHILIPS_HEALTHCARE",
+    "name": "Philips Healthcare",
+    "aliases": [
+      "Philips"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_SURGICAL_INNOVATIONS",
+    "name": "Surgical Innovations",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_APPLIED_MEDICAL",
+    "name": "Applied Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_ENDOLOGIX",
+    "name": "Endologix",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_PENUMBRA",
+    "name": "Penumbra",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_INSIGHT_MEDICAL",
+    "name": "Insight Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_GUERBET",
+    "name": "Guerbet",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_CAREFUSION",
+    "name": "CareFusion",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_MERIT_MEDICAL",
+    "name": "Merit Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_ARGON_MEDICAL",
+    "name": "Argon Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_LEMaitre_VASCULAR",
+    "name": "LeMaitre Vascular",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_ATRIUM_MEDICAL",
+    "name": "Atrium Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_WL_GORE",
+    "name": "W. L. Gore",
+    "aliases": [
+      "Gore Medical"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_CRYOLIFE",
+    "name": "CryoLife",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_LIVANOVA",
+    "name": "LivaNova",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_TERUMO",
+    "name": "Terumo",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_FUJI_FILM_MEDICAL",
+    "name": "Fujifilm Medical",
+    "aliases": [
+      "Fujifilm"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_PENTAX_MEDICAL",
+    "name": "Pentax Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_SCHMITZ_MEDICAL",
+    "name": "Schmitz Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_BOWA_MEDICAL",
+    "name": "BOWA Medical",
+    "aliases": [],
+    "status": "active"
+  },
+  {
+    "id": "SUP_ERBE",
+    "name": "Erbe Elektromedizin",
+    "aliases": [
+      "Erbe"
+    ],
+    "status": "active"
+  },
+  {
+    "id": "SUP_EDWARDS_LIFESCIENCES",
+    "name": "Edwards Lifesciences",
+    "aliases": "Edwards",
+    "status": "active"
+  },
+  {
+    "id": "SUP_PHILIPS",
+    "name": "Philips Healthcare",
+    "aliases": "Philips",
+    "status": "active"
+  },
+  {
+    "id": "SUP_AMBU",
+    "name": "Ambu",
+    "aliases": "Ambu aScope",
+    "status": "active"
+  },
+  {
+    "id": "SUP_HEINE",
+    "name": "HEINE",
+    "aliases": "Heine Optotechnik",
+    "status": "active"
+  },
+  {
+    "id": "SUP_MINDRAY",
+    "name": "Mindray",
+    "aliases": "Mindray Medical",
+    "status": "active"
+  },
+  {
+    "id": "SUP_INTERSURGICAL",
+    "name": "Intersurgical",
+    "aliases": "i-gel",
+    "status": "active"
+  },
+  {
+    "id": "SUP_ORTHOFIX",
+    "name": "Orthofix",
+    "aliases": "Orthofix",
+    "status": "active"
+  },
+  {
+    "id": "SUP_MATORTHO",
+    "name": "MatOrtho",
+    "aliases": "MatOrtho",
+    "status": "active"
+  },
+  {
+    "id": "SUP_ENOVIS",
+    "name": "Enovis",
+    "aliases": "DJO | Enovis",
+    "status": "active"
+  },
+  {
+    "id": "SUP_ORTHOPEDIATRICS",
+    "name": "OrthoPediatrics",
+    "aliases": "OrthoPediatrics",
+    "status": "active"
+  },
+  {
+    "id": "SUP_LEDA",
+    "name": "LEDA Orthopaedics",
+    "aliases": "LEDA",
+    "status": "active"
+  },
+  {
+    "id": "SUP_NEXTREMITY",
+    "name": "Nextremity",
+    "aliases": "Nextremity Solutions",
+    "status": "active"
+  },
+  {
+    "id": "SUP_MEDARTIS",
+    "name": "Medartis",
+    "aliases": "Medartis",
+    "status": "active"
+  },
+  {
+    "id": "SUP_SKELETAL_DYNAMICS",
+    "name": "Skeletal Dynamics",
+    "aliases": "Skeletal Dynamics LLC",
+    "status": "active"
+  },
+  {
+    "id": "SUP_TRIMED",
+    "name": "TriMed",
+    "aliases": "TriMed Inc.",
+    "status": "active"
+  },
+  {
+    "id": "SUP_BIEDERMANN",
+    "name": "Biedermann Motech",
+    "aliases": "Biedermann",
+    "status": "active"
+  },
+  {
+    "id": "SUP_CITIEFFE",
+    "name": "Citieffe",
+    "aliases": "",
+    "status": "active"
+  },
+  {
+    "id": "SUP_AAP_IMPLANTS",
+    "name": "AAP Implantate",
+    "aliases": "",
+    "status": "active"
+  },
+  {
+    "id": "SUP_WRIGHT_MEDICAL",
+    "name": "Wright Medical",
+    "aliases": "",
+    "status": "active"
+  },
+  {
+    "id": "SUP_OSTEOMED",
+    "name": "OsteoMed",
+    "aliases": "",
+    "status": "active"
+  },
+  {
+    "id": "SUP_RICHARD_WOLF",
+    "name": "Richard Wolf",
+    "aliases": "Wolf",
+    "status": "active"
+  },
+  {
+    "id": "SUP_ANGIODYNAMICS",
+    "name": "AngioDynamics",
+    "aliases": "AngioDynamics",
+    "status": "active"
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "External Fixation Portfolio",
+    "source_type": "product_page",
+    "source_document": "MAVERICK Unilateral External Fixator",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "External Fixation Portfolio",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "trauma",
+      "system_notes": "Official Smith+Nephew MAVERICK, ILIZAROV, and TAYLOR SPATIAL FRAME materials used as the source anchors for the external fixation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "External Fixation Portfolio Framework",
+      "system_name": "External Fixation Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "External Fixation",
+      "component_notes": "Framework component anchored to Smith+Nephew public unilateral, circular, and hexapod external fixation sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Smith+Nephew external fixation source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "MAVERICK Unilateral External Fixator; ILIZAROV External Fixator; TAYLOR SPATIAL FRAME External Fixator"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Smith+Nephew external fixation source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "MAVERICK Unilateral External Fixator; ILIZAROV External Fixator; TAYLOR SPATIAL FRAME External Fixator"
+    }
+  ]
+}

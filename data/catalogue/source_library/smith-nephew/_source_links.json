@@ -1,0 +1,1570 @@
+[
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_TRIGEN_INTERTAN_LONG_NAIL",
+    "system_name": "TRIGEN InterTAN Long Nail",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "TRIGEN INTERTAN Intertrochanteric Antegrade Nail",
+        "url": "https://www.smith-nephew.com/de-de/health-care-professionals/products/orthopaedics/trigen-intertan",
+        "notes": "Official Smith+Nephew healthcare professional product page describing the INTERTAN hip fracture nail and integrated compression screw construct, including long nail family context."
+      },
+      {
+        "source_type": "product_family_reference",
+        "title": "TRIGEN Trauma and Extremities Portfolio",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trigen",
+        "notes": "Official Smith+Nephew reference page covering the broader TRIGEN nailing family that INTERTAN sits within."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_TRIGEN_META_NAIL",
+    "system_name": "TRIGEN META-NAIL",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "TRIGEN META-NAIL / Femoral Nailing Platform",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trigen-meta-nail",
+        "notes": "Official Smith+Nephew healthcare professional product page for the TRIGEN META-NAIL cephalomedullary femoral nailing platform."
+      },
+      {
+        "source_type": "product_family_reference",
+        "title": "TRIGEN Trauma and Extremities Portfolio",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trigen",
+        "notes": "Official Smith+Nephew reference page covering the broader TRIGEN nailing family and related proximal femur applications."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_INTERTAN___TRIGEN_HIP_FRACTURE_NAIL_SYSTEM",
+    "system_name": "InterTAN / TRIGEN Hip Fracture Nail System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "TRIGEN INTERTAN Intertrochanteric Antegrade Nail",
+        "url": "https://www.smith-nephew.com/de-de/health-care-professionals/products/orthopaedics/trigen-intertan",
+        "notes": "Official Smith+Nephew healthcare professional product page describing the INTERTAN hip fracture nail and integrated compression screw construct."
+      },
+      {
+        "source_type": "product_family_reference",
+        "title": "TRIGEN Trauma and Extremities Portfolio",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trigen",
+        "notes": "Official Smith+Nephew reference page covering the broader TRIGEN nailing family that INTERTAN sits within."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_LEGION_REVISION",
+    "system_name": "LEGION Revision Knee",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "LEGION Revision Knee System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/legion-revision-knee-system",
+        "notes": "Official Smith+Nephew healthcare professional product page for the LEGION revision knee platform."
+      },
+      {
+        "source_type": "surgical_technique_reference",
+        "title": "LEGION Revision Knee System Surgical Technique",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/legion-revision-knee-system",
+        "notes": "Official Smith+Nephew product materials reference the revision knee surgical technique and implant platform."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_TRIGEN_TIBIAL_NAIL_SYSTEM",
+    "system_name": "TRIGEN Tibial Nail System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "TRIGEN Tibial Nail",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trigen-tibial-nail",
+        "notes": "Official Smith+Nephew healthcare professional product page for the TRIGEN tibial nailing platform."
+      },
+      {
+        "source_type": "product_family_reference",
+        "title": "TRIGEN Trauma and Extremities Portfolio",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trigen",
+        "notes": "Official Smith+Nephew reference page covering the broader TRIGEN nailing family and related tibial applications."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_TRIGEN_FEMORAL",
+    "system_name": "TRIGEN Femoral Nail System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "TRIGEN META-NAIL / Femoral Nailing Platform",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trigen-meta-nail",
+        "notes": "Official Smith+Nephew healthcare professional product page for the TRIGEN femoral nailing platform."
+      },
+      {
+        "source_type": "product_family_reference",
+        "title": "TRIGEN Trauma and Extremities Portfolio",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trigen",
+        "notes": "Official Smith+Nephew reference page covering the broader TRIGEN nailing family and related femoral applications."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_INTERTAN",
+    "system_name": "InterTAN Nail System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "TRIGEN INTERTAN Intertrochanteric Antegrade Nail",
+        "url": "https://www.smith-nephew.com/de-de/health-care-professionals/products/orthopaedics/trigen-intertan",
+        "notes": "Official Smith+Nephew healthcare professional product page describing the INTERTAN intertrochanteric antegrade nail and integrated compression screw construct."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew introduces assurance programme for TRIGEN INTERTAN",
+        "url": "https://www.smith-nephew.com/en/news/2019/09/26/20190926-sn-introduces-assurance-programme-for-trigen-intertan",
+        "notes": "Official launch/update material reinforcing product identity and clinical positioning of the TRIGEN INTERTAN system."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_JOURNEY_PFJ",
+    "system_name": "Journey PFJ System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "JOURNEY II PFJ Patellofemoral Joint with Oxidized Zirconium",
+        "url": "https://www.smith-nephew.com/nl-nl/health-care-professionals/products/orthopaedics/journey-ii-pfj-ppl",
+        "notes": "Official Smith+Nephew healthcare professional page for JOURNEY II PFJ with linked surgical technique."
+      },
+      {
+        "source_type": "surgical_technique_reference",
+        "title": "JOURNEY PFJ Surgical Technique",
+        "url": "https://www.smith-nephew.com/es-es/health-care-professionals/products/orthopaedics/journey-ii-pfj-ppl",
+        "notes": "Official Smith+Nephew page explicitly exposing the JOURNEY PFJ Surgical Technique as reference material."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_JOURNEY_UNI",
+    "system_name": "Journey Uni",
+    "sources": [
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew launches new JOURNEY II Unicompartmental Knee System",
+        "url": "https://www.smith-nephew.com/news/2020/05/20/20200520-sn-launches-new-journey-ii-unicompartmental-knee-system",
+        "notes": "Official Smith+Nephew launch announcement describing the JOURNEY II UK system design, two-tray configuration, medial and lateral options, and OXINIUM technology."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew to showcase JOURNEY II Unicompartmental Knee System at ESSKA Congress 2022",
+        "url": "https://www.smith-nephew.com/en-us/news/2022/04/27/20220427-journey-ii-unicompartmental-knee-system-at-esska",
+        "notes": "Official Smith+Nephew announcement reinforcing the implant design, sizing options, and lateral-specific tibia platform."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_POLAR_R3",
+    "system_name": "Polar / R3",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "POLAR3 Total Hip Solution",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/polar3",
+        "notes": "Official Smith+Nephew product page describing the POLARSTEM hip reconstruction system, R3 acetabular system, and OXINIUM technology."
+      },
+      {
+        "source_type": "hip_portfolio_page",
+        "title": "Hip Arthroplasty",
+        "url": "https://www.smith-nephew.com/en-gb/orthopaedics/hip-arthroplasty",
+        "notes": "Official hip arthroplasty portfolio page linking POLARSTEM, R3, and OXINIUM as the primary THA construct."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_BHR",
+    "system_name": "Birmingham Hip Resurfacing",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "BIRMINGHAM HIP Resurfacing System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/birmingham-hip",
+        "notes": "Official product page describing the BHR system and linking the surgical technique."
+      },
+      {
+        "source_type": "surgical_technique_reference",
+        "title": "BIRMINGHAM HIP Resurfacing System Surgical Technique",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/birmingham-hip",
+        "notes": "Official global product page reference materials explicitly include the BIRMINGHAM HIP Resurfacing System Surgical Technique."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_LEGION_KNEE",
+    "system_name": "LEGION Total Knee System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "LEGION Total Knee System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/legion-total-knee-system",
+        "notes": "Official product page."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "LEGION Total Knee System Surgical Technique",
+        "url": "https://www.smith-nephew.com/global/assets/pdf/products/surgical-techniques/orthopaedics/knee/legion-primary-knee-surgical-technique.pdf",
+        "notes": "Official surgical technique PDF."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_LEGION___JOURNEY_II_KNEE_SYSTEM",
+    "system_name": "LEGION / JOURNEY II Knee System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "JOURNEY II Knee System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/journey-ii-knee-system",
+        "notes": "Official product page."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "JOURNEY II Surgical Technique",
+        "url": "https://www.smith-nephew.com/global/assets/pdf/products/surgical-techniques/orthopaedics/knee/journey-ii-cruciate-retaining-surgical-technique.pdf",
+        "notes": "Official surgical technique PDF."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_POLAR3___R3_TOTAL_HIP_SYSTEM",
+    "system_name": "POLAR3 / R3 Total Hip System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "POLAR3 Total Hip Solution",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/polar3-total-hip-solution",
+        "notes": "Official product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_Q_FIX",
+    "system_name": "Q-FIX Suture Anchor",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Q-FIX All-Suture Anchor",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/q-fix-all-suture-anchor",
+        "notes": "Official Smith+Nephew product page describing the Q-FIX all-suture anchor platform and shoulder soft-tissue repair applications."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Q-FIX Knotless All-Suture Anchor",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/q-fix-knotless-all-suture-anchor",
+        "notes": "Official Smith+Nephew product page describing the knotless Q-FIX anchor family and associated insertion workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_FASTFIX_MENISCAL",
+    "system_name": "FastFix 360 Meniscal Repair",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "FAST-FIX 360 Meniscal Repair System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/fast-fix-360-meniscal-repair-system",
+        "notes": "Official Smith+Nephew product page describing the all-inside meniscal repair system and delivery constructs."
+      },
+      {
+        "source_type": "product_page",
+        "title": "FAST-FIX FLEX Meniscal Repair System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/fast-fix-flex-meniscal-repair-system",
+        "notes": "Official Smith+Nephew product page describing the FAST-FIX platform and curved delivery instrumentation."
+      },
+      {
+        "source_type": "sports_medicine_portfolio_page",
+        "title": "Knee Arthroscopy",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-arthroscopy",
+        "notes": "Official Smith+Nephew knee arthroscopy portfolio page used as the supporting source for meniscal repair context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_ENDOBUTTON_ACL",
+    "system_name": "Endobutton CL",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "ENDOBUTTON CL ULTRA Fixation Device",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/endobutton-cl-ultra-fixation-device",
+        "notes": "Official Smith+Nephew product page describing cortical suspensory fixation for ACL reconstruction."
+      },
+      {
+        "source_type": "sports_medicine_portfolio_page",
+        "title": "Knee Arthroscopy",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-arthroscopy",
+        "notes": "Official Smith+Nephew knee arthroscopy portfolio page used as the supporting source for ACL fixation context."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ENDOBUTTON Fixation Device",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/endobutton-fixation-device",
+        "notes": "Official Smith+Nephew product page for the broader ENDOBUTTON fixation family."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_FAST_FIX_MENISCAL_REPAIR_SYSTEM",
+    "system_name": "FAST-FIX Meniscal Repair System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "FAST-FIX 360 Meniscal Repair System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/fast-fix-360-meniscal-repair-system",
+        "notes": "Official Smith+Nephew product page describing the all-inside meniscal repair system and delivery constructs."
+      },
+      {
+        "source_type": "product_page",
+        "title": "FAST-FIX FLEX Meniscal Repair System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/fast-fix-flex-meniscal-repair-system",
+        "notes": "Official Smith+Nephew product page describing the FAST-FIX platform and curved delivery instrumentation."
+      },
+      {
+        "source_type": "sports_medicine_portfolio_page",
+        "title": "Knee Arthroscopy",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-arthroscopy",
+        "notes": "Official Smith+Nephew knee arthroscopy portfolio page used as the supporting source for meniscal repair context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_SHOULDER_ARTHROSCOPY_PORTFOLIO",
+    "system_name": "Smith+Nephew Shoulder arthroscopy Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Arthroscopy",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/shoulder-arthroscopy",
+        "notes": "Official Smith+Nephew shoulder arthroscopy page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/sports-medicine",
+        "notes": "Official Smith+Nephew sports medicine specialty page used as supporting portfolio context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Repair",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/shoulder-repair",
+        "notes": "Official Smith+Nephew shoulder repair page used as supporting arthroscopy workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_KNEE_ARTHROSCOPY_PORTFOLIO",
+    "system_name": "Smith+Nephew Knee Arthroscopy Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Arthroscopy",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-arthroscopy",
+        "notes": "Official Smith+Nephew knee arthroscopy page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/sports-medicine",
+        "notes": "Official Smith+Nephew sports medicine specialty page used as supporting portfolio context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-procedures",
+        "notes": "Official Smith+Nephew knee procedures page used as supporting arthroscopy workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_SPORTS_MEDICINE_KNEE_PORTFOLIO",
+    "system_name": "Smith+Nephew Sports medicine knee Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/sports-medicine",
+        "notes": "Official Smith+Nephew sports medicine specialty page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Arthroscopy",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-arthroscopy",
+        "notes": "Official Smith+Nephew knee arthroscopy page used as supporting portfolio context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-procedures",
+        "notes": "Official Smith+Nephew knee procedures page used as supporting sports medicine workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_SHOULDER_SPORTS_MEDICINE_PORTFOLIO",
+    "system_name": "Smith+Nephew Shoulder sports medicine Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/sports-medicine",
+        "notes": "Official Smith+Nephew sports medicine specialty page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Arthroscopy",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/shoulder-arthroscopy",
+        "notes": "Official Smith+Nephew shoulder arthroscopy page used as supporting portfolio context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Repair",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/shoulder-repair",
+        "notes": "Official Smith+Nephew shoulder repair page used as supporting sports medicine workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_SHOULDER_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Smith+Nephew Shoulder reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Repair",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/shoulder-repair",
+        "notes": "Official Smith+Nephew shoulder repair page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Arthroscopy",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/shoulder-arthroscopy",
+        "notes": "Official Smith+Nephew shoulder arthroscopy page used as supporting portfolio context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/sports-medicine",
+        "notes": "Official Smith+Nephew sports medicine specialty page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_AC_JOINT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "AC Joint Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Repair",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/shoulder-repair",
+        "notes": "Official Smith+Nephew shoulder repair page used as the primary public source anchor for the AC joint reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Q-FIX All-Suture Anchor Shoulder",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/q-fix-all-suture-anchor-shoulder",
+        "notes": "Official Smith+Nephew shoulder fixation page used as supporting public evidence for soft-tissue-to-bone fixation and reconstruction workflows relevant to AC joint repair."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/sports-medicine",
+        "notes": "Official Smith+Nephew sports medicine specialty page used as broader portfolio context for the AC joint reconstruction entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_ARTHROSCOPY_RESECTION_PORTFOLIO",
+    "system_name": "Arthroscopy Resection Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "WEREWOLF FLOW 50 COBLATION Wand",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/werewolf-flow-50-wand",
+        "notes": "Official Smith+Nephew arthroscopy resection page used as the primary public source anchor for the arthroscopy resection portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "WEREWOLF FLOW 90 COBLATION Wand",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/werewolf-flow-90-wand",
+        "notes": "Official Smith+Nephew arthroscopy resection page used as supporting public evidence for broader soft-tissue ablation and resection capability."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/sports-medicine",
+        "notes": "Official Smith+Nephew sports medicine specialty page used as broader portfolio context for arthroscopy resection technologies."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_ARTHROSCOPY_VISUALIZATION___PUMP_SYSTEM",
+    "system_name": "Arthroscopy Visualization / Pump System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "DOUBLEFLO Inflow/Outflow Pump",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/doubleflo-inflow-outflow-pump",
+        "notes": "Official Smith+Nephew pump page used as the primary public source anchor for the arthroscopy visualization and pump system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "4KO Scopes",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/4ko-scopes",
+        "notes": "Official Smith+Nephew arthroscopy optics page used as supporting public evidence for visualization components."
+      },
+      {
+        "source_type": "product_page",
+        "title": "INTELLIO Connected Tower Solution",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/intellio",
+        "notes": "Official Smith+Nephew connected tower page used as supporting public evidence because it integrates imaging and pump control within the arthroscopy workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_CARTILAGE_REPAIR_PORTFOLIO",
+    "system_name": "Cartilage Repair Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "CARTIHEAL AGILI-C Cartilage Repair Implant",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/cartiheal-agili-c",
+        "notes": "Official Smith+Nephew cartilage repair page used as the primary public source anchor for the cartilage repair portfolio entry."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/sports-medicine",
+        "notes": "Official Smith+Nephew sports medicine specialty page used as supporting public evidence for broader cartilage restoration and biological healing technologies."
+      },
+      {
+        "source_type": "sports_medicine_portfolio_page",
+        "title": "Sports Medicine Portfolio",
+        "url": "https://www.smith-nephew.com/en-us/sports-medicine-portfolio",
+        "notes": "Official Smith+Nephew sports medicine portfolio page used as broader portfolio context for cartilage repair and biological healing technologies."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_DEBRIDEMENT_SET",
+    "system_name": "Debridement Set",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "VERSAJET II Hydrosurgery System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/advanced-wound-management/versajet-global",
+        "notes": "Official Smith+Nephew hydrosurgery page used as the primary public source anchor for the debridement set entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "IRUXOL",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/advanced-wound-management/iruxol",
+        "notes": "Official Smith+Nephew enzymatic debridement page used as supporting public evidence for wound-bed debridement coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Collagenase SANTYL Ointment",
+        "url": "https://www.smith-nephew.com/en-us/patients/products/advanced-wound-management/santyl",
+        "notes": "Official Smith+Nephew branded debridement page used as supporting public evidence for the broader debridement product set."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_EVOS___PERI_LOC_HUMERUS_PORTFOLIO",
+    "system_name": "EVOS / PERI-LOC Humerus Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew EVOS SMALL page used as the primary public source anchor for the humerus portfolio entry because it explicitly includes proximal humerus fixation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "EVOS LARGE & PERIPROSTHETIC Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-large-and-periprosthetic",
+        "notes": "Official Smith+Nephew EVOS LARGE page used as supporting public evidence because it includes large fragment proximal humerus plating."
+      },
+      {
+        "source_type": "trauma_portfolio_page",
+        "title": "Trauma & Extremities Solutions",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trauma-and-extremities",
+        "notes": "Official Smith+Nephew trauma portfolio page used as broader portfolio context for EVOS and legacy PERI-LOC humerus coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_EVOS_CALCANEUS_PLATING",
+    "system_name": "EVOS Calcaneus Plating",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew EVOS SMALL page used as the primary public source anchor for EVOS calcaneus plating because it covers ankle and pilon small-fragment trauma applications and is the closest current public EVOS foot and ankle plating match."
+      },
+      {
+        "source_type": "trauma_portfolio_page",
+        "title": "Trauma & Extremities Solutions",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trauma-and-extremities",
+        "notes": "Official Smith+Nephew trauma portfolio page used as supporting public evidence for EVOS foot and ankle trauma plating."
+      },
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System Global",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew global EVOS SMALL page used as supporting public evidence for small-fragment foot and ankle plating coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_EVOS_CLAVICLE_PLATE_SYSTEM",
+    "system_name": "EVOS Clavicle Plate System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew EVOS SMALL page used as the primary public source anchor for the clavicle plate system entry because it explicitly includes clavicle fixation."
+      },
+      {
+        "source_type": "trauma_portfolio_page",
+        "title": "Trauma & Extremities Solutions",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trauma-and-extremities",
+        "notes": "Official Smith+Nephew trauma portfolio page used as supporting public evidence for EVOS upper-extremity trauma plating."
+      },
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System Global",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew global EVOS SMALL page used as supporting public evidence for clavicle-specific small-fragment plating coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_EVOS_DISTAL_FEMUR_PLATE_SYSTEM",
+    "system_name": "EVOS Distal Femur Plate System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EVOS LARGE & PERIPROSTHETIC Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-large-and-periprosthetic",
+        "notes": "Official Smith+Nephew EVOS LARGE page used as the primary public source anchor for the distal femur plate system entry because it explicitly includes large fragment distal femur plates."
+      },
+      {
+        "source_type": "trauma_portfolio_page",
+        "title": "Trauma & Extremities Solutions",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trauma-and-extremities",
+        "notes": "Official Smith+Nephew trauma portfolio page used as supporting public evidence for EVOS femoral trauma plating."
+      },
+      {
+        "source_type": "product_page",
+        "title": "EVOS LARGE & PERIPROSTHETIC Plating System Global",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/evos-large-and-periprosthetic",
+        "notes": "Official Smith+Nephew global EVOS LARGE page used as supporting public evidence for distal femur fixation coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_EVOS_DISTAL_TIBIA___PILON_PLATING",
+    "system_name": "EVOS Distal Tibia / Pilon Plating",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew EVOS SMALL page used as the primary public source anchor for distal tibia and pilon plating because it explicitly includes ankle and pilon fixation."
+      },
+      {
+        "source_type": "trauma_portfolio_page",
+        "title": "Trauma & Extremities Solutions",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trauma-and-extremities",
+        "notes": "Official Smith+Nephew trauma portfolio page used as supporting public evidence for EVOS lower-extremity trauma plating."
+      },
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System Global",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew global EVOS SMALL page used as supporting public evidence for pilon and ankle plating coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_EVOS_DISTAL_TIBIA_PLATE",
+    "system_name": "EVOS Distal Tibia Plate",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew EVOS SMALL page used as the primary public source anchor for the distal tibia plate entry because it explicitly includes ankle and pilon fixation."
+      },
+      {
+        "source_type": "trauma_portfolio_page",
+        "title": "Trauma & Extremities Solutions",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trauma-and-extremities",
+        "notes": "Official Smith+Nephew trauma portfolio page used as supporting public evidence for distal tibia trauma plating."
+      },
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System Global",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew global EVOS SMALL page used as supporting public evidence for distal tibia plate coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_EVOS_FOOT___ANKLE_PLATING",
+    "system_name": "EVOS Foot & Ankle Plating",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew EVOS SMALL page used as the primary public source anchor for EVOS foot and ankle plating because it explicitly includes ankle and pilon fixation."
+      },
+      {
+        "source_type": "trauma_portfolio_page",
+        "title": "Trauma & Extremities Solutions",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trauma-and-extremities",
+        "notes": "Official Smith+Nephew trauma portfolio page used as supporting public evidence for EVOS foot and ankle trauma plating."
+      },
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System Global",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew global EVOS SMALL page used as supporting public evidence for foot and ankle plating coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_EVOS_PROXIMAL_TIBIA_PLATE_SYSTEM",
+    "system_name": "EVOS Proximal Tibia Plate System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew EVOS SMALL page used as the primary public source anchor for the proximal tibia plate system entry because it explicitly includes proximal tibia fixation."
+      },
+      {
+        "source_type": "trauma_portfolio_page",
+        "title": "Trauma & Extremities Solutions",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trauma-and-extremities",
+        "notes": "Official Smith+Nephew trauma portfolio page used as supporting public evidence for EVOS lower-extremity trauma plating."
+      },
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System Global",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew global EVOS SMALL page used as supporting public evidence for proximal tibia fixation coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_EVOS_SMALL_FRAGMENT_FOREARM_PORTFOLIO",
+    "system_name": "EVOS Small Fragment Forearm Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew EVOS SMALL page used as the primary public source anchor for the small fragment forearm portfolio entry because it explicitly includes forearm fixation."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew launches new EVOS WRIST plating system",
+        "url": "https://www.smith-nephew.com/news/2019/09/05/20190905-sn-launches-new-evos-wrist-plating-system",
+        "notes": "Official Smith+Nephew launch announcement used as supporting public evidence for EVOS wrist and forearm plating breadth."
+      },
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System Global",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew global EVOS SMALL page used as supporting public evidence for upper-extremity forearm fixation coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_EXTERNAL_FIXATION_PORTFOLIO",
+    "system_name": "External Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "MAVERICK Unilateral External Fixator",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/maverick",
+        "notes": "Official Smith+Nephew MAVERICK page used as the primary public source anchor for the external fixation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ILIZAROV External Fixator",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/ilizarov",
+        "notes": "Official Smith+Nephew ILIZAROV page used as supporting public evidence for circular external fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "TAYLOR SPATIAL FRAME External Fixator",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/taylor-spatial-frame",
+        "notes": "Official Smith+Nephew TSF page used as supporting public evidence for deformity correction and complex fracture external fixation workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_FOOT___ANKLE_TRAUMA_PORTFOLIO",
+    "system_name": "Foot & Ankle Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew EVOS SMALL page used as the primary public source anchor for the foot and ankle trauma portfolio because it explicitly includes ankle and pilon fixation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Q-FIX All-Suture Anchor with Needles",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/q-fix-all-suture-anchor-with-needles",
+        "notes": "Official Smith+Nephew extremity fixation page used as supporting public evidence for lateral ankle instability repair and foot and ankle soft-tissue fixation."
+      },
+      {
+        "source_type": "trauma_portfolio_page",
+        "title": "Trauma & Extremities Solutions",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trauma-and-extremities",
+        "notes": "Official Smith+Nephew trauma portfolio page used as broader portfolio context for the foot and ankle trauma entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_HEALICOIL___Q_FIX___MULTIFIX",
+    "system_name": "HEALICOIL / Q-FIX / MULTIFIX",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "HEALICOIL PK and REGENESORB Suture Anchors",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/healicoil",
+        "notes": "Official Smith+Nephew HEALICOIL page used as the primary public source anchor for the HEALICOIL / Q-FIX / MULTIFIX anchor portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Q-FIX All-Suture Anchor Shoulder",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/q-fix-all-suture-anchor-shoulder",
+        "notes": "Official Smith+Nephew Q-FIX shoulder anchor page used as supporting public evidence for the anchor family portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MULTIFIX S Ultra Knotless Suture Anchor",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/multifix-s-ultra-knotless-anchor",
+        "notes": "Official Smith+Nephew MULTIFIX page used as supporting public evidence for knotless anchor coverage within the same fixation portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_INTERTAN___HIP_FRACTURE_FIXATION_PORTFOLIO",
+    "system_name": "InterTAN / Hip Fracture Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "TRIGEN INTERTAN Intertrochanteric Antegrade Nail",
+        "url": "https://www.smith-nephew.com/de-de/health-care-professionals/products/orthopaedics/trigen-intertan",
+        "notes": "Official Smith+Nephew INTERTAN page used as the primary public source anchor for the hip fracture fixation portfolio entry."
+      },
+      {
+        "source_type": "product_family_reference",
+        "title": "TRIGEN Trauma and Extremities Portfolio",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trigen",
+        "notes": "Official Smith+Nephew TRIGEN portfolio page used as supporting public evidence for the broader hip fracture fixation family."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew introduces assurance programme for TRIGEN INTERTAN",
+        "url": "https://www.smith-nephew.com/en/news/2019/09/26/20190926-sn-introduces-assurance-programme-for-trigen-intertan",
+        "notes": "Official Smith+Nephew INTERTAN announcement used as supporting public evidence for current product identity and clinical positioning."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_JOURNEY_UNI___PARTIAL_KNEE_PORTFOLIO",
+    "system_name": "JOURNEY UNI / Partial Knee Portfolio",
+    "sources": [
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew launches new JOURNEY II Unicompartmental Knee System",
+        "url": "https://www.smith-nephew.com/news/2020/05/20/20200520-sn-launches-new-journey-ii-unicompartmental-knee-system",
+        "notes": "Official Smith+Nephew JOURNEY II UK launch announcement used as the primary public source anchor for the partial knee portfolio entry."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew announces first surgeries using new JOURNEY II Unicompartmental Knee System",
+        "url": "https://www.smith-nephew.com/news/2019/12/03/20191203-sn-announces-first-surgeries-using-new-journey-ii-unicompartmental-knee-system",
+        "notes": "Official Smith+Nephew announcement used as supporting public evidence for the JOURNEY UNI product family."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew acquires novel cementless partial knee system",
+        "url": "https://www.smith-nephew.com/news/2022/01/19/20220119-acquires-novel-cementless-partial-knee-system",
+        "notes": "Official Smith+Nephew partial knee portfolio announcement used as broader current portfolio context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_KNEE_LIGAMENT_PORTFOLIO",
+    "system_name": "Knee Ligament Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "ULTRABUTTON Adjustable Fixation Device Family",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/ultrabutton-adjustable-fixation-device",
+        "notes": "Official Smith+Nephew ULTRABUTTON page used as the primary public source anchor for the knee ligament portfolio entry."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew Sports Medicine advances procedural innovation with QUADTRAC and expanded ULTRABUTTON family",
+        "url": "https://www.smith-nephew.com/news/2023/03/07/20230307-quadtrac",
+        "notes": "Official Smith+Nephew ligament reconstruction announcement used as supporting public evidence for current ACL fixation breadth."
+      },
+      {
+        "source_type": "product_page",
+        "title": "XTENDOBUTTON Fixation Devices",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/sports-medicine/xtendobutton-fixation-device",
+        "notes": "Official Smith+Nephew cortical fixation page used as supporting public evidence for broader knee ligament reconstruction fixation options."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_PCL_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "PCL Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "ULTRABUTTON Adjustable Fixation Device Family",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/ultrabutton-adjustable-fixation-device",
+        "notes": "Official Smith+Nephew ULTRABUTTON fixation page used as the primary public source anchor for the PCL reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "XTENDOBUTTON Fixation Devices",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/sports-medicine/xtendobutton-fixation-device",
+        "notes": "Official Smith+Nephew cortical fixation page used as supporting public evidence for PCL and multiligament reconstruction workflows."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew Sports Medicine advances procedural innovation with QUADTRAC and expanded ULTRABUTTON family",
+        "url": "https://www.smith-nephew.com/news/2023/03/07/20230307-quadtrac",
+        "notes": "Official Smith+Nephew ligament reconstruction announcement used as supporting public evidence for the current reconstruction fixation portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_PERI_LOC___EVOS_PROXIMAL_HUMERUS",
+    "system_name": "PERI-LOC / EVOS Proximal Humerus",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EVOS SMALL Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-small",
+        "notes": "Official Smith+Nephew EVOS SMALL page used as the primary public source anchor for the proximal humerus entry because it explicitly includes proximal humerus fixation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "EVOS LARGE & PERIPROSTHETIC Plating System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/evos-large-and-periprosthetic",
+        "notes": "Official Smith+Nephew EVOS LARGE page used as supporting public evidence for humeral trauma plating breadth."
+      },
+      {
+        "source_type": "trauma_portfolio_page",
+        "title": "Trauma & Extremities Solutions",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trauma-and-extremities",
+        "notes": "Official Smith+Nephew trauma portfolio page used as broader portfolio context for legacy PERI-LOC and EVOS proximal humerus coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_PATELLAR_STABILISATION_PORTFOLIO",
+    "system_name": "Patellar Stabilisation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Q-FIX All-Suture Anchor with Needles",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/q-fix-all-suture-anchor-with-needles",
+        "notes": "Official Smith+Nephew Q-FIX page used as the primary public source anchor for the patellar stabilisation portfolio entry because it supports soft-tissue-to-bone fixation in knee procedures."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-procedures",
+        "notes": "Official Smith+Nephew knee procedures page used as supporting public evidence for current patellofemoral and ligament stabilisation workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ULTRABRAID Suture",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/ultrabraid-suture",
+        "notes": "Official Smith+Nephew suture fixation page used as supporting public evidence for patellar stabilisation constructs and soft-tissue fixation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_PELVIC_TRAUMA_PORTFOLIO",
+    "system_name": "Pelvic Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew Showcases Advanced Orthopaedic Robotics at AAOS 2026",
+        "url": "https://www.smith-nephew.com/en/news/2026/03/03/sn-to-showcase-advanced-orthopaedic-handheld-robotics",
+        "notes": "Official Smith+Nephew AAOS 2026 announcement used as the primary public source anchor for the pelvic trauma portfolio entry because it explicitly states the EVOS Pelvic System is being added to the trauma portfolio."
+      },
+      {
+        "source_type": "trauma_portfolio_page",
+        "title": "Trauma & Extremities Solutions",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trauma-and-extremities",
+        "notes": "Official Smith+Nephew trauma portfolio page used as supporting public evidence for the broader trauma platform surrounding pelvic fixation."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew expands trauma offering with new distribution agreements for pelvic fractures",
+        "url": "https://www.smith-nephew.com/en/news/2026/03/03/sn-to-showcase-advanced-orthopaedic-handheld-robotics",
+        "notes": "Official Smith+Nephew AAOS 2026 announcement reused as supporting public evidence because it also references the supplier's pelvic fracture-focused distribution agreements and evolving pelvic trauma offering."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_REDAPT_REVISION_HIP_SYSTEM",
+    "system_name": "REDAPT Revision Hip System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "REDAPT Revision Femoral Stem",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/redapt-femoral",
+        "notes": "Official Smith+Nephew REDAPT femoral page used as the primary public source anchor for the revision hip system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "REDAPT Revision Acetabular System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/redapt-acetabular",
+        "notes": "Official Smith+Nephew REDAPT acetabular page used as supporting public evidence for the full revision hip construct."
+      },
+      {
+        "source_type": "product_page",
+        "title": "REDAPT Revision Acetabular System Global",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/redapt-acetabular",
+        "notes": "Official Smith+Nephew global REDAPT acetabular page used as supporting public evidence and additional brochure-rich product context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_REVERSE_SHOULDER_PORTFOLIO",
+    "system_name": "Reverse Shoulder Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "AETOS Shoulder System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/aetos-shoulder-system",
+        "notes": "Official Smith+Nephew AETOS page used as the primary public source anchor for the reverse shoulder portfolio entry because it explicitly covers reverse shoulder arthroplasty."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew announces commercial launch of its AETOS Shoulder System for anatomic and reverse shoulder replacement",
+        "url": "https://www.smith-nephew.com/en/news/2024/02/13/20240213-smithnephew-announces-commercial-launch-of-its-aetos-shoulder-system-for-anatomic",
+        "notes": "Official Smith+Nephew AETOS launch announcement used as supporting public evidence for reverse shoulder coverage and planning workflow integration."
+      },
+      {
+        "source_type": "product_page",
+        "title": "AETOS Shoulder System Global",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/aetos-shoulder-system",
+        "notes": "Official Smith+Nephew global AETOS page used as supporting public evidence and additional product-image context for reverse shoulder arthroplasty."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SHOULDER_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Shoulder Arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "AETOS Shoulder System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/aetos-shoulder-system",
+        "notes": "Official Smith+Nephew AETOS page used as the primary public source anchor for the shoulder arthroplasty portfolio entry because it explicitly covers both anatomic and reverse total shoulder arthroplasty."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew announces 510(k) clearance of its AETOS Shoulder System",
+        "url": "https://www.smith-nephew.com/en/news/2023/06/12/20230612-smithnephew-announces-510k-clearance-of-its-aetos-shoulder-system",
+        "notes": "Official Smith+Nephew clearance announcement used as supporting public evidence for the overall shoulder arthroplasty platform."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew expands AETOS Shoulder System with new stemless option for anatomic shoulder arthroplasty",
+        "url": "https://www.smith-nephew.com/en/news/2024/12/16/20241216---smith-nephew-expands-aetos-shoulder-system",
+        "notes": "Official Smith+Nephew update used as supporting public evidence for the current breadth of the shoulder arthroplasty portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SHOULDER_INSTABILITY_PORTFOLIO",
+    "system_name": "Shoulder Instability Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Q-FIX All-Suture Anchor Shoulder",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/q-fix-all-suture-anchor-shoulder",
+        "notes": "Official Smith+Nephew shoulder anchor page used as the primary public source anchor for the shoulder instability portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "HEALICOIL PK and REGENESORB Suture Anchors",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/healicoil",
+        "notes": "Official Smith+Nephew anchor fixation page used as supporting public evidence for shoulder instability repair workflows."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Repair",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/shoulder-repair",
+        "notes": "Official Smith+Nephew shoulder repair page used as broader portfolio context for shoulder instability solutions."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_CARTILAGE_RESTORATION_PORTFOLIO",
+    "system_name": "Smith+Nephew Cartilage restoration Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "CARTIHEAL AGILI-C Cartilage Repair Implant",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/cartiheal-agili-c",
+        "notes": "Official Smith+Nephew CARTIHEAL AGILI-C page used as the primary public source anchor for the cartilage restoration portfolio entry."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew unveils expanded Sports Medicine portfolio to enable biological healing at AAOS 2024 Annual Meeting",
+        "url": "https://www.smith-nephew.com/en/news/2024/02/12/20240212-smith-nephew-unveils-expanded-sports-medicine-portfolio-to-enable-biological-healing",
+        "notes": "Official Smith+Nephew sports medicine portfolio announcement used as supporting public evidence for the cartilage restoration portfolio breadth."
+      },
+      {
+        "source_type": "sports_medicine_portfolio_page",
+        "title": "Sports Medicine Portfolio",
+        "url": "https://www.smith-nephew.com/en-us/sports-medicine-portfolio",
+        "notes": "Official Smith+Nephew sports medicine portfolio page used as broader context for cartilage restoration and biological healing technologies."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_HIP_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Smith+Nephew Hip arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "POLAR3 Total Hip Solution",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/polar3",
+        "notes": "Official Smith+Nephew POLAR3 page used as the primary public source anchor for the hip arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "hip_portfolio_page",
+        "title": "Hip Arthroplasty",
+        "url": "https://www.smith-nephew.com/en-gb/orthopaedics/hip-arthroplasty",
+        "notes": "Official Smith+Nephew hip arthroplasty portfolio page used as supporting public evidence for the broader hip reconstruction offering."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "New data confirms Smith+Nephew technology as the best performing cementless construct for Total Hip Arthroplasty",
+        "url": "https://www.smith-nephew.com/en/news/2020/12/16/20201216-new-data-confirms-sn-tech-as-the-best-performing-cementless",
+        "notes": "Official Smith+Nephew THA performance announcement used as supporting public evidence for the current hip arthroplasty portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_HIP_PRESERVATION_PORTFOLIO",
+    "system_name": "Smith+Nephew Hip preservation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "BIRMINGHAM HIP Resurfacing System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/birmingham-hip",
+        "notes": "Official Smith+Nephew BIRMINGHAM HIP resurfacing page used as the primary public source anchor for the hip preservation portfolio entry."
+      },
+      {
+        "source_type": "hip_portfolio_page",
+        "title": "Hip Arthroplasty",
+        "url": "https://www.smith-nephew.com/en-gb/orthopaedics/hip-arthroplasty",
+        "notes": "Official Smith+Nephew hip portfolio page used as supporting public evidence for the broader hip preservation and reconstruction offering."
+      },
+      {
+        "source_type": "surgical_technique_reference",
+        "title": "BIRMINGHAM HIP Resurfacing System Surgical Technique",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/birmingham-hip",
+        "notes": "Official Smith+Nephew global BIRMINGHAM HIP page explicitly exposing the surgical technique, used as supporting public evidence for hip preservation workflow coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_HIP_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Smith+Nephew Hip revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "REDAPT Revision Femoral Stem",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/redapt-femoral",
+        "notes": "Official Smith+Nephew REDAPT femoral page used as the primary public source anchor for the hip revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "REDAPT Revision Acetabular System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/redapt-acetabular",
+        "notes": "Official Smith+Nephew REDAPT acetabular page used as supporting public evidence for the full hip revision construct."
+      },
+      {
+        "source_type": "hip_portfolio_page",
+        "title": "Hip Arthroplasty",
+        "url": "https://www.smith-nephew.com/en-gb/orthopaedics/hip-arthroplasty",
+        "notes": "Official Smith+Nephew hip portfolio page used as broader portfolio context for revision hip arthroplasty."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_KNEE_INSTRUMENTS_PORTFOLIO",
+    "system_name": "Smith+Nephew Knee Instruments Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "CORI Surgical System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/cori-surgical-system",
+        "notes": "Official Smith+Nephew CORI page used as the primary public source anchor for the knee instruments portfolio entry."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew launches CORIOGRAPH Pre-Op Planning and Modeling Services for total knee arthroplasty",
+        "url": "https://www.smith-nephew.com/en/news/2025/05/14/14052025-coriograph-pre-op-planning-and-modeling-services-for-total-knee-arthroplasty",
+        "notes": "Official Smith+Nephew knee planning announcement used as supporting public evidence for contemporary instrument and planning workflow coverage."
+      },
+      {
+        "source_type": "knee_portfolio_page",
+        "title": "Knee Reconstruction",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-reconstruction",
+        "notes": "Official Smith+Nephew knee reconstruction page used as broader portfolio context for knee instrumentation and enabling technologies."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_KNEE_PRESERVATION_PORTFOLIO",
+    "system_name": "Smith+Nephew Knee Preservation Portfolio",
+    "sources": [
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew launches new JOURNEY II Unicompartmental Knee System",
+        "url": "https://www.smith-nephew.com/news/2020/05/20/20200520-sn-launches-new-journey-ii-unicompartmental-knee-system",
+        "notes": "Official Smith+Nephew JOURNEY II UK launch announcement used as the primary public source anchor for the knee preservation portfolio entry."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew acquires novel cementless partial knee system",
+        "url": "https://www.smith-nephew.com/news/2022/01/19/20220119-acquires-novel-cementless-partial-knee-system",
+        "notes": "Official Smith+Nephew partial knee portfolio announcement used as supporting public evidence for knee preservation breadth."
+      },
+      {
+        "source_type": "knee_portfolio_page",
+        "title": "Knee Reconstruction",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-reconstruction",
+        "notes": "Official Smith+Nephew knee reconstruction page used as broader portfolio context for knee preservation and partial knee workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_KNEE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Smith+Nephew Knee arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "LEGION Total Knee System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/legion-total-knee-system",
+        "notes": "Official Smith+Nephew LEGION page used as the primary public source anchor for the knee arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "JOURNEY II Knee System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/journey-ii-knee-system",
+        "notes": "Official Smith+Nephew JOURNEY II knee page used as supporting public evidence for the broader knee arthroplasty portfolio."
+      },
+      {
+        "source_type": "knee_portfolio_page",
+        "title": "Knee Reconstruction",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-reconstruction",
+        "notes": "Official Smith+Nephew knee reconstruction page used as broader portfolio context for primary knee arthroplasty."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_KNEE_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Smith+Nephew Knee revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "LEGION Revision Knee System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/legion-revision-knee-system",
+        "notes": "Official Smith+Nephew LEGION revision page used as the primary public source anchor for the knee revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "knee_portfolio_page",
+        "title": "Knee Reconstruction",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-reconstruction",
+        "notes": "Official Smith+Nephew knee reconstruction page used as supporting public evidence for the broader revision knee offering."
+      },
+      {
+        "source_type": "surgical_technique_reference",
+        "title": "LEGION Revision Knee System Surgical Technique",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/legion-revision-knee-system",
+        "notes": "Official Smith+Nephew LEGION revision page explicitly linking the surgical technique, used as supporting public evidence for revision workflow coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_SHOULDER_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "Smith+Nephew Shoulder soft tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew strengthens shoulder repair portfolio with acquisition",
+        "url": "https://www.smith-nephew.com/en/news/2026/01/12/smithnephew-strengthens-shoulder-repair-portfolio-with-acquisition",
+        "notes": "Official Smith+Nephew shoulder repair announcement used as the primary public source anchor for the shoulder soft tissue portfolio entry because it explicitly summarizes the current shoulder repair offering."
+      },
+      {
+        "source_type": "product_page",
+        "title": "REGENETEN Bioinductive Implant",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/regeneten",
+        "notes": "Official Smith+Nephew REGENETEN page used as supporting public evidence for biological augmentation in shoulder soft tissue repair."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Repair",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/shoulder-repair",
+        "notes": "Official Smith+Nephew shoulder repair page used as broader portfolio context for shoulder soft tissue solutions."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_TRIGEN_FEMORAL_NAIL_SYSTEM",
+    "system_name": "TRIGEN Femoral Nail System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "TRIGEN META-TAN Trochanteric Antegrade Nail",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/trigen-meta-tan",
+        "notes": "Official Smith+Nephew TRIGEN META-TAN page used as the primary public source anchor for the femoral nail system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "TRIGEN META-NAIL Tibia and Retrograde Femoral Nailing System",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/trigen-meta-nail",
+        "notes": "Official Smith+Nephew TRIGEN META-NAIL page used as supporting public evidence because it explicitly includes retrograde femoral nailing."
+      },
+      {
+        "source_type": "product_family_reference",
+        "title": "TRIGEN Trauma and Extremities Portfolio",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/trigen",
+        "notes": "Official Smith+Nephew TRIGEN family page used as broader portfolio context for femoral nailing coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_TOTAL_ANKLE_PORTFOLIO",
+    "system_name": "Total Ankle Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "SALTO TALARIS Total Ankle Prosthesis",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/salto-ankle",
+        "notes": "Official Smith+Nephew SALTO TALARIS page used as the primary public source anchor for the total ankle portfolio entry."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew brings pre-operative planning and accuracy to total ankle replacement with new TOTAL ANKLE Patient-Matched Guides",
+        "url": "https://www.smith-nephew.com/news/2024/09/10/10092024---total-ankle-patient-matched-guides",
+        "notes": "Official Smith+Nephew total ankle planning announcement used as supporting public evidence for the current total ankle replacement workflow."
+      },
+      {
+        "source_type": "product_page",
+        "title": "SALTO TALARIS Total Ankle Prosthesis Global",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/salto-ankle",
+        "notes": "Official Smith+Nephew global SALTO TALARIS page used as supporting public evidence and additional brochure-rich product context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_ULTRABUTTON___BIOSURE___ACL_PORTFOLIO",
+    "system_name": "ULTRABUTTON / BIOSURE / ACL Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "ULTRABUTTON Adjustable Fixation Device",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/ultrabutton-adjustable-fixation-device",
+        "notes": "Official Smith+Nephew ULTRABUTTON page used as the primary public source anchor for the ULTRABUTTON / BIOSURE / ACL portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "BIOSURE REGENESORB Interference Screw",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/biosure-regenesorb-interference-screw",
+        "notes": "Official Smith+Nephew BIOSURE screw page used as supporting public evidence for ACL graft fixation coverage."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Smith+Nephew Sports Medicine advances procedural innovation with QUADTRAC and expanded ULTRABUTTON family",
+        "url": "https://www.smith-nephew.com/news/2023/03/07/20230307-quadtrac",
+        "notes": "Official Smith+Nephew ACL reconstruction announcement used as supporting public evidence for the current ACL fixation portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_WEREWOLF___MENISCECTOMY_PORTFOLIO",
+    "system_name": "Werewolf / Meniscectomy Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "WEREWOLF COBLATION System",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/werewolf-coblation-system",
+        "notes": "Official Smith+Nephew WEREWOLF system page used as the primary public source anchor for the meniscectomy portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "WEREWOLF FLOW 50 COBLATION Wand",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/werewolf-flow-50-wand",
+        "notes": "Official Smith+Nephew FLOW 50 page used as supporting public evidence for knee arthroscopy tissue resection and meniscectomy workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "WEREWOLF FLOW 90 COBLATION Wand",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/sports-medicine/werewolf-flow-90-wand",
+        "notes": "Official Smith+Nephew FLOW 90 page used as supporting public evidence for arthroscopic ablation and meniscectomy coverage."
+      }
+    ]
+  }
+]

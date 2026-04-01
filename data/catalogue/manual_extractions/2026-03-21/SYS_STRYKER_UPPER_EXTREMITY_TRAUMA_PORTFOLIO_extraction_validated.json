@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Stryker Upper Extremity Trauma Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Upper extremities",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_STRYKER_UPPER_EXTREMITY_TRAUMA_PORTFOLIO_UPPER_EXTREMITY_TRAUMA_FRAMEWORK",
+        "Component Name": "Upper Extremity Trauma Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_STRYKER_UPPER_EXTREMITY_TRAUMA_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Stryker public upper-extremity trauma fixation sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Stryker Upper Extremity Trauma Portfolio",
+          "supplier_name": "Stryker",
+          "system_category": "Upper-extremity trauma fixation",
+          "system_notes": "Official Stryker upper extremities, VariAx 2 Elbow Plating System, and Evolve Elbow Plating System materials used as the source anchors for the upper extremity trauma portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Stryker Upper Extremity Trauma Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "Upper-extremity trauma fixation",
+        "system_notes": "Official Stryker upper extremities, VariAx 2 Elbow Plating System, and Evolve Elbow Plating System materials used as the source anchors for the upper extremity trauma portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Stryker Upper Extremity Trauma Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "Upper-extremity trauma fixation",
+        "system_notes": "Official Stryker upper extremities, VariAx 2 Elbow Plating System, and Evolve Elbow Plating System materials used as the source anchors for the upper extremity trauma portfolio entry."
+      }
+    }
+  ]
+}

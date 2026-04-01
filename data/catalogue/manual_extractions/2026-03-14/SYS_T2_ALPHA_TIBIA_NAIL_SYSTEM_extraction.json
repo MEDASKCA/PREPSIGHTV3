@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "T2 Alpha Tibia Nail System",
+    "source_type": "product_page",
+    "source_document": "T2 Alpha Tibia System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "T2 Alpha Tibia Nail System",
+      "supplier_name": "Stryker",
+      "system_category": "Intramedullary Nail System",
+      "system_notes": "Current tibial intramedullary nailing platform for tibial shaft and selected periarticular tibia fracture fixation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "T2 Alpha Tibia Instrumentation",
+      "system_name": "T2 Alpha Tibia Nail System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Stryker materials describe dedicated T2 Alpha tibia instrumentation and operative technique support."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "T2 Alpha Tibia Nail",
+      "system_name": "T2 Alpha Tibia Nail System",
+      "component_role": "Intramedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official product materials describe the current tibial nail platform for tibial fracture fixation."
+    },
+    {
+      "component_name": "T2 Alpha Tibia Locking Screw",
+      "system_name": "T2 Alpha Tibia Nail System",
+      "component_role": "Locking Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The T2 Alpha tibia construct includes proximal and distal locking fixation options."
+    },
+    {
+      "component_name": "T2 Alpha Tibia End Cap",
+      "system_name": "T2 Alpha Tibia Nail System",
+      "component_role": "End Cap",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The T2 Alpha tibia platform includes end-cap compatibility within the nail construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public T2 Alpha tibia page defines the nail platform but does not expose a public implant code table in this pass.",
+      "reason": "A deeper operative technique or catalogue pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

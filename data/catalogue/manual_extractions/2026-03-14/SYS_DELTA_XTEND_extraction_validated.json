@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Delta XTEND Reverse Shoulder",
+    "source_type": "product_page",
+    "source_document": "DELTA XTEND Reverse Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_DELTA_XTEND_REVERSE_SHOULDER_DELTA_XTEND_INSTRUMENTATION",
+        "Tray Name": "DELTA XTEND Instrumentation",
+        "System ID": "SYS_DELTA_XTEND",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official shoulder materials support dedicated DELTA XTEND reverse shoulder instrumentation and technique resources."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_DELTA_XTEND_REVERSE_SHOULDER_DELTA_XTEND_HUMERAL_STEM",
+        "Component Name": "DELTA XTEND Humeral Stem",
+        "Component Role": "Humeral Stem",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_DELTA_XTEND",
+        "Component Notes": "Official product materials describe the humeral stem family within the reverse shoulder construct."
+      },
+      {
+        "Component ID": "COMP_DELTA_XTEND_REVERSE_SHOULDER_DELTA_XTEND_GLENOID_BASEPLATE",
+        "Component Name": "DELTA XTEND Glenoid Baseplate",
+        "Component Role": "Baseplate",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_DELTA_XTEND",
+        "Component Notes": "Official product materials describe the glenoid baseplate fixation platform."
+      },
+      {
+        "Component ID": "COMP_DELTA_XTEND_REVERSE_SHOULDER_DELTA_XTEND_GLENOSPHERE",
+        "Component Name": "DELTA XTEND Glenosphere",
+        "Component Role": "Glenosphere",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_DELTA_XTEND",
+        "Component Notes": "Official product materials describe the reverse glenosphere options within the system."
+      },
+      {
+        "Component ID": "COMP_DELTA_XTEND_REVERSE_SHOULDER_DELTA_XTEND_HUMERAL_LINER",
+        "Component Name": "DELTA XTEND Humeral Liner",
+        "Component Role": "Humeral Liner",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_DELTA_XTEND",
+        "Component Notes": "Official product materials describe the polyethylene humeral bearing component used in the reverse construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Delta XTEND Reverse Shoulder",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Reverse Shoulder Arthroplasty System",
+          "system_notes": "Reverse shoulder arthroplasty platform designed for cuff-deficient shoulders and complex reconstruction."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Delta XTEND Reverse Shoulder",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Reverse Shoulder Arthroplasty System",
+        "system_notes": "Reverse shoulder arthroplasty platform designed for cuff-deficient shoulders and complex reconstruction."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Delta XTEND Reverse Shoulder",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Reverse Shoulder Arthroplasty System",
+        "system_notes": "Reverse shoulder arthroplasty platform designed for cuff-deficient shoulders and complex reconstruction."
+      }
+    }
+  ]
+}

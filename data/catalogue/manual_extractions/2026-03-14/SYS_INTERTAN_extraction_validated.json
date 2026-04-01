@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "InterTAN Nail System",
+    "source_type": "product_page",
+    "source_document": "TRIGEN INTERTAN Intertrochanteric Antegrade Nail",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_INTERTAN_NAIL_SYSTEM_TRIGEN_INTERTAN_INSTRUMENTATION",
+        "Tray Name": "TRIGEN INTERTAN Instrumentation",
+        "System ID": "SYS_INTERTAN",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Smith+Nephew materials describe dedicated INTERTAN instrumentation and integrated screw workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_INTERTAN_NAIL_SYSTEM_TRIGEN_INTERTAN_NAIL",
+        "Component Name": "TRIGEN INTERTAN Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_INTERTAN",
+        "Component Notes": "Official materials describe the antegrade intertrochanteric nail used for proximal femur fracture fixation."
+      },
+      {
+        "Component ID": "COMP_INTERTAN_NAIL_SYSTEM_TRIGEN_INTERTAN_LAG_SCREW",
+        "Component Name": "TRIGEN INTERTAN Lag Screw",
+        "Component Role": "Lag Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_INTERTAN",
+        "Component Notes": "Official materials describe the integrated lag screw as part of the compression construct."
+      },
+      {
+        "Component ID": "COMP_INTERTAN_NAIL_SYSTEM_TRIGEN_INTERTAN_COMPRESSION_SCREW",
+        "Component Name": "TRIGEN INTERTAN Compression Screw",
+        "Component Role": "Compression Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_INTERTAN",
+        "Component Notes": "Official materials describe the interlocking compression screw that maintains active compression and resists the Z-effect."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "InterTAN Nail System",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Cephalomedullary hip fracture nail platform using integrated interlocking screw technology for proximal femur fracture fixation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "InterTAN Nail System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Cephalomedullary hip fracture nail platform using integrated interlocking screw technology for proximal femur fracture fixation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "InterTAN Nail System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Cephalomedullary hip fracture nail platform using integrated interlocking screw technology for proximal femur fracture fixation."
+      }
+    }
+  ]
+}

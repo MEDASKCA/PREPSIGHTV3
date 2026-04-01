@@ -1,0 +1,37 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Limb Salvage / OSS Oncology Portfolio",
+    "source_type": "product_page",
+    "source_document": "OSS Orthopedic Salvage System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Limb Salvage / OSS Oncology Portfolio Family",
+      "system_name": "Limb Salvage / OSS Oncology Portfolio",
+      "component_role": "Portfolio Family",
+      "implant_category": "Orthopaedic oncology",
+      "component_notes": "Public Zimmer Biomet limb-salvage sources identify the OSS platform as the core oncology and limb-salvage family anchor."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "The captured public OSS pages do not provide a reusable tray manifest for the limb-salvage portfolio.",
+      "reason": "Tray detail should be added from narrower OSS instrumentation literature if expanded later.",
+      "source_excerpt": "Current extraction remains portfolio-level."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "The OSS platform spans multiple modular replacement configurations that are not normalized into product-code rows here.",
+      "reason": "Detailed component and SKU extraction should come from system-specific OSS literature if required.",
+      "source_excerpt": "This pass establishes a source-backed family anchor only."
+    }
+  ]
+}

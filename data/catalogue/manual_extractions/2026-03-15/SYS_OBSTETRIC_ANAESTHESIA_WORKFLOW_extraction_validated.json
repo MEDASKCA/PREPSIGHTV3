@@ -1,0 +1,58 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Obstetric Anaesthesia Workflow System",
+    "source_type": "society_homepage",
+    "source_document": "SOAP Society Resources / Educational App",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "System ID": "SYS_UNASSIGNED_OBSTETRIC_ANAESTHESIA_WORKFLOW_SYSTEM",
+        "System Name": "Obstetric Anaesthesia Workflow System",
+        "Supplier ID": "SUP_UNASSIGNED",
+        "System Category": "Maternity Perioperative Documentation",
+        "System Notes": "Public source anchor for obstetric anaesthesia workflow guidance and point-of-care educational resources."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_OBSTETRIC_ANAESTHESIA_WORKFLOW_SYSTEM_OBSTETRIC_ANAESTHESIA_WORKFLOW_FRAMEWORK",
+        "Component Name": "Obstetric Anaesthesia Workflow Framework",
+        "Component Role": "Workflow Framework",
+        "Implant Category": "Perioperative Documentation Workflow",
+        "System ID": "SYS_UNASSIGNED_OBSTETRIC_ANAESTHESIA_WORKFLOW_SYSTEM",
+        "Component Notes": "SOAP resources describe practical guidance, toolkits, and point-of-care resource access for obstetric anaesthesia."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": []
+}

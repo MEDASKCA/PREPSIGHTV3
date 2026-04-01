@@ -1,0 +1,149 @@
+{
+  "domain": "theatre-equipment",
+  "subcategory": "consumables",
+  "description": "Source links for orthopaedic theatre consumables — surgical drapes, sutures, bone cement, irrigation, tourniquets, gloves",
+  "sourced_date": "2026-03-14",
+  "total_records": 20,
+  "entries": [
+    {
+      "supplier": "Molnlycke",
+      "product_family": "BARRIER Orthopaedic Drapes",
+      "system_name": "BARRIER Hip and Knee Drape",
+      "source_url": "https://www.molnlycke.ae/products-solutions/barrier-orthopaedic-drapes/",
+      "notes": "Orthopaedic procedure drape for hip and knee replacement. Drisite Plus fluid handling zones: dry barrier, strong barrier, absorbent barrier. Integrated adhesive edges to prevent micro-organism migration."
+    },
+    {
+      "supplier": "Molnlycke",
+      "product_family": "BARRIER Orthopaedic Drapes",
+      "system_name": "BARRIER Extremity Drape Set",
+      "source_url": "https://www.molnlycke.com/en-gb/products/or-solutions/surgical-drapes/specialty-drapes-and-sets/orthopaedic/extremity-drapes-and-sets?variantId=60204",
+      "notes": "Extremity draping set for hand, foot, and lower limb procedures. Product code variant 60204. Drisite Plus absorption. Sterile single-use."
+    },
+    {
+      "supplier": "Molnlycke",
+      "product_family": "BARRIER Orthopaedic Drapes",
+      "system_name": "BARRIER Vertical Isolation Drape Set",
+      "source_url": "https://www.molnlycke.com/et-EE/products/or-solutions/surgical-drapes/specialty-drapes-and-sets/orthopaedic/vertical-isolation-drapes-and-sets?variantId=80008032",
+      "notes": "Vertical isolation drape for orthopaedic procedures. Product code variant 80008032. Creates sterile barrier between sterile and non-sterile field."
+    },
+    {
+      "supplier": "Molnlycke",
+      "product_family": "ProcedurePak",
+      "system_name": "Molnlycke ProcedurePak (Orthopaedic — Hip / Knee / Shoulder)",
+      "source_url": "https://www.molnlycke.com/en-gb/products/or-solutions/trays/",
+      "notes": "Customised sterile procedure trays for hip, knee and shoulder replacement. Contains all single-use equipment for specific procedures. Can include BARRIER drapes, gloves, and other consumables. Configured per procedure."
+    },
+    {
+      "supplier": "Molnlycke",
+      "product_family": "Biogel Surgical Gloves",
+      "system_name": "Biogel PI OrthoPro Surgical Glove",
+      "source_url": "https://www.molnlycke.com/en-us/products/gloves/surgical-gloves/biogel-synthetic-gloves/biogel-pi-orthopro",
+      "notes": "Thickest synthetic surgical glove. Brown colour to reduce glare. Extra-durable for orthopaedic procedures. Biogel inner coating for wet donning. Sizes 5.5–9.0."
+    },
+    {
+      "supplier": "Molnlycke",
+      "product_family": "Biogel Surgical Gloves",
+      "system_name": "Biogel PI Surgical Glove",
+      "source_url": "https://www.molnlycke.com/en-us/products/gloves/surgical-gloves/biogel-synthetic-gloves/biogel-pi",
+      "notes": "Thick and durable synthetic surgical glove. Biogel coating for easy donning with damp hands. Sizes 5.5–9.0. Powder-free."
+    },
+    {
+      "supplier": "Molnlycke",
+      "product_family": "Biogel Surgical Gloves",
+      "system_name": "Biogel Indicator Underglove",
+      "source_url": "https://www.molnlycke.us/products-solutions/biogel-indicator-underglove/",
+      "notes": "Green latex underglove for puncture detection when worn beneath outer Biogel glove. Puncture indicated by green colour showing through outer glove."
+    },
+    {
+      "supplier": "Solventum (formerly 3M)",
+      "product_family": "Ioban",
+      "system_name": "3M Ioban 2 Antimicrobial Incise Drape",
+      "source_url": "https://www.solventum.com/en-us/home/f/b00040096/",
+      "notes": "Iodine-impregnated adhesive incise drape. 6600 Series. Broad-spectrum antimicrobial to incision edge. EZ Delivery design. Not natural rubber latex. Active against MRSA (6 hr contact ex vivo). Sizes: 6640EZ (23x23 in, incise 13x13 in), 6650EZ (17x23 in). Available on Solventum.com."
+    },
+    {
+      "supplier": "Solventum (formerly 3M)",
+      "product_family": "Steri-Drape",
+      "system_name": "3M Steri-Drape 2 Incise Drape",
+      "source_url": "https://www.solventum.com/en-us/home/f/b00040096/",
+      "notes": "Non-antimicrobial incise drape for sterile field coverage. Model 2040 incise area 28x41 cm (11x16 in); Model 2045 incise area 50x45 cm (19.6x17.6 in). Sterile, single-use."
+    },
+    {
+      "supplier": "Ethicon (J&J MedTech)",
+      "product_family": "Coated VICRYL",
+      "system_name": "Coated VICRYL (Polyglactin 910) Suture",
+      "source_url": "https://www.ethicon.com/emea/products/wound-closure/absorbable-sutures/coated-vicryl-polyglactin-910-suture",
+      "notes": "Synthetic absorbable braided suture. 90% glycolide + 10% L-lactide copolymer. 2–4 weeks tissue support. Available dyed (violet) and undyed. Multiple sizes and needle configurations. Indicated for soft tissue approximation, orthopaedic closures, general surgery."
+    },
+    {
+      "supplier": "Ethicon (J&J MedTech)",
+      "product_family": "Coated VICRYL Plus",
+      "system_name": "Coated VICRYL Plus Antibacterial (Polyglactin 910) Suture",
+      "source_url": "https://ethicon.com/na/products/wound-closure/absorbable-sutures/coated-vicryl-plus-antibacterial-polyglactin-910-suture",
+      "notes": "VICRYL with Irgacare MP (Triclosan) antibacterial agent (max 2360 ug/m). Inhibits bacterial colonisation of suture in vitro. Same absorption profile as standard VICRYL. Smooth tissue passage, good knot security."
+    },
+    {
+      "supplier": "Ethicon (J&J MedTech)",
+      "product_family": "PDS II",
+      "system_name": "PDS II (Polydioxanone) Suture",
+      "source_url": "https://www.jnjmedtech.com/en-US/product/pds-ii-polydioxanone-suture",
+      "notes": "Synthetic absorbable monofilament. Polydioxanone. Absorption 182–238 days. 80% strength at 14 days (sizes 3-0+), 40% at 28 days. Extended wound support up to 6 weeks. Available clear and violet. Sizes 2-0, 3-0, 4-0. Needle types: FS-1, PS-2, CP-1 (19–36 mm). Use: soft tissue approximation, orthopaedic deep tissue."
+    },
+    {
+      "supplier": "Ethicon (J&J MedTech)",
+      "product_family": "MONOCRYL",
+      "system_name": "MONOCRYL (Poliglecaprone 25) Suture",
+      "source_url": "https://www.ethicon.com/emea/products/wound-closure/absorbable-sutures/monocryl-poliglecaprone-25-suture",
+      "notes": "Monofilament synthetic absorbable suture. Copolymer of glycolide and epsilon-caprolactone. Soft tissue approximation and ligation. Smooth tissue passage. Fast absorption profile (faster than PDS). Also available as MONOCRYL Plus with Triclosan antibacterial."
+    },
+    {
+      "supplier": "Stryker Orthopaedics",
+      "product_family": "Simplex P",
+      "system_name": "Stryker Simplex P Radiopaque Bone Cement",
+      "source_url": "https://www.stryker.com/us/en/interventional-spine/products/spineplex-cement.html",
+      "notes": "PMMA bone cement. Composition: 75% MMA-styrene copolymer, 15% PMMA, 10% Barium Sulfate (radiopaque). Full dose: 40 g powder + 20 mL monomer. No. 1 selling bone cement in USA. 40+ years clinical use. High fatigue, compressive and flexural strengths. Product code: 6191-1-001 (single), 6191-1-010 (box of 10). Also available as Simplex P with Tobramycin antibiotic (code: 6197-9-001)."
+    },
+    {
+      "supplier": "Zimmer Biomet",
+      "product_family": "PALACOS",
+      "system_name": "PALACOS R Bone Cement",
+      "source_url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/cement.html",
+      "notes": "High viscosity PMMA bone cement. Unique green colour for contrast vs bone and tissue. 50+ years clinical use. Short dough time (30 sec), long working time. High fatigue strength. Available as PALACOS R (plain) and PALACOS R+G (with Gentamicin). Manufacturer: Zimmer Biomet. Also: PALACOS LV and PALACOS LV+G (low viscosity variants for cartridge mixing systems)."
+    },
+    {
+      "supplier": "DePuy Synthes (J&J MedTech)",
+      "product_family": "SmartSet",
+      "system_name": "SmartSet HV Bone Cement",
+      "source_url": "https://www.jnjmedtech.com/en-EMEA/product/smartset-bone-cement-and-depuy-cmw-bone-cement",
+      "notes": "High viscosity PMMA bone cement. Launched 2003. Total setting time approx 13.5 min at 19 deg C. Product code: 3092-040 (40 g single dose). Also SmartSet GHV with Gentamicin (code: 5450-35-500 / 3095-040). Fast initial Gentamicin elution in GHV variant. 10 million fatigue cycles without cracking (GHV). SmartMix delivery system available separately."
+    },
+    {
+      "supplier": "Stryker Orthopaedic Instruments",
+      "product_family": "SmartPump",
+      "system_name": "Stryker SmartPump Dual Channel Tourniquet System",
+      "source_url": "https://www.stryker.com/us/en/orthopaedic-instruments/products/smartpump-tourniquet.html",
+      "notes": "Pneumatic tourniquet system. Dual channel for bilateral limb surgery or Bier Block. LCD display for elapsed time and cuff pressure (mmHg). Self-calibration on startup (3 sec). 5-hour internal battery backup (12 V, 2.7 Ah). Dimensions: 17x10x9 in, 12 lbs. Product codes: 5920-011-000 (dual channel unit), 5920-010-091 (battery). Optional printer for tourniquet report."
+    },
+    {
+      "supplier": "Stryker Orthopaedic Instruments",
+      "product_family": "InterPulse",
+      "system_name": "Stryker InterPulse Pulsed Lavage System",
+      "source_url": "https://www.stryker.com/us/en/orthopaedic-instruments/products/interpulse-pulsed-lavage-system.html",
+      "notes": "Battery-powered pulsed lavage for orthopaedic bone cleaning (total joint, revision, cemented/press-fit). Disposable handpiece. Variable speed, trigger lock. High flow and low splash tips. Concurrent suction with splash shield. Rechargeable battery pack option. Product codes include: 0210-114-000 (handpiece with suction/high flow tip), 0210-166-000 (high flow tip + dual spike adapter). Single-use disposable system."
+    },
+    {
+      "supplier": "Stryker Orthopaedic Instruments",
+      "product_family": "InterPulse",
+      "system_name": "Stryker InterPulse High Flow Tip",
+      "source_url": "https://www.stryker.com/us/en/orthopaedic-instruments/products/interpulse-pulsed-lavage-system.html",
+      "notes": "Accessory tip for InterPulse system. High flow for efficient bone bed preparation. Alternative: low splash tip for contamination control. Product code: 0210-166-000 (with dual spike adapter)."
+    },
+    {
+      "supplier": "Solventum (formerly 3M)",
+      "product_family": "Bair Hugger",
+      "system_name": "3M Bair Hugger Warming Blanket",
+      "source_url": "https://www.solventum.com/en-us/home/medical/surgical-solutions/temperature-management/bair-hugger/",
+      "notes": "Forced-air warming blanket compatible with Bair Hugger Model 775 and 750 warming units. Used in pre-op, OR and PACU. Various blanket sizes for full-body, upper body, lower body. Part of temperature management system to prevent perioperative hypothermia."
+    }
+  ]
+}

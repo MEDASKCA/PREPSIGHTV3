@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Oncology / Tumour Reconstruction Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Orthopaedic oncology | Stryker",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ONCOLOGY_TUMOUR_RECONSTRUCTION_PORTFOLIO_ONCOLOGY_TUMOUR_RECONSTRUCTION_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Oncology / Tumour Reconstruction Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Orthopaedic oncology",
+        "System ID": "SYS_ONCOLOGY___TUMOUR_RECONSTRUCTION_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Stryker public oncology and tumour reconstruction sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Oncology / Tumour Reconstruction Portfolio",
+          "supplier_name": "Stryker",
+          "system_category": "orthopaedic_oncology",
+          "system_notes": "Public Stryker orthopaedic oncology and GMRS materials used as the source anchors for the oncology and tumour reconstruction portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Oncology / Tumour Reconstruction Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "orthopaedic_oncology",
+        "system_notes": "Public Stryker orthopaedic oncology and GMRS materials used as the source anchors for the oncology and tumour reconstruction portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Oncology / Tumour Reconstruction Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "orthopaedic_oncology",
+        "system_notes": "Public Stryker orthopaedic oncology and GMRS materials used as the source anchors for the oncology and tumour reconstruction portfolio entry."
+      }
+    }
+  ]
+}

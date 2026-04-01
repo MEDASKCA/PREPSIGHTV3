@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Forearm Shaft Plating System",
+    "source_type": "product_page",
+    "source_document": "Anatomic Midshaft Forearm Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_FOREARM_SHAFT_PLATING_SYSTEM_FOREARM_SHAFT_PLATING_INSTRUMENTATION",
+        "Tray Name": "Forearm Shaft Plating Instrumentation",
+        "System ID": "SYS_FOREARM_SHAFT_PLATING_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated forearm fixation instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_FOREARM_SHAFT_PLATING_SYSTEM_FOREARM_SHAFT_PLATE",
+        "Component Name": "Forearm Shaft Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_FOREARM_SHAFT_PLATING_SYSTEM",
+        "Component Notes": "Core forearm plate family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_FOREARM_SHAFT_PLATING_SYSTEM_FOREARM_SHAFT_SCREW",
+        "Component Name": "Forearm Shaft Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_FOREARM_SHAFT_PLATING_SYSTEM",
+        "Component Notes": "Core fixation screw family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_FOREARM_SHAFT_PLATING_SYSTEM_FOREARM_SHAFT_GUIDE",
+        "Component Name": "Forearm Shaft Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_FOREARM_SHAFT_PLATING_SYSTEM",
+        "Component Notes": "Guide and instrumentation family referenced by the fixation system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Forearm Shaft Plating System",
+          "supplier_name": "Acumed",
+          "system_category": "Upper Extremity Trauma Fixation System",
+          "system_notes": "Forearm shaft fracture fixation platform with plates, screws and dedicated instrumentation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Forearm Shaft Plating System",
+        "supplier_name": "Acumed",
+        "system_category": "Upper Extremity Trauma Fixation System",
+        "system_notes": "Forearm shaft fracture fixation platform with plates, screws and dedicated instrumentation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Forearm Shaft Plating System",
+        "supplier_name": "Acumed",
+        "system_category": "Upper Extremity Trauma Fixation System",
+        "system_notes": "Forearm shaft fracture fixation platform with plates, screws and dedicated instrumentation."
+      }
+    }
+  ]
+}

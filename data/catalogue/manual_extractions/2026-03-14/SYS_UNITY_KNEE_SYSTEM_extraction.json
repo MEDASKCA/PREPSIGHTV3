@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Corin",
+    "system_name": "Unity Knee System",
+    "source_type": "product_page",
+    "source_document": "Unity Knee",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Unity Knee System",
+      "supplier_name": "Corin",
+      "system_category": "Knee Arthroplasty System",
+      "system_notes": "Primary knee arthroplasty platform with modern femoral, tibial, insert and patellar options."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Unity Instrumentation",
+      "system_name": "Unity Knee System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Unity product material references dedicated instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Unity Femoral Component",
+      "system_name": "Unity Knee System",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Core femoral implant family referenced on the product page."
+    },
+    {
+      "component_name": "Unity Tibial Baseplate",
+      "system_name": "Unity Knee System",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Core tibial baseplate family referenced on the product page."
+    },
+    {
+      "component_name": "Unity Insert",
+      "system_name": "Unity Knee System",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Insert family referenced on the product page."
+    },
+    {
+      "component_name": "Unity Patella",
+      "system_name": "Unity Knee System",
+      "component_role": "Patellar Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Patellar implant family referenced on the product page."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Constraint-specific or revision-specific Unity options are not split out in this pass.",
+      "reason": "Needs deeper brochure or technique review before subfamily expansion.",
+      "source_excerpt": "Current extraction keeps the core primary implant families only."
+    }
+  ]
+}

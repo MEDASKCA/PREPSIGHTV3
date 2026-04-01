@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Cook Medical",
+    "system_name": "Thoracic Aortic Stent Graft",
+    "source_type": "portfolio_page",
+    "source_document": "Zenith Alpha Thoracic Endovascular Graft | Cook Medical",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_THORACIC_AORTIC_STENT_GRAFT_THORACIC_AORTIC_STENT_GRAFT_FRAMEWORK",
+        "Component Name": "Thoracic Aortic Stent Graft Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_STENT_GRAFT_THORACIC",
+        "Component Notes": "Framework component anchored to Cook Medical public thoracic endograft source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Thoracic Aortic Stent Graft",
+          "supplier_name": "Cook Medical",
+          "system_category": "endovascular_aortic",
+          "system_notes": "Official Cook Medical thoracic endograft materials used as the public source anchors for this thoracic aortic stent graft entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Thoracic Aortic Stent Graft",
+        "supplier_name": "Cook Medical",
+        "system_category": "endovascular_aortic",
+        "system_notes": "Official Cook Medical thoracic endograft materials used as the public source anchors for this thoracic aortic stent graft entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Thoracic Aortic Stent Graft",
+        "supplier_name": "Cook Medical",
+        "system_category": "endovascular_aortic",
+        "system_notes": "Official Cook Medical thoracic endograft materials used as the public source anchors for this thoracic aortic stent graft entry."
+      }
+    }
+  ]
+}

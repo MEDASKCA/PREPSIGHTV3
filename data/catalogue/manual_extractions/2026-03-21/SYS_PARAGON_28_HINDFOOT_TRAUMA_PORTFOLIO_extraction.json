@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "Paragon 28 Hindfoot Trauma Portfolio",
+    "source_type": "product_page",
+    "source_document": "Gorilla Calcaneal Fracture Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Paragon 28 Hindfoot Trauma Portfolio",
+      "supplier_name": "Paragon 28",
+      "system_category": "Foot & ankle trauma fixation",
+      "system_notes": "Official Paragon 28 hindfoot trauma materials used as the public source anchors for this foot and ankle trauma fixation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Hindfoot Trauma Portfolio Framework",
+      "system_name": "Paragon 28 Hindfoot Trauma Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Foot and Ankle Trauma",
+      "component_notes": "Framework component anchored to Paragon 28 public hindfoot trauma source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Paragon 28 hindfoot trauma source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Gorilla Calcaneal Fracture Plating System; Gorilla Talus Plating System"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Paragon 28 hindfoot trauma source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "Gorilla Calcaneal Fracture Plating System; Gorilla Talus Plating System"
+    }
+  ]
+}

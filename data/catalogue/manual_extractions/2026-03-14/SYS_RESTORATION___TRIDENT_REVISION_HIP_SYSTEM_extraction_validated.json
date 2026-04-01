@@ -1,0 +1,122 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Restoration / Trident Revision Hip System",
+    "source_type": "surgical_protocol_pdf",
+    "source_document": "Restoration Modular Revision Hip System Surgical Protocol and Trident II",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_RESTORATION_TRIDENT_REVISION_HIP_SYSTEM_RESTORATION_TRIDENT_REVISION_INSTRUMENTATION",
+        "Tray Name": "Restoration / Trident Revision Instrumentation",
+        "System ID": "SYS_RESTORATION___TRIDENT_REVISION_HIP_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Restoration revision materials support dedicated modular revision instrumentation paired with compatible Trident II acetabular workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_RESTORATION_TRIDENT_REVISION_HIP_SYSTEM_RESTORATION_DISTAL_STEM",
+        "Component Name": "Restoration Distal Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RESTORATION___TRIDENT_REVISION_HIP_SYSTEM",
+        "Component Notes": "Official Restoration revision materials describe distal stem options across multiple lengths and diameters."
+      },
+      {
+        "Component ID": "COMP_RESTORATION_TRIDENT_REVISION_HIP_SYSTEM_RESTORATION_CONE_BODY",
+        "Component Name": "Restoration Cone Body",
+        "Component Role": "Proximal Body",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RESTORATION___TRIDENT_REVISION_HIP_SYSTEM",
+        "Component Notes": "Official Restoration modular revision materials describe proximal cone body options used to reconstruct revision anatomy."
+      },
+      {
+        "Component ID": "COMP_RESTORATION_TRIDENT_REVISION_HIP_SYSTEM_TRIDENT_II_ACETABULAR_SHELL",
+        "Component Name": "Trident II Acetabular Shell",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RESTORATION___TRIDENT_REVISION_HIP_SYSTEM",
+        "Component Notes": "Official Trident II materials describe the acetabular shell family used in revision hip constructs."
+      },
+      {
+        "Component ID": "COMP_RESTORATION_TRIDENT_REVISION_HIP_SYSTEM_TRIDENT_II_ACETABULAR_LINER",
+        "Component Name": "Trident II Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RESTORATION___TRIDENT_REVISION_HIP_SYSTEM",
+        "Component Notes": "Official Trident II materials describe compatible polyethylene and modular bearing options used with the revision acetabular construct."
+      },
+      {
+        "Component ID": "COMP_RESTORATION_TRIDENT_REVISION_HIP_SYSTEM_FEMORAL_HEAD",
+        "Component Name": "Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RESTORATION___TRIDENT_REVISION_HIP_SYSTEM",
+        "Component Notes": "Official Stryker revision construct materials describe modular femoral head options used with Restoration and Trident."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Restoration / Trident Revision Hip System",
+          "supplier_name": "Stryker",
+          "system_category": "Hip Revision System",
+          "system_notes": "Revision total hip construct anchored to official Stryker Restoration Modular revision materials and Trident II acetabular materials."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Restoration / Trident Revision Hip System",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Revision System",
+        "system_notes": "Revision total hip construct anchored to official Stryker Restoration Modular revision materials and Trident II acetabular materials."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Restoration / Trident Revision Hip System",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Revision System",
+        "system_notes": "Revision total hip construct anchored to official Stryker Restoration Modular revision materials and Trident II acetabular materials."
+      }
+    }
+  ]
+}

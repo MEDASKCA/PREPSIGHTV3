@@ -1,0 +1,437 @@
+[
+  {
+    "id": "SL_CARDIOTHORACIC_ANAESTHESIA",
+    "name": "Cardiothoracic Anaesthesia",
+    "specialty_id": "SPEC_ANAESTHESIA"
+  },
+  {
+    "id": "SL_GENERAL_ANAESTHESIA",
+    "name": "General Anaesthesia",
+    "specialty_id": "SPEC_ANAESTHESIA"
+  },
+  {
+    "id": "SL_OBSTETRIC_ANAESTHESIA",
+    "name": "Obstetric Anaesthesia",
+    "specialty_id": "SPEC_ANAESTHESIA"
+  },
+  {
+    "id": "SL_PAEDIATRIC_ANAESTHESIA",
+    "name": "Paediatric Anaesthesia",
+    "specialty_id": "SPEC_ANAESTHESIA"
+  },
+  {
+    "id": "SL_REGIONAL_ANAESTHESIA",
+    "name": "Regional Anaesthesia",
+    "specialty_id": "SPEC_ANAESTHESIA"
+  },
+  {
+    "name": "Cardiac Surgery",
+    "id": "SL_CARDIAC_SURGERY",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY"
+  },
+  {
+    "id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "name": "Congenital Cardiac Surgery",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY"
+  },
+  {
+    "name": "Thoracic Surgery",
+    "id": "SL_THORACIC_SURGERY",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY"
+  },
+  {
+    "name": "Dental Surgery",
+    "id": "SL_DENTAL_SURGERY",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY"
+  },
+  {
+    "name": "Oral Surgery",
+    "id": "SL_ORAL_SURGERY",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY"
+  },
+  {
+    "name": "Head and Neck Surgery",
+    "id": "SL_HEAD_AND_NECK_SURGERY",
+    "specialty_id": "SPEC_ENT"
+  },
+  {
+    "id": "SL_LARYNGOLOGY_AND_AIRWAY_SURGERY",
+    "name": "Laryngology and Airway Surgery",
+    "specialty_id": "SPEC_ENT"
+  },
+  {
+    "id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "name": "Otology and Neurotology",
+    "specialty_id": "SPEC_ENT"
+  },
+  {
+    "id": "SL_PAEDIATRIC_OTOLARYNGOLOGY",
+    "name": "Paediatric Otolaryngology",
+    "specialty_id": "SPEC_ENT"
+  },
+  {
+    "id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "name": "Rhinology and Sinus Surgery",
+    "specialty_id": "SPEC_ENT"
+  },
+  {
+    "name": "Acute Care Surgery",
+    "id": "SL_ACUTE_CARE_SURGERY",
+    "specialty_id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "name": "Bariatric Surgery",
+    "id": "SL_BARIATRIC_SURGERY",
+    "specialty_id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "name": "Breast Surgery",
+    "id": "SL_BREAST_SURGERY",
+    "specialty_id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "name": "Colorectal Surgery",
+    "id": "SL_COLORECTAL_SURGERY",
+    "specialty_id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "name": "Emergency General Surgery",
+    "id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "specialty_id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "name": "Endocrine Surgery",
+    "id": "SL_ENDOCRINE_SURGERY",
+    "specialty_id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "name": "Hepatopancreatobiliary Surgery",
+    "id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "specialty_id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "id": "SL_HERNIA_SURGERY",
+    "name": "Hernia Surgery",
+    "specialty_id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "name": "Surgical Oncology",
+    "id": "SL_SURGICAL_ONCOLOGY",
+    "specialty_id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "name": "Transplant Surgery",
+    "id": "SL_TRANSPLANT_SURGERY",
+    "specialty_id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "name": "Upper Gastrointestinal Surgery",
+    "id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "specialty_id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "id": "SL_BENIGN_GYNECOLOGY",
+    "name": "Benign Gynecology",
+    "specialty_id": "SPEC_GYNECOLOGY"
+  },
+  {
+    "name": "Gynecologic Oncology",
+    "id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "specialty_id": "SPEC_GYNECOLOGY"
+  },
+  {
+    "id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "name": "Minimally Invasive Gynecologic Surgery",
+    "specialty_id": "SPEC_GYNECOLOGY"
+  },
+  {
+    "id": "SL_REPRODUCTIVE_SURGERY",
+    "name": "Reproductive Surgery",
+    "specialty_id": "SPEC_GYNECOLOGY"
+  },
+  {
+    "id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "name": "Urogynecology and Pelvic Floor Surgery",
+    "specialty_id": "SPEC_GYNECOLOGY"
+  },
+  {
+    "id": "SL_CRANIAL_NEUROSURGERY",
+    "name": "Cranial Neurosurgery",
+    "specialty_id": "SPEC_NEUROSURGERY"
+  },
+  {
+    "id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "name": "Functional Neurosurgery",
+    "specialty_id": "SPEC_NEUROSURGERY"
+  },
+  {
+    "id": "SL_NEUROONCOLOGIC_SURGERY",
+    "name": "Neurooncologic Surgery",
+    "specialty_id": "SPEC_NEUROSURGERY"
+  },
+  {
+    "id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "name": "Paediatric Neurosurgery",
+    "specialty_id": "SPEC_NEUROSURGERY"
+  },
+  {
+    "id": "SL_SPINAL_NEUROSURGERY",
+    "name": "Spinal Neurosurgery",
+    "specialty_id": "SPEC_NEUROSURGERY"
+  },
+  {
+    "id": "SL_CAESAREAN_BIRTH",
+    "name": "Caesarean Birth",
+    "specialty_id": "SPEC_OBSTETRICS"
+  },
+  {
+    "id": "SL_HIGH_RISK_OBSTETRICS",
+    "name": "High Risk Obstetrics",
+    "specialty_id": "SPEC_OBSTETRICS"
+  },
+  {
+    "id": "SL_OPERATIVE_DELIVERY",
+    "name": "Operative Delivery",
+    "specialty_id": "SPEC_OBSTETRICS"
+  },
+  {
+    "id": "SL_DENTOALVEOLAR_SURGERY",
+    "name": "Dentoalveolar Surgery",
+    "specialty_id": "SPEC_OMFS"
+  },
+  {
+    "id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "name": "Maxillofacial Oncology and Reconstruction",
+    "specialty_id": "SPEC_OMFS"
+  },
+  {
+    "id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "name": "Maxillofacial Trauma Surgery",
+    "specialty_id": "SPEC_OMFS"
+  },
+  {
+    "id": "SL_ORTHOGNATHIC_SURGERY",
+    "name": "Orthognathic Surgery",
+    "specialty_id": "SPEC_OMFS"
+  },
+  {
+    "id": "SL_TEMPOROMANDIBULAR_JOINT_SURGERY",
+    "name": "Temporomandibular Joint Surgery",
+    "specialty_id": "SPEC_OMFS"
+  },
+  {
+    "id": "SL_CATARACT_SURGERY",
+    "name": "Cataract Surgery",
+    "specialty_id": "SPEC_OPHTHALMOLOGY"
+  },
+  {
+    "id": "SL_CORNEAL_AND_ANTERIOR_SEGMENT_SURGERY",
+    "name": "Corneal and Anterior Segment Surgery",
+    "specialty_id": "SPEC_OPHTHALMOLOGY"
+  },
+  {
+    "id": "SL_GLAUCOMA_SURGERY",
+    "name": "Glaucoma Surgery",
+    "specialty_id": "SPEC_OPHTHALMOLOGY"
+  },
+  {
+    "id": "SL_OCULOPLASTIC_SURGERY",
+    "name": "Oculoplastic Surgery",
+    "specialty_id": "SPEC_OPHTHALMOLOGY"
+  },
+  {
+    "id": "SL_PAEDIATRIC_OPHTHALMOLOGY",
+    "name": "Paediatric Ophthalmology",
+    "specialty_id": "SPEC_OPHTHALMOLOGY"
+  },
+  {
+    "id": "SL_VITREORETINAL_SURGERY",
+    "name": "Vitreoretinal Surgery",
+    "specialty_id": "SPEC_OPHTHALMOLOGY"
+  },
+  {
+    "id": "SL_NEONATAL_SURGERY",
+    "name": "Neonatal Surgery",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY"
+  },
+  {
+    "id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "name": "Paediatric General Surgery",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY"
+  },
+  {
+    "id": "SL_PAEDIATRIC_THORACIC_SURGERY",
+    "name": "Paediatric Thoracic Surgery",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY"
+  },
+  {
+    "id": "SL_PAEDIATRIC_TRAUMA_SURGERY",
+    "name": "Paediatric Trauma Surgery",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY"
+  },
+  {
+    "id": "SL_BREAST_RECONSTRUCTION_SURGERY",
+    "name": "Breast Reconstruction Surgery",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY"
+  },
+  {
+    "name": "Burns Surgery",
+    "id": "SL_BURNS_SURGERY",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY"
+  },
+  {
+    "id": "SL_CLEFT_LIP_AND_PALATE_SURGERY",
+    "name": "Cleft Lip and Palate Surgery",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY"
+  },
+  {
+    "id": "SL_CRANIOFACIAL_SURGERY",
+    "name": "Craniofacial Surgery",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY"
+  },
+  {
+    "name": "Dermatologic Surgery",
+    "id": "SL_DERMATOLOGIC_SURGERY",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY"
+  },
+  {
+    "id": "SL_HAND_AND_MICROSURGERY",
+    "name": "Hand and Microsurgery",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY"
+  },
+  {
+    "id": "SL_DIABETIC_FOOT_SURGERY",
+    "name": "Diabetic Foot Surgery",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY"
+  },
+  {
+    "id": "SL_FOREFOOT_SURGERY",
+    "name": "Forefoot Surgery",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY"
+  },
+  {
+    "id": "SL_MIDFOOT_SURGERY",
+    "name": "Midfoot Surgery",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY"
+  },
+  {
+    "id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "name": "Rearfoot and Ankle Surgery",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY"
+  },
+  {
+    "name": "Arthroplasty",
+    "id": "SL_ARTHROPLASTY",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Revision Arthroplasty",
+    "id": "SL_REVISION_ARTHROPLASTY",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Hip Preservation",
+    "id": "SL_HIP_PRESERVATION",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Sports & Knee",
+    "id": "SL_SPORTS_AND_KNEE_SURGERY",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Shoulder & Elbow",
+    "id": "SL_SHOULDER_AND_ELBOW_SURGERY",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Foot & Ankle",
+    "id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Hand & Wrist",
+    "id": "SL_HAND_AND_WRIST_SURGERY",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Orthopaedic Oncology",
+    "id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Orthopaedic Trauma",
+    "id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Paediatric Orthopaedics",
+    "id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Spine",
+    "id": "SL_SPINE_SURGERY",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Limb Reconstruction / Deformity",
+    "id": "SL_LIMB_RECONSTRUCTION_DEFORMITY",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "name": "Orthopaedic Infection",
+    "id": "SL_ORTHOPAEDIC_INFECTION",
+    "specialty_id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "id": "SL_ANDROLOGY",
+    "name": "Andrology",
+    "specialty_id": "SPEC_UROLOGY"
+  },
+  {
+    "id": "SL_ENDOUROLOGY",
+    "name": "Endourology",
+    "specialty_id": "SPEC_UROLOGY"
+  },
+  {
+    "id": "SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE",
+    "name": "Functional Urology and Incontinence",
+    "specialty_id": "SPEC_UROLOGY"
+  },
+  {
+    "name": "Paediatric Urology",
+    "id": "SL_PAEDIATRIC_UROLOGY",
+    "specialty_id": "SPEC_UROLOGY"
+  },
+  {
+    "id": "SL_RECONSTRUCTIVE_UROLOGY",
+    "name": "Reconstructive Urology",
+    "specialty_id": "SPEC_UROLOGY"
+  },
+  {
+    "id": "SL_UROLOGIC_ONCOLOGY",
+    "name": "Urologic Oncology",
+    "specialty_id": "SPEC_UROLOGY"
+  },
+  {
+    "id": "SL_AORTIC_SURGERY",
+    "name": "Aortic Surgery",
+    "specialty_id": "SPEC_VASCULAR_SURGERY"
+  },
+  {
+    "id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "name": "Peripheral Vascular Surgery",
+    "specialty_id": "SPEC_VASCULAR_SURGERY"
+  },
+  {
+    "id": "SL_VASCULAR_ACCESS_SURGERY",
+    "name": "Vascular Access Surgery",
+    "specialty_id": "SPEC_VASCULAR_SURGERY"
+  },
+  {
+    "id": "SL_PROCEDURAL_SEDATION",
+    "name": "Procedural Sedation",
+    "specialty_id": "SPEC_ANAESTHESIA"
+  }
+]

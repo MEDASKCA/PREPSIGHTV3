@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Boston Scientific",
+    "system_name": "Angioplasty Balloon Catheter",
+    "source_type": "product_family_page",
+    "source_document": "Athletis Ultra-High-Pressure Balloon - Boston Scientific",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Angioplasty Balloon Catheter",
+      "supplier_name": "Boston Scientific",
+      "system_category": "vascular_intervention",
+      "system_notes": "Official Boston Scientific angioplasty balloon materials used as the public source anchors for this angioplasty balloon catheter entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Angioplasty Balloon Framework",
+      "system_name": "Angioplasty Balloon Catheter",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to Boston Scientific public balloon-catheter source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public angioplasty balloon source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Athletis Ultra-High-Pressure Balloon - Boston Scientific; Athletis PTA Balloon Catheter Indications, Safety and Warnings - Boston Scientific; Mustang Balloon Dilatation Catheter Indications - Boston Scientific; Coyote Balloon Dilatation Catheter - Indications, Safety and Warnings - Boston Scientific"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public angioplasty balloon source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Athletis Ultra-High-Pressure Balloon - Boston Scientific; Athletis PTA Balloon Catheter Indications, Safety and Warnings - Boston Scientific; Mustang Balloon Dilatation Catheter Indications - Boston Scientific; Coyote Balloon Dilatation Catheter - Indications, Safety and Warnings - Boston Scientific"
+    }
+  ]
+}

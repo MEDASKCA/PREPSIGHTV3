@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Cartilage Repair Portfolio",
+    "source_type": "product_page",
+    "source_document": "CARTIHEAL AGILI-C Cartilage Repair Implant",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Cartilage Repair Portfolio",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "sports_medicine_knee",
+      "system_notes": "Official Smith+Nephew cartilage repair and biological healing materials used as the public source anchors for this cartilage repair portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Cartilage Repair Framework",
+      "system_name": "Cartilage Repair Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Sports Medicine",
+      "component_notes": "Framework component anchored to Smith+Nephew public cartilage repair source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public cartilage repair source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "CARTIHEAL AGILI-C Cartilage Repair Implant; Sports Medicine; Sports Medicine Portfolio"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public cartilage repair source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "CARTIHEAL AGILI-C Cartilage Repair Implant; Sports Medicine; Sports Medicine Portfolio"
+    }
+  ]
+}

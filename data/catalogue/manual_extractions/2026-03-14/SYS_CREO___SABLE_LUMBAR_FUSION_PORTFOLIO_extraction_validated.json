@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Globus Medical",
+    "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+    "source_type": "product_page",
+    "source_document": "CREO Spinal System and SABLE Interbody Technology",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_CREO_SABLE_LUMBAR_FUSION_PORTFOLIO_CREO_SABLE_INSTRUMENTATION",
+        "Tray Name": "CREO / SABLE Instrumentation",
+        "System ID": "SYS_CREO___SABLE_LUMBAR_FUSION_PORTFOLIO",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated posterior fixation and interbody instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CREO_SABLE_LUMBAR_FUSION_PORTFOLIO_CREO_PEDICLE_SCREW",
+        "Component Name": "CREO Pedicle Screw",
+        "Component Role": "Pedicle Screw",
+        "Implant Category": "Spine Implant",
+        "System ID": "SYS_CREO___SABLE_LUMBAR_FUSION_PORTFOLIO",
+        "Component Notes": "Core pedicle screw family referenced in the CREO spinal system materials."
+      },
+      {
+        "Component ID": "COMP_CREO_SABLE_LUMBAR_FUSION_PORTFOLIO_CREO_ROD",
+        "Component Name": "CREO Rod",
+        "Component Role": "Rod",
+        "Implant Category": "Spine Implant",
+        "System ID": "SYS_CREO___SABLE_LUMBAR_FUSION_PORTFOLIO",
+        "Component Notes": "Core rod family referenced in the CREO spinal system materials."
+      },
+      {
+        "Component ID": "COMP_CREO_SABLE_LUMBAR_FUSION_PORTFOLIO_SABLE_INTERBODY_SPACER",
+        "Component Name": "SABLE Interbody Spacer",
+        "Component Role": "Interbody Spacer",
+        "Implant Category": "Spine Implant",
+        "System ID": "SYS_CREO___SABLE_LUMBAR_FUSION_PORTFOLIO",
+        "Component Notes": "Core SABLE interbody family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_CREO_SABLE_LUMBAR_FUSION_PORTFOLIO_CREO_SET_SCREW",
+        "Component Name": "CREO Set Screw",
+        "Component Role": "Set Screw",
+        "Implant Category": "Spine Implant",
+        "System ID": "SYS_CREO___SABLE_LUMBAR_FUSION_PORTFOLIO",
+        "Component Notes": "Locking element family within the posterior fixation construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+          "supplier_name": "Globus Medical",
+          "system_category": "Lumbar Fusion System",
+          "system_notes": "Lumbar fusion platform combining posterior fixation and interbody support."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+        "supplier_name": "Globus Medical",
+        "system_category": "Lumbar Fusion System",
+        "system_notes": "Lumbar fusion platform combining posterior fixation and interbody support."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+        "supplier_name": "Globus Medical",
+        "system_category": "Lumbar Fusion System",
+        "system_notes": "Lumbar fusion platform combining posterior fixation and interbody support."
+      }
+    }
+  ]
+}

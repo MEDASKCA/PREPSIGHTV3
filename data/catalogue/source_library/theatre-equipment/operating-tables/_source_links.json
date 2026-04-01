@@ -1,0 +1,72 @@
+{
+  "domain": "theatre-equipment",
+  "subcategory": "operating-tables",
+  "description": "Source links for operating tables — Getinge/Maquet, Trumpf Medical, Mizuho OSI",
+  "sourced_date": "2026-03-14",
+  "total_records": 8,
+  "entries": [
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "ALPHAMAQUET",
+      "system_name": "Maquet Alphamaquet 1150",
+      "source_url": "https://www.getinge.com/int/products/maquet-alphamaxx/",
+      "notes": "Universal operating table; legacy model — Otesus is successor. Patient weight up to 500 lbs (225 kg), max 360 kg under certain conditions. Electropolished stainless steel. Wired, IR, foot and wall-panel control options. Compatible with Alphamaquet 1140 tops."
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Alphamaxx",
+      "system_name": "Maquet Alphamaxx 1133",
+      "source_url": "https://www.getinge.com/int/products/maquet-alphamaxx/",
+      "notes": "Extreme load capacity 450 kg (992 lbs). Height 600–1060 mm. Motorised longitudinal shift 460 mm. Carbon fiber modules. Sensor Drive wireless Autodrive (IR). Motorised height, lateral tilt, Trendelenburg, longitudinal shift, lower back plate, leg plate."
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Otesus",
+      "system_name": "Maquet Otesus",
+      "source_url": "https://www.getinge.com/int/products/maquet-otesus/",
+      "notes": "Successor to Alphamaquet 1150. Patient weight up to 250 kg. Compatible with Alphamaquet 1150 column and table tops. 3D radiolucent carbon fiber table top available. Velcro-free cushions. Machine-washable accessories. Orthopaedic/traumatology leg positioning (hyperextension, abduction, adduction, rotation)."
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Magnus",
+      "system_name": "Maquet Magnus",
+      "source_url": "https://www.getinge.com/int/products/maquet-magnus-operating-table-system/",
+      "notes": "Inclination up to 80 deg, tilt up to 45 deg. Height 535–1235 mm. Patient weight up to 250 kg (550 lbs), up to 380 kg max. Carbon fiber table tops, radiolucent 360 deg imaging. High-end OR table system."
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Yuno II",
+      "system_name": "Maquet Yuno II",
+      "source_url": "https://www.getinge.com/us/products/maquet-yuno-ii-mobile-operating-table",
+      "notes": "Mobile operating table for orthopaedics, traumatology, neurosurgery. Patient weight up to 454 kg (1000 lbs). Cast iron three-point stand. Carbon fibre bar with ball joint. Traction up to 80 kg. CF plate for radiolucent pelvic imaging. DAA hip, shoulder arthroscopy procedures supported."
+    },
+    {
+      "supplier": "Trumpf Medical (Baxter)",
+      "product_family": "TruSystem",
+      "system_name": "TruSystem 7500",
+      "source_url": "https://www.trumpf-med.com/en/products/or-tables/or-table-systems/trusystem-7500/",
+      "notes": "Patient working load up to 400 kg. SensorLine tipping/fall alert technology. Longitudinal slide up to 460 mm (18.1 in). C-arm isocenter synchronous movement at up to 185 mm/sec. Hybrid version available (compatible with angiography, intraoperative CT/MRI). Distributed/serviced by Baxter."
+    },
+    {
+      "supplier": "Mizuho OSI",
+      "product_family": "ProAxis",
+      "system_name": "ProAxis Spinal Surgery Table",
+      "source_url": "https://www.mizuhosi.com/product/proaxis/",
+      "notes": "Only table allowing dynamic lumbar flex/extension during surgery. Carbon fiber powered hinged frame. IntelliPENDANT hand pendant. Patient height 58–81 in (147–206 cm). Open frame prone width 19 in (48 cm). Supine top width 21 in (53 cm). Retracted length 80 in (203 cm). 10-year service life. Components: ProneView helmet, ACP hip pads, torso trolley, chest pad, cervical management, retractor adaptor."
+    },
+    {
+      "supplier": "Mizuho OSI",
+      "product_family": "Hana",
+      "system_name": "Hana Orthopaedic Surgery Table",
+      "source_url": "https://www.mizuhosi.com/product/hana/",
+      "notes": "Anterior approach total hip arthroplasty (AATHA), hip arthroscopy, hip fractures, lower limb fractures. Fully radiolucent carbon fiber. Patented femoral lift and support system. Split lower half for independent leg positioning. Tabletop length 48.5 in (123 cm); table with spars 124 in. Width 21.5 in. Leg spars: hyperextension, abduction, adduction, external rotation. Hana SC variant for surgery centers."
+    },
+    {
+      "supplier": "Mizuho OSI",
+      "product_family": "Modular Table System (MTS / Jackson)",
+      "system_name": "OSI Modular Table System",
+      "source_url": "https://www.mizuhosi.com/product/mts/",
+      "notes": "Originally Jackson Table. 8,000+ units worldwide. Height 27–48 in (69–122 cm). Width 32 in (81 cm). Length 64–102 in (163–259 cm). Capacity 500 lbs (226 kg). Lateral tilt 25 deg, Trendelenburg/reverse 10/10 deg. Modular carbon fiber tops: Spinal Surgery Top, Radiolucent Imaging Top, Orthopaedic Trauma Top. AC and battery. Hand pendant controls height/tilt/Trendelenburg. Model numbers include 5803, 5890, 5892, 5943."
+    }
+  ]
+}

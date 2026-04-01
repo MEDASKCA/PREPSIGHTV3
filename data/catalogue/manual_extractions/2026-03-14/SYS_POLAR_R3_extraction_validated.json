@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Polar / R3",
+    "source_type": "product_page",
+    "source_document": "POLAR3 Total Hip Solution",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_POLAR_R3_POLAR_R3_INSTRUMENTATION",
+        "Tray Name": "POLAR / R3 Instrumentation",
+        "System ID": "SYS_POLAR_R3",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Smith+Nephew hip materials describe flexible instrumentation for the R3 acetabular system and the POLARSTEM hip reconstruction system."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_POLAR_R3_POLARSTEM_FEMORAL_STEM",
+        "Component Name": "POLARSTEM Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_POLAR_R3",
+        "Component Notes": "Official product materials describe the POLARSTEM hip reconstruction system as the stem family within the solution."
+      },
+      {
+        "Component ID": "COMP_POLAR_R3_R3_ACETABULAR_SHELL",
+        "Component Name": "R3 Acetabular Shell",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_POLAR_R3",
+        "Component Notes": "Official product materials describe the R3 acetabular system as the cup platform within the solution."
+      },
+      {
+        "Component ID": "COMP_POLAR_R3_R3_ACETABULAR_LINER",
+        "Component Name": "R3 Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_POLAR_R3",
+        "Component Notes": "Official product materials describe highly cross-linked polyethylene liner options for the R3 acetabular system."
+      },
+      {
+        "Component ID": "COMP_POLAR_R3_OXINIUM_FEMORAL_HEAD",
+        "Component Name": "OXINIUM Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_POLAR_R3",
+        "Component Notes": "Official product materials describe OXINIUM oxidized zirconium heads as part of the bearing construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Polar / R3",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Primary total hip arthroplasty platform built around the POLARSTEM femoral system and the R3 acetabular system."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Polar / R3",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform built around the POLARSTEM femoral system and the R3 acetabular system."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Polar / R3",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform built around the POLARSTEM femoral system and the R3 acetabular system."
+      }
+    }
+  ]
+}

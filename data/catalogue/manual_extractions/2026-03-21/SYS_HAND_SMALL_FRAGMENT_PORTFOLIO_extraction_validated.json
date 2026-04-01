@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "KLS Martin",
+    "system_name": "Hand Small Fragment Portfolio",
+    "source_type": "product_page",
+    "source_document": "KLS Martin | Linos",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_HAND_SMALL_FRAGMENT_PORTFOLIO_HAND_SMALL_FRAGMENT_FRAMEWORK",
+        "Component Name": "Hand Small Fragment Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Hand Trauma Portfolio",
+        "System ID": "SYS_HAND_SMALL_FRAGMENT_PORTFOLIO",
+        "Component Notes": "Framework component anchored to KLS Martin public hand small-fragment plating source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Hand Small Fragment Portfolio",
+          "supplier_name": "KLS Martin",
+          "system_category": "hand_wrist_trauma",
+          "system_notes": "Official KLS Martin Linos, Plates and screws, and Implants and implant systems for hand surgery materials used as the source anchors for the hand small fragment portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Hand Small Fragment Portfolio",
+        "supplier_name": "KLS Martin",
+        "system_category": "hand_wrist_trauma",
+        "system_notes": "Official KLS Martin Linos, Plates and screws, and Implants and implant systems for hand surgery materials used as the source anchors for the hand small fragment portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Hand Small Fragment Portfolio",
+        "supplier_name": "KLS Martin",
+        "system_category": "hand_wrist_trauma",
+        "system_notes": "Official KLS Martin Linos, Plates and screws, and Implants and implant systems for hand surgery materials used as the source anchors for the hand small fragment portfolio entry."
+      }
+    }
+  ]
+}

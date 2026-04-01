@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "LeMaitre Vascular",
+    "system_name": "Vascular Patch",
+    "source_type": "product_page",
+    "source_document": "XenoSure Biologic Patch | LeMaitre",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_VASCULAR_PATCH_VASCULAR_PATCH_FRAMEWORK",
+        "Component Name": "Vascular Patch Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_PATCH_MATERIAL",
+        "Component Notes": "Framework component anchored to LeMaitre public vascular-patch source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Vascular Patch",
+          "supplier_name": "LeMaitre Vascular",
+          "system_category": "vascular_patch",
+          "system_notes": "Official LeMaitre Vascular patch materials used as the public source anchors for this vascular patch entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Vascular Patch",
+        "supplier_name": "LeMaitre Vascular",
+        "system_category": "vascular_patch",
+        "system_notes": "Official LeMaitre Vascular patch materials used as the public source anchors for this vascular patch entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Vascular Patch",
+        "supplier_name": "LeMaitre Vascular",
+        "system_category": "vascular_patch",
+        "system_notes": "Official LeMaitre Vascular patch materials used as the public source anchors for this vascular patch entry."
+      }
+    }
+  ]
+}

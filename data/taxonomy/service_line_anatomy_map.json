@@ -1,0 +1,2630 @@
+[
+  {
+    "id": "SLAMAP_ARTHROPLASTY_HIP",
+    "service_line_id": "SL_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HIP",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ARTHROPLASTY_KNEE",
+    "service_line_id": "SL_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_KNEE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_ARTHROPLASTY_SHOULDER",
+    "service_line_id": "SL_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SHOULDER",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_ARTHROPLASTY_ELBOW",
+    "service_line_id": "SL_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_ELBOW",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_ARTHROPLASTY_ANKLE",
+    "service_line_id": "SL_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_ANKLE",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_ARTHROPLASTY_WRIST",
+    "service_line_id": "SL_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_WRIST",
+    "sort_order": 60
+  },
+  {
+    "id": "SLAMAP_ARTHROPLASTY_HAND",
+    "service_line_id": "SL_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HAND",
+    "sort_order": 70
+  },
+  {
+    "id": "SLAMAP_ARTHROPLASTY_FOOT",
+    "service_line_id": "SL_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FOOT",
+    "sort_order": 80
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_PELVIS",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_PELVIS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_ACETABULUM",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_ACETABULUM",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_FEMUR",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FEMUR",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_TIBIA",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_TIBIA",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_FIBULA",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FIBULA",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_ANKLE",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_ANKLE",
+    "sort_order": 60
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_FOOT",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FOOT",
+    "sort_order": 70
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_SHOULDER",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SHOULDER",
+    "sort_order": 80
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_ELBOW",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_ELBOW",
+    "sort_order": 90
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_FOREARM",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FOREARM",
+    "sort_order": 100
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_WRIST",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_WRIST",
+    "sort_order": 110
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_HAND",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HAND",
+    "sort_order": 120
+  },
+  {
+    "id": "SLAMAP_SHOULDER_AND_ELBOW_SHOULDER",
+    "service_line_id": "SL_SHOULDER_AND_ELBOW_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SHOULDER",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SHOULDER_AND_ELBOW_CLAVICLE",
+    "service_line_id": "SL_SHOULDER_AND_ELBOW_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_CLAVICLE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_SHOULDER_AND_ELBOW_SCAPULA",
+    "service_line_id": "SL_SHOULDER_AND_ELBOW_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SCAPULA",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_SHOULDER_AND_ELBOW_ELBOW",
+    "service_line_id": "SL_SHOULDER_AND_ELBOW_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_ELBOW",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_HAND_AND_WRIST_FOREARM",
+    "service_line_id": "SL_HAND_AND_WRIST_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FOREARM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_HAND_AND_WRIST_WRIST",
+    "service_line_id": "SL_HAND_AND_WRIST_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_WRIST",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_HAND_AND_WRIST_HAND",
+    "service_line_id": "SL_HAND_AND_WRIST_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HAND",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_HAND_AND_WRIST_DIGITS",
+    "service_line_id": "SL_HAND_AND_WRIST_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_DIGITS",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_SPINE_SPINE",
+    "service_line_id": "SL_SPINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SPINE_CERVICAL",
+    "service_line_id": "SL_SPINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_CERVICAL_SPINE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_SPINE_THORACIC",
+    "service_line_id": "SL_SPINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_THORACIC_SPINE",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_SPINE_LUMBAR",
+    "service_line_id": "SL_SPINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_LUMBAR_SPINE",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_SPINE_SACRUM",
+    "service_line_id": "SL_SPINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SACRUM",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_FOOT_AND_ANKLE_ANKLE",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_ANKLE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_FOOT_AND_ANKLE_FOOT",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FOOT",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_FOOT_AND_ANKLE_DIGITS_TOES",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_DIGITS_TOES",
+    "sort_order": 60
+  },
+  {
+    "id": "SLAMAP_FOOT_AND_ANKLE_HINDFOOT",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HINDFOOT",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_FOOT_AND_ANKLE_MIDFOOT",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_MIDFOOT",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_FOOT_AND_ANKLE_FOREFOOT",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FOREFOOT",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_SPORTS_AND_KNEE_KNEE",
+    "service_line_id": "SL_SPORTS_AND_KNEE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_KNEE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SPORTS_AND_KNEE_PATELLA",
+    "service_line_id": "SL_SPORTS_AND_KNEE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_PATELLA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_HIP_PRESERVATION_HIP",
+    "service_line_id": "SL_HIP_PRESERVATION",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HIP",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_REVISION_ARTHROPLASTY_HIP",
+    "service_line_id": "SL_REVISION_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HIP",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_REVISION_ARTHROPLASTY_KNEE",
+    "service_line_id": "SL_REVISION_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_KNEE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_REVISION_ARTHROPLASTY_SHOULDER",
+    "service_line_id": "SL_REVISION_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SHOULDER",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_REVISION_ARTHROPLASTY_ELBOW",
+    "service_line_id": "SL_REVISION_ARTHROPLASTY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_ELBOW",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_LIMB_RECONSTRUCTION_FEMUR",
+    "service_line_id": "SL_LIMB_RECONSTRUCTION_DEFORMITY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FEMUR",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_LIMB_RECONSTRUCTION_TIBIA",
+    "service_line_id": "SL_LIMB_RECONSTRUCTION_DEFORMITY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_TIBIA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_LIMB_RECONSTRUCTION_FIBULA",
+    "service_line_id": "SL_LIMB_RECONSTRUCTION_DEFORMITY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FIBULA",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_LIMB_RECONSTRUCTION_UPPER_LIMB",
+    "service_line_id": "SL_LIMB_RECONSTRUCTION_DEFORMITY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_UPPER_LIMB",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_LIMB_RECONSTRUCTION_WHOLE_LIMB",
+    "service_line_id": "SL_LIMB_RECONSTRUCTION_DEFORMITY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_WHOLE_LIMB",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_INFECTION_HIP",
+    "service_line_id": "SL_ORTHOPAEDIC_INFECTION",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HIP",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_INFECTION_KNEE",
+    "service_line_id": "SL_ORTHOPAEDIC_INFECTION",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_KNEE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_INFECTION_SHOULDER",
+    "service_line_id": "SL_ORTHOPAEDIC_INFECTION",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SHOULDER",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_INFECTION_LONG_BONES",
+    "service_line_id": "SL_ORTHOPAEDIC_INFECTION",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_LONG_BONES",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_INFECTION_SOFT_TISSUE",
+    "service_line_id": "SL_ORTHOPAEDIC_INFECTION",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SOFT_TISSUE",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_ONCOLOGY_FEMUR",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FEMUR",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_ONCOLOGY_TIBIA",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_TIBIA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_ONCOLOGY_HUMERUS",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HUMERUS",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_ONCOLOGY_PELVIS",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_PELVIS",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_ONCOLOGY_SPINE",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SPINE",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_TRAUMA_FOOT_AND_ANKLE",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FOOT_AND_ANKLE",
+    "sort_order": 130
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ORTHO_HIP",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HIP",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ORTHO_SPINE",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SPINE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ORTHO_LOWER_LIMB",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_LOWER_LIMB",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ORTHO_FOOT",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FOOT",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ORTHO_UPPER_LIMB",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_UPPER_LIMB",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_SPORTS_AND_KNEE_SHOULDER",
+    "service_line_id": "SL_SPORTS_AND_KNEE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SHOULDER",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_SPORTS_AND_KNEE_HIP",
+    "service_line_id": "SL_SPORTS_AND_KNEE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HIP",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_SPORTS_AND_KNEE_ANKLE",
+    "service_line_id": "SL_SPORTS_AND_KNEE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_ANKLE",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ORTHOPAEDIC_HIP",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HIP",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ORTHOPAEDIC_KNEE",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_KNEE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ORTHOPAEDIC_FOOT",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FOOT",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ORTHOPAEDIC_SPINE",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SPINE",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ORTHOPAEDIC_UPPER_LIMB",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_UPPER_LIMB",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ORTHOPAEDIC_LOWER_LIMB",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_LOWER_LIMB",
+    "sort_order": 60
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_ONCOLOGY_BONE",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_BONE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_ONCOLOGY_SOFT_TISSUE",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_SOFT_TISSUE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_ONCOLOGY_PELVIS",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_PELVIS",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_ONCOLOGY_FEMUR",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_FEMUR",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_ONCOLOGY_TIBIA",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_TIBIA",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_ORTHOPAEDIC_ONCOLOGY_HUMERUS",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_TRAUMA_AND_ORTHOPAEDIC_SURGERY_HUMERUS",
+    "sort_order": 60
+  },
+  {
+    "id": "SLAMAP_EMERGENCY_GENERAL_ABDOMEN",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMEN",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_EMERGENCY_GENERAL_APPENDIX",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_APPENDIX",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_EMERGENCY_GENERAL_GALLBLADDER",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_GALLBLADDER",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_EMERGENCY_GENERAL_SMALL_INTESTINE",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_SMALL_INTESTINE",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_EMERGENCY_GENERAL_COLON",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_COLON",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_ACUTE_CARE_ABDOMEN",
+    "service_line_id": "SL_ACUTE_CARE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMEN",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ACUTE_CARE_DIAPHRAGM",
+    "service_line_id": "SL_ACUTE_CARE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_DIAPHRAGM",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_ACUTE_CARE_ABDOMINAL_WALL",
+    "service_line_id": "SL_ACUTE_CARE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMINAL_WALL",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_BREAST_BREAST",
+    "service_line_id": "SL_BREAST_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_BREAST",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_BREAST_AXILLA",
+    "service_line_id": "SL_BREAST_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_AXILLA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_COLORECTAL_COLON",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_COLON",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_COLORECTAL_RECTUM",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_RECTUM",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_COLORECTAL_ANUS",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ANUS",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_COLORECTAL_PELVIC_FLOOR",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PELVIC_FLOOR",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_UPPER_GI_OESOPHAGUS",
+    "service_line_id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_OESOPHAGUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_UPPER_GI_GASTROOESOPHAGEAL_JUNCTION",
+    "service_line_id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_GASTROOESOPHAGEAL_JUNCTION",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_UPPER_GI_STOMACH",
+    "service_line_id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_STOMACH",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_UPPER_GI_DUODENUM",
+    "service_line_id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_DUODENUM",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_HPB_LIVER",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_LIVER",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_HPB_GALLBLADDER",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_GALLBLADDER",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_HPB_BILE_DUCTS",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_BILE_DUCTS",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_HPB_PANCREAS",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PANCREAS",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_TRANSPLANT_LIVER",
+    "service_line_id": "SL_TRANSPLANT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_LIVER",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_TRANSPLANT_PANCREAS",
+    "service_line_id": "SL_TRANSPLANT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PANCREAS",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_TRANSPLANT_SMALL_INTESTINE",
+    "service_line_id": "SL_TRANSPLANT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_SMALL_INTESTINE",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_BARIATRIC_STOMACH",
+    "service_line_id": "SL_BARIATRIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_STOMACH",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_BARIATRIC_SMALL_INTESTINE",
+    "service_line_id": "SL_BARIATRIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_SMALL_INTESTINE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_ENDOCRINE_THYROID",
+    "service_line_id": "SL_ENDOCRINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_THYROID_GLAND",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ENDOCRINE_PARATHYROIDS",
+    "service_line_id": "SL_ENDOCRINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PARATHYROID_GLANDS",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_ENDOCRINE_ADRENALS",
+    "service_line_id": "SL_ENDOCRINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ADRENAL_GLANDS",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_SURGICAL_ONCOLOGY_PERITONEUM",
+    "service_line_id": "SL_SURGICAL_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PERITONEUM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SURGICAL_ONCOLOGY_LIVER",
+    "service_line_id": "SL_SURGICAL_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_LIVER",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_SURGICAL_ONCOLOGY_STOMACH",
+    "service_line_id": "SL_SURGICAL_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_STOMACH",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_SURGICAL_ONCOLOGY_PANCREAS",
+    "service_line_id": "SL_SURGICAL_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PANCREAS",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_SURGICAL_ONCOLOGY_COLON",
+    "service_line_id": "SL_SURGICAL_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_COLON",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_HERNIA_ABDOMINAL_WALL",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMINAL_WALL",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_HERNIA_GROIN",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_GROIN",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_HERNIA_UMBILICUS",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_UMBILICUS",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_HERNIA_DIAPHRAGM",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_DIAPHRAGM",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_ENDOUROLOGY_KIDNEY",
+    "service_line_id": "SL_ENDOUROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_KIDNEY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ENDOUROLOGY_RENAL_PELVIS",
+    "service_line_id": "SL_ENDOUROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_RENAL_PELVIS",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_ENDOUROLOGY_URETER",
+    "service_line_id": "SL_ENDOUROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETER",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_ENDOUROLOGY_BLADDER",
+    "service_line_id": "SL_ENDOUROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_UROLOGIC_ONCOLOGY_KIDNEY",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_KIDNEY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_UROLOGIC_ONCOLOGY_URETER",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETER",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_UROLOGIC_ONCOLOGY_BLADDER",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_UROLOGIC_ONCOLOGY_PROSTATE",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PROSTATE",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_UROLOGIC_ONCOLOGY_TESTIS",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_TESTIS",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_UROLOGIC_ONCOLOGY_PENIS",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PENIS",
+    "sort_order": 60
+  },
+  {
+    "id": "SLAMAP_FUNCTIONAL_UROLOGY_BLADDER",
+    "service_line_id": "SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_FUNCTIONAL_UROLOGY_URETHRA",
+    "service_line_id": "SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETHRA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_FUNCTIONAL_UROLOGY_PELVIC_FLOOR",
+    "service_line_id": "SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PELVIC_FLOOR",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_ANDROLOGY_PENIS",
+    "service_line_id": "SL_ANDROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PENIS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ANDROLOGY_TESTIS",
+    "service_line_id": "SL_ANDROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_TESTIS",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_ANDROLOGY_EPIDIDYMIS",
+    "service_line_id": "SL_ANDROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_EPIDIDYMIS",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_ANDROLOGY_SCROTUM",
+    "service_line_id": "SL_ANDROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_SCROTUM",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_RECONSTRUCTIVE_UROLOGY_URETHRA",
+    "service_line_id": "SL_RECONSTRUCTIVE_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETHRA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_RECONSTRUCTIVE_UROLOGY_BLADDER",
+    "service_line_id": "SL_RECONSTRUCTIVE_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_RECONSTRUCTIVE_UROLOGY_PENIS",
+    "service_line_id": "SL_RECONSTRUCTIVE_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PENIS",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_UROLOGY_KIDNEY",
+    "service_line_id": "SL_PAEDIATRIC_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_KIDNEY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_UROLOGY_URETER",
+    "service_line_id": "SL_PAEDIATRIC_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETER",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_UROLOGY_BLADDER",
+    "service_line_id": "SL_PAEDIATRIC_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_UROLOGY_URETHRA",
+    "service_line_id": "SL_PAEDIATRIC_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETHRA",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_UROLOGY_PENIS",
+    "service_line_id": "SL_PAEDIATRIC_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PENIS",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_BENIGN_GYNECOLOGY_VULVA",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_VULVA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_BENIGN_GYNECOLOGY_VAGINA",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_VAGINA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_BENIGN_GYNECOLOGY_CERVIX",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_CERVIX",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_BENIGN_GYNECOLOGY_UTERUS",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_BENIGN_GYNECOLOGY_FALLOPIAN_TUBES",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_FALLOPIAN_TUBES",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_BENIGN_GYNECOLOGY_OVARIES",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_OVARIES",
+    "sort_order": 60
+  },
+  {
+    "id": "SLAMAP_GYNECOLOGIC_ONCOLOGY_UTERUS",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_GYNECOLOGIC_ONCOLOGY_CERVIX",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_CERVIX",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_GYNECOLOGIC_ONCOLOGY_OVARIES",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_OVARIES",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_GYNECOLOGIC_ONCOLOGY_FALLOPIAN_TUBES",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_FALLOPIAN_TUBES",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_GYNECOLOGIC_ONCOLOGY_PERITONEUM",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PERITONEUM",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_UROGYNECOLOGY_PELVIC_FLOOR",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PELVIC_FLOOR",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_UROGYNECOLOGY_VAGINA",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_VAGINA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_UROGYNECOLOGY_BLADDER",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_BLADDER",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_UROGYNECOLOGY_URETHRA",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_URETHRA",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_UROGYNECOLOGY_UTERUS",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "sort_order": 50
+  },
+  {
+    "id": "SLAMAP_REPRODUCTIVE_UTERUS",
+    "service_line_id": "SL_REPRODUCTIVE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_REPRODUCTIVE_FALLOPIAN_TUBES",
+    "service_line_id": "SL_REPRODUCTIVE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_FALLOPIAN_TUBES",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_REPRODUCTIVE_OVARIES",
+    "service_line_id": "SL_REPRODUCTIVE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_OVARIES",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_MINIMALLY_INVASIVE_GYNAECOLOGIC_PELVIS",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PELVIS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_MINIMALLY_INVASIVE_GYNAECOLOGIC_UTERUS",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_MINIMALLY_INVASIVE_GYNAECOLOGIC_ADNEXA",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_ADNEXA",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_MINIMALLY_INVASIVE_GYNAECOLOGIC_PERITONEUM",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PERITONEUM",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_OPERATIVE_DELIVERY_BIRTH_CANAL",
+    "service_line_id": "SL_OPERATIVE_DELIVERY",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_BIRTH_CANAL",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_OPERATIVE_DELIVERY_PERINEUM",
+    "service_line_id": "SL_OPERATIVE_DELIVERY",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_PERINEUM",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_OPERATIVE_DELIVERY_MATERNAL_PELVIS",
+    "service_line_id": "SL_OPERATIVE_DELIVERY",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_MATERNAL_PELVIS",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_CAESAREAN_BIRTH_UTERUS",
+    "service_line_id": "SL_CAESAREAN_BIRTH",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_UTERUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_CAESAREAN_BIRTH_ABDOMINAL_WALL",
+    "service_line_id": "SL_CAESAREAN_BIRTH",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_ABDOMINAL_WALL",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_HIGH_RISK_OBSTETRICS_UTERUS",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_UTERUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_HIGH_RISK_OBSTETRICS_PLACENTA",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_PLACENTA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_HEAD_AND_NECK_NECK",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_NECK",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_HEAD_AND_NECK_PHARYNX",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_PHARYNX",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_HEAD_AND_NECK_LARYNX",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_LARYNX",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_HEAD_AND_NECK_SALIVARY_GLANDS",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_SALIVARY_GLANDS",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_RHINOLOGY_NOSE",
+    "service_line_id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_NOSE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_RHINOLOGY_PARANASAL_SINUSES",
+    "service_line_id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_PARANASAL_SINUSES",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_RHINOLOGY_SKULL_BASE",
+    "service_line_id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_SKULL_BASE",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_OTOLOGY_EXTERNAL_EAR",
+    "service_line_id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_EXTERNAL_EAR",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_OTOLOGY_MIDDLE_EAR",
+    "service_line_id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_MIDDLE_EAR",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_OTOLOGY_INNER_EAR",
+    "service_line_id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_INNER_EAR",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_LARYNGOLOGY_LARYNX",
+    "service_line_id": "SL_LARYNGOLOGY_AND_AIRWAY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_LARYNX",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_LARYNGOLOGY_TRACHEA",
+    "service_line_id": "SL_LARYNGOLOGY_AND_AIRWAY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_TRACHEA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_LARYNGOLOGY_AIRWAY",
+    "service_line_id": "SL_LARYNGOLOGY_AND_AIRWAY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_AIRWAY",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_OTO_TONSILS_ADENOIDS",
+    "service_line_id": "SL_PAEDIATRIC_OTOLARYNGOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_TONSILS_AND_ADENOIDS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_OTO_EAR",
+    "service_line_id": "SL_PAEDIATRIC_OTOLARYNGOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_EAR",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_OTO_AIRWAY",
+    "service_line_id": "SL_PAEDIATRIC_OTOLARYNGOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_AIRWAY",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_MAXILLOFACIAL_TRAUMA_MANDIBLE",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MANDIBLE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_MAXILLOFACIAL_TRAUMA_MAXILLA",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MAXILLA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_MAXILLOFACIAL_TRAUMA_ZYGOMA",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_ZYGOMA",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_MAXILLOFACIAL_TRAUMA_ORBIT",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_ORBIT",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_ORTHOGNATHIC_MAXILLA",
+    "service_line_id": "SL_ORTHOGNATHIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MAXILLA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ORTHOGNATHIC_MANDIBLE",
+    "service_line_id": "SL_ORTHOGNATHIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MANDIBLE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_MAXILLOFACIAL_ONCOLOGY_ORAL_CAVITY",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_ORAL_CAVITY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_MAXILLOFACIAL_ONCOLOGY_MANDIBLE",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MANDIBLE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_MAXILLOFACIAL_ONCOLOGY_MAXILLA",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MAXILLA",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_MAXILLOFACIAL_ONCOLOGY_NECK",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_NECK",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_TMJ_TEMPOROMANDIBULAR_JOINT",
+    "service_line_id": "SL_TEMPOROMANDIBULAR_JOINT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEMPOROMANDIBULAR_JOINT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_DENTOALVEOLAR_TEETH_ALVEOLAR_BONE",
+    "service_line_id": "SL_DENTOALVEOLAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ORAL_SURGERY_ORAL_CAVITY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_ORAL_CAVITY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_ORAL_SURGERY_TEETH_ALVEOLAR_BONE",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_DENTAL_SURGERY_TEETH",
+    "service_line_id": "SL_DENTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_BURNS_FACE",
+    "service_line_id": "SL_BURNS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_FACE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_BURNS_TRUNK",
+    "service_line_id": "SL_BURNS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_TRUNK",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_BURNS_UPPER_LIMB",
+    "service_line_id": "SL_BURNS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_UPPER_LIMB",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_BURNS_LOWER_LIMB",
+    "service_line_id": "SL_BURNS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_LOWER_LIMB",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_DERMATOLOGIC_SKIN_HEAD_NECK",
+    "service_line_id": "SL_DERMATOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKIN_OF_HEAD_AND_NECK",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_DERMATOLOGIC_SKIN_TRUNK",
+    "service_line_id": "SL_DERMATOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKIN_OF_TRUNK",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_DERMATOLOGIC_SKIN_UPPER_LIMB",
+    "service_line_id": "SL_DERMATOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKIN_OF_UPPER_LIMB",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_DERMATOLOGIC_SKIN_LOWER_LIMB",
+    "service_line_id": "SL_DERMATOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKIN_OF_LOWER_LIMB",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_HAND_MICROSURGERY_HAND",
+    "service_line_id": "SL_HAND_AND_MICROSURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_HAND",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_HAND_MICROSURGERY_WRIST",
+    "service_line_id": "SL_HAND_AND_MICROSURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_WRIST",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_HAND_MICROSURGERY_FOREARM",
+    "service_line_id": "SL_HAND_AND_MICROSURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_FOREARM",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_CRANIOFACIAL_SKULL",
+    "service_line_id": "SL_CRANIOFACIAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKULL",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_CRANIOFACIAL_FACE",
+    "service_line_id": "SL_CRANIOFACIAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_FACE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_CLEFT_LIP",
+    "service_line_id": "SL_CLEFT_LIP_AND_PALATE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_LIP",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_CLEFT_PALATE",
+    "service_line_id": "SL_CLEFT_LIP_AND_PALATE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_PALATE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_BREAST_RECONSTRUCTION_BREAST",
+    "service_line_id": "SL_BREAST_RECONSTRUCTION_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_BREAST",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_BREAST_RECONSTRUCTION_CHEST_WALL",
+    "service_line_id": "SL_BREAST_RECONSTRUCTION_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_CHEST_WALL",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_CRANIAL_NEUROSURGERY_BRAIN",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_CRANIAL_NEUROSURGERY_SKULL",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SKULL",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_SPINAL_NEUROSURGERY_CERVICAL",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_CERVICAL_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SPINAL_NEUROSURGERY_THORACIC",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_THORACIC_SPINE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_SPINAL_NEUROSURGERY_LUMBAR",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_LUMBAR_SPINE",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_FUNCTIONAL_NEUROSURGERY_DEEP_STRUCTURES",
+    "service_line_id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN_DEEP_STRUCTURES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_NEUROONCOLOGY_BRAIN",
+    "service_line_id": "SL_NEUROONCOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_NEUROONCOLOGY_SPINE",
+    "service_line_id": "SL_NEUROONCOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_NEUROSURGERY_BRAIN",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_NEUROSURGERY_SPINE",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_CARDIAC_HEART",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_CARDIAC_GREAT_VESSELS",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_THORACIC_LUNG",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_LUNG",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_THORACIC_PLEURA",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_PLEURA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_THORACIC_MEDIASTINUM",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_MEDIASTINUM",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_THORACIC_CHEST_WALL",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_CHEST_WALL",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_CONGENITAL_CARDIAC_HEART",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_CONGENITAL_CARDIAC_GREAT_VESSELS",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_PERIPHERAL_VASCULAR_CAROTID",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_CAROTID_ARTERIES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_PERIPHERAL_VASCULAR_UPPER_LIMB",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_UPPER_LIMB",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_PERIPHERAL_VASCULAR_LOWER_LIMB",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_LOWER_LIMB",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_AORTIC_THORACIC_AORTA",
+    "service_line_id": "SL_AORTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_THORACIC_AORTA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_AORTIC_ABDOMINAL_AORTA",
+    "service_line_id": "SL_AORTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_ABDOMINAL_AORTA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_VASCULAR_ACCESS_FISTULA",
+    "service_line_id": "SL_VASCULAR_ACCESS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_ARTERIOVENOUS_FISTULA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_VASCULAR_ACCESS_CENTRAL_VEINS",
+    "service_line_id": "SL_VASCULAR_ACCESS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_CENTRAL_VEINS",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_NEONATAL_OESOPHAGUS",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_OESOPHAGUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_NEONATAL_DIAPHRAGM",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_DIAPHRAGM",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_NEONATAL_ABDOMINAL_WALL",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_ABDOMINAL_WALL",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_NEONATAL_INTESTINE",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_INTESTINE",
+    "sort_order": 40
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_GENERAL_APPENDIX",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_APPENDIX",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_GENERAL_HERNIA",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_HERNIA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_GENERAL_BOWEL",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_BOWEL",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_THORACIC_LUNG",
+    "service_line_id": "SL_PAEDIATRIC_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_LUNG",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_THORACIC_MEDIASTINUM",
+    "service_line_id": "SL_PAEDIATRIC_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_MEDIASTINUM",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_TRAUMA_ABDOMEN",
+    "service_line_id": "SL_PAEDIATRIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_ABDOMEN",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_TRAUMA_CHEST",
+    "service_line_id": "SL_PAEDIATRIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_CHEST",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_CATARACT_LENS",
+    "service_line_id": "SL_CATARACT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_LENS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_VITREORETINAL_RETINA",
+    "service_line_id": "SL_VITREORETINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_RETINA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_VITREORETINAL_VITREOUS",
+    "service_line_id": "SL_VITREORETINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_VITREOUS",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_GLAUCOMA_ANGLE",
+    "service_line_id": "SL_GLAUCOMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_ANTERIOR_CHAMBER_ANGLE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_CORNEAL_CORNEA",
+    "service_line_id": "SL_CORNEAL_AND_ANTERIOR_SEGMENT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_CORNEA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_CORNEAL_CONJUNCTIVA",
+    "service_line_id": "SL_CORNEAL_AND_ANTERIOR_SEGMENT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_CONJUNCTIVA",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_OCULOPLASTIC_EYELIDS",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_EYELIDS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_OCULOPLASTIC_LACRIMAL",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_LACRIMAL_SYSTEM",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_OCULOPLASTIC_ORBIT",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_ORBIT",
+    "sort_order": 30
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_OPHTHALMOLOGY_EXTRAOCULAR_MUSCLES",
+    "service_line_id": "SL_PAEDIATRIC_OPHTHALMOLOGY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_EXTRAOCULAR_MUSCLES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_FOREFOOT_FOREFOOT",
+    "service_line_id": "SL_FOREFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOREFOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_MIDFOOT_MIDFOOT",
+    "service_line_id": "SL_MIDFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_MIDFOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_REARFOOT_REARFOOT",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_REARFOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_REARFOOT_ANKLE",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_ANKLE",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_DIABETIC_FOOT_DIABETIC_FOOT",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_DIABETIC_FOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_GENERAL_ANAESTHESIA_AIRWAY",
+    "service_line_id": "SL_GENERAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_AIRWAY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_REGIONAL_ANAESTHESIA_NEURAXIS",
+    "service_line_id": "SL_REGIONAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_NEURAXIS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_REGIONAL_ANAESTHESIA_PERIPHERAL_NERVES",
+    "service_line_id": "SL_REGIONAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_PERIPHERAL_NERVES",
+    "sort_order": 20
+  },
+  {
+    "id": "SLAMAP_OBSTETRIC_ANAESTHESIA_NEURAXIS",
+    "service_line_id": "SL_OBSTETRIC_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_NEURAXIS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_PAEDIATRIC_ANAESTHESIA_AIRWAY",
+    "service_line_id": "SL_PAEDIATRIC_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_AIRWAY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_CARDIOTHORACIC_ANAESTHESIA_VASCULAR_ACCESS",
+    "service_line_id": "SL_CARDIOTHORACIC_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_VASCULAR_ACCESS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_CARDIOTHORACIC_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_HEART_AND_LUNGS",
+    "service_line_id": "SL_CARDIOTHORACIC_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_HEART_AND_LUNGS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_CARDIOTHORACIC_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_OESOPHAGUS",
+    "service_line_id": "SL_CARDIOTHORACIC_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_OESOPHAGUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_CARDIOTHORACIC_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_THORAX",
+    "service_line_id": "SL_CARDIOTHORACIC_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_THORAX",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_GENERAL_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_ARTERY",
+    "service_line_id": "SL_GENERAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_ARTERY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_GENERAL_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_CENTRAL_VEINS",
+    "service_line_id": "SL_GENERAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_CENTRAL_VEINS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_GENERAL_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_FACE_MASK",
+    "service_line_id": "SL_GENERAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_FACE_MASK",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_OBSTETRIC_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_AIRWAY",
+    "service_line_id": "SL_OBSTETRIC_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_AIRWAY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_OBSTETRIC_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_SPINE",
+    "service_line_id": "SL_OBSTETRIC_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_SACRAL_HIATUS",
+    "service_line_id": "SL_PAEDIATRIC_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_SACRAL_HIATUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_SPINE",
+    "service_line_id": "SL_PAEDIATRIC_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PROCEDURAL_SEDATION_ANAT_SPEC_ANAESTHESIA_SYSTEMIC",
+    "service_line_id": "SL_PROCEDURAL_SEDATION",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_SYSTEMIC",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_REGIONAL_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_ADDUCTOR_CANAL",
+    "service_line_id": "SL_REGIONAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_ADDUCTOR_CANAL",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_REGIONAL_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_ANTERIOR_ABDOMINAL_WALL",
+    "service_line_id": "SL_REGIONAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_ANTERIOR_ABDOMINAL_WALL",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_REGIONAL_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_BRACHIAL_PLEXUS",
+    "service_line_id": "SL_REGIONAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_BRACHIAL_PLEXUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_REGIONAL_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_FEMORAL_NERVE",
+    "service_line_id": "SL_REGIONAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_FEMORAL_NERVE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_REGIONAL_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_POSTERIOR_THORAX",
+    "service_line_id": "SL_REGIONAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_POSTERIOR_THORAX",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_REGIONAL_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_SCIATIC_NERVE",
+    "service_line_id": "SL_REGIONAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_SCIATIC_NERVE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_REGIONAL_ANAESTHESIA_ANAT_SPEC_ANAESTHESIA_SPINE",
+    "service_line_id": "SL_REGIONAL_ANAESTHESIA",
+    "anatomy_id": "ANAT_SPEC_ANAESTHESIA_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_CARDIAC_SURGERY_ANAT_SPEC_CARDIOTHORACIC_SURGERY_AORTA",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_AORTA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_CARDIAC_SURGERY_ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART_VALVES",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART_VALVES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_CARDIAC_SURGERY_ANAT_SPEC_CARDIOTHORACIC_SURGERY_PERICARDIUM",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_PERICARDIUM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_CONGENITAL_CARDIAC_SURGERY_ANAT_SPEC_CARDIOTHORACIC_SURGERY_AORTA",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_AORTA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_THORACIC_SURGERY_ANAT_SPEC_CARDIOTHORACIC_SURGERY_AIRWAY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_AIRWAY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_THORACIC_SURGERY_ANAT_SPEC_CARDIOTHORACIC_SURGERY_CHEST_CAVITY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_CHEST_CAVITY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_THORACIC_SURGERY_ANAT_SPEC_CARDIOTHORACIC_SURGERY_DIAPHRAGM",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_DIAPHRAGM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_THORACIC_SURGERY_ANAT_SPEC_CARDIOTHORACIC_SURGERY_OESOPHAGUS",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_OESOPHAGUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_THORACIC_SURGERY_ANAT_SPEC_CARDIOTHORACIC_SURGERY_TRACHEA",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_TRACHEA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_DENTAL_SURGERY_ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_ORAL_CAVITY",
+    "service_line_id": "SL_DENTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_ORAL_CAVITY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_COLORECTAL_SURGERY_ANAT_SPEC_GENERAL_SURGERY_SMALL_INTESTINE",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_SMALL_INTESTINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_EMERGENCY_GENERAL_SURGERY_ANAT_SPEC_GENERAL_SURGERY_DUODENUM",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_DUODENUM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_UPPER_GASTROINTESTINAL_SURGERY_ANAT_SPEC_GENERAL_SURGERY_DIAPHRAGM",
+    "service_line_id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_DIAPHRAGM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_BENIGN_GYNECOLOGY_ANAT_SPEC_GYNECOLOGY_ADNEXA",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_ADNEXA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_GYNECOLOGIC_ONCOLOGY_ANAT_SPEC_GYNECOLOGY_ADNEXA",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_ADNEXA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_GYNECOLOGIC_ONCOLOGY_ANAT_SPEC_GYNECOLOGY_PELVIS",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PELVIS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY_ANAT_SPEC_GYNECOLOGY_FALLOPIAN_TUBES",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_FALLOPIAN_TUBES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY_ANAT_SPEC_GYNECOLOGY_OVARIES",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_OVARIES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_REPRODUCTIVE_SURGERY_ANAT_SPEC_GYNECOLOGY_PELVIS",
+    "service_line_id": "SL_REPRODUCTIVE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PELVIS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_CRANIAL_NEUROSURGERY_ANAT_SPEC_NEUROSURGERY_SKULL_BASE",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SKULL_BASE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_CRANIAL_NEUROSURGERY_ANAT_SPEC_NEUROSURGERY_VENTRICLES",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_VENTRICLES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FUNCTIONAL_NEUROSURGERY_ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "service_line_id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FUNCTIONAL_NEUROSURGERY_ANAT_SPEC_NEUROSURGERY_CHEST_WALL",
+    "service_line_id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_CHEST_WALL",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FUNCTIONAL_NEUROSURGERY_ANAT_SPEC_NEUROSURGERY_NECK",
+    "service_line_id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_NECK",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FUNCTIONAL_NEUROSURGERY_ANAT_SPEC_NEUROSURGERY_SPINE",
+    "service_line_id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_NEUROONCOLOGIC_SURGERY_ANAT_SPEC_NEUROSURGERY_CEREBELLOPONTINE_ANGLE",
+    "service_line_id": "SL_NEUROONCOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_CEREBELLOPONTINE_ANGLE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_NEUROSURGERY_ANAT_SPEC_NEUROSURGERY_POSTERIOR_FOSSA",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_POSTERIOR_FOSSA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_NEUROSURGERY_ANAT_SPEC_NEUROSURGERY_SKULL",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SKULL",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_NEUROSURGERY_ANAT_SPEC_NEUROSURGERY_SPINAL_CORD",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINAL_CORD",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_NEUROSURGERY_ANAT_SPEC_NEUROSURGERY_VENTRICLES",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_VENTRICLES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_SPINAL_NEUROSURGERY_ANAT_SPEC_NEUROSURGERY_SPINE",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_HIGH_RISK_OBSTETRICS_ANAT_SPEC_OBSTETRICS_ABDOMINAL_WALL",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_ABDOMINAL_WALL",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_HIGH_RISK_OBSTETRICS_ANAT_SPEC_OBSTETRICS_BIRTH_CANAL",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_BIRTH_CANAL",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_HIGH_RISK_OBSTETRICS_ANAT_SPEC_OBSTETRICS_CERVIX",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_CERVIX",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_CORNEAL_AND_ANTERIOR_SEGMENT_SURGERY_ANAT_SPEC_OPHTHALMOLOGY_ANTERIOR_CHAMBER",
+    "service_line_id": "SL_CORNEAL_AND_ANTERIOR_SEGMENT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_ANTERIOR_CHAMBER",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_GLAUCOMA_SURGERY_ANAT_SPEC_OPHTHALMOLOGY_ANTERIOR_CHAMBER",
+    "service_line_id": "SL_GLAUCOMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_ANTERIOR_CHAMBER",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_GLAUCOMA_SURGERY_ANAT_SPEC_OPHTHALMOLOGY_CILIARY_BODY",
+    "service_line_id": "SL_GLAUCOMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_CILIARY_BODY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_OCULOPLASTIC_SURGERY_ANAT_SPEC_OPHTHALMOLOGY_EYELID",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_EYELID",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_OCULOPLASTIC_SURGERY_ANAT_SPEC_OPHTHALMOLOGY_GLOBE",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_GLOBE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_OPHTHALMOLOGY_ANAT_SPEC_OPHTHALMOLOGY_GLOBE",
+    "service_line_id": "SL_PAEDIATRIC_OPHTHALMOLOGY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_GLOBE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_OPHTHALMOLOGY_ANAT_SPEC_OPHTHALMOLOGY_LACRIMAL_SYSTEM",
+    "service_line_id": "SL_PAEDIATRIC_OPHTHALMOLOGY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_LACRIMAL_SYSTEM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_OPHTHALMOLOGY_ANAT_SPEC_OPHTHALMOLOGY_LENS",
+    "service_line_id": "SL_PAEDIATRIC_OPHTHALMOLOGY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_LENS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_VITREORETINAL_SURGERY_ANAT_SPEC_OPHTHALMOLOGY_GLOBE",
+    "service_line_id": "SL_VITREORETINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_GLOBE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_VITREORETINAL_SURGERY_ANAT_SPEC_OPHTHALMOLOGY_MACULA",
+    "service_line_id": "SL_VITREORETINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_MACULA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_MAXILLOFACIAL_TRAUMA_SURGERY_ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_OTOLARYNGOLOGY_ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_MIDDLE_EAR",
+    "service_line_id": "SL_PAEDIATRIC_OTOLARYNGOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_MIDDLE_EAR",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_NEONATAL_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_ANORECTUM",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_ANORECTUM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_NEONATAL_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_SMALL_INTESTINE",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_SMALL_INTESTINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_NEONATAL_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_STOMACH",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_STOMACH",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_GENERAL_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_CENTRAL_VEINS",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_CENTRAL_VEINS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_GENERAL_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_GROIN",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_GROIN",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_GENERAL_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_NECK",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_NECK",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_GENERAL_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_SCROTUM",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_SCROTUM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_GENERAL_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_TESTIS",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_TESTIS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_GENERAL_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_UMBILICUS",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_UMBILICUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_THORACIC_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_OESOPHAGUS",
+    "service_line_id": "SL_PAEDIATRIC_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_OESOPHAGUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_THORACIC_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_PLEURA",
+    "service_line_id": "SL_PAEDIATRIC_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_PLEURA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_TRAUMA_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_DIAPHRAGM",
+    "service_line_id": "SL_PAEDIATRIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_DIAPHRAGM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_TRAUMA_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_SMALL_INTESTINE",
+    "service_line_id": "SL_PAEDIATRIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_SMALL_INTESTINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_TRAUMA_SURGERY_ANAT_SPEC_PAEDIATRIC_SURGERY_SPLEEN",
+    "service_line_id": "SL_PAEDIATRIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_SPLEEN",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_DIABETIC_FOOT_SURGERY_ANAT_SPEC_PODIATRIC_SURGERY_FOOT",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_DIABETIC_FOOT_SURGERY_ANAT_SPEC_PODIATRIC_SURGERY_FOREFOOT",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOREFOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_DIABETIC_FOOT_SURGERY_ANAT_SPEC_PODIATRIC_SURGERY_MIDFOOT",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_MIDFOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_DIABETIC_FOOT_SURGERY_ANAT_SPEC_PODIATRIC_SURGERY_TOES",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_TOES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FOREFOOT_SURGERY_ANAT_SPEC_PODIATRIC_SURGERY_FIRST_METATARSOPHALANGEAL_JOINT",
+    "service_line_id": "SL_FOREFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FIRST_METATARSOPHALANGEAL_JOINT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FOREFOOT_SURGERY_ANAT_SPEC_PODIATRIC_SURGERY_TOES",
+    "service_line_id": "SL_FOREFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_TOES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_REARFOOT_AND_ANKLE_SURGERY_ANAT_SPEC_PODIATRIC_SURGERY_ACHILLES_TENDON",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_ACHILLES_TENDON",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FOOT_AND_ANKLE_SURGERY_ANAT_ANKLE",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_ANKLE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FOOT_AND_ANKLE_SURGERY_ANAT_DIGITS",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_DIGITS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FOOT_AND_ANKLE_SURGERY_ANAT_FOOT",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_FOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FOOT_AND_ANKLE_SURGERY_ANAT_FOREFOOT",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_FOREFOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FOOT_AND_ANKLE_SURGERY_ANAT_HINDFOOT",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_HINDFOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FOOT_AND_ANKLE_SURGERY_ANAT_MIDFOOT",
+    "service_line_id": "SL_FOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_MIDFOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_HAND_AND_WRIST_SURGERY_ANAT_DIGITS",
+    "service_line_id": "SL_HAND_AND_WRIST_SURGERY",
+    "anatomy_id": "ANAT_DIGITS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_HAND_AND_WRIST_SURGERY_ANAT_HAND",
+    "service_line_id": "SL_HAND_AND_WRIST_SURGERY",
+    "anatomy_id": "ANAT_HAND",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_HAND_AND_WRIST_SURGERY_ANAT_WRIST",
+    "service_line_id": "SL_HAND_AND_WRIST_SURGERY",
+    "anatomy_id": "ANAT_WRIST",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_ONCOLOGY_ANAT_ACETABULUM",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_ACETABULUM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_ONCOLOGY_ANAT_BONE",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_BONE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_ONCOLOGY_ANAT_FEMUR",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_FEMUR",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_ONCOLOGY_ANAT_HUMERUS",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_HUMERUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_ONCOLOGY_ANAT_PELVIS",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_PELVIS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_ONCOLOGY_ANAT_SHOULDER",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SHOULDER",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_ONCOLOGY_ANAT_SOFT_TISSUE",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SOFT_TISSUE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_ONCOLOGY_ANAT_SPINE",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_ONCOLOGY_ANAT_TIBIA",
+    "service_line_id": "SL_ORTHOPAEDIC_ONCOLOGY",
+    "anatomy_id": "ANAT_TIBIA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_ACETABULUM",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_ACETABULUM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_ANKLE",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_ANKLE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_GENERIC_BONE",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_GENERIC_BONE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_BONE",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_BONE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_CLAVICLE",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_CLAVICLE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_DIGITS",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_DIGITS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_DISTAL_FEMUR",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_DISTAL_FEMUR",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_DISTAL_TIBIA",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_DISTAL_TIBIA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_ELBOW",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_ELBOW",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_FEMUR",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_FEMUR",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_FOREARM",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_FOREARM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_FOREFOOT",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_FOREFOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_HAND",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_HAND",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_HINDFOOT",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_HINDFOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_HIP",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_HIP",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_HUMERUS",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_HUMERUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_KNEE",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_KNEE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_MIDFOOT",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_MIDFOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_PATELLA",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_PATELLA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_PELVIS",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_PELVIS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_SHOULDER",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SHOULDER",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_TIBIA",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_TIBIA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_ORTHOPAEDIC_TRAUMA_SURGERY_ANAT_WRIST",
+    "service_line_id": "SL_ORTHOPAEDIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_WRIST",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_ELBOW",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_ELBOW",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_FEMUR",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_FEMUR",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_FOOT",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_FOOT",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_FOREARM",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_FOREARM",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_HIP",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_HIP",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_HUMERUS",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_HUMERUS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_KNEE",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_KNEE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_LOWER_LIMB",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_LOWER_LIMB",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_PELVIS",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_PELVIS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_SPINE",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_TIBIA",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_TIBIA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY_ANAT_WRIST",
+    "service_line_id": "SL_PAEDIATRIC_ORTHOPAEDIC_SURGERY",
+    "anatomy_id": "ANAT_WRIST",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_SHOULDER_AND_ELBOW_SURGERY_ANAT_CLAVICLE",
+    "service_line_id": "SL_SHOULDER_AND_ELBOW_SURGERY",
+    "anatomy_id": "ANAT_CLAVICLE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_SHOULDER_AND_ELBOW_SURGERY_ANAT_ELBOW",
+    "service_line_id": "SL_SHOULDER_AND_ELBOW_SURGERY",
+    "anatomy_id": "ANAT_ELBOW",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_SHOULDER_AND_ELBOW_SURGERY_ANAT_SHOULDER",
+    "service_line_id": "SL_SHOULDER_AND_ELBOW_SURGERY",
+    "anatomy_id": "ANAT_SHOULDER",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_SPINE_SURGERY_ANAT_CERVICAL_SPINE",
+    "service_line_id": "SL_SPINE_SURGERY",
+    "anatomy_id": "ANAT_CERVICAL_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_SPINE_SURGERY_ANAT_LUMBAR_SPINE",
+    "service_line_id": "SL_SPINE_SURGERY",
+    "anatomy_id": "ANAT_LUMBAR_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_SPINE_SURGERY_ANAT_SPINE",
+    "service_line_id": "SL_SPINE_SURGERY",
+    "anatomy_id": "ANAT_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_SPINE_SURGERY_ANAT_THORACIC_SPINE",
+    "service_line_id": "SL_SPINE_SURGERY",
+    "anatomy_id": "ANAT_THORACIC_SPINE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_SPORTS_AND_KNEE_SURGERY_ANAT_KNEE",
+    "service_line_id": "SL_SPORTS_AND_KNEE_SURGERY",
+    "anatomy_id": "ANAT_KNEE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_SPORTS_AND_KNEE_SURGERY_ANAT_PATELLA",
+    "service_line_id": "SL_SPORTS_AND_KNEE_SURGERY",
+    "anatomy_id": "ANAT_PATELLA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE_ANAT_SPEC_UROLOGY_PROSTATE",
+    "service_line_id": "SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PROSTATE",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_AORTIC_SURGERY_ANAT_SPEC_VASCULAR_SURGERY_AORTA",
+    "service_line_id": "SL_AORTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_AORTA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PERIPHERAL_VASCULAR_SURGERY_ANAT_SPEC_VASCULAR_SURGERY_AORTA",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_AORTA",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PERIPHERAL_VASCULAR_SURGERY_ANAT_SPEC_VASCULAR_SURGERY_AXILLARY_ARTERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_AXILLARY_ARTERY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PERIPHERAL_VASCULAR_SURGERY_ANAT_SPEC_VASCULAR_SURGERY_CAROTID_ARTERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_CAROTID_ARTERY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PERIPHERAL_VASCULAR_SURGERY_ANAT_SPEC_VASCULAR_SURGERY_FEMORAL_ARTERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_FEMORAL_ARTERY",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PERIPHERAL_VASCULAR_SURGERY_ANAT_SPEC_VASCULAR_SURGERY_LOWER_LIMB_ARTERIES",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_LOWER_LIMB_ARTERIES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PERIPHERAL_VASCULAR_SURGERY_ANAT_SPEC_VASCULAR_SURGERY_PERIPHERAL_ARTERIES",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_PERIPHERAL_ARTERIES",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_PERIPHERAL_VASCULAR_SURGERY_ANAT_SPEC_VASCULAR_SURGERY_SUPERFICIAL_VEINS",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_SUPERFICIAL_VEINS",
+    "sort_order": 10
+  },
+  {
+    "id": "SLAMAP_SL_VASCULAR_ACCESS_SURGERY_ANAT_SPEC_VASCULAR_SURGERY_UPPER_LIMB_VESSELS",
+    "service_line_id": "SL_VASCULAR_ACCESS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_UPPER_LIMB_VESSELS",
+    "sort_order": 10
+  }
+]

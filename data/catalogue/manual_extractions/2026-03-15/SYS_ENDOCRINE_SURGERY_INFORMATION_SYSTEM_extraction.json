@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Endocrine Surgery Information System",
+    "source_type": "society_homepage",
+    "source_document": "AAES / ESES Endocrine Surgery Resources",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Endocrine Surgery Information System",
+      "supplier_name": "Unassigned",
+      "system_category": "Perioperative Specialty Workflow",
+      "system_notes": "Public source anchor for endocrine surgery information, education, and specialty workflow support."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Endocrine Surgery Workflow Framework",
+      "system_name": "Endocrine Surgery Information System",
+      "component_role": "Workflow Framework",
+      "implant_category": "Service Line Information Workflow",
+      "component_notes": "AAES and ESES resources describe endocrine surgery guidelines, education, and specialty workflow support."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Society guideline resources do not define a tray or instrument case for this endocrine surgery information row.",
+      "reason": "Tray rows should only be added from device-specific or procedural kit sources.",
+      "source_excerpt": "Current extraction remains workflow-level only."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public society resources do not provide normalized product codes.",
+      "reason": "Product rows should only be added from vendor-specific endocrine surgery workflow platforms if identified later.",
+      "source_excerpt": "Current extraction remains source-backed and high-level."
+    }
+  ]
+}

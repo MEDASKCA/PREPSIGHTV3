@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Taperloc / G7",
+    "source_type": "product_page",
+    "source_document": "Taperloc Complete Hip System and G7 Acetabular System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TAPERLOC_G7_TAPERLOC_G7_INSTRUMENTATION",
+        "Tray Name": "Taperloc / G7 Instrumentation",
+        "System ID": "SYS_TAPERLOC_G7",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "The official Taperloc Complete and G7 product materials describe dedicated instrumentation and G7 tray-efficiency claims for the acetabular workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TAPERLOC_G7_TAPERLOC_COMPLETE_FEMORAL_STEM",
+        "Component Name": "Taperloc Complete Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_TAPERLOC_G7",
+        "Component Notes": "Official Zimmer Biomet materials describe Taperloc Complete as the femoral stem family for the platform."
+      },
+      {
+        "Component ID": "COMP_TAPERLOC_G7_G7_ACETABULAR_SHELL",
+        "Component Name": "G7 Acetabular Shell",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_TAPERLOC_G7",
+        "Component Notes": "Official G7 product materials describe the G7 acetabular shell family and cup platform."
+      },
+      {
+        "Component ID": "COMP_TAPERLOC_G7_G7_ACETABULAR_LINER",
+        "Component Name": "G7 Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_TAPERLOC_G7",
+        "Component Notes": "Official G7 product materials describe Vivacit-E and other G7 liner options."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Taperloc / G7",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Primary total hip arthroplasty platform combining the Taperloc Complete femoral stem family with the G7 acetabular system."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Taperloc / G7",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform combining the Taperloc Complete femoral stem family with the G7 acetabular system."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Taperloc / G7",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform combining the Taperloc Complete femoral stem family with the G7 acetabular system."
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "source_meta": {
+    "supplier_name": "Enovis",
+    "system_name": "EMPOWR / hip portfolio mapping",
+    "source_type": "product_page",
+    "source_document": "EMPOWR and Hip Solutions",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "EMPOWR / hip portfolio mapping",
+      "supplier_name": "Enovis",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Hip arthroplasty portfolio-level record linked to EMPOWR brand materials."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "EMPOWR Hip Instrumentation",
+      "system_name": "EMPOWR / hip portfolio mapping",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Portfolio materials reference supporting hip instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "EMPOWR Hip Acetabular Component",
+      "system_name": "EMPOWR / hip portfolio mapping",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Portfolio-level acetabular component family."
+    },
+    {
+      "component_name": "EMPOWR Hip Liner",
+      "system_name": "EMPOWR / hip portfolio mapping",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Portfolio-level liner family."
+    },
+    {
+      "component_name": "EMPOWR Hip Femoral Stem",
+      "system_name": "EMPOWR / hip portfolio mapping",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Portfolio-level stem family."
+    },
+    {
+      "component_name": "EMPOWR Hip Femoral Head",
+      "system_name": "EMPOWR / hip portfolio mapping",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Portfolio-level head family."
+    },
+    {
+      "component_name": "EMPOWR Dual Mobility",
+      "system_name": "EMPOWR / hip portfolio mapping",
+      "component_role": "Dual Mobility Component",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Enovis hip solutions page explicitly lists EMPOWR Dual Mobility as part of the hip portfolio."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "The hip record spans multiple exact implant families including TaperFill, Foundation, Linear, Revelation, EMPOWR Acetabular and EXPRT Revision Hip.",
+      "reason": "Needs deeper Enovis source review before splitting each hip family into its own exact system record.",
+      "source_excerpt": "Current extraction keeps the portfolio-level hip families only."
+    }
+  ]
+}

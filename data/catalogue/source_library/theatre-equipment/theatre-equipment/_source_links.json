@@ -1,0 +1,72 @@
+{
+  "domain": "theatre-equipment",
+  "subcategory": "theatre-equipment",
+  "description": "Source links for general theatre equipment — diathermy/electrosurgery, suction/waste management, surgical lights, patient warming",
+  "sourced_date": "2026-03-14",
+  "total_records": 9,
+  "entries": [
+    {
+      "supplier": "Erbe Elektromedizin",
+      "product_family": "VIO",
+      "system_name": "Erbe VIO 3 Electrosurgical Unit",
+      "source_url": "https://us.erbegroup.com/us-en/products/electrosurgery/vior-3/",
+      "notes": "Max HF power 550 W. Power consumption 1,600 W. Up to 6 instruments (monopolar, bipolar, APC, BiClamp). 19 optimised modes including preciseSECT, thermoSEAL, highCUT, softCOAG. 25 million measurements/sec (tissue impedance). Spark Recognition. NESSY neutral electrode safety system. stepGUIDE settings guidance. WiFi software updates. 400W device class supply, up to 8 A output."
+    },
+    {
+      "supplier": "Erbe Elektromedizin",
+      "product_family": "VIO",
+      "system_name": "Erbe VIO 300D Electrosurgical Unit",
+      "source_url": "https://vio.erbegroup.com/",
+      "notes": "Previous generation VIO series. Dimensions: W 410 mm x H 165 mm x D 380 mm. Weight 9.5 kg. Modes: AutoCUT, ForcedCOAG plus monopolar and bipolar. Multiple cutting and coagulation modes."
+    },
+    {
+      "supplier": "Erbe Elektromedizin",
+      "product_family": "VIO",
+      "system_name": "Erbe VIO 300S Electrosurgical Unit",
+      "source_url": "https://vio.erbegroup.com/",
+      "notes": "Electrosurgical unit with enhanced Cut and Coag for monopolar and bipolar modes. Seven cutting modes, eight coagulation modes. Automatic power adjustment for voltage, Arc and power. Standard platform for general surgical use."
+    },
+    {
+      "supplier": "Stryker Surgical Technologies",
+      "product_family": "Neptune",
+      "system_name": "Stryker Neptune S Waste Management System",
+      "source_url": "https://www.stryker.com/us/en/surgical-technologies/products/neptune-s.html",
+      "notes": "Closed surgical waste management system. 8-litre fluid capacity. 30% smaller footprint than Neptune 3. Integrated specimen collection. HEPA/ULPA filter. OR efficiency — reduces staff needed for waste disposal. Only constantly-closed system on market."
+    },
+    {
+      "supplier": "Stryker Surgical Technologies",
+      "product_family": "Neptune",
+      "system_name": "Stryker Neptune 3 Waste Management System",
+      "source_url": "https://www.stryker.com/us/en/surgical-technologies/products/neptune-s.html",
+      "notes": "Previous generation Neptune system. 7-inch top display, 8.4-inch main display. 8-hour ULPA filter. Quieter pump at 4.3 sones (48% less noise vs Neptune 2). 8-litre capacity. Adjustable suction levels. Closed collection canister with manifold."
+    },
+    {
+      "supplier": "Stryker Communications",
+      "product_family": "SLX",
+      "system_name": "Stryker SLX628 Surgical Light",
+      "source_url": "https://www.stryker.com/us/en/communications/products/slx-surgical-light.html",
+      "notes": "650 overlapping beams of light for continuous column of illumination. Minimises surgical field shadows. Optional touch wall control, HD in-light camera, EndoLite feature. Ceiling-mounted LED OR light."
+    },
+    {
+      "supplier": "Steris",
+      "product_family": "HarmonyAIR",
+      "system_name": "Steris HarmonyAIR G-Series Surgical Lighting System",
+      "source_url": "https://www.steris.com/healthcare/products/surgical-lights-and-examination-lights/surgical-lights/harmonyair-g-series-surgical-lighting-system",
+      "notes": "Up to 160,000 lux. Single-color phosphor-coated LED chip. CRI up to 96, R9 up to 98. 70% less energy per lighthead than previous LED technology. 50,000+ hour LED life. Colour temperature 4400K. Patent-pending continuous braking system (no adjustment needed for 10+ years). Less heat = less tissue desiccation."
+    },
+    {
+      "supplier": "Steris",
+      "product_family": "HarmonyAIR",
+      "system_name": "Steris HarmonyAIR A-Series Surgical Lighting System",
+      "source_url": "https://www.steris.com/healthcare/products/surgical-lights-and-examination-lights/surgical-lights/harmonyair-a-series-surgical-lighting-system",
+      "notes": "Adaptive lighting sensors detect obstructions and boost LEDs to compensate (clinician-inspired advance). LED lighthead technology — vivid tissue colour, clarity and contrast. Ceiling-mounted surgical light system."
+    },
+    {
+      "supplier": "Solventum (formerly 3M)",
+      "product_family": "Bair Hugger",
+      "system_name": "3M Bair Hugger Model 775 Warming Unit",
+      "source_url": "https://www.solventum.com/en-us/home/f/b00040096/",
+      "notes": "Forced-air patient warming unit. Model 77500. Three temperature settings: High 43 +/- 1.5 deg C (109.4 F), Medium 38 +/- 1.5 deg C (100.4 F), Low 32 +/- 1.5 deg C (89.6 F). Three temperature sensors plus hose-end sensing. High-efficiency 0.2 um air filter. 110–120 VAC, 50/60 Hz, 11.7 A. Dimensions: 13x14x13 in, 16 lb (7.3 kg). Compatible with Bair Paws gown and 241 Blood/Fluid Warming Set. Use: OR, PACU, Pre-Op."
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "VariAx Distal Radius Plate",
+    "source_type": "product_page",
+    "source_document": "VariAx 2 Distal Radius and Distal Ulna",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_VARIAX_DISTAL_RADIUS_PLATE_VARIAX_2_DEDICATED_WRIST_TRAY",
+        "Tray Name": "VariAx 2 Dedicated Wrist Tray",
+        "System ID": "SYS_VARIAX_DISTAL_RADIUS",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Stryker tray layout card identifies a dedicated wrist tray for distal radius fixation workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_VARIAX_DISTAL_RADIUS_PLATE_VARIAX_DISTAL_RADIUS_PLATE",
+        "Component Name": "VariAx Distal Radius Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_VARIAX_DISTAL_RADIUS",
+        "Component Notes": "Official Stryker materials describe the distal radius plate family within the VariAx 2 system."
+      },
+      {
+        "Component ID": "COMP_VARIAX_DISTAL_RADIUS_PLATE_VARIAX_LOCKING_SCREW",
+        "Component Name": "VariAx Locking Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_VARIAX_DISTAL_RADIUS",
+        "Component Notes": "Official operative technique materials describe locking fixation options used with the VariAx distal radius construct."
+      },
+      {
+        "Component ID": "COMP_VARIAX_DISTAL_RADIUS_PLATE_VARIAX_PLATE_GUIDE",
+        "Component Name": "VariAx Plate Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_VARIAX_DISTAL_RADIUS",
+        "Component Notes": "Official operative technique materials describe dedicated instrumentation and drill guide workflow for distal radius plating."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "VariAx Distal Radius Plate",
+          "supplier_name": "Stryker",
+          "system_category": "Volar Locking Plate \u2014 Distal Radius",
+          "system_notes": "Distal radius and distal ulna plating family within the Stryker VariAx trauma portfolio."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "VariAx Distal Radius Plate",
+        "supplier_name": "Stryker",
+        "system_category": "Volar Locking Plate \u2014 Distal Radius",
+        "system_notes": "Distal radius and distal ulna plating family within the Stryker VariAx trauma portfolio."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "VariAx Distal Radius Plate",
+        "supplier_name": "Stryker",
+        "system_category": "Volar Locking Plate \u2014 Distal Radius",
+        "system_notes": "Distal radius and distal ulna plating family within the Stryker VariAx trauma portfolio."
+      }
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acutrak / Scaphoid Compression Screw System",
+    "source_type": "product_page",
+    "source_document": "Acutrak 2 and Acutrak 3 Headless Compression Screw System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ACUTRAK_SCAPHOID_COMPRESSION_SCREW_SYSTEM_ACUTRAK_SCAPHOID_INSTRUMENTATION",
+        "Tray Name": "Acutrak Scaphoid Instrumentation",
+        "System ID": "SYS_ACUTRAK___SCAPHOID_COMPRESSION_SCREW_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated guidewire, drill and driver instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACUTRAK_SCAPHOID_COMPRESSION_SCREW_SYSTEM_ACUTRAK_COMPRESSION_SCREW",
+        "Component Name": "Acutrak Compression Screw",
+        "Component Role": "Compression Screw",
+        "Implant Category": "Hand and Wrist Implant",
+        "System ID": "SYS_ACUTRAK___SCAPHOID_COMPRESSION_SCREW_SYSTEM",
+        "Component Notes": "Core headless compression screw family referenced on the product pages."
+      },
+      {
+        "Component ID": "COMP_ACUTRAK_SCAPHOID_COMPRESSION_SCREW_SYSTEM_ACUTRAK_GUIDEWIRE",
+        "Component Name": "Acutrak Guidewire",
+        "Component Role": "Guidewire",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_ACUTRAK___SCAPHOID_COMPRESSION_SCREW_SYSTEM",
+        "Component Notes": "Guidewire family referenced in the Acutrak workflow."
+      },
+      {
+        "Component ID": "COMP_ACUTRAK_SCAPHOID_COMPRESSION_SCREW_SYSTEM_ACUTRAK_DRIVER",
+        "Component Name": "Acutrak Driver",
+        "Component Role": "Driver",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_ACUTRAK___SCAPHOID_COMPRESSION_SCREW_SYSTEM",
+        "Component Notes": "Driver/inserter family referenced in the Acutrak workflow."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Acutrak / Scaphoid Compression Screw System",
+          "supplier_name": "Acumed",
+          "system_category": "Hand and Wrist Fixation System",
+          "system_notes": "Headless compression screw platform used for scaphoid and small bone fixation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Acutrak / Scaphoid Compression Screw System",
+        "supplier_name": "Acumed",
+        "system_category": "Hand and Wrist Fixation System",
+        "system_notes": "Headless compression screw platform used for scaphoid and small bone fixation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Acutrak / Scaphoid Compression Screw System",
+        "supplier_name": "Acumed",
+        "system_category": "Hand and Wrist Fixation System",
+        "system_notes": "Headless compression screw platform used for scaphoid and small bone fixation."
+      }
+    }
+  ]
+}

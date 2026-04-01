@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Pelvic Oncology Reconstruction Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Limb Salvage",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PELVIC_ONCOLOGY_RECONSTRUCTION_PORTFOLIO_PELVIC_ONCOLOGY_RECONSTRUCTION_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Pelvic Oncology Reconstruction Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Orthopaedic oncology",
+        "System ID": "SYS_PELVIC_ONCOLOGY_RECONSTRUCTION_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Zimmer Biomet public pelvic oncology reconstruction sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Pelvic Oncology Reconstruction Portfolio",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Orthopaedic oncology",
+          "system_notes": "Public Zimmer Biomet limb salvage, MUTARS RS Cup System, and labeling portal materials used as the source anchors for the pelvic oncology reconstruction portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Pelvic Oncology Reconstruction Portfolio",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Orthopaedic oncology",
+        "system_notes": "Public Zimmer Biomet limb salvage, MUTARS RS Cup System, and labeling portal materials used as the source anchors for the pelvic oncology reconstruction portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Pelvic Oncology Reconstruction Portfolio",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Orthopaedic oncology",
+        "system_notes": "Public Zimmer Biomet limb salvage, MUTARS RS Cup System, and labeling portal materials used as the source anchors for the pelvic oncology reconstruction portfolio entry."
+      }
+    }
+  ]
+}

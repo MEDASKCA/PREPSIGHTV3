@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Intuitive Surgical",
+    "system_name": "Da Vinci Surgical System",
+    "source_type": "product_page",
+    "source_document": "da Vinci Surgical System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Da Vinci Surgical System",
+      "supplier_name": "Intuitive Surgical",
+      "system_category": "Robotic Surgical Platform",
+      "system_notes": "Public source anchor for the Intuitive da Vinci robotic surgical platform."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "da Vinci Surgical Platform Family",
+      "system_name": "Da Vinci Surgical System",
+      "component_role": "Portfolio Family",
+      "implant_category": "Robotic Surgery Workflow",
+      "component_notes": "Official Intuitive sources describe the broader da Vinci surgical platform family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Public robotic platform sources do not describe a dedicated tray in the current pass.",
+      "reason": "Tray detail should only be added from narrower instrument-set or accessory sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public product pages do not expose a normalized product-code matrix in this pass.",
+      "reason": "Product codes should be captured from ordering guides or narrower robotic instrument SKU sources.",
+      "source_excerpt": "Current extraction remains high-level only."
+    }
+  ]
+}

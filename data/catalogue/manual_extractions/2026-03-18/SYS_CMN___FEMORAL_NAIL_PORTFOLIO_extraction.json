@@ -1,0 +1,37 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "CMN / Femoral Nail Portfolio",
+    "source_type": "product_page",
+    "source_document": "Zimmer Natural Nail System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "CMN / Femoral Nail Portfolio Family",
+      "system_name": "CMN / Femoral Nail Portfolio",
+      "component_role": "Portfolio Family",
+      "implant_category": "Femoral nailing",
+      "component_notes": "Zimmer Biomet public trauma sources group cephalomedullary and femoral nailing options within the Zimmer Natural Nail platform."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "The public Zimmer Natural Nail page references instrumentation and surgical technique but not a tray-level manifest for the full CMN portfolio.",
+      "reason": "Tray rows should come from narrower instrumentation or operative technique documents if expanded later.",
+      "source_excerpt": "Current extraction anchors the portfolio at family level."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "The cephalomedullary and femoral nail families include many size and configuration variants not normalized here.",
+      "reason": "A later product-code extraction can parse the detailed trauma literature if SKU rows are required.",
+      "source_excerpt": "This pass is intentionally portfolio-level."
+    }
+  ]
+}

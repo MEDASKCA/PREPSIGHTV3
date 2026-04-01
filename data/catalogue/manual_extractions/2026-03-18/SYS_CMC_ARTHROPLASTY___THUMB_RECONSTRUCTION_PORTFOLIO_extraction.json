@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Nextremity",
+    "system_name": "CMC Arthroplasty / Thumb Reconstruction Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Medartis Hand Joint Replacement",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "CMC Arthroplasty / Thumb Reconstruction Portfolio",
+      "supplier_name": "Nextremity",
+      "system_category": "hand_wrist",
+      "system_notes": "Current public source anchor is the Medartis hand joint replacement page, with Medartis history confirming Nextremity became part of Medartis in 2022. This extraction remains at portfolio level for thumb CMC arthroplasty and thumb reconstruction."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Thumb CMC Arthroplasty Portfolio Framework",
+      "system_name": "CMC Arthroplasty / Thumb Reconstruction Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Thumb CMC Arthroplasty Portfolio",
+      "component_notes": "Portfolio-level thumb CMC arthroplasty framework anchored to current Medartis public hand joint replacement materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data publicly enumerated for this portfolio anchor.",
+      "reason": "The public Medartis joint replacement source identifies thumb CMC arthroplasty coverage but does not enumerate trays or sets.",
+      "source_excerpt": "Current public source anchor lists thumb joint replacement coverage without tray-level detail."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No SKU-level product list captured for this portfolio anchor.",
+      "reason": "The public Medartis source set does not provide a SKU catalogue or IFU for this assigned portfolio entry.",
+      "source_excerpt": "Current extraction remains source-backed and portfolio-level only."
+    }
+  ]
+}

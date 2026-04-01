@@ -1,0 +1,418 @@
+[
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_BANDLOC___RESPONSE_SCOLIOSIS_SYSTEM",
+    "system_name": "BandLoc / RESPONSE Scoliosis System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "RESPONSE 4.5/5.0 - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/response-45-50-pediatric-scoliosis/",
+        "notes": "Official OrthoPediatrics RESPONSE scoliosis page used as the primary public source anchor for the BandLoc and RESPONSE scoliosis system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "BandLoc - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/bandloc-sub-laminar-polyester-band-system/",
+        "notes": "Official OrthoPediatrics BandLoc product page used as supporting public evidence for sublaminar banding within the scoliosis portfolio entry."
+      },
+      {
+        "source_type": "launch_news_page",
+        "title": "OrthoPediatrics Corp. Announce Launch of RESPONSE Power Scoliosis System",
+        "url": "https://ir.orthopediatrics.com/news-releases/news-release-details/orthopediatrics-corp-announce-launch-responsetm-power-scoliosis",
+        "notes": "Official OrthoPediatrics launch announcement used as supporting public evidence for the current RESPONSE scoliosis portfolio, including compatibility with BandLoc technology."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_GUIDED_GROWTH___PEDIPLATES_PORTFOLIO",
+    "system_name": "Guided Growth / PediPlates Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "PediPlates - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediplates-physeal-tethering-growth-control/",
+        "notes": "Official OrthoPediatrics PediPlates page used as the primary public source anchor for the guided growth and PediPlates portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GIRO Growth Modulation System - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/giro-growth-modulation-system-pega-orthopediatrics/",
+        "notes": "Official OrthoPediatrics GIRO growth modulation page used as supporting public evidence for current guided growth and temporary epiphysiodesis coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Hinge Pediatric Plating System - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/hinge-pediatric-plating-system-pega-orthopediatrics/",
+        "notes": "Official OrthoPediatrics Hinge Pediatric Plating page used as supporting public evidence for pediatric guided growth and deformity-correction options across this portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_GUIDED_GROWTH_PORTFOLIO",
+    "system_name": "OrthoPediatrics Guided growth Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/",
+        "notes": "Official OrthoPediatrics homepage used as the primary public supplier anchor for the guided growth portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PediPlates - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediplates-physeal-tethering-growth-control/",
+        "notes": "Official OrthoPediatrics PediPlates page used as the primary public product anchor for guided growth coverage within this portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GIRO Growth Modulation System - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/giro-growth-modulation-system-pega-orthopediatrics/",
+        "notes": "Official OrthoPediatrics GIRO growth modulation page used as supporting public evidence for the broader guided growth portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_HIP_PRESERVATION_PORTFOLIO",
+    "system_name": "OrthoPediatrics Hip preservation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/",
+        "notes": "Official OrthoPediatrics homepage used as the primary public supplier anchor for the hip preservation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Pediatric Plating Platform | Hip (Deformity) - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediatric-plating-platform-hip-2/",
+        "notes": "Official OrthoPediatrics 3P Hip deformity page used as the primary public product anchor for pediatric hip preservation and deformity-correction coverage in this portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Free-Gliding SCFE Screw System - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/free-gliding-scfe-screw-system-pega-orthopediatrics/",
+        "notes": "Official OrthoPediatrics SCFE screw page used as supporting public evidence for pediatric hip preservation treatment coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_PEDIATRIC_FEMUR_PORTFOLIO",
+    "system_name": "OrthoPediatrics Pediatric Femur Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Pediatric Nailing Platform | Femur - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediatric-nailing-platform-femur/",
+        "notes": "Official OrthoPediatrics pediatric femur nailing page used as the primary public source anchor for the pediatric femur portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PediLoc Femur - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediloc-femur-physeal-sparing-femur-plates/",
+        "notes": "Official OrthoPediatrics PediLoc Femur page used as supporting public evidence for pediatric femur fracture and osteotomy plating coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PLEO - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pleo-wedge-osteotomies/",
+        "notes": "Official OrthoPediatrics PLEO plate page used as supporting public evidence for pediatric femur osteotomy and fixation options in this portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_PEDIATRIC_FOOT_PORTFOLIO",
+    "system_name": "OrthoPediatrics Pediatric Foot Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "PediFoot - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pedifoot-deformity-correction-system/",
+        "notes": "Official OrthoPediatrics PediFoot page used as the primary public source anchor for the pediatric foot portfolio entry."
+      },
+      {
+        "source_type": "regulatory_news_page",
+        "title": "OrthoPediatrics Corp. Receives FDA 510(k) Clearance for First Pediatric-Specific Foot System",
+        "url": "https://ir.orthopediatrics.com/news-releases/news-release-details/orthopediatrics-corp-receives-fda-510k-clearance-first-pediatric",
+        "notes": "Official OrthoPediatrics clearance announcement used as supporting public evidence for the pediatric foot deformity correction portfolio."
+      },
+      {
+        "source_type": "launch_news_page",
+        "title": "OrthoPediatrics Corp. Announces U.S. Launch of PediFoot Deformity Correction System",
+        "url": "https://ir.orthopediatrics.com/news-releases/news-release-details/orthopediatrics-corp-announces-us-launch-pedifoot-deformity",
+        "notes": "Official OrthoPediatrics launch announcement used as supporting public evidence for current pediatric foot system availability and indications."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_PEDIATRIC_HIP_PORTFOLIO",
+    "system_name": "OrthoPediatrics Pediatric Hip Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Pediatric Plating Platform | Hip (Trauma) - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediatric-plating-platform-hip/",
+        "notes": "Official OrthoPediatrics 3P Hip trauma page used as the primary public source anchor for the pediatric hip portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Pediatric Plating Platform | Hip (Deformity) - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediatric-plating-platform-hip-2/",
+        "notes": "Official OrthoPediatrics 3P Hip deformity page used as supporting public evidence for pediatric hip deformity correction and preservation coverage."
+      },
+      {
+        "source_type": "launch_news_page",
+        "title": "OrthoPediatrics Corp. Launches 3P Pediatric Plating Platform Hip System and Completes First Case",
+        "url": "https://ir.orthopediatrics.com/news-releases/news-release-details/orthopediatrics-corp-launches-3ptm-pediatric-plating-platformtm/",
+        "notes": "Official OrthoPediatrics launch announcement used as supporting public evidence for the current pediatric hip fixation portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_PEDIATRIC_PELVIC_PORTFOLIO",
+    "system_name": "OrthoPediatrics Pediatric Pelvic Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/",
+        "notes": "Official OrthoPediatrics homepage used as the primary public supplier anchor for the pediatric pelvic portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Pediatric Plating Platform | Hip (Trauma) - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediatric-plating-platform-hip/",
+        "notes": "Official OrthoPediatrics 3P Hip trauma page used as the closest current public product anchor for pediatric pelvic and acetabular-adjacent fixation coverage."
+      },
+      {
+        "source_type": "launch_news_page",
+        "title": "OrthoPediatrics Corp. Launches 3P Pediatric Plating Platform Hip System and Completes First Case",
+        "url": "https://ir.orthopediatrics.com/news-releases/news-release-details/orthopediatrics-corp-launches-3ptm-pediatric-plating-platformtm/",
+        "notes": "Official OrthoPediatrics launch announcement used as supporting public evidence for current pelvic and proximal hip fixation platform expansion in pediatric trauma and deformity cases."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_PEDIATRIC_TIBIA_PORTFOLIO",
+    "system_name": "OrthoPediatrics Pediatric Tibia Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Pediatric Nailing Platform | Tibia - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediatric-nailing-platform-tibia/",
+        "notes": "Official OrthoPediatrics pediatric tibia nailing page used as the primary public source anchor for the pediatric tibia portfolio entry."
+      },
+      {
+        "source_type": "regulatory_news_page",
+        "title": "OrthoPediatrics Corp. Receives FDA 510(k) Clearance for Pediatric Nailing Platform | Tibia",
+        "url": "https://ir.orthopediatrics.com/news-releases/news-release-details/orthopediatrics-corp-receives-fda-510k-clearance-pediatric",
+        "notes": "Official OrthoPediatrics clearance announcement used as supporting public evidence for the pediatric tibia platform."
+      },
+      {
+        "source_type": "launch_news_page",
+        "title": "OrthoPediatrics Corp. Launches Pediatric Nailing Platform | Tibia",
+        "url": "https://ir.orthopediatrics.com/news-releases/news-release-details/orthopediatrics-corp-launches-pediatric-nailing-platform-tibia/",
+        "notes": "Official OrthoPediatrics launch announcement used as supporting public evidence for current pediatric tibia trauma and deformity treatment coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_PEDIATRIC_TRAUMA_PORTFOLIO",
+    "system_name": "OrthoPediatrics Pediatric Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Trauma - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products-services/trauma/",
+        "notes": "Official OrthoPediatrics trauma portfolio page used as the primary public source anchor for the pediatric trauma portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Pediatric Nailing Platform | Femur - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediatric-nailing-platform-femur/",
+        "notes": "Official OrthoPediatrics pediatric femur nailing page used as supporting public evidence for intramedullary trauma fixation coverage within the pediatric trauma portfolio."
+      },
+      {
+        "source_type": "news_page",
+        "title": "OrthoPediatrics Corp. Expands Trauma and Deformity Portfolio with 3P Pediatric Plating Platform Hip System",
+        "url": "https://ir.orthopediatrics.com/news-releases/news-release-details/orthopediatrics-corp-expands-trauma-and-deformity-portfolio-3ptm",
+        "notes": "Official OrthoPediatrics portfolio-expansion announcement used as supporting public evidence for the breadth of current pediatric trauma fixation offerings."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_PEDIATRIC_DEFORMITY_OSTEOTOMY_PORTFOLIO",
+    "system_name": "OrthoPediatrics Pediatric deformity / osteotomy Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "PLEO - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pleo-wedge-osteotomies/",
+        "notes": "Official OrthoPediatrics PLEO page used as the primary public source anchor for the pediatric deformity and osteotomy portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Locking Proximal Femur (LPF) Plate - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/locking-proximal-femur-plate/",
+        "notes": "Official OrthoPediatrics LPF plate page used as supporting public evidence for pediatric osteotomy and deformity-correction coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "LolliPOP - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/lollipop-pega-orthopediatrics/",
+        "notes": "Official OrthoPediatrics LolliPOP page used as supporting public evidence for proximal femoral osteotomy fixation and pediatric deformity correction."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_PEDIATRIC_LOWER_LIMB_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "OrthoPediatrics Pediatric lower limb reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Locking Cannulated Blade (LCB) Plate - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/locking-cannulated-blade-lcb-plate/",
+        "notes": "Official OrthoPediatrics LCB plate page used as the primary public source anchor for the pediatric lower limb reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GIRO Growth Modulation System - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/giro-growth-modulation-system-pega-orthopediatrics/",
+        "notes": "Official OrthoPediatrics GIRO page used as supporting public evidence for lower-limb deformity correction and growth modulation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Fassier-Duval Telescopic IM System - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/fassier-duval-telescopic-im-system-pega-products-orthopediatrics/",
+        "notes": "Official OrthoPediatrics Fassier-Duval page used as supporting public evidence for pediatric lower-limb reconstruction, deformity correction, and fracture-prevention workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_PEDIATRIC_ORTHOPAEDICS_PORTFOLIO",
+    "system_name": "OrthoPediatrics Pediatric orthopaedics Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/",
+        "notes": "Official OrthoPediatrics homepage used as the primary public supplier anchor for the pediatric orthopaedics portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Locking Cannulated Blade (LCB) Plate - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/locking-cannulated-blade-lcb-plate/",
+        "notes": "Official OrthoPediatrics LCB plate page used as supporting public evidence for lower-limb reconstruction and pediatric orthopaedic fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PediFlex - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediflex-flexible-nails/",
+        "notes": "Official OrthoPediatrics PediFlex page used as supporting public evidence for broader pediatric orthopaedic trauma and long-bone fixation coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_PAEDIATRIC_HIP_PORTFOLIO",
+    "system_name": "Paediatric Hip Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Pediatric Plating Platform | Hip (Trauma) - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediatric-plating-platform-hip/",
+        "notes": "Official OrthoPediatrics 3P Hip trauma page used as the primary public source anchor for the paediatric hip portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Pediatric Plating Platform | Hip (Deformity) - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pediatric-plating-platform-hip-2/",
+        "notes": "Official OrthoPediatrics 3P Hip deformity page used as supporting public evidence for paediatric hip deformity correction and preservation coverage."
+      },
+      {
+        "source_type": "launch_news_page",
+        "title": "OrthoPediatrics Corp. Launches 3P Pediatric Plating Platform Hip System and Completes First Case",
+        "url": "https://ir.orthopediatrics.com/news-releases/news-release-details/orthopediatrics-corp-launches-3ptm-pediatric-plating-platformtm/",
+        "notes": "Official OrthoPediatrics launch announcement used as supporting public evidence for the current paediatric hip fixation portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_PAEDIATRIC_OSTEOTOMY___PLATE_PORTFOLIO",
+    "system_name": "Paediatric Osteotomy / Plate Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "PLEO - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/pleo-wedge-osteotomies/",
+        "notes": "Official OrthoPediatrics PLEO page used as the primary public source anchor for the paediatric osteotomy and plate portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Locking Proximal Femur (LPF) Plate - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/locking-proximal-femur-plate/",
+        "notes": "Official OrthoPediatrics LPF plate page used as supporting public evidence for paediatric osteotomy and deformity-correction coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "LolliPOP - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/lollipop-pega-orthopediatrics/",
+        "notes": "Official OrthoPediatrics LolliPOP page used as supporting public evidence for proximal femoral osteotomy fixation and paediatric deformity correction."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_RESPONSE___BANDLOC_PAEDIATRIC_SPINE_SYSTEM",
+    "system_name": "RESPONSE / BandLoc Paediatric Spine System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "RESPONSE 4.5/5.0 - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/response-45-50-pediatric-scoliosis/",
+        "notes": "Official OrthoPediatrics RESPONSE scoliosis page used as the primary public source anchor for the RESPONSE and BandLoc paediatric spine system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "BandLoc - OrthoPediatrics",
+        "url": "https://www.orthopediatrics.com/products/bandloc-sub-laminar-polyester-band-system/",
+        "notes": "Official OrthoPediatrics BandLoc product page used as supporting public evidence for sublaminar banding in the paediatric spine system entry."
+      },
+      {
+        "source_type": "launch_news_page",
+        "title": "OrthoPediatrics Corp. Announce Launch of RESPONSE Power Scoliosis System",
+        "url": "https://ir.orthopediatrics.com/news-releases/news-release-details/orthopediatrics-corp-announce-launch-responsetm-power-scoliosis",
+        "notes": "Official OrthoPediatrics launch announcement used as supporting public evidence for the current RESPONSE scoliosis platform and paediatric spine workflow."
+      }
+    ]
+  }
+]

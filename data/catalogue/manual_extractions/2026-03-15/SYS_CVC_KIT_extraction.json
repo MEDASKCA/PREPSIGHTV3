@@ -1,0 +1,67 @@
+{
+  "source_meta": {
+    "supplier_name": "Teleflex",
+    "system_name": "Central Venous Catheter Kit",
+    "source_type": "product_family_page",
+    "source_document": "Central Access / Arrow ErgoPack Complete System | Teleflex",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Central Venous Catheter Kit",
+      "supplier_name": "Teleflex",
+      "system_category": "Vascular Access",
+      "system_notes": "Official source anchor for Teleflex Arrow central venous catheter kits and maximal-barrier insertion workflow."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Arrow ErgoPack Complete System",
+      "system_name": "Central Venous Catheter Kit",
+      "tray_type": "Max Barrier Kit",
+      "tray_notes": "All-inclusive Teleflex central-line insertion system configured for CVC procedures."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Arrowg+ard Blue Plus CVC",
+      "system_name": "Central Venous Catheter Kit",
+      "component_role": "Central Venous Catheter",
+      "implant_category": "Vascular Access Device",
+      "component_notes": "Teleflex antimicrobial short-term central venous catheter family."
+    },
+    {
+      "component_name": "Arrow ErgoPack Complete Kit",
+      "system_name": "Central Venous Catheter Kit",
+      "component_role": "Insertion Kit",
+      "implant_category": "Vascular Access Kit",
+      "component_notes": "Teleflex maximal barrier central line kit with procedural accessories."
+    },
+    {
+      "component_name": "GlideWheel Advancer",
+      "system_name": "Central Venous Catheter Kit",
+      "component_role": "Guidewire Accessory",
+      "implant_category": "Vascular Access Accessory",
+      "component_notes": "Teleflex kit component used for guidewire control in the Arrow ErgoPack system."
+    }
+  ],
+  "products": [
+    {
+      "component_name": "Arrow ErgoPack Complete Kit",
+      "product_code": "Arrow ErgoPack Complete System",
+      "product_name": "Arrow ErgoPack Complete Kit for CVC Insertion",
+      "supplier_name": "Teleflex",
+      "product_notes": "Official Teleflex product-family kit row for the maximal-barrier CVC insertion system."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public Teleflex pages describe the kit family but do not expose a normalized SKU table in the current pass.",
+      "reason": "Specific product codes should be added from catalog or ordering-guide pages if identified later.",
+      "source_excerpt": "Current extraction remains kit-family based."
+    }
+  ]
+}

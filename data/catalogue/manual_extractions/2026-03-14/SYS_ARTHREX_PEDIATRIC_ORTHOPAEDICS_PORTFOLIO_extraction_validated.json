@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Arthrex Pediatric Orthopaedics Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Pediatric Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ARTHREX_PEDIATRIC_ORTHOPAEDICS_PORTFOLIO_PEDIATRIC_ORTHOPAEDICS_PORTFOLIO_FAMILY",
+        "Component Name": "Pediatric Orthopaedics Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Pediatric Orthopaedics Workflow",
+        "System ID": "SYS_ARTHREX_PEDIATRIC_ORTHOPAEDICS_PORTFOLIO",
+        "Component Notes": "Official Arthrex portfolio sources describe the broader pediatric orthopaedic workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Arthrex Pediatric Orthopaedics Portfolio",
+          "supplier_name": "Arthrex",
+          "system_category": "Pediatric orthopaedics",
+          "system_notes": "Portfolio-level public anchor for Arthrex pediatric orthopaedic workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Arthrex Pediatric Orthopaedics Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Pediatric orthopaedics",
+        "system_notes": "Portfolio-level public anchor for Arthrex pediatric orthopaedic workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Arthrex Pediatric Orthopaedics Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Pediatric orthopaedics",
+        "system_notes": "Portfolio-level public anchor for Arthrex pediatric orthopaedic workflow resources."
+      }
+    }
+  ]
+}

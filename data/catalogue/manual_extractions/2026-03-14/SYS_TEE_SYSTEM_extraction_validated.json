@@ -1,0 +1,65 @@
+{
+  "source_meta": {
+    "supplier_name": "Philips",
+    "system_name": "Transoesophageal Echocardiography System",
+    "source_type": "technology_page",
+    "source_document": "Ultrasound for Anesthesia and Perioperative Care",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [
+      {
+        "Supplier ID": "SUP_PHILIPS_2",
+        "Supplier Name": "Philips",
+        "Supplier Country": "",
+        "Supplier Notes": ""
+      }
+    ],
+    "SYSTEMS": [
+      {
+        "System ID": "SYS_PHILIPS_TRANSOESOPHAGEAL_ECHOCARDIOGRAPHY_SYSTEM",
+        "System Name": "Transoesophageal Echocardiography System",
+        "Supplier ID": "SUP_PHILIPS_2",
+        "System Category": "Cardiac Imaging",
+        "System Notes": "Public source anchor for the Philips perioperative and transoesophageal echocardiography imaging platform."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TRANSOESOPHAGEAL_ECHOCARDIOGRAPHY_SYSTEM_PHILIPS_PERIOPERATIVE_ULTRASOUND_PLATFORM_FAMILY",
+        "Component Name": "Philips Perioperative Ultrasound Platform Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Cardiac Imaging Workflow",
+        "System ID": "SYS_PHILIPS_TRANSOESOPHAGEAL_ECHOCARDIOGRAPHY_SYSTEM",
+        "Component Notes": "Official Philips sources describe the broader perioperative ultrasound and TEE platform family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": []
+}

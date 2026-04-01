@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "NuVasive",
+    "system_name": "Helix / Cohere Cervical Portfolio",
+    "source_type": "product_history_page",
+    "source_document": "Dr Gary Michelson | NuVasive",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Helix / Cohere Cervical Portfolio",
+      "supplier_name": "NuVasive",
+      "system_category": "spine",
+      "system_notes": "Official NuVasive cervical plate and interbody materials used as the public source anchors for this cervical portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Helix and Cohere Cervical Framework",
+      "system_name": "Helix / Cohere Cervical Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Framework component anchored to NuVasive public cervical source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public cervical source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Dr Gary Michelson | NuVasive; NuVasive Announces Acquisition of Vertera Spine; NuVasive Receives FDA Clearance for Expanded Multi-Level Use of CoRoent Small Interlock System for the Cervical Spine"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public cervical source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Dr Gary Michelson | NuVasive; NuVasive Announces Acquisition of Vertera Spine; NuVasive Receives FDA Clearance for Expanded Multi-Level Use of CoRoent Small Interlock System for the Cervical Spine"
+    }
+  ]
+}

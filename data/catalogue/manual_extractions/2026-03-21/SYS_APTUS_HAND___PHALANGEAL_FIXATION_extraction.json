@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medartis",
+    "system_name": "Aptus Hand / Phalangeal Fixation",
+    "source_type": "portfolio_page",
+    "source_document": "Medartis | Hand Solutions",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Aptus Hand / Phalangeal Fixation",
+      "supplier_name": "Medartis",
+      "system_category": "hand_wrist_trauma",
+      "system_notes": "Official Medartis Hand Solutions, Hand 1.2-2.3 System, and Documents materials used as the source anchors for the phalangeal fixation entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Phalangeal Fixation Framework",
+      "system_name": "Aptus Hand / Phalangeal Fixation",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Hand Trauma Portfolio",
+      "component_notes": "Framework component anchored to Medartis public Aptus hand and phalangeal fixation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Medartis phalangeal fixation source anchors do not enumerate tray-level data for this entry.",
+      "source_excerpt": "Hand Solutions; Hand 1.2-2.3 System; Documents"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Medartis phalangeal fixation source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Hand Solutions; Hand 1.2-2.3 System; Documents"
+    }
+  ]
+}

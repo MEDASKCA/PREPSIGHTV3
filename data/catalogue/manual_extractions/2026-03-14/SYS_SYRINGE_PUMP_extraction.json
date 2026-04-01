@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "B. Braun",
+    "system_name": "Syringe Pump",
+    "source_type": "product_page",
+    "source_document": "Perfusor Space Syringe Pump",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Syringe Pump",
+      "supplier_name": "B. Braun",
+      "system_category": "Drug Delivery",
+      "system_notes": "Public source anchor for the B. Braun syringe pump platform."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "B. Braun Syringe Pump Family",
+      "system_name": "Syringe Pump",
+      "component_role": "Portfolio Family",
+      "implant_category": "Drug Delivery Workflow",
+      "component_notes": "Official B. Braun sources describe the broader syringe pump platform family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Public syringe pump pages do not describe a dedicated tray in the current pass.",
+      "reason": "Tray detail should only be added from narrower accessory or module sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public product pages do not expose a normalized product-code matrix in this pass.",
+      "reason": "Product codes should be captured from ordering guides or narrower pump model sources.",
+      "source_excerpt": "Current extraction remains high-level only."
+    }
+  ]
+}

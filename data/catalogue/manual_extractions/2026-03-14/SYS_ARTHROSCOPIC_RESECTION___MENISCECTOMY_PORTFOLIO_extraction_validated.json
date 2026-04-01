@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Arthroscopic Resection / Meniscectomy Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Knee",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ARTHROSCOPIC_RESECTION_MENISCECTOMY_PORTFOLIO_ARTHROSCOPIC_MENISCECTOMY_PORTFOLIO_FAMILY",
+        "Component Name": "Arthroscopic Meniscectomy Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Meniscectomy Workflow",
+        "System ID": "SYS_ARTHROSCOPIC_RESECTION___MENISCECTOMY_PORTFOLIO",
+        "Component Notes": "Official Arthrex portfolio sources describe the broader arthroscopic resection and meniscectomy workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Arthroscopic Resection / Meniscectomy Portfolio",
+          "supplier_name": "Arthrex",
+          "system_category": "Meniscectomy",
+          "system_notes": "Portfolio-level public anchor for Arthrex arthroscopic resection and meniscectomy workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Arthroscopic Resection / Meniscectomy Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Meniscectomy",
+        "system_notes": "Portfolio-level public anchor for Arthrex arthroscopic resection and meniscectomy workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Arthroscopic Resection / Meniscectomy Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Meniscectomy",
+        "system_notes": "Portfolio-level public anchor for Arthrex arthroscopic resection and meniscectomy workflow resources."
+      }
+    }
+  ]
+}

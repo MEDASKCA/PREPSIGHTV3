@@ -1,0 +1,22 @@
+[
+  {
+    "supplier_id": "SUP_LIVANOVA",
+    "supplier_name": "LivaNova",
+    "system_id": "SYS_CPB_MACHINE",
+    "system_name": "Cardiopulmonary Bypass Machine",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Cardiopulmonary Solutions",
+        "url": "https://www.livanova.com/cardiopulmonary",
+        "notes": "Official LivaNova cardiopulmonary solutions page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Perfusion",
+        "url": "https://www.livanova.com/cardiopulmonary/perfusion",
+        "notes": "Official LivaNova perfusion page used as broader workflow context."
+      }
+    ]
+  }
+]

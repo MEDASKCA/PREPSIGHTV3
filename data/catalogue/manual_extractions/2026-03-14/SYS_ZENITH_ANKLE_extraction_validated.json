@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Corin",
+    "system_name": "Zenith Total Ankle",
+    "source_type": "product_page",
+    "source_document": "Zenith Total Ankle Replacement",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ZENITH_TOTAL_ANKLE_ZENITH_INSTRUMENTATION",
+        "Tray Name": "Zenith Instrumentation",
+        "System ID": "SYS_ZENITH_ANKLE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated Zenith instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ZENITH_TOTAL_ANKLE_ZENITH_TIBIAL_COMPONENT",
+        "Component Name": "Zenith Tibial Component",
+        "Component Role": "Tibial Component",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_ZENITH_ANKLE",
+        "Component Notes": "Core tibial implant family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_ZENITH_TOTAL_ANKLE_ZENITH_TALAR_COMPONENT",
+        "Component Name": "Zenith Talar Component",
+        "Component Role": "Talar Component",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_ZENITH_ANKLE",
+        "Component Notes": "Core talar implant family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_ZENITH_TOTAL_ANKLE_ZENITH_POLY_INSERT",
+        "Component Name": "Zenith Poly Insert",
+        "Component Role": "Poly Insert",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_ZENITH_ANKLE",
+        "Component Notes": "Polyethylene insert family referenced on the product page."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Zenith Total Ankle",
+          "supplier_name": "Corin",
+          "system_category": "Ankle Arthroplasty System",
+          "system_notes": "Fixed-bearing total ankle arthroplasty platform."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Zenith Total Ankle",
+        "supplier_name": "Corin",
+        "system_category": "Ankle Arthroplasty System",
+        "system_notes": "Fixed-bearing total ankle arthroplasty platform."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Zenith Total Ankle",
+        "supplier_name": "Corin",
+        "system_category": "Ankle Arthroplasty System",
+        "system_notes": "Fixed-bearing total ankle arthroplasty platform."
+      }
+    }
+  ]
+}

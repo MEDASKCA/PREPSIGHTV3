@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Integra LifeSciences",
+    "system_name": "Hand Soft Tissue Reconstruction Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Upper Extremities",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_HAND_SOFT_TISSUE_RECONSTRUCTION_PORTFOLIO_HAND_SOFT_TISSUE_RECONSTRUCTION_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Hand Soft Tissue Reconstruction Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Hand Soft Tissue Reconstruction Portfolio",
+        "System ID": "SYS_HAND_SOFT_TISSUE_RECONSTRUCTION_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Integra public upper-extremity and tissue-reconstruction sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Hand Soft Tissue Reconstruction Portfolio",
+          "supplier_name": "Integra LifeSciences",
+          "system_category": "hand_wrist",
+          "system_notes": "Public Integra upper-extremity and tissue-reconstruction materials used as the source anchors for the hand soft tissue reconstruction portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Hand Soft Tissue Reconstruction Portfolio",
+        "supplier_name": "Integra LifeSciences",
+        "system_category": "hand_wrist",
+        "system_notes": "Public Integra upper-extremity and tissue-reconstruction materials used as the source anchors for the hand soft tissue reconstruction portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Hand Soft Tissue Reconstruction Portfolio",
+        "supplier_name": "Integra LifeSciences",
+        "system_category": "hand_wrist",
+        "system_notes": "Public Integra upper-extremity and tissue-reconstruction materials used as the source anchors for the hand soft tissue reconstruction portfolio entry."
+      }
+    }
+  ]
+}

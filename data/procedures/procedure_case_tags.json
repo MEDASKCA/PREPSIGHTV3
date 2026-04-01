@@ -1,0 +1,52 @@
+[
+  {
+    "id": "CASE_ELECTIVE",
+    "name": "Elective",
+    "description": "Scheduled non-emergency procedure"
+  },
+  {
+    "id": "CASE_EMERGENCY",
+    "name": "Emergency",
+    "description": "Immediate surgery required to treat life-threatening or urgent conditions"
+  },
+  {
+    "id": "CASE_TRAUMA",
+    "name": "Trauma",
+    "description": "Procedure performed to treat traumatic injury"
+  },
+  {
+    "id": "CASE_REVISION",
+    "name": "Revision",
+    "description": "Procedure performed to revise or correct a previous surgery"
+  },
+  {
+    "id": "CASE_ONCOLOGY",
+    "name": "Oncology",
+    "description": "Procedure performed for treatment of malignant or benign tumors"
+  },
+  {
+    "id": "CASE_RECONSTRUCTION",
+    "name": "Reconstruction",
+    "description": "Procedure performed to restore anatomy or function following disease, trauma, or surgery"
+  },
+  {
+    "id": "CASE_DIAGNOSTIC",
+    "name": "Diagnostic",
+    "description": "Procedure performed primarily for diagnostic purposes"
+  },
+  {
+    "id": "CASE_THERAPEUTIC",
+    "name": "Therapeutic",
+    "description": "Procedure performed to treat or alleviate a condition"
+  },
+  {
+    "id": "CASE_MINIMALLY_INVASIVE",
+    "name": "Minimally Invasive",
+    "description": "Procedure performed using minimally invasive techniques such as laparoscopy, arthroscopy, or endoscopy"
+  },
+  {
+    "id": "CASE_ROBOTIC",
+    "name": "Robotic",
+    "description": "Procedure performed using robotic-assisted surgical systems"
+  }
+]

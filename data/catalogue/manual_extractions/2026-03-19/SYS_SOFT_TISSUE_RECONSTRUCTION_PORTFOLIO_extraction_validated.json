@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Integra LifeSciences",
+    "system_name": "Soft Tissue Reconstruction Portfolio",
+    "source_type": "corporate_page",
+    "source_document": "Who We Are | Integra LifeSciences",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_SOFT_TISSUE_RECONSTRUCTION_PORTFOLIO_SOFT_TISSUE_RECONSTRUCTION_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Soft Tissue Reconstruction Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Soft tissue reconstruction",
+        "System ID": "SYS_SOFT_TISSUE_RECONSTRUCTION_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Integra public reconstructive and soft-tissue-repair sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Soft Tissue Reconstruction Portfolio",
+          "supplier_name": "Integra LifeSciences",
+          "system_category": "Soft tissue reconstruction",
+          "system_notes": "Public Integra regenerative tissue and reconstructive surgery materials used as the source anchors for the soft tissue reconstruction portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Soft Tissue Reconstruction Portfolio",
+        "supplier_name": "Integra LifeSciences",
+        "system_category": "Soft tissue reconstruction",
+        "system_notes": "Public Integra regenerative tissue and reconstructive surgery materials used as the source anchors for the soft tissue reconstruction portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Soft Tissue Reconstruction Portfolio",
+        "supplier_name": "Integra LifeSciences",
+        "system_category": "Soft tissue reconstruction",
+        "system_notes": "Public Integra regenerative tissue and reconstructive surgery materials used as the source anchors for the soft tissue reconstruction portfolio entry."
+      }
+    }
+  ]
+}

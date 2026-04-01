@@ -1,0 +1,566 @@
+[
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_ALIF_PORTFOLIO",
+    "system_name": "Globus ALIF Portfolio",
+    "sources": [
+      {
+        "source_type": "solution_page",
+        "title": "ALIF - Anterior Lumbar Interbody Fusion",
+        "url": "https://www.globusmedical.com/solution/spine/anterior-lumbar/",
+        "notes": "Official Globus Medical ALIF procedural portfolio page used as the primary public source anchor for the ALIF portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Modulus ALIF",
+        "url": "https://www.globusmedical.com/products/modulus-alif/",
+        "notes": "Official Globus Medical product page for a core ALIF interbody implant in the anterior lumbar portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Brigade ALIF Plate System",
+        "url": "https://www.globusmedical.com/products/brigade-alif-plate-system/",
+        "notes": "Official Globus Medical product page for anterior fixation within the ALIF portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_COMPLEX_SPINE_PORTFOLIO",
+    "system_name": "Globus Complex Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "solution_page",
+        "title": "Deformity",
+        "url": "https://www.globusmedical.com/solution/spine/complex-spine/",
+        "notes": "Official Globus Medical complex spine and deformity solution page used as the primary public source anchor for the complex spine portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CREO NXT Stabilization System",
+        "url": "https://www.globusmedical.com/products/creo-nxt/",
+        "notes": "Official Globus Medical product page for a core complex deformity fixation platform within the broader complex spine portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Rod Link Reducer",
+        "url": "https://www.globusmedical.com/products/rod-link-reducer/",
+        "notes": "Official Globus Medical product page for severe curve correction instrumentation used within complex spine deformity workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_ENABLING_TECH_SPINE_PORTFOLIO",
+    "system_name": "Globus Enabling Tech + Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "solution_page",
+        "title": "Musculoskeletal Solutions",
+        "url": "https://www.globusmedical.com/international/solutions/",
+        "notes": "Official Globus Medical solutions page used as the portfolio-level anchor for enabling technologies integrated with spine procedures."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ExcelsiusGPS Robotic Navigation Platform",
+        "url": "https://www.globusmedical.com/international/products/excelsiusgps/",
+        "notes": "Official Globus Medical product page for the ExcelsiusGPS robotic navigation platform within the enabling-technology portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Pulse",
+        "url": "https://www.globusmedical.com/products/pulse/",
+        "notes": "Official Globus Medical product page for the Pulse integrated enabling-technology platform used in spine workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_LLIF_PORTFOLIO",
+    "system_name": "Globus LLIF Portfolio",
+    "sources": [
+      {
+        "source_type": "solution_page",
+        "title": "XLIF",
+        "url": "https://www.globusmedical.com/solution/spine/lateral/",
+        "notes": "Official Globus Medical lateral lumbar interbody fusion solution page used as the primary public source anchor for the LLIF portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "RISE-L Expandable Lateral Interbody Spacer",
+        "url": "https://www.globusmedical.com/international/products/rise-l-expandable-lateral-interbody-fusion-spacer/",
+        "notes": "Official Globus Medical product page for a representative expandable lateral interbody implant within the LLIF portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "InterContinental Lateral Interbody Spacer",
+        "url": "https://www.globusmedical.com/international/products/intercontinental-integrated-lateral-interbody-spacer/",
+        "notes": "Official Globus Medical product page for integrated lateral interbody fixation within the LLIF portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_LUMBAR_DECOMPRESSION_PORTFOLIO",
+    "system_name": "Globus Lumbar Decompression Portfolio",
+    "sources": [
+      {
+        "source_type": "glossary_page",
+        "title": "Lateral Lumbar Interbody Fusion (LLIF)",
+        "url": "https://www.globusmedical.com/glossary/lateral-lumbar-interbody-fusion/",
+        "notes": "Official Globus Medical lumbar procedure page used as the current public portfolio anchor for lumbar decompression workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MAS Midline System",
+        "url": "https://www.globusmedical.com/products/mas-midline-system/",
+        "notes": "Official Globus Medical product page for midline lumbar decompression and bilateral interbody access instrumentation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MARS Midline Retractor",
+        "url": "https://www.globusmedical.com/products/mars-midline-retractor/",
+        "notes": "Official Globus Medical product page for lumbar decompression retraction and access instrumentation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_MIS_SPINE_PORTFOLIO",
+    "system_name": "Globus MIS Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "solution_page",
+        "title": "Minimally Invasive Spine Surgery",
+        "url": "https://www.globusmedical.com/international/patient-education/procedures/robotic-spine-surgery/",
+        "notes": "Official Globus Medical minimally invasive spine surgery page used as the portfolio-level anchor for the MIS spine entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "REVOLVE Stabilization System",
+        "url": "https://www.globusmedical.com/products/revolve/",
+        "notes": "Official Globus Medical product page for a core minimally invasive posterior fixation platform within the MIS spine portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MAS TLIF 2",
+        "url": "https://www.globusmedical.com/products/mas-tlif-2/",
+        "notes": "Official Globus Medical product page for minimally invasive lumbar access and fusion workflow instrumentation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_MEDICAL_CERVICAL_DECOMPRESSION_PORTFOLIO",
+    "system_name": "Globus Medical Cervical decompression Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "COALITION MIS Spacer",
+        "url": "https://www.globusmedical.com/products/coalition-mis-spacer/",
+        "notes": "Official Globus Medical product page for integrated ACDF spacer technology within cervical decompression and fusion workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MARS ACDF Cervical Retractor System",
+        "url": "https://www.globusmedical.com/products/mars-acdf-cervical-retractor-system/",
+        "notes": "Official Globus Medical product page for cervical decompression access and retraction instrumentation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Anterior Cervical Plate (ACP)",
+        "url": "https://www.globusmedical.com/products/anterior-cervical-plate-acp/",
+        "notes": "Official Globus Medical product page for anterior cervical fixation within decompression and fusion workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_MEDICAL_LUMBAR_DECOMPRESSION_INSTRUMENTATION_PORTFOLIO",
+    "system_name": "Globus Medical Lumbar decompression / instrumentation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "MAS Midline System",
+        "url": "https://www.globusmedical.com/products/mas-midline-system/",
+        "notes": "Official Globus Medical product page for lumbar decompression and bilateral access instrumentation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MARS Midline Retractor",
+        "url": "https://www.globusmedical.com/products/mars-midline-retractor/",
+        "notes": "Official Globus Medical product page for direct lumbar decompression retraction instrumentation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Excavation Micro",
+        "url": "https://www.globusmedical.com/products/excavation-micro/",
+        "notes": "Official Globus Medical product page for decompression instrument sets used in tubular lumbar workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_MEDICAL_ORTHOPAEDIC_ONCOLOGY_PORTFOLIO",
+    "system_name": "Globus Medical Orthopaedic oncology Portfolio",
+    "sources": [
+      {
+        "source_type": "company_page",
+        "title": "About Us and Our Medical Devices",
+        "url": "https://www.globusmedical.com/about/",
+        "notes": "Official Globus Medical company overview page used as the portfolio-level anchor for its orthopedic trauma, joint reconstruction, and musculoskeletal technology offerings."
+      },
+      {
+        "source_type": "procedure_page",
+        "title": "Corpectomy - Expandable Technology",
+        "url": "https://www.globusmedical.com/expandabletechnology/corpectomy/",
+        "notes": "Official Globus Medical corpectomy portfolio page covering vertebral body replacement solutions used for tumor and complex reconstructive indications."
+      },
+      {
+        "source_type": "product_page",
+        "title": "FORTIFY VA Self-Aligning Expandable Corpectomy Spacer",
+        "url": "https://www.globusmedical.com/international/products/fortify-va-corpectomy-spacer/",
+        "notes": "Official Globus Medical product page for an expandable corpectomy spacer used in oncology and vertebral body reconstruction workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_MEDICAL_SPINE_PORTFOLIO",
+    "system_name": "Globus Medical Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "company_page",
+        "title": "About Us and Our Medical Devices",
+        "url": "https://www.globusmedical.com/about/",
+        "notes": "Official Globus Medical company overview page describing its comprehensive spine procedure portfolio."
+      },
+      {
+        "source_type": "solution_page",
+        "title": "Musculoskeletal Solutions",
+        "url": "https://www.globusmedical.com/international/solutions/",
+        "notes": "Official Globus Medical solutions page used as the public portfolio anchor for the broader spine offering."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Excelsius Technology",
+        "url": "https://www.globusmedical.com/musculoskeletal-solutions/excelsiustechnology/",
+        "notes": "Official Globus Medical enabling-technology page used as supporting context for the integrated spine portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_MEDICAL_SPINE_TRAUMA_PORTFOLIO",
+    "system_name": "Globus Medical Spine trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "procedure_page",
+        "title": "Minimally Invasive Vertebral Augmentation Procedure",
+        "url": "https://www.globusmedical.com/patient-education-musculoskeletal-system-conditions/procedures/vertebral-augmentation/",
+        "notes": "Official Globus Medical spine trauma and vertebral fracture procedure page used as the portfolio-level anchor for the spine trauma entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "XCore 2 VBR",
+        "url": "https://www.globusmedical.com/products/xcore-2-vbr/",
+        "notes": "Official Globus Medical product page for expandable vertebral body replacement used in traumatic and complex vertebral reconstruction."
+      },
+      {
+        "source_type": "product_page",
+        "title": "NIKO Corpectomy Spacer",
+        "url": "https://www.globusmedical.com/international/products/niko-corpectomy-spacer/",
+        "notes": "Official Globus Medical product page for thoracolumbar corpectomy reconstruction used in trauma workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_PLIF_PORTFOLIO",
+    "system_name": "Globus PLIF Portfolio",
+    "sources": [
+      {
+        "source_type": "procedure_page",
+        "title": "Posterior Lumbar Interbody Fusion",
+        "url": "https://www.globusmedical.com/patient-education-musculoskeletal-system-conditions/procedures/posterior-lumbar-interbody-fusion/",
+        "notes": "Official Globus Medical PLIF procedure page used as the primary public source anchor for the posterior lumbar interbody fusion portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "HEDRON P 3D Printed PLIF Spacer",
+        "url": "https://www.globusmedical.com/products/hedron-p/",
+        "notes": "Official Globus Medical product page for a dedicated posterior lumbar interbody spacer within the PLIF portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "RISE Spacer",
+        "url": "https://www.globusmedical.com/products/rise/",
+        "notes": "Official Globus Medical product page for an expandable posterior interbody spacer used in PLIF workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_PELVIC_FIXATION_PORTFOLIO",
+    "system_name": "Globus Pelvic Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "solution_page",
+        "title": "Sacroiliac Joint Fusion",
+        "url": "https://www.globusmedical.com/solution/spine/sacroiliac-joint-fixation/",
+        "notes": "Official Globus Medical SI-joint fixation solution page used as the primary public source anchor for the pelvic fixation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "SI-LOK Sacroiliac Joint Fusion System",
+        "url": "https://www.globusmedical.com/products/si-lok/",
+        "notes": "Official Globus Medical product page for sacroiliac and pelvic fixation within the pelvic fixation portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CREO S2AI Stabilization System",
+        "url": "https://www.globusmedical.com/products/creo-s2ai-stabilization-system/",
+        "notes": "Official Globus Medical product page for S2-alar-iliac fixation used in long spinal constructs and pelvic fixation workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_REVISION_SPINE_PORTFOLIO",
+    "system_name": "Globus Revision Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "REVERE ADDITION Revision System",
+        "url": "https://www.globusmedical.com/international/products/revere-addition-revision-system/",
+        "notes": "Official Globus Medical product page for the thoracolumbar revision system used as the primary public source anchor for the revision spine portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "XCore 2 VBR",
+        "url": "https://www.globusmedical.com/products/xcore-2-vbr/",
+        "notes": "Official Globus Medical product page for expandable vertebral body replacement used in complex revision and reconstruction workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "COLOSSEUM Corpectomy Spacer",
+        "url": "https://www.globusmedical.com/products/colosseum-corpectomy-spacer/",
+        "notes": "Official Globus Medical product page for static corpectomy and vertebral body reconstruction in revision settings."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_TLIF_PORTFOLIO",
+    "system_name": "Globus TLIF Portfolio",
+    "sources": [
+      {
+        "source_type": "procedure_page",
+        "title": "TLIF - Transforaminal Lumbar Interbody Fusion",
+        "url": "https://www.globusmedical.com/solution/spine/posterior-lumbar/",
+        "notes": "Official Globus Medical TLIF procedure page used as the primary public source anchor for the TLIF portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ALTERA",
+        "url": "https://www.globusmedical.com/products/altera/",
+        "notes": "Official Globus Medical product page for an articulating expandable TLIF spacer within the TLIF portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MAS TLIF 2",
+        "url": "https://www.globusmedical.com/products/mas-tlif-2/",
+        "notes": "Official Globus Medical product page for TLIF access and retraction instrumentation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_GLOBUS_THORACIC_SPINE_PORTFOLIO",
+    "system_name": "Globus Thoracic Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "procedure_page",
+        "title": "XLIF Thoracic",
+        "url": "https://www.globusmedical.com/llif/",
+        "notes": "Official Globus Medical XLIF thoracic procedural page used as the primary public source anchor for the thoracic spine portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "XCore 2 VBR",
+        "url": "https://www.globusmedical.com/products/xcore-2-vbr/",
+        "notes": "Official Globus Medical product page for thoracic and thoracolumbar vertebral body replacement within thoracic spine reconstruction workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "NIKO Corpectomy Spacer",
+        "url": "https://www.globusmedical.com/international/products/niko-corpectomy-spacer/",
+        "notes": "Official Globus Medical product page for thoracolumbar corpectomy reconstruction used in thoracic spine workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_LUMBAR_DISCECTOMY_PORTFOLIO",
+    "system_name": "Lumbar Discectomy Portfolio",
+    "sources": [
+      {
+        "source_type": "procedure_page",
+        "title": "Lumbar Discectomy",
+        "url": "https://www.globusmedical.com/patient-education-musculoskeletal-system-conditions/procedures/lumbar-discectomy/",
+        "notes": "Official Globus Medical lumbar discectomy procedure page used as the primary public source anchor for the lumbar discectomy portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MARS 3VL Retractor",
+        "url": "https://www.globusmedical.com/products/mars-3vl/",
+        "notes": "Official Globus Medical product page for lumbar discectomy access and retraction instrumentation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "DuraPro Oscillating System",
+        "url": "https://www.globusmedical.com/products/durapro-oscillating-system/",
+        "notes": "Official Globus Medical product page for powered bone and soft-tissue removal used in lumbar decompression and discectomy workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_PAEDIATRIC___DEFORMITY_SPINE_PORTFOLIO",
+    "system_name": "Paediatric / Deformity Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "procedure_page",
+        "title": "Pediatric and Growing Spine",
+        "url": "https://www.globusmedical.com/healthcare-professionals/spine/procedures/pediatrics/",
+        "notes": "Official Globus Medical pediatric and growing spine portfolio page used as the primary public source anchor for the pediatric deformity spine entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Reline Small Stature",
+        "url": "https://www.globusmedical.com/products/reline-small-stature/",
+        "notes": "Official Globus Medical product page for pediatric deformity fixation optimized for smaller anatomy."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MARVEL Growing Rod System",
+        "url": "https://www.globusmedical.com/products/marvel/",
+        "notes": "Official Globus Medical product page for early-onset scoliosis and growing-rod treatment within the pediatric deformity portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_CREO___SABLE_LUMBAR_FUSION_PORTFOLIO",
+    "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "CREO NXT Stabilization System | Globus Medical",
+        "url": "https://www.globusmedical.com/products/creo-nxt/",
+        "notes": "Official Globus Medical product page used as the primary posterior-fixation anchor for the Creo / SABLE lumbar fusion portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "SABLE Spacer | Globus Medical",
+        "url": "https://www.globusmedical.com/products/sable/",
+        "notes": "Official Globus Medical product page used as the direct interbody anchor for the SABLE expandable posterior lumbar spacer."
+      },
+      {
+        "source_type": "procedure_page",
+        "title": "TLIF - Transforaminal Lumbar Interbody Fusion | Globus Medical",
+        "url": "https://www.globusmedical.com/healthcare-professionals/spine/procedures/tlif/",
+        "notes": "Official Globus Medical procedure page used as the broader lumbar-fusion workflow anchor because it integrates posterior fixation and interbody solutions for TLIF."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CREO 5.5 Stabilization System | Globus Medical",
+        "url": "https://www.globusmedical.com/products/creo-5-5-stabilization-system/",
+        "notes": "Official Globus Medical product page used as additional current CREO family evidence for lumbar fusion workflows where multiple rod-based stabilization variants are available."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_KYPHOPLASTY_PORTFOLIO",
+    "system_name": "Kyphoplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "solution_page",
+        "title": "Vertebral Body Augmentation | Globus Medical",
+        "url": "https://www.globusmedical.com/solution/spine/vertebral-augmentation/",
+        "notes": "Official Globus Medical solution page used as the primary public portfolio anchor for vertebral augmentation and kyphoplasty workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "AFFIRM VCF System | Globus Medical",
+        "url": "https://www.globusmedical.com/products/affirm-vcf-system/",
+        "notes": "Official Globus Medical product page used as the direct kyphoplasty and vertebral-compression-fracture treatment anchor."
+      },
+      {
+        "source_type": "procedure_page",
+        "title": "Minimally Invasive Vertebral Augmentation Procedure | Globus Medical",
+        "url": "https://www.globusmedical.com/patient-education-musculoskeletal-system-conditions/procedures/vertebral-augmentation/",
+        "notes": "Official Globus Medical procedure page used as broader procedural evidence for kyphoplasty-style treatment of vertebral compression fractures."
+      },
+      {
+        "source_type": "glossary_page",
+        "title": "Vertebral Augmentation | Globus Medical",
+        "url": "https://www.globusmedical.com/glossary/vertebral-augmentation/",
+        "notes": "Official Globus Medical terminology page used as additional current public support for vertebral augmentation and kyphoplasty terminology."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GLOBUS_MEDICAL",
+    "supplier_name": "Globus Medical",
+    "system_id": "SYS_XTEND___COALITION_ACDF_PORTFOLIO",
+    "system_name": "Xtend / Coalition ACDF Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "XTEND Anterior Cervical Plate | Globus Medical",
+        "url": "https://www.globusmedical.com/products/xtend/",
+        "notes": "Official Globus Medical product page used as the primary anterior plating anchor for the XTEND / COALITION ACDF portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "COALITION Stand-Alone ACDF Spacer | Globus Medical",
+        "url": "https://www.globusmedical.com/products/coalition-spacer/",
+        "notes": "Official Globus Medical product page used as the direct stand-alone ACDF spacer anchor for the COALITION portion of this portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "COALITION MIS ACDF Spacer | Globus Medical",
+        "url": "https://www.globusmedical.com/products/coalition-mis-spacer/",
+        "notes": "Official Globus Medical product page used as additional current COALITION family evidence for minimally invasive ACDF workflows."
+      },
+      {
+        "source_type": "procedure_page",
+        "title": "ACDF - Anterior Cervical Discectomy and Fusion | Globus Medical",
+        "url": "https://www.globusmedical.com/healthcare-professionals/spine/procedures/acdf/",
+        "notes": "Official Globus Medical procedure page used as the broader ACDF workflow and technique anchor integrating cervical plates, spacers, and fusion solutions."
+      }
+    ]
+  }
+]

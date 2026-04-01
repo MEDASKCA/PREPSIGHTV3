@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Medartis",
+    "system_name": "Medartis Hand trauma Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Medartis Hand Trauma Portfolio",
+    "source_date": "2026-03-18"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_MEDARTIS_HAND_TRAUMA_PORTFOLIO",
+      "system_name": "Medartis Hand trauma Portfolio",
+      "supplier": "Medartis",
+      "category": "Hand trauma",
+      "source_notes": "Public Medartis upper extremity and hand pages used as source anchors for the hand trauma portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_MEDARTIS_HAND_TRAUMA_PORTFOLIO",
+      "component_name": "Hand Trauma Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Hand Trauma Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to Medartis hand trauma public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_MEDARTIS_HAND_TRAUMA_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_MEDARTIS_HAND_TRAUMA_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

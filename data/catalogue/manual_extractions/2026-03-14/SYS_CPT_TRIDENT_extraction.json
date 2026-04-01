@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "CPT / Trident",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "CPT 12/14 Hip System Surgical Technique and Trident II product materials",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "CPT / Trident",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Hybrid total hip arthroplasty construct combining the cemented CPT polished taper stem family with the Trident acetabular system."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "CPT / Trident Instrumentation",
+      "system_name": "CPT / Trident",
+      "tray_type": "Instrumentation",
+      "tray_notes": "The CPT surgical technique describes dedicated femoral preparation instrumentation and Trident materials describe simplified acetabular tray configurations."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "CPT 12/14 Femoral Stem",
+      "system_name": "CPT / Trident",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Zimmer Biomet materials describe the polished tapered cobalt-chromium CPT stem family with multiple offsets and long-stem options."
+    },
+    {
+      "component_name": "CPT Femoral Head",
+      "system_name": "CPT / Trident",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "The CPT 12/14 taper supports a range of compatible femoral head options."
+    },
+    {
+      "component_name": "Trident Acetabular Shell",
+      "system_name": "CPT / Trident",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Trident materials describe the acetabular shell family used with the hybrid construct."
+    },
+    {
+      "component_name": "Trident Acetabular Liner",
+      "system_name": "CPT / Trident",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Trident materials describe X3 polyethylene and related liner options."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public CPT technique gives stem-family detail but this pass does not expand all stem and head codes within the hybrid construct.",
+      "reason": "A deeper catalogue or IFU pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

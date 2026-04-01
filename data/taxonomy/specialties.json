@@ -1,0 +1,82 @@
+[
+  {
+    "category": "Operating Theatre",
+    "name": "Trauma and Orthopaedic Surgery",
+    "id": "SPEC_TRAUMA_ORTHOPAEDICS"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "General Surgery",
+    "id": "SPEC_GENERAL_SURGERY"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Urology",
+    "id": "SPEC_UROLOGY"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Gynecology",
+    "id": "SPEC_GYNECOLOGY"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Obstetrics",
+    "id": "SPEC_OBSTETRICS"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Otolaryngology (Ear, Nose and Throat Surgery)",
+    "id": "SPEC_ENT"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Oral and Maxillofacial Surgery",
+    "id": "SPEC_OMFS"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Plastic and Reconstructive Surgery",
+    "id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Neurosurgery",
+    "id": "SPEC_NEUROSURGERY"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Cardiothoracic Surgery",
+    "id": "SPEC_CARDIOTHORACIC_SURGERY"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Vascular Surgery",
+    "id": "SPEC_VASCULAR_SURGERY"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Paediatric Surgery",
+    "id": "SPEC_PAEDIATRIC_SURGERY"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Ophthalmology",
+    "id": "SPEC_OPHTHALMOLOGY"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Anaesthesia",
+    "id": "SPEC_ANAESTHESIA"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Podiatric Surgery",
+    "id": "SPEC_PODIATRIC_SURGERY"
+  },
+  {
+    "category": "Operating Theatre",
+    "name": "Dental and Oral Surgery",
+    "id": "SPEC_DENTAL_ORAL_SURGERY"
+  }
+]

@@ -1,0 +1,70 @@
+[
+  {
+    "supplier_id": "SUP_ENOVIS",
+    "supplier_name": "Enovis",
+    "system_id": "SYS_EMPOWR_KNEE_SYSTEM",
+    "system_name": "EMPOWR Knee System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EMPOWR",
+        "url": "https://enovis.com/our-brands/djo-surgical/empowr",
+        "notes": "Official Enovis EMPOWR portfolio page covering the knee platform."
+      },
+      {
+        "source_type": "product_page",
+        "title": "EMPOWR PS Knee",
+        "url": "https://enovis.com/products/djo-surgical/empowr-ps-knee",
+        "notes": "Official Enovis product page for the posterior stabilized knee option."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ENOVIS",
+    "supplier_name": "Enovis",
+    "system_id": "SYS_EMPOWR___HIP_PORTFOLIO_MAPPING",
+    "system_name": "EMPOWR / hip portfolio mapping",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "EMPOWR",
+        "url": "https://enovis.com/our-brands/djo-surgical/empowr",
+        "notes": "Official Enovis EMPOWR portfolio page including acetabular and hip portfolio references."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Hip Solutions",
+        "url": "https://enovis.com/surgical/hip",
+        "notes": "Official Enovis hip solutions page listing EMPOWR Dual Mobility, EMPOWR Acetabular, TaperFill, Foundation, Linear, Revelation and revision hip families."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ENOVIS",
+    "supplier_name": "Enovis",
+    "system_id": "SYS_ALTIVATE_REVERSE_SHOULDER_SYSTEM",
+    "system_name": "AltiVate Reverse Shoulder System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "AltiVate Reverse Shoulder",
+        "url": "https://enovis.com/our-brands/djo-surgical/altivate-reverse-shoulder",
+        "notes": "Official Enovis product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ENOVIS",
+    "supplier_name": "Enovis",
+    "system_id": "SYS_ALTIVATE_SHOULDER_SYSTEM",
+    "system_name": "AltiVate Shoulder System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "AltiVate Anatomic Shoulder",
+        "url": "https://enovis.com/our-brands/djo-surgical/altivate-anatomic-shoulder",
+        "notes": "Official Enovis product page."
+      }
+    ]
+  }
+]

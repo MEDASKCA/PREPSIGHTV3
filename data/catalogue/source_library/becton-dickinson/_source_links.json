@@ -1,0 +1,130 @@
+[
+  {
+    "supplier_id": "SUP_BD",
+    "supplier_name": "Becton Dickinson",
+    "system_id": "SYS_ARTERIAL_LINE_KIT",
+    "system_name": "Arterial Line Kit",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "StatLock Arterial Ultra Stabilisation Device | BD",
+        "url": "https://www.bd.com/en-uk/products-and-solutions/products/product-families/statlock-arterial-ultra-stabilisation-device",
+        "notes": "Official BD arterial-line stabilisation family page used as the public source anchor for the arterial line kit row."
+      },
+      {
+        "source_type": "product_page",
+        "title": "StatLock Arterial Stabilization Device for Arrow Catheters, Crescent | BD",
+        "url": "https://www.bd.com/en-us/products-and-solutions/products/product-page.vadac",
+        "notes": "Official BD product page used for coded arterial-line product detail."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "StatLock Arterial Select Stabilization Device | BD",
+        "url": "https://www.bd.com/en-no/products-and-solutions/products/product-families/statlock-arterial-select-stabilization-device",
+        "notes": "Official BD arterial select family page used as supporting public evidence for packaged arterial-line securement and extension-set workflow."
+      },
+      {
+        "source_type": "product_page",
+        "title": "StatLock Arterial Select Stabilization Device, 8 in Luer Lock Extension Set with Stopcock - ART0421 | BD",
+        "url": "https://www.bd.com/en-us/products-and-solutions/products/product-page.ART0421",
+        "notes": "Official BD coded product page used as the closest public IFU and kit-configuration style anchor for the arterial line kit entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BD",
+    "supplier_name": "Becton Dickinson",
+    "system_id": "SYS_FOGARTY_CATHETER",
+    "system_name": "Fogarty Embolectomy Catheter",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "Fogarty Occlusion Catheters | BD",
+        "url": "https://www.bd.com/en-us/products-and-solutions/products/product-families/fogarty-occlusion-catheters",
+        "notes": "Official BD Fogarty family page used as the primary public source anchor and closest current public product-family match for the Fogarty embolectomy catheter entry."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "Fogarty Occlusion Catheters | BD",
+        "url": "https://www.bd.com/en-no/products-and-solutions/products/product-families/fogarty-occlusion-catheters",
+        "notes": "Official BD regional Fogarty family page used as supporting public evidence because it exposes the same model-family details and eIFU access path."
+      },
+      {
+        "source_type": "support_pdf",
+        "title": "2025 Billing Guide",
+        "url": "https://www.bd.com/content/dam/bd-assets/na/advanced-patient-monitoring/documents/customer-support/bd-vascular-products-2025-billing-guide.pdf",
+        "notes": "Official BD vascular billing guide used as supporting public evidence because it explicitly lists Fogarty thrombectomy and embolectomy catheters."
+      },
+      {
+        "source_type": "training_page",
+        "title": "Left AV Graft Thrombectomy with Fogarty and Conquest PTA Dilatation Catheter - BD Advance Training",
+        "url": "https://advanceedu.bd.com/videos/left-av-graft-thrombectomy-with-fogarty-and-conquest-pta-dilatation-catheter",
+        "notes": "Official BD training page used as supporting procedural evidence for current Fogarty catheter use where a dedicated public embolectomy product page is not readily exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BD",
+    "supplier_name": "Becton Dickinson",
+    "system_id": "SYS_INTRODUCER_SHEATH",
+    "system_name": "Introducer Sheath",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "BD Introducers",
+        "url": "https://www.bd.com/en-us/products-and-solutions/products/product-families/introducers",
+        "notes": "Official BD introducers family page used as the primary public source anchor for the introducer sheath entry."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "Halo One Thin-Walled Guiding Sheath | BD",
+        "url": "https://www.bd.com/en-us/products-and-solutions/products/product-families/halo-one-thin-walled-guiding-sheath",
+        "notes": "Official BD Halo One family page used as supporting public evidence because it explicitly covers use as both a guiding sheath and an introducer sheath."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "MicroEZ Microintroducer | BD",
+        "url": "https://www.bd.com/en-menat/products-and-solutions/products/product-families/microez-microintroducer",
+        "notes": "Official BD MicroEZ family page used as supporting evidence for microintroducer sheath workflow and available sizes."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Capella Coaxial Micro-Introducer Kit, 5F sheath size - MK5181 | BD",
+        "url": "https://www.bd.com/en-us/products-and-solutions/products/product-page.MK5181",
+        "notes": "Official BD coded product page used as the closest public IFU and kit-configuration style anchor for the introducer sheath entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BD",
+    "supplier_name": "Becton Dickinson",
+    "system_id": "SYS_DIALYSIS_CATHETER_SET",
+    "system_name": "Tunnelled Dialysis Catheter Set",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "GlidePath 7.5F | 10F Long-Term Hemodialysis Catheter | BD",
+        "url": "https://www.bd.com/en-us/products-and-solutions/products/product-families/glidepath-75f-10f-long-term-hemodialysis-catheter",
+        "notes": "Official BD GlidePath hemodialysis catheter family page used as the primary public source anchor for the tunnelled dialysis catheter set entry."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "GlidePath Retro Long-Term Hemodialysis Catheter | BD",
+        "url": "https://www.bd.com/en-us/products-and-solutions/products/product-families/glidepath-retro-long-term-hemodialysis-catheter",
+        "notes": "Official BD GlidePath Retro family page used as supporting public evidence for tunneled hemodialysis catheter placement options."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GlidePath Long-Term Hemodialysis Catheter - 5347150 | BD",
+        "url": "https://www.bd.com/en-us/products-and-solutions/products/product-page.5347150",
+        "notes": "Official BD coded product page used as public kit-level evidence for a tunneled hemodialysis catheter configuration."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GlidePath Retro Long-Term Hemodialysis Catheter - 5393500R | BD",
+        "url": "https://www.bd.com/en-us/products-and-solutions/products/product-page.5393500r",
+        "notes": "Official BD coded product page used as supporting kit-level and eIFU-style evidence for the tunnelled dialysis catheter set entry."
+      }
+    ]
+  }
+]

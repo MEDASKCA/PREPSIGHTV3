@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Corin",
+    "system_name": "Optimized Positioning Hip System",
+    "source_type": "product_page",
+    "source_document": "OPS - Optimized Positioning System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Optimized Positioning Hip System",
+      "supplier_name": "Corin",
+      "system_category": "Hip Arthroplasty Planning and Implant System",
+      "system_notes": "Personalized total hip workflow linking pre-operative planning and implant positioning."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "OPS Instrumentation",
+      "system_name": "Optimized Positioning Hip System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "OPS materials reference procedure-specific guides and supporting instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "OPS Acetabular Component",
+      "system_name": "Optimized Positioning Hip System",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Platform-level acetabular component family used within the OPS workflow."
+    },
+    {
+      "component_name": "OPS Acetabular Liner",
+      "system_name": "Optimized Positioning Hip System",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Platform-level liner family used within the OPS workflow."
+    },
+    {
+      "component_name": "OPS Femoral Stem",
+      "system_name": "Optimized Positioning Hip System",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Platform-level femoral stem family used within the OPS workflow."
+    },
+    {
+      "component_name": "OPS Femoral Head",
+      "system_name": "Optimized Positioning Hip System",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Platform-level femoral head family used within the OPS workflow."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "OPS may sit across multiple Corin implant families rather than a single exclusive implant set.",
+      "reason": "Needs deeper Corin documentation review before splitting exact implant families and guides.",
+      "source_excerpt": "Current extraction keeps the workflow-linked platform component families only."
+    }
+  ]
+}

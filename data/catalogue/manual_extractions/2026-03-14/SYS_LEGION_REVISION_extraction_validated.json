@@ -1,0 +1,122 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "LEGION Revision Knee",
+    "source_type": "product_page",
+    "source_document": "LEGION Revision Knee System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_LEGION_REVISION_KNEE_LEGION_REVISION_INSTRUMENTATION",
+        "Tray Name": "LEGION Revision Instrumentation",
+        "System ID": "SYS_LEGION_REVISION",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Smith+Nephew materials support dedicated LEGION revision instrumentation and linked surgical technique resources."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LEGION_REVISION_KNEE_LEGION_REVISION_FEMORAL_COMPONENT",
+        "Component Name": "LEGION Revision Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_LEGION_REVISION",
+        "Component Notes": "Official product materials describe the revision femoral component family within the LEGION system."
+      },
+      {
+        "Component ID": "COMP_LEGION_REVISION_KNEE_LEGION_REVISION_TIBIAL_TRAY",
+        "Component Name": "LEGION Revision Tibial Tray",
+        "Component Role": "Tibial Baseplate",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_LEGION_REVISION",
+        "Component Notes": "Official product materials describe the modular tibial tray and fixation construct."
+      },
+      {
+        "Component ID": "COMP_LEGION_REVISION_KNEE_LEGION_REVISION_INSERT",
+        "Component Name": "LEGION Revision Insert",
+        "Component Role": "Tibial Insert",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_LEGION_REVISION",
+        "Component Notes": "Official product materials describe the constrained insert family used in revision reconstruction."
+      },
+      {
+        "Component ID": "COMP_LEGION_REVISION_KNEE_LEGION_STEM_EXTENSION",
+        "Component Name": "LEGION Stem Extension",
+        "Component Role": "Stem Extension",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_LEGION_REVISION",
+        "Component Notes": "Official product materials describe modular stem extensions used in the revision construct."
+      },
+      {
+        "Component ID": "COMP_LEGION_REVISION_KNEE_LEGION_AUGMENT",
+        "Component Name": "LEGION Augment",
+        "Component Role": "Block Augment",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_LEGION_REVISION",
+        "Component Notes": "Official product materials describe modular augments for revision bone-defect management."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "LEGION Revision Knee",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Revision Knee System",
+          "system_notes": "Modular revision knee arthroplasty platform for complex reconstruction, instability, and bone-loss management."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "LEGION Revision Knee",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Revision Knee System",
+        "system_notes": "Modular revision knee arthroplasty platform for complex reconstruction, instability, and bone-loss management."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "LEGION Revision Knee",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Revision Knee System",
+        "system_notes": "Modular revision knee arthroplasty platform for complex reconstruction, instability, and bone-loss management."
+      }
+    }
+  ]
+}

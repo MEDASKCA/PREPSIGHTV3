@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "KLS Martin",
+    "system_name": "Calcaneal Plate System",
+    "source_type": "discipline_page",
+    "source_document": "KLS Martin | Implants and implant systems foot surgery",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CALCANEAL_PLATE_SYSTEM_CALCANEAL_PLATE_SYSTEM_FRAMEWORK",
+        "Component Name": "Calcaneal Plate System Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Calcaneal plate",
+        "System ID": "SYS_CALCANEAL_PLATE",
+        "Component Notes": "Portfolio-level informational framework anchored to KLS Martin public foot surgery implants and plates-and-screws sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Calcaneal Plate System",
+          "supplier_name": "KLS Martin",
+          "system_category": "Foot trauma fixation",
+          "system_notes": "Public KLS Martin foot surgery implants materials used as the source anchors for the calcaneal plate system entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Calcaneal Plate System",
+        "supplier_name": "KLS Martin",
+        "system_category": "Foot trauma fixation",
+        "system_notes": "Public KLS Martin foot surgery implants materials used as the source anchors for the calcaneal plate system entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Calcaneal Plate System",
+        "supplier_name": "KLS Martin",
+        "system_category": "Foot trauma fixation",
+        "system_notes": "Public KLS Martin foot surgery implants materials used as the source anchors for the calcaneal plate system entry."
+      }
+    }
+  ]
+}

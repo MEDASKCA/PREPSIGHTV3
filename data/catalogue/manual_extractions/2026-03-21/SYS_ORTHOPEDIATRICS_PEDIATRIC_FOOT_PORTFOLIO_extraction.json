@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "OrthoPediatrics",
+    "system_name": "OrthoPediatrics Pediatric Foot Portfolio",
+    "source_type": "product_page",
+    "source_document": "PediFoot - OrthoPediatrics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "OrthoPediatrics Pediatric Foot Portfolio",
+      "supplier_name": "OrthoPediatrics",
+      "system_category": "Pediatric orthopaedics",
+      "system_notes": "Official OrthoPediatrics pediatric foot materials used as the public source anchors for this pediatric orthopaedics portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Pediatric Foot Portfolio Framework",
+      "system_name": "OrthoPediatrics Pediatric Foot Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Pediatric Orthopaedics",
+      "component_notes": "Framework component anchored to OrthoPediatrics public pediatric foot source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public pediatric foot source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "PediFoot - OrthoPediatrics; OrthoPediatrics Corp. Receives FDA 510(k) Clearance for First Pediatric-Specific Foot System"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public pediatric foot source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "PediFoot - OrthoPediatrics; OrthoPediatrics Corp. Receives FDA 510(k) Clearance for First Pediatric-Specific Foot System"
+    }
+  ]
+}

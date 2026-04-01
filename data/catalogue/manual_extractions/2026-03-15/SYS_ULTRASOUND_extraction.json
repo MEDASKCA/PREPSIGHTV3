@@ -1,0 +1,58 @@
+{
+  "source_meta": {
+    "supplier_name": "Fujifilm Medical",
+    "system_name": "Ultrasound Machine",
+    "source_type": "product_family_page",
+    "source_document": "Portable, Point-of-Care Ultrasound | FUJIFILM Sonosite",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Ultrasound Machine",
+      "supplier_name": "Fujifilm Medical",
+      "system_category": "Imaging",
+      "system_notes": "Official source anchor for Fujifilm Sonosite point-of-care ultrasound systems."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Sonosite LX Ultrasound System",
+      "system_name": "Ultrasound Machine",
+      "component_role": "Ultrasound Console",
+      "implant_category": "Imaging Platform",
+      "component_notes": "Premium Fujifilm Sonosite point-of-care ultrasound system with large clinical display."
+    },
+    {
+      "component_name": "Sonosite PX Ultrasound System",
+      "system_name": "Ultrasound Machine",
+      "component_role": "Ultrasound Console",
+      "implant_category": "Imaging Platform",
+      "component_notes": "Advanced Fujifilm Sonosite point-of-care ultrasound system referenced in the current portfolio."
+    },
+    {
+      "component_name": "T8-3 Transducer",
+      "system_name": "Ultrasound Machine",
+      "component_role": "Ultrasound Transducer",
+      "implant_category": "Imaging Accessory",
+      "component_notes": "Fujifilm Sonosite transducer launched alongside Sonosite LX and PX workflow support."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Public Sonosite ultrasound pages do not define a tray or procedure kit in the current pass.",
+      "reason": "Tray rows should only be added from accessory-cart or packaged procedural-set sources.",
+      "source_excerpt": "Current extraction remains platform-based."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "The current public product family pages do not expose a normalized ordering-code matrix for this pass.",
+      "reason": "Product rows should be added from product-specific ordering pages if identified later.",
+      "source_excerpt": "Current extraction remains source-backed and high-level."
+    }
+  ]
+}

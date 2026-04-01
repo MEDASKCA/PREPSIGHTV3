@@ -1,0 +1,322 @@
+[
+  {
+    "supplier_id": "SUP_CONMED",
+    "supplier_name": "CONMED",
+    "system_id": "SYS_ARTHROSCOPIC_RESECTION_PORTFOLIO",
+    "system_name": "Arthroscopic Resection Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Arthroscopic Resection, Fluid Management, & RF Ablation | CONMED",
+        "url": "https://www.conmed.com/en/products/resection-fluid-management-and-ablation/",
+        "notes": "Official CONMED arthroscopy portfolio page used as the primary public source anchor for the arthroscopic resection portfolio entry."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "Arthroscopic Resection Systems, Blades, and Burrs | CONMED",
+        "url": "https://www.conmed.com/en/products/resection-fluid-management-and-ablation/resection/conmed-arthroscopic-resection",
+        "notes": "Official CONMED resection family page used as the core product-family and catalogue anchor for arthroscopic resection systems, blades, and burrs."
+      },
+      {
+        "source_type": "product_brochure_reference",
+        "title": "D4000 Arthroscopic Resection System - Product Brochure | CONMED",
+        "url": "https://www.conmed.com/en/products/resection-fluid-management-and-ablation/resection/conmed-arthroscopic-resection",
+        "notes": "Official CONMED resection page used as supporting evidence because it exposes the D4000 arthroscopic resection system brochure within the literature section."
+      },
+      {
+        "source_type": "product_brochure_reference",
+        "title": "Ergo Shaver Handpiece - Product Brochure | CONMED",
+        "url": "https://www.conmed.com/en/products/resection-fluid-management-and-ablation/resection/conmed-arthroscopic-resection",
+        "notes": "Official CONMED resection page used as IFU-style and handpiece-level support because it exposes the Ergo shaver handpiece brochure and system literature."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CONMED",
+    "supplier_name": "CONMED",
+    "system_id": "SYS_CROSSFT___BIOSURE___SPORTS_KNEE_PORTFOLIO",
+    "system_name": "CrossFT / BIOSURE / Sports Knee Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Implants and Suture Anchors | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/",
+        "notes": "Official CONMED implant and anchor portfolio page used as the primary public source anchor for the CrossFT / BIOSURE sports knee portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CrossFT Knotless / Knotless DT Suture Anchor | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/knotless-suture-anchors/crossft-knotless-dt-suture-anchor",
+        "notes": "Official CONMED CrossFT anchor page used as supporting evidence for arthroscopic soft-tissue fixation within sports knee workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "BioBrace Extra-Articular Ligament Augmentation Kit | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/biobrace/biobrace-extra-articular-kit/",
+        "notes": "Official CONMED knee ligament augmentation kit page used as supporting sports knee workflow evidence and kit-level anchor."
+      },
+      {
+        "source_type": "product_page",
+        "title": "BioBrace Reinforced BioInductive Implant | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/biobrace-implant",
+        "notes": "Official CONMED BioBrace page used as broader catalogue-style support for knee soft-tissue augmentation and repair workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CONMED",
+    "supplier_name": "CONMED",
+    "system_id": "SYS_ELBOW_ARTHROSCOPY_PORTFOLIO",
+    "system_name": "Elbow Arthroscopy Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Arthroscopic Resection, Fluid Management, & RF Ablation | CONMED",
+        "url": "https://www.conmed.com/en/products/resection-fluid-management-and-ablation/",
+        "notes": "Official CONMED arthroscopy portfolio page used as the primary public source anchor for the elbow arthroscopy portfolio entry."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "Shutt Small Joint Instruments | CONMED",
+        "url": "https://www.conmed.com/en/products/surgical-and-medical-instruments/orthopedic-extremities-instruments/shutt-small-joint-instruments/",
+        "notes": "Official CONMED small-joint arthroscopy instrument page used as supporting evidence for elbow arthroscopy instrumentation in tight joint spaces."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "Small Joint Probes, Curettes, Knives, Dissectors | CONMED",
+        "url": "https://www.conmed.com/en/products/surgical-and-medical-instruments/orthopedic-extremities-instruments/manual-instruments/small-joint-probes-curettes-knives-dissectors",
+        "notes": "Official CONMED manual-instruments page used as supporting evidence for elbow arthroscopy access, probing, and dissection workflow."
+      },
+      {
+        "source_type": "product_brochure_reference",
+        "title": "Shutt Manual Instrument - Product Brochure | CONMED",
+        "url": "https://www.conmed.com/en/products/surgical-and-medical-instruments/orthopedic-extremities-instruments/shutt-small-joint-instruments/",
+        "notes": "Official CONMED small-joint instrument page used as IFU-style and catalogue support because it exposes the Shutt manual-instrument brochure."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CONMED",
+    "supplier_name": "CONMED",
+    "system_id": "SYS_LATARJET_PORTFOLIO",
+    "system_name": "Latarjet Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Implants and Suture Anchors | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/",
+        "notes": "Official CONMED implant and anchor portfolio page used as the primary public source anchor for the Latarjet portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Mini-Revo and Bio Mini-Revo Suture Anchor | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/knot-tying-suture-anchors/mini-revo-and-bio-mini-revo-suture-anchors/",
+        "notes": "Official CONMED shoulder instability anchor page used as supporting evidence for open and arthroscopic glenoid-stability procedures, including Bankart-style fixation patterns adjacent to Latarjet workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PopLok Knotless Suture Anchor | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/knotless-suture-anchors/poplok",
+        "notes": "Official CONMED knotless anchor page used as supporting evidence for instability repair and shoulder fixation workflow relevant to the Latarjet portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Super Revo FT and ThRevo FT Suture Anchor | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/knot-tying-suture-anchors/super-revo-ft-and-threvo-ft-suture-anchors",
+        "notes": "Official CONMED shoulder fixation page used as broader catalogue-style support because it exposes the Super Revo shoulder fixation system and surgical-technique literature."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CONMED",
+    "supplier_name": "CONMED",
+    "system_id": "SYS_LINVATEC_ARTHROSCOPY_SYSTEM",
+    "system_name": "Linvatec Arthroscopy System",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Orthopedic Surgical Solutions | CONMED",
+        "url": "https://www.conmed.com/en/specialties/orthopedics",
+        "notes": "Official CONMED orthopedics portfolio page used as the primary public source anchor for the Linvatec arthroscopy system entry and as evidence of the Linvatec arthroscopy platform."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "Arthroscopic Resection Systems, Blades, and Burrs | CONMED",
+        "url": "https://www.conmed.com/en/products/resection-fluid-management-and-ablation/resection/conmed-arthroscopic-resection",
+        "notes": "Official CONMED arthroscopic resection system page used as supporting evidence for the powered Linvatec-style arthroscopy platform."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "Arthroscopic Fluid Management Systems | CONMED",
+        "url": "https://www.conmed.com/en/products/resection-fluid-management-and-ablation/fluid-management/crystalview-pro-fluid-management-system",
+        "notes": "Official CONMED fluid management page used as supporting evidence for visualization and pump components within the arthroscopy system."
+      },
+      {
+        "source_type": "blog_article",
+        "title": "Why Fast Inflow is Crucial for Arthroscopic Pumps | CONMED Blog",
+        "url": "https://www.conmed.com/en/blog/why-is-fast-inflow-crucial-for-anthroscopic-pumps",
+        "notes": "Official CONMED article used as broader public evidence for current arthroscopy platform workflow, visualization, and pump performance."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CONMED",
+    "supplier_name": "CONMED",
+    "system_id": "SYS_LOCKING_PLATE",
+    "system_name": "Locking Plate System",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Fixation Devices | CONMED",
+        "url": "https://www.conmed.com/en/products/fixation-devices/",
+        "notes": "Official CONMED fixation-device portfolio page used as the primary public source anchor for the locking plate system entry."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "CoLink XP Plating System | CONMED",
+        "url": "https://www.conmed.com/products/fixation-devices/colink-plating-systems/colink-xp-plating-system",
+        "notes": "Official CONMED plating-system page used as supporting evidence for anatomic locking and non-locking plate constructs within the broader locking plate system."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "CoLink PCR Plating System | CONMED",
+        "url": "https://www.conmed.com/en/products/fixation-devices/colink-plating-systems/colink-pcr-carbon-fiber-reinforced-plating-system",
+        "notes": "Official CONMED plating-system page used as supporting evidence for carbon-fiber reinforced locking plate options and associated literature."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "CoLink Afx Ankle Fracture Plating System | CONMED",
+        "url": "https://www.conmed.com/en/products/fixation-devices/colink-plating-systems/colink-afx-ankle-fracture-plating-system/",
+        "notes": "Official CONMED fracture-plating page used as broader catalogue-style support because it exposes multiple locking and non-locking screw and plate families plus surgical-technique documents."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CONMED",
+    "supplier_name": "CONMED",
+    "system_id": "SYS_OMNISPAN___MENISCAL_REPAIR_PORTFOLIO",
+    "system_name": "OMNISPAN / Meniscal Repair Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Meniscal Repair | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/meniscal-repair/",
+        "notes": "Official CONMED meniscal-repair portfolio page used as the primary public source anchor and closest current public portfolio match for the OMNISPAN meniscal repair entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Sequent Meniscal Repair Device | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/meniscal-repair/sequent-meniscal-repair-device/",
+        "notes": "Official CONMED meniscal-repair device page used as supporting evidence for current all-inside meniscal repair workflow where OMNISPAN is not exposed as a current public product page."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Infinity AIM Meniscal Repair Device | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/meniscal-repair/infinity-aim-meniscal-repair-device/",
+        "notes": "Official CONMED meniscal-repair device page used as supporting evidence for current all-inside meniscal repair instrumentation and literature."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Zone Specific II Meniscal Repair System | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/meniscal-repair/zone-specific-ii-meniscal-repair-system",
+        "notes": "Official CONMED meniscal-repair system page used as broader catalogue-style and IFU support for inside-out meniscal repair instrumentation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CONMED",
+    "supplier_name": "CONMED",
+    "system_id": "SYS_SHAVER___MENISCECTOMY_PORTFOLIO",
+    "system_name": "Shaver / Meniscectomy Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Arthroscopic Resection, Fluid Management, & RF Ablation | CONMED",
+        "url": "https://www.conmed.com/en/products/resection-fluid-management-and-ablation/",
+        "notes": "Official CONMED arthroscopy portfolio page used as the primary public source anchor for the shaver / meniscectomy portfolio entry."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "Arthroscopic Resection Systems, Blades, and Burrs | CONMED",
+        "url": "https://www.conmed.com/en/products/resection-fluid-management-and-ablation/resection/conmed-arthroscopic-resection",
+        "notes": "Official CONMED resection family page used as the core product-family and catalogue anchor for meniscectomy shavers, blades, and burrs."
+      },
+      {
+        "source_type": "product_brochure_reference",
+        "title": "Ergo Shaver Handpiece - Product Brochure | CONMED",
+        "url": "https://www.conmed.com/en/products/resection-fluid-management-and-ablation/resection/conmed-arthroscopic-resection",
+        "notes": "Official CONMED resection page used as supporting evidence because it exposes the Ergo shaver handpiece brochure within the literature section."
+      },
+      {
+        "source_type": "product_brochure_reference",
+        "title": "D4000 Arthroscopic Resection System - Product Brochure | CONMED",
+        "url": "https://www.conmed.com/en/products/resection-fluid-management-and-ablation/resection/conmed-arthroscopic-resection",
+        "notes": "Official CONMED resection page used as IFU-style and system-level support because it exposes the D4000 arthroscopic resection system brochure and related literature."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CONMED",
+    "supplier_name": "CONMED",
+    "system_id": "SYS_SHOULDER_STABILISATION_PORTFOLIO",
+    "system_name": "Shoulder Stabilisation Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Implants and Suture Anchors | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/",
+        "notes": "Official CONMED implant and anchor portfolio page used as the primary public source anchor for the shoulder stabilisation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Mini-Revo and Bio Mini-Revo Suture Anchor | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/knot-tying-suture-anchors/mini-revo-and-bio-mini-revo-suture-anchors/",
+        "notes": "Official CONMED shoulder instability anchor page used as supporting evidence for arthroscopic and open Bankart-style shoulder stabilization procedures."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PopLok Knotless Suture Anchor | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/knotless-suture-anchors/poplok",
+        "notes": "Official CONMED knotless anchor page used as supporting evidence for instability repair and shoulder fixation workflow."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Y-Knot PRO Flex All-Suture Anchor | CONMED",
+        "url": "https://www.conmed.com/en/Products/Implants-and-Suture-Anchors/Knot-Tying-Suture-Anchors/y-knot-flex-all-suture-anchor",
+        "notes": "Official CONMED all-suture anchor page used as broader catalogue-style and technique support for shoulder stabilization, labral repair, and limited-bone-footprint fixation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CONMED",
+    "supplier_name": "CONMED",
+    "system_id": "SYS_Y_KNOT___CROSSFT_SHOULDER_REPAIR",
+    "system_name": "Y-Knot / CrossFT Shoulder Repair",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Implants and Suture Anchors | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/",
+        "notes": "Official CONMED implant and anchor portfolio page used as the primary public source anchor for the Y-Knot / CrossFT shoulder repair entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Y-Knot PRO Flex All-Suture Anchor | CONMED",
+        "url": "https://www.conmed.com/en/Products/Implants-and-Suture-Anchors/Knot-Tying-Suture-Anchors/y-knot-flex-all-suture-anchor",
+        "notes": "Official CONMED all-suture anchor page used as direct supporting evidence for shoulder labral repair and limited-bone-footprint fixation in Y-Knot workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CrossFT Knotless / Knotless DT Suture Anchor | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/knotless-suture-anchors/crossft-knotless-dt-suture-anchor",
+        "notes": "Official CONMED CrossFT anchor page used as direct supporting evidence for knotless soft-tissue fixation in shoulder repair workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PopLok Knotless Suture Anchor | CONMED",
+        "url": "https://www.conmed.com/en/products/implants-and-suture-anchors/knotless-suture-anchors/poplok",
+        "notes": "Official CONMED knotless anchor page used as broader catalogue-style and technique support for current shoulder stabilization and repair workflows adjacent to CrossFT."
+      }
+    ]
+  }
+]

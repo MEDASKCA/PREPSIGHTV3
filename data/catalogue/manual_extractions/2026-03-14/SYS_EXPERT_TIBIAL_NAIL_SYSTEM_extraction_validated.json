@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Expert Tibial Nail System",
+    "source_type": "product_page",
+    "source_document": "Expert Tibial Nail",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_EXPERT_TIBIAL_NAIL_SYSTEM_EXPERT_TIBIAL_NAIL_INSTRUMENTATION",
+        "Tray Name": "Expert Tibial Nail Instrumentation",
+        "System ID": "SYS_EXPERT_TIBIAL_NAIL_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes materials list a dedicated Expert Tibial Nail technique and associated instrumentation workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_EXPERT_TIBIAL_NAIL_SYSTEM_EXPERT_TIBIAL_NAIL",
+        "Component Name": "Expert Tibial Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_EXPERT_TIBIAL_NAIL_SYSTEM",
+        "Component Notes": "Primary tibial nail component described by the official Expert Tibial Nail materials."
+      },
+      {
+        "Component ID": "COMP_EXPERT_TIBIAL_NAIL_SYSTEM_EXPERT_TIBIAL_LOCKING_SCREW",
+        "Component Name": "Expert Tibial Locking Screw",
+        "Component Role": "Locking Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_EXPERT_TIBIAL_NAIL_SYSTEM",
+        "Component Notes": "The Expert tibial construct uses locking fixation options as part of the nail system."
+      },
+      {
+        "Component ID": "COMP_EXPERT_TIBIAL_NAIL_SYSTEM_EXPERT_TIBIAL_END_CAP",
+        "Component Name": "Expert Tibial End Cap",
+        "Component Role": "End Cap",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_EXPERT_TIBIAL_NAIL_SYSTEM",
+        "Component Notes": "End-cap compatibility is part of the Expert tibial nail construct family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Expert Tibial Nail System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Tibial intramedullary nailing platform anchored to official DePuy Synthes Expert Tibial Nail materials."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Expert Tibial Nail System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Tibial intramedullary nailing platform anchored to official DePuy Synthes Expert Tibial Nail materials."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Expert Tibial Nail System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Tibial intramedullary nailing platform anchored to official DePuy Synthes Expert Tibial Nail materials."
+      }
+    }
+  ]
+}

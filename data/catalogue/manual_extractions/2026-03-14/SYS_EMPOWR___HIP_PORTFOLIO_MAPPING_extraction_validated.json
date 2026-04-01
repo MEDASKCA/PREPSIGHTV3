@@ -1,0 +1,232 @@
+{
+  "source_meta": {
+    "supplier_name": "Enovis",
+    "system_name": "EMPOWR / hip portfolio mapping",
+    "source_type": "product_page",
+    "source_document": "EMPOWR",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "EMPOWR / hip portfolio mapping",
+          "supplier_name": "Enovis",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Hip arthroplasty portfolio-level record linked to EMPOWR brand materials."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [
+      {
+        "row": {
+          "tray_name": "EMPOWR Hip Instrumentation",
+          "system_name": "EMPOWR / hip portfolio mapping",
+          "tray_type": "Instrumentation",
+          "tray_notes": "Portfolio materials reference supporting hip instrumentation."
+        },
+        "reason": "Duplicate tray already exists in master dataset."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "row": {
+          "component_name": "EMPOWR Hip Acetabular Component",
+          "system_name": "EMPOWR / hip portfolio mapping",
+          "component_role": "Acetabular Shell",
+          "implant_category": "Hip Implant",
+          "component_notes": "Portfolio-level acetabular component family."
+        },
+        "reason": "Possible component role duplicate for this system."
+      },
+      {
+        "row": {
+          "component_name": "EMPOWR Hip Liner",
+          "system_name": "EMPOWR / hip portfolio mapping",
+          "component_role": "Acetabular Liner",
+          "implant_category": "Hip Implant",
+          "component_notes": "Portfolio-level liner family."
+        },
+        "reason": "Possible component role duplicate for this system."
+      },
+      {
+        "row": {
+          "component_name": "EMPOWR Hip Femoral Stem",
+          "system_name": "EMPOWR / hip portfolio mapping",
+          "component_role": "Femoral Stem",
+          "implant_category": "Hip Implant",
+          "component_notes": "Portfolio-level stem family."
+        },
+        "reason": "Possible component role duplicate for this system."
+      },
+      {
+        "row": {
+          "component_name": "EMPOWR Hip Femoral Head",
+          "system_name": "EMPOWR / hip portfolio mapping",
+          "component_role": "Femoral Head",
+          "implant_category": "Hip Implant",
+          "component_notes": "Portfolio-level head family."
+        },
+        "reason": "Possible component role duplicate for this system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "supplier_name": "Enovis",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Hip arthroplasty portfolio-level record linked to EMPOWR brand materials."
+      },
+      "reason": "System already exists in master dataset."
+    },
+    {
+      "entity": "TRAYS",
+      "row": {
+        "tray_name": "EMPOWR Hip Instrumentation",
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "tray_type": "Instrumentation",
+        "tray_notes": "Portfolio materials reference supporting hip instrumentation."
+      },
+      "reason": "Tray already exists in master dataset."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "EMPOWR Hip Acetabular Component",
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "component_role": "Acetabular Shell",
+        "implant_category": "Hip Implant",
+        "component_notes": "Portfolio-level acetabular component family."
+      },
+      "reason": "Possible component role duplicate for this system."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "EMPOWR Hip Liner",
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "component_role": "Acetabular Liner",
+        "implant_category": "Hip Implant",
+        "component_notes": "Portfolio-level liner family."
+      },
+      "reason": "Possible component role duplicate for this system."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "EMPOWR Hip Femoral Stem",
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "component_role": "Femoral Stem",
+        "implant_category": "Hip Implant",
+        "component_notes": "Portfolio-level stem family."
+      },
+      "reason": "Possible component role duplicate for this system."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "EMPOWR Hip Femoral Head",
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "component_role": "Femoral Head",
+        "implant_category": "Hip Implant",
+        "component_notes": "Portfolio-level head family."
+      },
+      "reason": "Possible component role duplicate for this system."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "supplier_name": "Enovis",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Hip arthroplasty portfolio-level record linked to EMPOWR brand materials."
+      }
+    },
+    {
+      "entity": "TRAYS",
+      "reason": "Duplicate tray already exists in master dataset.",
+      "row": {
+        "tray_name": "EMPOWR Hip Instrumentation",
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "tray_type": "Instrumentation",
+        "tray_notes": "Portfolio materials reference supporting hip instrumentation."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "EMPOWR Hip Acetabular Component",
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "component_role": "Acetabular Shell",
+        "implant_category": "Hip Implant",
+        "component_notes": "Portfolio-level acetabular component family."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "EMPOWR Hip Liner",
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "component_role": "Acetabular Liner",
+        "implant_category": "Hip Implant",
+        "component_notes": "Portfolio-level liner family."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "EMPOWR Hip Femoral Stem",
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "component_role": "Femoral Stem",
+        "implant_category": "Hip Implant",
+        "component_notes": "Portfolio-level stem family."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "EMPOWR Hip Femoral Head",
+        "system_name": "EMPOWR / hip portfolio mapping",
+        "component_role": "Femoral Head",
+        "implant_category": "Hip Implant",
+        "component_notes": "Portfolio-level head family."
+      }
+    }
+  ]
+}

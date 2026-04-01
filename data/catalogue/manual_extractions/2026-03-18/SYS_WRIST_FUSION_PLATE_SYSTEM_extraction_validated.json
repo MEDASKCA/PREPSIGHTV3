@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "TriMed",
+    "system_name": "Wrist Fusion Plate System",
+    "source_type": "product_page",
+    "source_document": "Wrist Fusion Plate",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_WRIST_FUSION_PLATE_SYSTEM_WRIST_FUSION_PLATE_SYSTEM_FRAMEWORK",
+        "Component Name": "Wrist Fusion Plate System Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Wrist Fusion Plate System",
+        "System ID": "SYS_WRIST_FUSION_PLATE_SYSTEM",
+        "Component Notes": "Portfolio-level informational framework anchored to TriMed public wrist fusion system sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Wrist Fusion Plate System",
+          "supplier_name": "TriMed",
+          "system_category": "hand_wrist",
+          "system_notes": "Public TriMed hand and wrist and wrist fusion materials used as the source anchors for the wrist fusion plate system entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Wrist Fusion Plate System",
+        "supplier_name": "TriMed",
+        "system_category": "hand_wrist",
+        "system_notes": "Public TriMed hand and wrist and wrist fusion materials used as the source anchors for the wrist fusion plate system entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Wrist Fusion Plate System",
+        "supplier_name": "TriMed",
+        "system_category": "hand_wrist",
+        "system_notes": "Public TriMed hand and wrist and wrist fusion materials used as the source anchors for the wrist fusion plate system entry."
+      }
+    }
+  ]
+}

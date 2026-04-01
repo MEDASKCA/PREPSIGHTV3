@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acumed Upper Extremity / Elbow Trauma Portfolio",
+    "source_type": "product_page",
+    "source_document": "Elbow | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACUMED_UPPER_EXTREMITY_ELBOW_TRAUMA_PORTFOLIO_UPPER_EXTREMITY_ELBOW_TRAUMA_FRAMEWORK",
+        "Component Name": "Upper Extremity Elbow Trauma Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Upper Extremity Trauma",
+        "System ID": "SYS_ACUMED_UPPER_EXTREMITY_ELBOW_TRAUMA_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Acumed public upper-extremity elbow trauma source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Acumed Upper Extremity / Elbow Trauma Portfolio",
+          "supplier_name": "Acumed",
+          "system_category": "Upper-extremity trauma fixation",
+          "system_notes": "Official Acumed elbow trauma materials used as the public source anchors for this upper-extremity elbow trauma portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Acumed Upper Extremity / Elbow Trauma Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Upper-extremity trauma fixation",
+        "system_notes": "Official Acumed elbow trauma materials used as the public source anchors for this upper-extremity elbow trauma portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Acumed Upper Extremity / Elbow Trauma Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Upper-extremity trauma fixation",
+        "system_notes": "Official Acumed elbow trauma materials used as the public source anchors for this upper-extremity elbow trauma portfolio entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "CrossFlow / Arthroscopy Portfolio",
+    "source_type": "product_page",
+    "source_document": "CrossFlow Integrated Arthroscopy Pump",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "CrossFlow / Arthroscopy Portfolio",
+      "supplier_name": "Stryker",
+      "system_category": "arthroscopy",
+      "system_notes": "Official Stryker arthroscopy pump and resection materials used as the public source anchors for this CrossFlow arthroscopy portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "CrossFlow Arthroscopy Framework",
+      "system_name": "CrossFlow / Arthroscopy Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Arthroscopy",
+      "component_notes": "Framework component anchored to Stryker public arthroscopy source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public arthroscopy source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "CrossFlow Integrated Arthroscopy Pump; CrossFire 2 Integrated Resection and Energy System; Sports Medicine Hip"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public arthroscopy source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "CrossFlow Integrated Arthroscopy Pump; CrossFire 2 Integrated Resection and Energy System; Sports Medicine Hip"
+    }
+  ]
+}

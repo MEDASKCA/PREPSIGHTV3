@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "CONMED",
+    "system_name": "CrossFT / BIOSURE / Sports Knee Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Implants and Suture Anchors | CONMED",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "CrossFT / BIOSURE / Sports Knee Portfolio",
+      "supplier_name": "CONMED",
+      "system_category": "sports_medicine_knee",
+      "system_notes": "Official CONMED sports knee fixation and augmentation materials used as the public source anchors for this sports knee portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Sports Knee Fixation Framework",
+      "system_name": "CrossFT / BIOSURE / Sports Knee Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Sports Medicine",
+      "component_notes": "Framework component anchored to CONMED public sports knee source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public sports knee source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Implants and Suture Anchors | CONMED; CrossFT Knotless / Knotless DT Suture Anchor | CONMED; BioBrace Extra-Articular Ligament Augmentation Kit | CONMED; BioBrace Reinforced BioInductive Implant | CONMED"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public sports knee source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Implants and Suture Anchors | CONMED; CrossFT Knotless / Knotless DT Suture Anchor | CONMED; BioBrace Extra-Articular Ligament Augmentation Kit | CONMED; BioBrace Reinforced BioInductive Implant | CONMED"
+    }
+  ]
+}

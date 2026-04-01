@@ -1,0 +1,824 @@
+[
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_APEX_3D_TOTAL_ANKLE_REPLACEMENT_SYSTEM",
+    "system_name": "APEX 3D Total Ankle Replacement System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Apex 3D Total Ankle Replacement System",
+        "url": "https://paragon28.com/products/apex-3d-total-ankle-replacement-system/",
+        "notes": "Official Paragon 28 product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_GORILLA_ANKLE_FRACTURE_PLATING_SYSTEM",
+    "system_name": "Gorilla Ankle Fracture Plating System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Ankle Fracture Plating System",
+        "url": "https://paragon28.com/products/gorilla-ankle-fracture-plating-system/",
+        "notes": "Official Paragon 28 product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_MIDFOOT_FUSION_PORTFOLIO",
+    "system_name": "Midfoot Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Midfoot Plating System",
+        "url": "https://paragon28.com/products/gorilla-midfoot-plating-system/",
+        "notes": "Official Paragon 28 product page supporting midfoot fusion fixation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_FIRST_MTP_FUSION_PORTFOLIO",
+    "system_name": "First MTP Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla First MTP Fusion Plating System",
+        "url": "https://paragon28.com/products/gorilla-first-mtp-fusion-plating-system/",
+        "notes": "Official Paragon 28 product page supporting first MTP fusion."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_SUBTALAR_FUSION_PORTFOLIO",
+    "system_name": "Subtalar Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Paragon 28 Products",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as the public source anchor for the subtalar fusion portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Paragon 28 Foot and Ankle Products",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the supporting source anchor for subtalar fusion portfolio coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_HINDFOOT_FUSION_PORTFOLIO",
+    "system_name": "Paragon 28 Hindfoot fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Paragon 28 Products",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as the public source anchor for the hindfoot fusion portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Paragon 28 Foot and Ankle Products",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the supporting source anchor for hindfoot fusion portfolio coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_HINDFOOT___TRIPLE_FUSION_PORTFOLIO",
+    "system_name": "Hindfoot / Triple Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Paragon 28 Products",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as the public source anchor for the hindfoot and triple fusion portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Paragon 28 Foot and Ankle Products",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the supporting source anchor for hindfoot and triple fusion portfolio coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_HINDFOOT_FUSION_PORTFOLIO",
+    "system_name": "Hindfoot Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Paragon 28 Products",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as the public source anchor for the hindfoot fusion portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Paragon 28 Foot and Ankle Products",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the supporting source anchor for hindfoot fusion portfolio coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_MIDFOOT_FUSION_PORTFOLIO",
+    "system_name": "Paragon 28 Midfoot fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Paragon 28 Products",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as the public source anchor for the midfoot fusion portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Paragon 28 Foot and Ankle Products",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the supporting source anchor for midfoot fusion portfolio coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_ACHILLES_REPAIR_PORTFOLIO",
+    "system_name": "Achilles Repair Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Mister Tendon Minimally Invasive Tendon Harvesting System",
+        "url": "https://paragon28.com/products/mister-tendon-minimally-invasive-tendon-harvesting-system/",
+        "notes": "Official Paragon 28 Mister Tendon product page used as the primary public source anchor for the Achilles repair portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Grappler Suture Anchors - Titanium",
+        "url": "https://paragon28.com/products/grappler-suture-anchor-system/",
+        "notes": "Official Paragon 28 Grappler anchor page used as supporting public evidence for soft-tissue fixation in Achilles repair workflows."
+      },
+      {
+        "source_type": "launch_news_page",
+        "title": "Launch of the Mister Tendon Harvester System",
+        "url": "https://paragon28.com/launch-of-the-mister-tendon-harvester-system/",
+        "notes": "Official Paragon 28 launch announcement used as supporting public evidence for current Achilles and tendon-transfer workflow coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_BUNION___HALLUX_VALGUS_CORRECTION_PORTFOLIO",
+    "system_name": "Bunion / Hallux Valgus Correction Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "PRECISION MIS Bunion System",
+        "url": "https://paragon28.com/products/precision-mis-bunion-system/",
+        "notes": "Official Paragon 28 PRECISION MIS Bunion System page used as the primary public source anchor for the bunion and hallux valgus correction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Phantom Intramedullary Nail",
+        "url": "https://paragon28.com/products/phantom-lapidus-nail/",
+        "notes": "Official Paragon 28 Phantom Lapidus nail page used as supporting public evidence for hallux valgus correction and first TMT fusion workflows."
+      },
+      {
+        "source_type": "planning_page",
+        "title": "SMART Bun-Yo-Matic",
+        "url": "https://paragon28.com/products/smart-bun-yo-matic/",
+        "notes": "Official Paragon 28 SMART Bun-Yo-Matic planning page used as supporting public evidence for current bunion correction planning and execution workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_FLATFOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Flatfoot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Mister Tendon Minimally Invasive Tendon Harvesting System",
+        "url": "https://paragon28.com/products/mister-tendon-minimally-invasive-tendon-harvesting-system/",
+        "notes": "Official Paragon 28 Mister Tendon page used as the primary public source anchor for the flatfoot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla NC Fusion Plating System",
+        "url": "https://paragon28.com/products/ncfusionplatingsystem/",
+        "notes": "Official Paragon 28 NC Fusion page used as supporting public evidence for naviculocuneiform fusion and flatfoot reconstruction fixation workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "TITAN 3-D Cotton Plantarflexing Osteotomy Wedge",
+        "url": "https://paragon28.com/products/titan-3d-bone-wedge-cotton/",
+        "notes": "Official Paragon 28 TITAN 3-D Cotton wedge page used as supporting public evidence for flatfoot reconstruction osteotomy and grafting workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_GORILLA_CALCANEAL_FRACTURE_PLATING",
+    "system_name": "Gorilla Calcaneal Fracture Plating",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Calcaneal Fracture Plating System",
+        "url": "https://paragon28.com/products/calcaneal-fracture-plating-system/",
+        "notes": "Official Paragon 28 product page used as the primary public source anchor for Gorilla calcaneal fracture plating."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_GORILLA_DISTAL_TIBIA___PILON_PLATING",
+    "system_name": "Gorilla Distal Tibia / Pilon Plating",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Ankle Fracture Pilon Plating System",
+        "url": "https://paragon28.com/products/ankle-fracture-pilon-plating-system/",
+        "notes": "Official Paragon 28 product page used as the primary public source anchor for Gorilla distal tibia and pilon plating."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_GORILLA_PILON___ANKLE_FRACTURE_PLATING_SYSTEM",
+    "system_name": "Gorilla Pilon / Ankle Fracture Plating System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Ankle Fracture Plating System",
+        "url": "https://paragon28.com/products/ankle-fracture-plating-system/",
+        "notes": "Official Paragon 28 product page used as the primary public source anchor for the Gorilla pilon and ankle fracture plating system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Ankle Fracture Pilon Plating System",
+        "url": "https://paragon28.com/products/ankle-fracture-pilon-plating-system/",
+        "notes": "Official Paragon 28 pilon plating page used as supporting public evidence for distal tibia plafond and pilon-specific plating coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_GORILLA_TALUS___HINDFOOT_FIXATION_PORTFOLIO",
+    "system_name": "Gorilla Talus / Hindfoot Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Talus Plating System",
+        "url": "https://paragon28.com/products/talus-plating-system/",
+        "notes": "Official Paragon 28 talus plating page used as the primary public source anchor for the talus and hindfoot fixation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Central Column Fusion Plating System",
+        "url": "https://paragon28.com/products/central-column-plating-system/",
+        "notes": "Official Paragon 28 central column plating page used as supporting public evidence for hindfoot and midfoot fixation and reconstruction workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_ANKLE_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Paragon 28 Ankle Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the primary public source anchor for the ankle reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "APEX 3D Total Ankle Replacement System",
+        "url": "https://paragon28.com/products/apex-3d-tar/",
+        "notes": "Official Paragon 28 APEX 3D total ankle page used as supporting public evidence for ankle reconstruction coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PRESERVE Supramalleolar Osteotomy Wedge",
+        "url": "https://paragon28.com/products/preserve-supramalleolar-osteotomy-wedge/",
+        "notes": "Official Paragon 28 PRESERVE supramalleolar wedge page used as supporting public evidence for realignment and ankle reconstruction procedures."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_ZIMMER_BIOMET_ANKLE_FRACTURE_PORTFOLIO",
+    "system_name": "Paragon 28 / Zimmer Biomet Ankle Fracture Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Ankle Fracture Plating System",
+        "url": "https://paragon28.com/products/ankle-fracture-plating-system/",
+        "notes": "Official Paragon 28 ankle fracture plating page used as the primary public source anchor for the ankle fracture portfolio entry and documented as the closest current public match for the Paragon 28 / Zimmer Biomet combined mapping."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Ankle Fracture Pilon Plating System",
+        "url": "https://paragon28.com/products/ankle-fracture-pilon-plating-system/",
+        "notes": "Official Paragon 28 pilon plating page used as supporting public evidence for distal tibia plafond and ankle fracture coverage."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as broader portfolio context for this mixed ankle fracture portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_ZIMMER_BIOMET_FOOT_ANKLE_TRAUMA_PORTFOLIO",
+    "system_name": "Paragon 28 / Zimmer Biomet Foot & Ankle Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the primary public source anchor for the mixed foot and ankle trauma portfolio entry and documented as the closest current public match."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Ankle Fracture Plating System",
+        "url": "https://paragon28.com/products/ankle-fracture-plating-system/",
+        "notes": "Official Paragon 28 ankle fracture plating page used as supporting public evidence for trauma fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Calcaneal Fracture Plating System",
+        "url": "https://paragon28.com/products/calcaneal-fracture-plating-system/",
+        "notes": "Official Paragon 28 calcaneal fracture plating page used as supporting public evidence for broader foot and ankle trauma coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_ANKLE_TRAUMA_PORTFOLIO",
+    "system_name": "Paragon 28 Ankle Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Ankle Fracture Plating System",
+        "url": "https://paragon28.com/products/ankle-fracture-plating-system/",
+        "notes": "Official Paragon 28 ankle fracture plating page used as the primary public source anchor for the ankle trauma portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Ankle Fracture Pilon Plating System",
+        "url": "https://paragon28.com/products/ankle-fracture-pilon-plating-system/",
+        "notes": "Official Paragon 28 pilon plating page used as supporting public evidence for distal tibia plafond and complex ankle trauma coverage."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as broader portfolio context for current ankle trauma fixation coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_ANKLE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Paragon 28 Ankle arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Apex 3D Total Ankle Replacement System",
+        "url": "https://paragon28.com/products/apex-3d-total-ankle-replacement-system/",
+        "notes": "Official Paragon 28 APEX 3D total ankle replacement page used as the primary public source anchor for the ankle arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as supporting public evidence for current ankle arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PRESERVE Supramalleolar Osteotomy Wedge",
+        "url": "https://paragon28.com/products/preserve-supramalleolar-osteotomy-wedge/",
+        "notes": "Official Paragon 28 PRESERVE wedge page used as supporting public evidence for ankle realignment and reconstruction procedures adjacent to arthroplasty workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOOT_ANKLE_SURGERY_PORTFOLIO",
+    "system_name": "Paragon 28 Foot & ankle surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the primary public source anchor for the foot and ankle surgery portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PRECISION MIS Bunion System",
+        "url": "https://paragon28.com/products/precision-mis-bunion-system/",
+        "notes": "Official Paragon 28 bunion correction page used as supporting public evidence for forefoot surgery coverage within the broader foot and ankle surgery portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Central Column Fusion Plating System",
+        "url": "https://paragon28.com/products/central-column-plating-system/",
+        "notes": "Official Paragon 28 central column plating page used as supporting public evidence for midfoot and reconstruction procedures within the broader foot and ankle surgery portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOOT_ANKLE_TRAUMA_FIXATION_PORTFOLIO",
+    "system_name": "Paragon 28 Foot & ankle trauma fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the primary public source anchor for the foot and ankle trauma fixation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Ankle Fracture Plating System",
+        "url": "https://paragon28.com/products/ankle-fracture-plating-system/",
+        "notes": "Official Paragon 28 ankle fracture plating page used as supporting public evidence for ankle trauma fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Calcaneal Fracture Plating System",
+        "url": "https://paragon28.com/products/calcaneal-fracture-plating-system/",
+        "notes": "Official Paragon 28 calcaneal fracture plating page used as supporting public evidence for broader foot trauma fixation coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Paragon 28 Foot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the primary public source anchor for the foot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Central Column Fusion Plating System",
+        "url": "https://paragon28.com/products/central-column-plating-system/",
+        "notes": "Official Paragon 28 central column plating page used as supporting public evidence for midfoot and reconstruction procedures."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PRESERVE Supramalleolar Osteotomy Wedge",
+        "url": "https://paragon28.com/products/preserve-supramalleolar-osteotomy-wedge/",
+        "notes": "Official Paragon 28 PRESERVE wedge page used as supporting public evidence for foot and ankle realignment and reconstruction workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOOT_TRAUMA_FIXATION_PORTFOLIO",
+    "system_name": "Paragon 28 Foot trauma fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the primary public source anchor for the foot trauma fixation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Calcaneal Fracture Plating System",
+        "url": "https://paragon28.com/products/calcaneal-fracture-plating-system/",
+        "notes": "Official Paragon 28 calcaneal fracture plating page used as supporting public evidence for hindfoot and foot trauma fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Talus Plating System",
+        "url": "https://paragon28.com/products/talus-plating-system/",
+        "notes": "Official Paragon 28 talus plating page used as supporting public evidence for talus and adjacent foot trauma fixation workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOREFOOT_DEFORMITY_PORTFOLIO",
+    "system_name": "Paragon 28 Forefoot Deformity Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "PRECISION MIS Bunion System",
+        "url": "https://paragon28.com/products/precision-mis-bunion-system/",
+        "notes": "Official Paragon 28 bunion correction page used as the primary public source anchor for the forefoot deformity portfolio entry."
+      },
+      {
+        "source_type": "planning_page",
+        "title": "SMART Bun-Yo-Matic",
+        "url": "https://paragon28.com/products/smart-bun-yo-matic/",
+        "notes": "Official Paragon 28 planning page used as supporting public evidence for current forefoot deformity planning and correction workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Phantom Intramedullary Nail",
+        "url": "https://paragon28.com/products/phantom-lapidus-nail/",
+        "notes": "Official Paragon 28 Phantom Lapidus nail page used as supporting public evidence for forefoot deformity correction and first ray reconstruction workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOREFOOT_PORTFOLIO",
+    "system_name": "Paragon 28 Forefoot Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the primary public source anchor for the forefoot portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PRECISION MIS Bunion System",
+        "url": "https://paragon28.com/products/precision-mis-bunion-system/",
+        "notes": "Official Paragon 28 bunion correction page used as supporting public evidence for contemporary forefoot surgery coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Phantom Intramedullary Nail",
+        "url": "https://paragon28.com/products/phantom-lapidus-nail/",
+        "notes": "Official Paragon 28 Phantom Lapidus nail page used as supporting public evidence for first ray and forefoot reconstruction workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOREFOOT_TRAUMA_PORTFOLIO",
+    "system_name": "Paragon 28 Forefoot Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the primary public source anchor for the forefoot trauma portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Calcaneal Fracture Plating System",
+        "url": "https://paragon28.com/products/calcaneal-fracture-plating-system/",
+        "notes": "Official Paragon 28 trauma plating page used as supporting public evidence for foot trauma fixation coverage where a dedicated forefoot trauma landing page is not exposed."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Talus Plating System",
+        "url": "https://paragon28.com/products/talus-plating-system/",
+        "notes": "Official Paragon 28 talus plating page used as supporting public evidence for broader foot trauma workflows and documented as a closest current public match for this forefoot trauma portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOREFOOT_DEFORMITY_CORRECTION_PORTFOLIO",
+    "system_name": "Paragon 28 Forefoot deformity correction Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "PRECISION MIS Bunion System",
+        "url": "https://paragon28.com/products/precision-mis-bunion-system/",
+        "notes": "Official Paragon 28 bunion correction page used as the primary public source anchor for the forefoot deformity correction portfolio entry."
+      },
+      {
+        "source_type": "planning_page",
+        "title": "SMART Bun-Yo-Matic",
+        "url": "https://paragon28.com/products/smart-bun-yo-matic/",
+        "notes": "Official Paragon 28 planning page used as supporting public evidence for contemporary forefoot deformity planning and correction workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Phantom Intramedullary Nail",
+        "url": "https://paragon28.com/products/phantom-lapidus-nail/",
+        "notes": "Official Paragon 28 Phantom Lapidus nail page used as supporting public evidence for first ray realignment and deformity correction workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOREFOOT_FUSION_PORTFOLIO",
+    "system_name": "Paragon 28 Forefoot fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Phantom Intramedullary Nail",
+        "url": "https://paragon28.com/products/phantom-lapidus-nail/",
+        "notes": "Official Paragon 28 Phantom Lapidus nail page used as the primary public source anchor for the forefoot fusion portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PRECISION MIS Bunion System",
+        "url": "https://paragon28.com/products/precision-mis-bunion-system/",
+        "notes": "Official Paragon 28 bunion correction page used as supporting public evidence for first TMT and forefoot fusion workflows."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as broader portfolio context for the forefoot fusion entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_HINDFOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Paragon 28 Hindfoot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the primary public source anchor for the hindfoot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Talus Plating System",
+        "url": "https://paragon28.com/products/talus-plating-system/",
+        "notes": "Official Paragon 28 talus plating page used as supporting public evidence for hindfoot fixation and reconstruction workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PRESERVE Supramalleolar Osteotomy Wedge",
+        "url": "https://paragon28.com/products/preserve-supramalleolar-osteotomy-wedge/",
+        "notes": "Official Paragon 28 PRESERVE wedge page used as supporting public evidence for hindfoot realignment and reconstruction procedures."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_HINDFOOT_TRAUMA_PORTFOLIO",
+    "system_name": "Paragon 28 Hindfoot Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Calcaneal Fracture Plating System",
+        "url": "https://paragon28.com/products/calcaneal-fracture-plating-system/",
+        "notes": "Official Paragon 28 calcaneal fracture plating page used as the primary public source anchor for the hindfoot trauma portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Talus Plating System",
+        "url": "https://paragon28.com/products/talus-plating-system/",
+        "notes": "Official Paragon 28 talus plating page used as supporting public evidence for hindfoot trauma fixation coverage."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as broader portfolio context for current hindfoot trauma coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_MIDFOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Paragon 28 Midfoot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Central Column Fusion Plating System",
+        "url": "https://paragon28.com/products/central-column-plating-system/",
+        "notes": "Official Paragon 28 central column plating page used as the primary public source anchor for the midfoot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as supporting public evidence for current midfoot reconstruction coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PRESERVE Supramalleolar Osteotomy Wedge",
+        "url": "https://paragon28.com/products/preserve-supramalleolar-osteotomy-wedge/",
+        "notes": "Official Paragon 28 PRESERVE wedge page used as supporting public evidence for reconstruction and realignment workflows adjacent to midfoot procedures."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_MIDFOOT_TRAUMA_PORTFOLIO",
+    "system_name": "Paragon 28 Midfoot Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Central Column Fusion Plating System",
+        "url": "https://paragon28.com/products/central-column-plating-system/",
+        "notes": "Official Paragon 28 central column plating page used as the primary public source anchor for the midfoot trauma portfolio entry and documented as the closest current public match for midfoot trauma fixation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Calcaneal Fracture Plating System",
+        "url": "https://paragon28.com/products/calcaneal-fracture-plating-system/",
+        "notes": "Official Paragon 28 trauma plating page used as supporting public evidence for broader foot trauma fixation coverage."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as broader portfolio context for current midfoot trauma coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_TOTAL_ANKLE_PORTFOLIO",
+    "system_name": "Paragon 28 Total Ankle Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Apex 3D Total Ankle Replacement System",
+        "url": "https://paragon28.com/products/apex-3d-total-ankle-replacement-system/",
+        "notes": "Official Paragon 28 APEX 3D total ankle replacement page used as the primary public source anchor for the total ankle portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as supporting public evidence for current total ankle portfolio coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PRESERVE Supramalleolar Osteotomy Wedge",
+        "url": "https://paragon28.com/products/preserve-supramalleolar-osteotomy-wedge/",
+        "notes": "Official Paragon 28 PRESERVE wedge page used as supporting public evidence for ankle realignment procedures adjacent to total ankle workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PILON_FUSION___TTC_FUSION_PORTFOLIO",
+    "system_name": "Pilon Fusion / TTC Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Products - Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle products page used as the primary public source anchor for the pilon fusion and TTC fusion portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Talus Plating System",
+        "url": "https://paragon28.com/products/talus-plating-system/",
+        "notes": "Official Paragon 28 talus plating page used as supporting public evidence for hindfoot fixation and fusion workflows relevant to TTC reconstruction."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gorilla Ankle Fracture Pilon Plating System",
+        "url": "https://paragon28.com/products/ankle-fracture-pilon-plating-system/",
+        "notes": "Official Paragon 28 pilon plating page used as supporting public evidence for distal tibia plafond and pilon reconstruction workflows and documented as the closest current public match for this pilon fusion entry."
+      }
+    ]
+  }
+]

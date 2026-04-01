@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Debridement Set",
+    "source_type": "product_page",
+    "source_document": "VERSAJET II Hydrosurgery System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_DEBRIDEMENT_SET_DEBRIDEMENT_FRAMEWORK",
+        "Component Name": "Debridement Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Wound Care",
+        "System ID": "SYS_DEBRIDEMENT_SET",
+        "Component Notes": "Framework component anchored to Smith+Nephew public debridement source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Debridement Set",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "wound_management",
+          "system_notes": "Official Smith+Nephew wound-debridement materials used as the public source anchors for this debridement set entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Debridement Set",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "wound_management",
+        "system_notes": "Official Smith+Nephew wound-debridement materials used as the public source anchors for this debridement set entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Debridement Set",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "wound_management",
+        "system_notes": "Official Smith+Nephew wound-debridement materials used as the public source anchors for this debridement set entry."
+      }
+    }
+  ]
+}

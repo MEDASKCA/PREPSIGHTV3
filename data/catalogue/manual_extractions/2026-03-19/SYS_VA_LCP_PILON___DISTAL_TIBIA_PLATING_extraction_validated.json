@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "VA-LCP Pilon / Distal Tibia Plating",
+    "source_type": "product_page",
+    "source_document": "LCP Pilon Plate (3.5 mm)",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_VA_LCP_PILON_DISTAL_TIBIA_PLATING_VA_LCP_DISTAL_TIBIA_PLATING_FRAMEWORK",
+        "Component Name": "VA-LCP Distal Tibia Plating Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_VA_LCP_PILON___DISTAL_TIBIA_PLATING",
+        "Component Notes": "Portfolio-level informational framework anchored to DePuy Synthes public distal tibia and pilon plating sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "VA-LCP Pilon / Distal Tibia Plating",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "trauma",
+          "system_notes": "Public DePuy Synthes LCP Pilon, VA ankle trauma system, and technique-library materials used as the source anchors for the variable-angle pilon and distal tibia plating entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "VA-LCP Pilon / Distal Tibia Plating",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Public DePuy Synthes LCP Pilon, VA ankle trauma system, and technique-library materials used as the source anchors for the variable-angle pilon and distal tibia plating entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "VA-LCP Pilon / Distal Tibia Plating",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Public DePuy Synthes LCP Pilon, VA ankle trauma system, and technique-library materials used as the source anchors for the variable-angle pilon and distal tibia plating entry."
+      }
+    }
+  ]
+}

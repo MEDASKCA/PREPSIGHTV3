@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Skeletal Dynamics",
+    "system_name": "Thumb Basal Joint Portfolio",
+    "source_type": "product_page",
+    "source_document": "STABLYX CMC Arthroplasty System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Thumb Basal Joint Portfolio",
+      "supplier_name": "Skeletal Dynamics",
+      "system_category": "hand_wrist",
+      "system_notes": "Official Skeletal Dynamics STABLYX CMC arthroplasty materials used as the source anchors for the thumb basal joint portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Thumb Basal Joint Portfolio Framework",
+      "system_name": "Thumb Basal Joint Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Thumb Basal Joint Portfolio",
+      "component_notes": "Portfolio-level informational framework anchored to Skeletal Dynamics STABLYX thumb CMC arthroplasty public materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public source materials identify the thumb basal joint arthroplasty portfolio but do not enumerate tray-level data for this entry.",
+      "source_excerpt": "STABLYX CMC Arthroplasty System"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public source materials identify the thumb basal joint arthroplasty portfolio but do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "STABLYX CMC Arthroplasty System"
+    }
+  ]
+}

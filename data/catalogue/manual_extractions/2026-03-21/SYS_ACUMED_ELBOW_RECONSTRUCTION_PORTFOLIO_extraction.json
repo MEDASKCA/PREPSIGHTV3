@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acumed Elbow Reconstruction Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Elbow | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Acumed Elbow Reconstruction Portfolio",
+      "supplier_name": "Acumed",
+      "system_category": "Elbow trauma reconstruction",
+      "system_notes": "Official Acumed elbow reconstruction materials used as the public source anchors for this elbow reconstruction portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Elbow Reconstruction Framework",
+      "system_name": "Acumed Elbow Reconstruction Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Elbow Trauma Reconstruction",
+      "component_notes": "Framework component anchored to Acumed public elbow reconstruction source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Acumed elbow reconstruction source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Elbow | Acumed; Elbow Plating System | Acumed"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Acumed elbow reconstruction source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "Elbow | Acumed; Elbow Plating System | Acumed"
+    }
+  ]
+}

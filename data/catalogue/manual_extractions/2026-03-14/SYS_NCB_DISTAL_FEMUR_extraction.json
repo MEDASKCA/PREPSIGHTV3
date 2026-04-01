@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "NCB Distal Femoral Plate",
+    "source_type": "product_page",
+    "source_document": "NCB Periprosthetic Femur System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "NCB Distal Femoral Plate",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Locking Plate — Distal Femur",
+      "system_notes": "NCB distal femur plating platform within the Zimmer Biomet trauma portfolio for distal femoral and periprosthetic fixation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "NCB Distal Femur Instrument Set",
+      "system_name": "NCB Distal Femoral Plate",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet technique materials describe dedicated instrumentation and targeting workflow for the NCB distal femur system."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "NCB Distal Femur Plate",
+      "system_name": "NCB Distal Femoral Plate",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official Zimmer Biomet materials describe the distal femur plate family used within the NCB system."
+    },
+    {
+      "component_name": "NCB Locking Screw",
+      "system_name": "NCB Distal Femoral Plate",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official technique materials describe polyaxial locking screw fixation used with the NCB distal femur construct."
+    },
+    {
+      "component_name": "NCB Targeting Guide",
+      "system_name": "NCB Distal Femoral Plate",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official technique materials describe the dedicated targeting guide and instrument workflow for the NCB distal femur system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official Zimmer Biomet sources confirm the NCB distal femur plate family and instrumentation, but a full normalized product-code matrix has not yet been extracted in this pass.",
+      "reason": "A deeper product-matrix or sterile implant listing pass is required for comprehensive product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

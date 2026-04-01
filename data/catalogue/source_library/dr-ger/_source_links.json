@@ -1,0 +1,28 @@
+[
+  {
+    "supplier_id": "SUP_DRAGER",
+    "supplier_name": "Drager",
+    "system_id": "SYS_ANAESTHESIA_MACHINE",
+    "system_name": "Anaesthesia Machine",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "Anesthesia Machines",
+        "url": "https://www.draeger.com/en-us_us/Productfinder/anaesthesia",
+        "notes": "Official Drager anesthesia-machines product family page listing the current workstation platforms."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Drager Atlan A350",
+        "url": "https://www.draeger.com/en-us_us/Products/Atlan-A350-US-Version",
+        "notes": "Official Drager product page for the Atlan A350 anesthesia machine platform."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Perseus A500",
+        "url": "https://www.draeger.com/en-us_us/Products/Perseus-A500",
+        "notes": "Official Drager product page for the Perseus A500 anesthesia workstation."
+      }
+    ]
+  }
+]

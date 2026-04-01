@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Continuum / Taperloc",
+    "source_type": "product_page",
+    "source_document": "Continuum Acetabular System and Taperloc Complete Hip System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Continuum / Taperloc",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Primary total hip arthroplasty platform combining the Continuum porous metal acetabular system with the Taperloc Complete femoral stem."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Continuum / Taperloc Instrumentation",
+      "system_name": "Continuum / Taperloc",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet materials describe dedicated instrumentation for the Continuum acetabular workflow and Taperloc Complete femoral preparation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Taperloc Complete Femoral Stem",
+      "system_name": "Continuum / Taperloc",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official product materials describe Taperloc Complete as the femoral stem family for the platform."
+    },
+    {
+      "component_name": "Continuum Acetabular Shell",
+      "system_name": "Continuum / Taperloc",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official product materials describe Continuum as the porous metal acetabular shell platform."
+    },
+    {
+      "component_name": "Continuum Acetabular Liner",
+      "system_name": "Continuum / Taperloc",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official product materials describe modular liner options for the Continuum acetabular system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The official product pages establish the implant families but this pass does not expose a public SKU table.",
+      "reason": "A deeper brochure or IFU pass is needed for product-code level detail.",
+      "source_excerpt": "Current extraction captures tray and implant-family rows only."
+    }
+  ]
+}

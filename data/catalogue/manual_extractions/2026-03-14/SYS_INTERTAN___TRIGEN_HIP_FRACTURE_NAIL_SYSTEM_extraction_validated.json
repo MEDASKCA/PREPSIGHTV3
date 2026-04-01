@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "InterTAN / TRIGEN Hip Fracture Nail System",
+    "source_type": "product_page",
+    "source_document": "TRIGEN INTERTAN Intertrochanteric Antegrade Nail",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_INTERTAN_TRIGEN_HIP_FRACTURE_NAIL_SYSTEM_INTERTAN_TRIGEN_HIP_FRACTURE_INSTRUMENTATION",
+        "Tray Name": "InterTAN / TRIGEN Hip Fracture Instrumentation",
+        "System ID": "SYS_INTERTAN___TRIGEN_HIP_FRACTURE_NAIL_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Smith+Nephew materials support the INTERTAN hip fracture nail with dedicated operative instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_INTERTAN_TRIGEN_HIP_FRACTURE_NAIL_SYSTEM_INTERTAN_HIP_FRACTURE_NAIL",
+        "Component Name": "INTERTAN Hip Fracture Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_INTERTAN___TRIGEN_HIP_FRACTURE_NAIL_SYSTEM",
+        "Component Notes": "Official materials describe the intertrochanteric antegrade nail platform for proximal femur fracture fixation."
+      },
+      {
+        "Component ID": "COMP_INTERTAN_TRIGEN_HIP_FRACTURE_NAIL_SYSTEM_INTERTAN_LAG_SCREW",
+        "Component Name": "INTERTAN Lag Screw",
+        "Component Role": "Lag Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_INTERTAN___TRIGEN_HIP_FRACTURE_NAIL_SYSTEM",
+        "Component Notes": "Official materials describe the integrated lag screw as part of the hip fracture fixation construct."
+      },
+      {
+        "Component ID": "COMP_INTERTAN_TRIGEN_HIP_FRACTURE_NAIL_SYSTEM_INTERTAN_COMPRESSION_SCREW",
+        "Component Name": "INTERTAN Compression Screw",
+        "Component Role": "Compression Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_INTERTAN___TRIGEN_HIP_FRACTURE_NAIL_SYSTEM",
+        "Component Notes": "Official materials describe the interlocking compression screw that maintains active compression and rotational stability."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "InterTAN / TRIGEN Hip Fracture Nail System",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Hip fracture nailing platform within the TRIGEN family using the INTERTAN integrated compression screw construct."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "InterTAN / TRIGEN Hip Fracture Nail System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Hip fracture nailing platform within the TRIGEN family using the INTERTAN integrated compression screw construct."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "InterTAN / TRIGEN Hip Fracture Nail System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Hip fracture nailing platform within the TRIGEN family using the INTERTAN integrated compression screw construct."
+      }
+    }
+  ]
+}

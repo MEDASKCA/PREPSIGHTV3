@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medartis",
+    "system_name": "Aptus Hand / Metacarpal Fixation",
+    "source_type": "portfolio_page",
+    "source_document": "Medartis | Hand Solutions",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Aptus Hand / Metacarpal Fixation",
+      "supplier_name": "Medartis",
+      "system_category": "hand_wrist_trauma",
+      "system_notes": "Official Medartis Hand Solutions and Hand 1.2-2.3 System materials used as the source anchors for the metacarpal fixation entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Metacarpal Fixation Framework",
+      "system_name": "Aptus Hand / Metacarpal Fixation",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Hand Trauma Portfolio",
+      "component_notes": "Framework component anchored to Medartis public Aptus hand and metacarpal fixation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Medartis metacarpal fixation source anchors do not enumerate tray-level data for this entry.",
+      "source_excerpt": "Medartis | Hand Solutions; Medartis | Hand 1.2-2.3 System"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Medartis metacarpal fixation source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Medartis | Hand Solutions; Medartis | Hand 1.2-2.3 System"
+    }
+  ]
+}

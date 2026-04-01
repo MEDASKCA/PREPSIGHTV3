@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "External Fixation Portfolio",
+    "source_type": "product_page",
+    "source_document": "MAVERICK Unilateral External Fixator",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_EXTERNAL_FIXATION_PORTFOLIO_EXTERNAL_FIXATION_PORTFOLIO_FRAMEWORK",
+        "Component Name": "External Fixation Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "External Fixation",
+        "System ID": "SYS_EXTERNAL_FIXATION_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Smith+Nephew public unilateral, circular, and hexapod external fixation sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "External Fixation Portfolio",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "trauma",
+          "system_notes": "Official Smith+Nephew MAVERICK, ILIZAROV, and TAYLOR SPATIAL FRAME materials used as the source anchors for the external fixation portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "External Fixation Portfolio",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "trauma",
+        "system_notes": "Official Smith+Nephew MAVERICK, ILIZAROV, and TAYLOR SPATIAL FRAME materials used as the source anchors for the external fixation portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "External Fixation Portfolio",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "trauma",
+        "system_notes": "Official Smith+Nephew MAVERICK, ILIZAROV, and TAYLOR SPATIAL FRAME materials used as the source anchors for the external fixation portfolio entry."
+      }
+    }
+  ]
+}

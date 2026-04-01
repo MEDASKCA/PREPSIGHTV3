@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "4K Arthroscopy / Scope System",
+    "source_type": "specialty_page",
+    "source_document": "Sports Medicine",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_4K_ARTHROSCOPY_SCOPE_SYSTEM_4K_ARTHROSCOPY_VISUALIZATION_PORTFOLIO_FAMILY",
+        "Component Name": "4K Arthroscopy Visualization Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Arthroscopy Visualization Workflow",
+        "System ID": "SYS_4K_ARTHROSCOPY___SCOPE_SYSTEM",
+        "Component Notes": "Official Arthrex portfolio sources describe the broader 4K arthroscopy and scope workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "4K Arthroscopy / Scope System",
+          "supplier_name": "Arthrex",
+          "system_category": "Arthroscopy visualization",
+          "system_notes": "Portfolio-level public anchor for Arthrex 4K arthroscopy visualization and scope workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "4K Arthroscopy / Scope System",
+        "supplier_name": "Arthrex",
+        "system_category": "Arthroscopy visualization",
+        "system_notes": "Portfolio-level public anchor for Arthrex 4K arthroscopy visualization and scope workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "4K Arthroscopy / Scope System",
+        "supplier_name": "Arthrex",
+        "system_category": "Arthroscopy visualization",
+        "system_notes": "Portfolio-level public anchor for Arthrex 4K arthroscopy visualization and scope workflow resources."
+      }
+    }
+  ]
+}

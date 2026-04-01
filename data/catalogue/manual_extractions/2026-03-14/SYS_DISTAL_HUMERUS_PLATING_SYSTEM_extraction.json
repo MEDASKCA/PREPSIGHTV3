@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Distal Humerus Plating System",
+    "source_type": "product_page",
+    "source_document": "Distal Humerus Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Distal Humerus Plating System",
+      "supplier_name": "Acumed",
+      "system_category": "Upper Extremity Trauma Fixation System",
+      "system_notes": "Distal humerus fracture fixation platform with plates, screws and dedicated instrumentation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Distal Humerus Plating Instrumentation",
+      "system_name": "Distal Humerus Plating System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated distal humerus fixation instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Distal Humerus Plate",
+      "system_name": "Distal Humerus Plating System",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Core distal humerus plate family referenced on the product page."
+    },
+    {
+      "component_name": "Distal Humerus Screw",
+      "system_name": "Distal Humerus Plating System",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Core fixation screw family referenced on the product page."
+    },
+    {
+      "component_name": "Distal Humerus Guide",
+      "system_name": "Distal Humerus Plating System",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Guide and reduction instrumentation family referenced by the fixation system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "System includes multiple plate shapes and fixation options.",
+      "reason": "Needs deeper catalogue review before splitting detailed plate families.",
+      "source_excerpt": "Current extraction keeps the main fixation families only."
+    }
+  ]
+}

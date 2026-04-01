@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Paediatric Deformity Spine Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Spine and Biologics | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Paediatric Deformity Spine Portfolio",
+      "supplier_name": "Medtronic",
+      "system_category": "paediatric_spine",
+      "system_notes": "Official Medtronic paediatric spine deformity materials used as the public source anchors for this paediatric spine portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Paediatric Deformity Spine Portfolio Framework",
+      "system_name": "Paediatric Deformity Spine Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Paediatric Spine",
+      "component_notes": "Framework component anchored to Medtronic public paediatric spine deformity source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public paediatric spine deformity source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Spine and Biologics | Medtronic; CD Horizon ModuLeX Spinal System for Deformity Procedures | Medtronic"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public paediatric spine deformity source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Spine and Biologics | Medtronic; CD Horizon ModuLeX Spinal System for Deformity Procedures | Medtronic"
+    }
+  ]
+}

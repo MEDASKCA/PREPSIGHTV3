@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "NexGen Knee System",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "NexGen Complete Knee Solution LPS Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "NexGen Knee System",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Knee Arthroplasty System",
+      "system_notes": "Primary total knee arthroplasty platform within the NexGen Complete Knee Solution family."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "NexGen Primary Knee Instrumentation",
+      "system_name": "NexGen Knee System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "The official surgical technique describes the MICRO-MILL system and saw blade instrumentation workflows for femoral and tibial preparation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "NexGen Femoral Component",
+      "system_name": "NexGen Knee System",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official NexGen materials describe the femoral component family within the complete knee solution."
+    },
+    {
+      "component_name": "NexGen Tibial Plate",
+      "system_name": "NexGen Knee System",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official technique materials describe tibial plate preparation and implantation."
+    },
+    {
+      "component_name": "NexGen Articular Surface",
+      "system_name": "NexGen Knee System",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official technique materials reference articular surface insertion during component implantation."
+    },
+    {
+      "component_name": "NexGen Patellar Component",
+      "system_name": "NexGen Knee System",
+      "component_role": "Patellar Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official technique materials describe patellar preparation and implant thickness planning."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public surgical technique supports the component families but does not provide a compact public SKU list in this pass.",
+      "reason": "A deeper catalogue or IFU pass is needed for product-code expansion.",
+      "source_excerpt": "Current extraction keeps the implant-family level only."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Becton Dickinson",
+    "system_name": "Tunnelled Dialysis Catheter Set",
+    "source_type": "product_family_page",
+    "source_document": "GlidePath 7.5F | 10F Long-Term Hemodialysis Catheter | BD",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Tunnelled Dialysis Catheter Set",
+      "supplier_name": "Becton Dickinson",
+      "system_category": "dialysis_access",
+      "system_notes": "Official BD hemodialysis-catheter materials used as the public source anchors for this tunnelled dialysis catheter set entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Dialysis Catheter Framework",
+      "system_name": "Tunnelled Dialysis Catheter Set",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to BD public dialysis-catheter source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public dialysis-catheter source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "GlidePath 7.5F | 10F Long-Term Hemodialysis Catheter | BD; GlidePath Retro Long-Term Hemodialysis Catheter | BD; GlidePath Long-Term Hemodialysis Catheter - 5347150 | BD; GlidePath Retro Long-Term Hemodialysis Catheter - 5393500R | BD"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public dialysis-catheter source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "GlidePath 7.5F | 10F Long-Term Hemodialysis Catheter | BD; GlidePath Retro Long-Term Hemodialysis Catheter | BD; GlidePath Long-Term Hemodialysis Catheter - 5347150 | BD; GlidePath Retro Long-Term Hemodialysis Catheter - 5393500R | BD"
+    }
+  ]
+}

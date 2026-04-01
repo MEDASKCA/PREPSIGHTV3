@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LeMaitre Vascular",
+    "system_name": "Vascular Patch",
+    "source_type": "product_page",
+    "source_document": "XenoSure Biologic Patch | LeMaitre",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Vascular Patch",
+      "supplier_name": "LeMaitre Vascular",
+      "system_category": "vascular_patch",
+      "system_notes": "Official LeMaitre Vascular patch materials used as the public source anchors for this vascular patch entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Vascular Patch Framework",
+      "system_name": "Vascular Patch",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to LeMaitre public vascular-patch source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public vascular-patch source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Home | LeMaitre; XenoSure Biologic Patch | LeMaitre; VascuCel Bioscaffold Patch | LeMaitre; English (EU) - Instructions for Use | LeMaitre"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public vascular-patch source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Home | LeMaitre; XenoSure Biologic Patch | LeMaitre; VascuCel Bioscaffold Patch | LeMaitre; English (EU) - Instructions for Use | LeMaitre"
+    }
+  ]
+}

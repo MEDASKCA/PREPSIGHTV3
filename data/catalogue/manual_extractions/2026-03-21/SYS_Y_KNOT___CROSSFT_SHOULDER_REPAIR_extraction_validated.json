@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "CONMED",
+    "system_name": "Y-Knot / CrossFT Shoulder Repair",
+    "source_type": "portfolio_page",
+    "source_document": "Implants and Suture Anchors | CONMED",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_Y_KNOT_CROSSFT_SHOULDER_REPAIR_SHOULDER_REPAIR_ANCHOR_FRAMEWORK",
+        "Component Name": "Shoulder Repair Anchor Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Sports Medicine",
+        "System ID": "SYS_Y_KNOT___CROSSFT_SHOULDER_REPAIR",
+        "Component Notes": "Framework component anchored to CONMED public Y-Knot and CrossFT shoulder repair source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Y-Knot / CrossFT Shoulder Repair",
+          "supplier_name": "CONMED",
+          "system_category": "shoulder_sports",
+          "system_notes": "Official CONMED shoulder anchor-family materials used as the public source anchors for this shoulder repair portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Y-Knot / CrossFT Shoulder Repair",
+        "supplier_name": "CONMED",
+        "system_category": "shoulder_sports",
+        "system_notes": "Official CONMED shoulder anchor-family materials used as the public source anchors for this shoulder repair portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Y-Knot / CrossFT Shoulder Repair",
+        "supplier_name": "CONMED",
+        "system_category": "shoulder_sports",
+        "system_notes": "Official CONMED shoulder anchor-family materials used as the public source anchors for this shoulder repair portfolio entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Karl Storz",
+    "system_name": "Hopkins Endoscopy Platform",
+    "source_type": "product_page",
+    "source_document": "HOPKINS Telescopes",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Hopkins Endoscopy Platform",
+      "supplier_name": "Karl Storz",
+      "system_category": "Endoscopy Platform",
+      "system_notes": "Public source anchor for the Karl Storz HOPKINS rigid endoscopy platform."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "HOPKINS Endoscopy Platform Family",
+      "system_name": "Hopkins Endoscopy Platform",
+      "component_role": "Portfolio Family",
+      "implant_category": "Endoscopy Workflow",
+      "component_notes": "Official Karl Storz sources describe the broader HOPKINS rigid endoscopy platform family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Public endoscopy platform sources do not describe a dedicated tray in the current pass.",
+      "reason": "Tray detail should only be added from narrower scope-set or accessory sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public product pages do not expose a normalized product-code matrix in this pass.",
+      "reason": "Product codes should be captured from ordering guides or narrower telescope SKU sources.",
+      "source_excerpt": "Current extraction remains high-level only."
+    }
+  ]
+}

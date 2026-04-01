@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Expert Femoral Nail (EFN)",
+    "source_type": "product_page",
+    "source_document": "Expert Femoral Nail",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Expert Femoral Nail (EFN)",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Intramedullary Nail System",
+      "system_notes": "Femoral intramedullary nailing platform for antegrade and retrograde femoral fracture fixation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Expert Femoral Nail Instrumentation",
+      "system_name": "Expert Femoral Nail (EFN)",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official DePuy Synthes materials expose operative technique resources and implant information for the Expert Femoral Nail platform."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Expert Femoral Nail",
+      "system_name": "Expert Femoral Nail (EFN)",
+      "component_role": "Intramedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official product materials describe the femoral nail platform for shaft and selected proximal/distal femur fracture fixation."
+    },
+    {
+      "component_name": "Expert Femoral Locking Screw",
+      "system_name": "Expert Femoral Nail (EFN)",
+      "component_role": "Locking Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The EFN construct includes proximal and distal locking fixation options."
+    },
+    {
+      "component_name": "Expert Femoral End Cap",
+      "system_name": "Expert Femoral Nail (EFN)",
+      "component_role": "End Cap",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The EFN platform includes end-cap compatibility within the femoral nail construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public EFN pages expose implant family and technique resources but this pass does not expand the full implant code table.",
+      "reason": "A deeper catalogue or operative-technique pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

@@ -1,0 +1,72 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Persona Knee System",
+    "source_type": "product_page",
+    "source_document": "Persona The Personalized Knee",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Persona Knee System",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Knee Arthroplasty System",
+      "system_notes": "Primary total knee arthroplasty system with anatomic tibia, multiple bearing constraints and dedicated instrumentation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Persona Instrumentation",
+      "system_name": "Persona Knee System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Zimmer Biomet product page describes Persona Instrumentation as the core instrument platform."
+    },
+    {
+      "tray_name": "Zimmer FuZion Instruments",
+      "system_name": "Persona Knee System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Zimmer FuZion Instruments are listed in the linked Persona literature and cleaning instructions."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Persona Femoral Component",
+      "system_name": "Persona Knee System",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Product page describes anatomic femoral design with standard and narrow options."
+    },
+    {
+      "component_name": "Persona Tibial Component",
+      "system_name": "Persona Knee System",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Anatomic tibia design with left and right implant options."
+    },
+    {
+      "component_name": "Persona Bearing",
+      "system_name": "Persona Knee System",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Bearing options include cruciate retaining, sacrificing and higher-constraint options."
+    },
+    {
+      "component_name": "Persona Trabecular Metal Femoral Component",
+      "system_name": "Persona Knee System",
+      "component_role": "Trabecular Metal Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Explicitly listed in linked Persona literature."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Patellar component detail is not explicit in the current product page extract.",
+      "reason": "Needs deeper review of Persona surgical technique or brochure before adding patellar implant rows.",
+      "source_excerpt": "Current extraction uses the main product page and linked literature listing."
+    }
+  ]
+}

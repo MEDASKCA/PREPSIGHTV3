@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acu-Loc Distal Radius System",
+    "source_type": "product_page",
+    "source_document": "Acu-Loc 2 Wrist Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Acu-Loc Distal Radius System",
+      "supplier_name": "Acumed",
+      "system_category": "Wrist Trauma Fixation System",
+      "system_notes": "Distal radius fixation platform with plate, screw and instrumentation families."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Acu-Loc Distal Radius Instrumentation",
+      "system_name": "Acu-Loc Distal Radius System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated distal radius plating instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Acu-Loc Distal Radius Plate",
+      "system_name": "Acu-Loc Distal Radius System",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Core distal radius plate family referenced on the product page."
+    },
+    {
+      "component_name": "Acu-Loc Distal Radius Screw",
+      "system_name": "Acu-Loc Distal Radius System",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Core fixation screw family referenced on the product page."
+    },
+    {
+      "component_name": "Acu-Loc Distal Radius Guide",
+      "system_name": "Acu-Loc Distal Radius System",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Dedicated reduction and drill guide family referenced by the system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "System includes multiple plate geometries and screw options.",
+      "reason": "Needs deeper catalogue review before splitting detailed distal radius plate families.",
+      "source_excerpt": "Current extraction keeps the main fixation families only."
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Globus Medical",
+    "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+    "source_type": "product_page",
+    "source_document": "CREO Spinal System and SABLE Interbody Technology",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+      "supplier_name": "Globus Medical",
+      "system_category": "Lumbar Fusion System",
+      "system_notes": "Lumbar fusion platform combining posterior fixation and interbody support."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "CREO / SABLE Instrumentation",
+      "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated posterior fixation and interbody instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "CREO Pedicle Screw",
+      "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+      "component_role": "Pedicle Screw",
+      "implant_category": "Spine Implant",
+      "component_notes": "Core pedicle screw family referenced in the CREO spinal system materials."
+    },
+    {
+      "component_name": "CREO Rod",
+      "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+      "component_role": "Rod",
+      "implant_category": "Spine Implant",
+      "component_notes": "Core rod family referenced in the CREO spinal system materials."
+    },
+    {
+      "component_name": "SABLE Interbody Spacer",
+      "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+      "component_role": "Interbody Spacer",
+      "implant_category": "Spine Implant",
+      "component_notes": "Core SABLE interbody family referenced on the product page."
+    },
+    {
+      "component_name": "CREO Set Screw",
+      "system_name": "Creo / SABLE Lumbar Fusion Portfolio",
+      "component_role": "Set Screw",
+      "implant_category": "Spine Implant",
+      "component_notes": "Locking element family within the posterior fixation construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Portfolio includes multiple interbody and fixation subfamilies.",
+      "reason": "Needs deeper technique or catalogue review before detailed platform expansion.",
+      "source_excerpt": "Current extraction keeps the main lumbar fusion construct families only."
+    }
+  ]
+}

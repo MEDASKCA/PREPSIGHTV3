@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "AngioDynamics",
+    "system_name": "Ultrasound Guidance System",
+    "source_type": "legacy_clearance_reference",
+    "source_document": "AngioDynamics Announces FDA Clearance for Celerity Tip Location System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Ultrasound Guidance System",
+      "supplier_name": "AngioDynamics",
+      "system_category": "vascular_access_imaging",
+      "system_notes": "Official AngioDynamics legacy imaging-guidance materials used as the closest current public source anchors for this ultrasound guidance system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Ultrasound Guidance Framework",
+      "system_name": "Ultrasound Guidance System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to AngioDynamics public imaging-guidance source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public imaging-guidance source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "AngioDynamics Announces FDA Clearance for Celerity Tip Location System; AngioDynamics Announces the Approval of the Celerity PICC Tip Confirmation System With Navigation in Canada; AngioDynamics Announces Sale of PICC and Midline Product Portfolios to Spectrum Vascular for $45 Million; Risk Information | AngioDynamics"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public imaging-guidance source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "AngioDynamics Announces FDA Clearance for Celerity Tip Location System; AngioDynamics Announces the Approval of the Celerity PICC Tip Confirmation System With Navigation in Canada; AngioDynamics Announces Sale of PICC and Midline Product Portfolios to Spectrum Vascular for $45 Million; Risk Information | AngioDynamics"
+    }
+  ]
+}

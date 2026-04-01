@@ -1,0 +1,3210 @@
+{
+  "specialty": "Trauma and Orthopaedics",
+  "subspecialty": "Arthroplasty",
+  "anatomy": "Hip",
+  "structure": "subanatomy_group -> procedure -> variants -> systems[]",
+  "source_seed": "full_with_all_tier_suppliers.json",
+  "updated_at": "2026-03-13T19:57:57.760Z",
+  "subanatomy_groups": [
+    {
+      "name": "Whole Joint",
+      "procedures": [
+        {
+          "procedure_id": "PROC_PRIMARY_TOTAL_HIP_REPLACEMENT",
+          "procedure_name": "Primary Total Hip Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_PRIMARY_THR_POSTERIOR",
+              "variant_name": "Posterior Approach",
+              "systems": [
+                {
+                  "system_id": "SYS_ACCOLADE_TRIDENT",
+                  "system_name": "Accolade II / Trident II",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACTIS_PINNACLE",
+                  "system_name": "ACTIS / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CSTEM_PINNACLE",
+                  "system_name": "C-stem AMT / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped cemented primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CONTINUUM_TAPERLOC",
+                  "system_name": "Continuum / Taperloc",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORAIL_PINNACLE",
+                  "system_name": "Corail / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CPT_TRIDENT",
+                  "system_name": "CPT / Trident",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "hybrid",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped hybrid hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_EXETER_TRIDENT",
+                  "system_name": "Exeter / Trident",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped cemented primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_POLAR_R3",
+                  "system_name": "Polar / R3",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TAPERLOC_G7",
+                  "system_name": "Taperloc / G7",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_HIP_PORTFOLIO",
+                  "system_name": "Corin Hip Arthroplasty Portfolio",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_JRI_HIP_PORTFOLIO",
+                  "system_name": "JRI Hip Arthroplasty Portfolio",
+                  "supplier_name": "JRI Orthopaedics",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MEDACTA_HIP_PORTFOLIO",
+                  "system_name": "Medacta Hip Arthroplasty Portfolio",
+                  "supplier_name": "Medacta",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ENOVIS_HIP_PORTFOLIO",
+                  "system_name": "Enovis Hip Arthroplasty Portfolio",
+                  "supplier_name": "Enovis",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LIMA_HIP_PORTFOLIO",
+                  "system_name": "LimaCorporate Hip Arthroplasty Portfolio",
+                  "supplier_name": "LimaCorporate",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MATHYS_HIP_PORTFOLIO",
+                  "system_name": "Mathys Hip Arthroplasty Portfolio",
+                  "supplier_name": "Mathys",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MICROPORT_HIP_PORTFOLIO",
+                  "system_name": "MicroPort Hip Arthroplasty Portfolio",
+                  "supplier_name": "MicroPort",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_UNITED_HIP_PORTFOLIO",
+                  "system_name": "United Orthopedic Hip Arthroplasty Portfolio",
+                  "supplier_name": "United Orthopedic",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AESCULAP_HIP_PORTFOLIO",
+                  "system_name": "Aesculap Hip Arthroplasty Portfolio",
+                  "supplier_name": "Aesculap",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_WALDEMAR_LINK_HIP_PORTFOLIO",
+                  "system_name": "Waldemar Link Hip Arthroplasty Portfolio",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_PETER_BREHM_HIP_PORTFOLIO",
+                  "system_name": "Peter Brehm Hip Arthroplasty Portfolio",
+                  "supplier_name": "Peter Brehm",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AMPLITUDE_HIP_PORTFOLIO",
+                  "system_name": "Amplitude Hip Arthroplasty Portfolio",
+                  "supplier_name": "Amplitude",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_FH_HIP_PORTFOLIO",
+                  "system_name": "FH Orthopedics Hip Arthroplasty Portfolio",
+                  "supplier_name": "FH Orthopedics",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AK_HIP_PORTFOLIO",
+                  "system_name": "AK Medical Hip Arthroplasty Portfolio",
+                  "supplier_name": "AK Medical",
+                  "supplier_tier": "tier_3_emerging",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORENTEC_HIP_PORTFOLIO",
+                  "system_name": "Corentec Hip Arthroplasty Portfolio",
+                  "supplier_name": "Corentec",
+                  "supplier_tier": "tier_3_emerging",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_PRIMARY_THR_ANTERIOR",
+              "variant_name": "Direct Anterior Approach",
+              "systems": [
+                {
+                  "system_id": "SYS_ACCOLADE_TRIDENT",
+                  "system_name": "Accolade II / Trident II",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACTIS_PINNACLE",
+                  "system_name": "ACTIS / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CONTINUUM_TAPERLOC",
+                  "system_name": "Continuum / Taperloc",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORAIL_PINNACLE",
+                  "system_name": "Corail / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_POLAR_R3",
+                  "system_name": "Polar / R3",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TAPERLOC_G7",
+                  "system_name": "Taperloc / G7",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_HIP_PORTFOLIO",
+                  "system_name": "Corin Hip Arthroplasty Portfolio",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_JRI_HIP_PORTFOLIO",
+                  "system_name": "JRI Hip Arthroplasty Portfolio",
+                  "supplier_name": "JRI Orthopaedics",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MEDACTA_HIP_PORTFOLIO",
+                  "system_name": "Medacta Hip Arthroplasty Portfolio",
+                  "supplier_name": "Medacta",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ENOVIS_HIP_PORTFOLIO",
+                  "system_name": "Enovis Hip Arthroplasty Portfolio",
+                  "supplier_name": "Enovis",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LIMA_HIP_PORTFOLIO",
+                  "system_name": "LimaCorporate Hip Arthroplasty Portfolio",
+                  "supplier_name": "LimaCorporate",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MATHYS_HIP_PORTFOLIO",
+                  "system_name": "Mathys Hip Arthroplasty Portfolio",
+                  "supplier_name": "Mathys",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MICROPORT_HIP_PORTFOLIO",
+                  "system_name": "MicroPort Hip Arthroplasty Portfolio",
+                  "supplier_name": "MicroPort",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_UNITED_HIP_PORTFOLIO",
+                  "system_name": "United Orthopedic Hip Arthroplasty Portfolio",
+                  "supplier_name": "United Orthopedic",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AESCULAP_HIP_PORTFOLIO",
+                  "system_name": "Aesculap Hip Arthroplasty Portfolio",
+                  "supplier_name": "Aesculap",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_WALDEMAR_LINK_HIP_PORTFOLIO",
+                  "system_name": "Waldemar Link Hip Arthroplasty Portfolio",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_PETER_BREHM_HIP_PORTFOLIO",
+                  "system_name": "Peter Brehm Hip Arthroplasty Portfolio",
+                  "supplier_name": "Peter Brehm",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AMPLITUDE_HIP_PORTFOLIO",
+                  "system_name": "Amplitude Hip Arthroplasty Portfolio",
+                  "supplier_name": "Amplitude",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_FH_HIP_PORTFOLIO",
+                  "system_name": "FH Orthopedics Hip Arthroplasty Portfolio",
+                  "supplier_name": "FH Orthopedics",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AK_HIP_PORTFOLIO",
+                  "system_name": "AK Medical Hip Arthroplasty Portfolio",
+                  "supplier_name": "AK Medical",
+                  "supplier_tier": "tier_3_emerging",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORENTEC_HIP_PORTFOLIO",
+                  "system_name": "Corentec Hip Arthroplasty Portfolio",
+                  "supplier_name": "Corentec",
+                  "supplier_tier": "tier_3_emerging",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_PRIMARY_THR_LATERAL",
+              "variant_name": "Direct Lateral Approach",
+              "systems": [
+                {
+                  "system_id": "SYS_ACCOLADE_TRIDENT",
+                  "system_name": "Accolade II / Trident II",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACTIS_PINNACLE",
+                  "system_name": "ACTIS / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CSTEM_PINNACLE",
+                  "system_name": "C-stem AMT / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped cemented primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CONTINUUM_TAPERLOC",
+                  "system_name": "Continuum / Taperloc",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORAIL_PINNACLE",
+                  "system_name": "Corail / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CPT_TRIDENT",
+                  "system_name": "CPT / Trident",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "hybrid",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped hybrid hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_EXETER_TRIDENT",
+                  "system_name": "Exeter / Trident",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped cemented primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_POLAR_R3",
+                  "system_name": "Polar / R3",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TAPERLOC_G7",
+                  "system_name": "Taperloc / G7",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_HIP_PORTFOLIO",
+                  "system_name": "Corin Hip Arthroplasty Portfolio",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_JRI_HIP_PORTFOLIO",
+                  "system_name": "JRI Hip Arthroplasty Portfolio",
+                  "supplier_name": "JRI Orthopaedics",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MEDACTA_HIP_PORTFOLIO",
+                  "system_name": "Medacta Hip Arthroplasty Portfolio",
+                  "supplier_name": "Medacta",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ENOVIS_HIP_PORTFOLIO",
+                  "system_name": "Enovis Hip Arthroplasty Portfolio",
+                  "supplier_name": "Enovis",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LIMA_HIP_PORTFOLIO",
+                  "system_name": "LimaCorporate Hip Arthroplasty Portfolio",
+                  "supplier_name": "LimaCorporate",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MATHYS_HIP_PORTFOLIO",
+                  "system_name": "Mathys Hip Arthroplasty Portfolio",
+                  "supplier_name": "Mathys",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MICROPORT_HIP_PORTFOLIO",
+                  "system_name": "MicroPort Hip Arthroplasty Portfolio",
+                  "supplier_name": "MicroPort",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_UNITED_HIP_PORTFOLIO",
+                  "system_name": "United Orthopedic Hip Arthroplasty Portfolio",
+                  "supplier_name": "United Orthopedic",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AESCULAP_HIP_PORTFOLIO",
+                  "system_name": "Aesculap Hip Arthroplasty Portfolio",
+                  "supplier_name": "Aesculap",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_WALDEMAR_LINK_HIP_PORTFOLIO",
+                  "system_name": "Waldemar Link Hip Arthroplasty Portfolio",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_PETER_BREHM_HIP_PORTFOLIO",
+                  "system_name": "Peter Brehm Hip Arthroplasty Portfolio",
+                  "supplier_name": "Peter Brehm",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AMPLITUDE_HIP_PORTFOLIO",
+                  "system_name": "Amplitude Hip Arthroplasty Portfolio",
+                  "supplier_name": "Amplitude",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_FH_HIP_PORTFOLIO",
+                  "system_name": "FH Orthopedics Hip Arthroplasty Portfolio",
+                  "supplier_name": "FH Orthopedics",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AK_HIP_PORTFOLIO",
+                  "system_name": "AK Medical Hip Arthroplasty Portfolio",
+                  "supplier_name": "AK Medical",
+                  "supplier_tier": "tier_3_emerging",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORENTEC_HIP_PORTFOLIO",
+                  "system_name": "Corentec Hip Arthroplasty Portfolio",
+                  "supplier_name": "Corentec",
+                  "supplier_tier": "tier_3_emerging",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_PRIMARY_THR_ANTEROLATERAL",
+              "variant_name": "Anterolateral Approach",
+              "systems": [
+                {
+                  "system_id": "SYS_ACCOLADE_TRIDENT",
+                  "system_name": "Accolade II / Trident II",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACTIS_PINNACLE",
+                  "system_name": "ACTIS / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CSTEM_PINNACLE",
+                  "system_name": "C-stem AMT / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped cemented primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CONTINUUM_TAPERLOC",
+                  "system_name": "Continuum / Taperloc",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORAIL_PINNACLE",
+                  "system_name": "Corail / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CPT_TRIDENT",
+                  "system_name": "CPT / Trident",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "hybrid",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped hybrid hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_EXETER_TRIDENT",
+                  "system_name": "Exeter / Trident",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped cemented primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_POLAR_R3",
+                  "system_name": "Polar / R3",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TAPERLOC_G7",
+                  "system_name": "Taperloc / G7",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_HIP_PORTFOLIO",
+                  "system_name": "Corin Hip Arthroplasty Portfolio",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_JRI_HIP_PORTFOLIO",
+                  "system_name": "JRI Hip Arthroplasty Portfolio",
+                  "supplier_name": "JRI Orthopaedics",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MEDACTA_HIP_PORTFOLIO",
+                  "system_name": "Medacta Hip Arthroplasty Portfolio",
+                  "supplier_name": "Medacta",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ENOVIS_HIP_PORTFOLIO",
+                  "system_name": "Enovis Hip Arthroplasty Portfolio",
+                  "supplier_name": "Enovis",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LIMA_HIP_PORTFOLIO",
+                  "system_name": "LimaCorporate Hip Arthroplasty Portfolio",
+                  "supplier_name": "LimaCorporate",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MATHYS_HIP_PORTFOLIO",
+                  "system_name": "Mathys Hip Arthroplasty Portfolio",
+                  "supplier_name": "Mathys",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MICROPORT_HIP_PORTFOLIO",
+                  "system_name": "MicroPort Hip Arthroplasty Portfolio",
+                  "supplier_name": "MicroPort",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_UNITED_HIP_PORTFOLIO",
+                  "system_name": "United Orthopedic Hip Arthroplasty Portfolio",
+                  "supplier_name": "United Orthopedic",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AESCULAP_HIP_PORTFOLIO",
+                  "system_name": "Aesculap Hip Arthroplasty Portfolio",
+                  "supplier_name": "Aesculap",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_WALDEMAR_LINK_HIP_PORTFOLIO",
+                  "system_name": "Waldemar Link Hip Arthroplasty Portfolio",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_PETER_BREHM_HIP_PORTFOLIO",
+                  "system_name": "Peter Brehm Hip Arthroplasty Portfolio",
+                  "supplier_name": "Peter Brehm",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AMPLITUDE_HIP_PORTFOLIO",
+                  "system_name": "Amplitude Hip Arthroplasty Portfolio",
+                  "supplier_name": "Amplitude",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_FH_HIP_PORTFOLIO",
+                  "system_name": "FH Orthopedics Hip Arthroplasty Portfolio",
+                  "supplier_name": "FH Orthopedics",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AK_HIP_PORTFOLIO",
+                  "system_name": "AK Medical Hip Arthroplasty Portfolio",
+                  "supplier_name": "AK Medical",
+                  "supplier_tier": "tier_3_emerging",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORENTEC_HIP_PORTFOLIO",
+                  "system_name": "Corentec Hip Arthroplasty Portfolio",
+                  "supplier_name": "Corentec",
+                  "supplier_tier": "tier_3_emerging",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_REVISION_TOTAL_HIP_REPLACEMENT",
+          "procedure_name": "Revision Total Hip Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_REVISION_THR_POSTERIOR",
+              "variant_name": "Posterior",
+              "systems": [
+                {
+                  "system_id": "SYS_EXETER_REVISION",
+                  "system_name": "Exeter Revision Stem",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_RESTORATION_MODULAR",
+                  "system_name": "Restoration Modular",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ARCOS_REVISION",
+                  "system_name": "ARCOS Modular",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ZB_REVISION_HIP_PLATFORM",
+                  "system_name": "Zimmer Biomet Revision Hip Platform",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for broader revision coverage.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_DEPUY_REVISION_HIP_PLATFORM",
+                  "system_name": "DePuy Synthes Revision Hip Platform",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for broader revision coverage.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_REVISION_HIP_PLATFORM",
+                  "system_name": "Corin Revision Hip Platform",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LIMA_REVISION_HIP_PLATFORM",
+                  "system_name": "LimaCorporate Revision Hip Platform",
+                  "supplier_name": "LimaCorporate",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LINK_REVISION_HIP_PLATFORM",
+                  "system_name": "Waldemar Link Revision Hip Platform",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_REVISION_THR_ETO",
+              "variant_name": "Extended Trochanteric Osteotomy",
+              "systems": [
+                {
+                  "system_id": "SYS_EXETER_REVISION",
+                  "system_name": "Exeter Revision Stem",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_RESTORATION_MODULAR",
+                  "system_name": "Restoration Modular",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ARCOS_REVISION",
+                  "system_name": "ARCOS Modular",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ZB_REVISION_HIP_PLATFORM",
+                  "system_name": "Zimmer Biomet Revision Hip Platform",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for broader revision coverage.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_DEPUY_REVISION_HIP_PLATFORM",
+                  "system_name": "DePuy Synthes Revision Hip Platform",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for broader revision coverage.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_REVISION_HIP_PLATFORM",
+                  "system_name": "Corin Revision Hip Platform",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LIMA_REVISION_HIP_PLATFORM",
+                  "system_name": "LimaCorporate Revision Hip Platform",
+                  "supplier_name": "LimaCorporate",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LINK_REVISION_HIP_PLATFORM",
+                  "system_name": "Waldemar Link Revision Hip Platform",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_REVISION_THR_TRANSFEMORAL",
+              "variant_name": "Transfemoral",
+              "systems": [
+                {
+                  "system_id": "SYS_EXETER_REVISION",
+                  "system_name": "Exeter Revision Stem",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_RESTORATION_MODULAR",
+                  "system_name": "Restoration Modular",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ARCOS_REVISION",
+                  "system_name": "ARCOS Modular",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ZB_REVISION_HIP_PLATFORM",
+                  "system_name": "Zimmer Biomet Revision Hip Platform",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for broader revision coverage.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_DEPUY_REVISION_HIP_PLATFORM",
+                  "system_name": "DePuy Synthes Revision Hip Platform",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for broader revision coverage.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_REVISION_HIP_PLATFORM",
+                  "system_name": "Corin Revision Hip Platform",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LIMA_REVISION_HIP_PLATFORM",
+                  "system_name": "LimaCorporate Revision Hip Platform",
+                  "supplier_name": "LimaCorporate",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LINK_REVISION_HIP_PLATFORM",
+                  "system_name": "Waldemar Link Revision Hip Platform",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "revision_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_TWO_STAGE_REVISION_TOTAL_HIP_REPLACEMENT",
+          "procedure_name": "Two-Stage Revision Total Hip Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_TWO_STAGE_REVISION_THR_STAGE_ONE",
+              "variant_name": "Stage 1 Explant and Spacer",
+              "systems": [
+                {
+                  "system_id": "SYS_EXETER_REVISION",
+                  "system_name": "Exeter Revision Stem",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_RESTORATION_MODULAR",
+                  "system_name": "Restoration Modular",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ARCOS_REVISION",
+                  "system_name": "ARCOS Modular",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ZB_REVISION_HIP_PLATFORM",
+                  "system_name": "Zimmer Biomet Revision Hip Platform",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for broader revision coverage.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_DEPUY_REVISION_HIP_PLATFORM",
+                  "system_name": "DePuy Synthes Revision Hip Platform",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for broader revision coverage.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_REVISION_HIP_PLATFORM",
+                  "system_name": "Corin Revision Hip Platform",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LIMA_REVISION_HIP_PLATFORM",
+                  "system_name": "LimaCorporate Revision Hip Platform",
+                  "supplier_name": "LimaCorporate",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LINK_REVISION_HIP_PLATFORM",
+                  "system_name": "Waldemar Link Revision Hip Platform",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_TWO_STAGE_REVISION_THR_STAGE_TWO",
+              "variant_name": "Stage 2 Reimplantation",
+              "systems": [
+                {
+                  "system_id": "SYS_EXETER_REVISION",
+                  "system_name": "Exeter Revision Stem",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_RESTORATION_MODULAR",
+                  "system_name": "Restoration Modular",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ARCOS_REVISION",
+                  "system_name": "ARCOS Modular",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision hip system.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ZB_REVISION_HIP_PLATFORM",
+                  "system_name": "Zimmer Biomet Revision Hip Platform",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for broader revision coverage.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_DEPUY_REVISION_HIP_PLATFORM",
+                  "system_name": "DePuy Synthes Revision Hip Platform",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for broader revision coverage.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_REVISION_HIP_PLATFORM",
+                  "system_name": "Corin Revision Hip Platform",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LIMA_REVISION_HIP_PLATFORM",
+                  "system_name": "LimaCorporate Revision Hip Platform",
+                  "supplier_name": "LimaCorporate",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LINK_REVISION_HIP_PLATFORM",
+                  "system_name": "Waldemar Link Revision Hip Platform",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "revision",
+                  "procedure_class": "two_stage_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior",
+                    "Extended Trochanteric Osteotomy",
+                    "Transfemoral"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_HIP_RESURFACING",
+          "procedure_name": "Hip Resurfacing",
+          "variants": [
+            {
+              "variant_id": "PV_HIP_RESURFACING_POSTERIOR",
+              "variant_name": "Posterior Approach",
+              "systems": [
+                {
+                  "system_id": "SYS_BHR",
+                  "system_name": "Birmingham Hip Resurfacing",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "resurfacing",
+                  "procedure_class": "resurfacing",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog hip resurfacing system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CONSERVE_PLUS",
+                  "system_name": "Conserve Plus",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "resurfacing",
+                  "procedure_class": "resurfacing",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog hip resurfacing system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MEDACTA_RESURFACING_PORTFOLIO",
+                  "system_name": "Medacta Hip Resurfacing Portfolio",
+                  "supplier_name": "Medacta",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "resurfacing",
+                  "procedure_class": "resurfacing",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_HIP_RESURFACING_LATERAL",
+              "variant_name": "Direct Lateral Approach",
+              "systems": [
+                {
+                  "system_id": "SYS_BHR",
+                  "system_name": "Birmingham Hip Resurfacing",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "resurfacing",
+                  "procedure_class": "resurfacing",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog hip resurfacing system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CONSERVE_PLUS",
+                  "system_name": "Conserve Plus",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "resurfacing",
+                  "procedure_class": "resurfacing",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog hip resurfacing system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MEDACTA_RESURFACING_PORTFOLIO",
+                  "system_name": "Medacta Hip Resurfacing Portfolio",
+                  "supplier_name": "Medacta",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "resurfacing",
+                  "procedure_class": "resurfacing",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_HEMIARTHROPLASTY_OF_HIP",
+          "procedure_name": "Hip Hemiarthroplasty",
+          "variants": [
+            {
+              "variant_id": "PV_HIP_HEMI_CEMENTED",
+              "variant_name": "Cemented Stem",
+              "systems": [
+                {
+                  "system_id": "SYS_EXETER_BIPOLAR",
+                  "system_name": "Exeter / Bipolar Head",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "hemi",
+                  "procedure_class": "hemiarthroplasty",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog cemented hemiarthroplasty system.",
+                  "approach_compatibility": [
+                    "Cemented Stem"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CPT_BIPOLAR",
+                  "system_name": "CPT / Bipolar Head",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "hemi",
+                  "procedure_class": "hemiarthroplasty",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog cemented hemiarthroplasty system.",
+                  "approach_compatibility": [
+                    "Cemented Stem"
+                  ]
+                },
+                {
+                  "system_id": "SYS_SMITH_HEMI_HIP_PORTFOLIO",
+                  "system_name": "Smith+Nephew Hip Hemiarthroplasty Portfolio",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "hemi",
+                  "procedure_class": "hemiarthroplasty",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Cemented Stem",
+                    "Uncemented Stem"
+                  ]
+                },
+                {
+                  "system_id": "SYS_JRI_HEMI_HIP_PORTFOLIO",
+                  "system_name": "JRI Hip Hemiarthroplasty Portfolio",
+                  "supplier_name": "JRI Orthopaedics",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "hemi",
+                  "procedure_class": "hemiarthroplasty",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Cemented Stem",
+                    "Uncemented Stem"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_HIP_HEMI_UNCEMENTED",
+              "variant_name": "Uncemented Stem",
+              "systems": [
+                {
+                  "system_id": "SYS_CORAIL_BIPOLAR",
+                  "system_name": "Corail / Bipolar Head",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "hemi",
+                  "procedure_class": "hemiarthroplasty",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog cementless hemiarthroplasty system.",
+                  "approach_compatibility": [
+                    "Uncemented Stem"
+                  ]
+                },
+                {
+                  "system_id": "SYS_SMITH_HEMI_HIP_PORTFOLIO",
+                  "system_name": "Smith+Nephew Hip Hemiarthroplasty Portfolio",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "hemi",
+                  "procedure_class": "hemiarthroplasty",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Cemented Stem",
+                    "Uncemented Stem"
+                  ]
+                },
+                {
+                  "system_id": "SYS_JRI_HEMI_HIP_PORTFOLIO",
+                  "system_name": "JRI Hip Hemiarthroplasty Portfolio",
+                  "supplier_name": "JRI Orthopaedics",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "hemi",
+                  "procedure_class": "hemiarthroplasty",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Cemented Stem",
+                    "Uncemented Stem"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_CONVERSION_OF_HIP_HEMIARTHROPLASTY_TO_TOTAL_HIP_REPLACEMENT",
+          "procedure_name": "Conversion Hemiarthroplasty to THR",
+          "variants": [
+            {
+              "variant_id": "PV_CONVERSION_HEMI_TO_THR_STANDARD",
+              "variant_name": "Standard Conversion",
+              "systems": [
+                {
+                  "system_id": "SYS_ACCOLADE_TRIDENT",
+                  "system_name": "Accolade II / Trident II",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACTIS_PINNACLE",
+                  "system_name": "ACTIS / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CSTEM_PINNACLE",
+                  "system_name": "C-stem AMT / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped cemented primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CONTINUUM_TAPERLOC",
+                  "system_name": "Continuum / Taperloc",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORAIL_PINNACLE",
+                  "system_name": "Corail / Pinnacle",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CPT_TRIDENT",
+                  "system_name": "CPT / Trident",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "hybrid",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped hybrid hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_EXETER_TRIDENT",
+                  "system_name": "Exeter / Trident",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped cemented primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_POLAR_R3",
+                  "system_name": "Polar / R3",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TAPERLOC_G7",
+                  "system_name": "Taperloc / G7",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cementless",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live repo-mapped primary hip system.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_HIP_PORTFOLIO",
+                  "system_name": "Corin Hip Arthroplasty Portfolio",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_JRI_HIP_PORTFOLIO",
+                  "system_name": "JRI Hip Arthroplasty Portfolio",
+                  "supplier_name": "JRI Orthopaedics",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MEDACTA_HIP_PORTFOLIO",
+                  "system_name": "Medacta Hip Arthroplasty Portfolio",
+                  "supplier_name": "Medacta",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ENOVIS_HIP_PORTFOLIO",
+                  "system_name": "Enovis Hip Arthroplasty Portfolio",
+                  "supplier_name": "Enovis",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LIMA_HIP_PORTFOLIO",
+                  "system_name": "LimaCorporate Hip Arthroplasty Portfolio",
+                  "supplier_name": "LimaCorporate",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MATHYS_HIP_PORTFOLIO",
+                  "system_name": "Mathys Hip Arthroplasty Portfolio",
+                  "supplier_name": "Mathys",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MICROPORT_HIP_PORTFOLIO",
+                  "system_name": "MicroPort Hip Arthroplasty Portfolio",
+                  "supplier_name": "MicroPort",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_UNITED_HIP_PORTFOLIO",
+                  "system_name": "United Orthopedic Hip Arthroplasty Portfolio",
+                  "supplier_name": "United Orthopedic",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                },
+                {
+                  "system_id": "SYS_AESCULAP_HIP_PORTFOLIO",
+                  "system_name": "Aesculap Hip Arthroplasty Portfolio",
+                  "supplier_name": "Aesculap",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_hip",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Posterior Approach",
+                    "Direct Anterior Approach",
+                    "Direct Lateral Approach",
+                    "Anterolateral Approach"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Acetabulum",
+      "procedures": [
+        {
+          "procedure_id": "PROC_ACETABULAR_REVISION_OF_HIP_REPLACEMENT",
+          "procedure_name": "Acetabular Component Revision",
+          "variants": [
+            {
+              "variant_id": "PV_ACETABULAR_REVISION_ISOLATED_CUP",
+              "variant_name": "Isolated Cup Revision",
+              "systems": [
+                {
+                  "system_id": "SYS_PINNACLE_SECTOR",
+                  "system_name": "Pinnacle / Sector Augments",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "acetabular_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog acetabular revision system.",
+                  "approach_compatibility": [
+                    "Isolated Cup Revision",
+                    "Acetabular Reconstruction",
+                    "Cup-Cage Reconstruction"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACETABULAR_REVISION_PLATFORM_STRYKER",
+                  "system_name": "Stryker Acetabular Revision Platform",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "acetabular_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for acetabular revision.",
+                  "approach_compatibility": [
+                    "Isolated Cup Revision",
+                    "Acetabular Reconstruction",
+                    "Cup-Cage Reconstruction"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACETABULAR_REVISION_PLATFORM_ZB",
+                  "system_name": "Zimmer Biomet Acetabular Revision Platform",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "acetabular_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for acetabular revision.",
+                  "approach_compatibility": [
+                    "Isolated Cup Revision",
+                    "Acetabular Reconstruction",
+                    "Cup-Cage Reconstruction"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_ACETABULAR_REVISION_RECONSTRUCTION",
+              "variant_name": "Acetabular Reconstruction",
+              "systems": [
+                {
+                  "system_id": "SYS_PINNACLE_SECTOR",
+                  "system_name": "Pinnacle / Sector Augments",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "acetabular_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog acetabular revision system.",
+                  "approach_compatibility": [
+                    "Isolated Cup Revision",
+                    "Acetabular Reconstruction",
+                    "Cup-Cage Reconstruction"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACETABULAR_REVISION_PLATFORM_STRYKER",
+                  "system_name": "Stryker Acetabular Revision Platform",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "acetabular_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for acetabular revision.",
+                  "approach_compatibility": [
+                    "Isolated Cup Revision",
+                    "Acetabular Reconstruction",
+                    "Cup-Cage Reconstruction"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACETABULAR_REVISION_PLATFORM_ZB",
+                  "system_name": "Zimmer Biomet Acetabular Revision Platform",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "acetabular_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for acetabular revision.",
+                  "approach_compatibility": [
+                    "Isolated Cup Revision",
+                    "Acetabular Reconstruction",
+                    "Cup-Cage Reconstruction"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACETABULAR_REVISION_PLATFORM_LINK",
+                  "system_name": "Waldemar Link Acetabular Revision Platform",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "salvage",
+                  "procedure_class": "acetabular_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Acetabular Reconstruction",
+                    "Cup-Cage Reconstruction"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_ACETABULAR_REVISION_CUP_CAGE",
+              "variant_name": "Cup-Cage Reconstruction",
+              "systems": [
+                {
+                  "system_id": "SYS_PINNACLE_SECTOR",
+                  "system_name": "Pinnacle / Sector Augments",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "acetabular_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog acetabular revision system.",
+                  "approach_compatibility": [
+                    "Isolated Cup Revision",
+                    "Acetabular Reconstruction",
+                    "Cup-Cage Reconstruction"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACETABULAR_REVISION_PLATFORM_STRYKER",
+                  "system_name": "Stryker Acetabular Revision Platform",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "acetabular_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for acetabular revision.",
+                  "approach_compatibility": [
+                    "Isolated Cup Revision",
+                    "Acetabular Reconstruction",
+                    "Cup-Cage Reconstruction"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACETABULAR_REVISION_PLATFORM_ZB",
+                  "system_name": "Zimmer Biomet Acetabular Revision Platform",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "acetabular_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate for acetabular revision.",
+                  "approach_compatibility": [
+                    "Isolated Cup Revision",
+                    "Acetabular Reconstruction",
+                    "Cup-Cage Reconstruction"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ACETABULAR_REVISION_PLATFORM_LINK",
+                  "system_name": "Waldemar Link Acetabular Revision Platform",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "salvage",
+                  "procedure_class": "acetabular_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Acetabular Reconstruction",
+                    "Cup-Cage Reconstruction"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Proximal Femur",
+      "procedures": [
+        {
+          "procedure_id": "PROC_FEMORAL_REVISION_OF_HIP_REPLACEMENT",
+          "procedure_name": "Femoral Stem Revision",
+          "variants": [
+            {
+              "variant_id": "PV_FEMORAL_REVISION_CEMENTED",
+              "variant_name": "Cemented Stem Revision",
+              "systems": [
+                {
+                  "system_id": "SYS_EXETER_REVISION",
+                  "system_name": "Exeter Revision Stem",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "femoral_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog femoral revision stem.",
+                  "approach_compatibility": [
+                    "Cemented Stem Revision",
+                    "Tapered Fluted Stem Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_DEPUY_FEMORAL_REVISION_PLATFORM",
+                  "system_name": "DePuy Synthes Femoral Revision Platform",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "femoral_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Cemented Stem Revision",
+                    "Tapered Fluted Stem Revision"
+                  ]
+                }
+              ]
+            },
+            {
+              "variant_id": "PV_FEMORAL_REVISION_TAPERED_FLUTED",
+              "variant_name": "Tapered Fluted Stem Revision",
+              "systems": [
+                {
+                  "system_id": "SYS_EXETER_REVISION",
+                  "system_name": "Exeter Revision Stem",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "femoral_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog femoral revision stem.",
+                  "approach_compatibility": [
+                    "Cemented Stem Revision",
+                    "Tapered Fluted Stem Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_RESTORATION_MODULAR",
+                  "system_name": "Restoration Modular",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "femoral_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog femoral revision stem.",
+                  "approach_compatibility": [
+                    "Tapered Fluted Stem Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ARCOS_REVISION",
+                  "system_name": "ARCOS Modular",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "femoral_revision",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog femoral revision stem.",
+                  "approach_compatibility": [
+                    "Tapered Fluted Stem Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_DEPUY_FEMORAL_REVISION_PLATFORM",
+                  "system_name": "DePuy Synthes Femoral Revision Platform",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "revision",
+                  "procedure_class": "femoral_revision",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier-coverage candidate pending branch verification.",
+                  "approach_compatibility": [
+                    "Cemented Stem Revision",
+                    "Tapered Fluted Stem Revision"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_PROXIMAL_FEMORAL_REPLACEMENT",
+          "procedure_name": "Proximal Femoral Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_PROXIMAL_FEMORAL_REPLACEMENT_STANDARD",
+              "variant_name": "Standard Reconstruction",
+              "systems": [
+                {
+                  "system_id": "SYS_STRYKER_PFR_PORTFOLIO",
+                  "system_name": "Stryker Proximal Femoral Replacement Portfolio",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "salvage",
+                  "procedure_class": "proximal_femoral_replacement",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Complex salvage/reconstruction candidate pending verification.",
+                  "approach_compatibility": [
+                    "Standard Reconstruction"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ZB_PFR_PORTFOLIO",
+                  "system_name": "Zimmer Biomet Proximal Femoral Replacement Portfolio",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "salvage",
+                  "procedure_class": "proximal_femoral_replacement",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Complex salvage/reconstruction candidate pending verification.",
+                  "approach_compatibility": [
+                    "Standard Reconstruction"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LINK_PFR_PORTFOLIO",
+                  "system_name": "Waldemar Link Proximal Femoral Replacement Portfolio",
+                  "supplier_name": "Waldemar Link",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "salvage",
+                  "procedure_class": "proximal_femoral_replacement",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Complex salvage/reconstruction candidate pending verification.",
+                  "approach_compatibility": [
+                    "Standard Reconstruction"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

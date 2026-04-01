@@ -1,0 +1,74 @@
+{
+  "source_meta": {
+    "supplier_name": "B. Braun",
+    "system_name": "Nerve Stimulator",
+    "source_type": "product_page",
+    "source_document": "Stimuplex HNS 12 Nerve Stimulator",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Nerve Stimulator",
+      "supplier_name": "B. Braun",
+      "system_category": "Regional Anaesthesia",
+      "system_notes": "Official source anchor for B. Braun peripheral nerve stimulator workflow."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Stimuplex HNS 12 Nerve Stimulator",
+      "system_name": "Nerve Stimulator",
+      "component_role": "Nerve Stimulator Console",
+      "implant_category": "Regional Anaesthesia Device",
+      "component_notes": "Peripheral nerve stimulator for single and continuous nerve block workflow."
+    },
+    {
+      "component_name": "Stimuplex D Needle with Extension Set",
+      "system_name": "Nerve Stimulator",
+      "component_role": "Stimulating Needle",
+      "implant_category": "Regional Anaesthesia Device",
+      "component_notes": "Insulated stimulating needle used with the Stimuplex nerve stimulator."
+    },
+    {
+      "component_name": "Contiplex S Catheter System",
+      "system_name": "Nerve Stimulator",
+      "component_role": "Continuous Nerve Block Catheter System",
+      "implant_category": "Regional Anaesthesia Device",
+      "component_notes": "Continuous nerve block catheter-through-needle system compatible with the Stimuplex platform."
+    }
+  ],
+  "products": [
+    {
+      "component_name": "Stimuplex HNS 12 Nerve Stimulator",
+      "product_code": "4892098",
+      "product_name": "Stimuplex HNS 12 Nerve Stimulator",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded peripheral nerve stimulator product."
+    },
+    {
+      "component_name": "Stimuplex D Needle with Extension Set",
+      "product_code": "333684",
+      "product_name": "Stimuplex D, 22 Ga. x 3-1/8 in. (80 mm) Insulated Needle with Extension Set, 30° Bevel",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded stimulating needle product."
+    },
+    {
+      "component_name": "Contiplex S Catheter System",
+      "product_code": "331698",
+      "product_name": "Contiplex Straight Set, 18 Ga. X 4 in. Insulated Needle",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded continuous nerve block catheter system product."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "The public nerve stimulator pages do not define a dedicated tray or case in the current pass.",
+      "reason": "Tray rows should only be added from packaged block-set or cart-specific sources.",
+      "source_excerpt": "Current extraction remains platform and accessory based."
+    }
+  ]
+}

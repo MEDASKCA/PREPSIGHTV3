@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "KLS Martin",
+    "system_name": "Upper Extremity Soft Tissue Portfolio",
+    "source_type": "discipline_page",
+    "source_document": "KLS Martin | Hand surgery",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_UPPER_EXTREMITY_SOFT_TISSUE_PORTFOLIO_UPPER_EXTREMITY_SOFT_TISSUE_FRAMEWORK",
+        "Component Name": "Upper Extremity Soft Tissue Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Upper Extremity Soft Tissue",
+        "System ID": "SYS_UPPER_EXTREMITY_SOFT_TISSUE_PORTFOLIO",
+        "Component Notes": "Framework component anchored to KLS Martin public upper-extremity soft-tissue source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Upper Extremity Soft Tissue Portfolio",
+          "supplier_name": "KLS Martin",
+          "system_category": "elbow",
+          "system_notes": "Official KLS Martin hand surgery and soft-tissue instrumentation materials used as the public source anchors for this upper-extremity soft-tissue portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Upper Extremity Soft Tissue Portfolio",
+        "supplier_name": "KLS Martin",
+        "system_category": "elbow",
+        "system_notes": "Official KLS Martin hand surgery and soft-tissue instrumentation materials used as the public source anchors for this upper-extremity soft-tissue portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Upper Extremity Soft Tissue Portfolio",
+        "supplier_name": "KLS Martin",
+        "system_category": "elbow",
+        "system_notes": "Official KLS Martin hand surgery and soft-tissue instrumentation materials used as the public source anchors for this upper-extremity soft-tissue portfolio entry."
+      }
+    }
+  ]
+}

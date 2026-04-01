@@ -1,0 +1,66 @@
+[
+  {
+    "supplier_id": "SUP_COOK_MEDICAL",
+    "supplier_name": "Cook Medical",
+    "system_id": "SYS_FENESTRATED_ENDOGRAFT",
+    "system_name": "Fenestrated Endograft",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Zenith Fenestrated AAA Endovascular Graft Proximal Body Grafts | Cook Medical",
+        "url": "https://www.cookmedical.com/products/5a186e6c-095a-4775-9a32-499edd4cad69/",
+        "notes": "Official Cook Medical proximal component page used as the primary source anchor for the commercial Zenith Fenestrated AAA endovascular graft and as IFU-style evidence because the page exposes specifications and linked documents."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Zenith Fenestrated AAA Endovascular Graft Distal Bifurcated Body Grafts | Cook Medical",
+        "url": "https://www.cookmedical.com/products/adc82bec-ce78-46fd-8df0-0c78e4c6ebd3/",
+        "notes": "Official Cook Medical distal body graft page used as supporting product-family evidence for the fenestrated endograft system and its modular distal configuration."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Zenith Fenestrated AAA Endovacular Graft | Cook Medical",
+        "url": "https://www.cookmedical.com/aortic-intervention/zenith-home/zenith-fenestrated-aaa-endovacular-graft/",
+        "notes": "Official Cook Medical aortic-intervention platform page used as broader catalogue-style and planning-support evidence for Zenith Fenestrated workflow, sizing, and accessory references."
+      },
+      {
+        "source_type": "newsroom_article",
+        "title": "FDA approves clinical study of Zenith Fenestrated+ Endovascular Graft for treatment of aortic aneurysms | Cook Medical",
+        "url": "https://www.cookmedical.com/newsroom/fda-clinical-study-zenith-fenestrated/",
+        "notes": "Official Cook Medical newsroom article used as current public supporting evidence for the fenestrated endograft platform evolution and complex visceral-vessel aneurysm use case."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_COOK_MEDICAL",
+    "supplier_name": "Cook Medical",
+    "system_id": "SYS_STENT_GRAFT_THORACIC",
+    "system_name": "Thoracic Aortic Stent Graft",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Zenith Alpha Thoracic Endovascular Graft | Cook Medical",
+        "url": "https://www.cookmedical.com/aortic-intervention/zenith-home/zenith-alpha-thoracic-endovascular-graft/",
+        "notes": "Official Cook Medical thoracic endograft platform page used as the primary public source anchor for the thoracic aortic stent graft entry and as catalogue-style evidence because it exposes device specifications, essential prescribing information, and planning materials."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Zenith Alpha Thoracic Endovascular Graft Proximal Component | Cook Medical",
+        "url": "https://www.cookmedical.com/products/ce81fd8b-4d30-493a-b68f-2a33ca3669be/",
+        "notes": "Official Cook Medical proximal-component page used as direct supporting evidence for the thoracic aortic stent graft system and as IFU-style support because the page exposes specifications and linked product documents."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Zenith Alpha Thoracic Endovascular Graft Proximal Tapered Component | Cook Medical",
+        "url": "https://www.cookmedical.com/products/9ad485c9-c9a9-43d0-983a-b58bfff61517/",
+        "notes": "Official Cook Medical tapered thoracic component page used as supporting modular-product evidence for proximal seal and sizing options within the thoracic stent graft system."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Zenith Alpha 2 Thoracic Endovascular Graft Distal Component | Cook Medical",
+        "url": "https://www.cookmedical.com/products/62d34306-817a-495d-9afb-ed74dc6e24b5/",
+        "notes": "Official Cook Medical distal thoracic component page used as broader current-platform evidence for distal extension and component-level support within Cook's thoracic endograft family."
+      }
+    ]
+  }
+]

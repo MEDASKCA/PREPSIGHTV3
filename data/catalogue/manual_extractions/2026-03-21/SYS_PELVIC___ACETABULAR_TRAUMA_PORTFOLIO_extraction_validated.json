@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Pelvic / Acetabular Trauma Portfolio",
+    "source_type": "product_page",
+    "source_document": "A.L.P.S. Pelvic System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PELVIC_ACETABULAR_TRAUMA_PORTFOLIO_PELVIC_AND_ACETABULAR_TRAUMA_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Pelvic and Acetabular Trauma Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "trauma",
+        "System ID": "SYS_PELVIC___ACETABULAR_TRAUMA_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Zimmer Biomet public pelvic and acetabular trauma fixation sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Pelvic / Acetabular Trauma Portfolio",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "trauma",
+          "system_notes": "Official Zimmer Biomet A.L.P.S. Pelvic System, Trauma, and Labeling Portal materials used as the source anchors for the pelvic and acetabular trauma portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Pelvic / Acetabular Trauma Portfolio",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "trauma",
+        "system_notes": "Official Zimmer Biomet A.L.P.S. Pelvic System, Trauma, and Labeling Portal materials used as the source anchors for the pelvic and acetabular trauma portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Pelvic / Acetabular Trauma Portfolio",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "trauma",
+        "system_notes": "Official Zimmer Biomet A.L.P.S. Pelvic System, Trauma, and Labeling Portal materials used as the source anchors for the pelvic and acetabular trauma portfolio entry."
+      }
+    }
+  ]
+}

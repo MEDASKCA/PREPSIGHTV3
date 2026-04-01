@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "PHILOS Proximal Humeral Plate",
+    "source_type": "product_page",
+    "source_document": "3.5 mm LCP Proximal Humerus Plates",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "PHILOS Proximal Humeral Plate",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Locking Plate — Proximal Humerus",
+      "system_notes": "Proximal humerus locking plate platform within the DePuy Synthes trauma plating portfolio, commonly referred to as PHILOS."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "PHILOS Instrument and Targeting Set",
+      "system_name": "PHILOS Proximal Humeral Plate",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official DePuy Synthes materials describe dedicated PHILOS instrumentation and targeting devices within the trauma loan-set portfolio."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "PHILOS Proximal Humerus Plate",
+      "system_name": "PHILOS Proximal Humeral Plate",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official J&J MedTech materials describe the locking proximal humerus plate family."
+    },
+    {
+      "component_name": "PHILOS Locking Screw",
+      "system_name": "PHILOS Proximal Humeral Plate",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official DePuy Synthes materials describe compatible locking screw fixation used with the PHILOS plate."
+    },
+    {
+      "component_name": "PHILOS Targeting Device",
+      "system_name": "PHILOS Proximal Humeral Plate",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official trauma loan-set materials explicitly reference dedicated targeting devices for PHILOS instrumentation."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The current official sources identify the PHILOS implant family and tray instrumentation but do not expose a full product-code matrix in this pass.",
+      "reason": "A deeper IFU, sterile implant listing, or ordering guide pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "B. Braun",
+    "system_name": "Vein Stripping Set",
+    "source_type": "product_page",
+    "source_document": "Venostrip Extirpation Set",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Vein Stripping Set",
+      "supplier_name": "B. Braun",
+      "system_category": "vascular_instruments",
+      "system_notes": "Official B. Braun venous-stripping materials used as the public source anchors for this vein stripping set entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Vein Stripping Framework",
+      "system_name": "Vein Stripping Set",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to B. Braun public vein-stripping source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public vein-stripping source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Venostrip Extirpation Set; Venostrip Disposable Vein Extirpation Set; IFU Request Form | B. Braun; AESCULAP Surgical Instruments"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public vein-stripping source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Venostrip Extirpation Set; Venostrip Disposable Vein Extirpation Set; IFU Request Form | B. Braun; AESCULAP Surgical Instruments"
+    }
+  ]
+}

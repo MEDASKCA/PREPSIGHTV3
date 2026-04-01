@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Humeral Shaft Plate",
+    "source_type": "technique_index_page",
+    "source_document": "Accompanying Product Information",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "LCP Humeral Shaft Plate",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Locking Plate — Humeral Shaft",
+      "system_notes": "Humeral shaft locking plate system within the DePuy Synthes trauma portfolio for open reduction and plate fixation of humeral shaft fractures."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "LCP Humeral Shaft Instrument Set",
+      "system_name": "LCP Humeral Shaft Plate",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official DePuy Synthes upper-extremity trauma resources anchor the dedicated humeral shaft plating instrumentation workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "LCP Humeral Shaft Plate",
+      "system_name": "LCP Humeral Shaft Plate",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official DePuy Synthes trauma catalogue resources identify the humeral shaft plate family within the LCP system."
+    },
+    {
+      "component_name": "LCP Humeral Shaft Locking Screw",
+      "system_name": "LCP Humeral Shaft Plate",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official trauma references describe compatible locking screw fixation used with the humeral shaft plate system."
+    },
+    {
+      "component_name": "LCP Humeral Shaft Drill Guide",
+      "system_name": "LCP Humeral Shaft Plate",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official trauma references describe guide and instrumentation workflow for humeral shaft plate application."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official sources confirm the humeral shaft plate family and upper-extremity trauma references, but a full normalized product-code matrix has not yet been extracted in this pass.",
+      "reason": "A deeper inventory-form, technique, or sterile implant listing pass is required for comprehensive product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

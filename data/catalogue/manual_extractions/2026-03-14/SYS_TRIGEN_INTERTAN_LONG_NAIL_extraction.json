@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "TRIGEN InterTAN Long Nail",
+    "source_type": "product_page",
+    "source_document": "TRIGEN INTERTAN Intertrochanteric Antegrade Nail",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "TRIGEN InterTAN Long Nail",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Cephalomedullary Nail System",
+      "system_notes": "Long cephalomedullary proximal femoral nailing platform anchored to the official Smith+Nephew INTERTAN product family materials."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "TRIGEN InterTAN Long Nail Instrumentation",
+      "system_name": "TRIGEN InterTAN Long Nail",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official INTERTAN materials support dedicated long-nail instrumentation and integrated hip fracture fixation workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "TRIGEN InterTAN Long Nail",
+      "system_name": "TRIGEN InterTAN Long Nail",
+      "component_role": "Cephalomedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Primary long INTERTAN nail component described within the official Smith+Nephew hip fracture nailing platform."
+    },
+    {
+      "component_name": "InterTAN Integrated Lag Screw",
+      "system_name": "TRIGEN InterTAN Long Nail",
+      "component_role": "Lag Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The INTERTAN construct includes the integrated lag screw fixation mechanism."
+    },
+    {
+      "component_name": "TRIGEN Locking Screw",
+      "system_name": "TRIGEN InterTAN Long Nail",
+      "component_role": "Locking Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The long INTERTAN construct includes distal locking fixation options."
+    },
+    {
+      "component_name": "TRIGEN End Cap",
+      "system_name": "TRIGEN InterTAN Long Nail",
+      "component_role": "End Cap",
+      "implant_category": "Trauma Implant",
+      "component_notes": "End-cap compatibility is part of the TRIGEN INTERTAN long nail construct family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public INTERTAN source set confirms the long nail family but this pass does not include a clean long-nail implant code matrix.",
+      "reason": "A deeper IFU or sterile implant listing pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

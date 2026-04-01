@@ -1,0 +1,186 @@
+{
+  "extraction_domain": "theatre-equipment",
+  "extraction_subcategory": "theatre-equipment",
+  "extraction_date": "2026-03-14",
+  "extractor": "PrepSight web-sourced extraction",
+  "total_records": 9,
+  "records": [
+    {
+      "supplier": "Erbe Elektromedizin",
+      "product_family": "VIO",
+      "system_name": "Erbe VIO 3 Electrosurgical Unit",
+      "category": "Diathermy / Electrosurgery",
+      "subtype": "High-Frequency Electrosurgical Generator — Current Generation",
+      "source_document": "VIO 3 product page — Erbe USA",
+      "source_url": "https://us.erbegroup.com/us-en/products/electrosurgery/vior-3/",
+      "notes": "Maximum HF power: 550 W. Power consumption: 1,600 W. Max line current: 6.3 A. Patented power supply: 400 W device class, up to 8 A. 25 million tissue impedance measurements/second. Up to 6 instruments: 4 monopolar + 4 bipolar + 4 plug-and-play (e.g. BiClamp) — any combination, any universal socket. 19 optimised modes: preciseSECT, thermoSEAL, highCUT, softCOAG, and others. Spark Recognition for controlled, reproducible cuts. NESSY (Neutral Electrode Safety System) — dynamic, patient-specific monitoring. stepGUIDE for settings guidance. WiFi for software updates and service. Standard OR electrosurgery unit for orthopaedic diathermy.",
+      "components": [
+        "Main electrosurgical unit (ESU)",
+        "Footswitch",
+        "Monopolar cable(s)",
+        "Bipolar cable(s)",
+        "Neutral electrode (grounding pad)",
+        "NESSY neutral electrode monitoring system",
+        "APC module (optional — Argon Plasma Coagulation)"
+      ],
+      "product_codes": [],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Erbe Elektromedizin",
+      "product_family": "VIO",
+      "system_name": "Erbe VIO 300D Electrosurgical Unit",
+      "category": "Diathermy / Electrosurgery",
+      "subtype": "High-Frequency Electrosurgical Generator — Previous Generation",
+      "source_document": "VIO product page — Erbe website",
+      "source_url": "https://vio.erbegroup.com/",
+      "notes": "Previous generation VIO platform. Dimensions: W 410 mm x H 165 mm x D 380 mm. Weight: 9.5 kg (20.94 lbs). Modes: AutoCUT, ForcedCOAG, monopolar and bipolar. Multiple cutting and coagulation modes. Still in widespread OR use globally.",
+      "components": [
+        "Main ESU",
+        "Footswitch",
+        "Monopolar cable",
+        "Bipolar cable",
+        "Neutral electrode"
+      ],
+      "product_codes": ["VIO 300D"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Erbe Elektromedizin",
+      "product_family": "VIO",
+      "system_name": "Erbe VIO 300S Electrosurgical Unit",
+      "category": "Diathermy / Electrosurgery",
+      "subtype": "High-Frequency Electrosurgical Generator",
+      "source_document": "VIO product page — Erbe website",
+      "source_url": "https://vio.erbegroup.com/",
+      "notes": "Enhanced Cut and Coag functions for monopolar and bipolar modes. Seven cutting modes, eight coagulation modes. Automatic power adjustment for voltage, arc, and power. Standard platform for general orthopaedic and surgical use.",
+      "components": [
+        "Main ESU",
+        "Footswitch",
+        "Monopolar cable",
+        "Bipolar cable",
+        "Neutral electrode"
+      ],
+      "product_codes": ["VIO 300S"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Stryker Surgical Technologies",
+      "product_family": "Neptune",
+      "system_name": "Stryker Neptune S Waste Management System",
+      "category": "Surgical Waste Management / Suction",
+      "subtype": "Closed Surgical Fluid Waste Management System — Current",
+      "source_document": "Neptune S product page — Stryker",
+      "source_url": "https://www.stryker.com/us/en/surgical-technologies/products/neptune-s.html",
+      "notes": "Only constantly-closed surgical waste management system on market. 8-litre fluid capacity. 30% smaller footprint than Neptune 3. Integrated specimen collection. Components: rover with HEPA filter, docker, disposable manifold (one per canister), fluid suction tubing. Reduces staff required for fluid suction management and fluid disposal time. Improves OR turnover. ULPA filter for smoke evacuation.",
+      "components": [
+        "Neptune S rover unit",
+        "HEPA/ULPA filter",
+        "Docker",
+        "Disposable manifold (single-use, per collection)",
+        "Fluid suction tubing (disposable)"
+      ],
+      "product_codes": [],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Stryker Surgical Technologies",
+      "product_family": "Neptune",
+      "system_name": "Stryker Neptune 3 Waste Management System",
+      "category": "Surgical Waste Management / Suction",
+      "subtype": "Closed Surgical Fluid Waste Management System — Previous Generation",
+      "source_document": "Neptune 3 product brochure — Stryker",
+      "source_url": "https://www.stryker.com/content/dam/stryker/surgical/products/neptune-3/resources/Neptune%203%204-Page%20Brochure.pdf",
+      "notes": "8-litre capacity closed waste system. 7-inch top display, 8.4-inch main display. Quieter pump: 4.3 sones (48% less noise vs Neptune 2). 8-hour ULPA filter for smoke evacuation. Adjustable suction levels via suction tube and wand. Removes blood, fluid, and surgical smoke from operative site.",
+      "components": [
+        "Neptune 3 rover unit",
+        "ULPA filter (8-hour)",
+        "Docker",
+        "Disposable manifold",
+        "Suction tube and wand"
+      ],
+      "product_codes": ["0703-002-000"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Stryker Communications",
+      "product_family": "SLX",
+      "system_name": "Stryker SLX628 Surgical Light",
+      "category": "Surgical Lighting",
+      "subtype": "Ceiling-Mounted LED Surgical Light",
+      "source_document": "SLX628 Surgical Light product page — Stryker",
+      "source_url": "https://www.stryker.com/us/en/communications/products/slx-surgical-light.html",
+      "notes": "650 overlapping beams of light for continuous column of illumination. Minimises shadows in surgical field. LED technology. Optional: touch wall control, HD in-light camera, EndoLite feature (for endoscopic procedure illumination optimisation). Ceiling-mounted installation.",
+      "components": [
+        "SLX628 light head",
+        "Ceiling mount / articulating arm",
+        "Control panel",
+        "HD in-light camera (optional)",
+        "EndoLite module (optional)"
+      ],
+      "product_codes": ["SLX628"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Steris",
+      "product_family": "HarmonyAIR",
+      "system_name": "Steris HarmonyAIR G-Series Surgical Lighting System",
+      "category": "Surgical Lighting",
+      "subtype": "Ceiling-Mounted LED Surgical Light — High Intensity",
+      "source_document": "HarmonyAIR G-Series product page — Steris",
+      "source_url": "https://www.steris.com/healthcare/products/surgical-lights-and-examination-lights/surgical-lights/harmonyair-g-series-surgical-lighting-system",
+      "notes": "Up to 160,000 lux illumination. Single-color phosphor-coated LED chip — crisp white light with natural colour rendition. CRI up to 96, R9 value up to 98. Colour temperature 4400K. 50,000+ hour LED lifetime. 70% less energy per light head than previous LED technology. Reduced heat output — less surgical staff discomfort, less tissue desiccation risk. Patent-pending continuous braking system (no adjustment needed for 10+ years). Overlapping beams to virtually eliminate shadows.",
+      "components": [
+        "G-Series light head",
+        "Ceiling mount / articulating arm",
+        "Control panel"
+      ],
+      "product_codes": ["HarmonyAIR G-Series"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Steris",
+      "product_family": "HarmonyAIR",
+      "system_name": "Steris HarmonyAIR A-Series Surgical Lighting System",
+      "category": "Surgical Lighting",
+      "subtype": "Ceiling-Mounted LED Surgical Light — Adaptive",
+      "source_document": "HarmonyAIR A-Series product page — Steris",
+      "source_url": "https://www.steris.com/healthcare/products/surgical-lights-and-examination-lights/surgical-lights/harmonyair-a-series-surgical-lighting-system",
+      "notes": "Clinician-inspired design with adaptive lighting sensors that automatically detect obstructions (e.g. surgeon's head, instrument) and boost LEDs to compensate — delivering more available illumination at the surgical site. LED lighthead — vivid tissue colour, clarity and contrast. Ceiling-mounted installation for OR.",
+      "components": [
+        "A-Series light head with adaptive sensors",
+        "Ceiling mount / articulating arm",
+        "Control panel"
+      ],
+      "product_codes": ["HarmonyAIR A-Series"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Solventum (formerly 3M)",
+      "product_family": "Bair Hugger",
+      "system_name": "3M Bair Hugger Warming Unit — Model 775 (77500)",
+      "category": "Patient Warming",
+      "subtype": "Forced-Air Warming Unit",
+      "source_document": "Bair Hugger Model 77500 — Solventum",
+      "source_url": "https://www.solventum.com/en-us/home/f/b00040096/",
+      "notes": "Perioperative forced-air patient warming unit. Three temperature settings: High 43 +/- 1.5 deg C (109.4 F), Medium 38 +/- 1.5 deg C (100.4 F), Low 32 +/- 1.5 deg C (89.6 F). Three internal temperature sensors + hose-end sensing for accurate delivery. High-efficiency 0.2 um air filter. Power: 110–120 VAC, 50/60 Hz, 11.7 A. Dimensions: 13x14x13 in. Weight: 16 lb (7.3 kg). Over-temperature, calibration, built-in hour meter, fault code reporting via front panel. Compatible with: Bair Paws gown, Bair Hugger 241 Blood/Fluid Warming Set, all Bair Hugger warming blankets. Use: OR, PACU, Pre-Op. Standard in orthopaedic arthroplasty for hypothermia prevention.",
+      "components": [
+        "Warming unit (Model 775 / 77500)",
+        "Delivery hose",
+        "0.2 um HEPA-type air filter",
+        "Forced-air warming blanket (disposable, various types — sold separately)"
+      ],
+      "product_codes": ["77500", "Model 775", "Model 750"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    }
+  ]
+}

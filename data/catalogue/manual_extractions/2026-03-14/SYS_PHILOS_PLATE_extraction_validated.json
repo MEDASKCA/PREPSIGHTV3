@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "PHILOS Proximal Humeral Plate",
+    "source_type": "product_page",
+    "source_document": "3.5 mm LCP Proximal Humerus Plates",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_PHILOS_PROXIMAL_HUMERAL_PLATE_PHILOS_INSTRUMENT_AND_TARGETING_SET",
+        "Tray Name": "PHILOS Instrument and Targeting Set",
+        "System ID": "SYS_PHILOS_PLATE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes materials describe dedicated PHILOS instrumentation and targeting devices within the trauma loan-set portfolio."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PHILOS_PROXIMAL_HUMERAL_PLATE_PHILOS_PROXIMAL_HUMERUS_PLATE",
+        "Component Name": "PHILOS Proximal Humerus Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_PHILOS_PLATE",
+        "Component Notes": "Official J&J MedTech materials describe the locking proximal humerus plate family."
+      },
+      {
+        "Component ID": "COMP_PHILOS_PROXIMAL_HUMERAL_PLATE_PHILOS_LOCKING_SCREW",
+        "Component Name": "PHILOS Locking Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_PHILOS_PLATE",
+        "Component Notes": "Official DePuy Synthes materials describe compatible locking screw fixation used with the PHILOS plate."
+      },
+      {
+        "Component ID": "COMP_PHILOS_PROXIMAL_HUMERAL_PLATE_PHILOS_TARGETING_DEVICE",
+        "Component Name": "PHILOS Targeting Device",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_PHILOS_PLATE",
+        "Component Notes": "Official trauma loan-set materials explicitly reference dedicated targeting devices for PHILOS instrumentation."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "PHILOS Proximal Humeral Plate",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Locking Plate \u2014 Proximal Humerus",
+          "system_notes": "Proximal humerus locking plate platform within the DePuy Synthes trauma plating portfolio, commonly referred to as PHILOS."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "PHILOS Proximal Humeral Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Proximal Humerus",
+        "system_notes": "Proximal humerus locking plate platform within the DePuy Synthes trauma plating portfolio, commonly referred to as PHILOS."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "PHILOS Proximal Humeral Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Proximal Humerus",
+        "system_notes": "Proximal humerus locking plate platform within the DePuy Synthes trauma plating portfolio, commonly referred to as PHILOS."
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "DePuy Synthes Femoral Nailing Portfolio",
+    "source_type": "campaign_page",
+    "source_document": "Femur Focus | DePuy Synthes | J&J MedTech US",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_DEPUY_SYNTHES_FEMORAL_NAILING_PORTFOLIO_FEMORAL_NAILING_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Femoral Nailing Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_DEPUY_SYNTHES_FEMORAL_NAILING_PORTFOLIO",
+        "Component Notes": "Framework component anchored to DePuy Synthes public femoral nailing portfolio sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "DePuy Synthes Femoral Nailing Portfolio",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Trauma fixation",
+          "system_notes": "Official DePuy Synthes femur-focus and trauma materials used as the public source anchors for this femoral nailing portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "DePuy Synthes Femoral Nailing Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Trauma fixation",
+        "system_notes": "Official DePuy Synthes femur-focus and trauma materials used as the public source anchors for this femoral nailing portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "DePuy Synthes Femoral Nailing Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Trauma fixation",
+        "system_notes": "Official DePuy Synthes femur-focus and trauma materials used as the public source anchors for this femoral nailing portfolio entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,73 @@
+{
+  "source_meta": {
+    "supplier_name": "B. Braun",
+    "system_name": "Spinal Anaesthesia Kit",
+    "source_type": "product_family_page",
+    "source_document": "Spinocan / Pencan Spinal Anesthesia Trays",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Spinal Anaesthesia Kit",
+      "supplier_name": "B. Braun",
+      "system_category": "Regional Anaesthesia",
+      "system_notes": "Official source anchor for B. Braun Spinocan and Pencan spinal anaesthesia tray workflow."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Spinocan Spinal Tray",
+      "system_name": "Spinal Anaesthesia Kit",
+      "tray_type": "Procedure Tray",
+      "tray_notes": "B. Braun Quincke-type spinal tray family."
+    },
+    {
+      "tray_name": "Pencan Spinal Tray",
+      "system_name": "Spinal Anaesthesia Kit",
+      "tray_type": "Procedure Tray",
+      "tray_notes": "B. Braun pencil-point spinal tray family."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Spinocan Quincke Spinal Needle",
+      "system_name": "Spinal Anaesthesia Kit",
+      "component_role": "Spinal Needle",
+      "implant_category": "Regional Anaesthesia Device",
+      "component_notes": "Quincke-type spinal needle family used in Spinocan spinal trays."
+    },
+    {
+      "component_name": "Pencan Pencil Point Spinal Needle",
+      "system_name": "Spinal Anaesthesia Kit",
+      "component_role": "Spinal Needle",
+      "implant_category": "Regional Anaesthesia Device",
+      "component_notes": "Pencil-point spinal needle family used in Pencan spinal trays."
+    }
+  ],
+  "products": [
+    {
+      "component_name": "Spinocan Quincke Spinal Needle",
+      "product_code": "333234",
+      "product_name": "Spinocan 22 Ga. x 3½ in. (90 mm) Tray (Kit) S22SK",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded Spinocan spinal tray product."
+    },
+    {
+      "component_name": "Spinocan Quincke Spinal Needle",
+      "product_code": "333214",
+      "product_name": "Spinocan 25 Ga. x 3½ in. (90 mm) Tray (Kit) S25SK",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded Spinocan spinal tray product."
+    },
+    {
+      "component_name": "Pencan Pencil Point Spinal Needle",
+      "product_code": "P25BK",
+      "product_name": "Pencan 25 Ga. x 3½ in. (90 mm), Bupivacaine 0.75% with Dextrose 8.25% Tray (Kit)",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded Pencan spinal tray product."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": []
+}

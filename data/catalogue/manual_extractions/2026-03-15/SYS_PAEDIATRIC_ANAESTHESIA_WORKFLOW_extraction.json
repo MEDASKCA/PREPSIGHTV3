@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Paediatric Anaesthesia Workflow System",
+    "source_type": "society_homepage",
+    "source_document": "Society for Pediatric Anesthesia / Resources",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Paediatric Anaesthesia Workflow System",
+      "supplier_name": "Unassigned",
+      "system_category": "Perioperative Documentation",
+      "system_notes": "Public source anchor for paediatric anaesthesia workflow guidance and point-of-care resource support."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Paediatric Anaesthesia Workflow Framework",
+      "system_name": "Paediatric Anaesthesia Workflow System",
+      "component_role": "Workflow Framework",
+      "implant_category": "Perioperative Documentation Workflow",
+      "component_notes": "SPA resources describe paediatric anaesthesia case guides, critical-event checklists, and reference tools rather than a device tray."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "SPA workflow resources do not define a tray or instrument case for this paediatric workflow row.",
+      "reason": "Tray rows should only be added from device-specific or site-specific kit sources.",
+      "source_excerpt": "Current extraction remains workflow-level only."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public society workflow resources do not provide normalized product codes.",
+      "reason": "Product rows should only be added from vendor-specific paediatric anaesthesia platforms if identified later.",
+      "source_excerpt": "Current extraction remains source-backed and high-level."
+    }
+  ]
+}

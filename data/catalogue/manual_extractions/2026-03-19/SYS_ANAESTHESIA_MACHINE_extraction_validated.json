@@ -1,0 +1,65 @@
+{
+  "source_meta": {
+    "supplier_name": "Drager",
+    "system_name": "Anaesthesia Machine",
+    "source_type": "product_family_page",
+    "source_document": "Anesthesia Machines",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [
+      {
+        "Supplier ID": "SUP_DRAGER_2",
+        "Supplier Name": "Drager",
+        "Supplier Country": "",
+        "Supplier Notes": ""
+      }
+    ],
+    "SYSTEMS": [
+      {
+        "System ID": "SYS_DRAGER_ANAESTHESIA_MACHINE",
+        "System Name": "Anaesthesia Machine",
+        "Supplier ID": "SUP_DRAGER_2",
+        "System Category": "anaesthesia_delivery",
+        "System Notes": "Public Drager anesthesia workstation family and flagship product pages used as the source anchors for the anaesthesia machine entry."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ANAESTHESIA_MACHINE_ANAESTHESIA_MACHINE_PLATFORM_FRAMEWORK",
+        "Component Name": "Anaesthesia Machine Platform Framework",
+        "Component Role": "Platform Framework",
+        "Implant Category": "Anaesthesia delivery",
+        "System ID": "SYS_DRAGER_ANAESTHESIA_MACHINE",
+        "Component Notes": "Portfolio-level informational framework anchored to Drager public anesthesia machine sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": []
+}

@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "ACTIS / PINNACLE Total Hip System",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "ACTIS Total Hip System and Pinnacle Acetabular Cup System Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "ACTIS / PINNACLE Total Hip System",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Primary total hip arthroplasty platform combining ACTIS femoral and PINNACLE acetabular families."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "ACTIS / PINNACLE Instrumentation",
+      "system_name": "ACTIS / PINNACLE Total Hip System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "System materials reference dedicated stem and acetabular instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "PINNACLE Acetabular Cup",
+      "system_name": "ACTIS / PINNACLE Total Hip System",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core PINNACLE acetabular shell family referenced in product and technique materials."
+    },
+    {
+      "component_name": "PINNACLE Acetabular Liner",
+      "system_name": "ACTIS / PINNACLE Total Hip System",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core PINNACLE liner family referenced in product and technique materials."
+    },
+    {
+      "component_name": "ACTIS Femoral Stem",
+      "system_name": "ACTIS / PINNACLE Total Hip System",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core ACTIS stem family referenced in product and technique materials."
+    },
+    {
+      "component_name": "ACTIS Femoral Head",
+      "system_name": "ACTIS / PINNACLE Total Hip System",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Femoral head family used with the ACTIS / PINNACLE platform."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Multiple cup, liner and stem subfamilies exist within the platform.",
+      "reason": "Needs deeper catalogue or technique review before splitting detailed subfamilies.",
+      "source_excerpt": "Current extraction keeps the combined platform-level implant families only."
+    }
+  ]
+}

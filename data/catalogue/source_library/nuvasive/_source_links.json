@@ -1,0 +1,100 @@
+[
+  {
+    "supplier_id": "SUP_NUVASIVE",
+    "supplier_name": "NuVasive",
+    "system_id": "SYS_ARMADA_SPINE",
+    "system_name": "Armada Spine System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Armada",
+        "url": "https://www.nuvasive.com/procedures/posterior-fixation/armada/",
+        "notes": "Official NuVasive product page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Posterior Fixation",
+        "url": "https://www.nuvasive.com/procedures/posterior-fixation/",
+        "notes": "Official NuVasive posterior fixation page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_NUVASIVE",
+    "supplier_name": "NuVasive",
+    "system_id": "SYS_DEFORMITY___SCOLIOSIS_PORTFOLIO",
+    "system_name": "Deformity / Scoliosis Portfolio",
+    "sources": [
+      {
+        "source_type": "company_program_page",
+        "title": "NuVasive is Embracing the Journey Together",
+        "url": "https://www.nuvasive.com/nuvasive-is-embracing-the-journey-together/",
+        "notes": "Official NuVasive program page used as the primary public source anchor for the deformity and scoliosis portfolio entry because it describes the company's spinal deformity portfolio and scoliosis support initiatives."
+      },
+      {
+        "source_type": "product_news_page",
+        "title": "NuVasive Expands Complex Spine Portfolio with Global Launch of Reline 3D for Pediatric Deformity",
+        "url": "https://www.nuvasive.com/news/nuvasive-expands-complex-spine-portfolio-with-global-launch-of-reline-3d-for-pediatric-deformity/",
+        "notes": "Official NuVasive launch announcement used as supporting public evidence for scoliosis and complex spinal deformity correction capabilities in this portfolio entry."
+      },
+      {
+        "source_type": "workflow_page",
+        "title": "Bendini | NuVasive",
+        "url": "https://www.nuvasive.com/procedures/featured-offerings/bendini/",
+        "notes": "Official NuVasive Bendini page used as supporting public evidence for patient-specific rod bending and alignment restoration workflows in complex deformity and scoliosis procedures."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_NUVASIVE",
+    "supplier_name": "NuVasive",
+    "system_id": "SYS_HELIX___COHERE_CERVICAL_PORTFOLIO",
+    "system_name": "Helix / Cohere Cervical Portfolio",
+    "sources": [
+      {
+        "source_type": "product_history_page",
+        "title": "Dr Gary Michelson | NuVasive",
+        "url": "https://www.nuvasive.com/dr-gary-michelson/",
+        "notes": "Official NuVasive page listing Helix anterior cervical plate systems, used as a public source anchor for the Helix component of this cervical portfolio entry."
+      },
+      {
+        "source_type": "regulatory_news_page",
+        "title": "NuVasive Announces Acquisition of Vertera Spine",
+        "url": "https://www.nuvasive.com/news/nuvasive-announces-acquisition-vertera-spine/",
+        "notes": "Official NuVasive announcement used as supporting public evidence for the Cohere cervical interbody fusion device within the cervical portfolio entry."
+      },
+      {
+        "source_type": "regulatory_news_page",
+        "title": "NuVasive Receives FDA Clearance for Expanded Multi-Level Use of CoRoent Small Interlock System for the Cervical Spine",
+        "url": "https://www.nuvasive.com/news/nuvasive-receives-fda-clearance-for-expanded-multi-level-use-of-coroent-small-interlock-system-for-the-cervical-spine/",
+        "notes": "Official NuVasive cervical fusion announcement used as broader public evidence for multi-level ACDF and cervical interbody coverage alongside Helix and Cohere technologies."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_NUVASIVE",
+    "supplier_name": "NuVasive",
+    "system_id": "SYS_RELINE___MODULUS_LUMBAR_FUSION_PORTFOLIO",
+    "system_name": "RELINE / Modulus Lumbar Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "product_news_page",
+        "title": "NuVasive Portfolio Introduces Low-Profile Modular Implants For Posterior Fixation",
+        "url": "https://www.nuvasive.com/news/nuvasive-portfolio-introduces-low-profile-modular-implants-for-posterior-fixation/",
+        "notes": "Official NuVasive launch announcement for Reline MAS Midline used as the primary public source anchor for the RELINE component of this lumbar fusion portfolio entry."
+      },
+      {
+        "source_type": "product_news_page",
+        "title": "NuVasive Expands its Advanced Materials Science Portfolio to Offer Porous Titanium Spine Implants for all TLIF Procedures",
+        "url": "https://www.nuvasive.com/news/nuvasive-expands-its-advanced-materials-science-portfolio-to-offer-porous-titanium-spine-implants-for-all-tlif-procedures/",
+        "notes": "Official NuVasive launch announcement for Modulus TLIF-A used as the primary public source anchor for the Modulus component of this lumbar fusion portfolio entry."
+      },
+      {
+        "source_type": "regulatory_news_page",
+        "title": "NuVasive's Thoracolumbar Interbody Portfolio Receives First Clearance in the US for the Treatment of Sagittal Deformities",
+        "url": "https://www.nuvasive.com/news/nuvasives-thoracolumbar-interbody-portfolio-receives-first-clearance-in-the-us-for-the-treatment-of-sagittal-deformities/",
+        "notes": "Official NuVasive thoracolumbar interbody portfolio announcement used as supporting public evidence for broader lumbar interbody fusion coverage alongside RELINE fixation and Modulus interbody technologies."
+      }
+    ]
+  }
+]

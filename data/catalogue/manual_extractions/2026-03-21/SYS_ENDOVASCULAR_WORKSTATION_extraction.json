@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Endovascular Imaging Workstation",
+    "source_type": "service_launch_page",
+    "source_document": "Medtronic Introduces 3D Recon Service to Enhance Endovascular Treatment of Aortic Aneurysms",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Endovascular Imaging Workstation",
+      "supplier_name": "Medtronic",
+      "system_category": "endovascular_imaging",
+      "system_notes": "Official Medtronic endovascular planning and imaging-workflow materials used as the closest current public source anchors for this endovascular imaging workstation entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Endovascular Imaging Framework",
+      "system_name": "Endovascular Imaging Workstation",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to Medtronic public endovascular imaging source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public endovascular imaging source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Medtronic Introduces 3D Recon Service to Enhance Endovascular Treatment of Aortic Aneurysms; Abdominal Endovascular Aneurysm Repair (EVAR) | Medtronic; Endurant II and Endurant IIs Stent Graft System | Medtronic"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public endovascular imaging source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Medtronic Introduces 3D Recon Service to Enhance Endovascular Treatment of Aortic Aneurysms; Abdominal Endovascular Aneurysm Repair (EVAR) | Medtronic; Endurant II and Endurant IIs Stent Graft System | Medtronic"
+    }
+  ]
+}

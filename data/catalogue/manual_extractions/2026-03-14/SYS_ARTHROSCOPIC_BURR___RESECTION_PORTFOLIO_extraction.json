@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Arthroscopic Burr / Resection Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Shoulder",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Arthroscopic Burr / Resection Portfolio",
+      "supplier_name": "Arthrex",
+      "system_category": "Shoulder arthroscopy",
+      "system_notes": "Portfolio-level public anchor for Arthrex arthroscopic burr and resection workflow resources."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Arthroscopic Burr and Resection Portfolio Family",
+      "system_name": "Arthroscopic Burr / Resection Portfolio",
+      "component_role": "Portfolio Family",
+      "implant_category": "Shoulder Arthroscopy Workflow",
+      "component_notes": "Official Arthrex portfolio sources describe the broader arthroscopic burr and resection workflow family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "This is a portfolio-level row rather than a single burr or resection device system, so no dedicated tray is asserted in this pass.",
+      "reason": "Tray detail should only be added from narrower arthroscopic burr or shaver product-family sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Portfolio-level sources do not expose a normalized product-code matrix.",
+      "reason": "Product codes should be captured from narrower arthroscopic burr, blade, or resection device family sources.",
+      "source_excerpt": "Current extraction remains portfolio-level only."
+    }
+  ]
+}

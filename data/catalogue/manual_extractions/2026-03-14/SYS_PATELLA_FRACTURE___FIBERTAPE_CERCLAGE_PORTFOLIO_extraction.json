@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Patella Fracture / FiberTape Cerclage Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Knee",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Patella Fracture / FiberTape Cerclage Portfolio",
+      "supplier_name": "Arthrex",
+      "system_category": "Patella fixation",
+      "system_notes": "Portfolio-level public anchor for Arthrex patella fracture and FiberTape cerclage workflow resources."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Patella Fracture FiberTape Cerclage Portfolio Family",
+      "system_name": "Patella Fracture / FiberTape Cerclage Portfolio",
+      "component_role": "Portfolio Family",
+      "implant_category": "Patella Fixation Workflow",
+      "component_notes": "Official Arthrex portfolio sources describe the broader patella fracture and FiberTape cerclage workflow family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "This is a portfolio-level row rather than a single patella fixation tray, so no dedicated tray is asserted in this pass.",
+      "reason": "Tray detail should only be added from narrower patella fracture fixation or FiberTape cerclage product-family sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Portfolio-level sources do not expose a normalized product-code matrix.",
+      "reason": "Product codes should be captured from narrower patella fracture fixation or FiberTape cerclage ordering sources.",
+      "source_excerpt": "Current extraction remains portfolio-level only."
+    }
+  ]
+}

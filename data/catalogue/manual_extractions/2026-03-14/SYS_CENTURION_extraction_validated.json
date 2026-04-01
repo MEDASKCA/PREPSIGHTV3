@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Alcon",
+    "system_name": "Centurion Vision System",
+    "source_type": "product_page",
+    "source_document": "CENTURION Vision System with ACTIVE SENTRY",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CENTURION_VISION_SYSTEM_CENTURION_VISION_PLATFORM_FAMILY",
+        "Component Name": "CENTURION Vision Platform Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Phacoemulsification Workflow",
+        "System ID": "SYS_CENTURION",
+        "Component Notes": "Official Alcon sources describe the broader CENTURION vision platform family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Centurion Vision System",
+          "supplier_name": "Alcon",
+          "system_category": "Phacoemulsification System",
+          "system_notes": "Public source anchor for the Alcon CENTURION cataract surgery phacoemulsification platform."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Centurion Vision System",
+        "supplier_name": "Alcon",
+        "system_category": "Phacoemulsification System",
+        "system_notes": "Public source anchor for the Alcon CENTURION cataract surgery phacoemulsification platform."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Centurion Vision System",
+        "supplier_name": "Alcon",
+        "system_category": "Phacoemulsification System",
+        "system_notes": "Public source anchor for the Alcon CENTURION cataract surgery phacoemulsification platform."
+      }
+    }
+  ]
+}

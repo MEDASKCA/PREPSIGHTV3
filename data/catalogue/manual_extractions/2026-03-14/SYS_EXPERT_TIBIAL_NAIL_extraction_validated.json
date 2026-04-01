@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Expert Tibial Nail (ETN)",
+    "source_type": "product_page",
+    "source_document": "Expert Tibial Nail",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_EXPERT_TIBIAL_NAIL_ETN_EXPERT_TIBIAL_NAIL_INSTRUMENTATION",
+        "Tray Name": "Expert Tibial Nail Instrumentation",
+        "System ID": "SYS_EXPERT_TIBIAL_NAIL",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes materials expose operative technique resources and implant information for the Expert Tibial Nail platform."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_EXPERT_TIBIAL_NAIL_ETN_EXPERT_TIBIAL_NAIL",
+        "Component Name": "Expert Tibial Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_EXPERT_TIBIAL_NAIL",
+        "Component Notes": "Official product materials describe the tibial nail platform for fracture fixation."
+      },
+      {
+        "Component ID": "COMP_EXPERT_TIBIAL_NAIL_ETN_EXPERT_TIBIAL_LOCKING_SCREW",
+        "Component Name": "Expert Tibial Locking Screw",
+        "Component Role": "Locking Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_EXPERT_TIBIAL_NAIL",
+        "Component Notes": "Expert Tibial Nail construct includes proximal and distal locking fixation options."
+      },
+      {
+        "Component ID": "COMP_EXPERT_TIBIAL_NAIL_ETN_EXPERT_TIBIAL_END_CAP",
+        "Component Name": "Expert Tibial End Cap",
+        "Component Role": "End Cap",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_EXPERT_TIBIAL_NAIL",
+        "Component Notes": "The ETN platform includes end-cap compatibility within the tibial nail construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Expert Tibial Nail (ETN)",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Tibial intramedullary nailing platform for shaft and selected proximal/distal tibia fracture fixation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Expert Tibial Nail (ETN)",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Tibial intramedullary nailing platform for shaft and selected proximal/distal tibia fracture fixation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Expert Tibial Nail (ETN)",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Tibial intramedullary nailing platform for shaft and selected proximal/distal tibia fracture fixation."
+      }
+    }
+  ]
+}

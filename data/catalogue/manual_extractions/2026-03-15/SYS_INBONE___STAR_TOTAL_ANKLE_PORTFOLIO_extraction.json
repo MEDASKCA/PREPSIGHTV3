@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Stryker",
+    "system_name": "INBONE / STAR Total Ankle Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Stryker INBONE and STAR Total Ankle Portfolio",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_INBONE___STAR_TOTAL_ANKLE_PORTFOLIO",
+      "system_name": "INBONE / STAR Total Ankle Portfolio",
+      "supplier": "Stryker",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public Stryker foot and ankle, INBONE, and STAR pages used as source anchors for the INBONE / STAR total ankle portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_INBONE___STAR_TOTAL_ANKLE_PORTFOLIO",
+      "component_name": "INBONE / STAR Total Ankle Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Total Ankle Arthroplasty Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to Stryker INBONE and STAR total ankle public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_INBONE___STAR_TOTAL_ANKLE_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_INBONE___STAR_TOTAL_ANKLE_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

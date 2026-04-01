@@ -1,0 +1,60 @@
+{
+  "source_meta": {
+    "supplier_name": "Teleflex",
+    "system_name": "Supraglottic Airway Device",
+    "source_type": "product_family_page",
+    "source_document": "Supraglottic Airways | Teleflex",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Supraglottic Airway Device",
+      "supplier_name": "Teleflex",
+      "system_category": "Airway",
+      "system_notes": "Official source anchor for Teleflex supraglottic airway devices including LMA Supreme, Unique EVO, and Fastrach families."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "LMA Supreme Airway",
+      "system_name": "Supraglottic Airway Device",
+      "component_role": "Supraglottic Airway",
+      "implant_category": "Airway Device",
+      "component_notes": "Second-generation single-use gastric-access laryngeal mask airway listed by Teleflex."
+    },
+    {
+      "component_name": "LMA Unique EVO Airway",
+      "system_name": "Supraglottic Airway Device",
+      "component_role": "Supraglottic Airway",
+      "implant_category": "Airway Device",
+      "component_notes": "First-generation laryngeal mask airway family listed by Teleflex."
+    },
+    {
+      "component_name": "LMA Fastrach Airway",
+      "system_name": "Supraglottic Airway Device",
+      "component_role": "Intubating Supraglottic Airway",
+      "implant_category": "Airway Device",
+      "component_notes": "Ventilating and intubating LMA airway listed by Teleflex."
+    }
+  ],
+  "products": [
+    {
+      "component_name": "LMA Supreme Airway",
+      "product_code": "ALBF050SU",
+      "product_name": "LMA Supreme Airway Size 5",
+      "supplier_name": "Teleflex",
+      "product_notes": "Teleflex ordering-information row for size 5 LMA Supreme airway."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "The public Teleflex supraglottic-airway pages do not define a tray or airway set in the current pass.",
+      "reason": "Tray rows should only be added from packaging or kit-specific sources.",
+      "source_excerpt": "Current extraction remains product-family based."
+    }
+  ]
+}

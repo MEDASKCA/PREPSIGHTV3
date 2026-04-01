@@ -1,0 +1,428 @@
+[
+  {
+    "id": "PROC_DIAGNOSTIC_HYSTEROSCOPY",
+    "name": "Diagnostic Hysteroscopy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [],
+    "description": "Endoscopic inspection of the uterine cavity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HYSTEROSCOPIC_POLYPECTOMY",
+    "name": "Hysteroscopic Polypectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [],
+    "description": "Hysteroscopic removal of endometrial polyp.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HYSTEROSCOPIC_RESECTION_OF_FIBROID",
+    "name": "Hysteroscopic Resection of Fibroid",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [
+      "Hysteroscopic Myomectomy"
+    ],
+    "description": "Hysteroscopic resection of submucous fibroid.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENDOMETRIAL_ABLATION",
+    "name": "Endometrial Ablation",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [],
+    "description": "Ablation of endometrial lining for abnormal uterine bleeding.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DILATATION_AND_CURETTAGE",
+    "name": "Dilatation and Curettage",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [
+      "D&C"
+    ],
+    "description": "Dilatation of cervix and curettage of uterine cavity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TOTAL_ABDOMINAL_HYSTERECTOMY",
+    "name": "Total Abdominal Hysterectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [
+      "TAH"
+    ],
+    "description": "Removal of uterus and cervix via abdominal approach.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TOTAL_LAPAROSCOPIC_HYSTERECTOMY",
+    "name": "Total Laparoscopic Hysterectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [
+      "TLH"
+    ],
+    "description": "Removal of uterus and cervix using laparoscopic approach.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LAPAROSCOPIC_ASSISTED_VAGINAL_HYSTERECTOMY",
+    "name": "Laparoscopic Assisted Vaginal Hysterectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [
+      "LAVH"
+    ],
+    "description": "Hysterectomy performed using laparoscopic assistance and vaginal removal.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VAGINAL_HYSTERECTOMY",
+    "name": "Vaginal Hysterectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [],
+    "description": "Removal of uterus through the vaginal route.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MYOMECTOMY",
+    "name": "Myomectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [],
+    "description": "Removal of uterine fibroids with preservation of uterus.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OVARIAN_CYSTECTOMY",
+    "name": "Ovarian Cystectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_OVARIES",
+    "aliases": [],
+    "description": "Excision of ovarian cyst preserving ovary where possible.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OOPHORECTOMY",
+    "name": "Oophorectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_OVARIES",
+    "aliases": [],
+    "description": "Removal of ovary.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SALPINGECTOMY",
+    "name": "Salpingectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_FALLOPIAN_TUBES",
+    "aliases": [],
+    "description": "Removal of fallopian tube.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SALPINGO_OOPHORECTOMY",
+    "name": "Salpingo-Oophorectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_ADNEXA",
+    "aliases": [],
+    "description": "Removal of fallopian tube and ovary.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MARSUPIALISATION_OF_BARTHOLIN_CYST",
+    "name": "Marsupialisation of Bartholin Cyst",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_VULVA",
+    "aliases": [],
+    "description": "Marsupialisation procedure for Bartholin cyst or abscess.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_VULVAL_LESION",
+    "name": "Excision of Vulval Lesion",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_BENIGN_GYNECOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_VULVA",
+    "aliases": [],
+    "description": "Excision of benign or suspicious vulval lesion.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RADICAL_HYSTERECTOMY",
+    "name": "Radical Hysterectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [],
+    "description": "Radical removal of uterus, cervix, and surrounding tissues for malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TOTAL_ABDOMINAL_HYSTERECTOMY_AND_BILATERAL_SALPINGO_OOPHORECTOMY",
+    "name": "Total Abdominal Hysterectomy and Bilateral Salpingo-Oophorectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_ADNEXA",
+    "aliases": [
+      "TAH and BSO"
+    ],
+    "description": "Removal of uterus, cervix, both tubes, and both ovaries.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DEBULKING_SURGERY_FOR_OVARIAN_CANCER",
+    "name": "Debulking Surgery for Ovarian Cancer",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_OVARIES",
+    "aliases": [
+      "Cytoreductive Surgery for Ovarian Cancer"
+    ],
+    "description": "Tumour debulking surgery for ovarian malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OOPHORECTOMY_FOR_OVARIAN_MALIGNANCY",
+    "name": "Oophorectomy for Ovarian Malignancy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_OVARIES",
+    "aliases": [],
+    "description": "Oophorectomy performed for suspected or confirmed ovarian malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PELVIC_LYMPH_NODE_DISSECTION",
+    "name": "Pelvic Lymph Node Dissection",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PELVIS",
+    "aliases": [],
+    "description": "Pelvic lymphadenectomy as part of oncological staging or treatment.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OMENTECTOMY",
+    "name": "Omentectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PERITONEUM",
+    "aliases": [],
+    "description": "Resection of omentum as part of oncological surgery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CERVICAL_CONE_BIOPSY",
+    "name": "Cervical Cone Biopsy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_GYNECOLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_CERVIX",
+    "aliases": [],
+    "description": "Cone excision of cervix for diagnosis or treatment of premalignant or early malignant disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ANTERIOR_COLPORRHAPHY",
+    "name": "Anterior Colporrhaphy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_VAGINA",
+    "aliases": [],
+    "description": "Anterior vaginal wall repair for cystocele.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_POSTERIOR_COLPORRHAPHY",
+    "name": "Posterior Colporrhaphy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_VAGINA",
+    "aliases": [],
+    "description": "Posterior vaginal wall repair for rectocele.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VAGINAL_HYSTERECTOMY_FOR_PROLAPSE",
+    "name": "Vaginal Hysterectomy for Prolapse",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [],
+    "description": "Vaginal hysterectomy performed as part of prolapse surgery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SACROCOLPOPEXY",
+    "name": "Sacrocolpopexy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PELVIC_FLOOR",
+    "aliases": [],
+    "description": "Suspension procedure for apical vaginal prolapse.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_UTEROSACRAL_LIGAMENT_SUSPENSION",
+    "name": "Uterosacral Ligament Suspension",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PELVIC_FLOOR",
+    "aliases": [],
+    "description": "Apical support procedure using uterosacral ligaments.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MIDURETHRAL_SLING_PROCEDURE",
+    "name": "Midurethral Sling Procedure",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_URETHRA",
+    "aliases": [],
+    "description": "Sling procedure for stress urinary incontinence.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_URETHRAL_BULKING_INJECTION",
+    "name": "Urethral Bulking Injection",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_UROGYNECOLOGY_AND_PELVIC_FLOOR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_URETHRA",
+    "aliases": [],
+    "description": "Injection treatment for stress urinary incontinence.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LAPAROSCOPIC_TUBAL_PATENCY_TEST",
+    "name": "Laparoscopic Tubal Patency Test",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_REPRODUCTIVE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_FALLOPIAN_TUBES",
+    "aliases": [
+      "Laparoscopic Dye Test"
+    ],
+    "description": "Assessment of tubal patency using laparoscopy and dye.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SALPINGOSTOMY",
+    "name": "Salpingostomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_REPRODUCTIVE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_FALLOPIAN_TUBES",
+    "aliases": [],
+    "description": "Creation or enlargement of tubal opening, often for distal tubal disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SALPINGOLYSIS",
+    "name": "Salpingolysis",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_REPRODUCTIVE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_FALLOPIAN_TUBES",
+    "aliases": [],
+    "description": "Adhesiolysis involving fallopian tubes.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OVARIAN_DRILLING",
+    "name": "Ovarian Drilling",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_REPRODUCTIVE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_OVARIES",
+    "aliases": [],
+    "description": "Laparoscopic ovarian drilling for selected cases of anovulation.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ADHESIOLYSIS_FOR_INFERTILITY",
+    "name": "Adhesiolysis for Infertility",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_REPRODUCTIVE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PELVIS",
+    "aliases": [],
+    "description": "Adhesiolysis performed to improve reproductive anatomy and function.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DIAGNOSTIC_LAPAROSCOPY_IN_GYNAECOLOGY",
+    "name": "Diagnostic Laparoscopy in Gynaecology",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PELVIS",
+    "aliases": [],
+    "description": "Diagnostic laparoscopy for pelvic pathology.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LAPAROSCOPIC_HYSTERECTOMY",
+    "name": "Laparoscopic Hysterectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [],
+    "description": "Hysterectomy performed using minimally invasive laparoscopic approach.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LAPAROSCOPIC_MYOMECTOMY",
+    "name": "Laparoscopic Myomectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_UTERUS",
+    "aliases": [],
+    "description": "Laparoscopic removal of uterine fibroids.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LAPAROSCOPIC_OVARIAN_CYSTECTOMY",
+    "name": "Laparoscopic Ovarian Cystectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_OVARIES",
+    "aliases": [],
+    "description": "Laparoscopic excision of ovarian cyst.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LAPAROSCOPIC_SALPINGECTOMY",
+    "name": "Laparoscopic Salpingectomy",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_FALLOPIAN_TUBES",
+    "aliases": [],
+    "description": "Laparoscopic removal of fallopian tube.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LAPAROSCOPIC_TREATMENT_OF_ENDOMETRIOSIS",
+    "name": "Laparoscopic Treatment of Endometriosis",
+    "specialty_id": "SPEC_GYNECOLOGY",
+    "service_line_id": "SL_MINIMALLY_INVASIVE_GYNECOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GYNECOLOGY_PERITONEUM",
+    "aliases": [],
+    "description": "Laparoscopic excision or ablation of endometriosis.",
+    "status": "active"
+  }
+]

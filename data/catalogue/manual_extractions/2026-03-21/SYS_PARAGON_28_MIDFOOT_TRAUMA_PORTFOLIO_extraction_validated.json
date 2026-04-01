@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "Paragon 28 Midfoot Trauma Portfolio",
+    "source_type": "product_page",
+    "source_document": "Gorilla Central Column Fusion Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PARAGON_28_MIDFOOT_TRAUMA_PORTFOLIO_MIDFOOT_TRAUMA_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Midfoot Trauma Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Foot and Ankle Trauma",
+        "System ID": "SYS_PARAGON_28_MIDFOOT_TRAUMA_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Paragon 28 public midfoot trauma source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Paragon 28 Midfoot Trauma Portfolio",
+          "supplier_name": "Paragon 28",
+          "system_category": "Foot & ankle trauma fixation",
+          "system_notes": "Official Paragon 28 midfoot trauma materials used as the public source anchors for this foot and ankle trauma fixation portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Paragon 28 Midfoot Trauma Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "Foot & ankle trauma fixation",
+        "system_notes": "Official Paragon 28 midfoot trauma materials used as the public source anchors for this foot and ankle trauma fixation portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Paragon 28 Midfoot Trauma Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "Foot & ankle trauma fixation",
+        "system_notes": "Official Paragon 28 midfoot trauma materials used as the public source anchors for this foot and ankle trauma fixation portfolio entry."
+      }
+    }
+  ]
+}

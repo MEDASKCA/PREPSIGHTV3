@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Exactech",
+    "system_name": "Alteon Total Hip System",
+    "source_type": "product_page",
+    "source_document": "Alteon Hip System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Alteon Total Hip System",
+      "supplier_name": "Exactech",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Primary total hip arthroplasty platform including acetabular and femoral implant families."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Alteon Instrumentation",
+      "system_name": "Alteon Total Hip System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Dedicated Alteon instrumentation is referenced in the hip system materials."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Alteon Acetabular Shell",
+      "system_name": "Alteon Total Hip System",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Acetabular shell family referenced on the product page."
+    },
+    {
+      "component_name": "Alteon Acetabular Liner",
+      "system_name": "Alteon Total Hip System",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Liner family referenced on the product page."
+    },
+    {
+      "component_name": "Alteon Femoral Stem",
+      "system_name": "Alteon Total Hip System",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Femoral stem family referenced on the product page."
+    },
+    {
+      "component_name": "Alteon Femoral Head",
+      "system_name": "Alteon Total Hip System",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Femoral head family referenced on the product page."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Platform includes multiple stem and cup configurations.",
+      "reason": "Needs deeper brochure or technique review before splitting all subfamilies.",
+      "source_excerpt": "Current extraction keeps the core shared implant families only."
+    }
+  ]
+}

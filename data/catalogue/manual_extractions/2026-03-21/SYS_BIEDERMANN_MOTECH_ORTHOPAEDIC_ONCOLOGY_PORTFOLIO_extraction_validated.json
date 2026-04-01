@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Biedermann Motech",
+    "system_name": "Biedermann Motech Orthopaedic oncology Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Extremities | Biedermann Motech GmbH & Co. KG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_BIEDERMANN_MOTECH_ORTHOPAEDIC_ONCOLOGY_PORTFOLIO_ORTHOPAEDIC_ONCOLOGY_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Orthopaedic Oncology Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Orthopaedic oncology",
+        "System ID": "SYS_BIEDERMANN_MOTECH_ORTHOPAEDIC_ONCOLOGY_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Biedermann public extremity implant and IFU sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Biedermann Motech Orthopaedic oncology Portfolio",
+          "supplier_name": "Biedermann Motech",
+          "system_category": "Orthopaedic oncology",
+          "system_notes": "Official Biedermann extremities, company, and eIFU pages used as the source anchors for the orthopaedic oncology portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Biedermann Motech Orthopaedic oncology Portfolio",
+        "supplier_name": "Biedermann Motech",
+        "system_category": "Orthopaedic oncology",
+        "system_notes": "Official Biedermann extremities, company, and eIFU pages used as the source anchors for the orthopaedic oncology portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Biedermann Motech Orthopaedic oncology Portfolio",
+        "supplier_name": "Biedermann Motech",
+        "system_category": "Orthopaedic oncology",
+        "system_notes": "Official Biedermann extremities, company, and eIFU pages used as the source anchors for the orthopaedic oncology portfolio entry."
+      }
+    }
+  ]
+}

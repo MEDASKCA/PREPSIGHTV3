@@ -1,0 +1,142 @@
+{
+  "source_meta": {
+    "supplier_name": "Exactech",
+    "system_name": "Vantage Total Ankle",
+    "source_type": "product_page",
+    "source_document": "Vantage Total Ankle System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_VANTAGE_TOTAL_ANKLE_VANTAGE_INSTRUMENTATION",
+        "Tray Name": "Vantage Instrumentation",
+        "System ID": "SYS_VANTAGE_ANKLE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product page references dedicated instrumentation for the Vantage ankle system."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_VANTAGE_TOTAL_ANKLE_VANTAGE_TIBIAL_COMPONENT",
+        "Component Name": "Vantage Tibial Component",
+        "Component Role": "Tibial Component",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_VANTAGE_ANKLE",
+        "Component Notes": "Core tibial implant family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_VANTAGE_TOTAL_ANKLE_VANTAGE_TALAR_COMPONENT",
+        "Component Name": "Vantage Talar Component",
+        "Component Role": "Talar Component",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_VANTAGE_ANKLE",
+        "Component Notes": "Core talar implant family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_VANTAGE_TOTAL_ANKLE_VANTAGE_POLY_INSERT",
+        "Component Name": "Vantage Poly Insert",
+        "Component Role": "Poly Insert",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_VANTAGE_ANKLE",
+        "Component Notes": "Polyethylene insert family referenced on the product page."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Vantage Total Ankle",
+          "supplier_name": "Exactech",
+          "system_category": "Ankle Arthroplasty System",
+          "system_notes": "Fixed-bearing total ankle arthroplasty platform."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": [
+      {
+        "row": {
+          "procedure_name": "Primary Total Ankle Replacement",
+          "procedure_variant": "Fixed-Bearing Total Ankle Replacement",
+          "system_name": "Vantage Total Ankle",
+          "data_source": "Vantage Total Ankle System",
+          "research_notes": "Fixed-bearing total ankle replacement mapping supported by the official Exactech Vantage product materials.",
+          "last_verified": ""
+        },
+        "reason": "Duplicate system mapping already exists in master dataset."
+      }
+    ]
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Vantage Total Ankle",
+        "supplier_name": "Exactech",
+        "system_category": "Ankle Arthroplasty System",
+        "system_notes": "Fixed-bearing total ankle arthroplasty platform."
+      },
+      "reason": "System already exists in master dataset."
+    },
+    {
+      "entity": "SYSTEM_MAPPINGS",
+      "row": {
+        "procedure_name": "Primary Total Ankle Replacement",
+        "procedure_variant": "Fixed-Bearing Total Ankle Replacement",
+        "system_name": "Vantage Total Ankle",
+        "data_source": "Vantage Total Ankle System",
+        "research_notes": "Fixed-bearing total ankle replacement mapping supported by the official Exactech Vantage product materials.",
+        "last_verified": ""
+      },
+      "reason": "System mapping already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Vantage Total Ankle",
+        "supplier_name": "Exactech",
+        "system_category": "Ankle Arthroplasty System",
+        "system_notes": "Fixed-bearing total ankle arthroplasty platform."
+      }
+    },
+    {
+      "entity": "SYSTEM_MAPPINGS",
+      "reason": "Duplicate system mapping already exists in master dataset.",
+      "row": {
+        "procedure_name": "Primary Total Ankle Replacement",
+        "procedure_variant": "Fixed-Bearing Total Ankle Replacement",
+        "system_name": "Vantage Total Ankle",
+        "data_source": "Vantage Total Ankle System",
+        "research_notes": "Fixed-bearing total ankle replacement mapping supported by the official Exactech Vantage product materials.",
+        "last_verified": ""
+      }
+    }
+  ]
+}

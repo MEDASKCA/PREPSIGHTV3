@@ -1,0 +1,122 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Reclaim / Pinnacle Revision Hip System",
+    "source_type": "product_page",
+    "source_document": "RECLAIM Modular Revision Hip System and PINNACLE Acetabular Cup System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_RECLAIM_PINNACLE_REVISION_HIP_SYSTEM_RECLAIM_PINNACLE_REVISION_INSTRUMENTATION",
+        "Tray Name": "RECLAIM / Pinnacle Revision Instrumentation",
+        "System ID": "SYS_RECLAIM___PINNACLE_REVISION_HIP_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official RECLAIM revision materials support dedicated modular revision instrumentation paired with compatible Pinnacle acetabular workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_RECLAIM_PINNACLE_REVISION_HIP_SYSTEM_RECLAIM_DISTAL_STEM",
+        "Component Name": "RECLAIM Distal Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RECLAIM___PINNACLE_REVISION_HIP_SYSTEM",
+        "Component Notes": "Official RECLAIM modular revision materials describe distal stem options across multiple lengths and diameters."
+      },
+      {
+        "Component ID": "COMP_RECLAIM_PINNACLE_REVISION_HIP_SYSTEM_RECLAIM_PROXIMAL_BODY",
+        "Component Name": "RECLAIM Proximal Body",
+        "Component Role": "Proximal Body",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RECLAIM___PINNACLE_REVISION_HIP_SYSTEM",
+        "Component Notes": "Official RECLAIM modular revision materials describe modular proximal body options used to reconstruct revision anatomy."
+      },
+      {
+        "Component ID": "COMP_RECLAIM_PINNACLE_REVISION_HIP_SYSTEM_PINNACLE_REVISION_ACETABULAR_SHELL",
+        "Component Name": "PINNACLE Revision Acetabular Shell",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RECLAIM___PINNACLE_REVISION_HIP_SYSTEM",
+        "Component Notes": "Official PINNACLE materials describe the acetabular shell family used in DePuy revision hip constructs."
+      },
+      {
+        "Component ID": "COMP_RECLAIM_PINNACLE_REVISION_HIP_SYSTEM_PINNACLE_ACETABULAR_LINER",
+        "Component Name": "PINNACLE Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RECLAIM___PINNACLE_REVISION_HIP_SYSTEM",
+        "Component Notes": "Official PINNACLE materials describe compatible liner and bearing options used with the revision acetabular construct."
+      },
+      {
+        "Component ID": "COMP_RECLAIM_PINNACLE_REVISION_HIP_SYSTEM_FEMORAL_HEAD",
+        "Component Name": "Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RECLAIM___PINNACLE_REVISION_HIP_SYSTEM",
+        "Component Notes": "Official DePuy revision construct materials describe modular femoral head options used with RECLAIM and PINNACLE."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Reclaim / Pinnacle Revision Hip System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Hip Revision System",
+          "system_notes": "Revision total hip construct anchored to official RECLAIM modular/monobloc revision stem pages and the PINNACLE acetabular system page."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Reclaim / Pinnacle Revision Hip System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Revision System",
+        "system_notes": "Revision total hip construct anchored to official RECLAIM modular/monobloc revision stem pages and the PINNACLE acetabular system page."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Reclaim / Pinnacle Revision Hip System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Revision System",
+        "system_notes": "Revision total hip construct anchored to official RECLAIM modular/monobloc revision stem pages and the PINNACLE acetabular system page."
+      }
+    }
+  ]
+}

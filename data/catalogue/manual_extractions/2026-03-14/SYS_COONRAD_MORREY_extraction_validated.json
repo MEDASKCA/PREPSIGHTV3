@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Coonrad-Morrey Total Elbow",
+    "source_type": "product_page",
+    "source_document": "Coonrad/Morrey Total Elbow System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_COONRAD_MORREY_TOTAL_ELBOW_COONRAD_MORREY_TOTAL_ELBOW_INSTRUMENTATION",
+        "Tray Name": "Coonrad-Morrey Total Elbow Instrumentation",
+        "System ID": "SYS_COONRAD_MORREY",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Zimmer Biomet materials describe dedicated instrumentation supporting preparation and assembly of the linked elbow construct."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_COONRAD_MORREY_TOTAL_ELBOW_COONRAD_MORREY_HUMERAL_COMPONENT",
+        "Component Name": "Coonrad-Morrey Humeral Component",
+        "Component Role": "Humeral Component",
+        "Implant Category": "Elbow Implant",
+        "System ID": "SYS_COONRAD_MORREY",
+        "Component Notes": "Official materials describe humeral stem and spool options within the linked elbow system."
+      },
+      {
+        "Component ID": "COMP_COONRAD_MORREY_TOTAL_ELBOW_COONRAD_MORREY_ULNAR_COMPONENT",
+        "Component Name": "Coonrad-Morrey Ulnar Component",
+        "Component Role": "Ulnar Component",
+        "Implant Category": "Elbow Implant",
+        "System ID": "SYS_COONRAD_MORREY",
+        "Component Notes": "Official materials describe the ulnar component and stem options used with the linked construct."
+      },
+      {
+        "Component ID": "COMP_COONRAD_MORREY_TOTAL_ELBOW_COONRAD_MORREY_HINGE_PIN",
+        "Component Name": "Coonrad-Morrey Hinge Pin",
+        "Component Role": "Articulation Link",
+        "Implant Category": "Elbow Implant",
+        "System ID": "SYS_COONRAD_MORREY",
+        "Component Notes": "Official materials describe the linked articulation assembly using dedicated hinge hardware."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Coonrad-Morrey Total Elbow",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Total Elbow Arthroplasty System",
+          "system_notes": "Linked semi-constrained total elbow arthroplasty platform with humeral and ulnar stem options."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Coonrad-Morrey Total Elbow",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Total Elbow Arthroplasty System",
+        "system_notes": "Linked semi-constrained total elbow arthroplasty platform with humeral and ulnar stem options."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Coonrad-Morrey Total Elbow",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Total Elbow Arthroplasty System",
+        "system_notes": "Linked semi-constrained total elbow arthroplasty platform with humeral and ulnar stem options."
+      }
+    }
+  ]
+}

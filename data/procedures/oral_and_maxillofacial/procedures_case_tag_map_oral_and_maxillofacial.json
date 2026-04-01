@@ -1,0 +1,93 @@
+[
+  { "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_MANDIBULAR_FRACTURE", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_MANDIBULAR_FRACTURE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_MAXILLARY_FRACTURE", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_MAXILLARY_FRACTURE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_ZYGOMATIC_FRACTURE", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_ZYGOMATIC_FRACTURE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_ORBITAL_FRACTURE", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_ORBITAL_FRACTURE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_RECONSTRUCTION_OF_ORBITAL_FLOOR_FRACTURE", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_RECONSTRUCTION_OF_ORBITAL_FLOOR_FRACTURE", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_CLOSED_REDUCTION_OF_MANDIBULAR_FRACTURE", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_CLOSED_REDUCTION_OF_MANDIBULAR_FRACTURE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ARCH_BAR_APPLICATION_FOR_MAXILLOFACIAL_FRACTURE", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_ARCH_BAR_APPLICATION_FOR_MAXILLOFACIAL_FRACTURE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_LEFORT_I_OSTEOTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LEFORT_I_OSTEOTOMY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_BILATERAL_SAGITTAL_SPLIT_OSTEOTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_BILATERAL_SAGITTAL_SPLIT_OSTEOTOMY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_GENIOPLASTY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_GENIOPLASTY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_BIMAXILLARY_ORTHOGNATHIC_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_BIMAXILLARY_ORTHOGNATHIC_SURGERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_WIDE_LOCAL_EXCISION_OF_ORAL_CAVITY_LESION", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_WIDE_LOCAL_EXCISION_OF_ORAL_CAVITY_LESION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PARTIAL_MANDIBULECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_PARTIAL_MANDIBULECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SEGMENTAL_MANDIBULECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_SEGMENTAL_MANDIBULECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PARTIAL_MAXILLECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_PARTIAL_MAXILLECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_NECK_DISSECTION_IN_OMFS", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_NECK_DISSECTION_IN_OMFS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_MANDIBULAR_RECONSTRUCTION_WITH_FREE_FLAP", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_MANDIBULAR_RECONSTRUCTION_WITH_FREE_FLAP", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_MAXILLARY_RECONSTRUCTION", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_MAXILLARY_RECONSTRUCTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_RECONSTRUCTION_OF_ORAL_CAVITY_DEFECT", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RECONSTRUCTION_OF_ORAL_CAVITY_DEFECT", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_ARTHROCENTESIS_OF_TEMPOROMANDIBULAR_JOINT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ARTHROCENTESIS_OF_TEMPOROMANDIBULAR_JOINT", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+  { "procedure_id": "PROC_ARTHROCENTESIS_OF_TEMPOROMANDIBULAR_JOINT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ARTHROSCOPY_OF_TEMPOROMANDIBULAR_JOINT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ARTHROSCOPY_OF_TEMPOROMANDIBULAR_JOINT", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+  { "procedure_id": "PROC_ARTHROSCOPY_OF_TEMPOROMANDIBULAR_JOINT", "case_tag_id": "CASE_DIAGNOSTIC" },
+
+  { "procedure_id": "PROC_OPEN_TEMPOROMANDIBULAR_JOINT_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_OPEN_TEMPOROMANDIBULAR_JOINT_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DISCECTOMY_OF_TEMPOROMANDIBULAR_JOINT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_DISCECTOMY_OF_TEMPOROMANDIBULAR_JOINT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TOTAL_TEMPOROMANDIBULAR_JOINT_REPLACEMENT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TOTAL_TEMPOROMANDIBULAR_JOINT_REPLACEMENT", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_SURGICAL_EXTRACTION_OF_IMPACTED_TOOTH", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SURGICAL_EXTRACTION_OF_IMPACTED_TOOTH", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXTRACTION_OF_WISDOM_TOOTH", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXTRACTION_OF_WISDOM_TOOTH", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXCISION_OF_DENTOALVEOLAR_CYST", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_DENTOALVEOLAR_CYST", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_APICECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_APICECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DENTOALVEOLAR_BONE_GRAFTING", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_DENTOALVEOLAR_BONE_GRAFTING", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_EXPOSURE_OF_IMPACTED_TOOTH", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXPOSURE_OF_IMPACTED_TOOTH", "case_tag_id": "CASE_THERAPEUTIC" }
+]

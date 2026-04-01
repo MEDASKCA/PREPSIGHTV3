@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "KLS Martin",
+    "system_name": "Calcaneal Plate System",
+    "source_type": "discipline_page",
+    "source_document": "KLS Martin | Implants and implant systems foot surgery",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Calcaneal Plate System",
+      "supplier_name": "KLS Martin",
+      "system_category": "Foot trauma fixation",
+      "system_notes": "Public KLS Martin foot surgery implants materials used as the source anchors for the calcaneal plate system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Calcaneal Plate System Framework",
+      "system_name": "Calcaneal Plate System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Calcaneal plate",
+      "component_notes": "Portfolio-level informational framework anchored to KLS Martin public foot surgery implants and plates-and-screws sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public source anchors do not enumerate tray-level data for this calcaneal plate system entry.",
+      "source_excerpt": "Foot surgery implants portfolio including plates and screws for trauma and reconstruction procedures"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level calcaneal plate list",
+      "reason": "The public source anchors do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Foot surgery implants portfolio including plates and screws for trauma and reconstruction procedures"
+    }
+  ]
+}

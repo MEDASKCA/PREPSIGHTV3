@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "Gorilla Talus / Hindfoot Fixation Portfolio",
+    "source_type": "product_page",
+    "source_document": "Gorilla Talus Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_GORILLA_TALUS_HINDFOOT_FIXATION_PORTFOLIO_TALUS_AND_HINDFOOT_FIXATION_FRAMEWORK",
+        "Component Name": "Talus and Hindfoot Fixation Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Foot and Ankle Trauma",
+        "System ID": "SYS_GORILLA_TALUS___HINDFOOT_FIXATION_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Paragon 28 public talus and hindfoot fixation source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Gorilla Talus / Hindfoot Fixation Portfolio",
+          "supplier_name": "Paragon 28",
+          "system_category": "foot_ankle_trauma",
+          "system_notes": "Official Paragon 28 talus and hindfoot fixation materials used as the public source anchors for this foot and ankle trauma portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Gorilla Talus / Hindfoot Fixation Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "foot_ankle_trauma",
+        "system_notes": "Official Paragon 28 talus and hindfoot fixation materials used as the public source anchors for this foot and ankle trauma portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Gorilla Talus / Hindfoot Fixation Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "foot_ankle_trauma",
+        "system_notes": "Official Paragon 28 talus and hindfoot fixation materials used as the public source anchors for this foot and ankle trauma portfolio entry."
+      }
+    }
+  ]
+}

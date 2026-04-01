@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Integra LifeSciences",
+    "system_name": "Peripheral Nerve / Hand Surgery Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Upper Extremities",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Peripheral Nerve / Hand Surgery Portfolio",
+      "supplier_name": "Integra LifeSciences",
+      "system_category": "Peripheral nerve surgery",
+      "system_notes": "Public Integra upper-extremity and peripheral-nerve-treatment materials used as the source anchors for the peripheral nerve and hand surgery portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Peripheral Nerve / Hand Surgery Portfolio Framework",
+      "system_name": "Peripheral Nerve / Hand Surgery Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Peripheral nerve surgery",
+      "component_notes": "Portfolio-level informational framework anchored to Integra public upper-extremity and peripheral-nerve-treatment sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public source anchors do not enumerate tray-level data for this peripheral nerve and hand surgery portfolio entry.",
+      "source_excerpt": "Upper extremity nerve treatment options including EndoRelease and peripheral nerve repair"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public source anchors do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Upper extremity nerve treatment options including EndoRelease and peripheral nerve repair"
+    }
+  ]
+}

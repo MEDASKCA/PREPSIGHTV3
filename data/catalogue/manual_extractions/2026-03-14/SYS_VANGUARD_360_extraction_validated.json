@@ -1,0 +1,130 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Vanguard 360 Revision",
+    "source_type": "product_page",
+    "source_document": "Vanguard 360 Revision Knee System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_VANGUARD_360_REVISION_VANGUARD_360_REVISION_INSTRUMENTATION",
+        "Tray Name": "Vanguard 360 Revision Instrumentation",
+        "System ID": "SYS_VANGUARD_360",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Zimmer Biomet materials describe a simplified instrumentation platform with trial-first revision workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_VANGUARD_360_REVISION_VANGUARD_360_FEMORAL_COMPONENT",
+        "Component Name": "Vanguard 360 Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_VANGUARD_360",
+        "Component Notes": "Official materials describe independent femoral sizing within the revision system."
+      },
+      {
+        "Component ID": "COMP_VANGUARD_360_REVISION_VANGUARD_360_TIBIAL_TRAY",
+        "Component Name": "Vanguard 360 Tibial Tray",
+        "Component Role": "Tibial Baseplate",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_VANGUARD_360",
+        "Component Notes": "Official materials describe a symmetrical tibial tray design available in multiple sizes."
+      },
+      {
+        "Component ID": "COMP_VANGUARD_360_REVISION_VANGUARD_360_PSC_BEARING",
+        "Component Name": "Vanguard 360 PSC Bearing",
+        "Component Role": "Tibial Insert",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_VANGUARD_360",
+        "Component Notes": "Official materials describe the 360 PS constrained bearing within the revision platform."
+      },
+      {
+        "Component ID": "COMP_VANGUARD_360_REVISION_VANGUARD_360_STEM_EXTENSION",
+        "Component Name": "Vanguard 360 Stem Extension",
+        "Component Role": "Stem Extension",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_VANGUARD_360",
+        "Component Notes": "Official materials describe smooth, grit-blasted, and splined stem extensions in multiple lengths."
+      },
+      {
+        "Component ID": "COMP_VANGUARD_360_REVISION_VANGUARD_360_OFFSET_ADAPTER",
+        "Component Name": "Vanguard 360 Offset Adapter",
+        "Component Role": "Offset Adapter",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_VANGUARD_360",
+        "Component Notes": "Official materials describe a universal femoral/tibial offset adapter rotating 360 degrees."
+      },
+      {
+        "Component ID": "COMP_VANGUARD_360_REVISION_VANGUARD_360_BLOCK_AUGMENT",
+        "Component Name": "Vanguard 360 Block Augment",
+        "Component Role": "Block Augment",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_VANGUARD_360",
+        "Component Notes": "Official materials describe independent distal and posterior augments in multiple thicknesses."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Vanguard 360 Revision",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Revision Knee System",
+          "system_notes": "Revision total knee arthroplasty platform with modular stems, augments, and interchangeable femoral-tibial revision components."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Vanguard 360 Revision",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Revision Knee System",
+        "system_notes": "Revision total knee arthroplasty platform with modular stems, augments, and interchangeable femoral-tibial revision components."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Vanguard 360 Revision",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Revision Knee System",
+        "system_notes": "Revision total knee arthroplasty platform with modular stems, augments, and interchangeable femoral-tibial revision components."
+      }
+    }
+  ]
+}

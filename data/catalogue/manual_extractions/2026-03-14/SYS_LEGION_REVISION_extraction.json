@@ -1,0 +1,73 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "LEGION Revision Knee",
+    "source_type": "product_page",
+    "source_document": "LEGION Revision Knee System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "LEGION Revision Knee",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Revision Knee System",
+      "system_notes": "Modular revision knee arthroplasty platform for complex reconstruction, instability, and bone-loss management."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "LEGION Revision Instrumentation",
+      "system_name": "LEGION Revision Knee",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Smith+Nephew materials support dedicated LEGION revision instrumentation and linked surgical technique resources."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "LEGION Revision Femoral Component",
+      "system_name": "LEGION Revision Knee",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official product materials describe the revision femoral component family within the LEGION system."
+    },
+    {
+      "component_name": "LEGION Revision Tibial Tray",
+      "system_name": "LEGION Revision Knee",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official product materials describe the modular tibial tray and fixation construct."
+    },
+    {
+      "component_name": "LEGION Revision Insert",
+      "system_name": "LEGION Revision Knee",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official product materials describe the constrained insert family used in revision reconstruction."
+    },
+    {
+      "component_name": "LEGION Stem Extension",
+      "system_name": "LEGION Revision Knee",
+      "component_role": "Stem Extension",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official product materials describe modular stem extensions used in the revision construct."
+    },
+    {
+      "component_name": "LEGION Augment",
+      "system_name": "LEGION Revision Knee",
+      "component_role": "Block Augment",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official product materials describe modular augments for revision bone-defect management."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public LEGION revision materials define the revision construct but do not expose a public implant code table in this pass.",
+      "reason": "A deeper brochure, IFU, or operative-technique pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

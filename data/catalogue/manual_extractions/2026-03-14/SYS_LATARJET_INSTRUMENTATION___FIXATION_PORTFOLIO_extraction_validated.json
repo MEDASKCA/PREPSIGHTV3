@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Latarjet Instrumentation / Fixation Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Shoulder",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LATARJET_INSTRUMENTATION_FIXATION_PORTFOLIO_LATARJET_FIXATION_PORTFOLIO_FAMILY",
+        "Component Name": "Latarjet Fixation Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Shoulder Stabilisation Workflow",
+        "System ID": "SYS_LATARJET_INSTRUMENTATION___FIXATION_PORTFOLIO",
+        "Component Notes": "Official Arthrex portfolio sources describe the broader Latarjet instrumentation and fixation workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Latarjet Instrumentation / Fixation Portfolio",
+          "supplier_name": "Arthrex",
+          "system_category": "Shoulder stabilisation",
+          "system_notes": "Portfolio-level public anchor for Arthrex Latarjet instrumentation and fixation workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Latarjet Instrumentation / Fixation Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Shoulder stabilisation",
+        "system_notes": "Portfolio-level public anchor for Arthrex Latarjet instrumentation and fixation workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Latarjet Instrumentation / Fixation Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Shoulder stabilisation",
+        "system_notes": "Portfolio-level public anchor for Arthrex Latarjet instrumentation and fixation workflow resources."
+      }
+    }
+  ]
+}

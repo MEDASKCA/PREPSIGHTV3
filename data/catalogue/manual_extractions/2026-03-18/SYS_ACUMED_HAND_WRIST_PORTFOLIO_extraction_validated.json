@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acumed Hand/Wrist Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Hand and Wrist | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACUMED_HAND_WRIST_PORTFOLIO_HAND_WRIST_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Hand/Wrist Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Hand/Wrist Portfolio",
+        "System ID": "SYS_ACUMED_HAND_WRIST_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Acumed public hand and wrist sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Acumed Hand/Wrist Portfolio",
+          "supplier_name": "Acumed",
+          "system_category": "Hand & wrist surgery",
+          "system_notes": "Public Acumed hand and wrist portfolio, wrist fixation page, and product catalog used as the source anchors for the hand and wrist portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Acumed Hand/Wrist Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Hand & wrist surgery",
+        "system_notes": "Public Acumed hand and wrist portfolio, wrist fixation page, and product catalog used as the source anchors for the hand and wrist portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Acumed Hand/Wrist Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Hand & wrist surgery",
+        "system_notes": "Public Acumed hand and wrist portfolio, wrist fixation page, and product catalog used as the source anchors for the hand and wrist portfolio entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,316 @@
+[
+  {
+    "id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_MANDIBULAR_FRACTURE",
+    "name": "Open Reduction and Internal Fixation of Mandibular Fracture",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MANDIBLE",
+    "aliases": [
+      "Mandibular Fracture ORIF"
+    ],
+    "description": "Open reduction and internal fixation of fracture of the mandible.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_MAXILLARY_FRACTURE",
+    "name": "Open Reduction and Internal Fixation of Maxillary Fracture",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MAXILLA",
+    "aliases": [
+      "Maxillary Fracture ORIF"
+    ],
+    "description": "Open reduction and internal fixation of fracture of the maxilla.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_ZYGOMATIC_FRACTURE",
+    "name": "Open Reduction and Internal Fixation of Zygomatic Fracture",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_ZYGOMA",
+    "aliases": [
+      "Zygomatic Fracture ORIF"
+    ],
+    "description": "Open reduction and internal fixation of zygomatic complex fracture.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_ORBITAL_FRACTURE",
+    "name": "Open Reduction and Internal Fixation of Orbital Fracture",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_ORBIT",
+    "aliases": [
+      "Orbital Fracture ORIF"
+    ],
+    "description": "Open reduction and internal fixation of orbital fracture.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RECONSTRUCTION_OF_ORBITAL_FLOOR_FRACTURE",
+    "name": "Reconstruction of Orbital Floor Fracture",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_ORBIT",
+    "aliases": [],
+    "description": "Reconstruction of orbital floor following blowout fracture.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CLOSED_REDUCTION_OF_MANDIBULAR_FRACTURE",
+    "name": "Closed Reduction of Mandibular Fracture",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MANDIBLE",
+    "aliases": [],
+    "description": "Closed reduction and stabilisation of mandibular fracture.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ARCH_BAR_APPLICATION_FOR_MAXILLOFACIAL_FRACTURE",
+    "name": "Arch Bar Application for Maxillofacial Fracture",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [],
+    "description": "Application of arch bars for maxillomandibular fixation in facial fracture management.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LEFORT_I_OSTEOTOMY",
+    "name": "Le Fort I Osteotomy",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_ORTHOGNATHIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MAXILLA",
+    "aliases": [],
+    "description": "Maxillary osteotomy for orthognathic correction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BILATERAL_SAGITTAL_SPLIT_OSTEOTOMY",
+    "name": "Bilateral Sagittal Split Osteotomy",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_ORTHOGNATHIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MANDIBLE",
+    "aliases": [
+      "BSSO"
+    ],
+    "description": "Mandibular osteotomy for orthognathic repositioning.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_GENIOPLASTY",
+    "name": "Genioplasty",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_ORTHOGNATHIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MANDIBLE",
+    "aliases": [],
+    "description": "Corrective osteotomy of the chin.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BIMAXILLARY_ORTHOGNATHIC_SURGERY",
+    "name": "Bimaxillary Orthognathic Surgery",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_ORTHOGNATHIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MAXILLA",
+    "aliases": [],
+    "description": "Combined maxillary and mandibular osteotomy surgery for dentofacial deformity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_WIDE_LOCAL_EXCISION_OF_ORAL_CAVITY_LESION",
+    "name": "Wide Local Excision of Oral Cavity Lesion",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_ORAL_CAVITY",
+    "aliases": [],
+    "description": "Wide excision of lesion of the oral cavity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PARTIAL_MANDIBULECTOMY",
+    "name": "Partial Mandibulectomy",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MANDIBLE",
+    "aliases": [],
+    "description": "Partial resection of the mandible for tumour or aggressive lesion.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SEGMENTAL_MANDIBULECTOMY",
+    "name": "Segmental Mandibulectomy",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MANDIBLE",
+    "aliases": [],
+    "description": "Segmental resection of mandible for malignant disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PARTIAL_MAXILLECTOMY",
+    "name": "Partial Maxillectomy",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MAXILLA",
+    "aliases": [],
+    "description": "Partial resection of maxilla for tumour or aggressive lesion.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_NECK_DISSECTION_IN_OMFS",
+    "name": "Neck Dissection",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_NECK",
+    "aliases": [],
+    "description": "Lymph node dissection of the neck for oral and maxillofacial malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MANDIBULAR_RECONSTRUCTION_WITH_FREE_FLAP",
+    "name": "Mandibular Reconstruction with Free Flap",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MANDIBLE",
+    "aliases": [],
+    "description": "Reconstruction of mandible following resection using free tissue transfer.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MAXILLARY_RECONSTRUCTION",
+    "name": "Maxillary Reconstruction",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_MAXILLA",
+    "aliases": [],
+    "description": "Reconstruction of maxillary defect following ablative surgery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RECONSTRUCTION_OF_ORAL_CAVITY_DEFECT",
+    "name": "Reconstruction of Oral Cavity Defect",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_MAXILLOFACIAL_ONCOLOGY_AND_RECONSTRUCTION",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_ORAL_CAVITY",
+    "aliases": [],
+    "description": "Reconstruction of oral cavity defect after excision.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ARTHROCENTESIS_OF_TEMPOROMANDIBULAR_JOINT",
+    "name": "Arthrocentesis of Temporomandibular Joint",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_TEMPOROMANDIBULAR_JOINT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEMPOROMANDIBULAR_JOINT",
+    "aliases": [],
+    "description": "Arthrocentesis and lavage of the temporomandibular joint.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ARTHROSCOPY_OF_TEMPOROMANDIBULAR_JOINT",
+    "name": "Arthroscopy of Temporomandibular Joint",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_TEMPOROMANDIBULAR_JOINT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEMPOROMANDIBULAR_JOINT",
+    "aliases": [],
+    "description": "Diagnostic or therapeutic arthroscopy of the temporomandibular joint.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OPEN_TEMPOROMANDIBULAR_JOINT_SURGERY",
+    "name": "Open Temporomandibular Joint Surgery",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_TEMPOROMANDIBULAR_JOINT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEMPOROMANDIBULAR_JOINT",
+    "aliases": [],
+    "description": "Open surgical procedure on the temporomandibular joint.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DISCECTOMY_OF_TEMPOROMANDIBULAR_JOINT",
+    "name": "Discectomy of Temporomandibular Joint",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_TEMPOROMANDIBULAR_JOINT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEMPOROMANDIBULAR_JOINT",
+    "aliases": [],
+    "description": "Removal of the articular disc of the temporomandibular joint.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TOTAL_TEMPOROMANDIBULAR_JOINT_REPLACEMENT",
+    "name": "Total Temporomandibular Joint Replacement",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_TEMPOROMANDIBULAR_JOINT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEMPOROMANDIBULAR_JOINT",
+    "aliases": [],
+    "description": "Replacement of the temporomandibular joint with prosthetic components.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SURGICAL_EXTRACTION_OF_IMPACTED_TOOTH",
+    "name": "Surgical Extraction of Impacted Tooth",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_DENTOALVEOLAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [],
+    "description": "Operative removal of impacted tooth from alveolar bone.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXTRACTION_OF_WISDOM_TOOTH",
+    "name": "Extraction of Wisdom Tooth",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_DENTOALVEOLAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [
+      "Third Molar Extraction"
+    ],
+    "description": "Removal of third molar tooth.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_DENTOALVEOLAR_CYST",
+    "name": "Excision of Dentoalveolar Cyst",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_DENTOALVEOLAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [],
+    "description": "Excision of cyst arising within dentoalveolar structures.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_APICECTOMY",
+    "name": "Apicectomy",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_DENTOALVEOLAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [
+      "Root End Resection"
+    ],
+    "description": "Surgical resection of the apex of a tooth root.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DENTOALVEOLAR_BONE_GRAFTING",
+    "name": "Dentoalveolar Bone Grafting",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_DENTOALVEOLAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [],
+    "description": "Bone grafting procedure for alveolar defect or augmentation.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXPOSURE_OF_IMPACTED_TOOTH",
+    "name": "Exposure of Impacted Tooth",
+    "specialty_id": "SPEC_OMFS",
+    "service_line_id": "SL_DENTOALVEOLAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_ORAL_AND_MAXILLOFACIAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [],
+    "description": "Surgical exposure of impacted tooth to aid orthodontic eruption.",
+    "status": "active"
+  }
+]

@@ -1,0 +1,118 @@
+[
+  {
+    "supplier_id": "SUP_EXACTECH",
+    "supplier_name": "Exactech",
+    "system_id": "SYS_TUMOUR_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Tumour Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Equinoxe Humeral Reconstruction Prosthesis",
+        "url": "https://www.exac.com/shoulder/equinoxe-humeral-reconstruction-prosthesis/",
+        "notes": "Official Exactech reconstruction product page used as the public source anchor for the tumour reconstruction portfolio entry."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Exactech Announces Launch of Humeral Reconstruction Prosthesis in Europe",
+        "url": "https://www.exac.com/wp-content/uploads/2022/03/Exactech-Announces-Launch-of-Humeral-Reconstruction-Prosthesis-in-Europe_Press_Release_3-4-22.pdf",
+        "notes": "Official Exactech press release explicitly describing reconstruction after tumor resections, used as supporting public evidence for the tumour reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_EXACTECH",
+    "supplier_name": "Exactech",
+    "system_id": "SYS_EQUINOXE",
+    "system_name": "Equinoxe Shoulder System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Equinoxe Platform Shoulder System",
+        "url": "https://www.exac.com/extremities/equinoxe-platform-system/",
+        "notes": "Official Exactech product page with linked operative techniques and product sheets."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_EXACTECH",
+    "supplier_name": "Exactech",
+    "system_id": "SYS_EQUINOXE_REVERSE_SHOULDER_SYSTEM",
+    "system_name": "Equinoxe Reverse Shoulder System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Equinoxe Platform Shoulder System",
+        "url": "https://www.exac.com/extremities/equinoxe-platform-system/",
+        "notes": "Official Exactech platform shoulder system page covering reverse workflow and linked resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_EXACTECH",
+    "supplier_name": "Exactech",
+    "system_id": "SYS_TRULIANT_KNEE_SYSTEM",
+    "system_name": "Truliant Knee System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Truliant Knee System",
+        "url": "https://www.exac.com/lower-extremities/truliant-knee-system/",
+        "notes": "Official Exactech product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_EXACTECH",
+    "supplier_name": "Exactech",
+    "system_id": "SYS_VANTAGE_ANKLE",
+    "system_name": "Vantage Total Ankle",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Vantage Total Ankle System",
+        "url": "https://www.exac.com/lower-extremities/vantage-total-ankle-system/",
+        "notes": "Official Exactech product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_EXACTECH",
+    "supplier_name": "Exactech",
+    "system_id": "SYS_ALTEON_TOTAL_HIP_SYSTEM",
+    "system_name": "Alteon Total Hip System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Alteon Hip System",
+        "url": "https://www.exac.com/lower-extremities/alteon-hip-system/",
+        "notes": "Official Exactech product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_EXACTECH",
+    "supplier_name": "Exactech",
+    "system_id": "SYS_ONCOLOGY_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Oncology Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Equinoxe Humeral Reconstruction Prosthesis",
+        "url": "https://www.exac.com/shoulder/equinoxe-humeral-reconstruction-prosthesis/",
+        "notes": "Official Exactech product page describing the humeral reconstruction prosthesis for complex proximal humeral bone loss and reconstruction cases."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Exactech Announces Launch of Humeral Reconstruction Prosthesis in Europe",
+        "url": "https://www.exac.com/wp-content/uploads/2022/03/Exactech-Announces-Launch-of-Humeral-Reconstruction-Prosthesis-in-Europe_Press_Release_3-4-22.pdf",
+        "notes": "Official Exactech press release describing oncology and tumor-resection use cases for the humeral reconstruction prosthesis."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Equinoxe Reverse System",
+        "url": "https://www.exac.com/extremities/equinoxe-reverse-system/",
+        "notes": "Official Exactech product page linking the humeral reconstruction prosthesis into the broader Equinoxe reconstructive shoulder platform."
+      }
+    ]
+  }
+]

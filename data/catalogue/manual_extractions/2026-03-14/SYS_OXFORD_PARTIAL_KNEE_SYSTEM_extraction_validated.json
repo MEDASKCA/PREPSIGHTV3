@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Oxford Partial Knee System",
+    "source_type": "product_brochure_pdf",
+    "source_document": "Oxford Cementless Partial Knee Brochure",
+    "source_version": "5045.1-US-en",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_OXFORD_PARTIAL_KNEE_SYSTEM_OXFORD_PARTIAL_KNEE_INSTRUMENTATION",
+        "Tray Name": "Oxford Partial Knee Instrumentation",
+        "System ID": "SYS_OXFORD_PARTIAL_KNEE_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Zimmer Biomet Oxford materials support dedicated instrumentation for unicompartmental knee preparation and implantation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_OXFORD_PARTIAL_KNEE_SYSTEM_OXFORD_FEMORAL_COMPONENT",
+        "Component Name": "Oxford Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_OXFORD_PARTIAL_KNEE_SYSTEM",
+        "Component Notes": "Official Oxford materials describe the unicompartmental femoral component family."
+      },
+      {
+        "Component ID": "COMP_OXFORD_PARTIAL_KNEE_SYSTEM_OXFORD_TIBIAL_TRAY",
+        "Component Name": "Oxford Tibial Tray",
+        "Component Role": "Tibial Baseplate",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_OXFORD_PARTIAL_KNEE_SYSTEM",
+        "Component Notes": "Official Oxford materials describe tibial tray/baseplate options within the partial knee construct."
+      },
+      {
+        "Component ID": "COMP_OXFORD_PARTIAL_KNEE_SYSTEM_OXFORD_MENISCAL_BEARING",
+        "Component Name": "Oxford Meniscal Bearing",
+        "Component Role": "Tibial Insert",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_OXFORD_PARTIAL_KNEE_SYSTEM",
+        "Component Notes": "Official Oxford materials describe the mobile meniscal bearing used in the unicompartmental construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Oxford Partial Knee System",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Partial Knee System",
+          "system_notes": "Mobile-bearing unicompartmental knee platform anchored to the official Zimmer Biomet Oxford Partial Knee product page and cementless brochure."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Oxford Partial Knee System",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Partial Knee System",
+        "system_notes": "Mobile-bearing unicompartmental knee platform anchored to the official Zimmer Biomet Oxford Partial Knee product page and cementless brochure."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Oxford Partial Knee System",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Partial Knee System",
+        "system_notes": "Mobile-bearing unicompartmental knee platform anchored to the official Zimmer Biomet Oxford Partial Knee product page and cementless brochure."
+      }
+    }
+  ]
+}

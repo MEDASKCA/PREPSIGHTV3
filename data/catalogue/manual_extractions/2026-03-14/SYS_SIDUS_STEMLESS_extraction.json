@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Sidus Stem-Free Shoulder",
+    "source_type": "product_page",
+    "source_document": "Sidus Stem-Free Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Sidus Stem-Free Shoulder",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Stemless Shoulder Arthroplasty System",
+      "system_notes": "Stem-free anatomic shoulder arthroplasty platform designed to preserve humeral bone stock."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Sidus Stem-Free Instrumentation",
+      "system_name": "Sidus Stem-Free Shoulder",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet materials support dedicated Sidus stem-free instrumentation and linked technique resources."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Sidus Humeral Anchor",
+      "system_name": "Sidus Stem-Free Shoulder",
+      "component_role": "Humeral Anchor",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official product materials describe the metaphyseal humeral anchor platform of the stem-free construct."
+    },
+    {
+      "component_name": "Sidus Humeral Head",
+      "system_name": "Sidus Stem-Free Shoulder",
+      "component_role": "Humeral Head",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe humeral head options paired with the Sidus stem-free anchor."
+    },
+    {
+      "component_name": "Sidus Glenoid Component",
+      "system_name": "Sidus Stem-Free Shoulder",
+      "component_role": "Glenoid Component",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe compatible glenoid component options within the anatomic shoulder construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public Sidus page defines the stem-free shoulder construct but does not expose a public implant code table in this pass.",
+      "reason": "A deeper brochure, IFU, or technique pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acumed Peripheral nerve surgery Portfolio",
+    "source_type": "supplier_products_page",
+    "source_document": "Products | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACUMED_PERIPHERAL_NERVE_SURGERY_PORTFOLIO_PERIPHERAL_NERVE_SURGERY_FRAMEWORK",
+        "Component Name": "Peripheral Nerve Surgery Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Peripheral Nerve Surgery",
+        "System ID": "SYS_ACUMED_PERIPHERAL_NERVE_SURGERY_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Acumed public peripheral-nerve and soft-tissue repair source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Acumed Peripheral nerve surgery Portfolio",
+          "supplier_name": "Acumed",
+          "system_category": "Peripheral nerve surgery",
+          "system_notes": "Official Acumed products, tendon and ligament, and soft-tissue fixation materials used as the public source anchors for this peripheral nerve surgery portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Acumed Peripheral nerve surgery Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Peripheral nerve surgery",
+        "system_notes": "Official Acumed products, tendon and ligament, and soft-tissue fixation materials used as the public source anchors for this peripheral nerve surgery portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Acumed Peripheral nerve surgery Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Peripheral nerve surgery",
+        "system_notes": "Official Acumed products, tendon and ligament, and soft-tissue fixation materials used as the public source anchors for this peripheral nerve surgery portfolio entry."
+      }
+    }
+  ]
+}

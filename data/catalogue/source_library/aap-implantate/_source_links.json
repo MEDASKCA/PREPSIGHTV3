@@ -1,0 +1,130 @@
+[
+  {
+    "supplier_id": "SUP_AAP_IMPLANTATE",
+    "supplier_name": "AAP Implantate",
+    "system_id": "SYS_DISTAL_RADIUS_SYSTEM",
+    "system_name": "Distal Radius Fixation System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Distal Radius/Ulna Plates 2.5 | aap Implantate AG",
+        "url": "https://www.aap.de/products/loqteq/wrist/distal-radius-ulna-plates",
+        "notes": "Official AAP Implantate distal radius/ulna product page used as the primary public source anchor for the distal radius fixation system entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "WP 4KA100 EN_2303-3_Catalog LOQTEQ",
+        "url": "https://www.aap.de/cms/api/wp-content/uploads/2022/07/WP-4KA100-EN_2303-3_Catalog-LOQTEQ.pdf",
+        "notes": "Official AAP Implantate LOQTEQ catalogue PDF covering the distal radius and ulna plate portfolio."
+      },
+      {
+        "source_type": "operative_technique_pdf",
+        "title": "WP 5OP040 EN_2011-1_Surgical Technique_LOQTEQ Dist. Radius-& Ulna 2.5",
+        "url": "https://www.aap.de/cms/api/wp-content/uploads/2020/11/ST_LOQTEQ_VA_Radius_2.5_E_2011-1_mail.pdf",
+        "notes": "Official AAP Implantate surgical technique PDF for LOQTEQ distal radius and ulna plates 2.5."
+      },
+      {
+        "source_type": "ifu_pdf",
+        "title": "WI 1000-00_01_EN Important Information",
+        "url": "https://www.aap.de/cms/api/wp-content/uploads/2022/07/WI-1000-00_01_EN-Important-Information.pdf",
+        "notes": "Official AAP Implantate important-information PDF used as the IFU-style source anchor for the distal radius fixation system."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_AAP_IMPLANTATE",
+    "supplier_name": "AAP Implantate",
+    "system_id": "SYS_HAND_PLATE",
+    "system_name": "Hand Plating System",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "LOQTEQ Plating System | aap Implantate AG",
+        "url": "https://www.aap.de/products/loqteq",
+        "notes": "Official AAP Implantate LOQTEQ plating-system page used as the primary public source anchor for the hand plating system entry."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Straight Plates | aap Implantate AG",
+        "url": "https://www.aap.de/straight_plates",
+        "notes": "Official AAP straight-plates page used as the closest public operative-technique anchor for the hand plating system entry; the page lists the LOQTEQ straight plates surgical technique document."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "WP 4KA100 EN_2303-3_Catalog LOQTEQ",
+        "url": "https://www.aap.de/cms/api/wp-content/uploads/2022/07/WP-4KA100-EN_2303-3_Catalog-LOQTEQ.pdf",
+        "notes": "Official AAP Implantate LOQTEQ catalogue PDF used as the catalogue anchor for the hand plating system entry."
+      },
+      {
+        "source_type": "ifu_pdf",
+        "title": "WI 1000-00_01_EN Important Information",
+        "url": "https://www.aap.de/cms/api/wp-content/uploads/2022/07/WI-1000-00_01_EN-Important-Information.pdf",
+        "notes": "Official AAP Implantate important-information PDF used as the IFU-style source anchor for the hand plating system."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_AAP_IMPLANTATE",
+    "supplier_name": "AAP Implantate",
+    "system_id": "SYS_INTRAMEDULLARY_NAIL",
+    "system_name": "Intramedullary Nail System",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "aap Implantate AG",
+        "url": "https://www.aap.de/produkte",
+        "notes": "Official AAP Implantate products overview used as the primary public source anchor for the intramedullary nail system entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "LOQTEQ Plating System | aap Implantate AG",
+        "url": "https://www.aap.de/products/loqteq",
+        "notes": "Official AAP LOQTEQ portfolio page used as the closest current public operative or product-family anchor available for this trauma fixation system entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "WP 4KA100 EN_2303-3_Catalog LOQTEQ",
+        "url": "https://www.aap.de/cms/api/wp-content/uploads/2022/07/WP-4KA100-EN_2303-3_Catalog-LOQTEQ.pdf",
+        "notes": "Official AAP Implantate LOQTEQ catalogue PDF used as the catalogue anchor for the intramedullary nail system entry."
+      },
+      {
+        "source_type": "ifu_pdf",
+        "title": "WI 1000-00_01_EN Important Information",
+        "url": "https://www.aap.de/cms/api/wp-content/uploads/2022/07/WI-1000-00_01_EN-Important-Information.pdf",
+        "notes": "Official AAP Implantate important-information PDF used as the IFU-style source anchor for the intramedullary nail system entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_AAP_IMPLANTATE",
+    "supplier_name": "AAP Implantate",
+    "system_id": "SYS_SMALL_FRAGMENT",
+    "system_name": "Small Fragment Plate System",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "LOQTEQ Plating System | aap Implantate AG",
+        "url": "https://www.aap.de/products/loqteq",
+        "notes": "Official AAP Implantate LOQTEQ plating-system page used as the primary public source anchor for the small fragment plate system entry."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Straight Plates | aap Implantate AG",
+        "url": "https://www.aap.de/straight_plates",
+        "notes": "Official AAP straight-plates page used as the closest public operative-technique anchor for the small fragment plate system entry; the page lists the LOQTEQ straight plates surgical technique document."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "WP 4KA100 EN_2303-3_Catalog LOQTEQ",
+        "url": "https://www.aap.de/cms/api/wp-content/uploads/2022/07/WP-4KA100-EN_2303-3_Catalog-LOQTEQ.pdf",
+        "notes": "Official AAP Implantate LOQTEQ catalogue PDF used as the catalogue anchor for the small fragment plate system entry."
+      },
+      {
+        "source_type": "ifu_pdf",
+        "title": "WI 1000-00_01_EN Important Information",
+        "url": "https://www.aap.de/cms/api/wp-content/uploads/2022/07/WI-1000-00_01_EN-Important-Information.pdf",
+        "notes": "Official AAP Implantate important-information PDF used as the IFU-style source anchor for the small fragment plate system."
+      }
+    ]
+  }
+]

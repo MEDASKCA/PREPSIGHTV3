@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "Gorilla Calcaneal Fracture Plating",
+    "source_type": "product_page",
+    "source_document": "Gorilla Calcaneal Fracture Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Gorilla Calcaneal Fracture Plating",
+      "supplier_name": "Paragon 28",
+      "system_category": "foot_ankle_trauma",
+      "system_notes": "Official Paragon 28 Gorilla calcaneal fracture plating materials used as the public source anchors for this foot and ankle trauma fixation entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Calcaneal Fracture Plating Framework",
+      "system_name": "Gorilla Calcaneal Fracture Plating",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Foot and Ankle Trauma",
+      "component_notes": "Framework component anchored to Paragon 28 public calcaneal fracture plating source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Gorilla calcaneal fracture plating source anchors do not enumerate tray-level data for this entry.",
+      "source_excerpt": "Gorilla Calcaneal Fracture Plating System"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Gorilla calcaneal fracture plating source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Gorilla Calcaneal Fracture Plating System"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Richard Wolf",
+    "system_name": "Resectoscope",
+    "source_type": "product_page",
+    "source_document": "Princess Resectoscope",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Resectoscope",
+      "supplier_name": "Richard Wolf",
+      "system_category": "urology_endoscopy",
+      "system_notes": "Official Richard Wolf resectoscope materials used as the public source anchors for this generic resectoscope entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Resectoscope Framework",
+      "system_name": "Resectoscope",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Urology",
+      "component_notes": "Framework component anchored to Richard Wolf public resectoscope source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public resectoscope source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Princess Resectoscope; SHARK Resectoscope; Richard Wolf Download Center"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public resectoscope source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Princess Resectoscope; SHARK Resectoscope; Richard Wolf Download Center"
+    }
+  ]
+}

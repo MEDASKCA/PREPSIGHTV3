@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Integra LifeSciences",
+    "system_name": "Hand Tendon Repair Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Upper Extremities",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Hand Tendon Repair Portfolio",
+      "supplier_name": "Integra LifeSciences",
+      "system_category": "hand_wrist",
+      "system_notes": "Public Integra upper-extremity and tendon repair materials used as the source anchors for the hand tendon repair portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Hand Tendon Repair Portfolio Framework",
+      "system_name": "Hand Tendon Repair Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Hand Tendon Repair Portfolio",
+      "component_notes": "Portfolio-level informational framework anchored to Integra public hand tendon repair and tendon protection sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public portfolio source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Tendon injuries including flexor tendon injury of the hand and tendon protection products"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public portfolio source anchors do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Tendon injuries including flexor tendon injury of the hand and tendon protection products"
+    }
+  ]
+}

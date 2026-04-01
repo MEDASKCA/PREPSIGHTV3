@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "VariAx Distal Radius Plate",
+    "source_type": "product_page",
+    "source_document": "VariAx 2 Distal Radius and Distal Ulna",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "VariAx Distal Radius Plate",
+      "supplier_name": "Stryker",
+      "system_category": "Volar Locking Plate — Distal Radius",
+      "system_notes": "Distal radius and distal ulna plating family within the Stryker VariAx trauma portfolio."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "VariAx 2 Dedicated Wrist Tray",
+      "system_name": "VariAx Distal Radius Plate",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Stryker tray layout card identifies a dedicated wrist tray for distal radius fixation workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "VariAx Distal Radius Plate",
+      "system_name": "VariAx Distal Radius Plate",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official Stryker materials describe the distal radius plate family within the VariAx 2 system."
+    },
+    {
+      "component_name": "VariAx Locking Screw",
+      "system_name": "VariAx Distal Radius Plate",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official operative technique materials describe locking fixation options used with the VariAx distal radius construct."
+    },
+    {
+      "component_name": "VariAx Plate Guide",
+      "system_name": "VariAx Distal Radius Plate",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official operative technique materials describe dedicated instrumentation and drill guide workflow for distal radius plating."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official sources identify the plate family, wrist tray, and fixation workflow but do not expose a full product-code matrix in this pass.",
+      "reason": "A deeper sterile implant listing or ordering guide pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "TriMed",
+    "system_name": "Olecranon / Proximal Ulna Fixation",
+    "source_type": "product_page",
+    "source_document": "Olecranon Hook Plate",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_OLECRANON_PROXIMAL_ULNA_FIXATION_OLECRANON_AND_PROXIMAL_ULNA_FIXATION_FRAMEWORK",
+        "Component Name": "Olecranon and Proximal Ulna Fixation Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Upper Extremity Trauma",
+        "System ID": "SYS_OLECRANON___PROXIMAL_ULNA_FIXATION",
+        "Component Notes": "Framework component anchored to TriMed public olecranon and proximal ulna fixation source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Olecranon / Proximal Ulna Fixation",
+          "supplier_name": "TriMed",
+          "system_category": "upper_extremity_trauma",
+          "system_notes": "Official TriMed olecranon and proximal ulna materials used as the public source anchors for this elbow trauma fixation entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Olecranon / Proximal Ulna Fixation",
+        "supplier_name": "TriMed",
+        "system_category": "upper_extremity_trauma",
+        "system_notes": "Official TriMed olecranon and proximal ulna materials used as the public source anchors for this elbow trauma fixation entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Olecranon / Proximal Ulna Fixation",
+        "supplier_name": "TriMed",
+        "system_category": "upper_extremity_trauma",
+        "system_notes": "Official TriMed olecranon and proximal ulna materials used as the public source anchors for this elbow trauma fixation entry."
+      }
+    }
+  ]
+}

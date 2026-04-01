@@ -1,0 +1,54 @@
+[
+  {
+    "supplier_id": "SUP_OLYMPUS",
+    "supplier_name": "Olympus",
+    "system_id": "SYS_FLEX_URS",
+    "system_name": "Flexible Ureteroscope",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Flexible Video Ureteroscopes | Olympus America | Medical",
+        "url": "https://medical.olympusamerica.com/products/flexible-video-ureteroscopes",
+        "notes": "Official Olympus flexible video ureteroscope page used as the primary public source anchor for the flexible ureteroscope entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Flexible Ureteroscopes | Olympus America | Medical",
+        "url": "https://www.medical.olympusamerica.com/products/flexible-fiberoptic-ureteroscopes",
+        "notes": "Official Olympus flexible fiberoptic ureteroscope page used as supporting public evidence for reusable flexible ureteroscopy coverage."
+      },
+      {
+        "source_type": "regulatory_news_page",
+        "title": "Olympus Announces FDA Clearance of RenaFlex, Its First Single-use Flexible Ureteroscope | Olympus America | Medical",
+        "url": "https://medical.olympusamerica.com/articles/olympus-announces-fda-clearance-renaflex%E2%84%A2-its-first-single-use-flexible-ureteroscope",
+        "notes": "Official Olympus RenaFlex clearance announcement used as supporting public evidence for the company's current flexible ureteroscope portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_OLYMPUS",
+    "supplier_name": "Olympus",
+    "system_id": "SYS_ROBOT",
+    "system_name": "Surgical Robot",
+    "sources": [
+      {
+        "source_type": "robotics_partnership_page",
+        "title": "Olympus Enters Strategic Partnership to Develop Endoluminal Gastrointestinal Robotics | Olympus",
+        "url": "https://www.olympusamerica.com/press-release/2025-07-25/olympus-enters-strategic-partnership-develop-endoluminal-gastrointestinal",
+        "notes": "Official Olympus robotics partnership announcement used as the primary public source anchor for the surgical robot entry and documented as the closest current public match."
+      },
+      {
+        "source_type": "robotics_company_update",
+        "title": "Swan EndoSurgical Appoints Veteran Robotics and MedTech Leader Erik Todd as Chief Executive Officer | Olympus",
+        "url": "https://olympusamerica.com/press-release/2025-12-02/swan-endosurgical-appoints-veteran-robotics-and-medtech-leader-erik-todd",
+        "notes": "Official Olympus-backed Swan EndoSurgical update used as supporting public evidence for the current robotic surgery development program associated with Olympus."
+      },
+      {
+        "source_type": "surgical_innovation_page",
+        "title": "Olympus Announces Launch of AI-Powered Surgical Planning Tool Through Strategic Partnership with Ziosoft | Olympus",
+        "url": "https://www.olympusamerica.com/press-release/2025-03-12/olympus-announces-launch-ai-powered-surgical-planning-tool-through",
+        "notes": "Official Olympus surgical innovation announcement used as supporting public evidence for current enabling technologies and digitally assisted surgical workflow development relevant to the surgical robot entry."
+      }
+    ]
+  }
+]

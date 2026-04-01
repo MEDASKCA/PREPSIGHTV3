@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "LEDA Hand/Wrist Arthroscopy Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Upper Limb | LEDA Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "LEDA Hand/Wrist Arthroscopy Portfolio",
+      "supplier_name": "LEDA Orthopaedics",
+      "system_category": "Hand & wrist surgery",
+      "system_notes": "Public LEDA Orthopaedics upper limb and wrist-focused source materials used as the source anchors for the hand and wrist arthroscopy portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Hand/Wrist Arthroscopy Portfolio Framework",
+      "system_name": "LEDA Hand/Wrist Arthroscopy Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Hand/Wrist Arthroscopy Portfolio",
+      "component_notes": "Portfolio-level informational framework anchored to LEDA Orthopaedics public upper-limb and wrist arthroscopy source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public portfolio source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "LEDA Orthopaedics upper limb coverage and wrist arthrodesis technique material"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public portfolio source anchors do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "LEDA Orthopaedics upper limb coverage and wrist arthrodesis technique material"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Paragon 28",
+    "system_name": "Paragon 28 Ankle arthroplasty Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Paragon 28 Ankle Arthroplasty Portfolio",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_PARAGON_28_ANKLE_ARTHROPLASTY_PORTFOLIO",
+      "system_name": "Paragon 28 Ankle arthroplasty Portfolio",
+      "supplier": "Paragon 28",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public Paragon 28 products and total ankle pages used as source anchors for the ankle arthroplasty portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_PARAGON_28_ANKLE_ARTHROPLASTY_PORTFOLIO",
+      "component_name": "Ankle Arthroplasty Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Ankle Arthroplasty Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to Paragon 28 total ankle arthroplasty public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_PARAGON_28_ANKLE_ARTHROPLASTY_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_PARAGON_28_ANKLE_ARTHROPLASTY_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

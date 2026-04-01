@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Orthofix",
+    "system_name": "TrueLok / External Fixation System",
+    "source_type": "product_page",
+    "source_document": "TrueLok EVO Ring Fixation System and TL-HEX TrueLok Hexapod System Trauma",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "TrueLok / External Fixation System",
+      "supplier_name": "Orthofix",
+      "system_category": "External Fixation System",
+      "system_notes": "Circular and hexapod external fixation platform for trauma and reconstruction."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "TrueLok Instrumentation",
+      "system_name": "TrueLok / External Fixation System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated ring fixation instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "TrueLok Ring",
+      "system_name": "TrueLok / External Fixation System",
+      "component_role": "Ring",
+      "implant_category": "External Fixation Implant",
+      "component_notes": "Circular ring family referenced in system materials."
+    },
+    {
+      "component_name": "TrueLok Strut",
+      "system_name": "TrueLok / External Fixation System",
+      "component_role": "Strut",
+      "implant_category": "External Fixation Implant",
+      "component_notes": "Strut family referenced in system materials."
+    },
+    {
+      "component_name": "TrueLok Wire",
+      "system_name": "TrueLok / External Fixation System",
+      "component_role": "Wire",
+      "implant_category": "External Fixation Implant",
+      "component_notes": "Wire family referenced in system materials."
+    },
+    {
+      "component_name": "TrueLok Half Pin",
+      "system_name": "TrueLok / External Fixation System",
+      "component_role": "Half Pin",
+      "implant_category": "External Fixation Implant",
+      "component_notes": "Half pin family referenced in system materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "System includes multiple ring, wire, strut and fixation accessory variants.",
+      "reason": "Needs deeper IFU or technique review before detailed construct expansion.",
+      "source_excerpt": "Current extraction keeps the core external fixation construct families only."
+    }
+  ]
+}

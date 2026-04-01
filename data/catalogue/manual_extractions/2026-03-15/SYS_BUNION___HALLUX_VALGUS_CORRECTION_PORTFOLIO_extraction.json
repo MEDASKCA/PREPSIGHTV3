@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Paragon 28",
+    "system_name": "Bunion / Hallux Valgus Correction Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Paragon 28 Bunion and Hallux Valgus Correction Portfolio",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_BUNION___HALLUX_VALGUS_CORRECTION_PORTFOLIO",
+      "system_name": "Bunion / Hallux Valgus Correction Portfolio",
+      "supplier": "Paragon 28",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public Paragon 28 foot and ankle pages used as source anchors for the bunion and hallux valgus correction portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_BUNION___HALLUX_VALGUS_CORRECTION_PORTFOLIO",
+      "component_name": "Bunion and Hallux Valgus Correction Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Bunion and Hallux Valgus Correction Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to Paragon 28 foot and ankle public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_BUNION___HALLUX_VALGUS_CORRECTION_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_BUNION___HALLUX_VALGUS_CORRECTION_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

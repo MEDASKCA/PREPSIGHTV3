@@ -1,0 +1,176 @@
+{
+  "domain": "theatre-equipment",
+  "description": "Master source manifest for theatre equipment inventory — operating tables, positioning systems, consumables, and general theatre equipment",
+  "sourced_date": "2026-03-14",
+  "total_records": 56,
+  "subcategories": [
+    "operating-tables",
+    "positioning",
+    "consumables",
+    "theatre-equipment"
+  ],
+  "sources": [
+    {
+      "supplier": "Getinge / Maquet",
+      "source_url": "https://www.getinge.com/int/products/maquet-alphamaquet/",
+      "document": "Maquet Alphamaxx product page",
+      "category": "operating-tables"
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "source_url": "https://www.getinge.com/int/products/maquet-otesus/",
+      "document": "Maquet Otesus product page",
+      "category": "operating-tables"
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "source_url": "https://www.getinge.com/int/products/maquet-magnus-operating-table-system/",
+      "document": "Maquet Magnus product page",
+      "category": "operating-tables"
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "source_url": "https://www.getinge.com/us/products/maquet-yuno-ii-mobile-operating-table",
+      "document": "Maquet Yuno II product page",
+      "category": "operating-tables"
+    },
+    {
+      "supplier": "Trumpf Medical (Baxter)",
+      "source_url": "https://www.trumpf-med.com/en/products/or-tables/or-table-systems/trusystem-7500/",
+      "document": "TruSystem 7500 product page",
+      "category": "operating-tables"
+    },
+    {
+      "supplier": "Mizuho OSI",
+      "source_url": "https://www.mizuhosi.com/product/proaxis/",
+      "document": "ProAxis Spinal Surgery Table product page",
+      "category": "operating-tables"
+    },
+    {
+      "supplier": "Mizuho OSI",
+      "source_url": "https://www.mizuhosi.com/product/hana/",
+      "document": "Hana Orthopaedic Surgery Table product page",
+      "category": "operating-tables"
+    },
+    {
+      "supplier": "Mizuho OSI",
+      "source_url": "https://www.mizuhosi.com/product/mts/",
+      "document": "Modular Table System (Jackson Table) product page",
+      "category": "operating-tables"
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "source_url": "https://www.getinge.com/int/products/getinge-operating-tables-accessories/",
+      "document": "Maquet operating table accessories catalogue",
+      "category": "positioning"
+    },
+    {
+      "supplier": "Allen Medical / Hillrom / Baxter",
+      "source_url": "https://www.hillrom.com/en/solutions/allen-medical-systems/",
+      "document": "Allen Medical Systems product range",
+      "category": "positioning"
+    },
+    {
+      "supplier": "Allen Medical / Hillrom / Baxter",
+      "source_url": "https://www.hillrom.com/en/products/allen-lift-assist-beach-chair/",
+      "document": "Allen Lift-Assist Beach Chair product page",
+      "category": "positioning"
+    },
+    {
+      "supplier": "Allen Medical / Hillrom / Baxter",
+      "source_url": "https://www.hillrom.com/en/products/allen-hug-u-vac-steep-trend-positioner/",
+      "document": "Allen Hug-U-Vac Steep Trend Positioner product page",
+      "category": "positioning"
+    },
+    {
+      "supplier": "Molnlycke",
+      "source_url": "https://www.molnlycke.ae/products-solutions/barrier-orthopaedic-drapes/",
+      "document": "BARRIER Orthopaedic Drapes product page",
+      "category": "consumables"
+    },
+    {
+      "supplier": "Molnlycke",
+      "source_url": "https://www.molnlycke.com/en-us/products/gloves/surgical-gloves/biogel-synthetic-gloves/biogel-pi-orthopro",
+      "document": "Biogel PI OrthoPro product page",
+      "category": "consumables"
+    },
+    {
+      "supplier": "Solventum (formerly 3M)",
+      "source_url": "https://www.solventum.com/en-us/home/f/b00040096/",
+      "document": "3M Ioban 2 Antimicrobial Incise Drape 6600 Series",
+      "category": "consumables"
+    },
+    {
+      "supplier": "Ethicon (J&J MedTech)",
+      "source_url": "https://www.ethicon.com/emea/products/wound-closure/absorbable-sutures/coated-vicryl-polyglactin-910-suture",
+      "document": "Coated VICRYL suture product page — Ethicon EMEA",
+      "category": "consumables"
+    },
+    {
+      "supplier": "Ethicon (J&J MedTech)",
+      "source_url": "https://www.jnjmedtech.com/en-US/product/pds-ii-polydioxanone-suture",
+      "document": "PDS II suture product page — J&J MedTech",
+      "category": "consumables"
+    },
+    {
+      "supplier": "Stryker Orthopaedics",
+      "source_url": "https://www.stryker.com/us/en/interventional-spine/products/spineplex-cement.html",
+      "document": "Stryker bone cements product page (includes Simplex P)",
+      "category": "consumables"
+    },
+    {
+      "supplier": "Zimmer Biomet",
+      "source_url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/cement.html",
+      "document": "Zimmer Biomet bone cement solutions page",
+      "category": "consumables"
+    },
+    {
+      "supplier": "DePuy Synthes (J&J MedTech)",
+      "source_url": "https://www.jnjmedtech.com/en-EMEA/product/smartset-bone-cement-and-depuy-cmw-bone-cement",
+      "document": "SmartSet Bone Cement product page — J&J MedTech EMEA",
+      "category": "consumables"
+    },
+    {
+      "supplier": "Stryker Orthopaedic Instruments",
+      "source_url": "https://www.stryker.com/us/en/orthopaedic-instruments/products/smartpump-tourniquet.html",
+      "document": "SmartPump Tourniquet System product page",
+      "category": "consumables"
+    },
+    {
+      "supplier": "Stryker Orthopaedic Instruments",
+      "source_url": "https://www.stryker.com/us/en/orthopaedic-instruments/products/interpulse-pulsed-lavage-system.html",
+      "document": "InterPulse Pulsed Lavage System product page",
+      "category": "consumables"
+    },
+    {
+      "supplier": "Erbe Elektromedizin",
+      "source_url": "https://us.erbegroup.com/us-en/products/electrosurgery/vior-3/",
+      "document": "VIO 3 electrosurgical unit — Erbe USA",
+      "category": "theatre-equipment"
+    },
+    {
+      "supplier": "Stryker Surgical Technologies",
+      "source_url": "https://www.stryker.com/us/en/surgical-technologies/products/neptune-s.html",
+      "document": "Neptune S Waste Management System product page",
+      "category": "theatre-equipment"
+    },
+    {
+      "supplier": "Stryker Communications",
+      "source_url": "https://www.stryker.com/us/en/communications/products/slx-surgical-light.html",
+      "document": "SLX628 Surgical Light product page",
+      "category": "theatre-equipment"
+    },
+    {
+      "supplier": "Steris",
+      "source_url": "https://www.steris.com/healthcare/products/surgical-lights-and-examination-lights/surgical-lights/harmonyair-g-series-surgical-lighting-system",
+      "document": "HarmonyAIR G-Series Surgical Lighting System",
+      "category": "theatre-equipment"
+    },
+    {
+      "supplier": "Solventum (formerly 3M)",
+      "source_url": "https://www.solventum.com/en-us/home/medical/surgical-solutions/temperature-management/bair-hugger/",
+      "document": "Bair Hugger temperature management solutions",
+      "category": "theatre-equipment"
+    }
+  ]
+}

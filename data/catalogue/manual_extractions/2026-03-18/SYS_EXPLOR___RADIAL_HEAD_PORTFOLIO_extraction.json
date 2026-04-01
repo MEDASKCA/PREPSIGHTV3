@@ -1,0 +1,37 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Explor / Radial Head Portfolio",
+    "source_type": "product_page",
+    "source_document": "ExploR Modular Radial Head System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "ExploR / Radial Head Portfolio Family",
+      "system_name": "Explor / Radial Head Portfolio",
+      "component_role": "Portfolio Family",
+      "implant_category": "Radial head arthroplasty",
+      "component_notes": "Public Zimmer Biomet elbow sources identify the ExploR modular radial head platform as the anchor for this portfolio-level row."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "The public elbow product pages do not publish a discrete tray manifest for the radial head portfolio.",
+      "reason": "Tray-level data should be drawn from narrower elbow instrumentation literature if expanded later.",
+      "source_excerpt": "Current extraction uses public portfolio anchors only."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "The ExploR platform includes modular heads and stems, but the public page does not expose a normalized part-number matrix in this pass.",
+      "reason": "Detailed product parsing should be performed from dedicated surgical technique or ordering literature if needed.",
+      "source_excerpt": "This extraction remains family-level."
+    }
+  ]
+}

@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "LEGION Total Knee System",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "LEGION Total Knee System Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "LEGION Total Knee System",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Knee Arthroplasty System",
+      "system_notes": "Primary knee arthroplasty system with CR and PS options."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "LEGION Instrumentation",
+      "system_name": "LEGION Total Knee System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "LEGION system materials reference dedicated instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "LEGION Femoral Component",
+      "system_name": "LEGION Total Knee System",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Core femoral implant family referenced in product and technique materials."
+    },
+    {
+      "component_name": "LEGION Tibial Baseplate",
+      "system_name": "LEGION Total Knee System",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Core tibial baseplate family referenced in product and technique materials."
+    },
+    {
+      "component_name": "LEGION Insert",
+      "system_name": "LEGION Total Knee System",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Insert family referenced in product and technique materials."
+    },
+    {
+      "component_name": "LEGION Patella",
+      "system_name": "LEGION Total Knee System",
+      "component_role": "Patellar Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Patellar implant family referenced in product and technique materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Revision and constrained LEGION family items are not split out in this pass.",
+      "reason": "Needs deeper technique or catalogue review before subfamily expansion.",
+      "source_excerpt": "Current extraction keeps the core primary implant families only."
+    }
+  ]
+}

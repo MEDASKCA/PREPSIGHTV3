@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Meniscal Cinch Repair",
+    "source_type": "product_page",
+    "source_document": "Meniscal Cinch II Meniscal Repair System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Meniscal Cinch Repair",
+      "supplier_name": "Arthrex",
+      "system_category": "Meniscal Repair — All-Inside",
+      "system_notes": "All-inside meniscal repair platform within the Arthrex knee sports medicine portfolio."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Meniscal Cinch Repair Instrumentation",
+      "system_name": "Meniscal Cinch Repair",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Arthrex materials describe dedicated delivery instrumentation for the Meniscal Cinch repair system."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Meniscal Cinch II Repair Device",
+      "system_name": "Meniscal Cinch Repair",
+      "component_role": "Repair Device",
+      "implant_category": "Soft Tissue Fixation",
+      "component_notes": "Official Arthrex materials describe the Meniscal Cinch II all-inside repair construct."
+    },
+    {
+      "component_name": "Meniscal Cinch Knotless Implant",
+      "system_name": "Meniscal Cinch Repair",
+      "component_role": "Knotless Repair Device",
+      "implant_category": "Soft Tissue Fixation",
+      "component_notes": "Official Arthrex materials describe knotless all-inside meniscal repair options within the Meniscal Cinch family."
+    },
+    {
+      "component_name": "Meniscal Cinch Inserter",
+      "system_name": "Meniscal Cinch Repair",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official Arthrex materials describe the dedicated insertion and deployment workflow for meniscal repair."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official sources confirm the Meniscal Cinch repair family and delivery instrumentation, but a full normalized product-code matrix has not yet been extracted in this pass.",
+      "reason": "A deeper ordering guide or product-matrix pass is required for comprehensive product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

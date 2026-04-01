@@ -1,0 +1,130 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "DHS \u2014 Dynamic Hip Screw",
+    "source_type": "inventory_control_form_pdf",
+    "source_document": "Inventory Control Form - LCP Dynamic Helical Hip System (DHHS)",
+    "source_version": "J5047-E",
+    "source_date": "2011-02"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_DHS_DYNAMIC_HIP_SCREW_DHHS_INSTRUMENTATION",
+        "Tray Name": "DHHS Instrumentation",
+        "System ID": "SYS_DHS_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DHHS inventory control materials support a dedicated instrumentation and implant configuration workflow for dynamic hip screw fixation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_DHS_DYNAMIC_HIP_SCREW_LCP_DHHS_PLATE",
+        "Component Name": "LCP DHHS Plate",
+        "Component Role": "Side Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_DHS_SYSTEM",
+        "Component Notes": "The official inventory control form lists LCP DHHS plate options by hole count and angle."
+      },
+      {
+        "Component ID": "COMP_DHS_DYNAMIC_HIP_SCREW_LCP_DHHS_COMPRESSION_SCREW",
+        "Component Name": "LCP DHHS Compression Screw",
+        "Component Role": "Compression Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_DHS_SYSTEM",
+        "Component Notes": "The official form explicitly lists the LCP DHHS compression screw as part of the implant construct."
+      },
+      {
+        "Component ID": "COMP_DHS_DYNAMIC_HIP_SCREW_LCP_DHHS_ENHANCED_COMPRESSION_SCREW",
+        "Component Name": "LCP DHHS Enhanced Compression Screw",
+        "Component Role": "Enhanced Compression Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_DHS_SYSTEM",
+        "Component Notes": "The official form explicitly lists the sterile LCP DHHS enhanced compression screw within the construct."
+      },
+      {
+        "Component ID": "COMP_DHS_DYNAMIC_HIP_SCREW_DHHS_LOCKING_SCREW",
+        "Component Name": "DHHS Locking Screw",
+        "Component Role": "Locking Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_DHS_SYSTEM",
+        "Component Notes": "The official form lists 3.5 mm and 5.0 mm locking screw options used with the DHHS construct."
+      },
+      {
+        "Component ID": "COMP_DHS_DYNAMIC_HIP_SCREW_DHHS_CORTEX_SCREW",
+        "Component Name": "DHHS Cortex Screw",
+        "Component Role": "Cortex Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_DHS_SYSTEM",
+        "Component Notes": "The official form lists 4.5 mm cortex screw options used with the DHHS construct."
+      }
+    ],
+    "PRODUCTS": [
+      {
+        "SKU": "02.224.030S",
+        "Product Name": "LCP DHHS Enhanced Compression Screw, sterile",
+        "Component ID": "COMP_DHS_DYNAMIC_HIP_SCREW_LCP_DHHS_ENHANCED_COMPRESSION_SCREW",
+        "Packaging Type": "Sterile",
+        "Product Notes": "Catalog code explicitly listed on the official DHHS inventory control form."
+      }
+    ],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "DHS \u2014 Dynamic Hip Screw",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Dynamic Hip Screw",
+          "system_notes": "Sliding hip screw / dynamic helical hip system family anchored to the official LCP Dynamic Helical Hip System inventory control form."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "DHS \u2014 Dynamic Hip Screw",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Dynamic Hip Screw",
+        "system_notes": "Sliding hip screw / dynamic helical hip system family anchored to the official LCP Dynamic Helical Hip System inventory control form."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "DHS \u2014 Dynamic Hip Screw",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Dynamic Hip Screw",
+        "system_notes": "Sliding hip screw / dynamic helical hip system family anchored to the official LCP Dynamic Helical Hip System inventory control form."
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "UK Hand Surgery Distribution Portfolio",
+    "source_type": "company_profile_pdf",
+    "source_document": "LEDA Orthopaedics Carbon Footprint Report 2024",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "UK Hand Surgery Distribution Portfolio",
+      "supplier_name": "LEDA Orthopaedics",
+      "system_category": "hand_wrist",
+      "system_notes": "Official LEDA company profile and distributed hand surgery source materials used as the source anchors for the UK hand surgery distribution portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Hand Surgery Distribution Portfolio Framework",
+      "system_name": "UK Hand Surgery Distribution Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Hand Surgery Distribution Portfolio",
+      "component_notes": "Portfolio-level informational framework anchored to LEDA public hand surgery distribution source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public source materials identify the distributed hand surgery portfolio but do not enumerate tray-level data for this entry.",
+      "source_excerpt": "Supplier of hand surgery prostheses with public hand plating and hand nail materials"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public source materials identify the distributed hand surgery portfolio but do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Supplier of hand surgery prostheses with public hand plating and hand nail materials"
+    }
+  ]
+}

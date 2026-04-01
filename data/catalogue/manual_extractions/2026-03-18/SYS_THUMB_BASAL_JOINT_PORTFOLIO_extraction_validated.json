@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Skeletal Dynamics",
+    "system_name": "Thumb Basal Joint Portfolio",
+    "source_type": "product_page",
+    "source_document": "STABLYX CMC Arthroplasty System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_THUMB_BASAL_JOINT_PORTFOLIO_THUMB_BASAL_JOINT_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Thumb Basal Joint Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Thumb Basal Joint Portfolio",
+        "System ID": "SYS_THUMB_BASAL_JOINT_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Skeletal Dynamics STABLYX thumb CMC arthroplasty public materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Thumb Basal Joint Portfolio",
+          "supplier_name": "Skeletal Dynamics",
+          "system_category": "hand_wrist",
+          "system_notes": "Official Skeletal Dynamics STABLYX CMC arthroplasty materials used as the source anchors for the thumb basal joint portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Thumb Basal Joint Portfolio",
+        "supplier_name": "Skeletal Dynamics",
+        "system_category": "hand_wrist",
+        "system_notes": "Official Skeletal Dynamics STABLYX CMC arthroplasty materials used as the source anchors for the thumb basal joint portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Thumb Basal Joint Portfolio",
+        "supplier_name": "Skeletal Dynamics",
+        "system_category": "hand_wrist",
+        "system_notes": "Official Skeletal Dynamics STABLYX CMC arthroplasty materials used as the source anchors for the thumb basal joint portfolio entry."
+      }
+    }
+  ]
+}

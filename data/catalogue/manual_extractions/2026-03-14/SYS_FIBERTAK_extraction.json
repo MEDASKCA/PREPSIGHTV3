@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "FiberTak Anchor System",
+    "source_type": "product_page",
+    "source_document": "FiberTak Soft Anchors",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "FiberTak Anchor System",
+      "supplier_name": "Arthrex",
+      "system_category": "Soft Tissue Fixation System",
+      "system_notes": "All-suture anchor platform for arthroscopic soft tissue fixation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "FiberTak Instrumentation",
+      "system_name": "FiberTak Anchor System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Anchor system materials reference dedicated drills and insertion instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "FiberTak Anchor",
+      "system_name": "FiberTak Anchor System",
+      "component_role": "Suture Anchor",
+      "implant_category": "Soft Tissue Fixation Implant",
+      "component_notes": "Core all-suture anchor family referenced on the product page."
+    },
+    {
+      "component_name": "FiberTak Drill",
+      "system_name": "FiberTak Anchor System",
+      "component_role": "Drill",
+      "implant_category": "Instrumentation",
+      "component_notes": "Dedicated drill family referenced on the product page."
+    },
+    {
+      "component_name": "FiberTak Inserter",
+      "system_name": "FiberTak Anchor System",
+      "component_role": "Inserter",
+      "implant_category": "Instrumentation",
+      "component_notes": "Dedicated insertion instrument family referenced on the product page."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "FiberTak includes multiple anchor variants, diameters and configurations.",
+      "reason": "Needs deeper catalogue review before splitting detailed anchor subfamilies.",
+      "source_excerpt": "Current extraction keeps the main anchor/instrument families only."
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Exactech",
+    "system_name": "Equinoxe Reverse Shoulder System",
+    "source_type": "product_page",
+    "source_document": "Equinoxe Platform Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_EQUINOXE_REVERSE_SHOULDER_SYSTEM_EQUINOXE_REVERSE_INSTRUMENTATION",
+        "Tray Name": "Equinoxe Reverse Instrumentation",
+        "System ID": "SYS_EQUINOXE_REVERSE_SHOULDER_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated reverse shoulder instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_EQUINOXE_REVERSE_SHOULDER_SYSTEM_EQUINOXE_REVERSE_HUMERAL_STEM",
+        "Component Name": "Equinoxe Reverse Humeral Stem",
+        "Component Role": "Humeral Stem",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_EQUINOXE_REVERSE_SHOULDER_SYSTEM",
+        "Component Notes": "Core humeral stem family used in the reverse shoulder platform."
+      },
+      {
+        "Component ID": "COMP_EQUINOXE_REVERSE_SHOULDER_SYSTEM_EQUINOXE_REVERSE_BASEPLATE",
+        "Component Name": "Equinoxe Reverse Baseplate",
+        "Component Role": "Baseplate",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_EQUINOXE_REVERSE_SHOULDER_SYSTEM",
+        "Component Notes": "Core baseplate family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_EQUINOXE_REVERSE_SHOULDER_SYSTEM_EQUINOXE_REVERSE_GLENOSPHERE",
+        "Component Name": "Equinoxe Reverse Glenosphere",
+        "Component Role": "Glenosphere",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_EQUINOXE_REVERSE_SHOULDER_SYSTEM",
+        "Component Notes": "Core glenosphere family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_EQUINOXE_REVERSE_SHOULDER_SYSTEM_EQUINOXE_REVERSE_HUMERAL_LINER",
+        "Component Name": "Equinoxe Reverse Humeral Liner",
+        "Component Role": "Humeral Liner",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_EQUINOXE_REVERSE_SHOULDER_SYSTEM",
+        "Component Notes": "Core liner family referenced on the product page."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Equinoxe Reverse Shoulder System",
+          "supplier_name": "Exactech",
+          "system_category": "Shoulder Arthroplasty System",
+          "system_notes": "Reverse shoulder arthroplasty platform."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Equinoxe Reverse Shoulder System",
+        "supplier_name": "Exactech",
+        "system_category": "Shoulder Arthroplasty System",
+        "system_notes": "Reverse shoulder arthroplasty platform."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Equinoxe Reverse Shoulder System",
+        "supplier_name": "Exactech",
+        "system_category": "Shoulder Arthroplasty System",
+        "system_notes": "Reverse shoulder arthroplasty platform."
+      }
+    }
+  ]
+}

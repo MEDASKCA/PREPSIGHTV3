@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Anaesthesia Information Management System",
+    "source_type": "guidance_page",
+    "source_document": "AIMS Overview / OpenAnesthesia",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Anaesthesia Information Management System",
+      "supplier_name": "Unassigned",
+      "system_category": "Perioperative Documentation",
+      "system_notes": "Public source anchor for anaesthesia information-management workflow and perioperative documentation."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Anaesthesia Information Management Workflow Framework",
+      "system_name": "Anaesthesia Information Management System",
+      "component_role": "Workflow Framework",
+      "implant_category": "Perioperative Documentation Workflow",
+      "component_notes": "Professional guidance describes documentation, record capture, and anaesthesia information-management workflow rather than a device tray."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Workflow guidance does not define a tray or instrument case for this information-management system row.",
+      "reason": "Tray rows should only be added from device-specific or site-specific implementation sources.",
+      "source_excerpt": "Current extraction remains workflow-level only."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public workflow guidance does not provide normalized product codes for this system row.",
+      "reason": "Product rows should only be added from vendor-specific platform sources if identified later.",
+      "source_excerpt": "Current extraction remains source-backed and high-level."
+    }
+  ]
+}

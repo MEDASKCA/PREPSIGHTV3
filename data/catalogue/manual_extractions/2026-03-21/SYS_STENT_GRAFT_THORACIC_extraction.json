@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Cook Medical",
+    "system_name": "Thoracic Aortic Stent Graft",
+    "source_type": "portfolio_page",
+    "source_document": "Zenith Alpha Thoracic Endovascular Graft | Cook Medical",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Thoracic Aortic Stent Graft",
+      "supplier_name": "Cook Medical",
+      "system_category": "endovascular_aortic",
+      "system_notes": "Official Cook Medical thoracic endograft materials used as the public source anchors for this thoracic aortic stent graft entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Thoracic Aortic Stent Graft Framework",
+      "system_name": "Thoracic Aortic Stent Graft",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to Cook Medical public thoracic endograft source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public thoracic endograft source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Zenith Alpha Thoracic Endovascular Graft | Cook Medical; Zenith Alpha Thoracic Endovascular Graft Proximal Component | Cook Medical; Zenith Alpha Thoracic Endovascular Graft Proximal Tapered Component | Cook Medical; Zenith Alpha 2 Thoracic Endovascular Graft Distal Component | Cook Medical"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public thoracic endograft source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Zenith Alpha Thoracic Endovascular Graft | Cook Medical; Zenith Alpha Thoracic Endovascular Graft Proximal Component | Cook Medical; Zenith Alpha Thoracic Endovascular Graft Proximal Tapered Component | Cook Medical; Zenith Alpha 2 Thoracic Endovascular Graft Distal Component | Cook Medical"
+    }
+  ]
+}

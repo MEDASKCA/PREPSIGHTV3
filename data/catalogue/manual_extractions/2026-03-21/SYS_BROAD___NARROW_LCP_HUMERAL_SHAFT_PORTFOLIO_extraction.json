@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Broad / Narrow LCP Humeral Shaft Portfolio",
+    "source_type": "product_page",
+    "source_document": "3.5 mm LCP Periarticular Proximal Humerus Plate | DePuy Synthes | J&J MedTech US",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Broad / Narrow LCP Humeral Shaft Portfolio",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "upper_extremity_trauma",
+      "system_notes": "Official DePuy Synthes humeral plating materials used as the public source anchors for this upper-extremity trauma portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Humeral Shaft Portfolio Framework",
+      "system_name": "Broad / Narrow LCP Humeral Shaft Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Upper Extremity Trauma",
+      "component_notes": "Framework component anchored to DePuy Synthes public humeral shaft plating source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public humeral shaft portfolio source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "3.5 mm LCP Periarticular Proximal Humerus Plate | DePuy Synthes | J&J MedTech US; Johnson & Johnson Launches VOLT Wrist and Proximal Humerus Plating Systems in the U.S. | DePuy Synthes"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public humeral shaft portfolio source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "3.5 mm LCP Periarticular Proximal Humerus Plate | DePuy Synthes | J&J MedTech US; Johnson & Johnson Launches VOLT Wrist and Proximal Humerus Plating Systems in the U.S. | DePuy Synthes"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "CPT / Bipolar Head",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "CPT 12/14 Hip System Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "CPT / Bipolar Head",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Hip Hemiarthroplasty System",
+      "system_notes": "Cemented hemiarthroplasty construct anchored to official Zimmer Biomet CPT stem materials with bipolar head compatibility inferred only at component-family level."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "CPT / Bipolar Instrumentation",
+      "system_name": "CPT / Bipolar Head",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official CPT stem materials support a dedicated cemented hip stem instrumentation workflow applicable to the hemiarthroplasty construct."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "CPT Femoral Stem",
+      "system_name": "CPT / Bipolar Head",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official CPT materials describe the polished taper cemented femoral stem family."
+    },
+    {
+      "component_name": "Bipolar Head",
+      "system_name": "CPT / Bipolar Head",
+      "component_role": "Bipolar Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Bipolar femoral head component used with the cemented CPT hemiarthroplasty construct."
+    },
+    {
+      "component_name": "Inner Femoral Head",
+      "system_name": "CPT / Bipolar Head",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Inner modular femoral head component compatible with the CPT 12/14 taper within the bipolar construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current source material confirms the CPT stem family but does not provide a clean Zimmer Biomet bipolar-head code matrix in this pass.",
+      "reason": "A deeper hemiarthroplasty catalogue or bipolar-head implant listing pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

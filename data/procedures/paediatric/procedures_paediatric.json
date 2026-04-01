@@ -1,0 +1,274 @@
+[
+  {
+    "id": "PROC_REPAIR_OF_OESOPHAGEAL_ATRESIA_AND_TRACHEOOESOPHAGEAL_FISTULA",
+    "name": "Repair of Oesophageal Atresia and Tracheooesophageal Fistula",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_OESOPHAGUS",
+    "aliases": [],
+    "description": "Neonatal repair of oesophageal atresia with tracheooesophageal fistula.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_CONGENITAL_DIAPHRAGMATIC_HERNIA",
+    "name": "Repair of Congenital Diaphragmatic Hernia",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_DIAPHRAGM",
+    "aliases": [],
+    "description": "Repair of congenital diaphragmatic hernia in neonatal practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LADD_PROCEDURE_FOR_MALROTATION",
+    "name": "Ladd Procedure for Malrotation",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_SMALL_INTESTINE",
+    "aliases": [],
+    "description": "Correction of intestinal malrotation with Ladd procedure.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_GASTROSCHISIS",
+    "name": "Repair of Gastroschisis",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_ABDOMINAL_WALL",
+    "aliases": [],
+    "description": "Reduction and closure procedure for gastroschisis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_OMPHALOCOELE",
+    "name": "Repair of Omphalocoele",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_ABDOMINAL_WALL",
+    "aliases": [],
+    "description": "Repair of omphalocoele defect.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RESECTION_OF_NECROTISING_ENTEROCOLITIS",
+    "name": "Resection for Necrotising Enterocolitis",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_SMALL_INTESTINE",
+    "aliases": [],
+    "description": "Resection of non-viable bowel affected by necrotising enterocolitis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FORMATION_OF_NEONATAL_STOMA",
+    "name": "Formation of Neonatal Stoma",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_SMALL_INTESTINE",
+    "aliases": [],
+    "description": "Formation of stoma in neonatal abdominal surgery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_ANORECTAL_MALFORMATION",
+    "name": "Repair of Anorectal Malformation",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_ANORECTUM",
+    "aliases": [],
+    "description": "Definitive repair of anorectal malformation.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PYLOROMYOTOMY",
+    "name": "Pyloromyotomy",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_NEONATAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_STOMACH",
+    "aliases": [],
+    "description": "Division of hypertrophied pyloric muscle for infantile hypertrophic pyloric stenosis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PAEDIATRIC_APPENDICECTOMY",
+    "name": "Paediatric Appendicectomy",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_APPENDIX",
+    "aliases": [],
+    "description": "Appendicectomy performed in paediatric surgical practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PAEDIATRIC_INGUINAL_HERNIA_REPAIR",
+    "name": "Paediatric Inguinal Hernia Repair",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_GROIN",
+    "aliases": [],
+    "description": "Repair of paediatric inguinal hernia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PAEDIATRIC_UMBILICAL_HERNIA_REPAIR",
+    "name": "Paediatric Umbilical Hernia Repair",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_UMBILICUS",
+    "aliases": [],
+    "description": "Repair of paediatric umbilical hernia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ORCHIDOPEXY_BY_PAEDIATRIC_SURGERY",
+    "name": "Orchidopexy",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_TESTIS",
+    "aliases": [],
+    "description": "Fixation of undescended testis in paediatric general surgery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HYDROCOELE_REPAIR_BY_PAEDIATRIC_SURGERY",
+    "name": "Hydrocoele Repair",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_SCROTUM",
+    "aliases": [],
+    "description": "Repair of paediatric hydrocoele.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_THYROGLOSSAL_DUCT_CYST",
+    "name": "Excision of Thyroglossal Duct Cyst",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_NECK",
+    "aliases": [
+      "Sistrunk Procedure"
+    ],
+    "description": "Excision of thyroglossal duct cyst with central hyoid resection.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_BRANCHIAL_CYST",
+    "name": "Excision of Branchial Cyst",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_NECK",
+    "aliases": [],
+    "description": "Excision of congenital branchial cyst or sinus tract.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CENTRAL_VENOUS_ACCESS_DEVICE_INSERTION_IN_CHILD",
+    "name": "Central Venous Access Device Insertion in Child",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_CENTRAL_VEINS",
+    "aliases": [],
+    "description": "Insertion of tunnelled or implantable central venous access device in paediatric practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THORACOSCOPIC_REPAIR_OF_OESOPHAGEAL_ATRESIA",
+    "name": "Thoracoscopic Repair of Oesophageal Atresia",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_OESOPHAGUS",
+    "aliases": [],
+    "description": "Thoracoscopic repair of oesophageal atresia in paediatric thoracic surgery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THORACOSCOPIC_LOBECTOMY_IN_CHILD",
+    "name": "Thoracoscopic Lobectomy in Child",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_LUNG",
+    "aliases": [],
+    "description": "Thoracoscopic pulmonary lobectomy in paediatric thoracic practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_CONGENITAL_LUNG_MALFORMATION",
+    "name": "Repair of Congenital Lung Malformation",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_LUNG",
+    "aliases": [],
+    "description": "Resection or repair of congenital pulmonary airway or sequestration lesion.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THORACOSCOPIC_DECORTICATION_IN_CHILD",
+    "name": "Thoracoscopic Decortication in Child",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_PLEURA",
+    "aliases": [],
+    "description": "Thoracoscopic decortication for empyema in paediatric practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PLEURAL_DRAIN_INSERTION_IN_CHILD",
+    "name": "Pleural Drain Insertion in Child",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_PLEURA",
+    "aliases": [],
+    "description": "Insertion of pleural drain for pneumothorax, effusion, or empyema in paediatric practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXPLORATORY_LAPAROTOMY_FOR_PAEDIATRIC_TRAUMA",
+    "name": "Exploratory Laparotomy for Paediatric Trauma",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_ABDOMEN",
+    "aliases": [],
+    "description": "Emergency laparotomy for abdominal trauma in paediatric practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SPLENECTOMY_FOR_PAEDIATRIC_TRAUMA",
+    "name": "Splenectomy for Paediatric Trauma",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_SPLEEN",
+    "aliases": [],
+    "description": "Splenectomy performed for traumatic splenic injury in paediatric practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_BOWEL_INJURY_IN_CHILD",
+    "name": "Repair of Bowel Injury in Child",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_SMALL_INTESTINE",
+    "aliases": [],
+    "description": "Operative repair of traumatic bowel injury in paediatric trauma surgery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DIAPHRAGM_REPAIR_FOR_PAEDIATRIC_TRAUMA",
+    "name": "Diaphragm Repair for Paediatric Trauma",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_DIAPHRAGM",
+    "aliases": [],
+    "description": "Repair of traumatic diaphragmatic injury in child.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DAMAGE_CONTROL_SURGERY_FOR_PAEDIATRIC_TRAUMA",
+    "name": "Damage Control Surgery for Paediatric Trauma",
+    "specialty_id": "SPEC_PAEDIATRIC_SURGERY",
+    "service_line_id": "SL_PAEDIATRIC_TRAUMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PAEDIATRIC_SURGERY_ABDOMEN",
+    "aliases": [],
+    "description": "Abbreviated emergency surgery for major paediatric trauma.",
+    "status": "active"
+  }
+]

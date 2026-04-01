@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Getinge",
+    "system_name": "Transit-Time Flow Probe",
+    "source_type": "product_page",
+    "source_document": "Medistim TTFM Probes",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TRANSIT_TIME_FLOW_PROBE_TRANSIT_TIME_FLOW_PROBE_FRAMEWORK",
+        "Component Name": "Transit-Time Flow Probe Framework",
+        "Component Role": "Platform Framework",
+        "Implant Category": "Flow assessment",
+        "System ID": "SYS_ACCESS_FLOW_PROBE",
+        "Component Notes": "Portfolio-level informational framework anchored to Medistim public TTFM probe and platform sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Transit-Time Flow Probe",
+          "supplier_name": "Getinge",
+          "system_category": "flow assessment",
+          "system_notes": "Official Medistim transit-time flow measurement probe and platform materials used as the source anchors for the transit-time flow probe entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Transit-Time Flow Probe",
+        "supplier_name": "Getinge",
+        "system_category": "flow assessment",
+        "system_notes": "Official Medistim transit-time flow measurement probe and platform materials used as the source anchors for the transit-time flow probe entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Transit-Time Flow Probe",
+        "supplier_name": "Getinge",
+        "system_category": "flow assessment",
+        "system_notes": "Official Medistim transit-time flow measurement probe and platform materials used as the source anchors for the transit-time flow probe entry."
+      }
+    }
+  ]
+}

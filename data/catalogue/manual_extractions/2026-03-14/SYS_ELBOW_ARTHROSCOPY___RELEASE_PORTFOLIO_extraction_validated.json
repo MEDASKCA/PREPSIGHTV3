@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Elbow Arthroscopy / Release Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Elbow",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ELBOW_ARTHROSCOPY_RELEASE_PORTFOLIO_ELBOW_ARTHROSCOPY_RELEASE_PORTFOLIO_FAMILY",
+        "Component Name": "Elbow Arthroscopy Release Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Elbow Arthroscopy Workflow",
+        "System ID": "SYS_ELBOW_ARTHROSCOPY___RELEASE_PORTFOLIO",
+        "Component Notes": "Official Arthrex portfolio sources describe the broader elbow arthroscopy and release workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Elbow Arthroscopy / Release Portfolio",
+          "supplier_name": "Arthrex",
+          "system_category": "Elbow arthroscopy",
+          "system_notes": "Portfolio-level public anchor for Arthrex elbow arthroscopy and release workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Elbow Arthroscopy / Release Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Elbow arthroscopy",
+        "system_notes": "Portfolio-level public anchor for Arthrex elbow arthroscopy and release workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Elbow Arthroscopy / Release Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Elbow arthroscopy",
+        "system_notes": "Portfolio-level public anchor for Arthrex elbow arthroscopy and release workflow resources."
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Integra LifeSciences",
+    "system_name": "Latitude EV Total Elbow",
+    "source_type": "product_page",
+    "source_document": "Latitude EV Total Elbow Arthroplasty System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LATITUDE_EV_TOTAL_ELBOW_LATITUDE_EV_ELBOW_ARTHROPLASTY_FAMILY",
+        "Component Name": "Latitude EV Elbow Arthroplasty Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Elbow Arthroplasty Workflow",
+        "System ID": "SYS_LATITUDE_ELBOW",
+        "Component Notes": "Official Integra sources describe the broader Latitude EV elbow arthroplasty family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Latitude EV Total Elbow",
+          "supplier_name": "Integra LifeSciences",
+          "system_category": "Total Elbow Replacement",
+          "system_notes": "Public source anchor for the Integra Latitude EV total elbow arthroplasty system."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Latitude EV Total Elbow",
+        "supplier_name": "Integra LifeSciences",
+        "system_category": "Total Elbow Replacement",
+        "system_notes": "Public source anchor for the Integra Latitude EV total elbow arthroplasty system."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Latitude EV Total Elbow",
+        "supplier_name": "Integra LifeSciences",
+        "system_category": "Total Elbow Replacement",
+        "system_notes": "Public source anchor for the Integra Latitude EV total elbow arthroplasty system."
+      }
+    }
+  ]
+}

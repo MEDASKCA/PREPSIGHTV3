@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "AxSOS Tibial Plateau Plating",
+    "source_type": "product_page",
+    "source_document": "AxSOS 3 Ti Proximal Tibia",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "AxSOS Tibial Plateau Plating",
+      "supplier_name": "Stryker",
+      "system_category": "trauma",
+      "system_notes": "Official Stryker proximal tibia plating materials used as the public source anchors for this tibial plateau trauma fixation entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Tibial Plateau Plating Framework",
+      "system_name": "AxSOS Tibial Plateau Plating",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to Stryker public proximal tibia and plateau plating source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public tibial plateau plating source anchors do not enumerate tray-level data for this entry.",
+      "source_excerpt": "AxSOS 3 Ti Proximal Tibia; Tibia and Femur"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public tibial plateau plating source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "AxSOS 3 Ti Proximal Tibia; Tibia and Femur"
+    }
+  ]
+}

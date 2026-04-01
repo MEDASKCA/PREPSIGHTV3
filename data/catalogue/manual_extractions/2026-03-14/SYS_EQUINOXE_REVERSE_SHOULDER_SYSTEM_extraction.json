@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Exactech",
+    "system_name": "Equinoxe Reverse Shoulder System",
+    "source_type": "product_page",
+    "source_document": "Equinoxe Platform Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Equinoxe Reverse Shoulder System",
+      "supplier_name": "Exactech",
+      "system_category": "Shoulder Arthroplasty System",
+      "system_notes": "Reverse shoulder arthroplasty platform."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Equinoxe Reverse Instrumentation",
+      "system_name": "Equinoxe Reverse Shoulder System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated reverse shoulder instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Equinoxe Reverse Humeral Stem",
+      "system_name": "Equinoxe Reverse Shoulder System",
+      "component_role": "Humeral Stem",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Core humeral stem family used in the reverse shoulder platform."
+    },
+    {
+      "component_name": "Equinoxe Reverse Baseplate",
+      "system_name": "Equinoxe Reverse Shoulder System",
+      "component_role": "Baseplate",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Core baseplate family referenced on the product page."
+    },
+    {
+      "component_name": "Equinoxe Reverse Glenosphere",
+      "system_name": "Equinoxe Reverse Shoulder System",
+      "component_role": "Glenosphere",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Core glenosphere family referenced on the product page."
+    },
+    {
+      "component_name": "Equinoxe Reverse Humeral Liner",
+      "system_name": "Equinoxe Reverse Shoulder System",
+      "component_role": "Humeral Liner",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Core liner family referenced on the product page."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Reverse shoulder platform includes multiple configuration options.",
+      "reason": "Needs deeper technique or catalogue review before detailed family expansion.",
+      "source_excerpt": "Current extraction keeps the core reverse implant families only."
+    }
+  ]
+}

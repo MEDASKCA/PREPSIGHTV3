@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Distal Radius Plate",
+    "source_type": "product_page",
+    "source_document": "Variable Angle LCP Two-Column Volar Distal Radius Plate",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_LCP_DISTAL_RADIUS_PLATE_DISTAL_RADIUS_PLATE_AND_INSTRUMENT_SET",
+        "Tray Name": "Distal Radius Plate and Instrument Set",
+        "System ID": "SYS_LCP_DISTAL_RADIUS",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes materials describe dedicated distal radius plating instrumentation used with the variable-angle volar plate family."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LCP_DISTAL_RADIUS_PLATE_LCP_DISTAL_RADIUS_PLATE",
+        "Component Name": "LCP Distal Radius Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_DISTAL_RADIUS",
+        "Component Notes": "Official J&J MedTech materials describe the variable-angle two-column volar distal radius plate family."
+      },
+      {
+        "Component ID": "COMP_LCP_DISTAL_RADIUS_PLATE_LCP_DISTAL_RADIUS_LOCKING_SCREW",
+        "Component Name": "LCP Distal Radius Locking Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_DISTAL_RADIUS",
+        "Component Notes": "Official inventory and technique materials describe compatible locking screw fixation used with the distal radius plate system."
+      },
+      {
+        "Component ID": "COMP_LCP_DISTAL_RADIUS_PLATE_LCP_DISTAL_RADIUS_DRILL_GUIDE",
+        "Component Name": "LCP Distal Radius Drill Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_LCP_DISTAL_RADIUS",
+        "Component Notes": "Official technique materials describe guides and instrumentation for controlled distal radius screw placement."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "LCP Distal Radius Plate",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Volar Locking Plate \u2014 Distal Radius",
+          "system_notes": "Variable-angle volar distal radius locking plate family within the DePuy Synthes trauma plating portfolio."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "LCP Distal Radius Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Volar Locking Plate \u2014 Distal Radius",
+        "system_notes": "Variable-angle volar distal radius locking plate family within the DePuy Synthes trauma plating portfolio."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "LCP Distal Radius Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Volar Locking Plate \u2014 Distal Radius",
+        "system_notes": "Variable-angle volar distal radius locking plate family within the DePuy Synthes trauma plating portfolio."
+      }
+    }
+  ]
+}

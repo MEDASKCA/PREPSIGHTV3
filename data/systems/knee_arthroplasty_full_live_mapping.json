@@ -1,0 +1,517 @@
+{
+  "specialty": "Trauma and Orthopaedics",
+  "subspecialty": "Arthroplasty",
+  "anatomy": "Knee",
+  "structure": "subanatomy_group -> procedure -> variants -> systems[]",
+  "updated_at": "2026-03-13T20:18:47.726Z",
+  "subanatomy_groups": [
+    {
+      "name": "Whole Joint",
+      "procedures": [
+        {
+          "procedure_id": "PROC_PRIMARY_TOTAL_KNEE_REPLACEMENT",
+          "procedure_name": "Primary Total Knee Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_PRIMARY_TKR_STANDARD",
+              "variant_name": "Standard Primary",
+              "systems": [
+                {
+                  "system_id": "SYS_PERSONA_KNEE",
+                  "system_name": "Persona Knee System",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog primary knee system.",
+                  "approach_compatibility": [
+                    "Standard Primary"
+                  ]
+                },
+                {
+                  "system_id": "SYS_NEXGEN_KNEE",
+                  "system_name": "NexGen Knee System",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog primary knee system.",
+                  "approach_compatibility": [
+                    "Standard Primary"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LEGION_KNEE",
+                  "system_name": "LEGION Total Knee System",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog primary knee system.",
+                  "approach_compatibility": [
+                    "Standard Primary"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TRIATHLON_KNEE",
+                  "system_name": "Triathlon Knee System",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_knee",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Primary knee candidate pending verification.",
+                  "approach_compatibility": [
+                    "Standard Primary"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ATTUNE_KNEE_PORTFOLIO",
+                  "system_name": "ATTUNE Knee Portfolio",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "cemented",
+                  "procedure_class": "primary_total_knee",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Primary knee supplier candidate.",
+                  "approach_compatibility": [
+                    "Standard Primary"
+                  ]
+                },
+                {
+                  "system_id": "SYS_CORIN_KNEE_PORTFOLIO",
+                  "system_name": "Corin Knee Arthroplasty Portfolio",
+                  "supplier_name": "Corin",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_knee",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier candidate.",
+                  "approach_compatibility": [
+                    "Standard Primary"
+                  ]
+                },
+                {
+                  "system_id": "SYS_MEDACTA_KNEE_PORTFOLIO",
+                  "system_name": "Medacta Knee Arthroplasty Portfolio",
+                  "supplier_name": "Medacta",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "unknown",
+                  "procedure_class": "primary_total_knee",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Supplier candidate.",
+                  "approach_compatibility": [
+                    "Standard Primary"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_REVISION_TOTAL_KNEE_REPLACEMENT",
+          "procedure_name": "Revision Total Knee Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_REVISION_TKR_STANDARD",
+              "variant_name": "Standard Revision",
+              "systems": [
+                {
+                  "system_id": "SYS_VANGUARD_360",
+                  "system_name": "Vanguard 360 Revision",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TC3_REVISION_KNEE",
+                  "system_name": "TC3 Revision Knee System",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LEGION_REVISION",
+                  "system_name": "LEGION Revision Knee",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TRIATHLON_TS",
+                  "system_name": "Triathlon TS",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Medial Compartment",
+      "procedures": [
+        {
+          "procedure_id": "PROC_MEDIAL_UNICOMPARTMENTAL_KNEE_REPLACEMENT",
+          "procedure_name": "Medial Unicompartmental Knee Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_MEDIAL_UKR_STANDARD",
+              "variant_name": "Medial UKR",
+              "systems": [
+                {
+                  "system_id": "SYS_OXFORD_UKR",
+                  "system_name": "Oxford Unicompartmental",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "mobile_bearing",
+                  "procedure_class": "unicompartmental_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog unicompartmental system.",
+                  "approach_compatibility": [
+                    "Medial UKR",
+                    "Lateral UKR"
+                  ]
+                },
+                {
+                  "system_id": "SYS_VANGUARD_M_UKR",
+                  "system_name": "Vanguard M / Microplasty",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "fixed_bearing",
+                  "procedure_class": "unicompartmental_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog unicompartmental system.",
+                  "approach_compatibility": [
+                    "Medial UKR",
+                    "Lateral UKR"
+                  ]
+                },
+                {
+                  "system_id": "SYS_JOURNEY_UNI",
+                  "system_name": "Journey Uni",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "fixed_bearing",
+                  "procedure_class": "unicompartmental_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog unicompartmental system.",
+                  "approach_compatibility": [
+                    "Medial UKR",
+                    "Lateral UKR"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Lateral Compartment",
+      "procedures": [
+        {
+          "procedure_id": "PROC_LATERAL_UNICOMPARTMENTAL_KNEE_REPLACEMENT",
+          "procedure_name": "Lateral Unicompartmental Knee Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_LATERAL_UKR_STANDARD",
+              "variant_name": "Lateral UKR",
+              "systems": [
+                {
+                  "system_id": "SYS_OXFORD_UKR",
+                  "system_name": "Oxford Unicompartmental",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "mobile_bearing",
+                  "procedure_class": "unicompartmental_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog unicompartmental system.",
+                  "approach_compatibility": [
+                    "Medial UKR",
+                    "Lateral UKR"
+                  ]
+                },
+                {
+                  "system_id": "SYS_VANGUARD_M_UKR",
+                  "system_name": "Vanguard M / Microplasty",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "fixed_bearing",
+                  "procedure_class": "unicompartmental_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog unicompartmental system.",
+                  "approach_compatibility": [
+                    "Medial UKR",
+                    "Lateral UKR"
+                  ]
+                },
+                {
+                  "system_id": "SYS_JOURNEY_UNI",
+                  "system_name": "Journey Uni",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "fixed_bearing",
+                  "procedure_class": "unicompartmental_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog unicompartmental system.",
+                  "approach_compatibility": [
+                    "Medial UKR",
+                    "Lateral UKR"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Patellofemoral Joint",
+      "procedures": [
+        {
+          "procedure_id": "PROC_PATELLOFEMORAL_JOINT_REPLACEMENT",
+          "procedure_name": "Patellofemoral Joint Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_PFJR_ISOLATED",
+              "variant_name": "Isolated PFJ",
+              "systems": [
+                {
+                  "system_id": "SYS_JOURNEY_PFJ",
+                  "system_name": "Journey PFJ System",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "fixed_bearing",
+                  "procedure_class": "patellofemoral_arthroplasty",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog PFJ system.",
+                  "approach_compatibility": [
+                    "Isolated PFJ"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Femoral Component",
+      "procedures": [
+        {
+          "procedure_id": "PROC_FEMORAL_COMPONENT_REVISION_OF_KNEE_ARTHROPLASTY",
+          "procedure_name": "Femoral Component Revision of Knee Arthroplasty",
+          "variants": [
+            {
+              "variant_id": "PV_KNEE_FEMORAL_COMPONENT_REVISION",
+              "variant_name": "Femoral Component Revision",
+              "systems": [
+                {
+                  "system_id": "SYS_VANGUARD_360",
+                  "system_name": "Vanguard 360 Revision",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TC3_REVISION_KNEE",
+                  "system_name": "TC3 Revision Knee System",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LEGION_REVISION",
+                  "system_name": "LEGION Revision Knee",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TRIATHLON_TS",
+                  "system_name": "Triathlon TS",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Tibial Component",
+      "procedures": [
+        {
+          "procedure_id": "PROC_TIBIAL_COMPONENT_REVISION_OF_KNEE_ARTHROPLASTY",
+          "procedure_name": "Tibial Component Revision of Knee Arthroplasty",
+          "variants": [
+            {
+              "variant_id": "PV_KNEE_TIBIAL_COMPONENT_REVISION",
+              "variant_name": "Tibial Component Revision",
+              "systems": [
+                {
+                  "system_id": "SYS_VANGUARD_360",
+                  "system_name": "Vanguard 360 Revision",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TC3_REVISION_KNEE",
+                  "system_name": "TC3 Revision Knee System",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_LEGION_REVISION",
+                  "system_name": "LEGION Revision Knee",
+                  "supplier_name": "Smith+Nephew",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                },
+                {
+                  "system_id": "SYS_TRIATHLON_TS",
+                  "system_name": "Triathlon TS",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "revision_total_knee",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog revision knee system.",
+                  "approach_compatibility": [
+                    "Standard Revision",
+                    "Femoral Component Revision",
+                    "Tibial Component Revision"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

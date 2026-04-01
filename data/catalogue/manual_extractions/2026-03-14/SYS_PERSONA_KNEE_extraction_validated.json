@@ -1,0 +1,121 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Persona Knee System",
+    "source_type": "product_page",
+    "source_document": "Persona The Personalized Knee",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_PERSONA_KNEE_SYSTEM_PERSONA_INSTRUMENTATION",
+        "Tray Name": "Persona Instrumentation",
+        "System ID": "SYS_PERSONA_KNEE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Zimmer Biomet product page describes Persona Instrumentation as the core instrument platform."
+      },
+      {
+        "Tray ID": "TRAY_PERSONA_KNEE_SYSTEM_ZIMMER_FUZION_INSTRUMENTS",
+        "Tray Name": "Zimmer FuZion Instruments",
+        "System ID": "SYS_PERSONA_KNEE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Zimmer FuZion Instruments are listed in the linked Persona literature and cleaning instructions."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PERSONA_KNEE_SYSTEM_PERSONA_FEMORAL_COMPONENT",
+        "Component Name": "Persona Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_PERSONA_KNEE",
+        "Component Notes": "Product page describes anatomic femoral design with standard and narrow options."
+      },
+      {
+        "Component ID": "COMP_PERSONA_KNEE_SYSTEM_PERSONA_TIBIAL_COMPONENT",
+        "Component Name": "Persona Tibial Component",
+        "Component Role": "Tibial Baseplate",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_PERSONA_KNEE",
+        "Component Notes": "Anatomic tibia design with left and right implant options."
+      },
+      {
+        "Component ID": "COMP_PERSONA_KNEE_SYSTEM_PERSONA_BEARING",
+        "Component Name": "Persona Bearing",
+        "Component Role": "Tibial Insert",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_PERSONA_KNEE",
+        "Component Notes": "Bearing options include cruciate retaining, sacrificing and higher-constraint options."
+      },
+      {
+        "Component ID": "COMP_PERSONA_KNEE_SYSTEM_PERSONA_TRABECULAR_METAL_FEMORAL_COMPONENT",
+        "Component Name": "Persona Trabecular Metal Femoral Component",
+        "Component Role": "Trabecular Metal Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_PERSONA_KNEE",
+        "Component Notes": "Explicitly listed in linked Persona literature."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Persona Knee System",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Knee Arthroplasty System",
+          "system_notes": "Primary total knee arthroplasty system with anatomic tibia, multiple bearing constraints and dedicated instrumentation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Persona Knee System",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Knee Arthroplasty System",
+        "system_notes": "Primary total knee arthroplasty system with anatomic tibia, multiple bearing constraints and dedicated instrumentation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Persona Knee System",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Knee Arthroplasty System",
+        "system_notes": "Primary total knee arthroplasty system with anatomic tibia, multiple bearing constraints and dedicated instrumentation."
+      }
+    }
+  ]
+}

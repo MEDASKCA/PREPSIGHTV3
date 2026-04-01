@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Paragon 28",
+    "system_name": "Hindfoot Fusion Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Paragon 28 Hindfoot Fusion Portfolio",
+    "source_date": "2026-03-16"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_HINDFOOT_FUSION_PORTFOLIO",
+      "system_name": "Hindfoot Fusion Portfolio",
+      "supplier": "Paragon 28",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public Paragon 28 foot and ankle pages used as source anchors for the hindfoot fusion portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_HINDFOOT_FUSION_PORTFOLIO",
+      "component_name": "Hindfoot Fusion Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Hindfoot Fusion Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to Paragon 28 foot and ankle public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_HINDFOOT_FUSION_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_HINDFOOT_FUSION_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

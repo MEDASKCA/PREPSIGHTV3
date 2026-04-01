@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Comprehensive Reverse Shoulder System",
+    "source_type": "product_page",
+    "source_document": "Comprehensive Reverse Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Comprehensive Reverse Shoulder System",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Reverse Shoulder Arthroplasty System",
+      "system_notes": "Reverse shoulder arthroplasty platform for cuff-deficient shoulders and complex reconstruction within the Comprehensive family."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Comprehensive Reverse Instrumentation",
+      "system_name": "Comprehensive Reverse Shoulder System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet materials support dedicated reverse shoulder instrumentation and linked technique resources."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Comprehensive Reverse Humeral Stem",
+      "system_name": "Comprehensive Reverse Shoulder System",
+      "component_role": "Humeral Stem",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the humeral stem platform used for reverse shoulder reconstruction."
+    },
+    {
+      "component_name": "Comprehensive Reverse Glenoid Baseplate",
+      "system_name": "Comprehensive Reverse Shoulder System",
+      "component_role": "Baseplate",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the reverse glenoid baseplate fixation platform."
+    },
+    {
+      "component_name": "Comprehensive Reverse Glenosphere",
+      "system_name": "Comprehensive Reverse Shoulder System",
+      "component_role": "Glenosphere",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the glenosphere family within the reverse construct."
+    },
+    {
+      "component_name": "Comprehensive Reverse Humeral Bearing",
+      "system_name": "Comprehensive Reverse Shoulder System",
+      "component_role": "Humeral Liner",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the reverse humeral polyethylene bearing component."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public reverse shoulder page defines the implant construct but does not expose a public implant code table in this pass.",
+      "reason": "A deeper brochure, IFU, or technique pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

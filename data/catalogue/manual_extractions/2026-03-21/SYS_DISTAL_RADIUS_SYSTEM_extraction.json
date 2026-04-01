@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "AAP Implantate",
+    "system_name": "Distal Radius Fixation System",
+    "source_type": "product_page",
+    "source_document": "Distal Radius/Ulna Plates 2.5 | aap Implantate AG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Distal Radius Fixation System",
+      "supplier_name": "AAP Implantate",
+      "system_category": "orthopaedic_fixation",
+      "system_notes": "Official AAP Implantate distal radius/ulna product page, LOQTEQ catalogue, and distal radius surgical technique materials used as the source anchors for the distal radius fixation system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Distal Radius Fixation Framework",
+      "system_name": "Distal Radius Fixation System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to AAP public distal radius and ulna fixation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public distal radius fixation source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Distal Radius/Ulna Plates 2.5; Catalog LOQTEQ; Surgical Technique LOQTEQ Dist. Radius-& Ulna 2.5"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public distal radius fixation source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Distal Radius/Ulna Plates 2.5; Catalog LOQTEQ; Surgical Technique LOQTEQ Dist. Radius-& Ulna 2.5"
+    }
+  ]
+}

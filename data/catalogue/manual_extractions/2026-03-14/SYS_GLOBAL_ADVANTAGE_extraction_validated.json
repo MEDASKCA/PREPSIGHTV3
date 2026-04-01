@@ -1,0 +1,122 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Global Advantage / Delta XTEND",
+    "source_type": "implant_inventory_pdf",
+    "source_document": "GLOBAL AP IMPL and Patient Information Leaflet for Shoulder Joint Replacement",
+    "source_version": "TV-SPEC-10807 / TV-TEC-216160",
+    "source_date": "2019-08 / 2021-11"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_GLOBAL_ADVANTAGE_DELTA_XTEND_GLOBAL_AP_DELTA_XTEND_INSTRUMENTATION",
+        "Tray Name": "Global AP / Delta XTEND Instrumentation",
+        "System ID": "SYS_GLOBAL_ADVANTAGE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes GLOBAL AP instrument inventory supports a dedicated shoulder arthroplasty instrumentation workflow applicable to the Global Advantage / Delta XTEND construct."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_GLOBAL_ADVANTAGE_DELTA_XTEND_GLOBAL_AP_HUMERAL_STEM",
+        "Component Name": "GLOBAL AP Humeral Stem",
+        "Component Role": "Humeral Stem",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_GLOBAL_ADVANTAGE",
+        "Component Notes": "Official GLOBAL AP implant inventory documents the humeral stem family."
+      },
+      {
+        "Component ID": "COMP_GLOBAL_ADVANTAGE_DELTA_XTEND_GLOBAL_AP_HUMERAL_HEAD",
+        "Component Name": "GLOBAL AP Humeral Head",
+        "Component Role": "Humeral Head",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_GLOBAL_ADVANTAGE",
+        "Component Notes": "Official GLOBAL AP implant inventory documents humeral head options."
+      },
+      {
+        "Component ID": "COMP_GLOBAL_ADVANTAGE_DELTA_XTEND_DELTA_XTEND_GLENOSPHERE",
+        "Component Name": "Delta XTEND Glenosphere",
+        "Component Role": "Glenosphere",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_GLOBAL_ADVANTAGE",
+        "Component Notes": "The Delta XTEND reverse shoulder platform includes glenosphere components as part of the reverse construct."
+      },
+      {
+        "Component ID": "COMP_GLOBAL_ADVANTAGE_DELTA_XTEND_DELTA_XTEND_BASEPLATE",
+        "Component Name": "Delta XTEND Baseplate",
+        "Component Role": "Baseplate",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_GLOBAL_ADVANTAGE",
+        "Component Notes": "The Delta XTEND reverse shoulder platform includes glenoid baseplate fixation components."
+      }
+    ],
+    "PRODUCTS": [
+      {
+        "SKU": "113008000",
+        "Product Name": "GLOBAL AP Humeral Stem 8x126 mm",
+        "Component ID": "COMP_GLOBAL_ADVANTAGE_DELTA_XTEND_GLOBAL_AP_HUMERAL_STEM",
+        "Packaging Type": "Implant Inventory",
+        "Product Notes": "Catalog code explicitly listed in the official GLOBAL AP implant inventory PDF."
+      }
+    ],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Global Advantage / Delta XTEND",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Shoulder Arthroplasty System",
+          "system_notes": "Combined anatomic/reverse shoulder construct anchored to official DePuy GLOBAL AP inventory documents and the patient-information leaflet listing Global Advantage and Delta Xtend."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Global Advantage / Delta XTEND",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Shoulder Arthroplasty System",
+        "system_notes": "Combined anatomic/reverse shoulder construct anchored to official DePuy GLOBAL AP inventory documents and the patient-information leaflet listing Global Advantage and Delta Xtend."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Global Advantage / Delta XTEND",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Shoulder Arthroplasty System",
+        "system_notes": "Combined anatomic/reverse shoulder construct anchored to official DePuy GLOBAL AP inventory documents and the patient-information leaflet listing Global Advantage and Delta Xtend."
+      }
+    }
+  ]
+}

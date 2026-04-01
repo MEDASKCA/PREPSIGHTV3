@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Endovascular Imaging Workstation",
+    "source_type": "service_launch_page",
+    "source_document": "Medtronic Introduces 3D Recon Service to Enhance Endovascular Treatment of Aortic Aneurysms",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ENDOVASCULAR_IMAGING_WORKSTATION_ENDOVASCULAR_IMAGING_FRAMEWORK",
+        "Component Name": "Endovascular Imaging Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_ENDOVASCULAR_WORKSTATION",
+        "Component Notes": "Framework component anchored to Medtronic public endovascular imaging source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Endovascular Imaging Workstation",
+          "supplier_name": "Medtronic",
+          "system_category": "endovascular_imaging",
+          "system_notes": "Official Medtronic endovascular planning and imaging-workflow materials used as the closest current public source anchors for this endovascular imaging workstation entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Endovascular Imaging Workstation",
+        "supplier_name": "Medtronic",
+        "system_category": "endovascular_imaging",
+        "system_notes": "Official Medtronic endovascular planning and imaging-workflow materials used as the closest current public source anchors for this endovascular imaging workstation entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Endovascular Imaging Workstation",
+        "supplier_name": "Medtronic",
+        "system_category": "endovascular_imaging",
+        "system_notes": "Official Medtronic endovascular planning and imaging-workflow materials used as the closest current public source anchors for this endovascular imaging workstation entry."
+      }
+    }
+  ]
+}

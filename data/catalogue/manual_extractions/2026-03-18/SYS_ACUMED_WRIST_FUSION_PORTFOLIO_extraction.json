@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acumed Wrist Fusion Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Hand and Wrist | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Acumed Wrist Fusion Portfolio",
+      "supplier_name": "Acumed",
+      "system_category": "Hand & wrist surgery",
+      "system_notes": "Public Acumed hand and wrist portfolio, total wrist fusion page, and product catalog used as the source anchors for the wrist fusion portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Wrist Fusion Portfolio Framework",
+      "system_name": "Acumed Wrist Fusion Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Wrist Fusion Portfolio",
+      "component_notes": "Portfolio-level informational framework anchored to Acumed public wrist fusion sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public portfolio source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Hand and Wrist portfolio page, Total Wrist Fusion Plating System page, and Acumed product catalog"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public portfolio source anchors do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Hand and Wrist portfolio page, Total Wrist Fusion Plating System page, and Acumed product catalog"
+    }
+  ]
+}

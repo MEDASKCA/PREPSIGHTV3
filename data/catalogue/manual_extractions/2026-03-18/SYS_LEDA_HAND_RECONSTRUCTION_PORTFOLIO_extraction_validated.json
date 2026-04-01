@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "LEDA Hand Reconstruction Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Upper Limb | LEDA Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LEDA_HAND_RECONSTRUCTION_PORTFOLIO_HAND_RECONSTRUCTION_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Hand Reconstruction Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Hand Reconstruction Portfolio",
+        "System ID": "SYS_LEDA_HAND_RECONSTRUCTION_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to LEDA Orthopaedics public upper-limb and business profile sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "LEDA Hand Reconstruction Portfolio",
+          "supplier_name": "LEDA Orthopaedics",
+          "system_category": "Hand reconstruction",
+          "system_notes": "Public LEDA Orthopaedics upper limb and company profile pages used as the source anchors for the hand reconstruction portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "LEDA Hand Reconstruction Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "Hand reconstruction",
+        "system_notes": "Public LEDA Orthopaedics upper limb and company profile pages used as the source anchors for the hand reconstruction portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "LEDA Hand Reconstruction Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "Hand reconstruction",
+        "system_notes": "Public LEDA Orthopaedics upper limb and company profile pages used as the source anchors for the hand reconstruction portfolio entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "Paragon 28 / Zimmer Biomet Foot & Ankle Trauma Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Foot and Ankle Products - Paragon 28",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Paragon 28 / Zimmer Biomet Foot & Ankle Trauma Portfolio",
+      "supplier_name": "Paragon 28",
+      "system_category": "Foot & ankle trauma fixation",
+      "system_notes": "Official Paragon 28 Foot and Ankle Products, Gorilla Ankle Fracture Plating System, and Gorilla Calcaneal Fracture Plating System materials used as the source anchors for the mixed foot and ankle trauma portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Foot and Ankle Trauma Portfolio Framework",
+      "system_name": "Paragon 28 / Zimmer Biomet Foot & Ankle Trauma Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Foot & ankle trauma fixation",
+      "component_notes": "Framework component anchored to Paragon 28 public foot and ankle trauma source anchors used for this mixed portfolio mapping."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public mixed foot and ankle trauma source anchors do not enumerate tray-level data for this entry.",
+      "source_excerpt": "Foot and Ankle Products - Paragon 28; Gorilla Ankle Fracture Plating System; Gorilla Calcaneal Fracture Plating System"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public mixed foot and ankle trauma source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Foot and Ankle Products - Paragon 28; Gorilla Ankle Fracture Plating System; Gorilla Calcaneal Fracture Plating System"
+    }
+  ]
+}

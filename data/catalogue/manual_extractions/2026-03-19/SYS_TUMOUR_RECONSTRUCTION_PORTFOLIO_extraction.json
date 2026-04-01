@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Exactech",
+    "system_name": "Tumour Reconstruction Portfolio",
+    "source_type": "product_page",
+    "source_document": "Equinoxe Humeral Reconstruction Prosthesis",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Tumour Reconstruction Portfolio",
+      "supplier_name": "Exactech",
+      "system_category": "orthopaedic_oncology",
+      "system_notes": "Official Exactech humeral reconstruction product and launch materials used as the source anchors for the tumour reconstruction portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Tumour Reconstruction Portfolio Framework",
+      "system_name": "Tumour Reconstruction Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Orthopaedic oncology",
+      "component_notes": "Portfolio-level informational framework anchored to Exactech public tumour reconstruction and humeral reconstruction sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public tumour reconstruction source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Equinoxe Humeral Reconstruction Prosthesis page and tumor-resection launch materials"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public tumour reconstruction source anchors do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Equinoxe Humeral Reconstruction Prosthesis page and tumor-resection launch materials"
+    }
+  ]
+}

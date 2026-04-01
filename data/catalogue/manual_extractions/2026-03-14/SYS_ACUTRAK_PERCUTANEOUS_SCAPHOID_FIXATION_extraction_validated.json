@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acutrak Percutaneous Scaphoid Fixation",
+    "source_type": "surgical_video",
+    "source_document": "Scaphoid Fixation using Acutrak 2 Screw",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ACUTRAK_PERCUTANEOUS_SCAPHOID_FIXATION_PERCUTANEOUS_SCAPHOID_FIXATION_INSTRUMENTATION",
+        "Tray Name": "Percutaneous Scaphoid Fixation Instrumentation",
+        "System ID": "SYS_ACUTRAK_PERCUTANEOUS_SCAPHOID_FIXATION",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Surgical videos reference guidewire, drill and screw insertion instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACUTRAK_PERCUTANEOUS_SCAPHOID_FIXATION_PERCUTANEOUS_SCAPHOID_COMPRESSION_SCREW",
+        "Component Name": "Percutaneous Scaphoid Compression Screw",
+        "Component Role": "Compression Screw",
+        "Implant Category": "Hand and Wrist Implant",
+        "System ID": "SYS_ACUTRAK_PERCUTANEOUS_SCAPHOID_FIXATION",
+        "Component Notes": "Headless compression screw family used for scaphoid fixation."
+      },
+      {
+        "Component ID": "COMP_ACUTRAK_PERCUTANEOUS_SCAPHOID_FIXATION_PERCUTANEOUS_SCAPHOID_GUIDEWIRE",
+        "Component Name": "Percutaneous Scaphoid Guidewire",
+        "Component Role": "Guidewire",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_ACUTRAK_PERCUTANEOUS_SCAPHOID_FIXATION",
+        "Component Notes": "Guidewire family referenced in the surgical workflow."
+      },
+      {
+        "Component ID": "COMP_ACUTRAK_PERCUTANEOUS_SCAPHOID_FIXATION_PERCUTANEOUS_SCAPHOID_DRIVER",
+        "Component Name": "Percutaneous Scaphoid Driver",
+        "Component Role": "Driver",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_ACUTRAK_PERCUTANEOUS_SCAPHOID_FIXATION",
+        "Component Notes": "Driver/inserter family referenced in the surgical workflow."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Acutrak Percutaneous Scaphoid Fixation",
+          "supplier_name": "Acumed",
+          "system_category": "Hand and Wrist Fixation System",
+          "system_notes": "Percutaneous scaphoid fixation workflow built around Acutrak headless compression screws."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Acutrak Percutaneous Scaphoid Fixation",
+        "supplier_name": "Acumed",
+        "system_category": "Hand and Wrist Fixation System",
+        "system_notes": "Percutaneous scaphoid fixation workflow built around Acutrak headless compression screws."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Acutrak Percutaneous Scaphoid Fixation",
+        "supplier_name": "Acumed",
+        "system_category": "Hand and Wrist Fixation System",
+        "system_notes": "Percutaneous scaphoid fixation workflow built around Acutrak headless compression screws."
+      }
+    }
+  ]
+}

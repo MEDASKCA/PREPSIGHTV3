@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "NCB Proximal Humerus Plate",
+    "source_type": "product_page",
+    "source_document": "NCB Proximal Humerus System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_NCB_PROXIMAL_HUMERUS_PLATE_NCB_PROXIMAL_HUMERUS_INSTRUMENT_SET",
+        "Tray Name": "NCB Proximal Humerus Instrument Set",
+        "System ID": "SYS_NCB_PROX_HUMERUS",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Zimmer Biomet technique materials describe dedicated instrumentation for the NCB proximal humerus system."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_NCB_PROXIMAL_HUMERUS_PLATE_NCB_PROXIMAL_HUMERUS_PLATE",
+        "Component Name": "NCB Proximal Humerus Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_NCB_PROX_HUMERUS",
+        "Component Notes": "Official Zimmer Biomet materials describe the proximal humerus plate family used within the NCB system."
+      },
+      {
+        "Component ID": "COMP_NCB_PROXIMAL_HUMERUS_PLATE_NCB_LOCKING_SCREW",
+        "Component Name": "NCB Locking Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_NCB_PROX_HUMERUS",
+        "Component Notes": "Official technique materials describe polyaxial locking screw fixation used with the NCB proximal humerus construct."
+      },
+      {
+        "Component ID": "COMP_NCB_PROXIMAL_HUMERUS_PLATE_NCB_TARGETING_GUIDE",
+        "Component Name": "NCB Targeting Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_NCB_PROX_HUMERUS",
+        "Component Notes": "Official technique materials describe the dedicated targeting guide and instrument workflow for the NCB proximal humerus system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "NCB Proximal Humerus Plate",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Locking Plate \u2014 Proximal Humerus",
+          "system_notes": "NCB proximal humerus plating platform within the Zimmer Biomet trauma portfolio."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "NCB Proximal Humerus Plate",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Locking Plate \u2014 Proximal Humerus",
+        "system_notes": "NCB proximal humerus plating platform within the Zimmer Biomet trauma portfolio."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "NCB Proximal Humerus Plate",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Locking Plate \u2014 Proximal Humerus",
+        "system_notes": "NCB proximal humerus plating platform within the Zimmer Biomet trauma portfolio."
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "UK Oncology Distribution Portfolio",
+    "source_type": "company_profile_pdf",
+    "source_document": "LEDA Orthopaedics Carbon Footprint Report 2024",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "UK Oncology Distribution Portfolio",
+      "supplier_name": "LEDA Orthopaedics",
+      "system_category": "orthopaedic_oncology",
+      "system_notes": "Official LEDA company profile and orthopaedic distribution materials used as the source anchors for the UK oncology distribution portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Oncology Distribution Portfolio Framework",
+      "system_name": "UK Oncology Distribution Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Orthopaedic oncology",
+      "component_notes": "Portfolio-level informational framework anchored to LEDA public oncology-distribution source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public source materials identify the oncology distribution portfolio but do not enumerate tray-level data for this entry.",
+      "source_excerpt": "LEDA company profile and specialist orthopaedic distribution materials"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public source materials identify the oncology distribution portfolio but do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "LEDA company profile and specialist orthopaedic distribution materials"
+    }
+  ]
+}

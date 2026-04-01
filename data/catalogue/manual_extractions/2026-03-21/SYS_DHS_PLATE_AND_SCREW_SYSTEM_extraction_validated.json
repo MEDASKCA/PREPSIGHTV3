@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "DHS Plate and Screw System",
+    "source_type": "inventory_control_form_pdf",
+    "source_document": "Inventory Control Form - LCP Dynamic Helical Hip System (DHHS)",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_DHS_PLATE_AND_SCREW_SYSTEM_DHS_PLATE_AND_SCREW_FRAMEWORK",
+        "Component Name": "DHS Plate and Screw Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_DHS_PLATE_AND_SCREW_SYSTEM",
+        "Component Notes": "Framework component anchored to DePuy Synthes public dynamic hip screw source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "DHS Plate and Screw System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "trauma",
+          "system_notes": "Official DePuy Synthes dynamic hip screw source materials used as the public anchors for this trauma fixation system entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "DHS Plate and Screw System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Official DePuy Synthes dynamic hip screw source materials used as the public anchors for this trauma fixation system entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "DHS Plate and Screw System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Official DePuy Synthes dynamic hip screw source materials used as the public anchors for this trauma fixation system entry."
+      }
+    }
+  ]
+}

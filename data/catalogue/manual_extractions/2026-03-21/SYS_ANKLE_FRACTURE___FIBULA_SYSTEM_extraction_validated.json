@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Ankle Fracture / Fibula System",
+    "source_type": "product_page",
+    "source_document": "Fibula Rod System | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ANKLE_FRACTURE_FIBULA_SYSTEM_ANKLE_FRACTURE_AND_FIBULA_FRAMEWORK",
+        "Component Name": "Ankle Fracture and Fibula Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_ANKLE_FRACTURE___FIBULA_SYSTEM",
+        "Component Notes": "Framework component anchored to Acumed public fibula rod, fibula nail, and ankle plating sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Ankle Fracture / Fibula System",
+          "supplier_name": "Acumed",
+          "system_category": "foot_ankle_trauma",
+          "system_notes": "Official Acumed Fibula Rod System, Fibula Nail 2 System, and Locking Ankle Plating System materials used as the source anchors for the ankle fracture and fibula system entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Ankle Fracture / Fibula System",
+        "supplier_name": "Acumed",
+        "system_category": "foot_ankle_trauma",
+        "system_notes": "Official Acumed Fibula Rod System, Fibula Nail 2 System, and Locking Ankle Plating System materials used as the source anchors for the ankle fracture and fibula system entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Ankle Fracture / Fibula System",
+        "supplier_name": "Acumed",
+        "system_category": "foot_ankle_trauma",
+        "system_notes": "Official Acumed Fibula Rod System, Fibula Nail 2 System, and Locking Ankle Plating System materials used as the source anchors for the ankle fracture and fibula system entry."
+      }
+    }
+  ]
+}

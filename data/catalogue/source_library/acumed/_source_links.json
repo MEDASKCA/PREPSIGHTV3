@@ -1,0 +1,876 @@
+[
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_WRIST_OSTEOTOMY_PORTFOLIO",
+    "system_name": "Acumed Wrist Osteotomy Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Hand and Wrist | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/",
+        "notes": "Official Acumed hand and wrist portfolio page used as the public source anchor for the wrist osteotomy portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Acu-Loc 2 Wrist Plating System",
+        "url": "https://www.acumed.net/products/wrist/acu-loc-2-wrist-plating-system/",
+        "notes": "Official Acumed wrist plating product page used as supporting public evidence for the wrist osteotomy portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as a public catalogue-level reference for the wrist osteotomy portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_WRIST_FUSION_PORTFOLIO",
+    "system_name": "Acumed Wrist Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Hand and Wrist | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/",
+        "notes": "Official Acumed hand and wrist portfolio page used as the public source anchor for the wrist fusion portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Total Wrist Fusion Plating System",
+        "url": "https://www.acumed.net/products/hand-wrist/total-wrist-fusion-plating-system",
+        "notes": "Official Acumed wrist fusion product page used as supporting public evidence for the wrist fusion portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as a public catalogue-level reference for the wrist fusion portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_HAND_WRIST_PORTFOLIO",
+    "system_name": "Acumed Hand/Wrist Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Hand and Wrist | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/",
+        "notes": "Official Acumed hand and wrist portfolio page used as the public source anchor for the hand and wrist portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Acu-Loc 2 Wrist Plating System",
+        "url": "https://www.acumed.net/products/wrist/acu-loc-2-wrist-plating-system/",
+        "notes": "Official Acumed wrist product page used as supporting public evidence for the hand and wrist portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as a public catalogue-level reference for the hand and wrist portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_HAND_WRIST_SURGERY_PORTFOLIO",
+    "system_name": "Acumed Hand & wrist surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Hand and Wrist | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/",
+        "notes": "Official Acumed hand and wrist portfolio page used as the public source anchor for the hand and wrist surgery portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Acu-Loc 2 Wrist Plating System",
+        "url": "https://www.acumed.net/products/wrist/acu-loc-2-wrist-plating-system/",
+        "notes": "Official Acumed wrist product page used as supporting public evidence for the hand and wrist surgery portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as a public catalogue-level reference for the hand and wrist surgery portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_DISTAL_ULNA_WRIST_PORTFOLIO",
+    "system_name": "Acumed Distal Ulna / Wrist Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Hand and Wrist | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/",
+        "notes": "Official Acumed hand and wrist portfolio page used as the public source anchor for the distal ulna and wrist portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Acu-Loc 2 Wrist Plating System",
+        "url": "https://www.acumed.net/products/wrist/acu-loc-2-wrist-plating-system/",
+        "notes": "Official Acumed wrist product page used as supporting public evidence for distal ulna and wrist fixation coverage."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as a public catalogue-level reference for the distal ulna and wrist portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_RADIAL_HEAD_MODULAR",
+    "system_name": "Acumed Modular Radial Head",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Acumed Modular Radial Head System",
+        "url": "https://www.acumed.net/products/elbow/radial-head-system/",
+        "notes": "Official Acumed product page for the modular radial head system."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACU_LOC_DISTAL_RADIUS_SYSTEM",
+    "system_name": "Acu-Loc Distal Radius System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Acu-Loc 2 Wrist Plating System",
+        "url": "https://www.acumed.net/products/wrist/acu-loc-2-wrist-plating-system/",
+        "notes": "Official Acumed product page for the distal radius plating family."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_CLAVICLE_PLATING_SYSTEM",
+    "system_name": "Clavicle Plating System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Clavicle Plating System 2",
+        "url": "https://www.acumed.net/products/shoulder/clavicle-plating-system-2/",
+        "notes": "Official Acumed product page for clavicle fracture fixation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_DISTAL_HUMERUS_PLATING_SYSTEM",
+    "system_name": "Distal Humerus Plating System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Distal Humerus Plating System",
+        "url": "https://www.acumed.net/products/elbow/distal-humerus-plating-system/",
+        "notes": "Official Acumed product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_OLECRANON_PLATING_SYSTEM",
+    "system_name": "Olecranon Plating System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Olecranon Plating System",
+        "url": "https://www.acumed.net/products/elbow/olecranon-plating-system/",
+        "notes": "Official Acumed product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ANATOMIC_RADIAL_HEAD_SYSTEM",
+    "system_name": "Anatomic Radial Head System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Anatomic Radial Head System",
+        "url": "https://www.acumed.net/products/elbow/anatomic-radial-head-system/",
+        "notes": "Official Acumed product page for the Anatomic Radial Head System."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "Anatomic Radial Head Solutions Surgical Technique",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/02/Acumed-Surgical-Technique-EN-ARH-Solutions-Second-Generation-ELB10-07-F.pdf",
+        "notes": "Official Acumed surgical technique PDF for anatomic radial head solutions."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_FOREARM_SHAFT_PLATING_SYSTEM",
+    "system_name": "Forearm Shaft Plating System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Forearm Fracture Solutions",
+        "url": "https://www.acumed.net/products/hand-wrist/anatomic-midshaft-forearm-plating-system/",
+        "notes": "Official Acumed product page covering the Anatomic Midshaft Forearm Plating System and related forearm rod instrumentation."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog with forearm rod and plating references."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_PROXIMAL_HUMERUS_PLATING_SYSTEM",
+    "system_name": "Proximal Humerus Plating System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Polarus Proximal Humeral Plating System",
+        "url": "https://www.acumed.net/products/shoulder/polarus-proximal-humeral-plating-system/",
+        "notes": "Official Acumed product page with linked surgical technique and tray imagery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUTRAK___SCAPHOID_COMPRESSION_SCREW_SYSTEM",
+    "system_name": "Acutrak / Scaphoid Compression Screw System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Acutrak 3 Headless Compression Screw System",
+        "url": "https://www.acumed.net/products/screw-pin/acutrak-3-headless-compression-screw-system/",
+        "notes": "Official Acumed Acutrak 3 page with scaphoid indications and linked surgical videos."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Acutrak 2 Headless Compression Screw System",
+        "url": "https://www.acumed.net/products/screw-pin/acutrak-2-headless-compression-screw-system/",
+        "notes": "Official Acumed Acutrak 2 page with scaphoid fixation indications."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUTRAK_PERCUTANEOUS_SCAPHOID_FIXATION",
+    "system_name": "Acutrak Percutaneous Scaphoid Fixation",
+    "sources": [
+      {
+        "source_type": "surgical_video",
+        "title": "Animated Surgical Technique: Scaphoid Fracture",
+        "url": "https://www.acumed.net/video/animated-surgical-technique-scaphoid-fracture/",
+        "notes": "Official Acumed surgical animation using the Acutrak 2 Mini Screw for scaphoid fixation."
+      },
+      {
+        "source_type": "surgical_video",
+        "title": "Scaphoid Approach to Dorsal Fixation using Acutrak 2 Screw",
+        "url": "https://www.acumed.net/video/scaphoid-approach-to-dorsal-fixation-using-acutrak-2-screw-with-dr-bass/",
+        "notes": "Official Acumed surgical video for dorsal scaphoid fixation using Acutrak 2."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_TALUS___HINDFOOT_FIXATION_PORTFOLIO",
+    "system_name": "Talus / Hindfoot Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Extremity Screw System",
+        "url": "https://www.acumed.net/products/screw-pin/extremity-screw-system/",
+        "notes": "Official Acumed extremity screw system page with hindfoot and talus indications and tray imagery."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Acutrak 2 Headless Compression Screw System",
+        "url": "https://www.acumed.net/products/screw-pin/acutrak-2-headless-compression-screw-system/",
+        "notes": "Official Acumed Acutrak 2 page with hindfoot, talus, subtalar and ankle arthrodesis indications."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_HAND_FUSION_PORTFOLIO",
+    "system_name": "Acumed Hand Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Hand and Wrist | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/",
+        "notes": "Official Acumed hand and wrist portfolio page used as the public source anchor for the hand fusion portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Acutrak 3 Headless Compression Screw System",
+        "url": "https://www.acumed.net/products/screw-pin/acutrak-3-headless-compression-screw-system/",
+        "notes": "Official Acumed product page with hand and small joint fusion indications used as the closest public match for the hand fusion portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_HAND_TRAUMA_PORTFOLIO",
+    "system_name": "Acumed Hand trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Hand and Wrist | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/",
+        "notes": "Official Acumed hand and wrist portfolio page used as the public source anchor for the hand trauma portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as a public catalogue-level reference for the hand trauma portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_HAND_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Acumed Hand reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Hand and Wrist | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/",
+        "notes": "Official Acumed hand and wrist portfolio page used as the public source anchor for the hand reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Modular Hand System",
+        "url": "https://www.acumed.net/products/hand-wrist/modular-hand-system/",
+        "notes": "Official Acumed modular hand reconstruction page used as supporting public evidence for the hand reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Hand Fracture System",
+        "url": "https://www.acumed.net/products/hand-wrist/hand-fracture-system/",
+        "notes": "Official Acumed hand fracture and reconstruction system page used as supporting public evidence for the hand reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_SMALL_JOINT_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Acumed Small joint arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Hand and Wrist | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/",
+        "notes": "Official Acumed hand and wrist portfolio page used as the public source anchor for the small joint arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "OsteoMed HPS Hand Fusion System",
+        "url": "https://www.acumed.net/products/hand-wrist/hps-hand-fusion-system/",
+        "notes": "Official Acumed hand small-joint fusion and arthrodesis page used as the closest public match for small-joint arthroplasty and reconstructive hand workflow coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Total Wrist Fusion Plating System",
+        "url": "https://www.acumed.net/products/hand-wrist/total-wrist-fusion-plating-system",
+        "notes": "Official Acumed wrist reconstruction page used as supporting public evidence for small-joint reconstructive hand and wrist coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_HAND_SURGERY_PORTFOLIO",
+    "system_name": "Acumed Hand surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Hand and Wrist | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/",
+        "notes": "Official Acumed hand and wrist portfolio page used as the public source anchor for the hand surgery portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "OsteoMed Hand Plating System (HPS)",
+        "url": "https://www.acumed.net/products/hand-wrist/hps-hand-plating-system/",
+        "notes": "Official Acumed hand surgery product page used as the closest public match for the hand surgery portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_ELBOW_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Acumed Elbow Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Elbow | Acumed",
+        "url": "https://www.acumed.net/products/elbow",
+        "notes": "Official Acumed elbow portfolio page used as the primary public source anchor for the elbow reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Elbow Plating System | Acumed",
+        "url": "https://www.acumed.net/products/elbow/elbow-plating-system/",
+        "notes": "Official Acumed elbow plating page used as a reconstruction-focused operative-technique anchor for distal humerus, olecranon, and coronoid fixation."
+      },
+      {
+        "source_type": "eifu_product_page",
+        "title": "Anatomic Radial Head System | Acumed",
+        "url": "https://www.acumed.net/products/elbow/anatomic-radial-head-system/",
+        "notes": "Official Acumed radial head reconstruction page used as the IFU-style and arthroplasty reconstruction anchor; the page explicitly lists an eIFU for the anatomic radial head systems."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the elbow reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_ELBOW_TRAUMA_PORTFOLIO",
+    "system_name": "Acumed Elbow Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Elbow | Acumed",
+        "url": "https://www.acumed.net/products/elbow",
+        "notes": "Official Acumed elbow portfolio page used as the primary public source anchor for the elbow trauma portfolio entry."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Elbow Plating System | Acumed",
+        "url": "https://www.acumed.net/products/elbow/elbow-plating-system/",
+        "notes": "Official Acumed elbow plating page used as the closest public operative-technique anchor for elbow trauma fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Distal Humerus Plating System | Acumed",
+        "url": "https://www.acumed.net/products/elbow/distal-humerus-plating-system/",
+        "notes": "Official Acumed distal humerus trauma page used as supporting public evidence for elbow trauma fixation coverage."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the elbow trauma portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_ELBOW_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Acumed Elbow arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Elbow | Acumed",
+        "url": "https://www.acumed.net/products/elbow",
+        "notes": "Official Acumed elbow portfolio page used as the primary public source anchor for the elbow arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Anatomic Radial Head System | Acumed",
+        "url": "https://www.acumed.net/products/elbow/anatomic-radial-head-system/",
+        "notes": "Official Acumed radial head arthroplasty page used as the primary product-level anchor for the elbow arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Anatomic Radial Head Solutions | Acumed",
+        "url": "https://www.acumed.net/products/elbow/anatomic-radial-head-solutions/",
+        "notes": "Official Acumed radial head solutions page used as the closest public operative-technique and system-workflow anchor for elbow arthroplasty coverage."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the elbow arthroplasty portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_ELBOW_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "Acumed Elbow soft tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Elbow | Acumed",
+        "url": "https://www.acumed.net/products/elbow",
+        "notes": "Official Acumed elbow portfolio page used as the primary public source anchor for the elbow soft tissue portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PEEK Suture Anchor System | Acumed",
+        "url": "https://www.acumed.net/products/tendon-ligament/peek-suture-anchor-system/",
+        "notes": "Official Acumed PEEK Suture Anchor page used as the primary product-level anchor for elbow soft tissue repair coverage, including distal biceps and collateral ligament procedures."
+      },
+      {
+        "source_type": "eifu_product_page",
+        "title": "PEEK Suture Anchor System eIFU | Acumed",
+        "url": "https://www.acumed.net/products/tendon-ligament/peek-suture-anchor-system/",
+        "notes": "Official Acumed product page explicitly listing eIFU and surgical technique documents, used as the IFU-style anchor for the elbow soft tissue portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the elbow soft tissue portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_ELBOW_SPORTS_MEDICINE_PORTFOLIO",
+    "system_name": "Acumed Elbow sports medicine Portfolio",
+    "sources": [
+      {
+        "source_type": "procedure_hub_page",
+        "title": "Elbow Procedures | Acumed",
+        "url": "https://www.acumed.net/procedures/elbow-procedures/",
+        "notes": "Official Acumed elbow procedures hub used as the primary public source anchor for the elbow sports medicine portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PEEK Suture Anchor System | Acumed",
+        "url": "https://www.acumed.net/products/tendon-ligament/peek-suture-anchor-system/",
+        "notes": "Official Acumed PEEK Suture Anchor page used as the primary product-level anchor for elbow sports medicine coverage, including distal biceps and collateral ligament repair indications."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "PEEK Suture Anchor System Surgical Technique | Acumed",
+        "url": "https://www.acumed.net/resources/documents/peek-suture-anchor-system-surgical-technique/",
+        "notes": "Official Acumed surgical technique document page used as the operative-technique anchor for elbow sports medicine soft-tissue repair workflows."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the elbow sports medicine portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_FOREARM_TRAUMA_PORTFOLIO",
+    "system_name": "Acumed Forearm Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "Forearm Fracture Solutions | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/anatomic-midshaft-forearm-plating-system/",
+        "notes": "Official Acumed forearm fracture solutions page used as the primary public source anchor for the forearm trauma portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Forearm Rod System | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/forearm-rod-system/",
+        "notes": "Official Acumed forearm rod system page used as the intramedullary and trauma fixation anchor for the forearm trauma portfolio entry."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Anatomic Midshaft Forearm Plating System | Acumed",
+        "url": "https://www.acumed.net/products/hand-wrist/anatomic-midshaft-forearm-plating-system/",
+        "notes": "Official Acumed anatomic midshaft forearm plating page used as the operative-technique and plate-fixation anchor for the forearm trauma portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the forearm trauma portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_PERIPHERAL_NERVE_SURGERY_PORTFOLIO",
+    "system_name": "Acumed Peripheral nerve surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_products_page",
+        "title": "Products | Acumed",
+        "url": "https://www.acumed.net/products/",
+        "notes": "Official Acumed products overview used as the primary public source anchor for the peripheral nerve surgery portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Tendon & Ligament | Acumed",
+        "url": "https://www.acumed.net/products/tendon-ligament/",
+        "notes": "Official Acumed tendon and ligament portfolio page used as the closest current public category-level match for upper-extremity soft-tissue and nerve-adjacent repair workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PEEK Suture Anchor System | Acumed",
+        "url": "https://www.acumed.net/products/tendon-ligament/peek-suture-anchor-system/",
+        "notes": "Official Acumed soft-tissue fixation page used as the closest current public product-level match for upper-extremity soft-tissue and peripheral-nerve-adjacent repair workflows."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the peripheral nerve surgery portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_RADIAL_HEAD_REPLACEMENT_PORTFOLIO",
+    "system_name": "Acumed Radial Head Replacement Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Elbow | Acumed",
+        "url": "https://www.acumed.net/products/elbow",
+        "notes": "Official Acumed elbow portfolio page used as the primary public source anchor for the radial head replacement portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Anatomic Radial Head System | Acumed",
+        "url": "https://www.acumed.net/products/elbow/anatomic-radial-head-system/",
+        "notes": "Official Acumed radial head arthroplasty page used as the primary product-level anchor for the radial head replacement portfolio entry."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Anatomic Radial Head Solutions | Acumed",
+        "url": "https://www.acumed.net/products/elbow/anatomic-radial-head-solutions/",
+        "notes": "Official Acumed radial head solutions page used as the operative-technique and reconstruction-workflow anchor for the radial head replacement portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the radial head replacement portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_UPPER_EXTREMITY_ELBOW_TRAUMA_PORTFOLIO",
+    "system_name": "Acumed Upper Extremity / Elbow Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Elbow | Acumed",
+        "url": "https://www.acumed.net/products/elbow",
+        "notes": "Official Acumed elbow portfolio page used as the primary public source anchor for the upper extremity and elbow trauma portfolio entry."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Elbow Plating System | Acumed",
+        "url": "https://www.acumed.net/products/elbow/elbow-plating-system/",
+        "notes": "Official Acumed elbow plating page used as the closest public operative-technique anchor for upper-extremity and elbow trauma fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Distal Humerus Plating System | Acumed",
+        "url": "https://www.acumed.net/products/elbow/distal-humerus-plating-system/",
+        "notes": "Official Acumed distal humerus trauma page used as supporting public evidence for upper-extremity and elbow trauma fixation coverage."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the upper extremity and elbow trauma portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ANKLE_FRACTURE___FIBULA_SYSTEM",
+    "system_name": "Ankle Fracture / Fibula System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Fibula Rod System | Acumed",
+        "url": "https://www.acumed.net/products/foot-ankle/fibula-rod-system/",
+        "notes": "Official Acumed fibula rod system page used as the primary public source anchor for the ankle fracture and fibula system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Fibula Nail 2 System | Acumed",
+        "url": "https://www.acumed.net/products/foot-ankle/fibula-nail-2-system/",
+        "notes": "Official Acumed fibula nail system page used as supporting public evidence for intramedullary ankle and fibula fracture fixation coverage."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Locking Ankle Plating System | Acumed",
+        "url": "https://www.acumed.net/products/foot-ankle/ankle-plating-system/",
+        "notes": "Official Acumed ankle plating page used as the operative-technique and plate-fixation anchor for ankle and fibula fracture coverage."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the ankle fracture and fibula system entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_CALCANEAL_FRACTURE_PLATING_SYSTEM",
+    "system_name": "Calcaneal Fracture Plating System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Calcaneal Plating System | Acumed",
+        "url": "https://www.acumed.net/products/foot-ankle/calcaneal-plating-system/",
+        "notes": "Official Acumed calcaneal plating page used as the primary public source anchor for the calcaneal fracture plating system entry."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Calcaneal Plating System Surgical Technique | Acumed",
+        "url": "https://www.acumed.net/resources/documents/calcaneal-plating-system-surgical-technique/",
+        "notes": "Official Acumed surgical technique document page used as the operative-technique anchor for the calcaneal fracture plating system entry."
+      },
+      {
+        "source_type": "supporting_product_page",
+        "title": "Extremity Screw System | Acumed",
+        "url": "https://www.acumed.net/products/screw-pin/extremity-screw-system/",
+        "notes": "Official Acumed extremity screw page used as supporting public evidence for calcaneal fracture fixation instrumentation and adjunct fixation options."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the calcaneal fracture plating system entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_FOREFOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Forefoot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Forefoot-Midfoot Plating System | Acumed",
+        "url": "https://www.acumed.net/products/foot-ankle/forefoot-midfoot-plating-system",
+        "notes": "Official Acumed forefoot-midfoot plating page used as the primary public source anchor for the forefoot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Forefoot-Midfoot Plating System Surgical Technique | Acumed",
+        "url": "https://www.acumed.net/resources/documents/forefoot-midfoot-plating-system-surgical-technique/",
+        "notes": "Official Acumed surgical technique document page used as the operative-technique anchor for the forefoot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "supporting_product_page",
+        "title": "OsteoMed ExtremiFix Cannulated Screw System - Mini & Small | Acumed",
+        "url": "https://www.acumed.net/products/screw-pin/extremifix-cannulated-screw-system-mini-small/",
+        "notes": "Official Acumed forefoot fixation page used as supporting public evidence for reconstruction, osteotomy, and arthrodesis workflows in the forefoot portfolio."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the forefoot reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_HUMERAL_SHAFT_PLATING_SYSTEM",
+    "system_name": "Humeral Shaft Plating System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Polarus 3 Solution | Acumed",
+        "url": "https://www.acumed.net/products/shoulder/polarus-3-solution/",
+        "notes": "Official Acumed humeral fracture solution page used as the primary public source anchor for the humeral shaft plating system entry and documented as the closest current public match."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Polarus Proximal Humeral Plating System | Acumed",
+        "url": "https://www.acumed.net/products/shoulder/polarus-proximal-humeral-plating-system/",
+        "notes": "Official Acumed humeral plating page used as the closest public operative-technique anchor for the humeral shaft plating system entry."
+      },
+      {
+        "source_type": "supporting_product_page",
+        "title": "Polarus Humeral Rod System | Acumed",
+        "url": "https://www.acumed.net/products/shoulder/polarus-humeral-rod-system/",
+        "notes": "Official Acumed humeral rod page used as supporting public evidence for Acumed humerus fracture fixation workflows."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the humeral shaft plating system entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_RADIAL_HEAD___NECK_FIXATION_PORTFOLIO",
+    "system_name": "Radial Head / Neck Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Elbow | Acumed",
+        "url": "https://www.acumed.net/products/elbow",
+        "notes": "Official Acumed elbow portfolio page used as the primary public source anchor for the radial head and neck fixation portfolio entry."
+      },
+      {
+        "source_type": "operative_technique_page",
+        "title": "Anatomic Radial Head Solutions | Acumed",
+        "url": "https://www.acumed.net/products/elbow/anatomic-radial-head-solutions/",
+        "notes": "Official Acumed radial head solutions page used as the closest public operative-technique anchor for radial head and neck fixation and reconstruction workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Anatomic Radial Head System | Acumed",
+        "url": "https://www.acumed.net/products/elbow/anatomic-radial-head-system/",
+        "notes": "Official Acumed radial head system page used as supporting public evidence for radial head and neck fixation and replacement workflows."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Acumed Product Catalog",
+        "url": "https://www.acumed.net/wp-content/uploads/2023/08/Acumed-Product-Catalog-EN-single-page-vertical-GEN00-21-E.pdf",
+        "notes": "Official Acumed product catalog used as the public catalogue-level reference for the radial head and neck fixation portfolio entry."
+      }
+    ]
+  }
+]

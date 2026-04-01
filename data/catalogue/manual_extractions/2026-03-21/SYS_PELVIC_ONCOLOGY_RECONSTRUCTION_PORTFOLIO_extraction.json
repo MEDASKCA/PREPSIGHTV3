@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Pelvic Oncology Reconstruction Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Limb Salvage",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Pelvic Oncology Reconstruction Portfolio",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Orthopaedic oncology",
+      "system_notes": "Public Zimmer Biomet limb salvage, MUTARS RS Cup System, and labeling portal materials used as the source anchors for the pelvic oncology reconstruction portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Pelvic Oncology Reconstruction Portfolio Framework",
+      "system_name": "Pelvic Oncology Reconstruction Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Orthopaedic oncology",
+      "component_notes": "Portfolio-level informational framework anchored to Zimmer Biomet public pelvic oncology reconstruction sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public pelvic oncology reconstruction source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Limb Salvage; MUTARS RS Cup System; Zimmer Biomet Labeling Portal"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public pelvic oncology reconstruction source anchors do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Limb Salvage; MUTARS RS Cup System; Zimmer Biomet Labeling Portal"
+    }
+  ]
+}

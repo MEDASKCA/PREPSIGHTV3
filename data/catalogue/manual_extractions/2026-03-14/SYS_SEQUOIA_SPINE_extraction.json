@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Sequoia Spine System",
+    "source_type": "product_page",
+    "source_document": "Sequoia Spinal System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Sequoia Spine System",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Pedicle Screw-Rod System",
+      "system_notes": "Public source anchor for the Zimmer Biomet Sequoia posterior spinal fixation system."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Sequoia Spine Fixation Family",
+      "system_name": "Sequoia Spine System",
+      "component_role": "Portfolio Family",
+      "implant_category": "Spine Fixation Workflow",
+      "component_notes": "Official Zimmer Biomet sources describe the broader Sequoia posterior spinal fixation family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Public spine fixation product pages do not describe a dedicated tray in the current pass.",
+      "reason": "Tray detail should only be added from surgical technique or instrumentation sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public product pages do not expose a normalized product-code matrix in this pass.",
+      "reason": "Product codes should be captured from ordering guides or narrower implant SKU sources.",
+      "source_excerpt": "Current extraction remains high-level only."
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Biedermann Motech",
+    "system_name": "Biedermann Complex Deformity Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Spine | Biedermann Motech GmbH & Co. KG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_BIEDERMANN_COMPLEX_DEFORMITY_PORTFOLIO_COMPLEX_DEFORMITY_FRAMEWORK",
+        "Component Name": "Complex Deformity Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Spine",
+        "System ID": "SYS_BIEDERMANN_COMPLEX_DEFORMITY_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Biedermann public complex deformity source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Biedermann Complex Deformity Portfolio",
+          "supplier_name": "Biedermann Motech",
+          "system_category": "spine",
+          "system_notes": "Official Biedermann complex deformity materials used as the public source anchors for this complex deformity portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Biedermann Complex Deformity Portfolio",
+        "supplier_name": "Biedermann Motech",
+        "system_category": "spine",
+        "system_notes": "Official Biedermann complex deformity materials used as the public source anchors for this complex deformity portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Biedermann Complex Deformity Portfolio",
+        "supplier_name": "Biedermann Motech",
+        "system_category": "spine",
+        "system_notes": "Official Biedermann complex deformity materials used as the public source anchors for this complex deformity portfolio entry."
+      }
+    }
+  ]
+}

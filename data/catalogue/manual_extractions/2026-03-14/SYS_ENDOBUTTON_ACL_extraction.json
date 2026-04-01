@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Endobutton CL",
+    "source_type": "product_page",
+    "source_document": "ENDOBUTTON CL ULTRA Fixation Device",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Endobutton CL",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "ACL Fixation — Suspensory",
+      "system_notes": "Cortical suspensory fixation platform within the Smith+Nephew sports medicine portfolio for ACL reconstruction."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "ENDOBUTTON ACL Instrumentation",
+      "system_name": "Endobutton CL",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Smith+Nephew sports medicine materials describe dedicated delivery instrumentation for ENDOBUTTON fixation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "ENDOBUTTON CL ULTRA Fixation Device",
+      "system_name": "Endobutton CL",
+      "component_role": "Fixation Device",
+      "implant_category": "Sports Medicine Implant",
+      "component_notes": "Official Smith+Nephew materials describe the cortical suspensory fixation device used in ACL reconstruction."
+    },
+    {
+      "component_name": "ENDOBUTTON Continuous Loop",
+      "system_name": "Endobutton CL",
+      "component_role": "Loop Device",
+      "implant_category": "Sports Medicine Implant",
+      "component_notes": "Official product materials describe the continuous-loop fixation construct within the ENDOBUTTON family."
+    },
+    {
+      "component_name": "ENDOBUTTON Inserter",
+      "system_name": "Endobutton CL",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official sports medicine materials describe the dedicated insertion and deployment workflow for ENDOBUTTON fixation."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official sources confirm the ENDOBUTTON fixation family and instrumentation context, but a full normalized product-code matrix has not yet been extracted in this pass.",
+      "reason": "A deeper ordering guide or product-matrix pass is required for comprehensive product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

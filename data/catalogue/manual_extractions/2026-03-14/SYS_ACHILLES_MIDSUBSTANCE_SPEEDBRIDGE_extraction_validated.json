@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Achilles Midsubstance SpeedBridge",
+    "source_type": "specialty_page",
+    "source_document": "Foot & Ankle Surgery",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACHILLES_MIDSUBSTANCE_SPEEDBRIDGE_ACHILLES_SPEEDBRIDGE_REPAIR_FAMILY",
+        "Component Name": "Achilles SpeedBridge Repair Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Achilles Repair Workflow",
+        "System ID": "SYS_ACHILLES_MIDSUBSTANCE_SPEEDBRIDGE",
+        "Component Notes": "Official Arthrex portfolio sources describe the broader Achilles midsubstance SpeedBridge repair workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Achilles Midsubstance SpeedBridge",
+          "supplier_name": "Arthrex",
+          "system_category": "Achilles repair",
+          "system_notes": "Portfolio-level public anchor for Arthrex Achilles midsubstance SpeedBridge repair workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Achilles Midsubstance SpeedBridge",
+        "supplier_name": "Arthrex",
+        "system_category": "Achilles repair",
+        "system_notes": "Portfolio-level public anchor for Arthrex Achilles midsubstance SpeedBridge repair workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Achilles Midsubstance SpeedBridge",
+        "supplier_name": "Arthrex",
+        "system_category": "Achilles repair",
+        "system_notes": "Portfolio-level public anchor for Arthrex Achilles midsubstance SpeedBridge repair workflow resources."
+      }
+    }
+  ]
+}

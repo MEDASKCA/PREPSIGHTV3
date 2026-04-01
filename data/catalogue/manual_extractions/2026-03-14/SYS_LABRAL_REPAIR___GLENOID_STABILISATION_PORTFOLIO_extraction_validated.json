@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Labral Repair / Glenoid Stabilisation Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Shoulder",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LABRAL_REPAIR_GLENOID_STABILISATION_PORTFOLIO_LABRAL_REPAIR_GLENOID_STABILISATION_PORTFOLIO_FAMILY",
+        "Component Name": "Labral Repair Glenoid Stabilisation Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Shoulder Stabilisation Workflow",
+        "System ID": "SYS_LABRAL_REPAIR___GLENOID_STABILISATION_PORTFOLIO",
+        "Component Notes": "Official Arthrex portfolio sources describe the broader labral repair and glenoid stabilisation workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Labral Repair / Glenoid Stabilisation Portfolio",
+          "supplier_name": "Arthrex",
+          "system_category": "Shoulder stabilisation",
+          "system_notes": "Portfolio-level public anchor for Arthrex labral repair and glenoid stabilisation workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Labral Repair / Glenoid Stabilisation Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Shoulder stabilisation",
+        "system_notes": "Portfolio-level public anchor for Arthrex labral repair and glenoid stabilisation workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Labral Repair / Glenoid Stabilisation Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Shoulder stabilisation",
+        "system_notes": "Portfolio-level public anchor for Arthrex labral repair and glenoid stabilisation workflow resources."
+      }
+    }
+  ]
+}

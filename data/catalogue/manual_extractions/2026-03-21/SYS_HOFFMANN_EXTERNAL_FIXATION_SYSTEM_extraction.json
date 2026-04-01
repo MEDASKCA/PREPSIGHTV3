@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Hoffmann External Fixation System",
+    "source_type": "product_page",
+    "source_document": "Hoffmann 3 External Fixation System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Hoffmann External Fixation System",
+      "supplier_name": "Stryker",
+      "system_category": "trauma",
+      "system_notes": "Official Stryker Hoffmann 3, Hoffmann LRF Circular External Fixation System, and Hoffmann Compact materials used as the source anchors for the Hoffmann external fixation system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Hoffmann External Fixation Framework",
+      "system_name": "Hoffmann External Fixation System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "External Fixation",
+      "component_notes": "Framework component anchored to Stryker public unilateral and circular Hoffmann external fixation sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Hoffmann external fixation source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Hoffmann 3 External Fixation System; Hoffmann LRF Circular External Fixation System; Hoffmann Compact & Monotube Triax"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Hoffmann external fixation source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Hoffmann 3 External Fixation System; Hoffmann LRF Circular External Fixation System; Hoffmann Compact & Monotube Triax"
+    }
+  ]
+}

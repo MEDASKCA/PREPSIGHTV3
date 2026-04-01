@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "FAST-FIX Meniscal Repair System",
+    "source_type": "product_page",
+    "source_document": "FAST-FIX 360 Meniscal Repair System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_FAST_FIX_MENISCAL_REPAIR_SYSTEM_FAST_FIX_MENISCAL_REPAIR_SYSTEM_INSTRUMENTATION",
+        "Tray Name": "FAST-FIX Meniscal Repair System Instrumentation",
+        "System ID": "SYS_FAST_FIX_MENISCAL_REPAIR_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Smith+Nephew materials describe dedicated FAST-FIX delivery instrumentation for all-inside meniscal repair."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_FAST_FIX_MENISCAL_REPAIR_SYSTEM_FAST_FIX_MENISCAL_REPAIR_DEVICE",
+        "Component Name": "FAST-FIX Meniscal Repair Device",
+        "Component Role": "Repair Device",
+        "Implant Category": "Soft Tissue Fixation",
+        "System ID": "SYS_FAST_FIX_MENISCAL_REPAIR_SYSTEM",
+        "Component Notes": "Official Smith+Nephew materials describe the FAST-FIX meniscal repair construct used for all-inside repair."
+      },
+      {
+        "Component ID": "COMP_FAST_FIX_MENISCAL_REPAIR_SYSTEM_FAST_FIX_FLEX_DEVICE",
+        "Component Name": "FAST-FIX FLEX Device",
+        "Component Role": "Curved Repair Device",
+        "Implant Category": "Soft Tissue Fixation",
+        "System ID": "SYS_FAST_FIX_MENISCAL_REPAIR_SYSTEM",
+        "Component Notes": "Official Smith+Nephew materials describe the curved FAST-FIX FLEX delivery construct."
+      },
+      {
+        "Component ID": "COMP_FAST_FIX_MENISCAL_REPAIR_SYSTEM_FAST_FIX_INSERTER",
+        "Component Name": "FAST-FIX Inserter",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_FAST_FIX_MENISCAL_REPAIR_SYSTEM",
+        "Component Notes": "Official sports medicine materials describe the dedicated delivery instrumentation workflow for the FAST-FIX system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "FAST-FIX Meniscal Repair System",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "sports_medicine",
+          "system_notes": "All-inside meniscal repair platform mapped at portfolio level within the Smith+Nephew sports medicine workflow."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "FAST-FIX Meniscal Repair System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "sports_medicine",
+        "system_notes": "All-inside meniscal repair platform mapped at portfolio level within the Smith+Nephew sports medicine workflow."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "FAST-FIX Meniscal Repair System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "sports_medicine",
+        "system_notes": "All-inside meniscal repair platform mapped at portfolio level within the Smith+Nephew sports medicine workflow."
+      }
+    }
+  ]
+}

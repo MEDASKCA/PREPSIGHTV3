@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Philips",
+    "system_name": "Transoesophageal Echocardiography System",
+    "source_type": "technology_page",
+    "source_document": "Ultrasound for Anesthesia and Perioperative Care",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Transoesophageal Echocardiography System",
+      "supplier_name": "Philips",
+      "system_category": "Cardiac Imaging",
+      "system_notes": "Public source anchor for the Philips perioperative and transoesophageal echocardiography imaging platform."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Philips Perioperative Ultrasound Platform Family",
+      "system_name": "Transoesophageal Echocardiography System",
+      "component_role": "Portfolio Family",
+      "implant_category": "Cardiac Imaging Workflow",
+      "component_notes": "Official Philips sources describe the broader perioperative ultrasound and TEE platform family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Public ultrasound platform pages do not describe a dedicated tray in the current pass.",
+      "reason": "Tray detail should only be added from narrower probe, accessory, or cart sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public technology pages do not expose a normalized product-code matrix in this pass.",
+      "reason": "Product codes should be captured from ordering guides or narrower ultrasound model sources.",
+      "source_excerpt": "Current extraction remains high-level only."
+    }
+  ]
+}

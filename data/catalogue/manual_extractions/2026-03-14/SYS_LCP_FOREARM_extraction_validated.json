@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Radius / Ulna Plates",
+    "source_type": "technique_index_page",
+    "source_document": "Accompanying Product Information",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_LCP_RADIUS_ULNA_PLATES_LCP_FOREARM_INSTRUMENT_SET",
+        "Tray Name": "LCP Forearm Instrument Set",
+        "System ID": "SYS_LCP_FOREARM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes technique resources describe dedicated forearm plating instrumentation for radius and ulna fixation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LCP_RADIUS_ULNA_PLATES_LCP_RADIUS_PLATE",
+        "Component Name": "LCP Radius Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_FOREARM",
+        "Component Notes": "Official catalogue and technique materials identify radius plate options within the LCP forearm family."
+      },
+      {
+        "Component ID": "COMP_LCP_RADIUS_ULNA_PLATES_LCP_ULNA_PLATE",
+        "Component Name": "LCP Ulna Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_FOREARM",
+        "Component Notes": "Official catalogue and technique materials identify ulna plate options within the LCP forearm family."
+      },
+      {
+        "Component ID": "COMP_LCP_RADIUS_ULNA_PLATES_LCP_FOREARM_SCREW_SET",
+        "Component Name": "LCP Forearm Screw Set",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_FOREARM",
+        "Component Notes": "Official technique materials describe locking and cortex screw fixation used with the LCP forearm plating constructs."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "LCP Radius / Ulna Plates",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Locking Plate \u2014 Forearm",
+          "system_notes": "Forearm locking plate family covering radius and ulna fixation within the DePuy Synthes trauma portfolio."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "LCP Radius / Ulna Plates",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Forearm",
+        "system_notes": "Forearm locking plate family covering radius and ulna fixation within the DePuy Synthes trauma portfolio."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "LCP Radius / Ulna Plates",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Forearm",
+        "system_notes": "Forearm locking plate family covering radius and ulna fixation within the DePuy Synthes trauma portfolio."
+      }
+    }
+  ]
+}

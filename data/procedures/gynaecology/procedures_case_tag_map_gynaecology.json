@@ -1,0 +1,137 @@
+[
+  { "procedure_id": "PROC_DIAGNOSTIC_HYSTEROSCOPY", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_DIAGNOSTIC_HYSTEROSCOPY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_HYSTEROSCOPIC_POLYPECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HYSTEROSCOPIC_POLYPECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_HYSTEROSCOPIC_POLYPECTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_HYSTEROSCOPIC_RESECTION_OF_FIBROID", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HYSTEROSCOPIC_RESECTION_OF_FIBROID", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_HYSTEROSCOPIC_RESECTION_OF_FIBROID", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_ENDOMETRIAL_ABLATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ENDOMETRIAL_ABLATION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ENDOMETRIAL_ABLATION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_DILATATION_AND_CURETTAGE", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_DILATATION_AND_CURETTAGE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TOTAL_ABDOMINAL_HYSTERECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TOTAL_ABDOMINAL_HYSTERECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TOTAL_LAPAROSCOPIC_HYSTERECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TOTAL_LAPAROSCOPIC_HYSTERECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_TOTAL_LAPAROSCOPIC_HYSTERECTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_LAPAROSCOPIC_ASSISTED_VAGINAL_HYSTERECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_ASSISTED_VAGINAL_HYSTERECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_ASSISTED_VAGINAL_HYSTERECTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_VAGINAL_HYSTERECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_VAGINAL_HYSTERECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_MYOMECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_MYOMECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_OVARIAN_CYSTECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_OVARIAN_CYSTECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_OOPHORECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_OOPHORECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SALPINGECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SALPINGECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SALPINGO_OOPHORECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SALPINGO_OOPHORECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_MARSUPIALISATION_OF_BARTHOLIN_CYST", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_MARSUPIALISATION_OF_BARTHOLIN_CYST", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXCISION_OF_VULVAL_LESION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_VULVAL_LESION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_RADICAL_HYSTERECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RADICAL_HYSTERECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TOTAL_ABDOMINAL_HYSTERECTOMY_AND_BILATERAL_SALPINGO_OOPHORECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_TOTAL_ABDOMINAL_HYSTERECTOMY_AND_BILATERAL_SALPINGO_OOPHORECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DEBULKING_SURGERY_FOR_OVARIAN_CANCER", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_DEBULKING_SURGERY_FOR_OVARIAN_CANCER", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_OOPHORECTOMY_FOR_OVARIAN_MALIGNANCY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_OOPHORECTOMY_FOR_OVARIAN_MALIGNANCY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PELVIC_LYMPH_NODE_DISSECTION", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_PELVIC_LYMPH_NODE_DISSECTION", "case_tag_id": "CASE_DIAGNOSTIC" },
+
+  { "procedure_id": "PROC_OMENTECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_OMENTECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CERVICAL_CONE_BIOPSY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_CERVICAL_CONE_BIOPSY", "case_tag_id": "CASE_DIAGNOSTIC" },
+
+  { "procedure_id": "PROC_ANTERIOR_COLPORRHAPHY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ANTERIOR_COLPORRHAPHY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_POSTERIOR_COLPORRHAPHY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_POSTERIOR_COLPORRHAPHY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_VAGINAL_HYSTERECTOMY_FOR_PROLAPSE", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_VAGINAL_HYSTERECTOMY_FOR_PROLAPSE", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_SACROCOLPOPEXY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SACROCOLPOPEXY", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_SACROCOLPOPEXY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_UTEROSACRAL_LIGAMENT_SUSPENSION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_UTEROSACRAL_LIGAMENT_SUSPENSION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_MIDURETHRAL_SLING_PROCEDURE", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_MIDURETHRAL_SLING_PROCEDURE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_URETHRAL_BULKING_INJECTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_URETHRAL_BULKING_INJECTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_URETHRAL_BULKING_INJECTION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_LAPAROSCOPIC_TUBAL_PATENCY_TEST", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_TUBAL_PATENCY_TEST", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_SALPINGOSTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SALPINGOSTOMY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_SALPINGOLYSIS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SALPINGOLYSIS", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_OVARIAN_DRILLING", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_OVARIAN_DRILLING", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_OVARIAN_DRILLING", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_ADHESIOLYSIS_FOR_INFERTILITY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ADHESIOLYSIS_FOR_INFERTILITY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_DIAGNOSTIC_LAPAROSCOPY_IN_GYNAECOLOGY", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_DIAGNOSTIC_LAPAROSCOPY_IN_GYNAECOLOGY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_LAPAROSCOPIC_HYSTERECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_HYSTERECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_HYSTERECTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_LAPAROSCOPIC_MYOMECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_MYOMECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_MYOMECTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_LAPAROSCOPIC_OVARIAN_CYSTECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_OVARIAN_CYSTECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_OVARIAN_CYSTECTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_LAPAROSCOPIC_SALPINGECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_SALPINGECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_SALPINGECTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_LAPAROSCOPIC_TREATMENT_OF_ENDOMETRIOSIS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_TREATMENT_OF_ENDOMETRIOSIS", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_LAPAROSCOPIC_TREATMENT_OF_ENDOMETRIOSIS", "case_tag_id": "CASE_MINIMALLY_INVASIVE" }
+]

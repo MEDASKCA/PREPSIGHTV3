@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "ARCOS Modular",
+    "source_type": "product_page",
+    "source_document": "Arcos Modular Femoral Revision System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ARCOS_MODULAR_ARCOS_REVISION_INSTRUMENTATION",
+        "Tray Name": "ARCOS Revision Instrumentation",
+        "System ID": "SYS_ARCOS_REVISION",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Zimmer Biomet materials describe a single instrumentation platform for the ARCOS modular revision system."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ARCOS_MODULAR_ARCOS_PROXIMAL_BODY",
+        "Component Name": "ARCOS Proximal Body",
+        "Component Role": "Proximal Body",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ARCOS_REVISION",
+        "Component Notes": "Official materials describe cone, broach, and calcar proximal body options within the ARCOS modular system."
+      },
+      {
+        "Component ID": "COMP_ARCOS_MODULAR_ARCOS_DISTAL_STEM",
+        "Component Name": "ARCOS Distal Stem",
+        "Component Role": "Distal Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ARCOS_REVISION",
+        "Component Notes": "Official materials describe multiple distal stem geometries including STS, slotted, bullet-tip, and interlocking options."
+      },
+      {
+        "Component ID": "COMP_ARCOS_MODULAR_ARCOS_FEMORAL_HEAD",
+        "Component Name": "ARCOS Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ARCOS_REVISION",
+        "Component Notes": "The modular revision construct supports compatible head options across the revision platform."
+      },
+      {
+        "Component ID": "COMP_ARCOS_MODULAR_ARCOS_AUXILIARY_FIXATION_IMPLANT",
+        "Component Name": "ARCOS Auxiliary Fixation Implant",
+        "Component Role": "Auxiliary Fixation",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ARCOS_REVISION",
+        "Component Notes": "Official brochure describes claw, bolt, and button auxiliary fixation implants for trochanteric reattachment and stability."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "ARCOS Modular",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Hip Revision System",
+          "system_notes": "Modular cementless femoral revision platform for complex hip revision arthroplasty and femoral reconstruction."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "ARCOS Modular",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Hip Revision System",
+        "system_notes": "Modular cementless femoral revision platform for complex hip revision arthroplasty and femoral reconstruction."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "ARCOS Modular",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Hip Revision System",
+        "system_notes": "Modular cementless femoral revision platform for complex hip revision arthroplasty and femoral reconstruction."
+      }
+    }
+  ]
+}

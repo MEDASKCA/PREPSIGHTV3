@@ -1,0 +1,408 @@
+[
+  {
+    "id": "PROC_CRANIOTOMY_FOR_BRAIN_TUMOUR",
+    "name": "Craniotomy for Brain Tumour",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "aliases": [],
+    "description": "Open cranial procedure for resection or debulking of intracranial tumour.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CRANIOTOMY_FOR_EVACUATION_OF_SUBDURAL_HAEMATOMA",
+    "name": "Craniotomy for Evacuation of Subdural Haematoma",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "aliases": [],
+    "description": "Open cranial evacuation of subdural haematoma.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BURR_HOLE_DRAINAGE_OF_SUBDURAL_HAEMATOMA",
+    "name": "Burr Hole Drainage of Subdural Haematoma",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "aliases": [],
+    "description": "Burr hole evacuation of subdural haematoma.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CRANIOTOMY_FOR_INTRACEREBRAL_HAEMATOMA",
+    "name": "Craniotomy for Intracerebral Haematoma",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "aliases": [],
+    "description": "Open cranial evacuation of intracerebral haematoma.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CRANIOTOMY_FOR_ANEURYSM_CLIPPING",
+    "name": "Craniotomy for Aneurysm Clipping",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "aliases": [],
+    "description": "Open cranial procedure for clipping of intracranial aneurysm.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DECOMPRESSIVE_CRANIECTOMY",
+    "name": "Decompressive Craniectomy",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SKULL",
+    "aliases": [],
+    "description": "Removal of cranial bone flap to relieve raised intracranial pressure.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CRANIOPLASTY",
+    "name": "Cranioplasty",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SKULL",
+    "aliases": [],
+    "description": "Reconstruction of skull defect following craniectomy or trauma.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VENTRICULOPERITONEAL_SHUNT_INSERTION",
+    "name": "Ventriculoperitoneal Shunt Insertion",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_VENTRICLES",
+    "aliases": [
+      "VP Shunt Insertion"
+    ],
+    "description": "Insertion of shunt from cerebral ventricles to peritoneal cavity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXTERNAL_VENTRICULAR_DRAIN_INSERTION",
+    "name": "External Ventricular Drain Insertion",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_VENTRICLES",
+    "aliases": [
+      "EVD Insertion"
+    ],
+    "description": "Insertion of external ventricular drain for CSF diversion and pressure monitoring.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENDOSCOPIC_THIRD_VENTRICULOSTOMY",
+    "name": "Endoscopic Third Ventriculostomy",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_VENTRICLES",
+    "aliases": [
+      "ETV"
+    ],
+    "description": "Endoscopic CSF diversion procedure via the floor of the third ventricle.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRANSSPHENOIDAL_RESECTION_OF_PITUITARY_TUMOUR",
+    "name": "Transsphenoidal Resection of Pituitary Tumour",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_CRANIAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SKULL_BASE",
+    "aliases": [],
+    "description": "Endonasal or transsphenoidal resection of pituitary lesion.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LUMBAR_MICRODISCECTOMY",
+    "name": "Lumbar Microdiscectomy",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_LUMBAR_SPINE",
+    "aliases": [],
+    "description": "Microsurgical removal of lumbar disc prolapse.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LUMBAR_LAMINECTOMY",
+    "name": "Lumbar Laminectomy",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_LUMBAR_SPINE",
+    "aliases": [],
+    "description": "Posterior decompression of lumbar spinal canal.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CERVICAL_LAMINECTOMY",
+    "name": "Cervical Laminectomy",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_CERVICAL_SPINE",
+    "aliases": [],
+    "description": "Posterior decompression of cervical spinal canal.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ANTERIOR_CERVICAL_DISCECTOMY_AND_FUSION",
+    "name": "Anterior Cervical Discectomy and Fusion",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_CERVICAL_SPINE",
+    "aliases": [
+      "ACDF"
+    ],
+    "description": "Anterior cervical decompression with fusion.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CERVICAL_CORPECTOMY_AND_FUSION",
+    "name": "Cervical Corpectomy and Fusion",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_CERVICAL_SPINE",
+    "aliases": [],
+    "description": "Removal of vertebral body with reconstruction and fusion in cervical spine.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THORACIC_DECOMPRESSION",
+    "name": "Thoracic Decompression",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_THORACIC_SPINE",
+    "aliases": [],
+    "description": "Decompression procedure for thoracic spinal canal pathology.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LUMBAR_FUSION",
+    "name": "Lumbar Fusion",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_LUMBAR_SPINE",
+    "aliases": [],
+    "description": "Instrumented or non-instrumented fusion of lumbar spinal segments.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THORACOLUMBAR_FUSION_BY_NEUROSURGERY",
+    "name": "Thoracolumbar Fusion",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_THORACIC_SPINE",
+    "aliases": [],
+    "description": "Fusion across thoracic and lumbar spinal segments.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SPINAL_STABILISATION_FOR_TRAUMA",
+    "name": "Spinal Stabilisation for Trauma",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINE",
+    "aliases": [],
+    "description": "Instrumentation and stabilisation of traumatic spinal injury.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VERTEBROPLASTY_BY_NEUROSURGERY",
+    "name": "Vertebroplasty",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINE",
+    "aliases": [],
+    "description": "Percutaneous cement augmentation of vertebral body.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_KYPHOPLASTY_BY_NEUROSURGERY",
+    "name": "Kyphoplasty",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_SPINAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINE",
+    "aliases": [],
+    "description": "Balloon-assisted vertebral augmentation procedure.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DEEP_BRAIN_STIMULATION_LEAD_INSERTION",
+    "name": "Deep Brain Stimulation Lead Insertion",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "aliases": [
+      "DBS Lead Insertion"
+    ],
+    "description": "Stereotactic insertion of deep brain stimulation leads.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DEEP_BRAIN_STIMULATION_GENERATOR_INSERTION",
+    "name": "Deep Brain Stimulation Generator Insertion",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_CHEST_WALL",
+    "aliases": [
+      "DBS Generator Insertion"
+    ],
+    "description": "Insertion of pulse generator for deep brain stimulation system.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VAGUS_NERVE_STIMULATOR_INSERTION",
+    "name": "Vagus Nerve Stimulator Insertion",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_NECK",
+    "aliases": [
+      "VNS Insertion"
+    ],
+    "description": "Insertion of vagus nerve stimulation device.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_STEREOTACTIC_BRAIN_BIOPSY",
+    "name": "Stereotactic Brain Biopsy",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "aliases": [],
+    "description": "Image-guided stereotactic biopsy of intracranial lesion.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EPILEPSY_SURGERY",
+    "name": "Epilepsy Surgery",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "aliases": [],
+    "description": "Operative treatment for medically refractory epilepsy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_INTRATHECAL_BACLOFEN_PUMP_INSERTION",
+    "name": "Intrathecal Baclofen Pump Insertion",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_FUNCTIONAL_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINE",
+    "aliases": [],
+    "description": "Insertion of intrathecal drug delivery system for spasticity management.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RESECTION_OF_GLIOMA",
+    "name": "Resection of Glioma",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_NEUROONCOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "aliases": [],
+    "description": "Open resection of glioma.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RESECTION_OF_MENINGIOMA",
+    "name": "Resection of Meningioma",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_NEUROONCOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "aliases": [],
+    "description": "Open resection of meningioma.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RESECTION_OF_VESTIBULAR_SCHWANNOMA",
+    "name": "Resection of Vestibular Schwannoma",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_NEUROONCOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_CEREBELLOPONTINE_ANGLE",
+    "aliases": [
+      "Acoustic Neuroma Resection"
+    ],
+    "description": "Resection of vestibular schwannoma in the cerebellopontine angle.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RESECTION_OF_SPINAL_TUMOUR",
+    "name": "Resection of Spinal Tumour",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_NEUROONCOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINE",
+    "aliases": [],
+    "description": "Resection of intradural or extradural spinal tumour.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AWAKE_CRANIOTOMY_FOR_TUMOUR_RESECTION",
+    "name": "Awake Craniotomy for Tumour Resection",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_NEUROONCOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_BRAIN",
+    "aliases": [],
+    "description": "Awake craniotomy for tumour resection in eloquent brain regions.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PAEDIATRIC_VENTRICULOPERITONEAL_SHUNT_INSERTION",
+    "name": "Paediatric Ventriculoperitoneal Shunt Insertion",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_VENTRICLES",
+    "aliases": [],
+    "description": "VP shunt insertion in paediatric neurosurgical practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PAEDIATRIC_ENDOSCOPIC_THIRD_VENTRICULOSTOMY",
+    "name": "Paediatric Endoscopic Third Ventriculostomy",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_VENTRICLES",
+    "aliases": [],
+    "description": "Endoscopic third ventriculostomy in paediatric hydrocephalus management.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_MYELOMENINGOCELE",
+    "name": "Repair of Myelomeningocele",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINAL_CORD",
+    "aliases": [],
+    "description": "Closure and repair of myelomeningocele.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TETHERED_CORD_RELEASE",
+    "name": "Tethered Cord Release",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SPINAL_CORD",
+    "aliases": [],
+    "description": "Release of tethered spinal cord.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PAEDIATRIC_CRANIOSYNOSTOSIS_SURGERY_BY_NEUROSURGERY",
+    "name": "Paediatric Craniosynostosis Surgery",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_SKULL",
+    "aliases": [],
+    "description": "Cranial vault procedure for craniosynostosis in paediatric practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PAEDIATRIC_POSTERIOR_FOSSA_DECOMPRESSION",
+    "name": "Paediatric Posterior Fossa Decompression",
+    "specialty_id": "SPEC_NEUROSURGERY",
+    "service_line_id": "SL_PAEDIATRIC_NEUROSURGERY",
+    "anatomy_id": "ANAT_SPEC_NEUROSURGERY_POSTERIOR_FOSSA",
+    "aliases": [],
+    "description": "Posterior fossa decompression for paediatric hindbrain pathology.",
+    "status": "active"
+  }
+]

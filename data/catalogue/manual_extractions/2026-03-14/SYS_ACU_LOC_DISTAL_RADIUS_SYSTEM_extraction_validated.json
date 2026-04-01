@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acu-Loc Distal Radius System",
+    "source_type": "product_page",
+    "source_document": "Acu-Loc 2 Wrist Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ACU_LOC_DISTAL_RADIUS_SYSTEM_ACU_LOC_DISTAL_RADIUS_INSTRUMENTATION",
+        "Tray Name": "Acu-Loc Distal Radius Instrumentation",
+        "System ID": "SYS_ACU_LOC_DISTAL_RADIUS_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated distal radius plating instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACU_LOC_DISTAL_RADIUS_SYSTEM_ACU_LOC_DISTAL_RADIUS_PLATE",
+        "Component Name": "Acu-Loc Distal Radius Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_ACU_LOC_DISTAL_RADIUS_SYSTEM",
+        "Component Notes": "Core distal radius plate family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_ACU_LOC_DISTAL_RADIUS_SYSTEM_ACU_LOC_DISTAL_RADIUS_SCREW",
+        "Component Name": "Acu-Loc Distal Radius Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_ACU_LOC_DISTAL_RADIUS_SYSTEM",
+        "Component Notes": "Core fixation screw family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_ACU_LOC_DISTAL_RADIUS_SYSTEM_ACU_LOC_DISTAL_RADIUS_GUIDE",
+        "Component Name": "Acu-Loc Distal Radius Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_ACU_LOC_DISTAL_RADIUS_SYSTEM",
+        "Component Notes": "Dedicated reduction and drill guide family referenced by the system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Acu-Loc Distal Radius System",
+          "supplier_name": "Acumed",
+          "system_category": "Wrist Trauma Fixation System",
+          "system_notes": "Distal radius fixation platform with plate, screw and instrumentation families."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Acu-Loc Distal Radius System",
+        "supplier_name": "Acumed",
+        "system_category": "Wrist Trauma Fixation System",
+        "system_notes": "Distal radius fixation platform with plate, screw and instrumentation families."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Acu-Loc Distal Radius System",
+        "supplier_name": "Acumed",
+        "system_category": "Wrist Trauma Fixation System",
+        "system_notes": "Distal radius fixation platform with plate, screw and instrumentation families."
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "GMRS / Oncology Reconstruction Portfolio",
+    "source_type": "product_page",
+    "source_document": "GMRS Global Modular Replacement System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_GMRS_ONCOLOGY_RECONSTRUCTION_PORTFOLIO_ONCOLOGY_RECONSTRUCTION_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Oncology Reconstruction Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Orthopaedic oncology",
+        "System ID": "SYS_GMRS___ONCOLOGY_RECONSTRUCTION_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Stryker public GMRS and oncology reconstruction sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "GMRS / Oncology Reconstruction Portfolio",
+          "supplier_name": "Stryker",
+          "system_category": "Orthopaedic oncology",
+          "system_notes": "Public Stryker GMRS, Orthopaedic Oncology, and METS Distal Femur materials used as the source anchors for the oncology reconstruction portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "GMRS / Oncology Reconstruction Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "Orthopaedic oncology",
+        "system_notes": "Public Stryker GMRS, Orthopaedic Oncology, and METS Distal Femur materials used as the source anchors for the oncology reconstruction portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "GMRS / Oncology Reconstruction Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "Orthopaedic oncology",
+        "system_notes": "Public Stryker GMRS, Orthopaedic Oncology, and METS Distal Femur materials used as the source anchors for the oncology reconstruction portfolio entry."
+      }
+    }
+  ]
+}

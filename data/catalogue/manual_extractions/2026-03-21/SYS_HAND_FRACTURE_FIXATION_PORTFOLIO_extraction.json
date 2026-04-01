@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Skeletal Dynamics",
+    "system_name": "Hand Fracture Fixation Portfolio",
+    "source_type": "product_page",
+    "source_document": "THREADED HAND NAIL",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Hand Fracture Fixation Portfolio",
+      "supplier_name": "Skeletal Dynamics",
+      "system_category": "hand_wrist_trauma",
+      "system_notes": "Official Skeletal Dynamics hand fixation materials used as the source anchors for this hand fracture fixation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Hand Fracture Fixation Framework",
+      "system_name": "Hand Fracture Fixation Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Hand Trauma Portfolio",
+      "component_notes": "Framework component anchored to Skeletal Dynamics public hand fracture fixation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public hand fracture fixation source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "THREADED HAND NAIL; PROTEAN Fragment Plating System"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public hand fracture fixation source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "THREADED HAND NAIL; PROTEAN Fragment Plating System"
+    }
+  ]
+}

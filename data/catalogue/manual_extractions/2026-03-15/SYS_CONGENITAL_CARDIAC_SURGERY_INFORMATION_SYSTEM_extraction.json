@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Congenital Cardiac Surgery Information System",
+    "source_type": "database_page",
+    "source_document": "STS CHSD / CHSS Resources",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Congenital Cardiac Surgery Information System",
+      "supplier_name": "Unassigned",
+      "system_category": "Paediatric Cardiac Surgical Management",
+      "system_notes": "Public source anchor for congenital cardiac surgery information, benchmarking, and quality-improvement workflow support."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Congenital Cardiac Surgery Workflow Framework",
+      "system_name": "Congenital Cardiac Surgery Information System",
+      "component_role": "Workflow Framework",
+      "implant_category": "Service Line Information Workflow",
+      "component_notes": "STS CHSD and CHSS resources describe congenital cardiac surgical benchmarking, quality improvement, and research workflow support."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Database and society resources do not define a tray or instrument case for this congenital cardiac information row.",
+      "reason": "Tray rows should only be added from device-specific or procedural kit sources.",
+      "source_excerpt": "Current extraction remains workflow-level only."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public congenital surgery resources do not provide normalized product codes.",
+      "reason": "Product rows should only be added from vendor-specific congenital cardiac workflow platforms if identified later.",
+      "source_excerpt": "Current extraction remains source-backed and high-level."
+    }
+  ]
+}

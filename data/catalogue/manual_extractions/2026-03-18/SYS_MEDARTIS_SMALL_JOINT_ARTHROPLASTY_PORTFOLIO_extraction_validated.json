@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Medartis",
+    "system_name": "Medartis Small joint arthroplasty Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Medartis | Hand Solutions",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_MEDARTIS_SMALL_JOINT_ARTHROPLASTY_PORTFOLIO_SMALL_JOINT_ARTHROPLASTY_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Small Joint Arthroplasty Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Small Joint Arthroplasty Portfolio",
+        "System ID": "SYS_MEDARTIS_SMALL_JOINT_ARTHROPLASTY_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Medartis public hand solutions and small-joint arthroplasty market sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Medartis Small joint arthroplasty Portfolio",
+          "supplier_name": "Medartis",
+          "system_category": "Small joint arthroplasty",
+          "system_notes": "Public Medartis hand solutions and small-joint arthroplasty market materials used as the source anchors for the small joint arthroplasty portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Medartis Small joint arthroplasty Portfolio",
+        "supplier_name": "Medartis",
+        "system_category": "Small joint arthroplasty",
+        "system_notes": "Public Medartis hand solutions and small-joint arthroplasty market materials used as the source anchors for the small joint arthroplasty portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Medartis Small joint arthroplasty Portfolio",
+        "supplier_name": "Medartis",
+        "system_category": "Small joint arthroplasty",
+        "system_notes": "Public Medartis hand solutions and small-joint arthroplasty market materials used as the source anchors for the small joint arthroplasty portfolio entry."
+      }
+    }
+  ]
+}

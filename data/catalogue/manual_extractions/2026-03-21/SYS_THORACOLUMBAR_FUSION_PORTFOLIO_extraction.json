@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Thoracolumbar Fusion Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Spine and Biologics | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Thoracolumbar Fusion Portfolio",
+      "supplier_name": "Medtronic",
+      "system_category": "spine",
+      "system_notes": "Official Medtronic thoracolumbar fusion materials used as the public source anchors for this thoracolumbar fusion portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Thoracolumbar Fusion Framework",
+      "system_name": "Thoracolumbar Fusion Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Framework component anchored to Medtronic public thoracolumbar fusion source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public thoracolumbar fusion source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Spine and Biologics | Medtronic; CD HORIZON Spinal System | Medtronic; Medtronic Announces FDA approval of Infuse Bone Graft for one-and-two level TLIF spine procedures"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public thoracolumbar fusion source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Spine and Biologics | Medtronic; CD HORIZON Spinal System | Medtronic; Medtronic Announces FDA approval of Infuse Bone Graft for one-and-two level TLIF spine procedures"
+    }
+  ]
+}

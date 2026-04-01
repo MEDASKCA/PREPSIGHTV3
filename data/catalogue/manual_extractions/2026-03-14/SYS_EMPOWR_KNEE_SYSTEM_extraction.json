@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Enovis",
+    "system_name": "EMPOWR Knee System",
+    "source_type": "product_page",
+    "source_document": "EMPOWR PS Knee",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "EMPOWR Knee System",
+      "supplier_name": "Enovis",
+      "system_category": "Knee Arthroplasty System",
+      "system_notes": "Knee arthroplasty platform with primary and higher-constraint options."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "EMPOWR Instrumentation",
+      "system_name": "EMPOWR Knee System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Dedicated instrumentation is referenced on the EMPOWR platform pages."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "EMPOWR Femoral Component",
+      "system_name": "EMPOWR Knee System",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Core femoral component family referenced on EMPOWR product pages."
+    },
+    {
+      "component_name": "EMPOWR Tibial Baseplate",
+      "system_name": "EMPOWR Knee System",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Tibial base component family referenced on EMPOWR product pages."
+    },
+    {
+      "component_name": "EMPOWR Insert",
+      "system_name": "EMPOWR Knee System",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Insert family referenced on EMPOWR product pages."
+    },
+    {
+      "component_name": "EMPOWR Patella",
+      "system_name": "EMPOWR Knee System",
+      "component_role": "Patellar Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Patellar component family referenced on EMPOWR product pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Platform includes PS and other configuration-specific options.",
+      "reason": "Needs operative technique or brochure review before splitting specific constraint families.",
+      "source_excerpt": "Current extraction keeps the core shared component families only."
+    }
+  ]
+}

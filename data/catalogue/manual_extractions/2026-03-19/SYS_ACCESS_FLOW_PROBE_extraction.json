@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Getinge",
+    "system_name": "Transit-Time Flow Probe",
+    "source_type": "product_page",
+    "source_document": "Medistim TTFM Probes",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Transit-Time Flow Probe",
+      "supplier_name": "Getinge",
+      "system_category": "flow assessment",
+      "system_notes": "Official Medistim transit-time flow measurement probe and platform materials used as the source anchors for the transit-time flow probe entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Transit-Time Flow Probe Framework",
+      "system_name": "Transit-Time Flow Probe",
+      "component_role": "Platform Framework",
+      "implant_category": "Flow assessment",
+      "component_notes": "Portfolio-level informational framework anchored to Medistim public TTFM probe and platform sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The current public Medistim source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Medistim TTFM Probes, MiraQ Vascular, and Medistim company page"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The current public Medistim source anchors do not provide a complete SKU-level extraction for this system entry.",
+      "source_excerpt": "Medistim TTFM Probes, MiraQ Vascular, and Medistim company page"
+    }
+  ]
+}

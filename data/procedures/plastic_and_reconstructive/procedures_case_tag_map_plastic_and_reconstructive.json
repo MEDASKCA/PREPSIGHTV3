@@ -1,0 +1,109 @@
+[
+  { "procedure_id": "PROC_BURNS_DEBRIDEMENT", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_BURNS_DEBRIDEMENT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TANGENTIAL_EXCISION_OF_BURN", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_TANGENTIAL_EXCISION_OF_BURN", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SPLIT_THICKNESS_SKIN_GRAFT_FOR_BURN", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_SPLIT_THICKNESS_SKIN_GRAFT_FOR_BURN", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FULL_THICKNESS_SKIN_GRAFT_FOR_BURN", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_FULL_THICKNESS_SKIN_GRAFT_FOR_BURN", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ESCHAROTOMY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_ESCHAROTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FASCIOTOMY_FOR_BURN_COMPLICATION", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_FASCIOTOMY_FOR_BURN_COMPLICATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_BURN_CONTRACTURE_RELEASE", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_BURN_CONTRACTURE_RELEASE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXCISION_OF_SKIN_LESION_OF_HEAD_AND_NECK", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_SKIN_LESION_OF_HEAD_AND_NECK", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXCISION_OF_SKIN_LESION_OF_TRUNK", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_SKIN_LESION_OF_TRUNK", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXCISION_OF_SKIN_LESION_OF_UPPER_LIMB", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_SKIN_LESION_OF_UPPER_LIMB", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXCISION_OF_SKIN_LESION_OF_LOWER_LIMB", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_SKIN_LESION_OF_LOWER_LIMB", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_WIDE_LOCAL_EXCISION_OF_SKIN_CANCER", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_WIDE_LOCAL_EXCISION_OF_SKIN_CANCER", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_RECONSTRUCTION_AFTER_SKIN_CANCER_EXCISION", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RECONSTRUCTION_AFTER_SKIN_CANCER_EXCISION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_LOCAL_FLAP_RECONSTRUCTION_OF_SKIN_DEFECT", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_LOCAL_FLAP_RECONSTRUCTION_OF_SKIN_DEFECT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CARPAL_TUNNEL_RELEASE_BY_PLASTICS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CARPAL_TUNNEL_RELEASE_BY_PLASTICS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TRIGGER_FINGER_RELEASE_BY_PLASTICS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TRIGGER_FINGER_RELEASE_BY_PLASTICS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DUPUYTREN_FASCIECTOMY_BY_PLASTICS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_DUPUYTREN_FASCIECTOMY_BY_PLASTICS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FLEXOR_TENDON_REPAIR_OF_HAND_BY_PLASTICS", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_FLEXOR_TENDON_REPAIR_OF_HAND_BY_PLASTICS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXTENSOR_TENDON_REPAIR_OF_HAND_BY_PLASTICS", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_EXTENSOR_TENDON_REPAIR_OF_HAND_BY_PLASTICS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DIGITAL_NERVE_REPAIR", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_DIGITAL_NERVE_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_REPLANTATION_OF_DIGIT", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_REPLANTATION_OF_DIGIT", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_FREE_FLAP_RECONSTRUCTION_OF_UPPER_LIMB", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_FREE_FLAP_RECONSTRUCTION_OF_UPPER_LIMB", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CRANIOSYNOSTOSIS_RECONSTRUCTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_CRANIOSYNOSTOSIS_RECONSTRUCTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CRANIOFACIAL_RECONSTRUCTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_CRANIOFACIAL_RECONSTRUCTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ORBITAL_RECONSTRUCTION_BY_PLASTICS", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_ORBITAL_RECONSTRUCTION_BY_PLASTICS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CLEFT_LIP_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_CLEFT_LIP_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CLEFT_PALATE_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_CLEFT_PALATE_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ALVEOLAR_BONE_GRAFTING_FOR_CLEFT", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_ALVEOLAR_BONE_GRAFTING_FOR_CLEFT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CLEFT_LIP_REVISION", "case_tag_id": "CASE_REVISION" },
+  { "procedure_id": "PROC_CLEFT_LIP_REVISION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_FISTULA_REPAIR_AFTER_CLEFT_PALATE", "case_tag_id": "CASE_REVISION" },
+  { "procedure_id": "PROC_FISTULA_REPAIR_AFTER_CLEFT_PALATE", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_IMPLANT_BASED_BREAST_RECONSTRUCTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_IMPLANT_BASED_BREAST_RECONSTRUCTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_AUTOLOGOUS_BREAST_RECONSTRUCTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_AUTOLOGOUS_BREAST_RECONSTRUCTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DIEP_FLAP_BREAST_RECONSTRUCTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_DIEP_FLAP_BREAST_RECONSTRUCTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_LATISSIMUS_DORSI_FLAP_BREAST_RECONSTRUCTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_LATISSIMUS_DORSI_FLAP_BREAST_RECONSTRUCTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_BREAST_RECONSTRUCTION_REVISION", "case_tag_id": "CASE_REVISION" },
+  { "procedure_id": "PROC_BREAST_RECONSTRUCTION_REVISION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_NIPPLE_AREOLA_RECONSTRUCTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_NIPPLE_AREOLA_RECONSTRUCTION", "case_tag_id": "CASE_THERAPEUTIC" }
+]

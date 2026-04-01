@@ -1,0 +1,42 @@
+[
+  {
+    "supplier_id": "SUP_PHILIPS",
+    "supplier_name": "Philips",
+    "system_id": "SYS_TEE_SYSTEM",
+    "system_name": "Transoesophageal Echocardiography System",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Ultrasound for Anesthesia and Perioperative Care",
+        "url": "https://www.philips.com/healthcare/solutions/anesthesia-and-perioperative-care/ultrasound",
+        "notes": "Official Philips perioperative ultrasound page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Cardiovascular Ultrasound",
+        "url": "https://www.philips.com/healthcare/solutions/cardiovascular-ultrasound",
+        "notes": "Official Philips cardiovascular ultrasound page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PHILIPS",
+    "supplier_name": "Philips",
+    "system_id": "SYS_CAPNOGRAPHY_MONITOR",
+    "system_name": "Capnography Monitor",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Capnography Monitoring",
+        "url": "https://www.philips.com/healthcare/solutions/patient-monitoring/capnography",
+        "notes": "Official Philips capnography monitoring page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Patient Monitoring",
+        "url": "https://www.philips.com/healthcare/solutions/patient-monitoring",
+        "notes": "Official Philips patient monitoring page used as broader workflow context."
+      }
+    ]
+  }
+]

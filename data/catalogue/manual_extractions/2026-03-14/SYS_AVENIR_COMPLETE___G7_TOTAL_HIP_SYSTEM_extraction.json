@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Avenir Complete / G7 Total Hip System",
+    "source_type": "product_page",
+    "source_document": "G7 Acetabular System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Avenir Complete / G7 Total Hip System",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Primary total hip arthroplasty platform combining Avenir Complete femoral and G7 acetabular families."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Avenir Complete / G7 Instrumentation",
+      "system_name": "Avenir Complete / G7 Total Hip System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Combined hip system materials reference dedicated instrumentation for the stem and acetabular platform."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "G7 Acetabular Shell",
+      "system_name": "Avenir Complete / G7 Total Hip System",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core G7 shell family referenced on the product page."
+    },
+    {
+      "component_name": "G7 Acetabular Liner",
+      "system_name": "Avenir Complete / G7 Total Hip System",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core G7 liner family referenced on the product page."
+    },
+    {
+      "component_name": "Avenir Complete Femoral Stem",
+      "system_name": "Avenir Complete / G7 Total Hip System",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core Avenir Complete stem family referenced in system materials."
+    },
+    {
+      "component_name": "Avenir Complete Femoral Head",
+      "system_name": "Avenir Complete / G7 Total Hip System",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Femoral head family used with the Avenir Complete / G7 platform."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Specific shell, liner and stem subfamilies are not fully split in this pass.",
+      "reason": "Needs deeper technique or catalogue review before detailed family expansion.",
+      "source_excerpt": "Current extraction keeps the combined platform-level implant families only."
+    }
+  ]
+}

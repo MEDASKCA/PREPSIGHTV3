@@ -1,0 +1,98 @@
+[
+  {
+    "supplier_id": "SUP_LEMaitre_VASCULAR",
+    "supplier_name": "LeMaitre Vascular",
+    "system_id": "SYS_HEPARINISED_SHUNT",
+    "system_name": "Carotid Shunt",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Home | LeMaitre",
+        "url": "https://www.lemaitre.com/",
+        "notes": "Official LeMaitre Vascular homepage used as the primary supplier anchor for the carotid shunt entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Flexcel Carotid Shunt | LeMaitre",
+        "url": "https://www.lemaitre.com/products/flexcel-carotid-shunt",
+        "notes": "Official LeMaitre product page for the Flexcel carotid shunt used as a primary public product anchor for this carotid shunt system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Pruitt F3 Carotid Shunts | LeMaitre",
+        "url": "https://www.lemaitre.com/products/pruitt-f3-carotid-shunts",
+        "notes": "Official LeMaitre product page for the Pruitt F3 carotid shunt family used as supporting public product evidence for this carotid shunt system entry."
+      },
+      {
+        "source_type": "ifu_library_page",
+        "title": "English (EU) - Instructions for Use | LeMaitre",
+        "url": "https://www.lemaitre.com/english-eu-instructions-use",
+        "notes": "Official LeMaitre EU instructions-for-use library page used as the IFU-style source anchor for the carotid shunt entry; the page lists Flexcel and Pruitt F3 carotid shunt IFUs."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEMaitre_VASCULAR",
+    "supplier_name": "LeMaitre Vascular",
+    "system_id": "SYS_TUNNELLER",
+    "system_name": "Graft Tunneller",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Home | LeMaitre",
+        "url": "https://www.lemaitre.com/",
+        "notes": "Official LeMaitre Vascular homepage used as the primary public supplier anchor for the graft tunneller entry."
+      },
+      {
+        "source_type": "product_overview_page",
+        "title": "Products by Country | LeMaitre",
+        "url": "https://www.lemaitre.com/products/products-country",
+        "notes": "Official LeMaitre products overview used as the closest current public catalogue-style anchor for the graft tunneller entry because a dedicated graft tunneller product page is not currently exposed publicly."
+      },
+      {
+        "source_type": "regional_company_page",
+        "title": "Contact Us | LeMaitre",
+        "url": "https://www.lemaitre.com/contact-us",
+        "notes": "Official LeMaitre contact page used as supporting public evidence of LeMaitre's direct UK and Ireland sales presence for this distribution-oriented graft tunneller entry."
+      },
+      {
+        "source_type": "ifu_library_page",
+        "title": "English (EU) - Instructions for Use | LeMaitre",
+        "url": "https://www.lemaitre.com/english-eu-instructions-use",
+        "notes": "Official LeMaitre EU instructions-for-use library page used as the closest current IFU-style source anchor for the graft tunneller entry because a dedicated public graft tunneller IFU listing is not currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEMaitre_VASCULAR",
+    "supplier_name": "LeMaitre Vascular",
+    "system_id": "SYS_PATCH_MATERIAL",
+    "system_name": "Vascular Patch",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Home | LeMaitre",
+        "url": "https://www.lemaitre.com/",
+        "notes": "Official LeMaitre Vascular homepage used as the primary supplier anchor for the vascular patch entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "XenoSure Biologic Patch | LeMaitre",
+        "url": "https://www.lemaitre.com/products/xenosure-biologic-patch",
+        "notes": "Official LeMaitre product page for XenoSure Biologic Patch used as a primary public product anchor for this vascular patch system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "VascuCel Bioscaffold Patch | LeMaitre",
+        "url": "https://www.lemaitre.com/products/vascucel-bioscaffold-patch",
+        "notes": "Official LeMaitre product page for VascuCel Bioscaffold Patch used as supporting public product evidence for this vascular patch system entry."
+      },
+      {
+        "source_type": "ifu_library_page",
+        "title": "English (EU) - Instructions for Use | LeMaitre",
+        "url": "https://www.lemaitre.com/english-eu-instructions-use",
+        "notes": "Official LeMaitre EU instructions-for-use library page used as the IFU-style source anchor for the vascular patch entry; the page includes XenoSure and VascuCel patch IFUs."
+      }
+    ]
+  }
+]

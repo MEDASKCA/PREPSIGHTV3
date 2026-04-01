@@ -1,0 +1,730 @@
+[
+  {
+    "id": "PROC_APPENDICECTOMY",
+    "name": "Appendicectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_APPENDIX",
+    "aliases": [
+      "Appendectomy"
+    ],
+    "description": "Removal of the appendix.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DRAINAGE_OF_INTRA_ABDOMINAL_ABSCESS",
+    "name": "Drainage of Intra-Abdominal Abscess",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMEN",
+    "aliases": [],
+    "description": "Operative or image-guided drainage of intra-abdominal abscess.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ADHESIOLYSIS_FOR_BOWEL_OBSTRUCTION",
+    "name": "Adhesiolysis for Bowel Obstruction",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_SMALL_INTESTINE",
+    "aliases": [],
+    "description": "Division of adhesions causing bowel obstruction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SMALL_BOWEL_RESECTION",
+    "name": "Small Bowel Resection",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_SMALL_INTESTINE",
+    "aliases": [],
+    "description": "Segmental resection of small intestine.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CLOSURE_OF_PERFORATED_DUODENAL_ULCER",
+    "name": "Closure of Perforated Duodenal Ulcer",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_DUODENUM",
+    "aliases": [],
+    "description": "Operative repair of perforated duodenal ulcer.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EMERGENCY_LAPAROTOMY",
+    "name": "Emergency Laparotomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_EMERGENCY_GENERAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMEN",
+    "aliases": [],
+    "description": "Emergency open abdominal exploration.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DAMAGE_CONTROL_LAPAROTOMY",
+    "name": "Damage Control Laparotomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_ACUTE_CARE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMEN",
+    "aliases": [],
+    "description": "Abbreviated laparotomy focused on haemorrhage and contamination control.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RELOOK_LAPAROTOMY",
+    "name": "Relook Laparotomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_ACUTE_CARE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMEN",
+    "aliases": [],
+    "description": "Planned repeat laparotomy following initial emergency surgery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ABDOMINAL_WALL_DEBRIDEMENT",
+    "name": "Abdominal Wall Debridement",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_ACUTE_CARE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMINAL_WALL",
+    "aliases": [],
+    "description": "Debridement of infected or necrotic abdominal wall tissue.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_NEGATIVE_PRESSURE_THERAPY_FOR_OPEN_ABDOMEN",
+    "name": "Negative Pressure Therapy for Open Abdomen",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_ACUTE_CARE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMEN",
+    "aliases": [],
+    "description": "Temporary abdominal closure using negative pressure therapy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_WIDE_LOCAL_EXCISION_OF_BREAST_LESION",
+    "name": "Wide Local Excision of Breast Lesion",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_BREAST_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_BREAST",
+    "aliases": [
+      "Lumpectomy"
+    ],
+    "description": "Breast-conserving excision of focal breast lesion.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MASTECTOMY",
+    "name": "Mastectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_BREAST_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_BREAST",
+    "aliases": [],
+    "description": "Removal of breast tissue.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SENTINEL_LYMPH_NODE_BIOPSY_OF_BREAST",
+    "name": "Sentinel Lymph Node Biopsy of Breast",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_BREAST_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_AXILLA",
+    "aliases": [],
+    "description": "Sentinel lymph node biopsy for breast disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AXILLARY_NODE_CLEARANCE",
+    "name": "Axillary Node Clearance",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_BREAST_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_AXILLA",
+    "aliases": [
+      "Axillary Lymph Node Dissection"
+    ],
+    "description": "Clearance of axillary lymph nodes.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_BREAST_CYST",
+    "name": "Excision of Breast Cyst",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_BREAST_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_BREAST",
+    "aliases": [],
+    "description": "Excision of benign breast cyst.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RIGHT_HEMICOLECTOMY",
+    "name": "Right Hemicolectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_COLON",
+    "aliases": [],
+    "description": "Resection of right colon.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LEFT_HEMICOLECTOMY",
+    "name": "Left Hemicolectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_COLON",
+    "aliases": [],
+    "description": "Resection of left colon.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SIGMOID_COLECTOMY",
+    "name": "Sigmoid Colectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_COLON",
+    "aliases": [
+      "Sigmoidectomy"
+    ],
+    "description": "Resection of sigmoid colon.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ANTERIOR_RESECTION",
+    "name": "Anterior Resection",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_RECTUM",
+    "aliases": [],
+    "description": "Resection of rectosigmoid or upper rectum with anastomosis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LOW_ANTERIOR_RESECTION",
+    "name": "Low Anterior Resection",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_RECTUM",
+    "aliases": [],
+    "description": "Low rectal resection with restorative anastomosis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ABDOMINOPERINEAL_RESECTION",
+    "name": "Abdominoperineal Resection",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_RECTUM",
+    "aliases": [
+      "APR"
+    ],
+    "description": "Resection of distal rectum and anus with permanent stoma.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HARTMANNS_PROCEDURE",
+    "name": "Hartmanns Procedure",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_COLON",
+    "aliases": [],
+    "description": "Resection of diseased colon with end colostomy and rectal stump.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SUBTOTAL_COLECTOMY",
+    "name": "Subtotal Colectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_COLON",
+    "aliases": [],
+    "description": "Resection of most of the colon.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TOTAL_COLECTOMY",
+    "name": "Total Colectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_COLON",
+    "aliases": [],
+    "description": "Complete resection of the colon.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FORMATION_OF_LOOP_ILEOSTOMY",
+    "name": "Formation of Loop Ileostomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_SMALL_INTESTINE",
+    "aliases": [],
+    "description": "Creation of loop ileostomy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REVERSAL_OF_ILEOSTOMY",
+    "name": "Reversal of Ileostomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_SMALL_INTESTINE",
+    "aliases": [],
+    "description": "Closure of ileostomy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HAEMORRHOIDECTOMY",
+    "name": "Haemorrhoidectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ANUS",
+    "aliases": [
+      "Hemorrhoidectomy"
+    ],
+    "description": "Excision of haemorrhoids.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LATERAL_INTERNAL_SPHINCTEROTOMY",
+    "name": "Lateral Internal Sphincterotomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ANUS",
+    "aliases": [],
+    "description": "Division of internal anal sphincter for chronic fissure.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FISTULOTOMY",
+    "name": "Fistulotomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ANUS",
+    "aliases": [],
+    "description": "Division of anal fistula tract.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SETON_INSERTION",
+    "name": "Seton Insertion",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_COLORECTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ANUS",
+    "aliases": [],
+    "description": "Seton placement for fistula-in-ano.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OESOPHAGECTOMY",
+    "name": "Oesophagectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_OESOPHAGUS",
+    "aliases": [
+      "Esophagectomy"
+    ],
+    "description": "Resection of the oesophagus.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TOTAL_GASTRECTOMY",
+    "name": "Total Gastrectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_STOMACH",
+    "aliases": [],
+    "description": "Complete resection of the stomach.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SUBTOTAL_GASTRECTOMY",
+    "name": "Subtotal Gastrectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_STOMACH",
+    "aliases": [
+      "Partial Gastrectomy"
+    ],
+    "description": "Partial resection of the stomach.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ANTI_REFLUX_SURGERY",
+    "name": "Anti-Reflux Surgery",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_GASTROOESOPHAGEAL_JUNCTION",
+    "aliases": [
+      "Fundoplication"
+    ],
+    "description": "Anti-reflux procedure at the gastrooesophageal junction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HIATUS_HERNIA_REPAIR",
+    "name": "Hiatus Hernia Repair",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_DIAPHRAGM",
+    "aliases": [
+      "Hiatal Hernia Repair"
+    ],
+    "description": "Repair of hiatus hernia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_GASTROJEJUNOSTOMY",
+    "name": "Gastrojejunostomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_UPPER_GASTROINTESTINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_STOMACH",
+    "aliases": [],
+    "description": "Creation of an anastomosis between stomach and jejunum.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_WEDGE_RESECTION_OF_LIVER",
+    "name": "Wedge Resection of Liver",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_LIVER",
+    "aliases": [],
+    "description": "Wedge excision of liver tissue.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SEGMENTECTOMY_OF_LIVER",
+    "name": "Segmentectomy of Liver",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_LIVER",
+    "aliases": [],
+    "description": "Segmental liver resection.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RIGHT_HEPATECTOMY",
+    "name": "Right Hepatectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_LIVER",
+    "aliases": [],
+    "description": "Resection of the right lobe of the liver.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LEFT_HEPATECTOMY",
+    "name": "Left Hepatectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_LIVER",
+    "aliases": [],
+    "description": "Resection of the left lobe of the liver.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CHOLECYSTECTOMY",
+    "name": "Cholecystectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_GALLBLADDER",
+    "aliases": [],
+    "description": "Removal of the gallbladder.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_COMMON_BILE_DUCT_EXPLORATION",
+    "name": "Common Bile Duct Exploration",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_BILE_DUCTS",
+    "aliases": [],
+    "description": "Exploration of the common bile duct.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HEPATICOJEJUNOSTOMY",
+    "name": "Hepaticojejunostomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_BILE_DUCTS",
+    "aliases": [],
+    "description": "Anastomosis between hepatic duct and jejunum.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DISTAL_PANCREATECTOMY",
+    "name": "Distal Pancreatectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PANCREAS",
+    "aliases": [],
+    "description": "Resection of distal pancreas.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PANCREATICODUODENECTOMY",
+    "name": "Pancreaticoduodenectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HEPATOPANCREATOBILIARY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PANCREAS",
+    "aliases": [
+      "Whipple Procedure"
+    ],
+    "description": "Resection of pancreatic head and duodenum.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LIVER_TRANSPLANTATION",
+    "name": "Liver Transplantation",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_TRANSPLANT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_LIVER",
+    "aliases": [],
+    "description": "Transplantation of donor liver.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PANCREAS_TRANSPLANTATION",
+    "name": "Pancreas Transplantation",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_TRANSPLANT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PANCREAS",
+    "aliases": [],
+    "description": "Transplantation of donor pancreas.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SMALL_BOWEL_TRANSPLANTATION",
+    "name": "Small Bowel Transplantation",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_TRANSPLANT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_SMALL_INTESTINE",
+    "aliases": [
+      "Intestinal Transplantation"
+    ],
+    "description": "Transplantation of donor small intestine.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SLEEVE_GASTRECTOMY",
+    "name": "Sleeve Gastrectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_BARIATRIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_STOMACH",
+    "aliases": [],
+    "description": "Longitudinal resection of the stomach for weight loss.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ROUX_EN_Y_GASTRIC_BYPASS",
+    "name": "Roux-en-Y Gastric Bypass",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_BARIATRIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_STOMACH",
+    "aliases": [],
+    "description": "Bariatric gastric bypass procedure.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ONE_ANASTOMOSIS_GASTRIC_BYPASS",
+    "name": "One-Anastomosis Gastric Bypass",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_BARIATRIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_STOMACH",
+    "aliases": [
+      "Mini Gastric Bypass"
+    ],
+    "description": "Single-anastomosis bariatric bypass procedure.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BARIATRIC_REVISION_SURGERY",
+    "name": "Bariatric Revision Surgery",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_BARIATRIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_STOMACH",
+    "aliases": [],
+    "description": "Revision of previous bariatric surgery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THYROIDECTOMY",
+    "name": "Thyroidectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_ENDOCRINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_THYROID_GLAND",
+    "aliases": [],
+    "description": "Partial or total removal of thyroid gland.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HEMITHYROIDECTOMY",
+    "name": "Hemithyroidectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_ENDOCRINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_THYROID_GLAND",
+    "aliases": [
+      "Thyroid Lobectomy"
+    ],
+    "description": "Removal of one thyroid lobe.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PARATHYROIDECTOMY",
+    "name": "Parathyroidectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_ENDOCRINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PARATHYROID_GLANDS",
+    "aliases": [],
+    "description": "Removal of one or more parathyroid glands.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ADRENALECTOMY",
+    "name": "Adrenalectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_ENDOCRINE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ADRENAL_GLANDS",
+    "aliases": [],
+    "description": "Removal of adrenal gland.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CYTOREDUCTIVE_SURGERY",
+    "name": "Cytoreductive Surgery",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_SURGICAL_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PERITONEUM",
+    "aliases": [],
+    "description": "Extensive tumour debulking surgery, often for peritoneal disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PERITONEAL_TUMOUR_DEBULKING",
+    "name": "Peritoneal Tumour Debulking",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_SURGICAL_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PERITONEUM",
+    "aliases": [],
+    "description": "Debulking of peritoneal tumour burden.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ONCOLOGICAL_LIVER_RESECTION",
+    "name": "Oncological Liver Resection",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_SURGICAL_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_LIVER",
+    "aliases": [],
+    "description": "Liver resection performed for malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ONCOLOGICAL_GASTRECTOMY",
+    "name": "Oncological Gastrectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_SURGICAL_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_STOMACH",
+    "aliases": [],
+    "description": "Gastrectomy performed for malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ONCOLOGICAL_PANCREATECTOMY",
+    "name": "Oncological Pancreatectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_SURGICAL_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_PANCREAS",
+    "aliases": [],
+    "description": "Pancreatic resection performed for malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ONCOLOGICAL_COLECTOMY",
+    "name": "Oncological Colectomy",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_SURGICAL_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_COLON",
+    "aliases": [],
+    "description": "Colon resection performed for malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_INGUINAL_HERNIA_REPAIR",
+    "name": "Inguinal Hernia Repair",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_GROIN",
+    "aliases": [],
+    "description": "Repair of inguinal hernia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FEMORAL_HERNIA_REPAIR",
+    "name": "Femoral Hernia Repair",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_GROIN",
+    "aliases": [],
+    "description": "Repair of femoral hernia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_UMBILICAL_HERNIA_REPAIR",
+    "name": "Umbilical Hernia Repair",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_UMBILICUS",
+    "aliases": [],
+    "description": "Repair of umbilical hernia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EPIGASTRIC_HERNIA_REPAIR",
+    "name": "Epigastric Hernia Repair",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMINAL_WALL",
+    "aliases": [],
+    "description": "Repair of epigastric hernia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_INCISIONAL_HERNIA_REPAIR",
+    "name": "Incisional Hernia Repair",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMINAL_WALL",
+    "aliases": [],
+    "description": "Repair of incisional hernia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PARASTOMAL_HERNIA_REPAIR",
+    "name": "Parastomal Hernia Repair",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMINAL_WALL",
+    "aliases": [],
+    "description": "Repair of parastomal hernia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VENTRAL_HERNIA_REPAIR",
+    "name": "Ventral Hernia Repair",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_ABDOMINAL_WALL",
+    "aliases": [],
+    "description": "Repair of ventral abdominal wall hernia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DIAPHRAGMATIC_HERNIA_REPAIR",
+    "name": "Diaphragmatic Hernia Repair",
+    "specialty_id": "SPEC_GENERAL_SURGERY",
+    "service_line_id": "SL_HERNIA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_GENERAL_SURGERY_DIAPHRAGM",
+    "aliases": [],
+    "description": "Repair of diaphragmatic hernia.",
+    "status": "active"
+  }
+]

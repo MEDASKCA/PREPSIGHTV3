@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "TightRope ACL / AC System",
+    "source_type": "product_page",
+    "source_document": "ACL TightRope Implant and AC TightRope Implant System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "TightRope ACL / AC System",
+      "supplier_name": "Arthrex",
+      "system_category": "Suspensory Fixation System",
+      "system_notes": "Suspensory fixation platform used across ACL and AC reconstruction applications."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "TightRope Instrumentation",
+      "system_name": "TightRope ACL / AC System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "System materials reference dedicated passing and drilling instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "TightRope Implant",
+      "system_name": "TightRope ACL / AC System",
+      "component_role": "Suspensory Implant",
+      "implant_category": "Soft Tissue Fixation Implant",
+      "component_notes": "Core TightRope implant family referenced on the product pages."
+    },
+    {
+      "component_name": "TightRope Cortical Button",
+      "system_name": "TightRope ACL / AC System",
+      "component_role": "Cortical Button",
+      "implant_category": "Soft Tissue Fixation Implant",
+      "component_notes": "Cortical fixation element within the TightRope construct."
+    },
+    {
+      "component_name": "TightRope Drill Pin",
+      "system_name": "TightRope ACL / AC System",
+      "component_role": "Drill Pin",
+      "implant_category": "Instrumentation",
+      "component_notes": "Dedicated drill/passing instrumentation referenced in system materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "ACL and AC applications may have distinct implant variants.",
+      "reason": "Needs deeper technique review before splitting ACL-specific and AC-specific subfamilies.",
+      "source_excerpt": "Current extraction keeps the shared suspensory fixation platform only."
+    }
+  ]
+}

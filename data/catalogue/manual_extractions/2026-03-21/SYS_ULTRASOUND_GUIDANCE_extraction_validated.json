@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "AngioDynamics",
+    "system_name": "Ultrasound Guidance System",
+    "source_type": "legacy_clearance_reference",
+    "source_document": "AngioDynamics Announces FDA Clearance for Celerity Tip Location System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ULTRASOUND_GUIDANCE_SYSTEM_ULTRASOUND_GUIDANCE_FRAMEWORK",
+        "Component Name": "Ultrasound Guidance Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_ULTRASOUND_GUIDANCE",
+        "Component Notes": "Framework component anchored to AngioDynamics public imaging-guidance source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Ultrasound Guidance System",
+          "supplier_name": "AngioDynamics",
+          "system_category": "vascular_access_imaging",
+          "system_notes": "Official AngioDynamics legacy imaging-guidance materials used as the closest current public source anchors for this ultrasound guidance system entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Ultrasound Guidance System",
+        "supplier_name": "AngioDynamics",
+        "system_category": "vascular_access_imaging",
+        "system_notes": "Official AngioDynamics legacy imaging-guidance materials used as the closest current public source anchors for this ultrasound guidance system entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Ultrasound Guidance System",
+        "supplier_name": "AngioDynamics",
+        "system_category": "vascular_access_imaging",
+        "system_notes": "Official AngioDynamics legacy imaging-guidance materials used as the closest current public source anchors for this ultrasound guidance system entry."
+      }
+    }
+  ]
+}

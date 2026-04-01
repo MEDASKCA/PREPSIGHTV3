@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "SpeedBridge / SwiveLock / FiberTak",
+    "source_type": "specialty_page",
+    "source_document": "Shoulder",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "SpeedBridge / SwiveLock / FiberTak",
+      "supplier_name": "Arthrex",
+      "system_category": "Shoulder soft tissue fixation",
+      "system_notes": "Portfolio-level public anchor for Arthrex SpeedBridge, SwiveLock, and FiberTak workflow resources."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "SpeedBridge SwiveLock FiberTak Portfolio Family",
+      "system_name": "SpeedBridge / SwiveLock / FiberTak",
+      "component_role": "Portfolio Family",
+      "implant_category": "Shoulder Soft Tissue Fixation Workflow",
+      "component_notes": "Official Arthrex portfolio sources describe the broader SpeedBridge, SwiveLock, and FiberTak workflow family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "This is a portfolio-level row rather than a single shoulder soft-tissue fixation tray, so no dedicated tray is asserted in this pass.",
+      "reason": "Tray detail should only be added from narrower SpeedBridge, SwiveLock, or FiberTak product-family sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Portfolio-level sources do not expose a normalized product-code matrix.",
+      "reason": "Product codes should be captured from narrower SpeedBridge, SwiveLock, or FiberTak implant or ordering sources.",
+      "source_excerpt": "Current extraction remains portfolio-level only."
+    }
+  ]
+}

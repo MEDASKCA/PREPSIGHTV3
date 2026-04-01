@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "ACTIS / Pinnacle",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "ACTIS Total Hip System and Pinnacle Acetabular Cup System Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "ACTIS / Pinnacle",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Cementless primary total hip construct anchored to the official ACTIS stem and PINNACLE cup product pages and surgical techniques."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "ACTIS / Pinnacle Instrumentation",
+      "system_name": "ACTIS / Pinnacle",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official DePuy Synthes materials support dedicated acetabular and femoral instrumentation for the ACTIS and Pinnacle total hip construct."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "ACTIS Femoral Stem",
+      "system_name": "ACTIS / Pinnacle",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official ACTIS materials describe the cementless femoral stem family used in the construct."
+    },
+    {
+      "component_name": "PINNACLE Acetabular Shell",
+      "system_name": "ACTIS / Pinnacle",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Pinnacle materials describe the acetabular shell family used in the construct."
+    },
+    {
+      "component_name": "PINNACLE Acetabular Liner",
+      "system_name": "ACTIS / Pinnacle",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Pinnacle materials describe compatible acetabular liner options."
+    },
+    {
+      "component_name": "Femoral Head",
+      "system_name": "ACTIS / Pinnacle",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official construct materials describe modular femoral head options used with the ACTIS stem and Pinnacle cup."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The current source set confirms the construct and component families but this pass does not expand the full ACTIS and Pinnacle product-code matrix.",
+      "reason": "A deeper catalogue or sterile implant listing pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

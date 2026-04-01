@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Restoration Modular",
+    "source_type": "surgical_protocol_pdf",
+    "source_document": "Restoration Modular Revision Hip System Surgical Protocol",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_RESTORATION_MODULAR_RESTORATION_MODULAR_REVISION_INSTRUMENTATION",
+        "Tray Name": "Restoration Modular Revision Instrumentation",
+        "System ID": "SYS_RESTORATION_MODULAR",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Stryker materials describe fewer trays and streamlined revision instrumentation for the Restoration Modular system."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_RESTORATION_MODULAR_RESTORATION_MODULAR_CONE_BODY",
+        "Component Name": "Restoration Modular Cone Body",
+        "Component Role": "Modular Cone Body",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RESTORATION_MODULAR",
+        "Component Notes": "Official surgical protocol describes modular cone bodies in seven diameters with multiple vertical offsets."
+      },
+      {
+        "Component ID": "COMP_RESTORATION_MODULAR_RESTORATION_MODULAR_CONICAL_DISTAL_STEM",
+        "Component Name": "Restoration Modular Conical Distal Stem",
+        "Component Role": "Distal Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RESTORATION_MODULAR",
+        "Component Notes": "Official surgical protocol describes conical distal stems in multiple lengths and diameters."
+      },
+      {
+        "Component ID": "COMP_RESTORATION_MODULAR_RESTORATION_MODULAR_FEMORAL_HEAD",
+        "Component Name": "Restoration Modular Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_RESTORATION_MODULAR",
+        "Component Notes": "Official surgical protocol states the cone bodies are compatible with CoCr, Biolox delta ceramic, and alumina ceramic femoral heads."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Restoration Modular",
+          "supplier_name": "Stryker",
+          "system_category": "Hip Revision System",
+          "system_notes": "Modular revision total hip arthroplasty platform for complex femoral revision and severe bone loss."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Restoration Modular",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Revision System",
+        "system_notes": "Modular revision total hip arthroplasty platform for complex femoral revision and severe bone loss."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Restoration Modular",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Revision System",
+        "system_notes": "Modular revision total hip arthroplasty platform for complex femoral revision and severe bone loss."
+      }
+    }
+  ]
+}

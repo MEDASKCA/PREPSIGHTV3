@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Enovis",
+    "system_name": "AltiVate Shoulder System",
+    "source_type": "product_page",
+    "source_document": "AltiVate Anatomic Shoulder",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ALTIVATE_SHOULDER_SYSTEM_ALTIVATE_ANATOMIC_INSTRUMENTATION",
+        "Tray Name": "AltiVate Anatomic Instrumentation",
+        "System ID": "SYS_ALTIVATE_SHOULDER_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated anatomic shoulder instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ALTIVATE_SHOULDER_SYSTEM_ALTIVATE_HUMERAL_STEM",
+        "Component Name": "AltiVate Humeral Stem",
+        "Component Role": "Humeral Stem",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_ALTIVATE_SHOULDER_SYSTEM",
+        "Component Notes": "Core humeral stem family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_ALTIVATE_SHOULDER_SYSTEM_ALTIVATE_HUMERAL_HEAD",
+        "Component Name": "AltiVate Humeral Head",
+        "Component Role": "Humeral Head",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_ALTIVATE_SHOULDER_SYSTEM",
+        "Component Notes": "Core humeral head family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_ALTIVATE_SHOULDER_SYSTEM_ALTIVATE_GLENOID",
+        "Component Name": "AltiVate Glenoid",
+        "Component Role": "Glenoid Component",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_ALTIVATE_SHOULDER_SYSTEM",
+        "Component Notes": "Core glenoid component family referenced on the product page."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "AltiVate Shoulder System",
+          "supplier_name": "Enovis",
+          "system_category": "Shoulder Arthroplasty System",
+          "system_notes": "Anatomic shoulder arthroplasty platform."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "AltiVate Shoulder System",
+        "supplier_name": "Enovis",
+        "system_category": "Shoulder Arthroplasty System",
+        "system_notes": "Anatomic shoulder arthroplasty platform."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "AltiVate Shoulder System",
+        "supplier_name": "Enovis",
+        "system_category": "Shoulder Arthroplasty System",
+        "system_notes": "Anatomic shoulder arthroplasty platform."
+      }
+    }
+  ]
+}

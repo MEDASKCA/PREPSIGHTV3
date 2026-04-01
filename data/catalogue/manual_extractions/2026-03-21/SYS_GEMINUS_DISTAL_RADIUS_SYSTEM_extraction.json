@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Skeletal Dynamics",
+    "system_name": "Geminus Distal Radius System",
+    "source_type": "product_page",
+    "source_document": "GEMINUS Distal Radius System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Geminus Distal Radius System",
+      "supplier_name": "Skeletal Dynamics",
+      "system_category": "hand_wrist_trauma",
+      "system_notes": "Official Skeletal Dynamics distal radius materials used as the public source anchors for this hand and wrist trauma system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Distal Radius System Framework",
+      "system_name": "Geminus Distal Radius System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Hand and Wrist Trauma",
+      "component_notes": "Framework component anchored to Skeletal Dynamics public distal radius source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public distal radius source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "GEMINUS Distal Radius System; FREEFIX Forearm Plating System"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public distal radius source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "GEMINUS Distal Radius System; FREEFIX Forearm Plating System"
+    }
+  ]
+}

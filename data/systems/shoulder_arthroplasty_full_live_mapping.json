@@ -1,0 +1,298 @@
+{
+  "specialty": "Trauma and Orthopaedics",
+  "subspecialty": "Arthroplasty",
+  "anatomy": "Shoulder",
+  "structure": "subanatomy_group -> procedure -> variants -> systems[]",
+  "updated_at": "2026-03-13T20:18:47.727Z",
+  "subanatomy_groups": [
+    {
+      "name": "Whole Joint",
+      "procedures": [
+        {
+          "procedure_id": "PROC_PRIMARY_TOTAL_SHOULDER_REPLACEMENT",
+          "procedure_name": "Primary Total Shoulder Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_PRIMARY_TSR_ANATOMIC",
+              "variant_name": "Anatomic TSA",
+              "systems": [
+                {
+                  "system_id": "SYS_EQUINOXE",
+                  "system_name": "Equinoxe Shoulder System",
+                  "supplier_name": "Exactech",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "primary_shoulder",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog shoulder platform.",
+                  "approach_compatibility": [
+                    "Anatomic TSA",
+                    "Reverse TSA"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ASCEND_FLEX",
+                  "system_name": "Ascend Flex",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "primary_shoulder",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog shoulder platform.",
+                  "approach_compatibility": [
+                    "Anatomic TSA",
+                    "Reverse TSA"
+                  ]
+                },
+                {
+                  "system_id": "SYS_COMPREHENSIVE_SHOULDER",
+                  "system_name": "Comprehensive Shoulder",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "primary_shoulder",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog shoulder platform.",
+                  "approach_compatibility": [
+                    "Anatomic TSA",
+                    "Reverse TSA"
+                  ]
+                },
+                {
+                  "system_id": "SYS_GLOBAL_ADVANTAGE",
+                  "system_name": "Global Advantage / Delta XTEND",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "primary_shoulder",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog shoulder platform.",
+                  "approach_compatibility": [
+                    "Anatomic TSA"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ECLIPSE_STEMLESS",
+                  "system_name": "Eclipse Stemless Shoulder",
+                  "supplier_name": "Arthrex",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "stemless",
+                  "procedure_class": "primary_shoulder",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog stemless shoulder system.",
+                  "approach_compatibility": [
+                    "Anatomic TSA"
+                  ]
+                },
+                {
+                  "system_id": "SYS_SIDUS_STEMLESS",
+                  "system_name": "Sidus Stem-Free Shoulder",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemless",
+                  "procedure_class": "primary_shoulder",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog stemless shoulder system.",
+                  "approach_compatibility": [
+                    "Anatomic TSA"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_REVERSE_TOTAL_SHOULDER_REPLACEMENT",
+          "procedure_name": "Reverse Total Shoulder Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_PRIMARY_RTSR_STANDARD",
+              "variant_name": "Reverse TSA",
+              "systems": [
+                {
+                  "system_id": "SYS_EQUINOXE",
+                  "system_name": "Equinoxe Shoulder System",
+                  "supplier_name": "Exactech",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "primary_shoulder",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog shoulder platform.",
+                  "approach_compatibility": [
+                    "Anatomic TSA",
+                    "Reverse TSA"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ASCEND_FLEX",
+                  "system_name": "Ascend Flex",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "primary_shoulder",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog shoulder platform.",
+                  "approach_compatibility": [
+                    "Anatomic TSA",
+                    "Reverse TSA"
+                  ]
+                },
+                {
+                  "system_id": "SYS_COMPREHENSIVE_SHOULDER",
+                  "system_name": "Comprehensive Shoulder",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "stemmed",
+                  "procedure_class": "primary_shoulder",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog shoulder platform.",
+                  "approach_compatibility": [
+                    "Anatomic TSA",
+                    "Reverse TSA"
+                  ]
+                },
+                {
+                  "system_id": "SYS_DELTA_XTEND",
+                  "system_name": "Delta XTEND Reverse Shoulder",
+                  "supplier_name": "DePuy Synthes",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "reverse",
+                  "procedure_class": "primary_shoulder",
+                  "mapping_status": "confirmed",
+                  "active_status": "active",
+                  "notes": "Live catalog reverse shoulder system.",
+                  "approach_compatibility": [
+                    "Reverse TSA"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_REVISION_TOTAL_SHOULDER_REPLACEMENT",
+          "procedure_name": "Revision Total Shoulder Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_REVISION_TSR_ANATOMIC",
+              "variant_name": "Revision Anatomic",
+              "systems": [
+                {
+                  "system_id": "SYS_EQUINOXE",
+                  "system_name": "Equinoxe Shoulder System",
+                  "supplier_name": "Exactech",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "reverse",
+                  "procedure_class": "revision_shoulder",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Platform used in revision/reconstruction contexts.",
+                  "approach_compatibility": [
+                    "Revision Anatomic",
+                    "Revision Reverse"
+                  ]
+                },
+                {
+                  "system_id": "SYS_COMPREHENSIVE_SHOULDER",
+                  "system_name": "Comprehensive Shoulder",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "reverse",
+                  "procedure_class": "revision_shoulder",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Platform used in revision/reconstruction contexts.",
+                  "approach_compatibility": [
+                    "Revision Anatomic",
+                    "Revision Reverse"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ASCEND_FLEX",
+                  "system_name": "Ascend Flex",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "reverse",
+                  "procedure_class": "revision_shoulder",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Platform used in revision/reconstruction contexts.",
+                  "approach_compatibility": [
+                    "Revision Anatomic",
+                    "Revision Reverse"
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "procedure_id": "PROC_REVISION_REVERSE_TOTAL_SHOULDER_REPLACEMENT",
+          "procedure_name": "Revision Reverse Total Shoulder Replacement",
+          "variants": [
+            {
+              "variant_id": "PV_REVISION_RTSR_STANDARD",
+              "variant_name": "Revision Reverse",
+              "systems": [
+                {
+                  "system_id": "SYS_EQUINOXE",
+                  "system_name": "Equinoxe Shoulder System",
+                  "supplier_name": "Exactech",
+                  "supplier_tier": "tier_2_established",
+                  "fixation_class": "reverse",
+                  "procedure_class": "revision_shoulder",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Platform used in revision/reconstruction contexts.",
+                  "approach_compatibility": [
+                    "Revision Anatomic",
+                    "Revision Reverse"
+                  ]
+                },
+                {
+                  "system_id": "SYS_COMPREHENSIVE_SHOULDER",
+                  "system_name": "Comprehensive Shoulder",
+                  "supplier_name": "Zimmer Biomet",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "reverse",
+                  "procedure_class": "revision_shoulder",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Platform used in revision/reconstruction contexts.",
+                  "approach_compatibility": [
+                    "Revision Anatomic",
+                    "Revision Reverse"
+                  ]
+                },
+                {
+                  "system_id": "SYS_ASCEND_FLEX",
+                  "system_name": "Ascend Flex",
+                  "supplier_name": "Stryker",
+                  "supplier_tier": "tier_1_global_major",
+                  "fixation_class": "reverse",
+                  "procedure_class": "revision_shoulder",
+                  "mapping_status": "review_required",
+                  "active_status": "active",
+                  "notes": "Platform used in revision/reconstruction contexts.",
+                  "approach_compatibility": [
+                    "Revision Anatomic",
+                    "Revision Reverse"
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

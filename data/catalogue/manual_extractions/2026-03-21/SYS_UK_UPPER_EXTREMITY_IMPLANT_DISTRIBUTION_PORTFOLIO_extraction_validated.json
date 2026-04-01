@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "UK Upper Extremity Implant Distribution Portfolio",
+    "source_type": "supplier_homepage",
+    "source_document": "LEDA Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_UK_UPPER_EXTREMITY_IMPLANT_DISTRIBUTION_PORTFOLIO_UPPER_EXTREMITY_IMPLANT_DISTRIBUTION_FRAMEWORK",
+        "Component Name": "Upper Extremity Implant Distribution Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Upper Extremity Trauma",
+        "System ID": "SYS_UK_UPPER_EXTREMITY_IMPLANT_DISTRIBUTION_PORTFOLIO",
+        "Component Notes": "Framework component anchored to LEDA public company and extremities catalogue materials used as closest-match upper-extremity implant distribution evidence."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "UK Upper Extremity Implant Distribution Portfolio",
+          "supplier_name": "LEDA Orthopaedics",
+          "system_category": "upper_extremity_trauma",
+          "system_notes": "Official LEDA Orthopaedics homepage, carbon footprint report, and extremities brochure used as the source anchors for the UK upper-extremity implant distribution portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "UK Upper Extremity Implant Distribution Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "upper_extremity_trauma",
+        "system_notes": "Official LEDA Orthopaedics homepage, carbon footprint report, and extremities brochure used as the source anchors for the UK upper-extremity implant distribution portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "UK Upper Extremity Implant Distribution Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "upper_extremity_trauma",
+        "system_notes": "Official LEDA Orthopaedics homepage, carbon footprint report, and extremities brochure used as the source anchors for the UK upper-extremity implant distribution portfolio entry."
+      }
+    }
+  ]
+}

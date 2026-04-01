@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Orthofix",
+    "system_name": "TrueLok / External Fixation System",
+    "source_type": "product_page",
+    "source_document": "TrueLok EVO Ring Fixation System and TL-HEX TrueLok Hexapod System Trauma",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TRUELOK_EXTERNAL_FIXATION_SYSTEM_TRUELOK_INSTRUMENTATION",
+        "Tray Name": "TrueLok Instrumentation",
+        "System ID": "SYS_TRUELOK___EXTERNAL_FIXATION_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated ring fixation instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TRUELOK_EXTERNAL_FIXATION_SYSTEM_TRUELOK_RING",
+        "Component Name": "TrueLok Ring",
+        "Component Role": "Ring",
+        "Implant Category": "External Fixation Implant",
+        "System ID": "SYS_TRUELOK___EXTERNAL_FIXATION_SYSTEM",
+        "Component Notes": "Circular ring family referenced in system materials."
+      },
+      {
+        "Component ID": "COMP_TRUELOK_EXTERNAL_FIXATION_SYSTEM_TRUELOK_STRUT",
+        "Component Name": "TrueLok Strut",
+        "Component Role": "Strut",
+        "Implant Category": "External Fixation Implant",
+        "System ID": "SYS_TRUELOK___EXTERNAL_FIXATION_SYSTEM",
+        "Component Notes": "Strut family referenced in system materials."
+      },
+      {
+        "Component ID": "COMP_TRUELOK_EXTERNAL_FIXATION_SYSTEM_TRUELOK_WIRE",
+        "Component Name": "TrueLok Wire",
+        "Component Role": "Wire",
+        "Implant Category": "External Fixation Implant",
+        "System ID": "SYS_TRUELOK___EXTERNAL_FIXATION_SYSTEM",
+        "Component Notes": "Wire family referenced in system materials."
+      },
+      {
+        "Component ID": "COMP_TRUELOK_EXTERNAL_FIXATION_SYSTEM_TRUELOK_HALF_PIN",
+        "Component Name": "TrueLok Half Pin",
+        "Component Role": "Half Pin",
+        "Implant Category": "External Fixation Implant",
+        "System ID": "SYS_TRUELOK___EXTERNAL_FIXATION_SYSTEM",
+        "Component Notes": "Half pin family referenced in system materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "TrueLok / External Fixation System",
+          "supplier_name": "Orthofix",
+          "system_category": "External Fixation System",
+          "system_notes": "Circular and hexapod external fixation platform for trauma and reconstruction."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "TrueLok / External Fixation System",
+        "supplier_name": "Orthofix",
+        "system_category": "External Fixation System",
+        "system_notes": "Circular and hexapod external fixation platform for trauma and reconstruction."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "TrueLok / External Fixation System",
+        "supplier_name": "Orthofix",
+        "system_category": "External Fixation System",
+        "system_notes": "Circular and hexapod external fixation platform for trauma and reconstruction."
+      }
+    }
+  ]
+}

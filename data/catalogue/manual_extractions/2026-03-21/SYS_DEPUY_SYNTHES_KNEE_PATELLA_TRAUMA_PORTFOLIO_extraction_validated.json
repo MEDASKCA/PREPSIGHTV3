@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "DePuy Synthes Knee / Patella Trauma Portfolio",
+    "source_type": "operative_technique_pdf",
+    "source_document": "Variable Angle Locking Patella Plating System Surgical Technique | DePuy Synthes",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_DEPUY_SYNTHES_KNEE_PATELLA_TRAUMA_PORTFOLIO_KNEE_AND_PATELLA_TRAUMA_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Knee and Patella Trauma Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_DEPUY_SYNTHES_KNEE_PATELLA_TRAUMA_PORTFOLIO",
+        "Component Notes": "Framework component anchored to DePuy Synthes public knee and patella trauma source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "DePuy Synthes Knee / Patella Trauma Portfolio",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Trauma fixation",
+          "system_notes": "Official DePuy Synthes knee and patella trauma materials used as the public source anchors for this trauma fixation portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "DePuy Synthes Knee / Patella Trauma Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Trauma fixation",
+        "system_notes": "Official DePuy Synthes knee and patella trauma materials used as the public source anchors for this trauma fixation portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "DePuy Synthes Knee / Patella Trauma Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Trauma fixation",
+        "system_notes": "Official DePuy Synthes knee and patella trauma materials used as the public source anchors for this trauma fixation portfolio entry."
+      }
+    }
+  ]
+}

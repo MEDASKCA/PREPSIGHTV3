@@ -1,0 +1,67 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "PFNA Nail System",
+    "source_type": "accompanying_information_page",
+    "source_document": "PFNA product information and sterile implant listing",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "PFNA Nail System",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Intramedullary Nail System",
+      "system_notes": "Proximal femoral nailing platform for proximal femur fracture fixation including antirotation blade constructs."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "PFNA Implant and Instrument Tray",
+      "system_name": "PFNA Nail System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official sterile implant listing explicitly identifies PFNA tray structure and the accompanying-information page links the PFNA surgical techniques."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "PFNA Nail",
+      "system_name": "PFNA Nail System",
+      "component_role": "Intramedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official PFNA materials define the cephalomedullary nail platform for proximal femur fracture fixation."
+    },
+    {
+      "component_name": "PFNA Blade",
+      "system_name": "PFNA Nail System",
+      "component_role": "Helical Blade",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official sterile implant listing exposes multiple PFNA blade lengths as the core cephalic fixation element."
+    },
+    {
+      "component_name": "PFNA Locking Screw",
+      "system_name": "PFNA Nail System",
+      "component_role": "Locking Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "PFNA distal fixation and locking options are part of the nailing construct even though this pass does not expand the full screw matrix."
+    }
+  ],
+  "products": [
+    {
+      "sku": "04.027.030S",
+      "product_name": "PFNA Blade Perforated 75 mm",
+      "component_name": "PFNA Blade",
+      "packaging_type": "Sterile implant",
+      "product_notes": "Official sterile implant listing identifies product code 04.027.030S as a PFNA perforated blade, length 75 mm."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The sterile listing includes many additional PFNA blade lengths and related implant rows beyond the first captured example.",
+      "reason": "A deeper expansion pass is needed to capture the full implant and screw code matrix.",
+      "source_excerpt": "Current extraction captures one explicit blade code and the core implant families only."
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Nextremity",
+    "system_name": "CMC Arthroplasty / Thumb Reconstruction Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Medartis Hand Joint Replacement",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CMC_ARTHROPLASTY_THUMB_RECONSTRUCTION_PORTFOLIO_THUMB_CMC_ARTHROPLASTY_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Thumb CMC Arthroplasty Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Thumb CMC Arthroplasty Portfolio",
+        "System ID": "SYS_CMC_ARTHROPLASTY___THUMB_RECONSTRUCTION_PORTFOLIO",
+        "Component Notes": "Portfolio-level thumb CMC arthroplasty framework anchored to current Medartis public hand joint replacement materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "CMC Arthroplasty / Thumb Reconstruction Portfolio",
+          "supplier_name": "Nextremity",
+          "system_category": "hand_wrist",
+          "system_notes": "Current public source anchor is the Medartis hand joint replacement page, with Medartis history confirming Nextremity became part of Medartis in 2022. This extraction remains at portfolio level for thumb CMC arthroplasty and thumb reconstruction."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "CMC Arthroplasty / Thumb Reconstruction Portfolio",
+        "supplier_name": "Nextremity",
+        "system_category": "hand_wrist",
+        "system_notes": "Current public source anchor is the Medartis hand joint replacement page, with Medartis history confirming Nextremity became part of Medartis in 2022. This extraction remains at portfolio level for thumb CMC arthroplasty and thumb reconstruction."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "CMC Arthroplasty / Thumb Reconstruction Portfolio",
+        "supplier_name": "Nextremity",
+        "system_category": "hand_wrist",
+        "system_notes": "Current public source anchor is the Medartis hand joint replacement page, with Medartis history confirming Nextremity became part of Medartis in 2022. This extraction remains at portfolio level for thumb CMC arthroplasty and thumb reconstruction."
+      }
+    }
+  ]
+}

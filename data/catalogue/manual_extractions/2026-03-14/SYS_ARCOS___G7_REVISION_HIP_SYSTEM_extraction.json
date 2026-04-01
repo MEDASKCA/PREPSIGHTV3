@@ -1,0 +1,73 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Arcos / G7 Revision Hip System",
+    "source_type": "product_brochure_pdf",
+    "source_document": "Arcos Modular Femoral Revision System Brochure and G7 Acetabular System",
+    "source_version": "15681",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Arcos / G7 Revision Hip System",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Hip Revision System",
+      "system_notes": "Revision total hip construct anchored to official Zimmer Biomet Arcos modular revision femoral and G7 acetabular materials."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Arcos / G7 Revision Instrumentation",
+      "system_name": "Arcos / G7 Revision Hip System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Arcos revision materials support modular revision instrumentation paired with compatible G7 acetabular workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Arcos Distal Stem",
+      "system_name": "Arcos / G7 Revision Hip System",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Arcos revision materials describe distal stem options across multiple lengths and diameters."
+    },
+    {
+      "component_name": "Arcos Proximal Body",
+      "system_name": "Arcos / G7 Revision Hip System",
+      "component_role": "Proximal Body",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Arcos modular revision materials describe proximal body options used to reconstruct revision anatomy."
+    },
+    {
+      "component_name": "G7 Acetabular Shell",
+      "system_name": "Arcos / G7 Revision Hip System",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official G7 materials describe the acetabular shell family used in Zimmer Biomet hip constructs."
+    },
+    {
+      "component_name": "G7 Acetabular Liner",
+      "system_name": "Arcos / G7 Revision Hip System",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official G7 materials describe compatible liner and bearing options used with the revision acetabular construct."
+    },
+    {
+      "component_name": "Femoral Head",
+      "system_name": "Arcos / G7 Revision Hip System",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Zimmer Biomet revision construct materials describe modular femoral head options used with Arcos and G7."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The current Arcos and G7 public source set confirms the revision construct and component families but this pass does not include a clean single revision implant code matrix row.",
+      "reason": "A deeper catalogue, IFU, or supply-chain resource pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

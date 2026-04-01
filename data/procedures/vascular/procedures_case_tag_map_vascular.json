@@ -1,0 +1,88 @@
+[
+  { "procedure_id": "PROC_FEMORAL_ENDARTERECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_FEMORAL_ENDARTERECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FEMOROPOPLITEAL_BYPASS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_FEMOROPOPLITEAL_BYPASS", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_FEMOROPOPLITEAL_BYPASS", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_FEMORODISTAL_BYPASS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_FEMORODISTAL_BYPASS", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_FEMORODISTAL_BYPASS", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_AORTOBIFEMORAL_BYPASS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_AORTOBIFEMORAL_BYPASS", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_AORTOBIFEMORAL_BYPASS", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_AXILLOFEMORAL_BYPASS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_AXILLOFEMORAL_BYPASS", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_AXILLOFEMORAL_BYPASS", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_EMBOLECTOMY_OF_PERIPHERAL_ARTERY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_EMBOLECTOMY_OF_PERIPHERAL_ARTERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PATCH_ANGIOPLASTY_OF_PERIPHERAL_ARTERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PATCH_ANGIOPLASTY_OF_PERIPHERAL_ARTERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_LOWER_LIMB_AMPUTATION_FOR_VASCULAR_DISEASE", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_LOWER_LIMB_AMPUTATION_FOR_VASCULAR_DISEASE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_OPEN_REPAIR_OF_ABDOMINAL_AORTIC_ANEURYSM", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_OPEN_REPAIR_OF_ABDOMINAL_AORTIC_ANEURYSM", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ENDOVASCULAR_REPAIR_OF_ABDOMINAL_AORTIC_ANEURYSM", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ENDOVASCULAR_REPAIR_OF_ABDOMINAL_AORTIC_ANEURYSM", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ENDOVASCULAR_REPAIR_OF_ABDOMINAL_AORTIC_ANEURYSM", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_OPEN_REPAIR_OF_THORACIC_AORTIC_ANEURYSM", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_OPEN_REPAIR_OF_THORACIC_AORTIC_ANEURYSM", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_THRORACIC_ENDOVASCULAR_AORTIC_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_THRORACIC_ENDOVASCULAR_AORTIC_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_THRORACIC_ENDOVASCULAR_AORTIC_REPAIR", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_FENESTRATED_ENDOVASCULAR_AORTIC_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_FENESTRATED_ENDOVASCULAR_AORTIC_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_FENESTRATED_ENDOVASCULAR_AORTIC_REPAIR", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_BRANCHED_ENDOVASCULAR_AORTIC_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_BRANCHED_ENDOVASCULAR_AORTIC_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_BRANCHED_ENDOVASCULAR_AORTIC_REPAIR", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_REPAIR_OF_RUPTURED_AORTIC_ANEURYSM", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_REPAIR_OF_RUPTURED_AORTIC_ANEURYSM", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_AORTIC_DISSECTION_REPAIR", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_AORTIC_DISSECTION_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ARTERIOVENOUS_FISTULA_CREATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ARTERIOVENOUS_FISTULA_CREATION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_ARTERIOVENOUS_GRAFT_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ARTERIOVENOUS_GRAFT_INSERTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_REVISION_OF_DIALYSIS_ACCESS", "case_tag_id": "CASE_REVISION" },
+  { "procedure_id": "PROC_REVISION_OF_DIALYSIS_ACCESS", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_THROMBECTOMY_OF_DIALYSIS_ACCESS", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_THROMBECTOMY_OF_DIALYSIS_ACCESS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_LIGATION_OF_ARTERIOVENOUS_FISTULA", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LIGATION_OF_ARTERIOVENOUS_FISTULA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TUNNELLED_CENTRAL_VENOUS_CATHETER_INSERTION_FOR_DIALYSIS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TUNNELLED_CENTRAL_VENOUS_CATHETER_INSERTION_FOR_DIALYSIS", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_TUNNELLED_CENTRAL_VENOUS_CATHETER_INSERTION_FOR_DIALYSIS", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_CAROTID_ENDARTERECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CAROTID_ENDARTERECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_VARICOSE_VEIN_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_VARICOSE_VEIN_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_HIGH_LIGATION_AND_STRIPPING_OF_SAPHENOUS_VEIN", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HIGH_LIGATION_AND_STRIPPING_OF_SAPHENOUS_VEIN", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_VENOUS_ULCER_DEBRIDEMENT", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_VENOUS_ULCER_DEBRIDEMENT", "case_tag_id": "CASE_ELECTIVE" }
+]

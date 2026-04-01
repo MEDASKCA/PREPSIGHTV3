@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Tornier Perform Reversed / Aequalis Reversed",
+    "source_type": "product_page",
+    "source_document": "Aequalis Perform Reversed and Shoulder Arthroplasty Solutions",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Tornier Perform Reversed / Aequalis Reversed",
+      "supplier_name": "Stryker",
+      "system_category": "Reverse Shoulder Arthroplasty System",
+      "system_notes": "Reverse shoulder arthroplasty platform within the Tornier Aequalis family for cuff-deficient and complex shoulder reconstruction."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Aequalis Reversed Instrumentation",
+      "system_name": "Tornier Perform Reversed / Aequalis Reversed",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Stryker/Tornier materials support dedicated reverse shoulder instrumentation and linked shoulder arthroplasty resources."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Aequalis Reversed Humeral Stem",
+      "system_name": "Tornier Perform Reversed / Aequalis Reversed",
+      "component_role": "Humeral Stem",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the humeral stem platform used within the reverse shoulder construct."
+    },
+    {
+      "component_name": "Aequalis Reversed Baseplate",
+      "system_name": "Tornier Perform Reversed / Aequalis Reversed",
+      "component_role": "Baseplate",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the reverse glenoid baseplate fixation platform."
+    },
+    {
+      "component_name": "Aequalis Reversed Glenosphere",
+      "system_name": "Tornier Perform Reversed / Aequalis Reversed",
+      "component_role": "Glenosphere",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the glenosphere family within the reverse construct."
+    },
+    {
+      "component_name": "Aequalis Reversed Humeral Liner",
+      "system_name": "Tornier Perform Reversed / Aequalis Reversed",
+      "component_role": "Humeral Liner",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the reverse humeral bearing component used in the construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public reverse shoulder pages define the implant construct but do not expose a public implant code table in this pass.",
+      "reason": "A deeper brochure, IFU, or technique pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

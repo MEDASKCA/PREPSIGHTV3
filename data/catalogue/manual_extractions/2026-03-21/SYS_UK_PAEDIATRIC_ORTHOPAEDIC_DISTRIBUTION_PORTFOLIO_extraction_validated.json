@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "UK Paediatric Orthopaedic Distribution Portfolio",
+    "source_type": "supplier_homepage",
+    "source_document": "LEDA Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_UK_PAEDIATRIC_ORTHOPAEDIC_DISTRIBUTION_PORTFOLIO_PAEDIATRIC_ORTHOPAEDIC_DISTRIBUTION_FRAMEWORK",
+        "Component Name": "Paediatric Orthopaedic Distribution Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Pediatric Orthopaedics",
+        "System ID": "SYS_UK_PAEDIATRIC_ORTHOPAEDIC_DISTRIBUTION_PORTFOLIO",
+        "Component Notes": "Framework component anchored to LEDA public paediatric orthopaedic source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "UK Paediatric Orthopaedic Distribution Portfolio",
+          "supplier_name": "LEDA Orthopaedics",
+          "system_category": "paediatric_orthopaedics",
+          "system_notes": "Official LEDA Orthopaedics company materials used as the public source anchors for this paediatric orthopaedic distribution portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "UK Paediatric Orthopaedic Distribution Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "paediatric_orthopaedics",
+        "system_notes": "Official LEDA Orthopaedics company materials used as the public source anchors for this paediatric orthopaedic distribution portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "UK Paediatric Orthopaedic Distribution Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "paediatric_orthopaedics",
+        "system_notes": "Official LEDA Orthopaedics company materials used as the public source anchors for this paediatric orthopaedic distribution portfolio entry."
+      }
+    }
+  ]
+}

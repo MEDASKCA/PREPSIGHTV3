@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Proximal Humerus Plating System",
+    "source_type": "product_page",
+    "source_document": "Polarus Proximal Humeral Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_PROXIMAL_HUMERUS_PLATING_SYSTEM_PROXIMAL_HUMERUS_PLATING_INSTRUMENTATION",
+        "Tray Name": "Proximal Humerus Plating Instrumentation",
+        "System ID": "SYS_PROXIMAL_HUMERUS_PLATING_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated proximal humerus fixation instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PROXIMAL_HUMERUS_PLATING_SYSTEM_PROXIMAL_HUMERUS_PLATE",
+        "Component Name": "Proximal Humerus Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_PROXIMAL_HUMERUS_PLATING_SYSTEM",
+        "Component Notes": "Core proximal humerus plate family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_PROXIMAL_HUMERUS_PLATING_SYSTEM_PROXIMAL_HUMERUS_SCREW",
+        "Component Name": "Proximal Humerus Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_PROXIMAL_HUMERUS_PLATING_SYSTEM",
+        "Component Notes": "Core fixation screw family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_PROXIMAL_HUMERUS_PLATING_SYSTEM_PROXIMAL_HUMERUS_GUIDE",
+        "Component Name": "Proximal Humerus Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_PROXIMAL_HUMERUS_PLATING_SYSTEM",
+        "Component Notes": "Guide and instrumentation family referenced by the fixation system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Proximal Humerus Plating System",
+          "supplier_name": "Acumed",
+          "system_category": "Upper Extremity Trauma Fixation System",
+          "system_notes": "Proximal humerus fracture fixation platform with plates, screws and dedicated instrumentation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Proximal Humerus Plating System",
+        "supplier_name": "Acumed",
+        "system_category": "Upper Extremity Trauma Fixation System",
+        "system_notes": "Proximal humerus fracture fixation platform with plates, screws and dedicated instrumentation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Proximal Humerus Plating System",
+        "supplier_name": "Acumed",
+        "system_category": "Upper Extremity Trauma Fixation System",
+        "system_notes": "Proximal humerus fracture fixation platform with plates, screws and dedicated instrumentation."
+      }
+    }
+  ]
+}

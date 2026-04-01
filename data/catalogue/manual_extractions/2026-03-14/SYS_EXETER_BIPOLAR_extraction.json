@@ -1,0 +1,67 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Exeter / Bipolar Head",
+    "source_type": "product_brochure_pdf",
+    "source_document": "Exeter and UHR Universal Head Bipolar System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Exeter / Bipolar Head",
+      "supplier_name": "Stryker",
+      "system_category": "Hip Hemiarthroplasty System",
+      "system_notes": "Cemented hemiarthroplasty construct combining the Exeter femoral stem family with the UHR Universal Head Bipolar System."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Exeter / Bipolar Instrumentation",
+      "system_name": "Exeter / Bipolar Head",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Exeter and UHR materials support the combined stem and bipolar head construct with dedicated operative instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Exeter Femoral Stem",
+      "system_name": "Exeter / Bipolar Head",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Exeter product materials describe the polished cemented Exeter femoral stem family."
+    },
+    {
+      "component_name": "UHR Bipolar Head",
+      "system_name": "Exeter / Bipolar Head",
+      "component_role": "Bipolar Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official UHR materials describe the bipolar cup family with multiple outer diameters and compatible inner head sizes."
+    },
+    {
+      "component_name": "Exeter Femoral Head",
+      "system_name": "Exeter / Bipolar Head",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "The UHR bipolar system is specified for compatible 22 mm, 26 mm, and 28 mm head sizes used with the Exeter stem construct."
+    }
+  ],
+  "products": [
+    {
+      "sku": "UH1-36-22",
+      "product_name": "UHR Bipolar Head 36 mm for 22 mm Head",
+      "component_name": "UHR Bipolar Head",
+      "packaging_type": "",
+      "product_notes": "Official UHR bipolar system brochure lists catalogue number UH1-36-22 for 36 mm outer diameter with 22 mm head compatibility."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The UHR brochure lists additional bipolar head diameters and compatible head sizes beyond the first captured code.",
+      "reason": "A deeper expansion pass is needed to capture the full bipolar size table.",
+      "source_excerpt": "Current extraction captures one explicit bipolar head code and the core implant families only."
+    }
+  ]
+}

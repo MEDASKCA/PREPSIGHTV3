@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "DHS Plate and Screw System",
+    "source_type": "inventory_control_form_pdf",
+    "source_document": "Inventory Control Form - LCP Dynamic Helical Hip System (DHHS)",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "DHS Plate and Screw System",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "trauma",
+      "system_notes": "Official DePuy Synthes dynamic hip screw source materials used as the public anchors for this trauma fixation system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "DHS Plate and Screw Framework",
+      "system_name": "DHS Plate and Screw System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to DePuy Synthes public dynamic hip screw source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public DHS source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Inventory Control Form - LCP Dynamic Helical Hip System (DHHS); Inventory Control Form - LCP Dynamic Helical Hip System (DHHS) Alternate Path"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public DHS source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Inventory Control Form - LCP Dynamic Helical Hip System (DHHS); Inventory Control Form - LCP Dynamic Helical Hip System (DHHS) Alternate Path"
+    }
+  ]
+}

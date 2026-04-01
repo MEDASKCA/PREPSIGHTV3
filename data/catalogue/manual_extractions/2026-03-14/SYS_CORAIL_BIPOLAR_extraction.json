@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Corail / Bipolar Head",
+    "source_type": "hip_resources_page",
+    "source_document": "CORAIL Total Hip System and Hip Specialty Resources",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Corail / Bipolar Head",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Hip Hemiarthroplasty System",
+      "system_notes": "Cementless hemiarthroplasty construct anchored to official DePuy Synthes CORAIL stem materials and hip specialty resources."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "CORAIL / Bipolar Instrumentation",
+      "system_name": "Corail / Bipolar Head",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official CORAIL materials support a dedicated cementless hip stem instrumentation workflow applicable to the hemiarthroplasty construct."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "CORAIL Femoral Stem",
+      "system_name": "Corail / Bipolar Head",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official CORAIL materials describe the cementless tapered femoral stem family."
+    },
+    {
+      "component_name": "Bipolar Head",
+      "system_name": "Corail / Bipolar Head",
+      "component_role": "Bipolar Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Bipolar femoral head component used with the CORAIL hemiarthroplasty construct."
+    },
+    {
+      "component_name": "Inner Femoral Head",
+      "system_name": "Corail / Bipolar Head",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Inner modular femoral head component compatible with the CORAIL taper within the bipolar construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current source material confirms the CORAIL stem family but does not provide a clean DePuy bipolar-head code matrix in this pass.",
+      "reason": "A deeper hemiarthroplasty catalogue or bipolar-head implant listing pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

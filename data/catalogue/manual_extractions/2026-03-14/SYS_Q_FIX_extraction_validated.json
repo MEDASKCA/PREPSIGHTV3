@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Q-FIX Suture Anchor",
+    "source_type": "product_page",
+    "source_document": "Q-FIX All-Suture Anchor",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_Q_FIX_SUTURE_ANCHOR_Q_FIX_SUTURE_ANCHOR_INSTRUMENTATION",
+        "Tray Name": "Q-FIX Suture Anchor Instrumentation",
+        "System ID": "SYS_Q_FIX",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Smith+Nephew materials describe dedicated insertion instrumentation and preparation workflow for the Q-FIX anchor family."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_Q_FIX_SUTURE_ANCHOR_Q_FIX_ALL_SUTURE_ANCHOR",
+        "Component Name": "Q-FIX All-Suture Anchor",
+        "Component Role": "Anchor",
+        "Implant Category": "Soft Tissue Fixation",
+        "System ID": "SYS_Q_FIX",
+        "Component Notes": "Official Smith+Nephew materials describe the Q-FIX all-suture anchor construct used for soft-tissue fixation."
+      },
+      {
+        "Component ID": "COMP_Q_FIX_SUTURE_ANCHOR_Q_FIX_KNOTLESS_ALL_SUTURE_ANCHOR",
+        "Component Name": "Q-FIX Knotless All-Suture Anchor",
+        "Component Role": "Knotless Anchor",
+        "Implant Category": "Soft Tissue Fixation",
+        "System ID": "SYS_Q_FIX",
+        "Component Notes": "Official Smith+Nephew materials describe the knotless variant within the Q-FIX family."
+      },
+      {
+        "Component ID": "COMP_Q_FIX_SUTURE_ANCHOR_Q_FIX_DRILL_GUIDE",
+        "Component Name": "Q-FIX Drill Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_Q_FIX",
+        "Component Notes": "Official product materials describe prepared insertion workflow using dedicated guides and instrumentation."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Q-FIX Suture Anchor",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Suture Anchor \u2014 All-Suture",
+          "system_notes": "All-suture anchor platform for rotator cuff and soft-tissue fixation with both standard and knotless variants."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Q-FIX Suture Anchor",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Suture Anchor \u2014 All-Suture",
+        "system_notes": "All-suture anchor platform for rotator cuff and soft-tissue fixation with both standard and knotless variants."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Q-FIX Suture Anchor",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Suture Anchor \u2014 All-Suture",
+        "system_notes": "All-suture anchor platform for rotator cuff and soft-tissue fixation with both standard and knotless variants."
+      }
+    }
+  ]
+}

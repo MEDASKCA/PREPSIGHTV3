@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Corail / Bipolar Head",
+    "source_type": "hip_resources_page",
+    "source_document": "CORAIL Total Hip System and Hip Specialty Resources",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_CORAIL_BIPOLAR_HEAD_CORAIL_BIPOLAR_INSTRUMENTATION",
+        "Tray Name": "CORAIL / Bipolar Instrumentation",
+        "System ID": "SYS_CORAIL_BIPOLAR",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official CORAIL materials support a dedicated cementless hip stem instrumentation workflow applicable to the hemiarthroplasty construct."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CORAIL_BIPOLAR_HEAD_CORAIL_FEMORAL_STEM",
+        "Component Name": "CORAIL Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CORAIL_BIPOLAR",
+        "Component Notes": "Official CORAIL materials describe the cementless tapered femoral stem family."
+      },
+      {
+        "Component ID": "COMP_CORAIL_BIPOLAR_HEAD_BIPOLAR_HEAD",
+        "Component Name": "Bipolar Head",
+        "Component Role": "Bipolar Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CORAIL_BIPOLAR",
+        "Component Notes": "Bipolar femoral head component used with the CORAIL hemiarthroplasty construct."
+      },
+      {
+        "Component ID": "COMP_CORAIL_BIPOLAR_HEAD_INNER_FEMORAL_HEAD",
+        "Component Name": "Inner Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CORAIL_BIPOLAR",
+        "Component Notes": "Inner modular femoral head component compatible with the CORAIL taper within the bipolar construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Corail / Bipolar Head",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Hip Hemiarthroplasty System",
+          "system_notes": "Cementless hemiarthroplasty construct anchored to official DePuy Synthes CORAIL stem materials and hip specialty resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Corail / Bipolar Head",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Hemiarthroplasty System",
+        "system_notes": "Cementless hemiarthroplasty construct anchored to official DePuy Synthes CORAIL stem materials and hip specialty resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Corail / Bipolar Head",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Hemiarthroplasty System",
+        "system_notes": "Cementless hemiarthroplasty construct anchored to official DePuy Synthes CORAIL stem materials and hip specialty resources."
+      }
+    }
+  ]
+}

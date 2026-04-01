@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Meniscal Cinch Repair",
+    "source_type": "product_page",
+    "source_document": "Meniscal Cinch II Meniscal Repair System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_MENISCAL_CINCH_REPAIR_MENISCAL_CINCH_REPAIR_INSTRUMENTATION",
+        "Tray Name": "Meniscal Cinch Repair Instrumentation",
+        "System ID": "SYS_MENISCAL_CINCH",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Arthrex materials describe dedicated delivery instrumentation for the Meniscal Cinch repair system."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_MENISCAL_CINCH_REPAIR_MENISCAL_CINCH_II_REPAIR_DEVICE",
+        "Component Name": "Meniscal Cinch II Repair Device",
+        "Component Role": "Repair Device",
+        "Implant Category": "Soft Tissue Fixation",
+        "System ID": "SYS_MENISCAL_CINCH",
+        "Component Notes": "Official Arthrex materials describe the Meniscal Cinch II all-inside repair construct."
+      },
+      {
+        "Component ID": "COMP_MENISCAL_CINCH_REPAIR_MENISCAL_CINCH_KNOTLESS_IMPLANT",
+        "Component Name": "Meniscal Cinch Knotless Implant",
+        "Component Role": "Knotless Repair Device",
+        "Implant Category": "Soft Tissue Fixation",
+        "System ID": "SYS_MENISCAL_CINCH",
+        "Component Notes": "Official Arthrex materials describe knotless all-inside meniscal repair options within the Meniscal Cinch family."
+      },
+      {
+        "Component ID": "COMP_MENISCAL_CINCH_REPAIR_MENISCAL_CINCH_INSERTER",
+        "Component Name": "Meniscal Cinch Inserter",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_MENISCAL_CINCH",
+        "Component Notes": "Official Arthrex materials describe the dedicated insertion and deployment workflow for meniscal repair."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Meniscal Cinch Repair",
+          "supplier_name": "Arthrex",
+          "system_category": "Meniscal Repair \u2014 All-Inside",
+          "system_notes": "All-inside meniscal repair platform within the Arthrex knee sports medicine portfolio."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Meniscal Cinch Repair",
+        "supplier_name": "Arthrex",
+        "system_category": "Meniscal Repair \u2014 All-Inside",
+        "system_notes": "All-inside meniscal repair platform within the Arthrex knee sports medicine portfolio."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Meniscal Cinch Repair",
+        "supplier_name": "Arthrex",
+        "system_category": "Meniscal Repair \u2014 All-Inside",
+        "system_notes": "All-inside meniscal repair platform within the Arthrex knee sports medicine portfolio."
+      }
+    }
+  ]
+}

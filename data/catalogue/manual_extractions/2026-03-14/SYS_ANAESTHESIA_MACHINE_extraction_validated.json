@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Dr\u00e4ger",
+    "system_name": "Anaesthesia Machine",
+    "source_type": "technology_page",
+    "source_document": "Anesthesia Workstations",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ANAESTHESIA_MACHINE_DR_GER_ANESTHESIA_WORKSTATION_FAMILY",
+        "Component Name": "Dr\u00e4ger Anesthesia Workstation Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Anaesthesia Delivery Workflow",
+        "System ID": "SYS_ANAESTHESIA_MACHINE",
+        "Component Notes": "Official Dr\u00e4ger sources describe the broader anesthesia workstation platform family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Anaesthesia Machine",
+          "supplier_name": "Dr\u00e4ger",
+          "system_category": "Anaesthesia Delivery",
+          "system_notes": "Public source anchor for the Dr\u00e4ger anesthesia workstation platform."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Anaesthesia Machine",
+        "supplier_name": "Dr\u00e4ger",
+        "system_category": "Anaesthesia Delivery",
+        "system_notes": "Public source anchor for the Dr\u00e4ger anesthesia workstation platform."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Anaesthesia Machine",
+        "supplier_name": "Dr\u00e4ger",
+        "system_category": "Anaesthesia Delivery",
+        "system_notes": "Public source anchor for the Dr\u00e4ger anesthesia workstation platform."
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "Midfoot Fusion Portfolio",
+    "source_type": "product_page",
+    "source_document": "Gorilla Midfoot Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Midfoot Fusion Portfolio",
+      "supplier_name": "Paragon 28",
+      "system_category": "Foot Fusion Fixation System",
+      "system_notes": "Midfoot fusion fixation platform with plates, screws and instrumentation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Midfoot Fusion Instrumentation",
+      "system_name": "Midfoot Fusion Portfolio",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated midfoot fixation instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Midfoot Fusion Plate",
+      "system_name": "Midfoot Fusion Portfolio",
+      "component_role": "Plate",
+      "implant_category": "Foot and Ankle Implant",
+      "component_notes": "Core plate family referenced on the product page."
+    },
+    {
+      "component_name": "Midfoot Fusion Screw",
+      "system_name": "Midfoot Fusion Portfolio",
+      "component_role": "Screw",
+      "implant_category": "Foot and Ankle Implant",
+      "component_notes": "Core screw family referenced on the product page."
+    },
+    {
+      "component_name": "Midfoot Fusion Guide",
+      "system_name": "Midfoot Fusion Portfolio",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Guide/instrument family referenced by the fixation system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "System includes multiple plate shapes and fixation options.",
+      "reason": "Needs deeper catalogue review before splitting detailed fixation families.",
+      "source_excerpt": "Current extraction keeps the main fixation families only."
+    }
+  ]
+}

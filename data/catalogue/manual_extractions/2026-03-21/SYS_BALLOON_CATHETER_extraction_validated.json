@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Boston Scientific",
+    "system_name": "Angioplasty Balloon Catheter",
+    "source_type": "product_family_page",
+    "source_document": "Athletis Ultra-High-Pressure Balloon - Boston Scientific",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ANGIOPLASTY_BALLOON_CATHETER_ANGIOPLASTY_BALLOON_FRAMEWORK",
+        "Component Name": "Angioplasty Balloon Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_BALLOON_CATHETER",
+        "Component Notes": "Framework component anchored to Boston Scientific public balloon-catheter source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Angioplasty Balloon Catheter",
+          "supplier_name": "Boston Scientific",
+          "system_category": "vascular_intervention",
+          "system_notes": "Official Boston Scientific angioplasty balloon materials used as the public source anchors for this angioplasty balloon catheter entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Angioplasty Balloon Catheter",
+        "supplier_name": "Boston Scientific",
+        "system_category": "vascular_intervention",
+        "system_notes": "Official Boston Scientific angioplasty balloon materials used as the public source anchors for this angioplasty balloon catheter entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Angioplasty Balloon Catheter",
+        "supplier_name": "Boston Scientific",
+        "system_category": "vascular_intervention",
+        "system_notes": "Official Boston Scientific angioplasty balloon materials used as the public source anchors for this angioplasty balloon catheter entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,184 @@
+[
+  {
+    "supplier_id": "SUP_TRIMED",
+    "supplier_name": "TriMed",
+    "system_id": "SYS_WRIST_FUSION_PLATE_SYSTEM",
+    "system_name": "Wrist Fusion Plate System",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "TriMed, Inc.",
+        "url": "https://trimedortho.com/",
+        "notes": "Official TriMed site used as the public source anchor for the wrist fusion plate system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Wrist Fusion Plate",
+        "url": "https://trimedortho.com/products/wrist-fusion-plate/",
+        "notes": "Official TriMed wrist fusion product page used as supporting public evidence for the wrist fusion plate system entry."
+      },
+      {
+        "source_type": "catalogue_page",
+        "title": "Hand & Wrist",
+        "url": "https://trimedortho.com/hand-wrist/",
+        "notes": "Official TriMed hand and wrist product area used as supporting public evidence for the wrist fusion plate system entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_TRIMED",
+    "supplier_name": "TriMed",
+    "system_id": "SYS_WRIST_SALVAGE_PORTFOLIO",
+    "system_name": "Wrist Salvage Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "TriMed, Inc.",
+        "url": "https://trimedortho.com/",
+        "notes": "Official TriMed site used as the public source anchor for the wrist salvage portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Wrist Fusion Plate",
+        "url": "https://trimedortho.com/products/wrist-fusion-plate/",
+        "notes": "Official TriMed wrist fusion product page used as supporting public evidence for wrist salvage coverage."
+      },
+      {
+        "source_type": "catalogue_page",
+        "title": "Hand & Wrist",
+        "url": "https://trimedortho.com/hand-wrist/",
+        "notes": "Official TriMed hand and wrist product area used as supporting public evidence for the wrist salvage portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_TRIMED",
+    "supplier_name": "TriMed",
+    "system_id": "SYS_METACARPAL_FIXATION_PORTFOLIO",
+    "system_name": "Metacarpal Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Small Threaded IM Nails",
+        "url": "https://trimedortho.com/portfolio-items/small-threaded-im-nails/",
+        "notes": "Official TriMed Small Threaded IM Nails page used as the primary public source anchor for the metacarpal fixation portfolio entry."
+      },
+      {
+        "source_type": "catalogue_page",
+        "title": "Upper Extremity",
+        "url": "https://trimedortho.com/upper-extremity/",
+        "notes": "Official TriMed upper extremity product area used as supporting public evidence for the broader hand fixation portfolio."
+      },
+      {
+        "source_type": "ifu_page",
+        "title": "eIFU",
+        "url": "https://trimedortho.com/ifu/",
+        "notes": "Official TriMed eIFU page used as supporting public evidence that current instructions for use are publicly maintained for TriMed hand fixation systems."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_TRIMED",
+    "supplier_name": "TriMed",
+    "system_id": "SYS_OLECRANON___PROXIMAL_ULNA_FIXATION",
+    "system_name": "Olecranon / Proximal Ulna Fixation",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Olecranon Hook Plate",
+        "url": "https://trimedortho.com/portfolio-items/olecranon-hook-plate/",
+        "notes": "Official TriMed Olecranon Hook Plate page used as the primary public source anchor for the olecranon and proximal ulna fixation entry."
+      },
+      {
+        "source_type": "catalogue_page",
+        "title": "Upper Extremity",
+        "url": "https://trimedortho.com/upper-extremity/",
+        "notes": "Official TriMed upper extremity product area used as supporting public evidence for elbow and forearm fixation coverage."
+      },
+      {
+        "source_type": "surgical_techniques_page",
+        "title": "Surgical Techniques",
+        "url": "https://trimedortho.com/surgical-techniques/",
+        "notes": "Official TriMed surgical techniques page used as supporting public evidence that operative-technique materials are publicly maintained for upper-extremity fixation systems."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_TRIMED",
+    "supplier_name": "TriMed",
+    "system_id": "SYS_PERCUTANEOUS_SCAPHOID_SCREW_PORTFOLIO",
+    "system_name": "Percutaneous Scaphoid Screw Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Scaphoid Screw",
+        "url": "https://trimedortho.com/portfolio_category/scaphoid-screw-system/",
+        "notes": "Official TriMed Scaphoid Screw System page used as the primary public source anchor for the percutaneous scaphoid screw portfolio entry."
+      },
+      {
+        "source_type": "catalogue_page",
+        "title": "Upper Extremity",
+        "url": "https://trimedortho.com/upper-extremity/",
+        "notes": "Official TriMed upper extremity product area used as supporting public evidence for scaphoid fixation coverage."
+      },
+      {
+        "source_type": "ifu_page",
+        "title": "eIFU",
+        "url": "https://trimedortho.com/ifu/",
+        "notes": "Official TriMed eIFU page used as supporting public evidence that current instructions for use are publicly maintained for the scaphoid screw system."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_TRIMED",
+    "supplier_name": "TriMed",
+    "system_id": "SYS_RADIAL_HEAD_FIXATION_PORTFOLIO",
+    "system_name": "Radial Head Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "catalogue_page",
+        "title": "Upper Extremity",
+        "url": "https://trimedortho.com/upper-extremity/",
+        "notes": "Official TriMed upper extremity product area used as the primary public source anchor for the radial head fixation portfolio entry."
+      },
+      {
+        "source_type": "products_page",
+        "title": "Products",
+        "url": "https://trimedortho.com/products/",
+        "notes": "Official TriMed products page used as supporting public evidence for elbow forearm and upper extremity fixation coverage, documented as a closest current public match for this radial head fixation portfolio entry."
+      },
+      {
+        "source_type": "surgical_techniques_page",
+        "title": "Surgical Techniques",
+        "url": "https://trimedortho.com/surgical-techniques/",
+        "notes": "Official TriMed surgical techniques page used as supporting public evidence that operative-technique materials are publicly maintained for TriMed upper-extremity systems."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_TRIMED",
+    "supplier_name": "TriMed",
+    "system_id": "SYS_SCAPHOID_SCREW_SYSTEM",
+    "system_name": "Scaphoid Screw System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Scaphoid Screw",
+        "url": "https://trimedortho.com/portfolio_category/scaphoid-screw-system/",
+        "notes": "Official TriMed Scaphoid Screw System page used as the primary public source anchor for the scaphoid screw system entry."
+      },
+      {
+        "source_type": "catalogue_page",
+        "title": "Upper Extremity",
+        "url": "https://trimedortho.com/upper-extremity/",
+        "notes": "Official TriMed upper extremity product area used as supporting public evidence for scaphoid fixation coverage."
+      },
+      {
+        "source_type": "ifu_page",
+        "title": "eIFU",
+        "url": "https://trimedortho.com/ifu/",
+        "notes": "Official TriMed eIFU page used as supporting public evidence that current instructions for use are publicly maintained for the scaphoid screw system."
+      }
+    ]
+  }
+]

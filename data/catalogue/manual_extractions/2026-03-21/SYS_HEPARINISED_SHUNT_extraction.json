@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LeMaitre Vascular",
+    "system_name": "Carotid Shunt",
+    "source_type": "product_page",
+    "source_document": "Flexcel Carotid Shunt | LeMaitre",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Carotid Shunt",
+      "supplier_name": "LeMaitre Vascular",
+      "system_category": "vascular_shunt",
+      "system_notes": "Official LeMaitre Vascular carotid-shunt materials used as the public source anchors for this carotid shunt entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Carotid Shunt Framework",
+      "system_name": "Carotid Shunt",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to LeMaitre public carotid-shunt source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public carotid-shunt source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Home | LeMaitre; Flexcel Carotid Shunt | LeMaitre; Pruitt F3 Carotid Shunts | LeMaitre; English (EU) - Instructions for Use | LeMaitre"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public carotid-shunt source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Home | LeMaitre; Flexcel Carotid Shunt | LeMaitre; Pruitt F3 Carotid Shunts | LeMaitre; English (EU) - Instructions for Use | LeMaitre"
+    }
+  ]
+}

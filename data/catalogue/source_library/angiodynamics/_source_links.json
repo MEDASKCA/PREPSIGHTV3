@@ -1,0 +1,66 @@
+[
+  {
+    "supplier_id": "SUP_ANGIODYNAMICS",
+    "supplier_name": "AngioDynamics",
+    "system_id": "SYS_VENOUS_ABLATION_GENERATOR",
+    "system_name": "Endovenous Ablation Generator",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "The VenaCure EVLT System | AngioDynamics",
+        "url": "https://www.angiodynamics.com/product/venacure-evlt-system/",
+        "notes": "Official AngioDynamics VenaCure EVLT system page used as the primary public source anchor for the endovenous ablation generator entry."
+      },
+      {
+        "source_type": "launch_reference",
+        "title": "AngioDynamics Launches VenaCure 1470nm Laser for Treatment of Varicose Veins",
+        "url": "https://investors.angiodynamics.com/news-releases/news-release-details/angiodynamics-launches-venacurer-1470nm-laser-treatment-varicose",
+        "notes": "Official AngioDynamics launch announcement used as supporting public evidence for the VenaCure laser generator platform."
+      },
+      {
+        "source_type": "clearance_reference",
+        "title": "AngioDynamics Receives FDA Clearance for NeverTouch Direct Procedure Kit to be Used With the VenaCure EVLT System",
+        "url": "https://investors.angiodynamics.com/news-releases/news-release-details/angiodynamics-receives-fda-clearance-nevertouch-directtm",
+        "notes": "Official AngioDynamics clearance announcement used as supporting public evidence for the procedure ecosystem paired with the VenaCure EVLT generator."
+      },
+      {
+        "source_type": "risk_information_page",
+        "title": "Risk Information | AngioDynamics",
+        "url": "https://www.angiodynamics.com/about-us/risk-information/",
+        "notes": "Official AngioDynamics risk-information page used as the closest public IFU-style source anchor for the endovenous ablation generator entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ANGIODYNAMICS",
+    "supplier_name": "AngioDynamics",
+    "system_id": "SYS_ULTRASOUND_GUIDANCE",
+    "system_name": "Ultrasound Guidance System",
+    "sources": [
+      {
+        "source_type": "legacy_clearance_reference",
+        "title": "AngioDynamics Announces FDA Clearance for Celerity Tip Location System",
+        "url": "https://investors.angiodynamics.com/news-releases/news-release-details/angiodynamics-announces-fda-clearance-celerity-tip-location",
+        "notes": "Official AngioDynamics clearance announcement used as the primary public source anchor for this imaging-guidance entry and documented as a legacy closest match."
+      },
+      {
+        "source_type": "legacy_navigation_reference",
+        "title": "AngioDynamics Announces the Approval of the Celerity PICC Tip Confirmation System With Navigation in Canada",
+        "url": "https://investors.angiodynamics.com/news-releases/news-release-details/angiodynamics-announces-approval-celerity-picc-tip-confirmation",
+        "notes": "Official AngioDynamics navigation-system announcement used as supporting public evidence for real-time guided positioning workflow support."
+      },
+      {
+        "source_type": "portfolio_transition_reference",
+        "title": "AngioDynamics Announces Sale of PICC and Midline Product Portfolios to Spectrum Vascular for $45 Million",
+        "url": "https://investors.angiodynamics.com/news-releases/news-release-details/angiodynamics-announces-sale-picc-and-midline-product-portfolios",
+        "notes": "Official AngioDynamics portfolio-sale announcement used to document that the company divested its PICC, midline, and tip location product portfolios in February 2024."
+      },
+      {
+        "source_type": "risk_information_page",
+        "title": "Risk Information | AngioDynamics",
+        "url": "https://www.angiodynamics.com/about-us/risk-information/",
+        "notes": "Official AngioDynamics risk-information page used as the closest current IFU-style source anchor for this legacy imaging-guidance entry."
+      }
+    ]
+  }
+]

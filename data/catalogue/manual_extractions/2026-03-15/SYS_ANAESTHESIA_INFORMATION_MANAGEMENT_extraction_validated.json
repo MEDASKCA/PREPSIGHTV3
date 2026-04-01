@@ -1,0 +1,58 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Anaesthesia Information Management System",
+    "source_type": "guidance_page",
+    "source_document": "AIMS Overview / OpenAnesthesia",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "System ID": "SYS_UNASSIGNED_ANAESTHESIA_INFORMATION_MANAGEMENT_SYSTEM",
+        "System Name": "Anaesthesia Information Management System",
+        "Supplier ID": "SUP_UNASSIGNED",
+        "System Category": "Perioperative Documentation",
+        "System Notes": "Public source anchor for anaesthesia information-management workflow and perioperative documentation."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ANAESTHESIA_INFORMATION_MANAGEMENT_SYSTEM_ANAESTHESIA_INFORMATION_MANAGEMENT_WORKFLOW_FRAMEWORK",
+        "Component Name": "Anaesthesia Information Management Workflow Framework",
+        "Component Role": "Workflow Framework",
+        "Implant Category": "Perioperative Documentation Workflow",
+        "System ID": "SYS_UNASSIGNED_ANAESTHESIA_INFORMATION_MANAGEMENT_SYSTEM",
+        "Component Notes": "Professional guidance describes documentation, record capture, and anaesthesia information-management workflow rather than a device tray."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": []
+}

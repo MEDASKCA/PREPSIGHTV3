@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "CPT / Trident",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "CPT 12/14 Hip System Surgical Technique and Trident II product materials",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_CPT_TRIDENT_CPT_TRIDENT_INSTRUMENTATION",
+        "Tray Name": "CPT / Trident Instrumentation",
+        "System ID": "SYS_CPT_TRIDENT",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "The CPT surgical technique describes dedicated femoral preparation instrumentation and Trident materials describe simplified acetabular tray configurations."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CPT_TRIDENT_CPT_12_14_FEMORAL_STEM",
+        "Component Name": "CPT 12/14 Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CPT_TRIDENT",
+        "Component Notes": "Official Zimmer Biomet materials describe the polished tapered cobalt-chromium CPT stem family with multiple offsets and long-stem options."
+      },
+      {
+        "Component ID": "COMP_CPT_TRIDENT_CPT_FEMORAL_HEAD",
+        "Component Name": "CPT Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CPT_TRIDENT",
+        "Component Notes": "The CPT 12/14 taper supports a range of compatible femoral head options."
+      },
+      {
+        "Component ID": "COMP_CPT_TRIDENT_TRIDENT_ACETABULAR_SHELL",
+        "Component Name": "Trident Acetabular Shell",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CPT_TRIDENT",
+        "Component Notes": "Official Trident materials describe the acetabular shell family used with the hybrid construct."
+      },
+      {
+        "Component ID": "COMP_CPT_TRIDENT_TRIDENT_ACETABULAR_LINER",
+        "Component Name": "Trident Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CPT_TRIDENT",
+        "Component Notes": "Official Trident materials describe X3 polyethylene and related liner options."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "CPT / Trident",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Hybrid total hip arthroplasty construct combining the cemented CPT polished taper stem family with the Trident acetabular system."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "CPT / Trident",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Hybrid total hip arthroplasty construct combining the cemented CPT polished taper stem family with the Trident acetabular system."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "CPT / Trident",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Hybrid total hip arthroplasty construct combining the cemented CPT polished taper stem family with the Trident acetabular system."
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "RigidFix Cross-Pin System",
+    "source_type": "product_page",
+    "source_document": "RIGIDFIX Cross Pin System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "RigidFix Cross-Pin System",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "ACL Fixation — Cross-Pin",
+      "system_notes": "Cross-pin femoral fixation platform within the DePuy Synthes Mitek sports medicine portfolio for ACL reconstruction."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "RIGIDFIX ACL Instrumentation",
+      "system_name": "RigidFix Cross-Pin System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official DePuy Synthes sports medicine materials describe dedicated instrumentation for RIGIDFIX graft fixation workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "RIGIDFIX Cross Pin",
+      "system_name": "RigidFix Cross-Pin System",
+      "component_role": "Fixation Pin",
+      "implant_category": "Sports Medicine Implant",
+      "component_notes": "Official DePuy Synthes materials describe the transverse cross-pin fixation construct used in ACL reconstruction."
+    },
+    {
+      "component_name": "RIGIDFIX Guide Frame",
+      "system_name": "RigidFix Cross-Pin System",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official sports medicine materials describe the guide-frame workflow used for cross-pin placement."
+    },
+    {
+      "component_name": "RIGIDFIX Drill Sleeve",
+      "system_name": "RigidFix Cross-Pin System",
+      "component_role": "Guide Sleeve",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official sports medicine materials describe the dedicated sleeve/instrument workflow for RIGIDFIX insertion."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official sources confirm the RIGIDFIX fixation family and instrumentation context, but a full normalized product-code matrix has not yet been extracted in this pass.",
+      "reason": "A deeper ordering guide or product-matrix pass is required for comprehensive product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Integra LifeSciences",
+    "system_name": "Latitude EV Total Elbow",
+    "source_type": "product_page",
+    "source_document": "Latitude EV Total Elbow Arthroplasty System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Latitude EV Total Elbow",
+      "supplier_name": "Integra LifeSciences",
+      "system_category": "Total Elbow Replacement",
+      "system_notes": "Public source anchor for the Integra Latitude EV total elbow arthroplasty system."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Latitude EV Elbow Arthroplasty Family",
+      "system_name": "Latitude EV Total Elbow",
+      "component_role": "Portfolio Family",
+      "implant_category": "Elbow Arthroplasty Workflow",
+      "component_notes": "Official Integra sources describe the broader Latitude EV elbow arthroplasty family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Public elbow arthroplasty product pages do not describe a dedicated tray in the current pass.",
+      "reason": "Tray detail should only be added from surgical technique or instrumentation sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public product pages do not expose a normalized product-code matrix in this pass.",
+      "reason": "Product codes should be captured from ordering guides or narrower implant SKU sources.",
+      "source_excerpt": "Current extraction remains high-level only."
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "C-stem AMT / Pinnacle",
+    "source_type": "product_page",
+    "source_document": "C-STEM AMT and PINNACLE Acetabular Cup System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_C_STEM_AMT_PINNACLE_C_STEM_PINNACLE_INSTRUMENTATION",
+        "Tray Name": "C-STEM / PINNACLE Instrumentation",
+        "System ID": "SYS_CSTEM_PINNACLE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official C-STEM and PINNACLE materials support dedicated femoral and acetabular instrumentation for the combined platform."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_C_STEM_AMT_PINNACLE_C_STEM_AMT_FEMORAL_STEM",
+        "Component Name": "C-STEM AMT Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CSTEM_PINNACLE",
+        "Component Notes": "Official materials describe C-STEM AMT as a polished triple-tapered cemented femoral stem with standard and high-offset options."
+      },
+      {
+        "Component ID": "COMP_C_STEM_AMT_PINNACLE_PINNACLE_ACETABULAR_CUP",
+        "Component Name": "PINNACLE Acetabular Cup",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CSTEM_PINNACLE",
+        "Component Notes": "Official product materials describe PINNACLE as the acetabular shell family paired with C-STEM in hybrid THR."
+      },
+      {
+        "Component ID": "COMP_C_STEM_AMT_PINNACLE_PINNACLE_ACETABULAR_LINER",
+        "Component Name": "PINNACLE Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CSTEM_PINNACLE",
+        "Component Notes": "Official product materials describe the Pinnacle liner family used in the acetabular construct."
+      },
+      {
+        "Component ID": "COMP_C_STEM_AMT_PINNACLE_C_STEM_FEMORAL_HEAD",
+        "Component Name": "C-STEM Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CSTEM_PINNACLE",
+        "Component Notes": "Official C-STEM materials state the stem can be used with both metal and ceramic heads."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "C-stem AMT / Pinnacle",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Hybrid or fully cemented total hip arthroplasty construct combining the C-STEM AMT cemented femoral stem with the PINNACLE acetabular cup system."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "C-stem AMT / Pinnacle",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Hybrid or fully cemented total hip arthroplasty construct combining the C-STEM AMT cemented femoral stem with the PINNACLE acetabular cup system."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "C-stem AMT / Pinnacle",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Hybrid or fully cemented total hip arthroplasty construct combining the C-STEM AMT cemented femoral stem with the PINNACLE acetabular cup system."
+      }
+    }
+  ]
+}

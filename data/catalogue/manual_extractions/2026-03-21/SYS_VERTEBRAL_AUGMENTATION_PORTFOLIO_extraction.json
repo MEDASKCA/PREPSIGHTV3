@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Vertebral Augmentation Portfolio",
+    "source_type": "product_page",
+    "source_document": "Kyphon Balloon Kyphoplasty Platform | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Vertebral Augmentation Portfolio",
+      "supplier_name": "Medtronic",
+      "system_category": "spine",
+      "system_notes": "Official Medtronic vertebral augmentation materials used as the public source anchors for this vertebral augmentation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Vertebral Augmentation Framework",
+      "system_name": "Vertebral Augmentation Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Framework component anchored to Medtronic public vertebral augmentation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public vertebral augmentation source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Kyphon Balloon Kyphoplasty Platform | Medtronic; Kyphon V Premium Vertebroplasty Platform | Medtronic; Spine and Biologics | Medtronic"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public vertebral augmentation source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Kyphon Balloon Kyphoplasty Platform | Medtronic; Kyphon V Premium Vertebroplasty Platform | Medtronic; Spine and Biologics | Medtronic"
+    }
+  ]
+}

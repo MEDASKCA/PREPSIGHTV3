@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Globus Medical",
+    "system_name": "Globus MIS Spine Portfolio",
+    "source_type": "solution_page",
+    "source_document": "Minimally Invasive Spine Surgery",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Globus MIS Spine Portfolio",
+      "supplier_name": "Globus Medical",
+      "system_category": "Spine",
+      "system_notes": "Official Globus Medical minimally invasive spine surgery, posterior fixation, and MIS access pages used as the source anchors for the MIS spine portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "MIS Spine Portfolio Framework",
+      "system_name": "Globus MIS Spine Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Portfolio-level informational framework anchored to Globus Medical public MIS spine sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Globus Medical source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Minimally Invasive Spine Surgery, REVOLVE Stabilization System, and MAS TLIF 2"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public Globus Medical source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "Minimally Invasive Spine Surgery, REVOLVE Stabilization System, and MAS TLIF 2"
+    }
+  ]
+}

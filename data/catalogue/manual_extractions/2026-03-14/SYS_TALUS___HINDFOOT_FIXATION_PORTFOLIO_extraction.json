@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Talus / Hindfoot Fixation Portfolio",
+    "source_type": "product_page",
+    "source_document": "Extremity Screw System and Acutrak 2 Headless Compression Screw System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Talus / Hindfoot Fixation Portfolio",
+      "supplier_name": "Acumed",
+      "system_category": "Foot and Ankle Trauma Fixation System",
+      "system_notes": "Talus and hindfoot fixation portfolio built around extremity screw and headless compression screw families."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Talus / Hindfoot Fixation Instrumentation",
+      "system_name": "Talus / Hindfoot Fixation Portfolio",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Source materials reference extremity screw and headless compression screw instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Hindfoot Compression Screw",
+      "system_name": "Talus / Hindfoot Fixation Portfolio",
+      "component_role": "Compression Screw",
+      "implant_category": "Foot and Ankle Implant",
+      "component_notes": "Headless compression screw family used for talus, subtalar and hindfoot fixation."
+    },
+    {
+      "component_name": "Hindfoot Guidewire",
+      "system_name": "Talus / Hindfoot Fixation Portfolio",
+      "component_role": "Guidewire",
+      "implant_category": "Instrumentation",
+      "component_notes": "Guidewire family used for hindfoot and talus fixation workflows."
+    },
+    {
+      "component_name": "Hindfoot Driver",
+      "system_name": "Talus / Hindfoot Fixation Portfolio",
+      "component_role": "Driver",
+      "implant_category": "Instrumentation",
+      "component_notes": "Driver/inserter family used for hindfoot and talus fixation workflows."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Portfolio spans multiple hindfoot fixation indications and screw variants.",
+      "reason": "Needs deeper catalogue review before splitting detailed screw families and indication-specific sets.",
+      "source_excerpt": "Current extraction keeps the core compression screw workflow families only."
+    }
+  ]
+}

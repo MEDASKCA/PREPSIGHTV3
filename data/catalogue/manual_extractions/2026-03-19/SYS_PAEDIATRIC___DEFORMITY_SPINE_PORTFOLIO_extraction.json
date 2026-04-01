@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Globus Medical",
+    "system_name": "Paediatric / Deformity Spine Portfolio",
+    "source_type": "procedure_page",
+    "source_document": "Pediatric and Growing Spine",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Paediatric / Deformity Spine Portfolio",
+      "supplier_name": "Globus Medical",
+      "system_category": "paediatric_spine",
+      "system_notes": "Official Globus Medical pediatric and growing spine, pediatric deformity fixation, and growing-rod pages used as the source anchors for the pediatric deformity spine portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Paediatric Deformity Spine Portfolio Framework",
+      "system_name": "Paediatric / Deformity Spine Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Paediatric spine",
+      "component_notes": "Portfolio-level informational framework anchored to Globus Medical public pediatric deformity spine sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Globus Medical source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Pediatric and Growing Spine, Reline Small Stature, and MARVEL Growing Rod System"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public Globus Medical source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "Pediatric and Growing Spine, Reline Small Stature, and MARVEL Growing Rod System"
+    }
+  ]
+}

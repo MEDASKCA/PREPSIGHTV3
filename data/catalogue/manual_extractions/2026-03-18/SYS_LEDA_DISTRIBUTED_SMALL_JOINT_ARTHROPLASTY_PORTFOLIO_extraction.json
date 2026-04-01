@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "LEDA Distributed Small Joint Arthroplasty Portfolio",
+    "source_type": "catalogue_pdf",
+    "source_document": "Extremities and Osteosynthesis Ranges",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "LEDA Distributed Small Joint Arthroplasty Portfolio",
+      "supplier_name": "LEDA Orthopaedics",
+      "system_category": "Small joint arthroplasty",
+      "system_notes": "Public LEDA upper limb arthroplasty brochure used as the source anchor for the distributed small joint arthroplasty portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Small Joint Arthroplasty Portfolio Framework",
+      "system_name": "LEDA Distributed Small Joint Arthroplasty Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Small Joint Arthroplasty Portfolio",
+      "component_notes": "Portfolio-level informational framework anchored to the LEDA upper limb arthroplasty brochure covering MAIA and INCA small-joint arthroplasty products."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public brochure identifies the upper limb arthroplasty range but does not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "UPPER LIMB Arthroplasty MAIA trapeziometacarpal joint prosthesis INCA scapho-trapezio-trapezoid prosthesis"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No SKU-level portfolio list",
+      "reason": "The public brochure identifies portfolio products but does not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "UPPER LIMB Arthroplasty MAIA trapeziometacarpal joint prosthesis INCA scapho-trapezio-trapezoid prosthesis"
+    }
+  ]
+}

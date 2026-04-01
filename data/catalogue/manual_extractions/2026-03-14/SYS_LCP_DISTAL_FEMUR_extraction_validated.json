@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Distal Femoral Plate",
+    "source_type": "operative_technique_pdf",
+    "source_document": "LCP Distal Femur Plate Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_LCP_DISTAL_FEMORAL_PLATE_LCP_DISTAL_FEMUR_INSTRUMENT_SET",
+        "Tray Name": "LCP Distal Femur Instrument Set",
+        "System ID": "SYS_LCP_DISTAL_FEMUR",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes technique and catalog materials describe dedicated distal femur plating instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LCP_DISTAL_FEMORAL_PLATE_LCP_DISTAL_FEMUR_PLATE",
+        "Component Name": "LCP Distal Femur Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_DISTAL_FEMUR",
+        "Component Notes": "Official DePuy Synthes materials describe the distal femur plate family."
+      },
+      {
+        "Component ID": "COMP_LCP_DISTAL_FEMORAL_PLATE_LCP_DISTAL_FEMUR_LOCKING_SCREW",
+        "Component Name": "LCP Distal Femur Locking Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_DISTAL_FEMUR",
+        "Component Notes": "Official inventory materials describe compatible screw fixation for the distal femur plate system."
+      },
+      {
+        "Component ID": "COMP_LCP_DISTAL_FEMORAL_PLATE_LCP_DISTAL_FEMUR_DRILL_GUIDE",
+        "Component Name": "LCP Distal Femur Drill Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_LCP_DISTAL_FEMUR",
+        "Component Notes": "Official technique resources describe guide and instrumentation workflow for distal femur plate application."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "LCP Distal Femoral Plate",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Locking Plate \u2014 Distal Femur",
+          "system_notes": "Laterally placed distal femur locking plate system within the DePuy Synthes trauma portfolio."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "LCP Distal Femoral Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Distal Femur",
+        "system_notes": "Laterally placed distal femur locking plate system within the DePuy Synthes trauma portfolio."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "LCP Distal Femoral Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Distal Femur",
+        "system_notes": "Laterally placed distal femur locking plate system within the DePuy Synthes trauma portfolio."
+      }
+    }
+  ]
+}

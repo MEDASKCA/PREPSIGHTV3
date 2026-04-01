@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "AAP Implantate",
+    "system_name": "Hand Plating System",
+    "source_type": "product_family_page",
+    "source_document": "LOQTEQ Plating System | aap Implantate AG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Hand Plating System",
+      "supplier_name": "AAP Implantate",
+      "system_category": "orthopaedic_fixation",
+      "system_notes": "Official AAP Implantate LOQTEQ plating-system page, Straight Plates page, and LOQTEQ catalogue materials used as the source anchors for the hand plating system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Hand Plating Framework",
+      "system_name": "Hand Plating System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to AAP public hand-plating and LOQTEQ source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public hand plating source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "LOQTEQ Plating System; Straight Plates; Catalog LOQTEQ"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public hand plating source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "LOQTEQ Plating System; Straight Plates; Catalog LOQTEQ"
+    }
+  ]
+}

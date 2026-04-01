@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "InterTAN Nail System",
+    "source_type": "product_page",
+    "source_document": "TRIGEN INTERTAN Intertrochanteric Antegrade Nail",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "InterTAN Nail System",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Intramedullary Nail System",
+      "system_notes": "Cephalomedullary hip fracture nail platform using integrated interlocking screw technology for proximal femur fracture fixation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "TRIGEN INTERTAN Instrumentation",
+      "system_name": "InterTAN Nail System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Smith+Nephew materials describe dedicated INTERTAN instrumentation and integrated screw workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "TRIGEN INTERTAN Nail",
+      "system_name": "InterTAN Nail System",
+      "component_role": "Intramedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official materials describe the antegrade intertrochanteric nail used for proximal femur fracture fixation."
+    },
+    {
+      "component_name": "TRIGEN INTERTAN Lag Screw",
+      "system_name": "InterTAN Nail System",
+      "component_role": "Lag Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official materials describe the integrated lag screw as part of the compression construct."
+    },
+    {
+      "component_name": "TRIGEN INTERTAN Compression Screw",
+      "system_name": "InterTAN Nail System",
+      "component_role": "Compression Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official materials describe the interlocking compression screw that maintains active compression and resists the Z-effect."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public INTERTAN materials describe the implant construct clearly but do not expose a compact public code table in this pass.",
+      "reason": "A deeper brochure or IFU pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

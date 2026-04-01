@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "C-stem AMT / Pinnacle",
+    "source_type": "product_page",
+    "source_document": "C-STEM AMT and PINNACLE Acetabular Cup System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "C-stem AMT / Pinnacle",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Hybrid or fully cemented total hip arthroplasty construct combining the C-STEM AMT cemented femoral stem with the PINNACLE acetabular cup system."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "C-STEM / PINNACLE Instrumentation",
+      "system_name": "C-stem AMT / Pinnacle",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official C-STEM and PINNACLE materials support dedicated femoral and acetabular instrumentation for the combined platform."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "C-STEM AMT Femoral Stem",
+      "system_name": "C-stem AMT / Pinnacle",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official materials describe C-STEM AMT as a polished triple-tapered cemented femoral stem with standard and high-offset options."
+    },
+    {
+      "component_name": "PINNACLE Acetabular Cup",
+      "system_name": "C-stem AMT / Pinnacle",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official product materials describe PINNACLE as the acetabular shell family paired with C-STEM in hybrid THR."
+    },
+    {
+      "component_name": "PINNACLE Acetabular Liner",
+      "system_name": "C-stem AMT / Pinnacle",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official product materials describe the Pinnacle liner family used in the acetabular construct."
+    },
+    {
+      "component_name": "C-STEM Femoral Head",
+      "system_name": "C-stem AMT / Pinnacle",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official C-STEM materials state the stem can be used with both metal and ceramic heads."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public C-STEM and PINNACLE pages confirm the construct and implant families but this pass does not expand the full cemented stem and liner code matrix.",
+      "reason": "A deeper catalogue or IFU pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

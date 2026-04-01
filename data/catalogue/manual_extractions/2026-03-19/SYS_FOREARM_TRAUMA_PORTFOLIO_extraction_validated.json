@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "KLS Martin",
+    "system_name": "Forearm Trauma Portfolio",
+    "source_type": "product_family_page",
+    "source_document": "KLS Martin | Products - Implants | Hand - Radius and Ulna",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_FOREARM_TRAUMA_PORTFOLIO_FOREARM_TRAUMA_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Forearm Trauma Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Forearm fixation",
+        "System ID": "SYS_FOREARM_TRAUMA_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to KLS Martin public radius, ulna, and traumatology product sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Forearm Trauma Portfolio",
+          "supplier_name": "KLS Martin",
+          "system_category": "Forearm trauma fixation",
+          "system_notes": "Public KLS Martin radius, ulna, and traumatology product materials used as the source anchors for the forearm trauma portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Forearm Trauma Portfolio",
+        "supplier_name": "KLS Martin",
+        "system_category": "Forearm trauma fixation",
+        "system_notes": "Public KLS Martin radius, ulna, and traumatology product materials used as the source anchors for the forearm trauma portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Forearm Trauma Portfolio",
+        "supplier_name": "KLS Martin",
+        "system_category": "Forearm trauma fixation",
+        "system_notes": "Public KLS Martin radius, ulna, and traumatology product materials used as the source anchors for the forearm trauma portfolio entry."
+      }
+    }
+  ]
+}

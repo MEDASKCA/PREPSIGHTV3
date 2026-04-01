@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Radius / Ulna Plates",
+    "source_type": "technique_index_page",
+    "source_document": "Accompanying Product Information",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "LCP Radius / Ulna Plates",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Locking Plate — Forearm",
+      "system_notes": "Forearm locking plate family covering radius and ulna fixation within the DePuy Synthes trauma portfolio."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "LCP Forearm Instrument Set",
+      "system_name": "LCP Radius / Ulna Plates",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official DePuy Synthes technique resources describe dedicated forearm plating instrumentation for radius and ulna fixation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "LCP Radius Plate",
+      "system_name": "LCP Radius / Ulna Plates",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official catalogue and technique materials identify radius plate options within the LCP forearm family."
+    },
+    {
+      "component_name": "LCP Ulna Plate",
+      "system_name": "LCP Radius / Ulna Plates",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official catalogue and technique materials identify ulna plate options within the LCP forearm family."
+    },
+    {
+      "component_name": "LCP Forearm Screw Set",
+      "system_name": "LCP Radius / Ulna Plates",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official technique materials describe locking and cortex screw fixation used with the LCP forearm plating constructs."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official sources confirm the LCP forearm plate family and technique references but do not expose a full normalized product-code matrix in this pass.",
+      "reason": "A deeper inventory or sterile implant listing pass is required for comprehensive product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

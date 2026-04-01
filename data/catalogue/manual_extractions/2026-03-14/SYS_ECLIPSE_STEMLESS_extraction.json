@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Eclipse Stemless Shoulder",
+    "source_type": "product_page",
+    "source_document": "Eclipse Total Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Eclipse Stemless Shoulder",
+      "supplier_name": "Arthrex",
+      "system_category": "Stemless Shoulder Arthroplasty System",
+      "system_notes": "Stemless anatomic shoulder arthroplasty platform built around a cage screw humeral fixation concept with streamlined instrumentation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Eclipse Stemless Shoulder Instrument Tray",
+      "system_name": "Eclipse Stemless Shoulder",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Arthrex materials describe a streamlined single-tray instrumentation workflow for the Eclipse shoulder system."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Eclipse Cage Screw",
+      "system_name": "Eclipse Stemless Shoulder",
+      "component_role": "Humeral Fixation",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official Arthrex materials describe metaphyseal humeral fixation using the Eclipse cage screw concept."
+    },
+    {
+      "component_name": "Eclipse Humeral Head",
+      "system_name": "Eclipse Stemless Shoulder",
+      "component_role": "Humeral Head",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official product materials describe modular humeral head options within the Eclipse shoulder construct."
+    },
+    {
+      "component_name": "Eclipse Glenoid Component",
+      "system_name": "Eclipse Stemless Shoulder",
+      "component_role": "Glenoid Component",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official product materials describe compatible glenoid component options for anatomic shoulder reconstruction."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Public Arthrex Eclipse pages in this pass describe the system, fixation concept, and tray workflow but do not expose a public implant code table.",
+      "reason": "A deeper brochure, IFU, or ordering guide pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

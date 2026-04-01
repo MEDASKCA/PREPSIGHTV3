@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "EXPEDIUM / CONCORDE Lumbar Fusion Portfolio",
+    "source_type": "product_page",
+    "source_document": "EXPEDIUM Spine System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "EXPEDIUM / CONCORDE Lumbar Fusion Portfolio",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "spine",
+      "system_notes": "Official DePuy Synthes posterior fixation and lumbar interbody materials used as the public source anchors for this lumbar fusion portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Lumbar Fusion Portfolio Framework",
+      "system_name": "EXPEDIUM / CONCORDE Lumbar Fusion Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Framework component anchored to DePuy Synthes public lumbar fusion source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public lumbar fusion source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "EXPEDIUM Spine System; Spine | DePuy Synthes; Johnson & Johnson Medical GmbH Acquires Emerging Implant Technologies GmbH to Enhance Its Global Spine Portfolio | DePuy Synthes; DePuy Synthes Continues Mission To Simplify and Enhance Minimally Invasive Spine Surgery | DePuy Synthes"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public lumbar fusion source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "EXPEDIUM Spine System; Spine | DePuy Synthes; Johnson & Johnson Medical GmbH Acquires Emerging Implant Technologies GmbH to Enhance Its Global Spine Portfolio | DePuy Synthes; DePuy Synthes Continues Mission To Simplify and Enhance Minimally Invasive Spine Surgery | DePuy Synthes"
+    }
+  ]
+}

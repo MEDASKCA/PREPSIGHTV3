@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Unassigned",
+    "system_name": "Ankle Fusion Portfolio",
+    "source_type": "category_anchor",
+    "source_document": "Ankle Fusion Portfolio Category Anchor",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_ANKLE_FUSION_PORTFOLIO",
+      "system_name": "Ankle Fusion Portfolio",
+      "supplier": "Unassigned",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Generic public ankle arthrodesis category anchor used for the unassigned ankle fusion portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_ANKLE_FUSION_PORTFOLIO",
+      "component_name": "Ankle Fusion Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Ankle Fusion Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to a generic ankle arthrodesis category source."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_ANKLE_FUSION_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Category anchor source does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_ANKLE_FUSION_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Category anchor source does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

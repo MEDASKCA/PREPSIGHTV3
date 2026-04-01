@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Hemiarthroplasty Portfolio",
+    "source_type": "catalogue_page",
+    "source_document": "All Products | DePuy Synthes",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_HEMIARTHROPLASTY_PORTFOLIO_HEMIARTHROPLASTY_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Hemiarthroplasty Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma Hip Reconstruction",
+        "System ID": "SYS_HEMIARTHROPLASTY_PORTFOLIO",
+        "Component Notes": "Framework component anchored to DePuy Synthes public hemiarthroplasty source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Hemiarthroplasty Portfolio",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "trauma",
+          "system_notes": "Official DePuy Synthes hemiarthroplasty materials used as the public source anchors for this trauma reconstruction portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Hemiarthroplasty Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Official DePuy Synthes hemiarthroplasty materials used as the public source anchors for this trauma reconstruction portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Hemiarthroplasty Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Official DePuy Synthes hemiarthroplasty materials used as the public source anchors for this trauma reconstruction portfolio entry."
+      }
+    }
+  ]
+}

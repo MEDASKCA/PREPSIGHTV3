@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "Paragon 28 / Zimmer Biomet Ankle Fracture Portfolio",
+    "source_type": "product_page",
+    "source_document": "Gorilla Ankle Fracture Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PARAGON_28_ZIMMER_BIOMET_ANKLE_FRACTURE_PORTFOLIO_ANKLE_FRACTURE_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Ankle Fracture Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Foot & ankle trauma fixation",
+        "System ID": "SYS_PARAGON_28_ZIMMER_BIOMET_ANKLE_FRACTURE_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Paragon 28 public ankle fracture and pilon plating sources used for this mixed portfolio mapping."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Paragon 28 / Zimmer Biomet Ankle Fracture Portfolio",
+          "supplier_name": "Paragon 28",
+          "system_category": "Foot & ankle trauma fixation",
+          "system_notes": "Official Paragon 28 Gorilla ankle fracture, Gorilla pilon plating, and Foot and Ankle Products materials used as the source anchors for the mixed ankle fracture portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Paragon 28 / Zimmer Biomet Ankle Fracture Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "Foot & ankle trauma fixation",
+        "system_notes": "Official Paragon 28 Gorilla ankle fracture, Gorilla pilon plating, and Foot and Ankle Products materials used as the source anchors for the mixed ankle fracture portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Paragon 28 / Zimmer Biomet Ankle Fracture Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "Foot & ankle trauma fixation",
+        "system_notes": "Official Paragon 28 Gorilla ankle fracture, Gorilla pilon plating, and Foot and Ankle Products materials used as the source anchors for the mixed ankle fracture portfolio entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Biedermann Motech",
+    "system_name": "Spinal Solutions for Degenerative and Trauma Surgery",
+    "source_type": "portfolio_page",
+    "source_document": "Spine | Biedermann Motech GmbH & Co. KG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_SPINAL_SOLUTIONS_FOR_DEGENERATIVE_AND_TRAUMA_SURGERY_DEGENERATIVE_AND_TRAUMA_SPINE_FRAMEWORK",
+        "Component Name": "Degenerative and Trauma Spine Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Spine",
+        "System ID": "SYS_SPINAL_SOLUTIONS_FOR_DEGENERATIVE_AND_TRAUMA_SURGERY",
+        "Component Notes": "Framework component anchored to Biedermann public degenerative and trauma spine source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Spinal Solutions for Degenerative and Trauma Surgery",
+          "supplier_name": "Biedermann Motech",
+          "system_category": "spine",
+          "system_notes": "Official Biedermann degenerative and trauma spine materials used as the public source anchors for this combined spine surgery portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Spinal Solutions for Degenerative and Trauma Surgery",
+        "supplier_name": "Biedermann Motech",
+        "system_category": "spine",
+        "system_notes": "Official Biedermann degenerative and trauma spine materials used as the public source anchors for this combined spine surgery portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Spinal Solutions for Degenerative and Trauma Surgery",
+        "supplier_name": "Biedermann Motech",
+        "system_category": "spine",
+        "system_notes": "Official Biedermann degenerative and trauma spine materials used as the public source anchors for this combined spine surgery portfolio entry."
+      }
+    }
+  ]
+}

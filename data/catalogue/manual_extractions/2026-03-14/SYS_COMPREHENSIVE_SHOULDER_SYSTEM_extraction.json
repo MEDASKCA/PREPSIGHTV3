@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Comprehensive Shoulder System",
+    "source_type": "product_page",
+    "source_document": "Comprehensive Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Comprehensive Shoulder System",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Shoulder Arthroplasty System",
+      "system_notes": "Platform shoulder arthroplasty system supporting anatomic shoulder reconstruction for primary total shoulder replacement."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Comprehensive Shoulder System Instrumentation",
+      "system_name": "Comprehensive Shoulder System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet materials support dedicated Comprehensive shoulder instrumentation and linked technique resources."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Comprehensive System Humeral Stem",
+      "system_name": "Comprehensive Shoulder System",
+      "component_role": "Humeral Stem",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the humeral stem platform used for anatomic shoulder reconstruction."
+    },
+    {
+      "component_name": "Comprehensive System Glenoid Component",
+      "system_name": "Comprehensive Shoulder System",
+      "component_role": "Glenoid Component",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the anatomic glenoid component family within the platform."
+    },
+    {
+      "component_name": "Comprehensive System Humeral Head",
+      "system_name": "Comprehensive Shoulder System",
+      "component_role": "Humeral Head",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe humeral head options for anatomic shoulder arthroplasty."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public Comprehensive shoulder page defines the anatomic implant construct but does not expose a public implant code table in this pass.",
+      "reason": "A deeper brochure, IFU, or technique pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

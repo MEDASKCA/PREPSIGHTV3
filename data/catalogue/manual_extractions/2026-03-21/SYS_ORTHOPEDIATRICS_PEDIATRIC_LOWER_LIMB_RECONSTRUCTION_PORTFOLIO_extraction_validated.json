@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "OrthoPediatrics",
+    "system_name": "OrthoPediatrics Pediatric lower limb reconstruction Portfolio",
+    "source_type": "product_page",
+    "source_document": "Locking Cannulated Blade (LCB) Plate - OrthoPediatrics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ORTHOPEDIATRICS_PEDIATRIC_LOWER_LIMB_RECONSTRUCTION_PORTFOLIO_PEDIATRIC_LOWER_LIMB_RECONSTRUCTION_FRAMEWORK",
+        "Component Name": "Pediatric Lower Limb Reconstruction Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Pediatric Orthopaedics",
+        "System ID": "SYS_ORTHOPEDIATRICS_PEDIATRIC_LOWER_LIMB_RECONSTRUCTION_PORTFOLIO",
+        "Component Notes": "Framework component anchored to OrthoPediatrics public lower-limb reconstruction source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "OrthoPediatrics Pediatric lower limb reconstruction Portfolio",
+          "supplier_name": "OrthoPediatrics",
+          "system_category": "Pediatric lower limb reconstruction",
+          "system_notes": "Official OrthoPediatrics lower-limb reconstruction materials used as the public source anchors for this pediatric reconstruction portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "OrthoPediatrics Pediatric lower limb reconstruction Portfolio",
+        "supplier_name": "OrthoPediatrics",
+        "system_category": "Pediatric lower limb reconstruction",
+        "system_notes": "Official OrthoPediatrics lower-limb reconstruction materials used as the public source anchors for this pediatric reconstruction portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "OrthoPediatrics Pediatric lower limb reconstruction Portfolio",
+        "supplier_name": "OrthoPediatrics",
+        "system_category": "Pediatric lower limb reconstruction",
+        "system_notes": "Official OrthoPediatrics lower-limb reconstruction materials used as the public source anchors for this pediatric reconstruction portfolio entry."
+      }
+    }
+  ]
+}

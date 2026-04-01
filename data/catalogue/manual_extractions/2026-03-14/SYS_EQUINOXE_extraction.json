@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Exactech",
+    "system_name": "Equinoxe Shoulder System",
+    "source_type": "product_page",
+    "source_document": "Equinoxe Platform Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Equinoxe Shoulder System",
+      "supplier_name": "Exactech",
+      "system_category": "Shoulder Arthroplasty System",
+      "system_notes": "Platform shoulder system supporting anatomic and reverse shoulder reconstruction."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Equinoxe Instrumentation",
+      "system_name": "Equinoxe Shoulder System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Platform shoulder instrumentation referenced on the product page and linked resources."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Equinoxe Humeral Stem",
+      "system_name": "Equinoxe Shoulder System",
+      "component_role": "Humeral Stem",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Core humeral stem platform component."
+    },
+    {
+      "component_name": "Equinoxe Glenoid",
+      "system_name": "Equinoxe Shoulder System",
+      "component_role": "Glenoid Component",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Anatomic glenoid component family referenced by the platform system."
+    },
+    {
+      "component_name": "Equinoxe Reverse Glenosphere",
+      "system_name": "Equinoxe Shoulder System",
+      "component_role": "Glenosphere",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Reverse reconstruction component family referenced by the platform system."
+    },
+    {
+      "component_name": "Equinoxe Humeral Liner",
+      "system_name": "Equinoxe Shoulder System",
+      "component_role": "Humeral Liner",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Reverse/anatomic liner family referenced by the platform system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Platform system includes multiple stemless, preserve and reverse options.",
+      "reason": "Needs deeper operative technique review before splitting every Equinoxe subfamily into separate component rows.",
+      "source_excerpt": "Current extraction keeps the main platform components only."
+    }
+  ]
+}

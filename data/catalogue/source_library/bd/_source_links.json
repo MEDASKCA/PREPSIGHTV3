@@ -1,0 +1,22 @@
+[
+  {
+    "supplier_id": "SUP_BD",
+    "supplier_name": "BD",
+    "system_id": "SYS_ARTERIAL_LINE_KIT",
+    "system_name": "Arterial Line Kit",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "StatLock Arterial Ultra Stabilisation Device | BD",
+        "url": "https://www.bd.com/en-uk/products-and-solutions/products/product-families/statlock-arterial-ultra-stabilisation-device",
+        "notes": "Official BD arterial-line stabilisation family page used as the public source anchor for the arterial line kit row."
+      },
+      {
+        "source_type": "product_page",
+        "title": "StatLock Arterial Stabilization Device for Arrow Catheters, Crescent | BD",
+        "url": "https://www.bd.com/en-us/products-and-solutions/products/product-page.vadac",
+        "notes": "Official BD product page used for coded arterial-line product detail."
+      }
+    ]
+  }
+]

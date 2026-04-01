@@ -1,0 +1,208 @@
+[
+  {
+    "id": "PROC_ORAL_EXAMINATION_UNDER_ANAESTHESIA",
+    "name": "Oral Examination Under Anaesthesia",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_ORAL_CAVITY",
+    "aliases": [],
+    "description": "Comprehensive examination of the oral cavity under anaesthesia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ORAL_BIOPSY",
+    "name": "Oral Biopsy",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_ORAL_CAVITY",
+    "aliases": [],
+    "description": "Biopsy of oral mucosal lesion for histological diagnosis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_ORAL_MUCOUS_CYST",
+    "name": "Excision of Oral Mucous Cyst",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_ORAL_CAVITY",
+    "aliases": [
+      "Excision of Mucocele"
+    ],
+    "description": "Excision of mucous cyst of the oral cavity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_ORAL_SOFT_TISSUE_LESION",
+    "name": "Excision of Oral Soft Tissue Lesion",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_ORAL_CAVITY",
+    "aliases": [],
+    "description": "Excision of benign or suspicious soft tissue lesion within the oral cavity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_INCISION_AND_DRAINAGE_OF_ORAL_ABSCESS",
+    "name": "Incision and Drainage of Oral Abscess",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_ORAL_CAVITY",
+    "aliases": [],
+    "description": "Incision and drainage of oral or dentoalveolar abscess.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SURGICAL_EXTRACTION_OF_IMPACTED_TOOTH_BY_DENTAL_ORAL",
+    "name": "Surgical Extraction of Impacted Tooth",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [],
+    "description": "Surgical removal of impacted tooth from the alveolus.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXTRACTION_OF_WISDOM_TOOTH_BY_DENTAL_ORAL",
+    "name": "Extraction of Wisdom Tooth",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [
+      "Third Molar Extraction"
+    ],
+    "description": "Removal of third molar tooth.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_APICECTOMY_BY_DENTAL_ORAL",
+    "name": "Apicectomy",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [
+      "Root End Resection"
+    ],
+    "description": "Surgical resection of tooth root apex.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_ODONTOGENIC_CYST",
+    "name": "Excision of Odontogenic Cyst",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [],
+    "description": "Excision of odontogenic cyst involving dentoalveolar structures.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MARSUPIALISATION_OF_ODONTOGENIC_CYST",
+    "name": "Marsupialisation of Odontogenic Cyst",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [],
+    "description": "Marsupialisation procedure for decompression of odontogenic cyst.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ALVEOLOPLASTY",
+    "name": "Alveoloplasty",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [],
+    "description": "Surgical contouring of the alveolar ridge.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXPOSURE_OF_IMPACTED_TOOTH_BY_DENTAL_ORAL",
+    "name": "Exposure of Impacted Tooth",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_ORAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH_AND_ALVEOLAR_BONE",
+    "aliases": [],
+    "description": "Surgical exposure of impacted tooth for orthodontic traction or management.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SIMPLE_TOOTH_EXTRACTION",
+    "name": "Simple Tooth Extraction",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_DENTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH",
+    "aliases": [],
+    "description": "Routine extraction of erupted tooth.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SURGICAL_TOOTH_EXTRACTION",
+    "name": "Surgical Tooth Extraction",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_DENTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH",
+    "aliases": [],
+    "description": "Operative extraction of tooth requiring flap, bone removal, or sectioning.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_INCISION_AND_DRAINAGE_OF_DENTAL_ABSCESS",
+    "name": "Incision and Drainage of Dental Abscess",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_DENTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH",
+    "aliases": [],
+    "description": "Drainage of abscess arising from dental infection.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DENTAL_IMPLANT_PLACEMENT",
+    "name": "Dental Implant Placement",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_DENTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH",
+    "aliases": [],
+    "description": "Placement of dental implant into alveolar bone.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BONE_GRAFTING_FOR_IMPLANT_SITE",
+    "name": "Bone Grafting for Implant Site",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_DENTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH",
+    "aliases": [],
+    "description": "Bone grafting procedure to augment implant site.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SOCKET_PRESERVATION_GRAFTING",
+    "name": "Socket Preservation Grafting",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_DENTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH",
+    "aliases": [],
+    "description": "Bone grafting of extraction socket to preserve ridge volume.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CROWN_LENGTHENING",
+    "name": "Crown Lengthening",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_DENTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_TEETH",
+    "aliases": [],
+    "description": "Surgical exposure of more tooth structure for restorative purposes.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FRENECTOMY",
+    "name": "Frenectomy",
+    "specialty_id": "SPEC_DENTAL_ORAL_SURGERY",
+    "service_line_id": "SL_DENTAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_DENTAL_AND_ORAL_SURGERY_ORAL_CAVITY",
+    "aliases": [],
+    "description": "Division or excision of oral frenum.",
+    "status": "active"
+  }
+]

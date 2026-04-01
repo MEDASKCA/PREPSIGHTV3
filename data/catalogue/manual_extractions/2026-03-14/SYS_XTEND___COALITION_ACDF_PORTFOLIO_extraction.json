@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Globus Medical",
+    "system_name": "Xtend / Coalition ACDF Portfolio",
+    "source_type": "product_page",
+    "source_document": "Xtend Anterior Cervical Plate System and Coalition AGX Spacer System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Xtend / Coalition ACDF Portfolio",
+      "supplier_name": "Globus Medical",
+      "system_category": "ACDF System",
+      "system_notes": "Anterior cervical discectomy and fusion platform combining plate and integrated spacer options."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Xtend / Coalition ACDF Instrumentation",
+      "system_name": "Xtend / Coalition ACDF Portfolio",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated anterior cervical instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Xtend Cervical Plate",
+      "system_name": "Xtend / Coalition ACDF Portfolio",
+      "component_role": "Cervical Plate",
+      "implant_category": "Spine Implant",
+      "component_notes": "Core anterior cervical plate family referenced on the product page."
+    },
+    {
+      "component_name": "Xtend Cervical Screw",
+      "system_name": "Xtend / Coalition ACDF Portfolio",
+      "component_role": "Cervical Screw",
+      "implant_category": "Spine Implant",
+      "component_notes": "Core anterior cervical screw family referenced on the product page."
+    },
+    {
+      "component_name": "Coalition Spacer",
+      "system_name": "Xtend / Coalition ACDF Portfolio",
+      "component_role": "Interbody Spacer",
+      "implant_category": "Spine Implant",
+      "component_notes": "Integrated interbody spacer family referenced on the product page."
+    },
+    {
+      "component_name": "Coalition Fixation Screw",
+      "system_name": "Xtend / Coalition ACDF Portfolio",
+      "component_role": "Fixation Screw",
+      "implant_category": "Spine Implant",
+      "component_notes": "Integrated fixation screw family referenced on the product page."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Portfolio includes multiple plate lengths and spacer geometries.",
+      "reason": "Needs deeper technique or catalogue review before detailed family expansion.",
+      "source_excerpt": "Current extraction keeps the core ACDF implant families only."
+    }
+  ]
+}

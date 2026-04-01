@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Drager",
+    "system_name": "Anaesthesia Machine",
+    "source_type": "product_family_page",
+    "source_document": "Anesthesia Machines",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Anaesthesia Machine",
+      "supplier_name": "Drager",
+      "system_category": "anaesthesia_delivery",
+      "system_notes": "Public Drager anesthesia workstation family and flagship product pages used as the source anchors for the anaesthesia machine entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Anaesthesia Machine Platform Framework",
+      "system_name": "Anaesthesia Machine",
+      "component_role": "Platform Framework",
+      "implant_category": "Anaesthesia delivery",
+      "component_notes": "Portfolio-level informational framework anchored to Drager public anesthesia machine sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Drager source anchors do not enumerate tray-level data for this capital-equipment entry.",
+      "source_excerpt": "Anesthesia Machines, Drager Atlan A350, and Perseus A500"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public Drager source anchors do not provide a complete SKU-level extraction for this capital-equipment entry.",
+      "source_excerpt": "Anesthesia Machines, Drager Atlan A350, and Perseus A500"
+    }
+  ]
+}

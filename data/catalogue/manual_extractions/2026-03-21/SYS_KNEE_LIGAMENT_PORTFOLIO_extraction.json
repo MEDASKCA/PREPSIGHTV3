@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Knee Ligament Portfolio",
+    "source_type": "product_page",
+    "source_document": "ULTRABUTTON Adjustable Fixation Device Family",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Knee Ligament Portfolio",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "sports_medicine_knee",
+      "system_notes": "Official Smith+Nephew knee-ligament reconstruction materials used as the public source anchors for this knee ligament portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Knee Ligament Reconstruction Framework",
+      "system_name": "Knee Ligament Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Sports Medicine",
+      "component_notes": "Framework component anchored to Smith+Nephew public knee-ligament source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public knee-ligament source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "ULTRABUTTON Adjustable Fixation Device Family; Smith+Nephew Sports Medicine advances procedural innovation with QUADTRAC and expanded ULTRABUTTON family; XTENDOBUTTON Fixation Devices"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public knee-ligament source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "ULTRABUTTON Adjustable Fixation Device Family; Smith+Nephew Sports Medicine advances procedural innovation with QUADTRAC and expanded ULTRABUTTON family; XTENDOBUTTON Fixation Devices"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+{
+  "source_meta": {
+    "supplier_name": "Fujifilm Medical",
+    "system_name": "Ultrasound Machine",
+    "source_type": "product_family_page",
+    "source_document": "Portable, Point-of-Care Ultrasound | FUJIFILM Sonosite",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ULTRASOUND_MACHINE_SONOSITE_LX_ULTRASOUND_SYSTEM",
+        "Component Name": "Sonosite LX Ultrasound System",
+        "Component Role": "Ultrasound Console",
+        "Implant Category": "Imaging Platform",
+        "System ID": "SYS_ULTRASOUND",
+        "Component Notes": "Premium Fujifilm Sonosite point-of-care ultrasound system with large clinical display."
+      },
+      {
+        "Component ID": "COMP_ULTRASOUND_MACHINE_SONOSITE_PX_ULTRASOUND_SYSTEM",
+        "Component Name": "Sonosite PX Ultrasound System",
+        "Component Role": "Ultrasound Console",
+        "Implant Category": "Imaging Platform",
+        "System ID": "SYS_ULTRASOUND",
+        "Component Notes": "Advanced Fujifilm Sonosite point-of-care ultrasound system referenced in the current portfolio."
+      },
+      {
+        "Component ID": "COMP_ULTRASOUND_MACHINE_T8_3_TRANSDUCER",
+        "Component Name": "T8-3 Transducer",
+        "Component Role": "Ultrasound Transducer",
+        "Implant Category": "Imaging Accessory",
+        "System ID": "SYS_ULTRASOUND",
+        "Component Notes": "Fujifilm Sonosite transducer launched alongside Sonosite LX and PX workflow support."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Ultrasound Machine",
+          "supplier_name": "Fujifilm Medical",
+          "system_category": "Imaging",
+          "system_notes": "Official source anchor for Fujifilm Sonosite point-of-care ultrasound systems."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Ultrasound Machine",
+        "supplier_name": "Fujifilm Medical",
+        "system_category": "Imaging",
+        "system_notes": "Official source anchor for Fujifilm Sonosite point-of-care ultrasound systems."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Ultrasound Machine",
+        "supplier_name": "Fujifilm Medical",
+        "system_category": "Imaging",
+        "system_notes": "Official source anchor for Fujifilm Sonosite point-of-care ultrasound systems."
+      }
+    }
+  ]
+}

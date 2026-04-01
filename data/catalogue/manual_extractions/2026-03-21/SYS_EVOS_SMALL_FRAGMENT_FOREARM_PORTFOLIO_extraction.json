@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "EVOS Small Fragment Forearm Portfolio",
+    "source_type": "product_page",
+    "source_document": "EVOS SMALL Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "EVOS Small Fragment Forearm Portfolio",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "upper_extremity_trauma",
+      "system_notes": "Official Smith+Nephew EVOS forearm plating materials used as the public source anchors for this upper-extremity trauma portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Small Fragment Forearm Portfolio Framework",
+      "system_name": "EVOS Small Fragment Forearm Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Upper Extremity Trauma",
+      "component_notes": "Framework component anchored to Smith+Nephew public EVOS forearm fixation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public EVOS forearm source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "EVOS SMALL Plating System; Smith+Nephew launches new EVOS WRIST plating system"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public EVOS forearm source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "EVOS SMALL Plating System; Smith+Nephew launches new EVOS WRIST plating system"
+    }
+  ]
+}

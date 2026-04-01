@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Stryker Kyphon Balloon",
+    "source_type": "product_page",
+    "source_document": "Kyphon Balloon Kyphoplasty",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Stryker Kyphon Balloon",
+      "supplier_name": "Stryker",
+      "system_category": "Vertebral Augmentation",
+      "system_notes": "Public source anchor for the Stryker Kyphon balloon kyphoplasty system."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Kyphon Balloon Kyphoplasty Family",
+      "system_name": "Stryker Kyphon Balloon",
+      "component_role": "Portfolio Family",
+      "implant_category": "Vertebral Augmentation Workflow",
+      "component_notes": "Official Stryker sources describe the broader Kyphon balloon kyphoplasty family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Public vertebral augmentation product pages do not describe a dedicated tray in the current pass.",
+      "reason": "Tray detail should only be added from technique or instrumentation sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public product pages do not expose a normalized product-code matrix in this pass.",
+      "reason": "Product codes should be captured from ordering guides or narrower device SKU sources.",
+      "source_excerpt": "Current extraction remains high-level only."
+    }
+  ]
+}

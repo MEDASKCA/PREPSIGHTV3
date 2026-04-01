@@ -1,0 +1,125 @@
+[
+  { "procedure_id": "PROC_URETEROSCOPY_AND_STONE_EXTRACTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_URETEROSCOPY_AND_STONE_EXTRACTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_URETEROSCOPY_AND_STONE_EXTRACTION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_URETEROSCOPY_AND_LASER_LITHOTRIPSY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_URETEROSCOPY_AND_LASER_LITHOTRIPSY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_URETEROSCOPY_AND_LASER_LITHOTRIPSY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_FLEXIBLE_URETERORENOSCOPY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_FLEXIBLE_URETERORENOSCOPY", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_FLEXIBLE_URETERORENOSCOPY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_PERCUTANEOUS_NEPHROLITHOTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PERCUTANEOUS_NEPHROLITHOTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PERCUTANEOUS_NEPHROLITHOTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_INSERTION_OF_URETERIC_STENT", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_INSERTION_OF_URETERIC_STENT", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_INSERTION_OF_URETERIC_STENT", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_EXCHANGE_OF_URETERIC_STENT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCHANGE_OF_URETERIC_STENT", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_EXCHANGE_OF_URETERIC_STENT", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_TRANSURETHRAL_RESECTION_OF_BLADDER_TUMOUR", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_TRANSURETHRAL_RESECTION_OF_BLADDER_TUMOUR", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_TRANSURETHRAL_RESECTION_OF_BLADDER_TUMOUR", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_RADICAL_CYSTECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RADICAL_CYSTECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_RADICAL_PROSTATECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RADICAL_PROSTATECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_RADICAL_PROSTATECTOMY", "case_tag_id": "CASE_ROBOTIC" },
+
+  { "procedure_id": "PROC_RADICAL_NEPHRECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RADICAL_NEPHRECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PARTIAL_NEPHRECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_PARTIAL_NEPHRECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PARTIAL_NEPHRECTOMY", "case_tag_id": "CASE_ROBOTIC" },
+
+  { "procedure_id": "PROC_NEPHROURETERECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_NEPHROURETERECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_RADICAL_ORCHIDECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RADICAL_ORCHIDECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PARTIAL_PENECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_PARTIAL_PENECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TOTAL_PENECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_TOTAL_PENECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TRANSURETHRAL_RESECTION_OF_PROSTATE", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TRANSURETHRAL_RESECTION_OF_PROSTATE", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_TRANSURETHRAL_RESECTION_OF_PROSTATE", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_HOLMIUM_LASER_ENUCLEATION_OF_PROSTATE", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HOLMIUM_LASER_ENUCLEATION_OF_PROSTATE", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_HOLMIUM_LASER_ENUCLEATION_OF_PROSTATE", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_BLADDER_NECK_INCISION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_BLADDER_NECK_INCISION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_BLADDER_NECK_INCISION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_INTRAVESICAL_BOTOX_INJECTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_INTRAVESICAL_BOTOX_INJECTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_INTRAVESICAL_BOTOX_INJECTION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_SACRAL_NEUROMODULATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SACRAL_NEUROMODULATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CYSTOSCOPY", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_CYSTOSCOPY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_PENILE_PROSTHESIS_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PENILE_PROSTHESIS_INSERTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_PENILE_PROSTHESIS_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CIRCUMCISION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CIRCUMCISION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_VASECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_VASECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_VASECTOMY_REVERSAL", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_VASECTOMY_REVERSAL", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_VARICOCELECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_VARICOCELECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_HYDROCOELE_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HYDROCOELE_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_URETHROPLASTY", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_URETHROPLASTY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_AUGMENTATION_CYSTOPLASTY", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_AUGMENTATION_CYSTOPLASTY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_URINARY_DIVERSION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_URINARY_DIVERSION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PYELOPLASTY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PYELOPLASTY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_ORCHIDOPEXY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ORCHIDOPEXY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_HYPOSPADIAS_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HYPOSPADIAS_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_POSTERIOR_URETHRAL_VALVE_ABLATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_POSTERIOR_URETHRAL_VALVE_ABLATION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_POSTERIOR_URETHRAL_VALVE_ABLATION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_DEFLUX_INJECTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_DEFLUX_INJECTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_DEFLUX_INJECTION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_URETERIC_REIMPLANTATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_URETERIC_REIMPLANTATION", "case_tag_id": "CASE_RECONSTRUCTION" }
+]

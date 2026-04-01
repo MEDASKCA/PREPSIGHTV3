@@ -1,0 +1,59 @@
+[
+  { "procedure_id": "PROC_ORAL_EXAMINATION_UNDER_ANAESTHESIA", "case_tag_id": "CASE_DIAGNOSTIC" },
+
+  { "procedure_id": "PROC_ORAL_BIOPSY", "case_tag_id": "CASE_DIAGNOSTIC" },
+
+  { "procedure_id": "PROC_EXCISION_OF_ORAL_MUCOUS_CYST", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_ORAL_MUCOUS_CYST", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXCISION_OF_ORAL_SOFT_TISSUE_LESION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_ORAL_SOFT_TISSUE_LESION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_INCISION_AND_DRAINAGE_OF_ORAL_ABSCESS", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_INCISION_AND_DRAINAGE_OF_ORAL_ABSCESS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SURGICAL_EXTRACTION_OF_IMPACTED_TOOTH_BY_DENTAL_ORAL", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SURGICAL_EXTRACTION_OF_IMPACTED_TOOTH_BY_DENTAL_ORAL", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXTRACTION_OF_WISDOM_TOOTH_BY_DENTAL_ORAL", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXTRACTION_OF_WISDOM_TOOTH_BY_DENTAL_ORAL", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_APICECTOMY_BY_DENTAL_ORAL", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_APICECTOMY_BY_DENTAL_ORAL", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXCISION_OF_ODONTOGENIC_CYST", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_ODONTOGENIC_CYST", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_MARSUPIALISATION_OF_ODONTOGENIC_CYST", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_MARSUPIALISATION_OF_ODONTOGENIC_CYST", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ALVEOLOPLASTY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ALVEOLOPLASTY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_EXPOSURE_OF_IMPACTED_TOOTH_BY_DENTAL_ORAL", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXPOSURE_OF_IMPACTED_TOOTH_BY_DENTAL_ORAL", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SIMPLE_TOOTH_EXTRACTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SIMPLE_TOOTH_EXTRACTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SURGICAL_TOOTH_EXTRACTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SURGICAL_TOOTH_EXTRACTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_INCISION_AND_DRAINAGE_OF_DENTAL_ABSCESS", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_INCISION_AND_DRAINAGE_OF_DENTAL_ABSCESS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DENTAL_IMPLANT_PLACEMENT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_DENTAL_IMPLANT_PLACEMENT", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_BONE_GRAFTING_FOR_IMPLANT_SITE", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_BONE_GRAFTING_FOR_IMPLANT_SITE", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_SOCKET_PRESERVATION_GRAFTING", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SOCKET_PRESERVATION_GRAFTING", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_CROWN_LENGTHENING", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CROWN_LENGTHENING", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FRENECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_FRENECTOMY", "case_tag_id": "CASE_THERAPEUTIC" }
+]

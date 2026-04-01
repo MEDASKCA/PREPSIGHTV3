@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acumed Modular Radial Head",
+    "source_type": "product_page",
+    "source_document": "Acumed Modular Radial Head System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ACUMED_MODULAR_RADIAL_HEAD_MODULAR_RADIAL_HEAD_INSTRUMENTATION",
+        "Tray Name": "Modular Radial Head Instrumentation",
+        "System ID": "SYS_RADIAL_HEAD_MODULAR",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated radial head system instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACUMED_MODULAR_RADIAL_HEAD_MODULAR_RADIAL_HEAD_HEAD_COMPONENT",
+        "Component Name": "Modular Radial Head Head Component",
+        "Component Role": "Radial Head Component",
+        "Implant Category": "Elbow Implant",
+        "System ID": "SYS_RADIAL_HEAD_MODULAR",
+        "Component Notes": "Core radial head component family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_ACUMED_MODULAR_RADIAL_HEAD_MODULAR_RADIAL_HEAD_STEM",
+        "Component Name": "Modular Radial Head Stem",
+        "Component Role": "Stem",
+        "Implant Category": "Elbow Implant",
+        "System ID": "SYS_RADIAL_HEAD_MODULAR",
+        "Component Notes": "Core stem family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_ACUMED_MODULAR_RADIAL_HEAD_MODULAR_RADIAL_HEAD_TRIAL",
+        "Component Name": "Modular Radial Head Trial",
+        "Component Role": "Trial",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_RADIAL_HEAD_MODULAR",
+        "Component Notes": "Trial family referenced within the radial head system workflow."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Acumed Modular Radial Head",
+          "supplier_name": "Acumed",
+          "system_category": "Elbow Arthroplasty / Radial Head Replacement System",
+          "system_notes": "Radial head replacement platform with head, stem and instrumentation families."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Acumed Modular Radial Head",
+        "supplier_name": "Acumed",
+        "system_category": "Elbow Arthroplasty / Radial Head Replacement System",
+        "system_notes": "Radial head replacement platform with head, stem and instrumentation families."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Acumed Modular Radial Head",
+        "supplier_name": "Acumed",
+        "system_category": "Elbow Arthroplasty / Radial Head Replacement System",
+        "system_notes": "Radial head replacement platform with head, stem and instrumentation families."
+      }
+    }
+  ]
+}

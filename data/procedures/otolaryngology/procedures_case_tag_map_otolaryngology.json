@@ -1,0 +1,121 @@
+[
+  { "procedure_id": "PROC_THYROID_LOBECTOMY_BY_ENT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_THYROID_LOBECTOMY_BY_ENT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TOTAL_THYROIDECTOMY_BY_ENT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TOTAL_THYROIDECTOMY_BY_ENT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PAROTIDECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PAROTIDECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_SUBMANDIBULAR_GLAND_EXCISION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SUBMANDIBULAR_GLAND_EXCISION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_NECK_DISSECTION", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_NECK_DISSECTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PARTIAL_GLOSSECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_PARTIAL_GLOSSECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_LATERAL_PHARYNGECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_LATERAL_PHARYNGECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_LARYNGECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_LARYNGECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FUNCTIONAL_ENDOSCOPIC_SINUS_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_FUNCTIONAL_ENDOSCOPIC_SINUS_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_FUNCTIONAL_ENDOSCOPIC_SINUS_SURGERY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_ENDOSCOPIC_ANTROSTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ENDOSCOPIC_ANTROSTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ENDOSCOPIC_ANTROSTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_ENDOSCOPIC_ETHMOIDECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ENDOSCOPIC_ETHMOIDECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ENDOSCOPIC_ETHMOIDECTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_ENDOSCOPIC_SPHENOIDOTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ENDOSCOPIC_SPHENOIDOTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ENDOSCOPIC_SPHENOIDOTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_ENDOSCOPIC_FRONTAL_SINUS_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ENDOSCOPIC_FRONTAL_SINUS_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ENDOSCOPIC_FRONTAL_SINUS_SURGERY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_SEPTOPLASTY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SEPTOPLASTY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TURBINATE_REDUCTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TURBINATE_REDUCTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ENDOSCOPIC_SKULL_BASE_APPROACH", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_ENDOSCOPIC_SKULL_BASE_APPROACH", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_ENDOSCOPIC_SKULL_BASE_APPROACH", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_MYRINGOTOMY_AND_GROMMET_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_MYRINGOTOMY_AND_GROMMET_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_MYRINGOTOMY_AND_GROMMET_INSERTION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_TYMPANOPLASTY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TYMPANOPLASTY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_MASTOIDECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_MASTOIDECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ATTICOTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ATTICOTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_STAPEDECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_STAPEDECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_COHLEAR_IMPLANT_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_COHLEAR_IMPLANT_INSERTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_OSSICULOPLASTY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_OSSICULOPLASTY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_EXCISION_OF_PINNA_LESION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_PINNA_LESION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_MICROLARYNGOSCOPY", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_MICROLARYNGOSCOPY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_MICROLARYNGOSCOPY_AND_EXCISION_OF_VOCAL_CORD_LESION", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_MICROLARYNGOSCOPY_AND_EXCISION_OF_VOCAL_CORD_LESION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_MICROLARYNGOSCOPY_AND_EXCISION_OF_VOCAL_CORD_LESION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_VOCAL_CORD_INJECTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_VOCAL_CORD_INJECTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_VOCAL_CORD_INJECTION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_TRACHEOSTOMY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_TRACHEOSTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ENDOSCOPIC_AIRWAY_DILATATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ENDOSCOPIC_AIRWAY_DILATATION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ENDOSCOPIC_AIRWAY_DILATATION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_LARYNGOTRACHEAL_RECONSTRUCTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_LARYNGOTRACHEAL_RECONSTRUCTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TONSILLECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TONSILLECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ADENOIDECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ADENOIDECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TONSILLECTOMY_AND_ADENOIDECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TONSILLECTOMY_AND_ADENOIDECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PAEDIATRIC_GROMMET_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PAEDIATRIC_GROMMET_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PAEDIATRIC_GROMMET_INSERTION", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_MICROLARYNGOBRONCHOSCOPY", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_MICROLARYNGOBRONCHOSCOPY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_FOREIGN_BODY_REMOVAL_FROM_AIRWAY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_FOREIGN_BODY_REMOVAL_FROM_AIRWAY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_FOREIGN_BODY_REMOVAL_FROM_AIRWAY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" }
+]

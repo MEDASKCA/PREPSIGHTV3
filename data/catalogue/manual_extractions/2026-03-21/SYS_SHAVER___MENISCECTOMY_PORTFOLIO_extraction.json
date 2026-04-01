@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "CONMED",
+    "system_name": "Shaver / Meniscectomy Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Arthroscopic Resection, Fluid Management, & RF Ablation | CONMED",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Shaver / Meniscectomy Portfolio",
+      "supplier_name": "CONMED",
+      "system_category": "arthroscopy",
+      "system_notes": "Official CONMED arthroscopic resection and meniscectomy materials used as the public source anchors for this shaver and meniscectomy portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Shaver and Meniscectomy Framework",
+      "system_name": "Shaver / Meniscectomy Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Arthroscopy",
+      "component_notes": "Framework component anchored to CONMED public shaver and meniscectomy source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public shaver and meniscectomy source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Arthroscopic Resection, Fluid Management, & RF Ablation | CONMED; Arthroscopic Resection Systems, Blades, and Burrs | CONMED; Ergo Shaver Handpiece - Product Brochure | CONMED; D4000 Arthroscopic Resection System - Product Brochure | CONMED"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public shaver and meniscectomy source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Arthroscopic Resection, Fluid Management, & RF Ablation | CONMED; Arthroscopic Resection Systems, Blades, and Burrs | CONMED; Ergo Shaver Handpiece - Product Brochure | CONMED; D4000 Arthroscopic Resection System - Product Brochure | CONMED"
+    }
+  ]
+}

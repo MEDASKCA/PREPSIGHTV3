@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "ACTIS / Pinnacle",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "ACTIS Total Hip System and Pinnacle Acetabular Cup System Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ACTIS_PINNACLE_ACTIS_PINNACLE_INSTRUMENTATION",
+        "Tray Name": "ACTIS / Pinnacle Instrumentation",
+        "System ID": "SYS_ACTIS_PINNACLE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes materials support dedicated acetabular and femoral instrumentation for the ACTIS and Pinnacle total hip construct."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACTIS_PINNACLE_ACTIS_FEMORAL_STEM",
+        "Component Name": "ACTIS Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACTIS_PINNACLE",
+        "Component Notes": "Official ACTIS materials describe the cementless femoral stem family used in the construct."
+      },
+      {
+        "Component ID": "COMP_ACTIS_PINNACLE_PINNACLE_ACETABULAR_SHELL",
+        "Component Name": "PINNACLE Acetabular Shell",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACTIS_PINNACLE",
+        "Component Notes": "Official Pinnacle materials describe the acetabular shell family used in the construct."
+      },
+      {
+        "Component ID": "COMP_ACTIS_PINNACLE_PINNACLE_ACETABULAR_LINER",
+        "Component Name": "PINNACLE Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACTIS_PINNACLE",
+        "Component Notes": "Official Pinnacle materials describe compatible acetabular liner options."
+      },
+      {
+        "Component ID": "COMP_ACTIS_PINNACLE_FEMORAL_HEAD",
+        "Component Name": "Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACTIS_PINNACLE",
+        "Component Notes": "Official construct materials describe modular femoral head options used with the ACTIS stem and Pinnacle cup."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "ACTIS / Pinnacle",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Cementless primary total hip construct anchored to the official ACTIS stem and PINNACLE cup product pages and surgical techniques."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "ACTIS / Pinnacle",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Cementless primary total hip construct anchored to the official ACTIS stem and PINNACLE cup product pages and surgical techniques."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "ACTIS / Pinnacle",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Cementless primary total hip construct anchored to the official ACTIS stem and PINNACLE cup product pages and surgical techniques."
+      }
+    }
+  ]
+}

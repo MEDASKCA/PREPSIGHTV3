@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Broad / Narrow LCP Humeral Shaft Portfolio",
+    "source_type": "product_page",
+    "source_document": "3.5 mm LCP Periarticular Proximal Humerus Plate | DePuy Synthes | J&J MedTech US",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_BROAD_NARROW_LCP_HUMERAL_SHAFT_PORTFOLIO_HUMERAL_SHAFT_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Humeral Shaft Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Upper Extremity Trauma",
+        "System ID": "SYS_BROAD___NARROW_LCP_HUMERAL_SHAFT_PORTFOLIO",
+        "Component Notes": "Framework component anchored to DePuy Synthes public humeral shaft plating source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Broad / Narrow LCP Humeral Shaft Portfolio",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "upper_extremity_trauma",
+          "system_notes": "Official DePuy Synthes humeral plating materials used as the public source anchors for this upper-extremity trauma portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Broad / Narrow LCP Humeral Shaft Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "upper_extremity_trauma",
+        "system_notes": "Official DePuy Synthes humeral plating materials used as the public source anchors for this upper-extremity trauma portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Broad / Narrow LCP Humeral Shaft Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "upper_extremity_trauma",
+        "system_notes": "Official DePuy Synthes humeral plating materials used as the public source anchors for this upper-extremity trauma portfolio entry."
+      }
+    }
+  ]
+}

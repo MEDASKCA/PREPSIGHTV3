@@ -1,0 +1,54 @@
+[
+  {
+    "supplier_id": "SUP_GETINGE",
+    "supplier_name": "Getinge",
+    "system_id": "SYS_CELL_SAVER",
+    "system_name": "Cell Salvage System",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Serving cardiovascular procedures",
+        "url": "https://www.getinge.com/us/products-and-solutions/cardiovascular-procedures/",
+        "notes": "Official Getinge cardiovascular procedures portfolio page used as the current public source anchor for blood-management and autotransfusion-related procedural equipment."
+      },
+      {
+        "source_type": "documentation_page",
+        "title": "Documentation",
+        "url": "https://www.getinge.com/en-in/contact/other/documentation/",
+        "notes": "Official Getinge documentation portal confirming where product IFUs, brochures, and technical specifications are surfaced for current devices."
+      },
+      {
+        "source_type": "brochure_pdf",
+        "title": "Getinge Thoracic Drainage",
+        "url": "https://www.getinge.com/dam/hospital/documents/english/011064_rev_ad_clinicians_guide_to_thoracic_drainage-80986-en.pdf",
+        "notes": "Official Getinge brochure used as the closest current public autotransfusion-related source anchor while the dedicated cell-salvage product page is not publicly surfaced."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_GETINGE",
+    "supplier_name": "Getinge",
+    "system_id": "SYS_ACCESS_FLOW_PROBE",
+    "system_name": "Transit-Time Flow Probe",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Medistim TTFM Probes",
+        "url": "https://www.medistim.com/probes/flow-probes",
+        "notes": "Official Medistim product page for transit-time flow measurement probes, used as the primary public source anchor for the transit-time flow probe family."
+      },
+      {
+        "source_type": "platform_page",
+        "title": "MiraQ Vascular",
+        "url": "https://www.medistim.com/products/miraq-vascular",
+        "notes": "Official Medistim platform page describing transit time flow measurement and its probe integration in vascular surgery."
+      },
+      {
+        "source_type": "company_page",
+        "title": "Medistim",
+        "url": "https://www.medistim.com/",
+        "notes": "Official Medistim company and technology page describing TTFM as the core flow-measurement technology behind the probe family."
+      }
+    ]
+  }
+]

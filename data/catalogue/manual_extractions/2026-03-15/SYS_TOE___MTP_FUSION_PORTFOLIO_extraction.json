@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Nextremity",
+    "system_name": "Toe / MTP Fusion Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Nextremity Toe and MTP Fusion Portfolio",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_TOE___MTP_FUSION_PORTFOLIO",
+      "system_name": "Toe / MTP Fusion Portfolio",
+      "supplier": "Nextremity",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public Nextremity foot solutions pages used as source anchors for the toe and MTP fusion portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_TOE___MTP_FUSION_PORTFOLIO",
+      "component_name": "Toe and MTP Fusion Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Toe and MTP Fusion Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to Nextremity foot solutions public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_TOE___MTP_FUSION_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_TOE___MTP_FUSION_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

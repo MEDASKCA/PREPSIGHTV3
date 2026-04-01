@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acutrak Percutaneous Scaphoid Fixation",
+    "source_type": "surgical_video",
+    "source_document": "Scaphoid Fixation using Acutrak 2 Screw",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Acutrak Percutaneous Scaphoid Fixation",
+      "supplier_name": "Acumed",
+      "system_category": "Hand and Wrist Fixation System",
+      "system_notes": "Percutaneous scaphoid fixation workflow built around Acutrak headless compression screws."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Percutaneous Scaphoid Fixation Instrumentation",
+      "system_name": "Acutrak Percutaneous Scaphoid Fixation",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Surgical videos reference guidewire, drill and screw insertion instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Percutaneous Scaphoid Compression Screw",
+      "system_name": "Acutrak Percutaneous Scaphoid Fixation",
+      "component_role": "Compression Screw",
+      "implant_category": "Hand and Wrist Implant",
+      "component_notes": "Headless compression screw family used for scaphoid fixation."
+    },
+    {
+      "component_name": "Percutaneous Scaphoid Guidewire",
+      "system_name": "Acutrak Percutaneous Scaphoid Fixation",
+      "component_role": "Guidewire",
+      "implant_category": "Instrumentation",
+      "component_notes": "Guidewire family referenced in the surgical workflow."
+    },
+    {
+      "component_name": "Percutaneous Scaphoid Driver",
+      "system_name": "Acutrak Percutaneous Scaphoid Fixation",
+      "component_role": "Driver",
+      "implant_category": "Instrumentation",
+      "component_notes": "Driver/inserter family referenced in the surgical workflow."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Procedure-specific fixation uses multiple screw sizes and wire options.",
+      "reason": "Needs deeper catalogue review before splitting detailed device variants.",
+      "source_excerpt": "Current extraction keeps the main screw and instrument families only."
+    }
+  ]
+}

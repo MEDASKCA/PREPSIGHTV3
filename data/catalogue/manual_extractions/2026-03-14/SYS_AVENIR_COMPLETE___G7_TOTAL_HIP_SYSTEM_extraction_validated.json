@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Avenir Complete / G7 Total Hip System",
+    "source_type": "product_page",
+    "source_document": "G7 Acetabular System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_AVENIR_COMPLETE_G7_TOTAL_HIP_SYSTEM_AVENIR_COMPLETE_G7_INSTRUMENTATION",
+        "Tray Name": "Avenir Complete / G7 Instrumentation",
+        "System ID": "SYS_AVENIR_COMPLETE___G7_TOTAL_HIP_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Combined hip system materials reference dedicated instrumentation for the stem and acetabular platform."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_AVENIR_COMPLETE_G7_TOTAL_HIP_SYSTEM_G7_ACETABULAR_SHELL",
+        "Component Name": "G7 Acetabular Shell",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_AVENIR_COMPLETE___G7_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Core G7 shell family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_AVENIR_COMPLETE_G7_TOTAL_HIP_SYSTEM_G7_ACETABULAR_LINER",
+        "Component Name": "G7 Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_AVENIR_COMPLETE___G7_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Core G7 liner family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_AVENIR_COMPLETE_G7_TOTAL_HIP_SYSTEM_AVENIR_COMPLETE_FEMORAL_STEM",
+        "Component Name": "Avenir Complete Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_AVENIR_COMPLETE___G7_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Core Avenir Complete stem family referenced in system materials."
+      },
+      {
+        "Component ID": "COMP_AVENIR_COMPLETE_G7_TOTAL_HIP_SYSTEM_AVENIR_COMPLETE_FEMORAL_HEAD",
+        "Component Name": "Avenir Complete Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_AVENIR_COMPLETE___G7_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Femoral head family used with the Avenir Complete / G7 platform."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Avenir Complete / G7 Total Hip System",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Primary total hip arthroplasty platform combining Avenir Complete femoral and G7 acetabular families."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Avenir Complete / G7 Total Hip System",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform combining Avenir Complete femoral and G7 acetabular families."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Avenir Complete / G7 Total Hip System",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform combining Avenir Complete femoral and G7 acetabular families."
+      }
+    }
+  ]
+}

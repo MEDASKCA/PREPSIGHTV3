@@ -1,0 +1,1318 @@
+[
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_FIBERTAK",
+    "system_name": "FiberTak Anchor System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "FiberTak Soft Anchors",
+        "url": "https://www.arthrex.com/orthopedic-anchors/fibertak-soft-anchors",
+        "notes": "Official Arthrex product page with anchor family details and linked resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_TIGHT_ROPE_ACL",
+    "system_name": "TightRope ACL / AC System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "ACL TightRope Implant",
+        "url": "https://www.arthrex.com/knee/acl-tightrope-implant",
+        "notes": "Official Arthrex product page with implant and technique references."
+      },
+      {
+        "source_type": "product_page",
+        "title": "AC TightRope Implant System",
+        "url": "https://www.arthrex.com/shoulder/ac-tightrope-implant-system",
+        "notes": "Official Arthrex product page for AC fixation family."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_SWIVELOCK",
+    "system_name": "SwiveLock Anchor",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "BioComposite SwiveLock Anchor",
+        "url": "https://www.arthrex.com/orthopedic-anchors/biocomposite-swivelock-anchor",
+        "notes": "Official Arthrex product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ECLIPSE_STEMLESS",
+    "system_name": "Eclipse Stemless Shoulder",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Eclipse Total Shoulder System",
+        "url": "https://www.arthrex.com/arthroplasty-shoulder/eclipse-total-shoulder",
+        "notes": "Official Arthrex product page with system overview, component family context, and linked tray-list resources."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Arthrex Arthroplasty Shoulder Homepage",
+        "url": "https://www.shoulderarthroplasty.arthrex.com/",
+        "notes": "Official Arthrex arthroplasty hub referencing Eclipse system features and streamlined single-tray workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_MENISCAL_CINCH",
+    "system_name": "Meniscal Cinch Repair",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Meniscal Cinch II Meniscal Repair System",
+        "url": "https://www.arthrex.com/knee/meniscal-cinch-ii-meniscal-repair-system",
+        "notes": "Official Arthrex product page describing the all-inside meniscal repair system and delivery workflow."
+      },
+      {
+        "source_type": "sports_medicine_portfolio_page",
+        "title": "Knee Solutions",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee portfolio page used as the supporting source for meniscal repair context."
+      },
+      {
+        "source_type": "product_page",
+        "title": "FiberStitch All-Inside Meniscal Repair System",
+        "url": "https://www.arthrex.com/knee/fiberstitch-all-inside-meniscal-repair-system",
+        "notes": "Official Arthrex product page used as supporting context for Arthrex all-inside meniscal repair instrumentation family."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_SHOULDER_ARTHROSCOPY_PORTFOLIO",
+    "system_name": "Arthrex Shoulder arthroscopy Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Arthroscopy",
+        "url": "https://www.arthrex.com/shoulder/shoulder-arthroscopy",
+        "notes": "Official Arthrex shoulder arthroscopy page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder specialty page used as supporting portfolio context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_KNEE_SPORTS_MEDICINE_PORTFOLIO",
+    "system_name": "Arthrex Knee Sports Medicine Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting sports medicine workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_SHOULDER_SPORTS_MEDICINE_PORTFOLIO",
+    "system_name": "Arthrex Shoulder sports medicine Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Procedures",
+        "url": "https://www.arthrex.com/shoulder-procedures",
+        "notes": "Official Arthrex shoulder procedures page used as supporting sports medicine workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_ELBOW_ARTHROSCOPY_PORTFOLIO",
+    "system_name": "Arthrex Elbow Arthroscopy Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Elbow Arthroscopy",
+        "url": "https://www.arthrex.com/elbow/elbow-arthroscopy",
+        "notes": "Official Arthrex elbow arthroscopy page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Elbow",
+        "url": "https://www.arthrex.com/elbow",
+        "notes": "Official Arthrex elbow page used as supporting portfolio context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_ELBOW_SPORTS_MEDICINE_PORTFOLIO",
+    "system_name": "Arthrex Elbow sports medicine Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Elbow",
+        "url": "https://www.arthrex.com/elbow",
+        "notes": "Official Arthrex elbow page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Elbow Procedures",
+        "url": "https://www.arthrex.com/elbow-procedures",
+        "notes": "Official Arthrex elbow procedures page used as supporting sports medicine workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_SHOULDER_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Arthrex Shoulder reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Procedures",
+        "url": "https://www.arthrex.com/shoulder-procedures",
+        "notes": "Official Arthrex shoulder procedures page used as supporting reconstruction workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_FOOT_ANKLE_SURGERY_PORTFOLIO",
+    "system_name": "Arthrex Foot & ankle surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Arthroscopy",
+        "url": "https://www.arthrex.com/foot-and-ankle-arthroscopy",
+        "notes": "Official Arthrex foot and ankle arthroscopy page used as supporting portfolio context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_FOOT_ANKLE_TRAUMA_FIXATION_PORTFOLIO",
+    "system_name": "Arthrex Foot & ankle trauma fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Trauma",
+        "url": "https://www.arthrex.com/foot-and-ankle-trauma",
+        "notes": "Official Arthrex foot and ankle trauma page used as supporting trauma fixation context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_FOOT_ANKLE_ARTHROSCOPY_PORTFOLIO",
+    "system_name": "Arthrex Foot & Ankle Arthroscopy Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Arthroscopy",
+        "url": "https://www.arthrex.com/foot-and-ankle-arthroscopy",
+        "notes": "Official Arthrex foot and ankle arthroscopy page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as supporting portfolio context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_FOOT_ANKLE_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "Arthrex Foot & Ankle Soft Tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting soft-tissue workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Arthroscopy",
+        "url": "https://www.arthrex.com/foot-and-ankle-arthroscopy",
+        "notes": "Official Arthrex foot and ankle arthroscopy page used as supporting minimally invasive soft-tissue context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_FOOT_ANKLE_PORTFOLIO",
+    "system_name": "Arthrex Foot & Ankle Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Arthroscopy",
+        "url": "https://www.arthrex.com/foot-and-ankle-arthroscopy",
+        "notes": "Official Arthrex foot and ankle arthroscopy page used as supporting portfolio context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_FOOT_ANKLE_INSTRUMENTS_PORTFOLIO",
+    "system_name": "Arthrex Foot & Ankle Instruments Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting instrument-workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Arthroscopy",
+        "url": "https://www.arthrex.com/foot-and-ankle-arthroscopy",
+        "notes": "Official Arthrex foot and ankle arthroscopy page used as supporting instrument context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_FOREFOOT_INSTRUMENTS_PORTFOLIO",
+    "system_name": "Arthrex Forefoot Instruments Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting forefoot instrument-workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Arthroscopy",
+        "url": "https://www.arthrex.com/foot-and-ankle-arthroscopy",
+        "notes": "Official Arthrex foot and ankle arthroscopy page used as supporting instrument context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_FOREFOOT_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "Arthrex Forefoot Soft Tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting forefoot soft-tissue workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Arthroscopy",
+        "url": "https://www.arthrex.com/foot-and-ankle-arthroscopy",
+        "notes": "Official Arthrex foot and ankle arthroscopy page used as supporting soft-tissue context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_FOOT_TRAUMA_FIXATION_PORTFOLIO",
+    "system_name": "Arthrex Foot trauma fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Trauma",
+        "url": "https://www.arthrex.com/foot-and-ankle-trauma",
+        "notes": "Official Arthrex foot and ankle trauma page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as supporting portfolio context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting trauma fixation workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_FOOT_ANKLE_TRAUMA_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "Arthrex Foot & Ankle Trauma / Soft Tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Trauma",
+        "url": "https://www.arthrex.com/foot-and-ankle-trauma",
+        "notes": "Official Arthrex foot and ankle trauma page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as supporting portfolio context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting trauma soft-tissue workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ANKLE_ARTHROSCOPY_PORTFOLIO",
+    "system_name": "Ankle Arthroscopy Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Arthroscopy",
+        "url": "https://www.arthrex.com/foot-and-ankle-arthroscopy",
+        "notes": "Official Arthrex foot and ankle arthroscopy page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as supporting portfolio context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting arthroscopy workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_FLATFOOT_RECONSTRUCTION___TENDON_TRANSFER_PORTFOLIO",
+    "system_name": "Flatfoot Reconstruction / Tendon Transfer Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting flatfoot reconstruction workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Arthroscopy",
+        "url": "https://www.arthrex.com/foot-and-ankle-arthroscopy",
+        "notes": "Official Arthrex foot and ankle arthroscopy page used as supporting portfolio context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_FOOT_RECON",
+    "system_name": "Foot Reconstruction System",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.arthrex.com/foot-and-ankle",
+        "notes": "Official Arthrex foot and ankle page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-and-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting reconstruction workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle Trauma",
+        "url": "https://www.arthrex.com/foot-and-ankle-trauma",
+        "notes": "Official Arthrex foot and ankle trauma page used as supporting fixation context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_KNEE_PRESERVATION_PORTFOLIO",
+    "system_name": "Arthrex Knee Preservation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting preservation workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_MPFL___PATELLAR_STABILISATION_PORTFOLIO",
+    "system_name": "MPFL / Patellar Stabilisation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting patellofemoral stabilisation workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_BIOCARTILAGE___CHONDRAL_REPAIR_PORTFOLIO",
+    "system_name": "BioCartilage / Chondral Repair Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting chondral repair workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_MULTILIGAMENT_KNEE_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Multiligament Knee Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting multiligament reconstruction workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_PCL_TIGHTROPE___BUTTON_FIXATION_PORTFOLIO",
+    "system_name": "PCL TightRope / Button Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting PCL reconstruction workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHROSCOPIC_RESECTION___MENISCECTOMY_PORTFOLIO",
+    "system_name": "Arthroscopic Resection / Meniscectomy Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting meniscectomy workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_CARTILAGE_REPAIR_PORTFOLIO",
+    "system_name": "Arthrex Cartilage Repair Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting cartilage repair workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_CARTILAGE_RESTORATION_PORTFOLIO",
+    "system_name": "Arthrex Cartilage restoration Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting cartilage restoration workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_SHOULDER_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "Arthrex Shoulder soft tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Procedures",
+        "url": "https://www.arthrex.com/shoulder-procedures",
+        "notes": "Official Arthrex shoulder procedures page used as supporting soft-tissue workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_ELBOW_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Arthrex Elbow reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Elbow",
+        "url": "https://www.arthrex.com/elbow",
+        "notes": "Official Arthrex elbow page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Elbow Procedures",
+        "url": "https://www.arthrex.com/elbow-procedures",
+        "notes": "Official Arthrex elbow procedures page used as supporting reconstruction workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_ELBOW_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "Arthrex Elbow soft tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Elbow",
+        "url": "https://www.arthrex.com/elbow",
+        "notes": "Official Arthrex elbow page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Elbow Procedures",
+        "url": "https://www.arthrex.com/elbow-procedures",
+        "notes": "Official Arthrex elbow procedures page used as supporting soft-tissue workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_HIP_PRESERVATION_PORTFOLIO",
+    "system_name": "Arthrex Hip preservation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Hip",
+        "url": "https://www.arthrex.com/hip",
+        "notes": "Official Arthrex hip page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Hip Procedures",
+        "url": "https://www.arthrex.com/hip-procedures",
+        "notes": "Official Arthrex hip procedures page used as supporting preservation workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_ELBOW_PORTFOLIO",
+    "system_name": "Arthrex Elbow Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Elbow",
+        "url": "https://www.arthrex.com/elbow",
+        "notes": "Official Arthrex elbow page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Elbow Procedures",
+        "url": "https://www.arthrex.com/elbow-procedures",
+        "notes": "Official Arthrex elbow procedures page used as supporting workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_PEDIATRIC_ORTHOPAEDICS_PORTFOLIO",
+    "system_name": "Arthrex Pediatric Orthopaedics Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Pediatric Orthopaedics",
+        "url": "https://www.arthrex.com/pediatric-orthopaedics",
+        "notes": "Official Arthrex pediatric orthopaedics page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting paediatric workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_SPORTS_MEDICINE_KNEE_PORTFOLIO",
+    "system_name": "Arthrex Sports medicine knee Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting sports medicine workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHREX_S_N_KNEE_SPORTS_MEDICINE_PORTFOLIO",
+    "system_name": "Arthrex / S+N Knee Sports Medicine Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting sports medicine workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_LABRAL_REPAIR___GLENOID_STABILISATION_PORTFOLIO",
+    "system_name": "Labral Repair / Glenoid Stabilisation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Procedures",
+        "url": "https://www.arthrex.com/shoulder-procedures",
+        "notes": "Official Arthrex shoulder procedures page used as supporting labral repair and glenoid stabilisation workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_LATARJET_INSTRUMENTATION___FIXATION_PORTFOLIO",
+    "system_name": "Latarjet Instrumentation / Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Procedures",
+        "url": "https://www.arthrex.com/shoulder-procedures",
+        "notes": "Official Arthrex shoulder procedures page used as supporting Latarjet workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ARTHROSCOPIC_BURR___RESECTION_PORTFOLIO",
+    "system_name": "Arthroscopic Burr / Resection Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Procedures",
+        "url": "https://www.arthrex.com/shoulder-procedures",
+        "notes": "Official Arthrex shoulder procedures page used as supporting arthroscopic burr and resection workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_4K_ARTHROSCOPY___SCOPE_SYSTEM",
+    "system_name": "4K Arthroscopy / Scope System",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as supporting arthroscopy workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder page used as supporting arthroscopy workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_FIBERSTITCH___MENISCAL_REPAIR_SYSTEM",
+    "system_name": "FiberStitch / Meniscal Repair System",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as supporting meniscal repair workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting meniscal repair workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ACL_TIGHTROPE___GRAFTLINK___FIBERTAG_SYSTEM",
+    "system_name": "ACL TightRope / GraftLink / FiberTag System",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as supporting ACL reconstruction workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting TightRope, GraftLink, and FiberTag ACL reconstruction workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ACHILLES_MIDSUBSTANCE_SPEEDBRIDGE",
+    "system_name": "Achilles Midsubstance SpeedBridge",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Foot & Ankle Surgery",
+        "url": "https://www.arthrex.com/foot-ankle",
+        "notes": "Official Arthrex foot and ankle page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot & Ankle Procedures",
+        "url": "https://www.arthrex.com/foot-ankle-procedures",
+        "notes": "Official Arthrex foot and ankle procedures page used as supporting Achilles repair workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader soft-tissue fixation anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_CLAVICLE_PLATE",
+    "system_name": "Clavicle Plate System",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Procedures",
+        "url": "https://www.arthrex.com/shoulder-procedures",
+        "notes": "Official Arthrex shoulder procedures page used as supporting clavicle fixation workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as a broader shoulder and fixation anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_PATELLA_FRACTURE___FIBERTAPE_CERCLAGE_PORTFOLIO",
+    "system_name": "Patella Fracture / FiberTape Cerclage Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee",
+        "url": "https://www.arthrex.com/knee",
+        "notes": "Official Arthrex knee page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Procedures",
+        "url": "https://www.arthrex.com/knee-procedures",
+        "notes": "Official Arthrex knee procedures page used as supporting patella fracture fixation workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as a broader soft-tissue fixation anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_AC_TIGHTROPE___AC_JOINT_RECONSTRUCTION",
+    "system_name": "AC TightRope / AC Joint Reconstruction",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Procedures",
+        "url": "https://www.arthrex.com/shoulder-procedures",
+        "notes": "Official Arthrex shoulder procedures page used as supporting AC joint reconstruction workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader suspensory fixation anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_ELBOW_ARTHROSCOPY___RELEASE_PORTFOLIO",
+    "system_name": "Elbow Arthroscopy / Release Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Elbow",
+        "url": "https://www.arthrex.com/elbow",
+        "notes": "Official Arthrex elbow page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader elbow arthroscopy anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder and arthroscopy page used as supporting workflow context for release instrumentation patterns."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ARTHREX",
+    "supplier_name": "Arthrex",
+    "system_id": "SYS_SPEEDBRIDGE___SWIVELOCK___FIBERTAK",
+    "system_name": "SpeedBridge / SwiveLock / FiberTak",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder",
+        "url": "https://www.arthrex.com/shoulder",
+        "notes": "Official Arthrex shoulder page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Procedures",
+        "url": "https://www.arthrex.com/shoulder-procedures",
+        "notes": "Official Arthrex shoulder procedures page used as supporting SpeedBridge, SwiveLock, and FiberTak workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.arthrex.com/sports-medicine",
+        "notes": "Official Arthrex sports medicine page used as the broader soft-tissue fixation anchor."
+      }
+    ]
+  }
+]

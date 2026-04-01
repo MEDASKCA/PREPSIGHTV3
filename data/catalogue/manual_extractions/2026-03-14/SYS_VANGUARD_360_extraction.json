@@ -1,0 +1,80 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Vanguard 360 Revision",
+    "source_type": "product_page",
+    "source_document": "Vanguard 360 Revision Knee System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Vanguard 360 Revision",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Revision Knee System",
+      "system_notes": "Revision total knee arthroplasty platform with modular stems, augments, and interchangeable femoral-tibial revision components."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Vanguard 360 Revision Instrumentation",
+      "system_name": "Vanguard 360 Revision",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet materials describe a simplified instrumentation platform with trial-first revision workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Vanguard 360 Femoral Component",
+      "system_name": "Vanguard 360 Revision",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official materials describe independent femoral sizing within the revision system."
+    },
+    {
+      "component_name": "Vanguard 360 Tibial Tray",
+      "system_name": "Vanguard 360 Revision",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official materials describe a symmetrical tibial tray design available in multiple sizes."
+    },
+    {
+      "component_name": "Vanguard 360 PSC Bearing",
+      "system_name": "Vanguard 360 Revision",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official materials describe the 360 PS constrained bearing within the revision platform."
+    },
+    {
+      "component_name": "Vanguard 360 Stem Extension",
+      "system_name": "Vanguard 360 Revision",
+      "component_role": "Stem Extension",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official materials describe smooth, grit-blasted, and splined stem extensions in multiple lengths."
+    },
+    {
+      "component_name": "Vanguard 360 Offset Adapter",
+      "system_name": "Vanguard 360 Revision",
+      "component_role": "Offset Adapter",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official materials describe a universal femoral/tibial offset adapter rotating 360 degrees."
+    },
+    {
+      "component_name": "Vanguard 360 Block Augment",
+      "system_name": "Vanguard 360 Revision",
+      "component_role": "Block Augment",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official materials describe independent distal and posterior augments in multiple thicknesses."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The official product page defines the revision construct but this pass does not expand the full implant code matrix.",
+      "reason": "A deeper catalogue or IFU pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

@@ -1,0 +1,642 @@
+[
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_CERVICAL_SPINE_PORTFOLIO",
+    "system_name": "Biedermann Cervical Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/expertise/spine/",
+        "notes": "Official Biedermann spine portfolio page used as the primary public source anchor for the cervical spine portfolio entry."
+      },
+      {
+        "source_type": "product_section_page",
+        "title": "APECX Posterior Occipital Cervical Thoracic System | Biedermann Spine",
+        "url": "https://www.biedermann.com/expertise/spine/",
+        "notes": "Official Biedermann spine page section used as supporting evidence for the cervical and upper-cervical fixation portfolio via the APECX OCT system."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for cervical spine systems including APECX and MOSS families."
+      },
+      {
+        "source_type": "company_spine_overview",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann company overview used as broader public evidence that the spinal solutions portfolio covers cervical, thoracic, and lumbar surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_COMPLEX_DEFORMITY_PORTFOLIO",
+    "system_name": "Biedermann Complex Deformity Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for the complex deformity portfolio entry."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers scoliosis and complex corrective surgery."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for deformity-relevant spine systems including MOSS and related instrument families."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company’s focus on specialist spinal innovation and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_DEFORMITY_PORTFOLIO",
+    "system_name": "Biedermann Deformity Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for the deformity portfolio entry."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers scoliosis and corrective surgery."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for deformity-relevant spine systems including MOSS and related instrument families."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal innovation and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_LUMBAR_FUSION_PORTFOLIO",
+    "system_name": "Biedermann Lumbar Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for the lumbar fusion portfolio entry."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for lumbar-relevant spine systems including TELIX K, MOSS 100, and MOSS VRS."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers lumbar and thoracolumbar surgery."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal implants and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_MOTECH_CERVICAL_FUSION_PORTFOLIO",
+    "system_name": "Biedermann Motech Cervical fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/expertise/spine/",
+        "notes": "Official Biedermann spine portfolio page used as the primary public source anchor for the cervical fusion portfolio entry."
+      },
+      {
+        "source_type": "product_section_page",
+        "title": "APECX Posterior Occipital Cervical Thoracic System | Biedermann Spine",
+        "url": "https://www.biedermann.com/expertise/spine/",
+        "notes": "Official Biedermann spine page section used as supporting evidence for cervical fusion and upper-cervical fixation workflows via the APECX OCT system."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for cervical-relevant systems including APECX and MOSS families."
+      },
+      {
+        "source_type": "company_spine_overview",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann company overview used as broader public evidence that the spinal solutions portfolio covers cervical fusion and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_MOTECH_COMPLEX_DEFORMITY_CORRECTION_PORTFOLIO",
+    "system_name": "Biedermann Motech Complex deformity correction Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for the complex deformity correction portfolio entry."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers scoliosis and complex corrective surgery."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for corrective-deformity-relevant spine systems including MOSS and related instrument families."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal innovation and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_MOTECH_LUMBAR_FUSION_PORTFOLIO",
+    "system_name": "Biedermann Motech Lumbar fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for the Biedermann Motech lumbar fusion portfolio entry."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for lumbar-relevant systems including TELIX K, MOSS 100, and MOSS VRS."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers lumbar and thoracolumbar surgery."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal implants and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_MOTECH_ORTHOPAEDIC_ONCOLOGY_PORTFOLIO",
+    "system_name": "Biedermann Motech Orthopaedic oncology Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Extremities | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/extremities/",
+        "notes": "Official Biedermann extremity solutions page used as the primary public source anchor for the orthopaedic oncology portfolio entry."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as supporting public evidence because it states the company develops implants and instruments for spinal and extremity surgery."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the closest public IFU anchor for orthopaedic implant and instrument systems."
+      },
+      {
+        "source_type": "quality_certificate_pdf",
+        "title": "Certificate | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/fileadmin/PDF/003387_-_Biedermann_Motech_GmbH___Co._KG_-_CERTIFICATE_-_englisch_-_2025-10-06_-_MP2021.pdf",
+        "notes": "Official Biedermann quality certificate used as broader public evidence that the company designs, produces, and distributes orthopaedic implants and instruments."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_MOTECH_PEDIATRIC_ORTHOPAEDICS_PORTFOLIO",
+    "system_name": "Biedermann Motech Pediatric orthopaedics Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Extremities | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/extremities/",
+        "notes": "Official Biedermann extremity solutions page used as the primary public source anchor for the pediatric orthopaedics portfolio entry."
+      },
+      {
+        "source_type": "company_history_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because its company history explicitly references a Pediatric System designed for pediatric and small-stature patients."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as supporting public evidence because it states the company develops implants and instruments for spinal and extremity surgery."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the closest public IFU anchor for pediatric-relevant implant and instrument systems."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_MOTECH_PEDIATRIC_SPINE_DEFORMITY_PORTFOLIO",
+    "system_name": "Biedermann Motech Pediatric spine deformity Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for the pediatric spine deformity portfolio entry."
+      },
+      {
+        "source_type": "company_history_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because its company history explicitly references a Pediatric System designed for pediatric and small-stature patients."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for pediatric and deformity-relevant spine systems including MOSS families."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal innovation and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_MOTECH_SPINE_PORTFOLIO",
+    "system_name": "Biedermann Motech Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for the general spine portfolio entry."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers cervical, thoracic, lumbar, and scoliosis surgery."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for the broader spine portfolio, including APECX, MOSS, and TELIX families."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal innovation and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_MOTECH_SPINE_TRAUMA_PORTFOLIO",
+    "system_name": "Biedermann Motech Spine trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for the spine trauma portfolio entry."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers trauma and reconstructive spinal surgery."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for trauma-relevant spine systems including MOSS, APECX, and TELIX families."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal innovation and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_MOTECH_THORACOLUMBAR_FUSION_PORTFOLIO",
+    "system_name": "Biedermann Motech Thoracolumbar fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for the thoracolumbar fusion portfolio entry."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers thoracolumbar and reconstructive spinal surgery."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for thoracolumbar-relevant spine systems including TELIX K, MOSS 100, and MOSS VRS."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal implants and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_BIEDERMANN_UPPER_CERVICAL_PORTFOLIO",
+    "system_name": "Biedermann Upper Cervical Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/expertise/spine/",
+        "notes": "Official Biedermann spine portfolio page used as the primary public source anchor for the upper cervical portfolio entry."
+      },
+      {
+        "source_type": "product_section_page",
+        "title": "APECX Posterior Occipital Cervical Thoracic System | Biedermann Spine",
+        "url": "https://www.biedermann.com/expertise/spine/",
+        "notes": "Official Biedermann spine page section used as supporting evidence for upper-cervical and occipito-cervical fixation workflows via the APECX OCT system."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for upper-cervical systems including APECX and related cervical instrumentation."
+      },
+      {
+        "source_type": "company_spine_overview",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann company overview used as broader public evidence that the spinal solutions portfolio covers cervical and reconstructive spinal surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_CERVICAL_SPINAL_SOLUTIONS",
+    "system_name": "Cervical Spinal Solutions",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/expertise/spine/",
+        "notes": "Official Biedermann spine portfolio page used as the primary public source anchor for the cervical spinal solutions entry."
+      },
+      {
+        "source_type": "product_section_page",
+        "title": "APECX Posterior Occipital Cervical Thoracic System | Biedermann Spine",
+        "url": "https://www.biedermann.com/expertise/spine/",
+        "notes": "Official Biedermann spine page section used as supporting evidence for the cervical spinal solutions portfolio via the APECX OCT system."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for cervical-relevant systems including APECX and MOSS families."
+      },
+      {
+        "source_type": "company_spine_overview",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann company overview used as broader public evidence that the spinal solutions portfolio covers cervical, thoracic, and lumbar surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_PEDICLE_SCREW___ROD_SPINAL_SOLUTIONS",
+    "system_name": "Pedicle Screw / Rod Spinal Solutions",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for pedicle screw and rod spinal solutions."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for pedicle screw and rod systems including TELIX K, MOSS 100, and MOSS VRS."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers thoracolumbar and reconstructive spinal surgery."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal implants and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_SCOLIOSIS_AND_DEFORMITY_SPINAL_SOLUTIONS",
+    "system_name": "Scoliosis and Deformity Spinal Solutions",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for scoliosis and deformity spinal solutions."
+      },
+      {
+        "source_type": "company_history_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers scoliosis surgery and references a Pediatric System for pediatric and small-stature patients."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for scoliosis and deformity-relevant spine systems including MOSS families."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal innovation and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_SPINAL_SOLUTIONS_FOR_DEGENERATIVE_SURGERY",
+    "system_name": "Spinal Solutions for Degenerative Surgery",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for spinal solutions for degenerative surgery."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for degenerative-surgery-relevant systems including TELIX K, MOSS 100, and MOSS VRS."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers reconstructive spinal surgery beyond trauma and deformity."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal implants and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_SPINAL_SOLUTIONS_FOR_DEGENERATIVE_AND_TRAUMA_SURGERY",
+    "system_name": "Spinal Solutions for Degenerative and Trauma Surgery",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for spinal solutions for degenerative and trauma surgery."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for systems relevant to both degenerative and trauma surgery, including TELIX K, MOSS 100, and MOSS VRS."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers both reconstructive and trauma spinal surgery."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal implants and reconstructive surgery."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BIEDERMANN_MOTECH",
+    "supplier_name": "Biedermann Motech",
+    "system_id": "SYS_THORACIC___LUMBAR_SPINAL_SOLUTIONS",
+    "system_name": "Thoracic / Lumbar Spinal Solutions",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Spine | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/spine/",
+        "notes": "Official Biedermann spinal solutions page used as the primary public source anchor for thoracic and lumbar spinal solutions."
+      },
+      {
+        "source_type": "ifu_portal",
+        "title": "eIFU | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/eifu/",
+        "notes": "Official Biedermann eIFU portal used as the IFU source anchor for thoracic and lumbar-relevant systems including TELIX K, MOSS 100, and MOSS VRS."
+      },
+      {
+        "source_type": "company_overview_page",
+        "title": "Home | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/",
+        "notes": "Official Biedermann homepage used as supporting public evidence because it states the spinal solutions portfolio covers thoracic, lumbar, and reconstructive spinal surgery."
+      },
+      {
+        "source_type": "company_page",
+        "title": "About us | Biedermann Motech GmbH & Co. KG",
+        "url": "https://www.biedermann.com/company/",
+        "notes": "Official Biedermann company page used as broader public evidence for the company's focus on specialist spinal implants and reconstructive surgery."
+      }
+    ]
+  }
+]

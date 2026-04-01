@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "LEGION / JOURNEY II Knee System",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "JOURNEY II Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "LEGION / JOURNEY II Knee System",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Knee Arthroplasty System",
+      "system_notes": "Knee arthroplasty platform incorporating JOURNEY II femoral/tibial bearing concepts with Smith+Nephew knee instrumentation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "JOURNEY II Instrumentation",
+      "system_name": "LEGION / JOURNEY II Knee System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "System materials reference dedicated JOURNEY II instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "JOURNEY II Femoral Component",
+      "system_name": "LEGION / JOURNEY II Knee System",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Core femoral implant family referenced in product and technique materials."
+    },
+    {
+      "component_name": "JOURNEY II Tibial Baseplate",
+      "system_name": "LEGION / JOURNEY II Knee System",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Core tibial baseplate family referenced in product and technique materials."
+    },
+    {
+      "component_name": "JOURNEY II Insert",
+      "system_name": "LEGION / JOURNEY II Knee System",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Insert family referenced in product and technique materials."
+    },
+    {
+      "component_name": "JOURNEY II Patella",
+      "system_name": "LEGION / JOURNEY II Knee System",
+      "component_role": "Patellar Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Patellar implant family referenced in product and technique materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "JOURNEY II includes multiple bearing philosophies and constraint options.",
+      "reason": "Needs deeper catalogue review before splitting all subfamilies.",
+      "source_excerpt": "Current extraction keeps the core implant families only."
+    }
+  ]
+}

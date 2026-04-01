@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Paediatric Tibial Osteotomy Portfolio",
+    "source_type": "company_page",
+    "source_document": "DePuy Orthopaedics | DePuy Synthes",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Paediatric Tibial Osteotomy Portfolio",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "paediatric_orthopaedics",
+      "system_notes": "Official DePuy Synthes company and trauma materials used as the public source anchors for this paediatric tibial osteotomy portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Paediatric Tibial Osteotomy Portfolio Framework",
+      "system_name": "Paediatric Tibial Osteotomy Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Pediatric Orthopaedics",
+      "component_notes": "Framework component anchored to DePuy Synthes public paediatric tibial osteotomy source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public paediatric tibial osteotomy source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "DePuy Orthopaedics | DePuy Synthes; Trauma & Extremities | DePuy Synthes | J&J MedTech US; DePuy Synthes Announces Acquisition of OrthoSpin | J&J MedTech US; ALTALYNE Ultra Alignment System for Adolescent Spinal Deformity Receives FDA Clearance | DePuy Synthes"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public paediatric tibial osteotomy source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "DePuy Orthopaedics | DePuy Synthes; Trauma & Extremities | DePuy Synthes | J&J MedTech US; DePuy Synthes Announces Acquisition of OrthoSpin | J&J MedTech US; ALTALYNE Ultra Alignment System for Adolescent Spinal Deformity Receives FDA Clearance | DePuy Synthes"
+    }
+  ]
+}

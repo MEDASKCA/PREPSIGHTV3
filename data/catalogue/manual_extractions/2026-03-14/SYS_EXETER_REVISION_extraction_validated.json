@@ -1,0 +1,98 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Exeter Revision Stem",
+    "source_type": "product_page",
+    "source_document": "Exeter official product materials",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_EXETER_REVISION_STEM_EXETER_REVISION_INSTRUMENTATION",
+        "Tray Name": "Exeter Revision Instrumentation",
+        "System ID": "SYS_EXETER_REVISION",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Exeter materials state the implant and instrument system is designed to accommodate revision cases."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_EXETER_REVISION_STEM_EXETER_REVISION_FEMORAL_STEM",
+        "Component Name": "Exeter Revision Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_EXETER_REVISION",
+        "Component Notes": "Official Exeter materials describe a wide offset and body-size range used across primary, revision, and fracture workflows."
+      },
+      {
+        "Component ID": "COMP_EXETER_REVISION_STEM_EXETER_FEMORAL_HEAD",
+        "Component Name": "Exeter Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_EXETER_REVISION",
+        "Component Notes": "Revision use continues to rely on compatible femoral head options within the Exeter V40 platform."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Exeter Revision Stem",
+          "supplier_name": "Stryker",
+          "system_category": "Hip Revision System",
+          "system_notes": "Cemented revision hip platform built around the Exeter femoral stem family for revision and complex femoral reconstruction cases."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Exeter Revision Stem",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Revision System",
+        "system_notes": "Cemented revision hip platform built around the Exeter femoral stem family for revision and complex femoral reconstruction cases."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Exeter Revision Stem",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Revision System",
+        "system_notes": "Cemented revision hip platform built around the Exeter femoral stem family for revision and complex femoral reconstruction cases."
+      }
+    }
+  ]
+}

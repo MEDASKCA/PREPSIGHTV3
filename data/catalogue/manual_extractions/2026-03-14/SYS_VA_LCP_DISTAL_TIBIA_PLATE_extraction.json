@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "VA-LCP Distal Tibia Plate",
+    "source_type": "inventory_control_form_pdf",
+    "source_document": "Inventory Control Form - VA Distal Tibia Implant Set",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "VA-LCP Distal Tibia Plate",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Locking Plate — Distal Tibia",
+      "system_notes": "Variable-angle distal tibia locking plate system within the DePuy Synthes trauma portfolio for distal tibia and pilon fixation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "VA Distal Tibia Implant Set",
+      "system_name": "VA-LCP Distal Tibia Plate",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official inventory and catalog materials describe the variable-angle distal tibia implant and instrument set."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "VA-LCP Distal Tibia Plate",
+      "system_name": "VA-LCP Distal Tibia Plate",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official DePuy Synthes materials describe the variable-angle distal tibia plate family."
+    },
+    {
+      "component_name": "VA-LCP Distal Tibia Locking Screw",
+      "system_name": "VA-LCP Distal Tibia Plate",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official inventory materials describe compatible screw fixation for the variable-angle distal tibia plate system."
+    },
+    {
+      "component_name": "VA-LCP Distal Tibia Drill Guide",
+      "system_name": "VA-LCP Distal Tibia Plate",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official technique resources describe guide and instrumentation workflow for variable-angle distal tibia plate application."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official sources confirm the variable-angle distal tibia plate family and inventory references, but a full normalized product-code matrix has not yet been extracted in this pass.",
+      "reason": "A deeper sterile implant listing or broader parts-matrix pass is required for comprehensive product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

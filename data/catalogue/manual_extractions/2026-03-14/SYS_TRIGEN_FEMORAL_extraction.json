@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "TRIGEN Femoral Nail System",
+    "source_type": "product_page",
+    "source_document": "TRIGEN META-NAIL / Femoral Nailing Platform",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "TRIGEN Femoral Nail System",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Intramedullary Nail System",
+      "system_notes": "Femoral intramedullary nailing platform within the TRIGEN family for antegrade and retrograde femoral fracture fixation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "TRIGEN Femoral Instrumentation",
+      "system_name": "TRIGEN Femoral Nail System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Smith+Nephew materials support the TRIGEN femoral nail platform with dedicated operative instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "TRIGEN Femoral Nail",
+      "system_name": "TRIGEN Femoral Nail System",
+      "component_role": "Intramedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official product materials describe the TRIGEN femoral nail platform for femoral fracture fixation."
+    },
+    {
+      "component_name": "TRIGEN Locking Screw",
+      "system_name": "TRIGEN Femoral Nail System",
+      "component_role": "Locking Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The TRIGEN femoral nail construct includes proximal and distal locking fixation options."
+    },
+    {
+      "component_name": "TRIGEN End Cap",
+      "system_name": "TRIGEN Femoral Nail System",
+      "component_role": "End Cap",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The TRIGEN femoral nail platform includes end-cap compatibility within the nail construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public TRIGEN pages define the nail platform and fixation family but do not expose a public implant code table in this pass.",
+      "reason": "A deeper operative-technique or catalogue pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "LeMaitre Vascular",
+    "system_name": "Carotid Shunt",
+    "source_type": "product_page",
+    "source_document": "Flexcel Carotid Shunt | LeMaitre",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CAROTID_SHUNT_CAROTID_SHUNT_FRAMEWORK",
+        "Component Name": "Carotid Shunt Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_HEPARINISED_SHUNT",
+        "Component Notes": "Framework component anchored to LeMaitre public carotid-shunt source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Carotid Shunt",
+          "supplier_name": "LeMaitre Vascular",
+          "system_category": "vascular_shunt",
+          "system_notes": "Official LeMaitre Vascular carotid-shunt materials used as the public source anchors for this carotid shunt entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Carotid Shunt",
+        "supplier_name": "LeMaitre Vascular",
+        "system_category": "vascular_shunt",
+        "system_notes": "Official LeMaitre Vascular carotid-shunt materials used as the public source anchors for this carotid shunt entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Carotid Shunt",
+        "supplier_name": "LeMaitre Vascular",
+        "system_category": "vascular_shunt",
+        "system_notes": "Official LeMaitre Vascular carotid-shunt materials used as the public source anchors for this carotid shunt entry."
+      }
+    }
+  ]
+}

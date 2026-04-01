@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "TightRope ACL / AC System",
+    "source_type": "product_page",
+    "source_document": "ACL TightRope Implant and AC TightRope Implant System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TIGHTROPE_ACL_AC_SYSTEM_TIGHTROPE_INSTRUMENTATION",
+        "Tray Name": "TightRope Instrumentation",
+        "System ID": "SYS_TIGHT_ROPE_ACL",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "System materials reference dedicated passing and drilling instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TIGHTROPE_ACL_AC_SYSTEM_TIGHTROPE_IMPLANT",
+        "Component Name": "TightRope Implant",
+        "Component Role": "Suspensory Implant",
+        "Implant Category": "Soft Tissue Fixation Implant",
+        "System ID": "SYS_TIGHT_ROPE_ACL",
+        "Component Notes": "Core TightRope implant family referenced on the product pages."
+      },
+      {
+        "Component ID": "COMP_TIGHTROPE_ACL_AC_SYSTEM_TIGHTROPE_CORTICAL_BUTTON",
+        "Component Name": "TightRope Cortical Button",
+        "Component Role": "Cortical Button",
+        "Implant Category": "Soft Tissue Fixation Implant",
+        "System ID": "SYS_TIGHT_ROPE_ACL",
+        "Component Notes": "Cortical fixation element within the TightRope construct."
+      },
+      {
+        "Component ID": "COMP_TIGHTROPE_ACL_AC_SYSTEM_TIGHTROPE_DRILL_PIN",
+        "Component Name": "TightRope Drill Pin",
+        "Component Role": "Drill Pin",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_TIGHT_ROPE_ACL",
+        "Component Notes": "Dedicated drill/passing instrumentation referenced in system materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "TightRope ACL / AC System",
+          "supplier_name": "Arthrex",
+          "system_category": "Suspensory Fixation System",
+          "system_notes": "Suspensory fixation platform used across ACL and AC reconstruction applications."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "TightRope ACL / AC System",
+        "supplier_name": "Arthrex",
+        "system_category": "Suspensory Fixation System",
+        "system_notes": "Suspensory fixation platform used across ACL and AC reconstruction applications."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "TightRope ACL / AC System",
+        "supplier_name": "Arthrex",
+        "system_category": "Suspensory Fixation System",
+        "system_notes": "Suspensory fixation platform used across ACL and AC reconstruction applications."
+      }
+    }
+  ]
+}

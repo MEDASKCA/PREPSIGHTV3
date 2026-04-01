@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "APEX 3D Total Ankle Replacement System",
+    "source_type": "product_page",
+    "source_document": "Apex 3D Total Ankle Replacement System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "APEX 3D Total Ankle Replacement System",
+      "supplier_name": "Paragon 28",
+      "system_category": "Ankle Arthroplasty System",
+      "system_notes": "Total ankle arthroplasty platform with tibial, talar and insert families."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "APEX 3D Ankle Instrumentation",
+      "system_name": "APEX 3D Total Ankle Replacement System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated APEX 3D instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "APEX 3D Tibial Component",
+      "system_name": "APEX 3D Total Ankle Replacement System",
+      "component_role": "Tibial Component",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Core tibial component family referenced on the product page."
+    },
+    {
+      "component_name": "APEX 3D Talar Component",
+      "system_name": "APEX 3D Total Ankle Replacement System",
+      "component_role": "Talar Component",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Core talar component family referenced on the product page."
+    },
+    {
+      "component_name": "APEX 3D Poly Insert",
+      "system_name": "APEX 3D Total Ankle Replacement System",
+      "component_role": "Poly Insert",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Polyethylene insert family referenced on the product page."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "System includes multiple size and configuration options.",
+      "reason": "Needs deeper brochure or operative technique review before detailed family expansion.",
+      "source_excerpt": "Current extraction keeps the core implant families only."
+    }
+  ]
+}

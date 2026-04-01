@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "VA-LCP Proximal Tibia Plating",
+    "source_type": "product_page",
+    "source_document": "Variable Angle LCP Proximal Tibia Plate",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "VA-LCP Proximal Tibia Plating",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "trauma",
+      "system_notes": "Public DePuy Synthes variable-angle proximal tibia product, inventory-form, and technique-library materials used as the source anchors for the VA-LCP proximal tibia plating entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "VA-LCP Proximal Tibia Plating Framework",
+      "system_name": "VA-LCP Proximal Tibia Plating",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Portfolio-level informational framework anchored to DePuy Synthes public proximal tibia plating sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public DePuy Synthes source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Variable Angle LCP Proximal Tibia Plate, Inventory Control Form, and Accompanying Product Information"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public DePuy Synthes source anchors do not provide a complete SKU-level extraction for this system entry.",
+      "source_excerpt": "Variable Angle LCP Proximal Tibia Plate, Inventory Control Form, and Accompanying Product Information"
+    }
+  ]
+}

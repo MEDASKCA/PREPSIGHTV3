@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Calcaneal Fracture Plating System",
+    "source_type": "product_page",
+    "source_document": "Calcaneal Plating System | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Calcaneal Fracture Plating System",
+      "supplier_name": "Acumed",
+      "system_category": "foot_ankle_trauma",
+      "system_notes": "Official Acumed calcaneal fracture plating materials used as the public source anchors for this foot and ankle trauma system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Calcaneal Fracture Plating Framework",
+      "system_name": "Calcaneal Fracture Plating System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Foot and Ankle Trauma",
+      "component_notes": "Framework component anchored to Acumed public calcaneal plating source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Acumed calcaneal fracture plating source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Calcaneal Plating System | Acumed; Calcaneal Plating System Surgical Technique | Acumed"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Acumed calcaneal fracture plating source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Calcaneal Plating System | Acumed; Calcaneal Plating System Surgical Technique | Acumed"
+    }
+  ]
+}

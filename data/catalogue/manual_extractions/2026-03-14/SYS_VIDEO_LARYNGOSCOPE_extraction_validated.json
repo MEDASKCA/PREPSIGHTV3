@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Video Laryngoscope",
+    "source_type": "product_page",
+    "source_document": "McGRATH MAC Video Laryngoscope",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_VIDEO_LARYNGOSCOPE_MEDTRONIC_VIDEO_LARYNGOSCOPY_FAMILY",
+        "Component Name": "Medtronic Video Laryngoscopy Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Airway Visualization Workflow",
+        "System ID": "SYS_VIDEO_LARYNGOSCOPE",
+        "Component Notes": "Official Medtronic sources describe the broader video laryngoscopy family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Video Laryngoscope",
+          "supplier_name": "Medtronic",
+          "system_category": "Airway Visualization",
+          "system_notes": "Public source anchor for the Medtronic video laryngoscopy platform."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Video Laryngoscope",
+        "supplier_name": "Medtronic",
+        "system_category": "Airway Visualization",
+        "system_notes": "Public source anchor for the Medtronic video laryngoscopy platform."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Video Laryngoscope",
+        "supplier_name": "Medtronic",
+        "system_category": "Airway Visualization",
+        "system_notes": "Public source anchor for the Medtronic video laryngoscopy platform."
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Taperloc / G7",
+    "source_type": "product_page",
+    "source_document": "Taperloc Complete Hip System and G7 Acetabular System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Taperloc / G7",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Primary total hip arthroplasty platform combining the Taperloc Complete femoral stem family with the G7 acetabular system."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Taperloc / G7 Instrumentation",
+      "system_name": "Taperloc / G7",
+      "tray_type": "Instrumentation",
+      "tray_notes": "The official Taperloc Complete and G7 product materials describe dedicated instrumentation and G7 tray-efficiency claims for the acetabular workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Taperloc Complete Femoral Stem",
+      "system_name": "Taperloc / G7",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Zimmer Biomet materials describe Taperloc Complete as the femoral stem family for the platform."
+    },
+    {
+      "component_name": "G7 Acetabular Shell",
+      "system_name": "Taperloc / G7",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official G7 product materials describe the G7 acetabular shell family and cup platform."
+    },
+    {
+      "component_name": "G7 Acetabular Liner",
+      "system_name": "Taperloc / G7",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official G7 product materials describe Vivacit-E and other G7 liner options."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Zimmer Biomet product pages describe the implant families but this pass does not expose a public SKU list.",
+      "reason": "A deeper catalogue or IFU pass is still needed for product-code level expansion.",
+      "source_excerpt": "Current extraction captures platform-level tray and implant family rows only."
+    }
+  ]
+}

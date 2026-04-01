@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Edwards Lifesciences",
+    "system_name": "Patient Monitor",
+    "source_type": "technology_page",
+    "source_document": "Hemodynamic Monitoring",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PATIENT_MONITOR_EDWARDS_MONITORING_PLATFORM_FAMILY",
+        "Component Name": "Edwards Monitoring Platform Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Perioperative Monitoring Workflow",
+        "System ID": "SYS_PATIENT_MONITOR",
+        "Component Notes": "Official Edwards Lifesciences sources describe the broader perioperative monitoring platform family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Patient Monitor",
+          "supplier_name": "Edwards Lifesciences",
+          "system_category": "Monitoring",
+          "system_notes": "Public source anchor for the Edwards Lifesciences perioperative and hemodynamic monitoring platform."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Patient Monitor",
+        "supplier_name": "Edwards Lifesciences",
+        "system_category": "Monitoring",
+        "system_notes": "Public source anchor for the Edwards Lifesciences perioperative and hemodynamic monitoring platform."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Patient Monitor",
+        "supplier_name": "Edwards Lifesciences",
+        "system_category": "Monitoring",
+        "system_notes": "Public source anchor for the Edwards Lifesciences perioperative and hemodynamic monitoring platform."
+      }
+    }
+  ]
+}

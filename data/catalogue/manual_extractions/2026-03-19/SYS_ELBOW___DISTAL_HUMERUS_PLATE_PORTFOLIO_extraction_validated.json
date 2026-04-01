@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "KLS Martin",
+    "system_name": "Elbow / Distal Humerus Plate Portfolio",
+    "source_type": "product_page",
+    "source_document": "KLS Martin | LevelOne Fixation fracture plate, 2.3 mm, curved",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ELBOW_DISTAL_HUMERUS_PLATE_PORTFOLIO_ELBOW_DISTAL_HUMERUS_PLATE_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Elbow / Distal Humerus Plate Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Distal humerus plate",
+        "System ID": "SYS_ELBOW___DISTAL_HUMERUS_PLATE_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to KLS Martin public LevelOne fixation plate sources for upper-extremity trauma fixation."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Elbow / Distal Humerus Plate Portfolio",
+          "supplier_name": "KLS Martin",
+          "system_category": "Elbow trauma fixation",
+          "system_notes": "Public KLS Martin traumatology plate materials used as the source anchors for the elbow and distal humerus plate portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Elbow / Distal Humerus Plate Portfolio",
+        "supplier_name": "KLS Martin",
+        "system_category": "Elbow trauma fixation",
+        "system_notes": "Public KLS Martin traumatology plate materials used as the source anchors for the elbow and distal humerus plate portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Elbow / Distal Humerus Plate Portfolio",
+        "supplier_name": "KLS Martin",
+        "system_category": "Elbow trauma fixation",
+        "system_notes": "Public KLS Martin traumatology plate materials used as the source anchors for the elbow and distal humerus plate portfolio entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Triathlon TS",
+    "source_type": "surgical_protocol_pdf",
+    "source_document": "Triathlon TS Knee System Surgical protocol",
+    "source_version": "TRITS_SP_1_Rev-3_30304",
+    "source_date": "2025-11"
+  },
+  "systems": [
+    {
+      "system_name": "Triathlon TS",
+      "supplier_name": "Stryker",
+      "system_category": "Knee Revision System",
+      "system_notes": "Semi-constrained revision knee platform anchored to the official Stryker Triathlon TS revision page and surgical protocol."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Triathlon TS Revision Instrumentation",
+      "system_name": "Triathlon TS",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Triathlon TS revision materials support dedicated reamer-based revision instrumentation and component preparation workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Triathlon TS Femoral Component",
+      "system_name": "Triathlon TS",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official Triathlon TS materials describe the total stabilizer femoral component as the core revision femoral implant."
+    },
+    {
+      "component_name": "Triathlon Revision Baseplate",
+      "system_name": "Triathlon TS",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official Triathlon TS materials describe the revision baseplate that extends the construct into revision workflows."
+    },
+    {
+      "component_name": "Triathlon TS Insert X3",
+      "system_name": "Triathlon TS",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official Triathlon TS materials describe the TS insert X3 as the constrained polyethylene bearing option."
+    },
+    {
+      "component_name": "Triathlon Femoral Distal Augment",
+      "system_name": "Triathlon TS",
+      "component_role": "Femoral Augment",
+      "implant_category": "Knee Implant",
+      "component_notes": "The official surgical protocol lists Triathlon femoral distal augment options and catalog codes."
+    }
+  ],
+  "products": [
+    {
+      "sku": "5542-A-101",
+      "product_name": "Triathlon Femoral Distal Augment - 15mm #1 Left",
+      "component_name": "Triathlon Femoral Distal Augment",
+      "packaging_type": "Implant",
+      "product_notes": "Catalog code explicitly listed in the official Triathlon TS surgical protocol PDF."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The surgical protocol exposes multiple Triathlon TS augment and revision component catalog codes, but this pass only captures one representative coded product row.",
+      "reason": "A deeper product-code pass is still needed to expand the full Triathlon TS revision component matrix.",
+      "source_excerpt": "Current extraction adds one reliable coded product without expanding every size and augment variation yet."
+    }
+  ]
+}

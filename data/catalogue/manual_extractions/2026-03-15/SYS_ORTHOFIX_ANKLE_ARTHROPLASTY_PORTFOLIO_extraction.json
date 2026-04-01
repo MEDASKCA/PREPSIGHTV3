@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Orthofix",
+    "system_name": "Orthofix Ankle arthroplasty Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Orthofix Total Ankle Arthroplasty Portfolio",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_ORTHOFIX_ANKLE_ARTHROPLASTY_PORTFOLIO",
+      "system_name": "Orthofix Ankle arthroplasty Portfolio",
+      "supplier": "Orthofix",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public Orthofix extremities and total ankle arthroplasty pages used as source anchors for the ankle arthroplasty portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_ORTHOFIX_ANKLE_ARTHROPLASTY_PORTFOLIO",
+      "component_name": "Ankle Arthroplasty Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Ankle Arthroplasty Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to Orthofix total ankle arthroplasty public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_ORTHOFIX_ANKLE_ARTHROPLASTY_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_ORTHOFIX_ANKLE_ARTHROPLASTY_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

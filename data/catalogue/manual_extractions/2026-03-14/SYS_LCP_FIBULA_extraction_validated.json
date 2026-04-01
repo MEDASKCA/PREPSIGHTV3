@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Fibula / Distal Fibula",
+    "source_type": "product_page",
+    "source_document": "LCP Distal Fibula Plates 2.7/3.5",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_LCP_FIBULA_DISTAL_FIBULA_LCP_DISTAL_FIBULA_INSTRUMENT_SET",
+        "Tray Name": "LCP Distal Fibula Instrument Set",
+        "System ID": "SYS_LCP_FIBULA",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes product and technique materials describe dedicated distal fibula plating instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LCP_FIBULA_DISTAL_FIBULA_LCP_DISTAL_FIBULA_PLATE",
+        "Component Name": "LCP Distal Fibula Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_FIBULA",
+        "Component Notes": "Official DePuy Synthes materials describe the distal fibula plate family."
+      },
+      {
+        "Component ID": "COMP_LCP_FIBULA_DISTAL_FIBULA_LCP_DISTAL_FIBULA_LOCKING_SCREW",
+        "Component Name": "LCP Distal Fibula Locking Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_FIBULA",
+        "Component Notes": "Official inventory materials describe compatible screw fixation for the distal fibula plate system."
+      },
+      {
+        "Component ID": "COMP_LCP_FIBULA_DISTAL_FIBULA_LCP_DISTAL_FIBULA_DRILL_GUIDE",
+        "Component Name": "LCP Distal Fibula Drill Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_LCP_FIBULA",
+        "Component Notes": "Official technique resources describe guide and instrumentation workflow for fibula plate application."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "LCP Fibula / Distal Fibula",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Locking Plate \u2014 Fibula",
+          "system_notes": "Distal fibula locking plate family within the DePuy Synthes trauma portfolio for lateral malleolus and distal fibula fixation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "LCP Fibula / Distal Fibula",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Fibula",
+        "system_notes": "Distal fibula locking plate family within the DePuy Synthes trauma portfolio for lateral malleolus and distal fibula fixation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "LCP Fibula / Distal Fibula",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Fibula",
+        "system_notes": "Distal fibula locking plate family within the DePuy Synthes trauma portfolio for lateral malleolus and distal fibula fixation."
+      }
+    }
+  ]
+}

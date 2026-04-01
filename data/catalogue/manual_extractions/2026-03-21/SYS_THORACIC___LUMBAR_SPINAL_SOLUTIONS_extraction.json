@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Biedermann Motech",
+    "system_name": "Thoracic / Lumbar Spinal Solutions",
+    "source_type": "portfolio_page",
+    "source_document": "Spine | Biedermann Motech GmbH & Co. KG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Thoracic / Lumbar Spinal Solutions",
+      "supplier_name": "Biedermann Motech",
+      "system_category": "spine",
+      "system_notes": "Official Biedermann thoracic and lumbar spine materials used as the public source anchors for this thoracic and lumbar spinal solutions entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Thoracic and Lumbar Spine Framework",
+      "system_name": "Thoracic / Lumbar Spinal Solutions",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Framework component anchored to Biedermann public thoracic and lumbar spine source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public thoracic and lumbar spine source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Spine | Biedermann Motech GmbH & Co. KG; eIFU | Biedermann Motech GmbH & Co. KG; Home | Biedermann Motech GmbH & Co. KG; About us | Biedermann Motech GmbH & Co. KG"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public thoracic and lumbar spine source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Spine | Biedermann Motech GmbH & Co. KG; eIFU | Biedermann Motech GmbH & Co. KG; Home | Biedermann Motech GmbH & Co. KG; About us | Biedermann Motech GmbH & Co. KG"
+    }
+  ]
+}

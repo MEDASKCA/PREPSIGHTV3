@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "ZERO-P / Cervical Fusion Portfolio",
+    "source_type": "product_page",
+    "source_document": "ZERO-P Spacer",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "ZERO-P / Cervical Fusion Portfolio",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "spine",
+      "system_notes": "Public DePuy Synthes ZERO-P, ZERO-P VA, and technique-library materials used as the source anchors for the stand-alone cervical fusion portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "ZERO-P Cervical Fusion Framework",
+      "system_name": "ZERO-P / Cervical Fusion Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Portfolio-level informational framework anchored to DePuy Synthes public ZERO-P cervical fusion sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public DePuy Synthes source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "ZERO-P Spacer, ZERO-P VA Spacer, and Accompanying Product Information"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public DePuy Synthes source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "ZERO-P Spacer, ZERO-P VA Spacer, and Accompanying Product Information"
+    }
+  ]
+}

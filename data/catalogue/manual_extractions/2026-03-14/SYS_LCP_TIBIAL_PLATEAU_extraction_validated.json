@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Tibial Plateau Plate",
+    "source_type": "operative_technique_pdf",
+    "source_document": "VA-LCP Proximal Tibial Plate 3.5 Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_LCP_TIBIAL_PLATEAU_PLATE_LCP_PROXIMAL_TIBIA_INSTRUMENT_SET",
+        "Tray Name": "LCP Proximal Tibia Instrument Set",
+        "System ID": "SYS_LCP_TIBIAL_PLATEAU",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes technique and catalog materials describe dedicated proximal tibia plating instrumentation for tibial plateau fixation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LCP_TIBIAL_PLATEAU_PLATE_LCP_PROXIMAL_TIBIA_PLATE",
+        "Component Name": "LCP Proximal Tibia Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_TIBIAL_PLATEAU",
+        "Component Notes": "Official technique and inventory materials describe the proximal tibia plate family used for tibial plateau fixation."
+      },
+      {
+        "Component ID": "COMP_LCP_TIBIAL_PLATEAU_PLATE_LCP_PROXIMAL_TIBIA_LOCKING_SCREW",
+        "Component Name": "LCP Proximal Tibia Locking Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_TIBIAL_PLATEAU",
+        "Component Notes": "Official inventory control materials describe compatible locking screw fixation for the proximal tibia plate family."
+      },
+      {
+        "Component ID": "COMP_LCP_TIBIAL_PLATEAU_PLATE_LCP_PROXIMAL_TIBIA_DRILL_GUIDE",
+        "Component Name": "LCP Proximal Tibia Drill Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_LCP_TIBIAL_PLATEAU",
+        "Component Notes": "Official technique materials describe dedicated instrumentation and drill-guide workflow for proximal tibia plate application."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "LCP Tibial Plateau Plate",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Locking Plate \u2014 Tibial Plateau",
+          "system_notes": "Proximal tibial plateau locking plate system within the DePuy Synthes trauma portfolio, including variable-angle proximal tibia fixation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "LCP Tibial Plateau Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Tibial Plateau",
+        "system_notes": "Proximal tibial plateau locking plate system within the DePuy Synthes trauma portfolio, including variable-angle proximal tibia fixation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "LCP Tibial Plateau Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Tibial Plateau",
+        "system_notes": "Proximal tibial plateau locking plate system within the DePuy Synthes trauma portfolio, including variable-angle proximal tibia fixation."
+      }
+    }
+  ]
+}

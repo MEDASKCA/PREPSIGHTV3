@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Radial Head / Neck Fixation Portfolio",
+    "source_type": "product_page",
+    "source_document": "Elbow | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Radial Head / Neck Fixation Portfolio",
+      "supplier_name": "Acumed",
+      "system_category": "upper_extremity_trauma",
+      "system_notes": "Official Acumed radial head and neck fixation materials used as the public source anchors for this upper-extremity trauma portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Radial Head and Neck Fixation Framework",
+      "system_name": "Radial Head / Neck Fixation Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Upper Extremity Trauma",
+      "component_notes": "Framework component anchored to Acumed public radial head and neck fixation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public radial head and neck fixation source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Elbow | Acumed; Anatomic Radial Head Solutions | Acumed; Anatomic Radial Head System | Acumed"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public radial head and neck fixation source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "Elbow | Acumed; Anatomic Radial Head Solutions | Acumed; Anatomic Radial Head System | Acumed"
+    }
+  ]
+}

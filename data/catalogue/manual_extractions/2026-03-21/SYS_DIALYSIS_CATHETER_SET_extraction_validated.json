@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Becton Dickinson",
+    "system_name": "Tunnelled Dialysis Catheter Set",
+    "source_type": "product_family_page",
+    "source_document": "GlidePath 7.5F | 10F Long-Term Hemodialysis Catheter | BD",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TUNNELLED_DIALYSIS_CATHETER_SET_DIALYSIS_CATHETER_FRAMEWORK",
+        "Component Name": "Dialysis Catheter Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_DIALYSIS_CATHETER_SET",
+        "Component Notes": "Framework component anchored to BD public dialysis-catheter source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Tunnelled Dialysis Catheter Set",
+          "supplier_name": "Becton Dickinson",
+          "system_category": "dialysis_access",
+          "system_notes": "Official BD hemodialysis-catheter materials used as the public source anchors for this tunnelled dialysis catheter set entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Tunnelled Dialysis Catheter Set",
+        "supplier_name": "Becton Dickinson",
+        "system_category": "dialysis_access",
+        "system_notes": "Official BD hemodialysis-catheter materials used as the public source anchors for this tunnelled dialysis catheter set entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Tunnelled Dialysis Catheter Set",
+        "supplier_name": "Becton Dickinson",
+        "system_category": "dialysis_access",
+        "system_notes": "Official BD hemodialysis-catheter materials used as the public source anchors for this tunnelled dialysis catheter set entry."
+      }
+    }
+  ]
+}

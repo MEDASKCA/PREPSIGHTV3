@@ -1,0 +1,29 @@
+[
+  { "procedure_id": "PROC_GENERAL_ANAESTHESIA_INDUCTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ENDOTRACHEAL_INTUBATION", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_LARYNGEAL_MASK_AIRWAY_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_RAPID_SEQUENCE_INDUCTION", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_AWAKE_FIBREOPTIC_INTUBATION", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_EXTUBATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SPINAL_ANAESTHESIA", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_EPIRURAL_ANAESTHESIA", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_COMBINED_SPINAL_EPIRURAL_ANAESTHESIA", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PERIPHERAL_NERVE_BLOCK", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_BRACHIAL_PLEXUS_BLOCK", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_FEMORAL_NERVE_BLOCK", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_SCIATIC_NERVE_BLOCK", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_OBSTETRIC_EPIRURAL_ANALGESIA", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_SPINAL_ANAESTHESIA_FOR_CAESAREAN_SECTION", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_GENERAL_ANAESTHESIA_FOR_OBSTETRIC_SURGERY", "case_tag_id": "CASE_EMERGENCY" },
+
+  { "procedure_id": "PROC_PAEDIATRIC_GENERAL_ANAESTHESIA", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_CAUSAL_EPIRURAL_BLOCK", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CARDIOPULMONARY_BYPASS_ANAESTHETIC_MANAGEMENT", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_TRANSOESOPHAGEAL_ECHOCARDIOGRAPHY_INTRAOPERATIVE", "case_tag_id": "CASE_DIAGNOSTIC" },
+
+  { "procedure_id": "PROC_ARTERIAL_LINE_INSERTION", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_CENTRAL_VENOUS_CATHETER_INSERTION", "case_tag_id": "CASE_DIAGNOSTIC" }
+]

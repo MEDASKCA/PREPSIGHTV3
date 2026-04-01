@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "POLAR3 / R3 Total Hip System",
+    "source_type": "product_page",
+    "source_document": "POLAR3 Total Hip Solution",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "POLAR3 / R3 Total Hip System",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Primary total hip arthroplasty platform combining POLAR3 femoral and R3 acetabular families."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "POLAR3 / R3 Instrumentation",
+      "system_name": "POLAR3 / R3 Total Hip System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated instrumentation for the POLAR3 / R3 platform."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "R3 Acetabular Shell",
+      "system_name": "POLAR3 / R3 Total Hip System",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core R3 shell family referenced on the product page."
+    },
+    {
+      "component_name": "R3 Acetabular Liner",
+      "system_name": "POLAR3 / R3 Total Hip System",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core R3 liner family referenced on the product page."
+    },
+    {
+      "component_name": "POLAR3 Femoral Stem",
+      "system_name": "POLAR3 / R3 Total Hip System",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core POLAR3 stem family referenced on the product page."
+    },
+    {
+      "component_name": "POLAR3 Femoral Head",
+      "system_name": "POLAR3 / R3 Total Hip System",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Femoral head family used with the POLAR3 / R3 platform."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Specific shell, liner and stem subfamilies are not fully split in this pass.",
+      "reason": "Needs deeper technique or catalogue review before detailed family expansion.",
+      "source_excerpt": "Current extraction keeps the combined platform-level implant families only."
+    }
+  ]
+}

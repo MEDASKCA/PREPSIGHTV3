@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Zimmer Biomet Lower Extremity Trauma Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Trauma",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ZIMMER_BIOMET_LOWER_EXTREMITY_TRAUMA_PORTFOLIO_LOWER_EXTREMITY_TRAUMA_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Lower Extremity Trauma Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_ZIMMER_BIOMET_LOWER_EXTREMITY_TRAUMA_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Zimmer Biomet public lower-extremity trauma source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Zimmer Biomet Lower Extremity Trauma Portfolio",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Trauma fixation",
+          "system_notes": "Official Zimmer Biomet lower-extremity trauma materials used as the public source anchors for this trauma fixation portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Zimmer Biomet Lower Extremity Trauma Portfolio",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Trauma fixation",
+        "system_notes": "Official Zimmer Biomet lower-extremity trauma materials used as the public source anchors for this trauma fixation portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Zimmer Biomet Lower Extremity Trauma Portfolio",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Trauma fixation",
+        "system_notes": "Official Zimmer Biomet lower-extremity trauma materials used as the public source anchors for this trauma fixation portfolio entry."
+      }
+    }
+  ]
+}

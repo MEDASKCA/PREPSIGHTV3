@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "TRIGEN Tibial Nail System",
+    "source_type": "product_page",
+    "source_document": "TRIGEN Tibial Nail",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TRIGEN_TIBIAL_NAIL_SYSTEM_TRIGEN_TIBIAL_INSTRUMENTATION",
+        "Tray Name": "TRIGEN Tibial Instrumentation",
+        "System ID": "SYS_TRIGEN_TIBIAL_NAIL_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Smith+Nephew materials support the TRIGEN tibial nail platform with dedicated operative instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TRIGEN_TIBIAL_NAIL_SYSTEM_TRIGEN_TIBIAL_NAIL",
+        "Component Name": "TRIGEN Tibial Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_TIBIAL_NAIL_SYSTEM",
+        "Component Notes": "Official product materials describe the TRIGEN tibial nail platform for tibial fracture fixation."
+      },
+      {
+        "Component ID": "COMP_TRIGEN_TIBIAL_NAIL_SYSTEM_TRIGEN_TIBIAL_LOCKING_SCREW",
+        "Component Name": "TRIGEN Tibial Locking Screw",
+        "Component Role": "Locking Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_TIBIAL_NAIL_SYSTEM",
+        "Component Notes": "The TRIGEN tibial nail construct includes proximal and distal locking fixation options."
+      },
+      {
+        "Component ID": "COMP_TRIGEN_TIBIAL_NAIL_SYSTEM_TRIGEN_TIBIAL_END_CAP",
+        "Component Name": "TRIGEN Tibial End Cap",
+        "Component Role": "End Cap",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_TIBIAL_NAIL_SYSTEM",
+        "Component Notes": "The TRIGEN tibial nail platform includes end-cap compatibility within the nail construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "TRIGEN Tibial Nail System",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Tibial intramedullary nailing platform within the TRIGEN family for tibial shaft and periarticular fracture fixation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "TRIGEN Tibial Nail System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Tibial intramedullary nailing platform within the TRIGEN family for tibial shaft and periarticular fracture fixation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "TRIGEN Tibial Nail System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Tibial intramedullary nailing platform within the TRIGEN family for tibial shaft and periarticular fracture fixation."
+      }
+    }
+  ]
+}

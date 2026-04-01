@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Healix Advance Anchor",
+    "source_type": "product_page",
+    "source_document": "HEALIX ADVANCE Knotless Anchor System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_HEALIX_ADVANCE_ANCHOR_HEALIX_ADVANCE_ANCHOR_INSTRUMENTATION",
+        "Tray Name": "Healix Advance Anchor Instrumentation",
+        "System ID": "SYS_HEALIX_ADVANCE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official sports medicine materials describe dedicated insertion instrumentation for the Healix Advance anchor family."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_HEALIX_ADVANCE_ANCHOR_HEALIX_ADVANCE_ANCHOR",
+        "Component Name": "Healix Advance Anchor",
+        "Component Role": "Anchor",
+        "Implant Category": "Soft Tissue Fixation",
+        "System ID": "SYS_HEALIX_ADVANCE",
+        "Component Notes": "Official DePuy Synthes Mitek materials describe the Healix Advance anchor family for shoulder soft-tissue fixation."
+      },
+      {
+        "Component ID": "COMP_HEALIX_ADVANCE_ANCHOR_HEALIX_ADVANCE_KNOTLESS_ANCHOR",
+        "Component Name": "Healix Advance Knotless Anchor",
+        "Component Role": "Knotless Anchor",
+        "Implant Category": "Soft Tissue Fixation",
+        "System ID": "SYS_HEALIX_ADVANCE",
+        "Component Notes": "Official product materials describe the knotless Healix Advance variant."
+      },
+      {
+        "Component ID": "COMP_HEALIX_ADVANCE_ANCHOR_HEALIX_ADVANCE_INSERTER",
+        "Component Name": "Healix Advance Inserter",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_HEALIX_ADVANCE",
+        "Component Notes": "Official sports medicine materials describe the dedicated insertion instrumentation workflow."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Healix Advance Anchor",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Suture Anchor",
+          "system_notes": "PEEK and knotless shoulder soft-tissue anchor family within the DePuy Synthes Mitek sports medicine portfolio."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Healix Advance Anchor",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Suture Anchor",
+        "system_notes": "PEEK and knotless shoulder soft-tissue anchor family within the DePuy Synthes Mitek sports medicine portfolio."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Healix Advance Anchor",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Suture Anchor",
+        "system_notes": "PEEK and knotless shoulder soft-tissue anchor family within the DePuy Synthes Mitek sports medicine portfolio."
+      }
+    }
+  ]
+}

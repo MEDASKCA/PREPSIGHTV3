@@ -1,0 +1,195 @@
+{
+  "extraction_domain": "theatre-equipment",
+  "extraction_subcategory": "operating-tables",
+  "extraction_date": "2026-03-14",
+  "extractor": "PrepSight web-sourced extraction",
+  "total_records": 9,
+  "records": [
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "ALPHAMAQUET",
+      "system_name": "Maquet Alphamaquet 1150",
+      "category": "Operating Table",
+      "subtype": "Universal Surgical Table — Fixed / Mobile / Self-propelled column",
+      "source_document": "Maquet Alphamaquet 1150 product page — Getinge website",
+      "source_url": "https://www.getinge.com/int/products/maquet-alphamaxx/",
+      "notes": "Installed base >13,000 units worldwide. 20+ years in production. Patient weight up to 225 kg standard; up to 360 kg (patient + accessories) in certain configurations. Max 500 lbs nominal load. Electropolished stainless steel surfaces. Motorised height, Trendelenburg, reverse Trendelenburg, lateral tilt, longitudinal shift (C-arm access), leg plates. Control: wired, IR, foot, wall panel (position memory), Karl Storz OR1 voice/sterile touchscreen. Modular column + variety of speciality and all-purpose tabletops. Machine-decontaminable table top and accessories. Latex-free padding. Successor model: Maquet Otesus (Otesus 1160 columns compatible with 1150 and selected 1140 tops). Integration with AWIGS and VIWAS systems.",
+      "components": [
+        "Table column (fixed, mobile, or self-propelled)",
+        "All-purpose or speciality table top (various types)",
+        "Hand control (wired)",
+        "IR hand control (optional)",
+        "Foot control (optional)",
+        "Wall panel control (optional)",
+        "Latex-free padding"
+      ],
+      "product_codes": ["1150"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Alphamaxx",
+      "system_name": "Maquet Alphamaxx 1133",
+      "category": "Operating Table",
+      "subtype": "Universal Surgical Table — Mobile with Autodrive",
+      "source_document": "Maquet Alphamaxx product page — Getinge website",
+      "source_url": "https://www.getinge.com/int/products/maquet-alphamaxx/",
+      "notes": "Extreme load capacity 450 kg (992 lbs). Height range 600–1060 mm (23.6–42.7 in). Motorised longitudinal shift up to 460 mm (18 in) for C-arm access. Carbon fiber modules — radiolucent. Electric Autodrive via hydraulic double-swivel castors. Sensor Drive wireless Autodrive (IR). Motorised adjustments: height, lateral tilt, Trendelenburg, longitudinal shift, lower back plate, leg plate. Automatic component recognition at leg plate mounting point prevents collisions. Individual or synchronous leg plate adjustment.",
+      "components": [
+        "Mobile column with Autodrive",
+        "Carbon fiber table top modules",
+        "Sensor Drive (wireless IR Autodrive control)",
+        "Hand control",
+        "Leg plate assembly (individual/synchronous)"
+      ],
+      "product_codes": ["1133.12", "1133.22"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Otesus",
+      "system_name": "Maquet Otesus",
+      "category": "Operating Table",
+      "subtype": "Universal Surgical Table — Current Generation",
+      "source_document": "Maquet Otesus product page — Getinge website",
+      "source_url": "https://www.getinge.com/int/products/maquet-otesus/",
+      "notes": "Successor to Alphamaquet 1150. Patient weight up to 250 kg without restriction on orientation or lateral shift. Three length configurations (short, standard, with/without head rest interface). Compatible with Alphamaquet 1150 column and selected 1140 tops — minimises retraining. Fully 3D radiolucent carbon fiber table top available. Velcro-free cushions. Machine-washable accessories and table tops. Orthopaedic/traumatology: hyperextension, abduction, adduction, rotation of legs. Lowest height setting for neuro/spine. Usable mobile (ASC) or stationary. Smooth column surfaces for hygiene.",
+      "components": [
+        "Table column",
+        "3D radiolucent carbon fiber table top (option)",
+        "Transporter",
+        "Hand control",
+        "Machine-washable padding set",
+        "Orthopaedic leg positioning attachments"
+      ],
+      "product_codes": [],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Magnus",
+      "system_name": "Maquet Magnus",
+      "category": "Operating Table",
+      "subtype": "High-End Universal / Orthopaedic Surgical Table",
+      "source_document": "Maquet Magnus product page — Getinge website",
+      "source_url": "https://www.getinge.com/int/products/maquet-magnus-operating-table-system/",
+      "notes": "Premium OR table system. Inclination up to 80 deg, tilt up to 45 deg (combinable). Height 535–1235 mm (21–48.6 in). Patient weight up to 250 kg (550 lbs); max 380 kg (838 lbs). Carbon fiber table tops — radiolucent 360 deg imaging without metal elements. High-end build for complex orthopaedic, vascular, and neurosurgical procedures.",
+      "components": [
+        "Table column (stationary or mobile)",
+        "Carbon fiber table top (radiolucent)",
+        "Hand control",
+        "Accessory rail system"
+      ],
+      "product_codes": [],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Yuno II",
+      "system_name": "Maquet Yuno II",
+      "category": "Operating Table",
+      "subtype": "Mobile Orthopaedic / Trauma / Neurosurgical Table",
+      "source_document": "Maquet Yuno II product page — Getinge website",
+      "source_url": "https://www.getinge.com/us/products/maquet-yuno-ii-mobile-operating-table",
+      "notes": "Purpose-designed for orthopaedics, traumatology, neurosurgery. Patient weight up to 454 kg (1000 lbs). Cast iron three-point stand for stability. Traction up to 80 kg via carbon fibre bar with ball joint (horizontal and vertical movement). Screw tension device for fine 12 mm/turn traction precision. Interchangeable table tops. CF plate (radiolucent) for pelvic/cardiovascular/orthopaedic imaging; X-ray range up to 45 in for C-arm positioning at nearly any angle. Elongation adapter for hip scopes. Automatic lock prevents accidental traction bar release. Supports: DAA hip, shoulder arthroscopy, spinal, MIS joint procedures.",
+      "components": [
+        "Cast iron three-point mobile base",
+        "Carbon fibre traction bar with ball joint",
+        "Screw tension device",
+        "Carbon fiber radiolucent plate",
+        "Interchangeable table tops",
+        "Elongation adapter (hip scope)"
+      ],
+      "product_codes": [],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Trumpf Medical (Baxter)",
+      "product_family": "TruSystem",
+      "system_name": "TruSystem 7500",
+      "category": "Operating Table",
+      "subtype": "Universal / Hybrid Surgical Table",
+      "source_document": "TruSystem 7500 product page — Trumpf Medical website",
+      "source_url": "https://www.trumpf-med.com/en/products/or-tables/or-table-systems/trusystem-7500/",
+      "notes": "Patient working load up to 400 kg. SensorLine technology: alerts when table or patient is in compromising position (tipping/fall risk), especially for bariatric patients. Longitudinal slide up to 460 mm (18.1 in) for C-arm access. Synchronous movement maintaining isocenter at up to 185 mm/sec. Hybrid version (TruSystem 7500 Hybrid) compatible with angiography systems, intraoperative CT and MRI. Distributed and serviced by Baxter.",
+      "components": [
+        "Column with SensorLine",
+        "Table top",
+        "Hand control",
+        "Battery (Baxter-serviced)"
+      ],
+      "product_codes": ["TruSystem 7500", "TruSystem 7500 Hybrid"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Mizuho OSI",
+      "product_family": "ProAxis",
+      "system_name": "ProAxis Spinal Surgery Table",
+      "category": "Operating Table",
+      "subtype": "Spinal Positioning Table — Prone / Supine / Lateral",
+      "source_document": "ProAxis product page — Mizuho OSI website",
+      "source_url": "https://www.mizuhosi.com/product/proaxis/",
+      "notes": "Only table allowing dynamic lumbar flex/extension during surgery. Rotates pelvis with coordinated torso translation. Carbon fiber powered hinged frame. IntelliPENDANT hand pendant (positioning monitoring and control). Patient height 58–81 in (147–206 cm). Open frame prone width 19 in (48 cm). Supine top width 21 in (53 cm). Retracted (storage) length 80 in (203 cm). Positioning area 60 in. 10-year service life. Components: ProneView helmet, ACP hip pads, Torso Trolley with chest slide, 5-way adjustable armboards, ProAxis chest pad, cervical management, retractor adaptor (6 in standard side rail).",
+      "components": [
+        "Carbon fiber hinged frame",
+        "IntelliPENDANT hand pendant",
+        "Torso Trolley",
+        "ProAxis chest pad",
+        "ProneView protective helmet system",
+        "ACP contoured hip pads",
+        "Cervical management components",
+        "5-way adjustable padded armboards",
+        "Retractor adaptor (6 in side rail)"
+      ],
+      "product_codes": ["6988"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Mizuho OSI",
+      "product_family": "Hana",
+      "system_name": "Hana Orthopaedic Surgery Table",
+      "category": "Operating Table",
+      "subtype": "Hip Arthroplasty / Orthopaedic Table",
+      "source_document": "Hana product page — Mizuho OSI website",
+      "source_url": "https://www.mizuhosi.com/product/hana/",
+      "notes": "Designed for anterior approach total hip arthroplasty (AATHA), hip arthroscopy, hip fractures, lower limb fractures (supine and lateral). Fully radiolucent carbon fiber construction. Patented femoral lift and support system for enhanced femoral exposure and component placement. Split lower half — independent leg positioning without external support. Leg spars: hyperextension, abduction, adduction, external rotation. Table length 48.5 in (123 cm); with spars 124 in. Width 21.5 in. Hana SC variant for surgery centre environments.",
+      "components": [
+        "Carbon fiber table top",
+        "Independent leg spars (x2)",
+        "Patented femoral lift and support system",
+        "Traction assembly"
+      ],
+      "product_codes": ["Hana", "Hana SC"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    },
+    {
+      "supplier": "Mizuho OSI",
+      "product_family": "Modular Table System (MTS / Jackson)",
+      "system_name": "OSI Modular Table System",
+      "category": "Operating Table",
+      "subtype": "Spinal / Imaging / Orthopaedic Trauma Table",
+      "source_document": "Modular Table System product page — Mizuho OSI website",
+      "source_url": "https://www.mizuhosi.com/product/mts/",
+      "notes": "Originally Jackson Table. 8,000+ units worldwide. Height adjustable 27–48 in (69–122 cm). Width 32 in (81 cm). Length adjustable 64–102 in (163–259 cm). Capacity 500 lbs (226 kg). Lateral tilt 25 deg left/right. Trendelenburg/reverse Trendelenburg 10/10 deg. Modular carbon fiber interchangeable tops: Spinal Surgery Top (open frame for posterior spine), Radiolucent Imaging Top (supine/lateral), Orthopaedic Trauma Top (lower extremity trauma). AC and battery operation. Hand pendant controls height, lateral tilt, Trendelenburg/reverse. I-beam retractable design for storage. Gimbaled top mounting. Models include: 5803, 5890 (with auto-rotation), 5892, 5943.",
+      "components": [
+        "I-beam base (retractable)",
+        "Hand pendant",
+        "Spinal Surgery Top (carbon fiber, open frame)",
+        "Radiolucent Imaging Top (carbon fiber)",
+        "Orthopaedic Trauma Top (carbon fiber)",
+        "Battery pack"
+      ],
+      "product_codes": ["5803", "5890", "5892", "5943"],
+      "sourced": true,
+      "sourced_date": "2026-03-14"
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Vanguard M / Microplasty",
+    "source_type": "product_page",
+    "source_document": "Oxford Partial Knee",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Vanguard M / Microplasty",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Unicompartmental Knee Replacement",
+      "system_notes": "Fixed-bearing medial partial knee platform supported by Microplasty instrumentation and referenced in official Oxford/Vanguard M Zimmer Biomet materials."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Vanguard M / Microplasty Instrumentation",
+      "system_name": "Vanguard M / Microplasty",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet materials reference the Microplasty instrumentation workflow for the Vanguard M partial knee platform."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Vanguard M Femoral Component",
+      "system_name": "Vanguard M / Microplasty",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official Zimmer Biomet materials describe fixed-bearing femoral options for the Vanguard M partial knee platform."
+    },
+    {
+      "component_name": "Vanguard M Tibial Component",
+      "system_name": "Vanguard M / Microplasty",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official materials describe the fixed-bearing tibial component used within the Vanguard M unicompartmental construct."
+    },
+    {
+      "component_name": "Vanguard M Bearing",
+      "system_name": "Vanguard M / Microplasty",
+      "component_role": "Bearing Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official materials describe fixed-bearing insert options for the Vanguard M platform."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official public materials in this pass describe system lineage, instrumentation, and implant families without a complete coded item table.",
+      "reason": "A deeper IFU, ordering guide, or parts matrix pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

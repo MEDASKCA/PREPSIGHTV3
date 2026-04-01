@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Globus Medical",
+    "system_name": "Kyphoplasty Portfolio",
+    "source_type": "product_page",
+    "source_document": "FORTIFY Expandable Corpectomy Device and Cement Solutions",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Kyphoplasty Portfolio",
+      "supplier_name": "Globus Medical",
+      "system_category": "Vertebral Augmentation System",
+      "system_notes": "Vertebral augmentation and cement-delivery portfolio-level record."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Kyphoplasty Instrumentation",
+      "system_name": "Kyphoplasty Portfolio",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Portfolio materials reference delivery and vertebral augmentation instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Kyphoplasty Access Device",
+      "system_name": "Kyphoplasty Portfolio",
+      "component_role": "Access Device",
+      "implant_category": "Spine Implant",
+      "component_notes": "Portfolio-level access/delivery device family."
+    },
+    {
+      "component_name": "Kyphoplasty Cement Delivery System",
+      "system_name": "Kyphoplasty Portfolio",
+      "component_role": "Cement Delivery",
+      "implant_category": "Spine Implant",
+      "component_notes": "Portfolio-level cement delivery family."
+    },
+    {
+      "component_name": "Kyphoplasty Cement",
+      "system_name": "Kyphoplasty Portfolio",
+      "component_role": "Cement",
+      "implant_category": "Spine Implant",
+      "component_notes": "Portfolio-level cement family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "This source anchor is broad and not a perfect kyphoplasty-specific catalogue.",
+      "reason": "Needs deeper vertebral augmentation source review before precise product-family expansion.",
+      "source_excerpt": "Current extraction keeps broad augmentation families only."
+    }
+  ]
+}

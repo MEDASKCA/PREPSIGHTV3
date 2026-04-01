@@ -1,0 +1,1278 @@
+[
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_ONCOLOGY_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Oncology Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report describing the business as a supplier of niche orthopaedic solutions, used as the public source anchor for the UK oncology distribution portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure showing upper-limb and specialist orthopaedic distribution coverage, used as supporting public evidence for the UK oncology distribution portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_WRIST_FUSION_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Wrist Fusion Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report describing the business as a supplier of hand surgery prostheses, used as the public source anchor for the UK wrist fusion distribution portfolio entry."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "IMPLATE Wrist Arthrodesis Nail Surgical Technique Guide",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/IMPLATE-Wrist-Arthrodesis-Nail-Surgical-Technique-Guide.pdf",
+        "notes": "Official LEDA-hosted wrist fusion surgical technique PDF used as supporting public evidence for distributed wrist fusion coverage."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure showing upper-limb and wrist coverage, used as supporting public evidence for the distributed wrist fusion portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_HAND_WRIST_ARTHROSCOPY_PORTFOLIO",
+    "system_name": "LEDA Hand/Wrist Arthroscopy Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the hand and wrist arthroscopy portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper limb portfolio page used as evidence of public hand and wrist arthroscopy portfolio coverage."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "IMPLATE Wrist Arthrodesis Nail Surgical Technique Guide",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/IMPLATE-Wrist-Arthrodesis-Nail-Surgical-Technique-Guide.pdf",
+        "notes": "Official LEDA-hosted wrist surgical technique PDF used as supporting public evidence for the hand and wrist arthroscopy portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_HAND_WRIST_PORTFOLIO",
+    "system_name": "LEDA Hand/Wrist Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the hand and wrist portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper limb portfolio page used as evidence of public hand and wrist portfolio coverage."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "IMPLATE Wrist Arthrodesis Nail Surgical Technique Guide",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/IMPLATE-Wrist-Arthrodesis-Nail-Surgical-Technique-Guide.pdf",
+        "notes": "Official LEDA-hosted wrist surgical technique PDF used as supporting public evidence for the hand and wrist portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_WRIST_SURGERY_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Wrist Surgery Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report describing the business as a supplier of hand surgery prostheses, used as the public source anchor for the UK wrist surgery distribution portfolio entry."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "IMPLATE Wrist Arthrodesis Nail Surgical Technique Guide",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/IMPLATE-Wrist-Arthrodesis-Nail-Surgical-Technique-Guide.pdf",
+        "notes": "Official LEDA-hosted wrist surgical technique PDF used as supporting public evidence for distributed wrist surgery coverage."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure showing upper-limb and wrist coverage, used as supporting public evidence for the distributed wrist surgery portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_ORTHOPAEDICS_HAND_WRIST_SURGERY_PORTFOLIO",
+    "system_name": "LEDA Orthopaedics Hand & wrist surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the hand and wrist surgery portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper limb portfolio page used as evidence of public hand and wrist surgery portfolio coverage."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report describing the business as a supplier of hand surgery prostheses and niche orthopaedic solutions, used as supporting public evidence for the hand and wrist surgery portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_HAND_WRIST_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "LEDA Hand/Wrist Soft Tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the hand and wrist soft tissue portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper limb portfolio page used as evidence of public hand and wrist soft tissue portfolio coverage."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report describing the business as a supplier of hand surgery prostheses and niche orthopaedic solutions, used as supporting public evidence for the hand and wrist soft tissue portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_ORTHOPAEDICS_HAND_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "LEDA Orthopaedics Hand reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the hand reconstruction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper limb portfolio page used as evidence of public hand reconstruction portfolio coverage."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report describing the business as a supplier of hand surgery prostheses and niche orthopaedic solutions, used as supporting public evidence for the hand reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_HAND_TENDON_REPAIR_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Hand Tendon Repair Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report describing the business as a supplier of hand surgery prostheses, used as the public source anchor for the UK hand tendon repair distribution portfolio entry."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "OsteoMed HPS Hand Plating Surgical Guide",
+        "url": "https://ledaortho.com/wp-content/uploads/2017/05/OsteoMed-HPS-Hand-Plating-Surgical-Guide.pdf",
+        "notes": "Official LEDA-hosted hand surgery guide used as supporting public evidence for distributed hand tendon repair workflow coverage."
+      },
+      {
+        "source_type": "product_brochure_pdf",
+        "title": "Threaded Hand Nail Sales Brochure",
+        "url": "https://ledaortho.com/wp-content/uploads/2024/04/THN_SalesBrochure.pdf",
+        "notes": "Official LEDA-hosted hand fixation brochure used as supporting public evidence for distributed hand tendon repair and stabilisation coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_HAND_SURGERY_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Hand Surgery Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report describing the business as a supplier of hand surgery prostheses, used as the public source anchor for the UK hand surgery distribution portfolio entry."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "OsteoMed HPS Hand Plating Surgical Guide",
+        "url": "https://ledaortho.com/wp-content/uploads/2017/05/OsteoMed-HPS-Hand-Plating-Surgical-Guide.pdf",
+        "notes": "Official LEDA-hosted hand plating surgical guide used as supporting public evidence for hand surgery distribution coverage."
+      },
+      {
+        "source_type": "product_brochure_pdf",
+        "title": "Threaded Hand Nail Sales Brochure",
+        "url": "https://ledaortho.com/wp-content/uploads/2024/04/THN_SalesBrochure.pdf",
+        "notes": "Official LEDA-hosted hand fixation brochure used as supporting public evidence for the distributed hand surgery portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_THUMB_CMC_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Thumb CMC Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure showing upper limb arthroplasty coverage including the MAIA trapeziometacarpal joint prosthesis, used as the public source anchor for the UK thumb CMC distribution portfolio entry."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "MAIA Trapeziometacarpal Joint Prosthesis Surgical Technique",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Surgical_Technique_-_Trapeziometacarpal_joint_prosthesis_MAIA%E2%84%A2.pdf",
+        "notes": "Official LEDA surgical technique PDF for the MAIA trapeziometacarpal prosthesis used as supporting public evidence for thumb CMC distribution coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_HAND_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "LEDA Hand Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the hand reconstruction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper limb portfolio page used as evidence of public hand reconstruction portfolio coverage."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report describing the business as a supplier of hand surgery prostheses and niche orthopaedic solutions, used as supporting public evidence for the hand reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_ORTHOPAEDICS_HAND_WRIST_PORTFOLIO",
+    "system_name": "LEDA Orthopaedics Hand/Wrist Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the hand and wrist portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper limb portfolio page used as evidence of public hand and wrist portfolio coverage."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "IMPLATE Wrist Arthrodesis Nail Surgical Technique Guide",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/IMPLATE-Wrist-Arthrodesis-Nail-Surgical-Technique-Guide.pdf",
+        "notes": "Official LEDA-hosted wrist surgical technique PDF used as supporting public evidence for the hand and wrist portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_ORTHOPAEDICS_SMALL_JOINT_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "LEDA Orthopaedics Small joint arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the small joint arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure showing the upper limb arthroplasty range, including MAIA trapeziometacarpal and INCA scapho-trapezio-trapezoid prostheses, used as the closest public small-joint arthroplasty portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_HAND_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "LEDA Hand Soft Tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the hand soft tissue portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper limb portfolio page used as evidence of public hand and upper-limb portfolio coverage."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report describing the business as a supplier of hand surgery prostheses and niche orthopaedic solutions, used as supporting public evidence for the hand soft tissue portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_ORTHOPAEDICS_HAND_SURGERY_PORTFOLIO",
+    "system_name": "LEDA Orthopaedics Hand surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the hand surgery portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper limb portfolio page used as evidence of public hand surgery portfolio coverage."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report describing the business as a supplier of hand surgery prostheses, used as supporting public evidence for the hand surgery portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_DISTRIBUTED_SMALL_JOINT_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "LEDA Distributed Small Joint Arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the distributed small joint arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure showing the upper limb arthroplasty range, including MAIA trapeziometacarpal and INCA scapho-trapezio-trapezoid prostheses, used as the closest public small-joint arthroplasty portfolio anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_ORTHOPAEDICS_HAND_TRAUMA_PORTFOLIO",
+    "system_name": "LEDA Orthopaedics Hand trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the hand trauma portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper limb portfolio page used as evidence of public hand trauma portfolio coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Hand Trauma | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/hand-trauma/",
+        "notes": "Official LEDA hand trauma page used as the closest public match for the hand trauma portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_UPPER_LIMB_TRAUMA_DISTRIBUTION_PORTFOLIO",
+    "system_name": "LEDA / Upper-Limb Trauma Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the upper-limb trauma distribution portfolio."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper-limb portfolio page used as the main public evidence of distributed upper-limb trauma coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Hand Trauma | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/hand-trauma/",
+        "notes": "Official LEDA hand-trauma page used as the closest public match for the trauma-specific branch of the upper-limb distribution portfolio."
+      },
+      {
+        "source_type": "company_report_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic solutions across upper-limb categories."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_DISTRIBUTED_HAND_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "LEDA Distributed Hand Soft Tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the distributed hand soft-tissue portfolio."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper-limb portfolio page used as public evidence of distributed hand and upper-limb soft-tissue coverage."
+      },
+      {
+        "source_type": "company_report_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of hand surgery prostheses and niche orthopaedic solutions."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hand Soft Tissue Portfolio | Closest current public match via LEDA hand coverage",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "LEDA does not appear to expose a dedicated public hand soft-tissue distribution landing page, so the Upper Limb portfolio page is retained as the closest current public distribution match for this system."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_DISTRIBUTED_HAND_TRAUMA_PORTFOLIO",
+    "system_name": "LEDA Distributed Hand Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the distributed hand trauma portfolio."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper-limb portfolio page used as public evidence of distributed hand and upper-limb trauma coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Hand Trauma | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/hand-trauma/",
+        "notes": "Official LEDA hand-trauma page used as the closest public match for the trauma-specific branch of the distributed hand portfolio."
+      },
+      {
+        "source_type": "company_report_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic and upper-limb trauma solutions."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_DISTRIBUTED_HAND_WRIST_TRAUMA_PORTFOLIO",
+    "system_name": "LEDA Distributed Hand/Wrist Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the distributed hand and wrist trauma portfolio."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper-limb portfolio page used as public evidence of distributed hand and wrist trauma coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Hand Trauma | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/hand-trauma/",
+        "notes": "Official LEDA hand-trauma page used as the closest public match for the trauma-specific branch of the distributed hand/wrist portfolio."
+      },
+      {
+        "source_type": "company_report_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of hand surgery prostheses and upper-limb solutions including wrist categories."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_DISTRIBUTED_WRIST_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "LEDA Distributed Wrist Arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the distributed wrist arthroplasty portfolio."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure showing upper-limb arthroplasty coverage, including MAIA trapeziometacarpal and INCA scapho-trapezio-trapezoid prostheses, used as the closest public wrist arthroplasty distribution anchor."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "MAIA Trapeziometacarpal Joint Prosthesis Surgical Technique",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Surgical_Technique_-_Trapeziometacarpal_joint_prosthesis_MAIA%E2%84%A2.pdf",
+        "notes": "Official LEDA surgical technique PDF used as direct arthroplasty evidence for the distributed wrist and small-joint arthroplasty surface."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of hand surgery prostheses and niche upper-limb arthroplasty solutions."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_ORTHOPAEDICS_ELBOW_DECOMPRESSION_PORTFOLIO",
+    "system_name": "LEDA Orthopaedics Elbow decompression Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the elbow decompression portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated elbow decompression landing page."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper-limb portfolio page used as broader public evidence for elbow-focused upper-extremity solutions."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "IJS Elbow Stabilization System Surgical Technique Guide",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/MKT-00043-00RAI-IJS-Surgical-Technique-Guide-05-2022-1.pdf",
+        "notes": "Official LEDA-hosted surgical-technique PDF used as the closest direct public elbow-procedure anchor for decompression-adjacent stabilization and post-release elbow management workflows."
+      },
+      {
+        "source_type": "sales_sheet_pdf",
+        "title": "Distal Elbow Set Sales Sheet",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/12/MKT-00190-00RAC-Distal-Elbow-Set-DES-Sales-Sheet.pdf",
+        "notes": "Official LEDA-hosted distal elbow system sales sheet used as additional public evidence for elbow-focused distributed solutions where dedicated decompression pages are limited."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_ORTHOPAEDICS_PERIPHERAL_NERVE_SURGERY_PORTFOLIO",
+    "system_name": "LEDA Orthopaedics Peripheral nerve surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the peripheral nerve surgery portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated peripheral nerve surgery landing page."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper-limb portfolio page used as broader public evidence for upper-extremity and hand-surgery distribution coverage relevant to peripheral nerve surgery workflows."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as supporting public evidence for specialist upper-limb distribution coverage, including hand-surgery-adjacent product ranges that serve as the closest public portfolio anchor for this peripheral nerve surgery row."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic and upper-limb solutions where dedicated peripheral nerve public pages are limited."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_UPPER_LIMB_DISTRIBUTION_PORTFOLIO",
+    "system_name": "LEDA Upper-Limb Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the upper-limb distribution portfolio."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper-limb portfolio page used as the main public evidence of distributed upper-limb category coverage."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as supporting public evidence for distributed upper-limb implant and specialist orthopaedic coverage."
+      },
+      {
+        "source_type": "company_report_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic and upper-limb solutions."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_DISTAL_RADIUS_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Distal Radius Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK distal radius distribution portfolio."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper-limb portfolio page used as public evidence of distributed wrist and upper-extremity trauma coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Hand Trauma | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/hand-trauma/",
+        "notes": "Official LEDA hand-trauma page used as the closest current public match for distal-radius and wrist-trauma distribution coverage."
+      },
+      {
+        "source_type": "company_report_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of hand surgery prostheses and upper-limb solutions including wrist categories."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_ELBOW___HAND_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Elbow / Hand Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK elbow and hand distribution portfolio."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper-limb portfolio page used as broader public evidence for combined elbow and hand distribution coverage."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "IJS Elbow Stabilization System Surgical Technique Guide",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/MKT-00043-00RAI-IJS-Surgical-Technique-Guide-05-2022-1.pdf",
+        "notes": "Official LEDA-hosted surgical-technique PDF used as the closest direct public elbow-procedure anchor for the elbow branch of this combined distribution portfolio."
+      },
+      {
+        "source_type": "sales_sheet_pdf",
+        "title": "Distal Elbow Set Sales Sheet",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/12/MKT-00190-00RAC-Distal-Elbow-Set-DES-Sales-Sheet.pdf",
+        "notes": "Official LEDA-hosted distal elbow system sales sheet used as additional public evidence for elbow-focused distribution coverage where a dedicated combined elbow/hand landing page is limited."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_ELBOW_ARTHROSCOPY_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Elbow Arthroscopy Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK elbow arthroscopy distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated elbow arthroscopy landing page."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper-limb portfolio page used as broader public evidence for elbow-focused upper-extremity distribution coverage."
+      },
+      {
+        "source_type": "surgical_technique_pdf",
+        "title": "IJS Elbow Stabilization System Surgical Technique Guide",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/MKT-00043-00RAI-IJS-Surgical-Technique-Guide-05-2022-1.pdf",
+        "notes": "Official LEDA-hosted surgical-technique PDF used as the closest direct public elbow-procedure anchor for elbow arthroscopy-adjacent stabilization and post-arthroscopy management workflows."
+      },
+      {
+        "source_type": "sales_sheet_pdf",
+        "title": "Distal Elbow Set Sales Sheet",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/12/MKT-00190-00RAC-Distal-Elbow-Set-DES-Sales-Sheet.pdf",
+        "notes": "Official LEDA-hosted distal elbow system sales sheet used as additional public evidence for elbow-focused distribution coverage where dedicated elbow arthroscopy pages are limited."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_FLATFOOT_RECONSTRUCTION_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Flatfoot Reconstruction Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK flatfoot reconstruction distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated foot and ankle reconstruction landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated flatfoot reconstruction public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated foot and ankle catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK flatfoot reconstruction distribution portfolio because no dedicated public foot and ankle landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_FOOT___ANKLE_FUSION_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Foot & Ankle Fusion Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK foot and ankle fusion distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated foot and ankle fusion landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated foot and ankle fusion public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated foot and ankle fusion catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK foot and ankle fusion distribution portfolio because no dedicated public foot and ankle landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_FOOT___ANKLE_SOFT_TISSUE_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Foot & Ankle Soft Tissue Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK foot and ankle soft-tissue distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated foot and ankle soft-tissue landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated foot and ankle soft-tissue public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated foot and ankle soft-tissue catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK foot and ankle soft-tissue distribution portfolio because no dedicated public foot and ankle landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_FOOT___ANKLE_TRAUMA_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Foot & Ankle Trauma Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK foot and ankle trauma distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated foot and ankle trauma landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated foot and ankle trauma public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated foot and ankle trauma catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK foot and ankle trauma distribution portfolio because no dedicated public foot and ankle landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_HAND___WRIST_TRAUMA_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Hand & Wrist Trauma Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK hand and wrist trauma distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated hand and wrist trauma landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated hand and wrist trauma public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated hand and wrist trauma catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK hand and wrist trauma distribution portfolio because no dedicated public hand and wrist landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_HAND_TRAUMA_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Hand Trauma Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK hand trauma distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated hand trauma landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated hand trauma public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated hand trauma catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK hand trauma distribution portfolio because no dedicated public hand landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_PAEDIATRIC_ORTHOPAEDIC_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Paediatric Orthopaedic Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK paediatric orthopaedic distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated paediatric orthopaedic landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated paediatric orthopaedic public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated paediatric orthopaedic catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK paediatric orthopaedic distribution portfolio because no dedicated public paediatric landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_PAEDIATRIC_SOFT_TISSUE_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Paediatric Soft Tissue Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK paediatric soft-tissue distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated paediatric soft-tissue landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated paediatric soft-tissue public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated paediatric soft-tissue catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK paediatric soft-tissue distribution portfolio because no dedicated public paediatric landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_SHOULDER_STABILISATION_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Shoulder Stabilisation Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK shoulder stabilisation distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated shoulder stabilisation landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated shoulder stabilisation public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated shoulder stabilisation catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK shoulder stabilisation distribution portfolio because no dedicated public shoulder landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_TRAUMA_FIXATION_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Trauma Fixation Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK trauma fixation distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated trauma fixation landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated trauma fixation public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated trauma fixation catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK trauma fixation distribution portfolio because no dedicated public trauma landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_TRAUMA_NAIL_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Trauma Nail Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK trauma nail distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated trauma nail landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated trauma nail public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated trauma nail catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK trauma nail distribution portfolio because no dedicated public trauma landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_TRAUMA_PLATE_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Trauma Plate Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK trauma plate distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated trauma plate landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated trauma plate public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated trauma plate catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK trauma plate distribution portfolio because no dedicated public trauma landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_TRAUMA_STABILISATION_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Trauma Stabilisation Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK trauma stabilisation distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated trauma stabilisation landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated trauma stabilisation public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated trauma stabilisation catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK trauma stabilisation distribution portfolio because no dedicated public trauma landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_UPPER_EXTREMITY_IMPLANT_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Upper Extremity Implant Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK upper extremity implant distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated upper extremity implant landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated upper extremity implant public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated upper extremity implant catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK upper extremity implant distribution portfolio because no dedicated public upper extremity landing page is currently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_UPPER_EXTREMITY_TRAUMA_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Upper Extremity Trauma Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the primary public anchor for the UK upper extremity trauma distribution portfolio. This is a closest current public match because LEDA does not appear to expose a dedicated upper extremity trauma landing page."
+      },
+      {
+        "source_type": "company_profile_pdf",
+        "title": "LEDA Orthopaedics Carbon Footprint Report 2024",
+        "url": "https://ledaortho.com/wp-content/uploads/2025/07/LEDA-Orthopaedics-CFR-2024.pdf",
+        "notes": "Official LEDA company report used as supporting public evidence describing the business as a supplier of niche orthopaedic distribution solutions, used here because dedicated upper extremity trauma public pages are limited."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Extremities and Osteosynthesis Ranges",
+        "url": "https://ledaortho.com/wp-content/uploads/2023/09/Brochure_-_Extremities_and_osteosynthesis_ranges.pdf",
+        "notes": "Official LEDA brochure used as the closest current public product-range anchor available in the supplier's public library, supporting this distribution portfolio entry where dedicated upper extremity trauma catalogue pages are limited."
+      },
+      {
+        "source_type": "company_page",
+        "title": "LEDA Orthopaedics | About",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA company page reused as an organisational anchor for the UK upper extremity trauma distribution portfolio because no dedicated public upper extremity landing page is currently exposed."
+      }
+    ]
+  }
+]

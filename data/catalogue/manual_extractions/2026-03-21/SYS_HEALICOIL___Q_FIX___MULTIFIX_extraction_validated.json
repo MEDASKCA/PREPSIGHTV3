@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "HEALICOIL / Q-FIX / MULTIFIX",
+    "source_type": "product_page",
+    "source_document": "HEALICOIL PK and REGENESORB Suture Anchors",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_HEALICOIL_Q_FIX_MULTIFIX_SUTURE_ANCHOR_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Suture Anchor Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Sports Medicine",
+        "System ID": "SYS_HEALICOIL___Q_FIX___MULTIFIX",
+        "Component Notes": "Framework component anchored to Smith+Nephew public HEALICOIL, Q-FIX, and MULTIFIX source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "HEALICOIL / Q-FIX / MULTIFIX",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "shoulder_sports",
+          "system_notes": "Official Smith+Nephew anchor-family materials used as the public source anchors for this soft-tissue fixation portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "HEALICOIL / Q-FIX / MULTIFIX",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "shoulder_sports",
+        "system_notes": "Official Smith+Nephew anchor-family materials used as the public source anchors for this soft-tissue fixation portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "HEALICOIL / Q-FIX / MULTIFIX",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "shoulder_sports",
+        "system_notes": "Official Smith+Nephew anchor-family materials used as the public source anchors for this soft-tissue fixation portfolio entry."
+      }
+    }
+  ]
+}

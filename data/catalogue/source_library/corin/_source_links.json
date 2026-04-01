@@ -1,0 +1,332 @@
+[
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_UNITY_KNEE_SYSTEM",
+    "system_name": "Unity Knee System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Unity Knee",
+        "url": "https://www.coringroup.com/products/unity-knee/",
+        "notes": "Official Corin product page with system overview and linked information."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_OPTIMIZED_POSITIONING_HIP_SYSTEM",
+    "system_name": "Optimized Positioning Hip System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "OPS - Optimized Positioning System",
+        "url": "https://www.coringroup.com/products/ops/",
+        "notes": "Official Corin product page for the optimized positioning workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_ZENITH_ANKLE",
+    "system_name": "Zenith Total Ankle",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Zenith Total Ankle Replacement",
+        "url": "https://www.coringroup.com/products/zenith/",
+        "notes": "Official Corin product page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_APOLLOKNEE_OR_COMPARABLE_KNEE_PORTFOLIO",
+    "system_name": "Corin / ApolloKnee or comparable knee portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "ApolloKnee | Total Knee Arthroplasty | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/apolloknee/",
+        "notes": "Official Corin ApolloKnee product page used as the primary public source anchor for the ApolloKnee or comparable knee portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Unity Knee | Total Knee System | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/unity-knee/",
+        "notes": "Official Corin Unity Knee page used as supporting implant-family and catalogue evidence for the current Corin knee arthroplasty portfolio used with ApolloKnee."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin Announces Worldwide Launch of ApolloKnee | Corin",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-announces-worldwide-launch-of-apolloknee/",
+        "notes": "Official Corin launch announcement used as supporting evidence for current regulatory clearance and commercial availability of the ApolloKnee platform."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin Group Announces Clinical Use of Apollo Robotic-Assisted Surgical Platform | Corin",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-group-announces-clinical-use-of-apollo-robotic-assisted-surgical-platform/",
+        "notes": "Official Corin clinical-use announcement used as broader workflow and implementation evidence for the ApolloKnee-enabled total knee arthroplasty portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_HIP_ARTHROPLASTY_ROBOTICS_PORTFOLIO",
+    "system_name": "Corin Hip Arthroplasty + Robotics Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "ApolloHipX | Total Hip Arthroplasty | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/apollohipx/",
+        "notes": "Official Corin ApolloHipX product page used as the primary public source anchor for the hip arthroplasty plus robotics portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "OPSInsight | Orthopaedic Surgical Planning Software | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/optimized-positioning-system-ops/",
+        "notes": "Official Corin OPSInsight page used as supporting workflow and preoperative planning evidence for the current hip robotics platform."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin Achieves FDA 510(k) Clearance for New Apollo Application, ApolloHipX | Corin",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-achieves-fda-510k-clearance-for-new-apollo-application-apollohipx/",
+        "notes": "Official Corin FDA-clearance announcement used as supporting evidence for regulatory status and commercial availability of ApolloHipX."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin Announces the First Clinical Use of Apollo for Total Hip Arthroplasty | Corin",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-announces-the-first-clinical-use-of-apollo-for-total-hip-arthroplasty/",
+        "notes": "Official Corin clinical-use announcement used as broader implementation evidence for ApolloHipX and the hip arthroplasty robotics workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_HIP_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Corin Hip arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "MetaFix | Hip Implant Solutions | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/metafix/",
+        "notes": "Official Corin MetaFix page used as the primary public source anchor for the non-robotic Corin hip arthroplasty portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Trinity | Hip Implant Solutions | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/trinity/",
+        "notes": "Official Corin Trinity acetabular system page used as supporting cup and bearing-system evidence for the hip arthroplasty portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MiniHip | Hip Implant Solutions | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/minihip/",
+        "notes": "Official Corin MiniHip page used as supporting evidence for the bone-conserving segment of the current Corin primary hip arthroplasty portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Icona | Hip Implant Solutions | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/icona/",
+        "notes": "Official Corin Icona page used as broader current portfolio evidence for Corin's modern primary total hip arthroplasty implant range."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_HIP_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Corin Hip revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Revival | Hip Implant Solutions | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/revival/",
+        "notes": "Official Corin Revival page used as the primary public source anchor for the Corin hip revision arthroplasty portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Trinity PLUS | Hip Implant Solutions | Corin Group",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/trinity-plus/",
+        "notes": "Official Corin Trinity PLUS page used as supporting acetabular reconstruction evidence for complex and revision hip arthroplasty."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MobiliT Cup | Hip Implant Solutions | Corin Group",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/mobilit-cup/",
+        "notes": "Official Corin MobiliT Cup page used as supporting revision cup evidence because it explicitly includes cemented and poor-bone options and references revision use."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin completes Joint Venture Agreement with Ossis to deliver life-changing personalised reconstructive solutions | Corin Group",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-completes-joint-venture-agreement-with-ossis-to-deliver-life-changing-personalised-reconstructive-solutions/",
+        "notes": "Official Corin announcement used as broader portfolio evidence for revision hip acetabular reconstruction and Trinity PLUS development."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_KNEE_ARTHROPLASTY_ROBOTICS_PORTFOLIO",
+    "system_name": "Corin Knee Arthroplasty + Robotics Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "ApolloKnee | Total Knee Arthroplasty | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/apolloknee/",
+        "notes": "Official Corin ApolloKnee product page used as the primary public source anchor for the Corin knee arthroplasty plus robotics portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Unity Knee | Total Knee System | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/unity-knee/",
+        "notes": "Official Corin Unity Knee page used as supporting implant-family evidence for the current robotic-assisted knee arthroplasty workflow built around ApolloKnee."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin Announces Worldwide Launch of ApolloKnee | Corin",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-announces-worldwide-launch-of-apolloknee/",
+        "notes": "Official Corin launch announcement used as supporting evidence for regulatory clearance and commercial rollout of the ApolloKnee robotic platform."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin's ApolloKnee Procedure Surpasses 500 Case Milestone | Corin",
+        "url": "https://www.coringroup.com/about-us/our-news/corins-apolloknee-procedure-surpasses-500-case-milestone/",
+        "notes": "Official Corin milestone announcement used as broader current-use evidence for ApolloKnee adoption in total knee arthroplasty."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_KNEE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Corin Knee arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Unity Knee | Total Knee System | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/unity-knee/",
+        "notes": "Official Corin Unity Knee page used as the primary public source anchor for the non-robotic Corin knee arthroplasty portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Apex Knee | Total Knee Implant | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/apex-knee/",
+        "notes": "Official Corin Apex Knee page used as supporting evidence for the broader current primary knee implant portfolio."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin Earns 510(k) Clearance for Unity Knee MC Tibial Insert Compatible with ApolloKnee | Corin",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-earns-510k-clearance-for-unity-knee-mc-tibial-insert/",
+        "notes": "Official Corin announcement used as catalogue-style evidence for recent Unity Knee portfolio expansion and implant-line support."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin Announces First Clinical Use of Unity Knee MC Tibial Insert | Corin",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-announces-first-clinical-use-of-unity-knee-mc-tibial-insert/",
+        "notes": "Official Corin clinical-use announcement used as broader current portfolio evidence for Unity Knee implant utilization outside the robotics-only row."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_KNEE_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Corin Knee revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Apex Revision Knee | Knee Implant Solutions | Corin Group",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/apex-revision-knee-system/",
+        "notes": "Official Corin Apex Revision Knee page used as the primary public source anchor for the Corin knee revision arthroplasty portfolio and as operative-technique evidence because it exposes revision femur and tibia technique resources."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Apex Knee | Total Knee Implant | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/apex-knee/",
+        "notes": "Official Corin Apex Knee page used as supporting implant-family evidence because the revision system shares Apex knee design geometry and platform lineage."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin Celebrates Innovation at the AAHKS 2024 Annual Meeting | Corin",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-celebrates-innovation-at-the-aahks-2024-annual-meeting/",
+        "notes": "Official Corin portfolio update used as broader current knee-platform evidence, including compatible implant-system and line-extension context relevant to the Apex revision family."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Apex Knee - TiN now available in United States | Corin",
+        "url": "https://www.coringroup.com/fr_FR/about-us/our-news/apex-knee-tin-now-available-in-united-states/",
+        "notes": "Official Corin Apex Knee announcement used as broader catalogue-style support for the Apex knee platform surrounding the revision system."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_REVISION_HIP_PORTFOLIO",
+    "system_name": "Revision Hip Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Revival | Hip Implant Solutions | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/revival/",
+        "notes": "Official Corin Revival page used as the primary public source anchor for this generic revision hip portfolio row."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Trinity PLUS | Hip Implant Solutions | Corin Group",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/trinity-plus/",
+        "notes": "Official Corin Trinity PLUS page used as supporting acetabular reconstruction evidence for complex and revision hip arthroplasty in the generic revision hip portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "MobiliT Cup | Hip Implant Solutions | Corin Group",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/mobilit-cup/",
+        "notes": "Official Corin MobiliT Cup page used as supporting revision cup evidence because it explicitly includes cemented and poor-bone options and revision-style use cases."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin completes Joint Venture Agreement with Ossis to deliver life-changing personalised reconstructive solutions | Corin Group",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-completes-joint-venture-agreement-with-ossis-to-deliver-life-changing-personalised-reconstructive-solutions/",
+        "notes": "Official Corin announcement used as broader portfolio evidence for revision hip acetabular reconstruction and Trinity PLUS development for this generic revision hip row."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_UNITY_PARTIAL_KNEE_PORTFOLIO",
+    "system_name": "Unity Partial Knee Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Biomemetic Cementless Technology | Hip Implant Coating Solutions | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/biomemetic-cementless-technology/",
+        "notes": "Official Corin technology page used as the primary public source anchor for this partial-knee row because it explicitly references Corin's AMC unicompartmental knee arthroplasty clinical history. This is a closest current public match rather than a dedicated Unity partial-knee product page."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Unity Knee | Total Knee System | Corin",
+        "url": "https://www.coringroup.com/healthcare-professionals/products/unity-knee/",
+        "notes": "Official Corin Unity Knee page used as broader current knee-platform evidence because Corin's current public knee reconstruction surface is centered on the Unity brand."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin Earns 510(k) Clearance for Unity Knee MC Tibial Insert Compatible with ApolloKnee | Corin",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-earns-510k-clearance-for-unity-knee-mc-tibial-insert/",
+        "notes": "Official Corin announcement used as catalogue-style evidence for the current Unity knee line and to anchor this entry to Corin's present public knee portfolio where a dedicated partial-knee page is not exposed."
+      },
+      {
+        "source_type": "news_article",
+        "title": "Corin Celebrates Innovation at the AAHKS 2024 Annual Meeting | Corin",
+        "url": "https://www.coringroup.com/about-us/our-news/corin-celebrates-innovation-at-the-aahks-2024-annual-meeting/",
+        "notes": "Official Corin portfolio update used as broader current knee-platform evidence. This is included as supporting context because no dedicated public Unity partial-knee page appears to be available."
+      }
+    ]
+  }
+]

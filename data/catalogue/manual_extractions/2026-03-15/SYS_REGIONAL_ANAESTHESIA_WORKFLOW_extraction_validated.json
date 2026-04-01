@@ -1,0 +1,58 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Regional Anaesthesia Workflow System",
+    "source_type": "society_homepage",
+    "source_document": "ASRA / ESRA Regional Anaesthesia Resources",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "System ID": "SYS_UNASSIGNED_REGIONAL_ANAESTHESIA_WORKFLOW_SYSTEM",
+        "System Name": "Regional Anaesthesia Workflow System",
+        "Supplier ID": "SUP_UNASSIGNED",
+        "System Category": "Perioperative Documentation",
+        "System Notes": "Public source anchor for regional anaesthesia workflow guidance, education, and practice support."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_REGIONAL_ANAESTHESIA_WORKFLOW_SYSTEM_REGIONAL_ANAESTHESIA_WORKFLOW_FRAMEWORK",
+        "Component Name": "Regional Anaesthesia Workflow Framework",
+        "Component Role": "Workflow Framework",
+        "Implant Category": "Perioperative Documentation Workflow",
+        "System ID": "SYS_UNASSIGNED_REGIONAL_ANAESTHESIA_WORKFLOW_SYSTEM",
+        "Component Notes": "ASRA and ESRA resources describe hands-on education, workflow support, and practice guidance for regional anaesthesia."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": []
+}

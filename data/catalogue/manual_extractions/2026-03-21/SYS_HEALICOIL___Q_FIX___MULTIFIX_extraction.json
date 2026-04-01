@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "HEALICOIL / Q-FIX / MULTIFIX",
+    "source_type": "product_page",
+    "source_document": "HEALICOIL PK and REGENESORB Suture Anchors",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "HEALICOIL / Q-FIX / MULTIFIX",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "shoulder_sports",
+      "system_notes": "Official Smith+Nephew anchor-family materials used as the public source anchors for this soft-tissue fixation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Suture Anchor Portfolio Framework",
+      "system_name": "HEALICOIL / Q-FIX / MULTIFIX",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Sports Medicine",
+      "component_notes": "Framework component anchored to Smith+Nephew public HEALICOIL, Q-FIX, and MULTIFIX source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public suture-anchor portfolio source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "HEALICOIL PK and REGENESORB Suture Anchors; Q-FIX All-Suture Anchor Shoulder; MULTIFIX S Ultra Knotless Suture Anchor"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public suture-anchor portfolio source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "HEALICOIL PK and REGENESORB Suture Anchors; Q-FIX All-Suture Anchor Shoulder; MULTIFIX S Ultra Knotless Suture Anchor"
+    }
+  ]
+}

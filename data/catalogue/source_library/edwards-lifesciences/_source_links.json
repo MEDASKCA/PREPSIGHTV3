@@ -1,0 +1,22 @@
+[
+  {
+    "supplier_id": "SUP_EDWARDS_LIFESCIENCES",
+    "supplier_name": "Edwards Lifesciences",
+    "system_id": "SYS_PATIENT_MONITOR",
+    "system_name": "Patient Monitor",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Hemodynamic Monitoring",
+        "url": "https://www.edwards.com/healthcare-professionals/products-services/hemodynamic-monitoring",
+        "notes": "Official Edwards Lifesciences hemodynamic monitoring page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Critical Care",
+        "url": "https://www.edwards.com/healthcare-professionals/products-services/critical-care",
+        "notes": "Official Edwards Lifesciences critical care page used as broader workflow context."
+      }
+    ]
+  }
+]

@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Pinnacle / Sector Augments",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "Pinnacle Acetabular Cup System Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_PINNACLE_SECTOR_AUGMENTS_PINNACLE_REVISION_ACETABULAR_INSTRUMENTATION",
+        "Tray Name": "Pinnacle Revision Acetabular Instrumentation",
+        "System ID": "SYS_PINNACLE_SECTOR",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Pinnacle revision materials support dedicated acetabular instrumentation for cup preparation and augment-enabled reconstruction workflows."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PINNACLE_SECTOR_AUGMENTS_PINNACLE_REVISION_ACETABULAR_SHELL",
+        "Component Name": "Pinnacle Revision Acetabular Shell",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_PINNACLE_SECTOR",
+        "Component Notes": "Official Pinnacle materials describe the revision acetabular shell family used in reconstructive hip surgery."
+      },
+      {
+        "Component ID": "COMP_PINNACLE_SECTOR_AUGMENTS_PINNACLE_SECTOR_AUGMENT",
+        "Component Name": "Pinnacle Sector Augment",
+        "Component Role": "Acetabular Augment",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_PINNACLE_SECTOR",
+        "Component Notes": "Sector augment reconstruction component used to address acetabular bone loss within the Pinnacle revision construct."
+      },
+      {
+        "Component ID": "COMP_PINNACLE_SECTOR_AUGMENTS_PINNACLE_ACETABULAR_LINER",
+        "Component Name": "Pinnacle Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_PINNACLE_SECTOR",
+        "Component Notes": "Official Pinnacle materials describe compatible liner and bearing options used with the revision acetabular construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Pinnacle / Sector Augments",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Acetabular Revision System",
+          "system_notes": "Revision acetabular construct anchored to official Pinnacle cup product and surgical-technique materials, with sector augment reconstruction support."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Pinnacle / Sector Augments",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Acetabular Revision System",
+        "system_notes": "Revision acetabular construct anchored to official Pinnacle cup product and surgical-technique materials, with sector augment reconstruction support."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Pinnacle / Sector Augments",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Acetabular Revision System",
+        "system_notes": "Revision acetabular construct anchored to official Pinnacle cup product and surgical-technique materials, with sector augment reconstruction support."
+      }
+    }
+  ]
+}

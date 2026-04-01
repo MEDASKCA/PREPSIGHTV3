@@ -1,0 +1,269 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "INFINITY Total Ankle",
+    "source_type": "operative_technique_reference",
+    "source_document": "INFINITY Total Ankle Surgical Technique",
+    "source_version": "Rev B",
+    "source_date": "2024-01"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "INFINITY Total Ankle",
+          "supplier_name": "Stryker",
+          "system_category": "Ankle Arthroplasty System",
+          "system_notes": "Fixed-bearing total ankle replacement system with Prophecy guide workflow support."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [
+      {
+        "row": {
+          "tray_name": "INFINITY Primary Instrument Tray",
+          "system_name": "INFINITY Total Ankle",
+          "tray_type": "Primary",
+          "tray_notes": "Primary instrument tray referenced in the surgical technique."
+        },
+        "reason": "Duplicate tray already exists in master dataset."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "row": {
+          "component_name": "INFINITY Tibial Tray",
+          "system_name": "INFINITY Total Ankle",
+          "component_role": "Tibial Component",
+          "implant_category": "Ankle Implant",
+          "component_notes": "Referenced as tibial tray in the source materials."
+        },
+        "reason": "Possible component role duplicate for this system."
+      },
+      {
+        "row": {
+          "component_name": "INFINITY Talar Component",
+          "system_name": "INFINITY Total Ankle",
+          "component_role": "Talar Component",
+          "implant_category": "Ankle Implant",
+          "component_notes": "Core talar implant component referenced in product materials."
+        },
+        "reason": "Possible component role duplicate for this system."
+      },
+      {
+        "row": {
+          "component_name": "INFINITY Poly Insert",
+          "system_name": "INFINITY Total Ankle",
+          "component_role": "Poly Insert",
+          "implant_category": "Ankle Implant",
+          "component_notes": "Polyethylene insert component referenced in system materials."
+        },
+        "reason": "Possible component role duplicate for this system."
+      }
+    ],
+    "PRODUCTS": [
+      {
+        "row": {
+          "sku": "INF-TT-001",
+          "product_name": "INFINITY Tibial Tray Size 1",
+          "component_name": "INFINITY Tibial Tray",
+          "packaging_type": "Sterile",
+          "product_notes": "Size 1 implant packaging example from the initial source set."
+        },
+        "reason": "Duplicate product already exists in master dataset."
+      }
+    ],
+    "SYSTEM_MAPPINGS": [
+      {
+        "row": {
+          "procedure_name": "Primary Total Ankle Replacement",
+          "procedure_variant": "Fixed-Bearing Total Ankle Replacement",
+          "system_name": "INFINITY Total Ankle",
+          "data_source": "INFINITY Total Ankle Surgical Technique",
+          "research_notes": "Primary total ankle replacement mapping supported by official INFINITY source materials.",
+          "last_verified": "2024-01"
+        },
+        "reason": "Duplicate system mapping already exists in master dataset."
+      }
+    ]
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "INFINITY Total Ankle",
+        "supplier_name": "Stryker",
+        "system_category": "Ankle Arthroplasty System",
+        "system_notes": "Fixed-bearing total ankle replacement system with Prophecy guide workflow support."
+      },
+      "reason": "System already exists in master dataset."
+    },
+    {
+      "entity": "TRAYS",
+      "row": {
+        "tray_name": "INFINITY Primary Instrument Tray",
+        "system_name": "INFINITY Total Ankle",
+        "tray_type": "Primary",
+        "tray_notes": "Primary instrument tray referenced in the surgical technique."
+      },
+      "reason": "Tray already exists in master dataset."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "INFINITY Tibial Tray",
+        "system_name": "INFINITY Total Ankle",
+        "component_role": "Tibial Component",
+        "implant_category": "Ankle Implant",
+        "component_notes": "Referenced as tibial tray in the source materials."
+      },
+      "reason": "Possible component role duplicate for this system."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "INFINITY Talar Component",
+        "system_name": "INFINITY Total Ankle",
+        "component_role": "Talar Component",
+        "implant_category": "Ankle Implant",
+        "component_notes": "Core talar implant component referenced in product materials."
+      },
+      "reason": "Possible component role duplicate for this system."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "INFINITY Poly Insert",
+        "system_name": "INFINITY Total Ankle",
+        "component_role": "Poly Insert",
+        "implant_category": "Ankle Implant",
+        "component_notes": "Polyethylene insert component referenced in system materials."
+      },
+      "reason": "Possible component role duplicate for this system."
+    },
+    {
+      "entity": "PRODUCTS",
+      "row": {
+        "sku": "INF-TT-001",
+        "product_name": "INFINITY Tibial Tray Size 1",
+        "component_name": "INFINITY Tibial Tray",
+        "packaging_type": "Sterile",
+        "product_notes": "Size 1 implant packaging example from the initial source set."
+      },
+      "reason": "Product already exists in master dataset."
+    },
+    {
+      "entity": "SYSTEM_MAPPINGS",
+      "row": {
+        "procedure_name": "Primary Total Ankle Replacement",
+        "procedure_variant": "Fixed-Bearing Total Ankle Replacement",
+        "system_name": "INFINITY Total Ankle",
+        "data_source": "INFINITY Total Ankle Surgical Technique",
+        "research_notes": "Primary total ankle replacement mapping supported by official INFINITY source materials.",
+        "last_verified": "2024-01"
+      },
+      "reason": "System mapping already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "INFINITY Total Ankle",
+        "supplier_name": "Stryker",
+        "system_category": "Ankle Arthroplasty System",
+        "system_notes": "Fixed-bearing total ankle replacement system with Prophecy guide workflow support."
+      }
+    },
+    {
+      "entity": "TRAYS",
+      "reason": "Duplicate tray already exists in master dataset.",
+      "row": {
+        "tray_name": "INFINITY Primary Instrument Tray",
+        "system_name": "INFINITY Total Ankle",
+        "tray_type": "Primary",
+        "tray_notes": "Primary instrument tray referenced in the surgical technique."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "INFINITY Tibial Tray",
+        "system_name": "INFINITY Total Ankle",
+        "component_role": "Tibial Component",
+        "implant_category": "Ankle Implant",
+        "component_notes": "Referenced as tibial tray in the source materials."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "INFINITY Talar Component",
+        "system_name": "INFINITY Total Ankle",
+        "component_role": "Talar Component",
+        "implant_category": "Ankle Implant",
+        "component_notes": "Core talar implant component referenced in product materials."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "INFINITY Poly Insert",
+        "system_name": "INFINITY Total Ankle",
+        "component_role": "Poly Insert",
+        "implant_category": "Ankle Implant",
+        "component_notes": "Polyethylene insert component referenced in system materials."
+      }
+    },
+    {
+      "entity": "PRODUCTS",
+      "reason": "Duplicate product already exists in master dataset.",
+      "row": {
+        "sku": "INF-TT-001",
+        "product_name": "INFINITY Tibial Tray Size 1",
+        "component_name": "INFINITY Tibial Tray",
+        "packaging_type": "Sterile",
+        "product_notes": "Size 1 implant packaging example from the initial source set."
+      }
+    },
+    {
+      "entity": "SYSTEM_MAPPINGS",
+      "reason": "Duplicate system mapping already exists in master dataset.",
+      "row": {
+        "procedure_name": "Primary Total Ankle Replacement",
+        "procedure_variant": "Fixed-Bearing Total Ankle Replacement",
+        "system_name": "INFINITY Total Ankle",
+        "data_source": "INFINITY Total Ankle Surgical Technique",
+        "research_notes": "Primary total ankle replacement mapping supported by official INFINITY source materials.",
+        "last_verified": "2024-01"
+      }
+    }
+  ]
+}

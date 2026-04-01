@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "T2 Femoral Nail",
+    "source_type": "product_page",
+    "source_document": "T2 Femur A/R",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_T2_FEMORAL_NAIL_T2_FEMUR_A_R_INSTRUMENTATION",
+        "Tray Name": "T2 Femur A/R Instrumentation",
+        "System ID": "SYS_T2_FEMORAL_NAIL",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Stryker materials describe the T2 Femur A/R nailing system with dedicated targeting devices and operative technique support."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_T2_FEMORAL_NAIL_T2_FEMORAL_NAIL",
+        "Component Name": "T2 Femoral Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_T2_FEMORAL_NAIL",
+        "Component Notes": "Official product materials describe the femoral nail platform for antegrade or retrograde treatment of femoral shaft and distal femur fractures."
+      },
+      {
+        "Component ID": "COMP_T2_FEMORAL_NAIL_T2_LOCKING_SCREW",
+        "Component Name": "T2 Locking Screw",
+        "Component Role": "Locking Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_T2_FEMORAL_NAIL",
+        "Component Notes": "Official materials describe distal and proximal locking options and dynamic locking capability within the T2 system."
+      },
+      {
+        "Component ID": "COMP_T2_FEMORAL_NAIL_T2_CONDYLE_BOLT",
+        "Component Name": "T2 Condyle Bolt",
+        "Component Role": "Condyle Bolt",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_T2_FEMORAL_NAIL",
+        "Component Notes": "Official T2 Femur materials explicitly reference special condyle bolts for distal fixation."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "T2 Femoral Nail",
+          "supplier_name": "Stryker",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Antegrade and retrograde femoral intramedullary nailing platform for femoral shaft and distal femur fracture fixation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "T2 Femoral Nail",
+        "supplier_name": "Stryker",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Antegrade and retrograde femoral intramedullary nailing platform for femoral shaft and distal femur fracture fixation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "T2 Femoral Nail",
+        "supplier_name": "Stryker",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Antegrade and retrograde femoral intramedullary nailing platform for femoral shaft and distal femur fracture fixation."
+      }
+    }
+  ]
+}

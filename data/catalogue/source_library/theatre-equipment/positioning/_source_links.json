@@ -1,0 +1,79 @@
+{
+  "domain": "theatre-equipment",
+  "subcategory": "positioning",
+  "description": "Source links for positioning attachments, positioning aids, supports, holders and pads — Getinge/Maquet accessories, Allen Medical/Hillrom/Baxter",
+  "sourced_date": "2026-03-14",
+  "total_records": 10,
+  "entries": [
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Maquet Operating Table Accessories",
+      "system_name": "Maquet Radiolucent Multi-Purpose Back Plate",
+      "source_url": "https://www.getinge.com/int/products/getinge-operating-tables-accessories/",
+      "notes": "Radiolucent multi-purpose plate for back section. Compatible with Alphamaquet 1150, Otesus, Magnus, Yuno II table systems. Catalogue available: maquet-operating-tables-accessories-catalog-110262-en.pdf"
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Maquet Operating Table Accessories",
+      "system_name": "Maquet Horseshoe Head Rest (Radiolucent)",
+      "source_url": "https://www.getinge.com/int/products/getinge-operating-tables-accessories/",
+      "notes": "Radiolucent horseshoe head rest for prone and supine procedures. Part of Maquet head positioning accessory range. Compatible with Alphamaquet and Otesus systems."
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Maquet Operating Table Accessories",
+      "system_name": "Maquet Motor-Driven Knee Positioning Device",
+      "source_url": "https://www.getinge.com/int/products/getinge-operating-tables-accessories/",
+      "notes": "Motor-driven device for knee prosthetics, arthroscopic and open surgical procedures, and fracture treatment. Mounts on Maquet table systems."
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Maquet Operating Table Accessories",
+      "system_name": "Maquet SFC / IPC Positioning Pads",
+      "source_url": "https://www.getinge.com/int/products/getinge-operating-tables-accessories/",
+      "notes": "SFC and IPC pads for levelled weight pressure distribution. Latex-free. Adapts to body temperature. Available for all Maquet table platforms."
+    },
+    {
+      "supplier": "Getinge / Maquet",
+      "product_family": "Maquet Operating Table Accessories",
+      "system_name": "Maquet Leg Holder / Leg Plate Set",
+      "source_url": "https://www.getinge.com/int/products/getinge-operating-tables-accessories/",
+      "notes": "Flexible four-segment leg plates and leg holders for gynaecological and urological procedures. Modular attachment to Maquet table rail system."
+    },
+    {
+      "supplier": "Allen Medical / Hillrom / Baxter",
+      "product_family": "Allen Medical Systems",
+      "system_name": "Allen Lift-Assist Beach Chair System",
+      "source_url": "https://www.hillrom.com/en/products/allen-lift-assist-beach-chair/",
+      "notes": "Orthopaedic beach chair with Lift-Assist technology for shoulder surgery. Lightweight design. Mounts to operating table. Compatible with Allen Universal Head Positioner. Marketed via Hillrom / Baxter."
+    },
+    {
+      "supplier": "Allen Medical / Hillrom / Baxter",
+      "product_family": "Allen Medical Systems",
+      "system_name": "Allen Universal Head Positioner",
+      "source_url": "https://www.hillrom.com/en/products/universal-head-positioner/",
+      "notes": "Compatible with Allen Lift-Assist Beach Chair, Allen Table-Powered Beach Chair, Allen Manual Lift Beach Chair, and Allen OR Table Adaptor. Used in shoulder and cranial procedures."
+    },
+    {
+      "supplier": "Allen Medical / Hillrom / Baxter",
+      "product_family": "Allen Medical Systems",
+      "system_name": "Allen Hug-U-Vac Lateral Positioner",
+      "source_url": "https://www.hillrom.com/en/products/allen-hug-u-vac-steep-trend-positioner/",
+      "notes": "Vacuum-based lateral and steep Trendelenburg positioner. Secures patient during lateral positioning for hip, thoracic, and urological procedures. Available in lateral and steep-Trend variants."
+    },
+    {
+      "supplier": "Allen Medical / Hillrom / Baxter",
+      "product_family": "Allen Medical Systems",
+      "system_name": "Allen Lateral Surgical Position Set (Advance Table Lateral System)",
+      "source_url": "https://www.hillrom.com/en/products/advance-table-lateral-system/",
+      "notes": "Complete lateral position set for the Allen Advance surgery table. Creates patient flex positions for access to surgical target. Used in hip, thoracic, and kidney procedures."
+    },
+    {
+      "supplier": "Allen Medical / Hillrom / Baxter",
+      "product_family": "Allen Medical Systems",
+      "system_name": "Allen Shoulder Support (Model A-63500)",
+      "source_url": "https://www.hillrom.com/en/products/shoulder-supports/",
+      "notes": "C-shaped shoulder pads to prevent patient sliding in Trendelenburg. Designed for gynaecology, urology, laparoscopy, general and robotic surgery. Conforms to patient anatomy."
+    }
+  ]
+}

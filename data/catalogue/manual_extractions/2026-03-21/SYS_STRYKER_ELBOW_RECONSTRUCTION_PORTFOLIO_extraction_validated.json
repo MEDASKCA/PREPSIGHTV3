@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Stryker Elbow reconstruction Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Shoulder and elbow",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_STRYKER_ELBOW_RECONSTRUCTION_PORTFOLIO_ELBOW_RECONSTRUCTION_FRAMEWORK",
+        "Component Name": "Elbow Reconstruction Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Elbow Reconstruction",
+        "System ID": "SYS_STRYKER_ELBOW_RECONSTRUCTION_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Stryker public elbow reconstruction source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Stryker Elbow reconstruction Portfolio",
+          "supplier_name": "Stryker",
+          "system_category": "Elbow reconstruction",
+          "system_notes": "Official Stryker shoulder and elbow, total elbow arthroplasty, and radial head materials used as the public source anchors for this elbow reconstruction portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Stryker Elbow reconstruction Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "Elbow reconstruction",
+        "system_notes": "Official Stryker shoulder and elbow, total elbow arthroplasty, and radial head materials used as the public source anchors for this elbow reconstruction portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Stryker Elbow reconstruction Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "Elbow reconstruction",
+        "system_notes": "Official Stryker shoulder and elbow, total elbow arthroplasty, and radial head materials used as the public source anchors for this elbow reconstruction portfolio entry."
+      }
+    }
+  ]
+}

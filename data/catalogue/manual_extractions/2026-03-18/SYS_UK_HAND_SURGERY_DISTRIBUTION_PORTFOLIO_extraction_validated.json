@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "UK Hand Surgery Distribution Portfolio",
+    "source_type": "company_profile_pdf",
+    "source_document": "LEDA Orthopaedics Carbon Footprint Report 2024",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_UK_HAND_SURGERY_DISTRIBUTION_PORTFOLIO_HAND_SURGERY_DISTRIBUTION_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Hand Surgery Distribution Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Hand Surgery Distribution Portfolio",
+        "System ID": "SYS_UK_HAND_SURGERY_DISTRIBUTION_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to LEDA public hand surgery distribution source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "UK Hand Surgery Distribution Portfolio",
+          "supplier_name": "LEDA Orthopaedics",
+          "system_category": "hand_wrist",
+          "system_notes": "Official LEDA company profile and distributed hand surgery source materials used as the source anchors for the UK hand surgery distribution portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "UK Hand Surgery Distribution Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "hand_wrist",
+        "system_notes": "Official LEDA company profile and distributed hand surgery source materials used as the source anchors for the UK hand surgery distribution portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "UK Hand Surgery Distribution Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "hand_wrist",
+        "system_notes": "Official LEDA company profile and distributed hand surgery source materials used as the source anchors for the UK hand surgery distribution portfolio entry."
+      }
+    }
+  ]
+}

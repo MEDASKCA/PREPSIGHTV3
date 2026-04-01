@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Gamma Nail System",
+    "source_type": "product_page",
+    "source_document": "Gamma4 Hip Fracture Nailing System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Gamma Nail System",
+      "supplier_name": "Stryker",
+      "system_category": "Intramedullary Nail System",
+      "system_notes": "Cephalomedullary femoral nailing platform for intertrochanteric, subtrochanteric, and selected femoral shaft fracture fixation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Gamma4 IMN Basic Instrument Platform",
+      "system_name": "Gamma Nail System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Gamma4 materials describe an integrated instrument platform shared across the Gamma4 nail family."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Gamma4 Trochanteric Nail",
+      "system_name": "Gamma Nail System",
+      "component_role": "Intramedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official Gamma4 materials describe the trochanteric nail for stable and unstable intertrochanteric fractures."
+    },
+    {
+      "component_name": "Gamma4 Intermediate Nail",
+      "system_name": "Gamma Nail System",
+      "component_role": "Intermediate Intramedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official Gamma4 materials describe the intermediate nail within the hip fracture nailing system."
+    },
+    {
+      "component_name": "Gamma4 Long Nail",
+      "system_name": "Gamma Nail System",
+      "component_role": "Long Intramedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official Gamma4 materials describe the long nail for proximal femur and associated femoral shaft fractures."
+    },
+    {
+      "component_name": "Gamma4 Lag Screw",
+      "system_name": "Gamma Nail System",
+      "component_role": "Lag Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official Gamma4 materials describe cephalic lag screw options, including the RC lag screw expansion."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public Gamma4 materials describe nail families and screw options but do not provide the complete implant code table in this pass.",
+      "reason": "A deeper brochure or IFU pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

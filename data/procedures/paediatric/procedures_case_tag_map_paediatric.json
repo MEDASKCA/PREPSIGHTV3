@@ -1,0 +1,86 @@
+[
+  { "procedure_id": "PROC_REPAIR_OF_OESOPHAGEAL_ATRESIA_AND_TRACHEOOESOPHAGEAL_FISTULA", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_REPAIR_OF_OESOPHAGEAL_ATRESIA_AND_TRACHEOOESOPHAGEAL_FISTULA", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_REPAIR_OF_CONGENITAL_DIAPHRAGMATIC_HERNIA", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_REPAIR_OF_CONGENITAL_DIAPHRAGMATIC_HERNIA", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_LADD_PROCEDURE_FOR_MALROTATION", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_LADD_PROCEDURE_FOR_MALROTATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_REPAIR_OF_GASTROSCHISIS", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_REPAIR_OF_GASTROSCHISIS", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_REPAIR_OF_OMPHALOCOELE", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_REPAIR_OF_OMPHALOCOELE", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_RESECTION_OF_NECROTISING_ENTEROCOLITIS", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_RESECTION_OF_NECROTISING_ENTEROCOLITIS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FORMATION_OF_NEONATAL_STOMA", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_FORMATION_OF_NEONATAL_STOMA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_REPAIR_OF_ANORECTAL_MALFORMATION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_REPAIR_OF_ANORECTAL_MALFORMATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PYLOROMYOTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PYLOROMYOTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_PAEDIATRIC_APPENDICECTOMY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_PAEDIATRIC_APPENDICECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PAEDIATRIC_INGUINAL_HERNIA_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PAEDIATRIC_INGUINAL_HERNIA_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_PAEDIATRIC_UMBILICAL_HERNIA_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PAEDIATRIC_UMBILICAL_HERNIA_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_ORCHIDOPEXY_BY_PAEDIATRIC_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ORCHIDOPEXY_BY_PAEDIATRIC_SURGERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_HYDROCOELE_REPAIR_BY_PAEDIATRIC_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HYDROCOELE_REPAIR_BY_PAEDIATRIC_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXCISION_OF_THYROGLOSSAL_DUCT_CYST", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_THYROGLOSSAL_DUCT_CYST", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXCISION_OF_BRANCHIAL_CYST", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_BRANCHIAL_CYST", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CENTRAL_VENOUS_ACCESS_DEVICE_INSERTION_IN_CHILD", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CENTRAL_VENOUS_ACCESS_DEVICE_INSERTION_IN_CHILD", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_CENTRAL_VENOUS_ACCESS_DEVICE_INSERTION_IN_CHILD", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_THORACOSCOPIC_REPAIR_OF_OESOPHAGEAL_ATRESIA", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_THORACOSCOPIC_REPAIR_OF_OESOPHAGEAL_ATRESIA", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_THORACOSCOPIC_LOBECTOMY_IN_CHILD", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_THORACOSCOPIC_LOBECTOMY_IN_CHILD", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_THORACOSCOPIC_LOBECTOMY_IN_CHILD", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_REPAIR_OF_CONGENITAL_LUNG_MALFORMATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_REPAIR_OF_CONGENITAL_LUNG_MALFORMATION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_THORACOSCOPIC_DECORTICATION_IN_CHILD", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_THORACOSCOPIC_DECORTICATION_IN_CHILD", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_THORACOSCOPIC_DECORTICATION_IN_CHILD", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_PLEURAL_DRAIN_INSERTION_IN_CHILD", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_PLEURAL_DRAIN_INSERTION_IN_CHILD", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PLEURAL_DRAIN_INSERTION_IN_CHILD", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_EXPLORATORY_LAPAROTOMY_FOR_PAEDIATRIC_TRAUMA", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_EXPLORATORY_LAPAROTOMY_FOR_PAEDIATRIC_TRAUMA", "case_tag_id": "CASE_EMERGENCY" },
+
+  { "procedure_id": "PROC_SPLENECTOMY_FOR_PAEDIATRIC_TRAUMA", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_SPLENECTOMY_FOR_PAEDIATRIC_TRAUMA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_REPAIR_OF_BOWEL_INJURY_IN_CHILD", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_REPAIR_OF_BOWEL_INJURY_IN_CHILD", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DIAPHRAGM_REPAIR_FOR_PAEDIATRIC_TRAUMA", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_DIAPHRAGM_REPAIR_FOR_PAEDIATRIC_TRAUMA", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_DAMAGE_CONTROL_SURGERY_FOR_PAEDIATRIC_TRAUMA", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_DAMAGE_CONTROL_SURGERY_FOR_PAEDIATRIC_TRAUMA", "case_tag_id": "CASE_EMERGENCY" }
+]

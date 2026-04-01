@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Enovis",
+    "system_name": "AltiVate Shoulder System",
+    "source_type": "product_page",
+    "source_document": "AltiVate Anatomic Shoulder",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "AltiVate Shoulder System",
+      "supplier_name": "Enovis",
+      "system_category": "Shoulder Arthroplasty System",
+      "system_notes": "Anatomic shoulder arthroplasty platform."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "AltiVate Anatomic Instrumentation",
+      "system_name": "AltiVate Shoulder System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated anatomic shoulder instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "AltiVate Humeral Stem",
+      "system_name": "AltiVate Shoulder System",
+      "component_role": "Humeral Stem",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Core humeral stem family referenced on the product page."
+    },
+    {
+      "component_name": "AltiVate Humeral Head",
+      "system_name": "AltiVate Shoulder System",
+      "component_role": "Humeral Head",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Core humeral head family referenced on the product page."
+    },
+    {
+      "component_name": "AltiVate Glenoid",
+      "system_name": "AltiVate Shoulder System",
+      "component_role": "Glenoid Component",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Core glenoid component family referenced on the product page."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Additional shoulder platform options may exist beyond the core anatomic families.",
+      "reason": "Needs deeper technique or catalogue review before detailed family expansion.",
+      "source_excerpt": "Current extraction keeps the core anatomic implant families only."
+    }
+  ]
+}

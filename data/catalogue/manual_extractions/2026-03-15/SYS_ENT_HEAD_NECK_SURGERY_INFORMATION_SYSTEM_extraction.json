@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Unassigned",
+    "system_name": "ENT Head and Neck Surgery Information System",
+    "source_type": "society_homepage",
+    "source_document": "ENT UK / AHNS Head and Neck Surgery Resources",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_ENT_HEAD_NECK_SURGERY_INFORMATION_SYSTEM",
+      "system_name": "ENT Head and Neck Surgery Information System",
+      "supplier": "Unassigned",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public specialty society resources used as source anchors for ENT head and neck surgery workflow information."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_ENT_HEAD_NECK_SURGERY_INFORMATION_SYSTEM",
+      "component_name": "ENT Head and Neck Surgery Workflow Framework",
+      "role": "Workflow Framework",
+      "implant_category": "Service Line Information Workflow",
+      "source_notes": "Workflow-level informational framework anchored to official ENT and head and neck surgery society resources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_ENT_HEAD_NECK_SURGERY_INFORMATION_SYSTEM",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Workflow information system entry has no tray or instrument set in the source anchors."
+    },
+    {
+      "system_id": "SYS_ENT_HEAD_NECK_SURGERY_INFORMATION_SYSTEM",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Workflow information system entry has no product or SKU detail in the source anchors."
+    }
+  ]
+}

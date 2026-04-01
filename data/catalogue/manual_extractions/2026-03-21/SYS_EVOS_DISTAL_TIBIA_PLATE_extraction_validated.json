@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "EVOS Distal Tibia Plate",
+    "source_type": "product_page",
+    "source_document": "EVOS SMALL Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_EVOS_DISTAL_TIBIA_PLATE_DISTAL_TIBIA_PLATE_FRAMEWORK",
+        "Component Name": "Distal Tibia Plate Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_EVOS_DISTAL_TIBIA_PLATE",
+        "Component Notes": "Framework component anchored to Smith+Nephew public EVOS distal tibia plating source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "EVOS Distal Tibia Plate",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "trauma",
+          "system_notes": "Official Smith+Nephew EVOS SMALL distal tibia plating materials used as the public source anchors for this distal tibia trauma fixation entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "EVOS Distal Tibia Plate",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "trauma",
+        "system_notes": "Official Smith+Nephew EVOS SMALL distal tibia plating materials used as the public source anchors for this distal tibia trauma fixation entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "EVOS Distal Tibia Plate",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "trauma",
+        "system_notes": "Official Smith+Nephew EVOS SMALL distal tibia plating materials used as the public source anchors for this distal tibia trauma fixation entry."
+      }
+    }
+  ]
+}

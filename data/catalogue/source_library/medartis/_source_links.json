@@ -1,0 +1,288 @@
+[
+  {
+    "supplier_id": "SUP_MEDARTIS",
+    "supplier_name": "Medartis",
+    "system_id": "SYS_APTUS_WRIST_FUSION_SYSTEM",
+    "system_name": "Aptus Wrist Fusion System",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Medartis | Hand Solutions",
+        "url": "https://www.medartis.com/en/solutions/upper-extremities/hand",
+        "notes": "Official Medartis hand solutions page used as the public source anchor for the Aptus wrist fusion system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Medartis | APTUS Wrist",
+        "url": "https://www.medartis.com/en/products-solutions/aptus-wrist",
+        "notes": "Official Medartis wrist product page used as supporting public evidence for the Aptus wrist fusion system entry."
+      },
+      {
+        "source_type": "documents_page",
+        "title": "Documents | Medartis",
+        "url": "https://medartis.com/jp-en/resources/documents",
+        "notes": "Official Medartis documents page listing APTUS Wrist product information and technique documentation, used as supporting public evidence for the Aptus wrist fusion system entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDARTIS",
+    "supplier_name": "Medartis",
+    "system_id": "SYS_MEDARTIS_HAND_WRIST_SURGERY_PORTFOLIO",
+    "system_name": "Medartis Hand & wrist surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Medartis | Hand Solutions",
+        "url": "https://www.medartis.com/en/solutions/upper-extremities/hand",
+        "notes": "Official Medartis hand solutions page used as the public source anchor for the hand and wrist surgery portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Medartis | APTUS Hand",
+        "url": "https://www.medartis.com/en/products-solutions/aptus-hand",
+        "notes": "Official Medartis hand product page used as supporting public evidence for the hand and wrist surgery portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Medartis | APTUS Wrist",
+        "url": "https://www.medartis.com/en/products-solutions/aptus-wrist",
+        "notes": "Official Medartis wrist product page used as supporting public evidence for the hand and wrist surgery portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDARTIS",
+    "supplier_name": "Medartis",
+    "system_id": "SYS_MEDARTIS_HAND_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Medartis Hand reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Medartis | Hand Solutions",
+        "url": "https://medartis.com/en/solutions/upper-extremities/aptus-hand",
+        "notes": "Official Medartis hand solutions portfolio page used as the public source anchor for the hand reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Medartis | Hand 1.2-2.3 System",
+        "url": "https://medartis.com/en/solutions/upper-extremities/aptus-hand/hand-12-23",
+        "notes": "Official Medartis hand system page used as supporting public evidence for reconstructive hand workflow coverage."
+      },
+      {
+        "source_type": "documents_page",
+        "title": "Documents | Medartis",
+        "url": "https://medartis.com/jp-en/resources/documents",
+        "notes": "Official Medartis documents page listing APTUS Hand product information and technique documentation, used as supporting public evidence for the hand reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDARTIS",
+    "supplier_name": "Medartis",
+    "system_id": "SYS_MEDARTIS_SMALL_JOINT_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Medartis Small joint arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Medartis | About us",
+        "url": "https://medartis.com/en/about-us",
+        "notes": "Official Medartis company page used as a public source anchor for upper-extremity and joint-replacement coverage."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Medartis | Hand Solutions",
+        "url": "https://medartis.com/en/solutions/upper-extremities/aptus-hand",
+        "notes": "Official Medartis hand solutions portfolio page used as the public source anchor for the small joint arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "company_news_pdf",
+        "title": "First TOUCH CMC 1 Prosthesis Implanted in the United States",
+        "url": "https://medartis.com/fileadmin/user_upload/008_About_us/002_News/Product_News/17_Sep_1st_TOUCH_Implant_-_Press_Release_US_FINAL.pdf",
+        "notes": "Official Medartis press release describing the TOUCH CMC 1 prosthesis distributed by Medartis in the small joint arthroplasty market, used as supporting public evidence for this portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDARTIS",
+    "supplier_name": "Medartis",
+    "system_id": "SYS_MEDARTIS_HAND_SURGERY_PORTFOLIO",
+    "system_name": "Medartis Hand surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Medartis | About us",
+        "url": "https://medartis.com/en/about-us",
+        "notes": "Official Medartis company page used as a public source anchor for upper-extremity and hand-surgery coverage."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Medartis | Hand Solutions",
+        "url": "https://medartis.com/en/solutions/upper-extremities/aptus-hand",
+        "notes": "Official Medartis hand solutions portfolio page used as the public source anchor for the hand surgery portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Medartis | Hand 1.2-2.3 System",
+        "url": "https://medartis.com/en/solutions/upper-extremities/aptus-hand/hand-12-23",
+        "notes": "Official Medartis hand system page used as the closest public match for the hand surgery portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDARTIS",
+    "supplier_name": "Medartis",
+    "system_id": "SYS_MEDARTIS_HAND_TRAUMA_PORTFOLIO",
+    "system_name": "Medartis Hand trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Medartis",
+        "url": "https://www.medartis.com/",
+        "notes": "Official Medartis site used as the public source anchor for the hand trauma portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Extremities | Medartis",
+        "url": "https://www.medartis.com/en/solutions/upper-extremities/",
+        "notes": "Official Medartis upper extremities portfolio page used as evidence of public hand trauma portfolio coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Hand | Medartis",
+        "url": "https://www.medartis.com/en/solutions/upper-extremities/hand/",
+        "notes": "Official Medartis hand page used as the closest public match for the hand trauma portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDARTIS",
+    "supplier_name": "Medartis",
+    "system_id": "SYS_APTUS_HAND___METACARPAL_FIXATION",
+    "system_name": "Aptus Hand / Metacarpal Fixation",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Medartis | Hand Solutions",
+        "url": "https://medartis.com/en/solutions/upper-extremities/hand",
+        "notes": "Official Medartis hand solutions page used as the public source anchor for the Aptus hand metacarpal fixation entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Medartis | Hand 1.2-2.3 System",
+        "url": "https://medartis.com/en/solutions/upper-extremities/aptus-hand/hand-12-23",
+        "notes": "Official Medartis Hand 1.2-2.3 system page used as the primary public product anchor for metacarpal fixation coverage; the page describes treatment of hand fractures including metacarpals."
+      },
+      {
+        "source_type": "documents_page",
+        "title": "Documents | Medartis",
+        "url": "https://medartis.com/jp-en/resources/documents",
+        "notes": "Official Medartis documents page listing APTUS Hand product information and technique documentation, used as supporting public evidence for the metacarpal fixation entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDARTIS",
+    "supplier_name": "Medartis",
+    "system_id": "SYS_APTUS_HAND___PHALANGEAL_FIXATION",
+    "system_name": "Aptus Hand / Phalangeal Fixation",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Medartis | Hand Solutions",
+        "url": "https://medartis.com/en/solutions/upper-extremities/hand",
+        "notes": "Official Medartis hand solutions page used as the public source anchor for the Aptus hand phalangeal fixation entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Medartis | Hand 1.2-2.3 System",
+        "url": "https://medartis.com/en/solutions/upper-extremities/aptus-hand/hand-12-23",
+        "notes": "Official Medartis Hand 1.2-2.3 system page used as the primary public product anchor for phalangeal fixation coverage; the page describes treatment of hand fractures and arthrodesis including phalanges."
+      },
+      {
+        "source_type": "documents_page",
+        "title": "Documents | Medartis",
+        "url": "https://medartis.com/jp-en/resources/documents",
+        "notes": "Official Medartis documents page listing APTUS Hand product information and technique documentation, used as supporting public evidence for the phalangeal fixation entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDARTIS",
+    "supplier_name": "Medartis",
+    "system_id": "SYS_APTUS_HAND___SCAPHOID_FIXATION_PORTFOLIO",
+    "system_name": "Aptus Hand / Scaphoid Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Medartis | Hand Solutions",
+        "url": "https://medartis.com/en/solutions/upper-extremities/hand",
+        "notes": "Official Medartis hand solutions page used as the public source anchor for the Aptus hand scaphoid fixation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Medartis | Hand 1.2-2.3 System",
+        "url": "https://medartis.com/en/solutions/upper-extremities/aptus-hand/hand-12-23",
+        "notes": "Official Medartis Hand 1.2-2.3 system page used as the primary public product anchor for scaphoid fixation coverage; the page specifically includes scaphoid implants and treatment concepts."
+      },
+      {
+        "source_type": "documents_page",
+        "title": "Documents | Medartis",
+        "url": "https://medartis.com/jp-en/resources/documents",
+        "notes": "Official Medartis documents page listing Scaphoid System 1.5-3.0 product information and supporting technique documentation, used as public evidence for the scaphoid fixation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDARTIS",
+    "supplier_name": "Medartis",
+    "system_id": "SYS_APTUS_RADIUS_DISTAL_SYSTEM",
+    "system_name": "Aptus Radius Distal System",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Medartis | APTUS Wrist",
+        "url": "https://www.medartis.com/en/products-solutions/aptus-wrist",
+        "notes": "Official Medartis wrist portfolio page used as the public source anchor for the Aptus distal radius system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Medartis | Distal Radius and Distal Ulna System 2.5",
+        "url": "https://medartis.com/en/solutions/upper-extremities/aptus-wrist/distal-radius-system",
+        "notes": "Official Medartis distal radius and distal ulna system page used as the primary public product anchor for the Aptus distal radius system entry."
+      },
+      {
+        "source_type": "documents_page",
+        "title": "Documents | Medartis",
+        "url": "https://medartis.com/jp-en/resources/documents",
+        "notes": "Official Medartis documents page listing Distal Radius System 2.5 product information and surgical technique documentation, used as supporting public evidence for the Aptus distal radius system entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDARTIS",
+    "supplier_name": "Medartis",
+    "system_id": "SYS_SCAPHOID_COMPRESSION_SCREW_PORTFOLIO",
+    "system_name": "Scaphoid Compression Screw Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Medartis | APTUS SpeedTip CCS - Upper Extremities",
+        "url": "https://medartis.com/en/solutions/upper-extremities/aptus-speedtip-cannulated-compression-screws/ccs-upper-extremities",
+        "notes": "Official Medartis CCS upper-extremities page used as the primary public product anchor for the scaphoid compression screw portfolio entry."
+      },
+      {
+        "source_type": "product_overview_pdf",
+        "title": "Hand Product Overview | APTUS",
+        "url": "https://medartis.com/fileadmin/Downloadcenter_global/Documents/Product_Overview/Aptus_Hand/All/EN/R_HAND-00001101_v0_HAND_Product_Overview.pdf",
+        "notes": "Official Medartis hand product overview PDF used as supporting public evidence for scaphoid compression screw coverage; it explicitly includes scaphoid fractures within the CCS indications."
+      },
+      {
+        "source_type": "documents_page",
+        "title": "Documents | Medartis",
+        "url": "https://medartis.com/jp-en/resources/documents",
+        "notes": "Official Medartis documents page listing CCS product information and related technique documentation, used as supporting public evidence for the scaphoid compression screw portfolio entry."
+      }
+    ]
+  }
+]

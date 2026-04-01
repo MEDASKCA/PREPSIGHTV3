@@ -1,0 +1,209 @@
+{
+  "source_meta": {
+    "supplier_name": "Globus Medical",
+    "system_name": "Kyphoplasty Portfolio",
+    "source_type": "product_page",
+    "source_document": "FORTIFY Expandable Corpectomy Device and Cement Solutions",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_KYPHOPLASTY_PORTFOLIO_KYPHOPLASTY_ACCESS_DEVICE",
+        "Component Name": "Kyphoplasty Access Device",
+        "Component Role": "Access Device",
+        "Implant Category": "Spine Implant",
+        "System ID": "SYS_KYPHOPLASTY_PORTFOLIO",
+        "Component Notes": "Portfolio-level access/delivery device family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Kyphoplasty Portfolio",
+          "supplier_name": "Globus Medical",
+          "system_category": "Vertebral Augmentation System",
+          "system_notes": "Vertebral augmentation and cement-delivery portfolio-level record."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [
+      {
+        "row": {
+          "tray_name": "Kyphoplasty Instrumentation",
+          "system_name": "Kyphoplasty Portfolio",
+          "tray_type": "Instrumentation",
+          "tray_notes": "Portfolio materials reference delivery and vertebral augmentation instrumentation."
+        },
+        "reason": "Duplicate tray already exists in master dataset."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "row": {
+          "component_name": "Kyphoplasty Access Device",
+          "system_name": "Kyphoplasty Portfolio",
+          "component_role": "Access Device",
+          "implant_category": "Spine Implant",
+          "component_notes": "Portfolio-level access/delivery device family."
+        },
+        "reason": "Possible component role duplicate for this system."
+      },
+      {
+        "row": {
+          "component_name": "Kyphoplasty Cement Delivery System",
+          "system_name": "Kyphoplasty Portfolio",
+          "component_role": "Cement Delivery",
+          "implant_category": "Spine Implant",
+          "component_notes": "Portfolio-level cement delivery family."
+        },
+        "reason": "Possible component role duplicate for this system."
+      },
+      {
+        "row": {
+          "component_name": "Kyphoplasty Cement",
+          "system_name": "Kyphoplasty Portfolio",
+          "component_role": "Cement",
+          "implant_category": "Spine Implant",
+          "component_notes": "Portfolio-level cement family."
+        },
+        "reason": "Possible component role duplicate for this system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Kyphoplasty Portfolio",
+        "supplier_name": "Globus Medical",
+        "system_category": "Vertebral Augmentation System",
+        "system_notes": "Vertebral augmentation and cement-delivery portfolio-level record."
+      },
+      "reason": "System already exists in master dataset."
+    },
+    {
+      "entity": "TRAYS",
+      "row": {
+        "tray_name": "Kyphoplasty Instrumentation",
+        "system_name": "Kyphoplasty Portfolio",
+        "tray_type": "Instrumentation",
+        "tray_notes": "Portfolio materials reference delivery and vertebral augmentation instrumentation."
+      },
+      "reason": "Tray already exists in master dataset."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "Kyphoplasty Access Device",
+        "system_name": "Kyphoplasty Portfolio",
+        "component_role": "Access Device",
+        "implant_category": "Spine Implant",
+        "component_notes": "Portfolio-level access/delivery device family."
+      },
+      "reason": "Possible component role duplicate for this system."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "Kyphoplasty Cement Delivery System",
+        "system_name": "Kyphoplasty Portfolio",
+        "component_role": "Cement Delivery",
+        "implant_category": "Spine Implant",
+        "component_notes": "Portfolio-level cement delivery family."
+      },
+      "reason": "Possible component role duplicate for this system."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "Kyphoplasty Cement",
+        "system_name": "Kyphoplasty Portfolio",
+        "component_role": "Cement",
+        "implant_category": "Spine Implant",
+        "component_notes": "Portfolio-level cement family."
+      },
+      "reason": "Possible component role duplicate for this system."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Kyphoplasty Portfolio",
+        "supplier_name": "Globus Medical",
+        "system_category": "Vertebral Augmentation System",
+        "system_notes": "Vertebral augmentation and cement-delivery portfolio-level record."
+      }
+    },
+    {
+      "entity": "TRAYS",
+      "reason": "Duplicate tray already exists in master dataset.",
+      "row": {
+        "tray_name": "Kyphoplasty Instrumentation",
+        "system_name": "Kyphoplasty Portfolio",
+        "tray_type": "Instrumentation",
+        "tray_notes": "Portfolio materials reference delivery and vertebral augmentation instrumentation."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "Kyphoplasty Access Device",
+        "system_name": "Kyphoplasty Portfolio",
+        "component_role": "Access Device",
+        "implant_category": "Spine Implant",
+        "component_notes": "Portfolio-level access/delivery device family."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "Kyphoplasty Cement Delivery System",
+        "system_name": "Kyphoplasty Portfolio",
+        "component_role": "Cement Delivery",
+        "implant_category": "Spine Implant",
+        "component_notes": "Portfolio-level cement delivery family."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "Kyphoplasty Cement",
+        "system_name": "Kyphoplasty Portfolio",
+        "component_role": "Cement",
+        "implant_category": "Spine Implant",
+        "component_notes": "Portfolio-level cement family."
+      }
+    }
+  ]
+}

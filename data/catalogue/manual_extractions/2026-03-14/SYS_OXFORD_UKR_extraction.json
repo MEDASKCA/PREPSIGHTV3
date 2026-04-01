@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Oxford Unicompartmental",
+    "source_type": "product_page",
+    "source_document": "Oxford Partial Knee",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Oxford Unicompartmental",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Unicompartmental Knee System",
+      "system_notes": "Mobile-bearing partial knee arthroplasty platform for unicompartmental knee replacement."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Oxford Partial Knee Instrumentation",
+      "system_name": "Oxford Unicompartmental",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Oxford materials describe a dedicated partial knee workflow and implant system with its own operative instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Oxford Femoral Component",
+      "system_name": "Oxford Unicompartmental",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official Oxford materials describe the femoral component within the partial knee construct."
+    },
+    {
+      "component_name": "Oxford Tibial Component",
+      "system_name": "Oxford Unicompartmental",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official Oxford materials describe the tibial component within the partial knee construct."
+    },
+    {
+      "component_name": "Oxford Mobile Bearing",
+      "system_name": "Oxford Unicompartmental",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official Oxford materials explicitly describe the mobile bearing feature of the system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public Oxford materials define implant families and construct philosophy but do not expose a compact SKU table in this pass.",
+      "reason": "A deeper catalogue or IFU pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

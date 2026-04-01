@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medartis",
+    "system_name": "Scaphoid Compression Screw Portfolio",
+    "source_type": "product_page",
+    "source_document": "Medartis | APTUS SpeedTip CCS - Upper Extremities",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Scaphoid Compression Screw Portfolio",
+      "supplier_name": "Medartis",
+      "system_category": "hand_wrist_trauma",
+      "system_notes": "Official Medartis scaphoid compression screw materials used as the public source anchors for this hand and wrist trauma portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Scaphoid Compression Screw Framework",
+      "system_name": "Scaphoid Compression Screw Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Hand and Wrist Trauma",
+      "component_notes": "Framework component anchored to Medartis public scaphoid compression screw source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public scaphoid compression screw source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Medartis | APTUS SpeedTip CCS - Upper Extremities; Hand Product Overview | APTUS"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public scaphoid compression screw source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Medartis | APTUS SpeedTip CCS - Upper Extremities; Hand Product Overview | APTUS"
+    }
+  ]
+}

@@ -1,0 +1,2134 @@
+[
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_PATHOLOGIC_FRACTURE___ONCOLOGY_STABILISATION_PORTFOLIO",
+    "system_name": "Pathologic Fracture / Oncology Stabilisation Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Orthopaedic oncology | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the public source anchor for the pathologic-fracture and oncology-stabilisation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker GMRS product page used as supporting public evidence for the pathologic-fracture and oncology-stabilisation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_STANMORE_ONCOLOGY_HERITAGE_ORTHOPAEDIC_ONCOLOGY_LIMB_SALVAGE_PORTFOLIO",
+    "system_name": "Stryker (Stanmore oncology heritage) Orthopaedic oncology / limb salvage Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Orthopaedic oncology | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the public source anchor for the Stanmore-heritage orthopaedic oncology and limb-salvage portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker GMRS product page used as supporting public evidence for the Stanmore-heritage orthopaedic oncology and limb-salvage portfolio entry."
+      },
+      {
+        "source_type": "company_history_page",
+        "title": "Stryker completes acquisition of Stanmore Implants Worldwide",
+        "url": "https://www.stryker.com/us/en/about/news/2005/20051115a.html",
+        "notes": "Official Stryker acquisition history page used as supporting public evidence for the Stanmore oncology heritage framing of this orthopaedic oncology and limb-salvage portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_ONCOLOGY___TUMOUR_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Oncology / Tumour Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Orthopaedic oncology | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the public source anchor for the oncology and tumour reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker GMRS product page used as supporting public evidence for the oncology and tumour reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_STANMORE_ONCOLOGY_HERITAGE_ENDOPROSTHETIC_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Stryker (Stanmore oncology heritage) Endoprosthetic reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Orthopaedic oncology | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the public source anchor for the Stanmore-heritage endoprosthetic reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker GMRS product page used as supporting public evidence for the Stanmore-heritage endoprosthetic reconstruction portfolio entry."
+      },
+      {
+        "source_type": "company_history_page",
+        "title": "Stryker completes acquisition of Stanmore Implants Worldwide",
+        "url": "https://www.stryker.com/us/en/about/news/2005/20051115a.html",
+        "notes": "Official Stryker acquisition history page used as supporting public evidence for the Stanmore oncology heritage framing of this endoprosthetic reconstruction portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ONCOLOGY_PORTFOLIO",
+    "system_name": "Stryker Oncology Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Orthopaedic oncology | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the public source anchor for the oncology portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker GMRS product page used as supporting public evidence for the oncology portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ONCOLOGY_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Stryker Oncology Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Orthopaedic oncology | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the public source anchor for the oncology reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker GMRS product page used as supporting public evidence for the oncology reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ORTHOPAEDIC_ONCOLOGY_PORTFOLIO",
+    "system_name": "Stryker Orthopaedic oncology Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Orthopaedic oncology | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the public source anchor for the orthopaedic oncology portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker GMRS product page used as supporting public evidence for the orthopaedic oncology portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_STANMORE_ONCOLOGY_HERITAGE_ORTHOPAEDIC_ONCOLOGY_PORTFOLIO",
+    "system_name": "Stryker (Stanmore oncology heritage) Orthopaedic oncology Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Orthopaedic oncology | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the public source anchor for the Stanmore-heritage orthopaedic oncology portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker GMRS product page used as supporting public evidence for the Stanmore-heritage orthopaedic oncology portfolio entry."
+      },
+      {
+        "source_type": "company_history_page",
+        "title": "Stryker completes acquisition of Stanmore Implants Worldwide",
+        "url": "https://www.stryker.com/us/en/about/news/2005/20051115a.html",
+        "notes": "Official Stryker acquisition history page used as supporting public evidence for the Stanmore oncology heritage framing of this orthopaedic oncology portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_GAMMA4_LONG_NAIL_SYSTEM",
+    "system_name": "Gamma4 Long Nail System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gamma4 Hip Fracture Nailing System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/gamma4.html",
+        "notes": "Official Stryker product page describing the Gamma4 hip fracture nailing platform, including long nail variants and integrated instrument workflow."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Stryker launches new Gamma4 Hip Fracture Nailing System",
+        "url": "https://www.stryker.com/us/en/about/news/2022/stryker-launches-new-gamma4-hip-fracture-nailing-system.html",
+        "notes": "Official Stryker release describing Gamma4 as the next generation cephalomedullary nailing platform."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_RESTORATION___TRIDENT_REVISION_HIP_SYSTEM",
+    "system_name": "Restoration / Trident Revision Hip System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Restoration Modular",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/restoration-modular.html",
+        "notes": "Official Stryker product page for the Restoration Modular revision hip platform."
+      },
+      {
+        "source_type": "surgical_protocol_pdf",
+        "title": "Restoration Modular Revision Hip System Surgical Protocol",
+        "url": "https://www.stryker.com/content/dam/stryker/education-and-training/joint-replacement/jr45/resources/may/Restoration%20Modular%20Revision%20Hip%20System%20surgical%20protocol.pdf",
+        "notes": "Official surgical protocol PDF describing cone bodies, distal stems, head compatibility, and revision instrumentation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Trident II",
+        "url": "https://www.stryker.com/pt/pt/joint-replacement/products/trident-ii/index-eu.html",
+        "notes": "Official Stryker Trident II acetabular system page describing acetabular shell family, liner options, and simplified trays."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_RESTORATION___TRIDENT_REVISION_HIP_SYSTEM",
+    "system_name": "Restoration / Trident Revision Hip System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Restoration Modular",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/restoration-modular.html",
+        "notes": "Official Stryker product page for the Restoration Modular revision hip platform."
+      },
+      {
+        "source_type": "surgical_protocol_pdf",
+        "title": "Restoration Modular Revision Hip System Surgical Protocol",
+        "url": "https://www.stryker.com/content/dam/stryker/education-and-training/joint-replacement/jr45/resources/may/Restoration%20Modular%20Revision%20Hip%20System%20surgical%20protocol.pdf",
+        "notes": "Official surgical protocol PDF describing cone bodies, distal stems, head compatibility, and revision instrumentation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Trident II",
+        "url": "https://www.stryker.com/pt/pt/joint-replacement/products/trident-ii/index-eu.html",
+        "notes": "Official Stryker Trident II acetabular system page describing acetabular shell family, liner options, and simplified trays."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_INSIGNIA___TRIDENT_II_TOTAL_HIP_SYSTEM",
+    "system_name": "Insignia / Trident II Total Hip System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Insignia",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/Insignia.html",
+        "notes": "Official Stryker product page for the Insignia collared femoral hip stem."
+      },
+      {
+        "source_type": "surgical_protocol_pdf",
+        "title": "Insignia Hip Stem Surgical protocol",
+        "url": "https://www.stryker.com/content/dam/stryker/joint-replacement/products/insignia/resources/Insignia%20Surgical%20Protocol.pdf",
+        "notes": "Official Stryker surgical protocol PDF for the Insignia hip stem."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Trident II",
+        "url": "https://www.stryker.com/pt/pt/joint-replacement/products/trident-ii/index-eu.html",
+        "notes": "Official Stryker Trident II acetabular system page describing shell, liner, and instrumentation families."
+      },
+      {
+        "source_type": "design_rationale_pdf",
+        "title": "Insignia Design Rationale",
+        "url": "https://www.stryker.com/content/dam/stryker/joint-replacement/products/insignia/resources/Insignia%20Design%20Rationale.pdf",
+        "notes": "Official Stryker design rationale PDF explicitly positioning Insignia in combination with Trident II and MDM within the primary hip construct."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_TRIATHLON_TS",
+    "system_name": "Triathlon TS",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Triathlon TS",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/triathlon-ts.html",
+        "notes": "Official Stryker product page for the Triathlon TS revision knee system."
+      },
+      {
+        "source_type": "surgical_protocol_pdf",
+        "title": "Triathlon TS Knee System Surgical protocol",
+        "url": "https://www.stryker.com/content/dam/stryker/education-and-training/joint-replacement/fellows-summit/2023-oct/files/knee/TRITS_SP_1_Rev-3_30304.pdf",
+        "notes": "Official Stryker surgical protocol PDF covering Triathlon TS revision components, augments, stems, and catalog numbers."
+      },
+      {
+        "source_type": "sell_sheet_pdf",
+        "title": "Triathlon TS with Revision Baseplate sell sheet",
+        "url": "https://www.stryker.com/content/dam/stryker/no-index/training-and-education/jr45/season-3/june/resources/triathlon-ts-with-revision-baseplate-sell-sheet.pdf",
+        "notes": "Official Stryker sell sheet describing the revision baseplate extension of the Triathlon TS construct."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_T2_ALPHA_TIBIA_NAIL_SYSTEM",
+    "system_name": "T2 Alpha Tibia Nail System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "T2 Alpha Tibia System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/t2-alpha-tibia.html",
+        "notes": "Official Stryker product page for the T2 Alpha tibia nailing platform."
+      },
+      {
+        "source_type": "operative_technique_reference",
+        "title": "T2 Alpha Tibia Operative Technique",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/t2-alpha-tibia.html",
+        "notes": "Official Stryker T2 Alpha tibia page references operative technique resources and implant workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_T2_ALPHA_FEMUR_NAIL_SYSTEM",
+    "system_name": "T2 Alpha Femur Nail System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "T2 Alpha Femur Antegrade GT/PF",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/t2-alpha-femur-antegrade-gt-pf.html",
+        "notes": "Official Stryker product page for the T2 Alpha femur antegrade GT/PF nail platform."
+      },
+      {
+        "source_type": "operative_technique_reference",
+        "title": "T2 Alpha Femur Operative Technique",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/t2-alpha-femur-antegrade-gt-pf.html",
+        "notes": "Official Stryker T2 Alpha femur page references operative technique resources and implant workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_TORNIER_PERFORM_REVERSED___AEQUALIS_REVERSED",
+    "system_name": "Tornier Perform Reversed / Aequalis Reversed",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Aequalis Perform Reversed",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/aequalis-perform-reversed.html",
+        "notes": "Official Stryker/Tornier product page for the Aequalis Perform Reversed reverse shoulder platform."
+      },
+      {
+        "source_type": "shoulder_resources_page",
+        "title": "Shoulder Arthroplasty Solutions",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder-arthroplasty-solutions.html",
+        "notes": "Official Stryker shoulder arthroplasty page covering the Tornier reverse shoulder family and related technique resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_TORNIER_AEQUALIS_SHOULDER_SYSTEM",
+    "system_name": "Tornier Aequalis Shoulder System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Aequalis Ascend Flex",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/aequalis-ascend-flex.html",
+        "notes": "Official Stryker/Tornier shoulder product page describing the Aequalis shoulder platform and stem options."
+      },
+      {
+        "source_type": "shoulder_resources_page",
+        "title": "Shoulder Arthroplasty Solutions",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder-arthroplasty-solutions.html",
+        "notes": "Official Stryker shoulder arthroplasty page covering the Tornier Aequalis family and related technique resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_T2_HUMERAL_NAIL",
+    "system_name": "T2 Humeral Nail",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "T2 Humeral Nailing System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/t2-humeral-nailing-system.html",
+        "notes": "Official Stryker product page for the T2 humeral nailing platform."
+      },
+      {
+        "source_type": "operative_technique_reference",
+        "title": "T2 Humeral Operative Technique",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/t2-humeral-nailing-system.html",
+        "notes": "Official Stryker T2 humeral page references operative technique resources and implant workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_T2_TIBIAL_NAIL",
+    "system_name": "T2 Tibial Nail",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "T2 Alpha Tibia System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/t2-alpha-tibia.html",
+        "notes": "Official Stryker product page for the T2 Alpha Tibia nailing system and related instrumentation."
+      },
+      {
+        "source_type": "operative_technique_reference",
+        "title": "T2 Alpha Tibia Operative Technique",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/t2-alpha-tibia.html",
+        "notes": "Official Stryker T2 Alpha Tibia page explicitly references operative technique resources and implant workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_T2_FEMORAL_NAIL",
+    "system_name": "T2 Femoral Nail",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "T2 Femur A/R",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/t2-femur-ar.html",
+        "notes": "Official Stryker product page for the T2 Femur Antegrade/Retrograde Nailing System."
+      },
+      {
+        "source_type": "operative_technique_reference",
+        "title": "T2 Femur Operative Technique",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/t2-femur-ar.html",
+        "notes": "Official Stryker T2 Femur page explicitly references the operative technique and implant platform details."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STAR_ANKLE",
+    "system_name": "STAR Total Ankle",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "STAR Ankle",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/star-ankle.html",
+        "notes": "Official Stryker product page describing the STAR total ankle replacement platform and related clinical resources."
+      },
+      {
+        "source_type": "surgical_technique_reference",
+        "title": "STAR Ankle Surgical Technique",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/star-ankle.html",
+        "notes": "Official product materials and linked resources reference the STAR Ankle surgical technique and implant workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_GAMMA4_HIP_FRACTURE_NAIL_SYSTEM",
+    "system_name": "Gamma4 Hip Fracture Nail System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gamma4 Hip Fracture Nailing System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/gamma4.html",
+        "notes": "Official Stryker product page describing the Gamma4 hip fracture nailing platform, nail families, and integrated instrument platform."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Stryker launches new Gamma4 Hip Fracture Nailing System",
+        "url": "https://www.stryker.com/us/en/about/news/2022/stryker-launches-new-gamma4-hip-fracture-nailing-system.html",
+        "notes": "Official Stryker release describing Gamma4 as the next generation cephalomedullary nailing platform."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_EXETER_BIPOLAR",
+    "system_name": "Exeter / Bipolar Head",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Exeter",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/exeter.html",
+        "notes": "Official Stryker Exeter product page describing the cemented femoral stem system."
+      },
+      {
+        "source_type": "product_brochure_pdf",
+        "title": "UHR Universal Head Bipolar System",
+        "url": "https://www.stryker.com/content/dam/stryker/ja/ja/portfolios/orthopaedics/joint-replacement/HE01-160_Rev1_UHR_BipolarSystem_s.pdf",
+        "notes": "Official Stryker bipolar system brochure describing the UHR Universal Head Bipolar System, outer head sizes, and compatible head sizes."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_GAMMA_NAIL",
+    "system_name": "Gamma Nail System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gamma4 Hip Fracture Nailing System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/gamma4.html",
+        "notes": "Official Stryker product page describing the current Gamma cephalomedullary nailing platform, nail families, and integrated instrument platform."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Stryker launches new Gamma4 Hip Fracture Nailing System",
+        "url": "https://www.stryker.com/us/en/about/news/2022/stryker-launches-new-gamma4-hip-fracture-nailing-system.html",
+        "notes": "Official Stryker release describing the modern Gamma system as the next generation of the established intramedullary nailing platform."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_EXETER_REVISION",
+    "system_name": "Exeter Revision Stem",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Exeter",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/exeter.html",
+        "notes": "Official Stryker Exeter product page explicitly states the implant and instrument system is designed to accommodate primary, revision, and hip fracture cases."
+      },
+      {
+        "source_type": "clinical_compendium_pdf",
+        "title": "Exeter Clinical Compendium",
+        "url": "https://www.stryker.com/content/dam/stryker/joint-replacement/products/exeter/resources/EXETER-CG-4_32026_clinical-compendium.pdf",
+        "notes": "Official Stryker clinical compendium explicitly references Exeter use in revision cases and stem design characteristics."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_RESTORATION_MODULAR",
+    "system_name": "Restoration Modular",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Restoration Modular",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/restoration-modular.html",
+        "notes": "Official Stryker product page for the Restoration Modular revision hip platform."
+      },
+      {
+        "source_type": "surgical_protocol_pdf",
+        "title": "Restoration Modular Revision Hip System Surgical Protocol",
+        "url": "https://www.stryker.com/content/dam/stryker/education-and-training/joint-replacement/jr45/resources/may/Restoration%20Modular%20Revision%20Hip%20System%20surgical%20protocol.pdf",
+        "notes": "Official surgical protocol PDF describing cone bodies, distal stems, head compatibility, and revision instrumentation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_EXETER_TRIDENT",
+    "system_name": "Exeter / Trident",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Exeter",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/exeter.html",
+        "notes": "Official Stryker Exeter product page describing the Exeter implant and instrument system, stem family, and linked surgical technique resources."
+      },
+      {
+        "source_type": "clinical_compendium_pdf",
+        "title": "Exeter Clinical Compendium",
+        "url": "https://www.stryker.com/content/dam/stryker/joint-replacement/products/exeter/resources/EXETER-CG-4_32026_clinical-compendium.pdf",
+        "notes": "Official Stryker PDF summarising Exeter stem design, offsets, and clinical evidence."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Trident II",
+        "url": "https://www.stryker.com/pt/pt/joint-replacement/products/trident-ii/index-eu.html",
+        "notes": "Official Stryker Trident II acetabular system page describing acetabular shell family, X3 polyethylene, modular dual mobility, and simplified trays."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_INFINITY_ANKLE",
+    "system_name": "INFINITY Total Ankle",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Infinity Total Ankle System",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/infinity.html",
+        "notes": "Official product page with resources section and operative technique reference."
+      },
+      {
+        "source_type": "operative_technique_reference",
+        "title": "Prophecy Infinity with Adaptis Resect-Through Guides Operative Technique",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/prophecy-resect-through-guides.html",
+        "notes": "Official page referencing operative technique PDF and related resect-through guide materials."
+      },
+      {
+        "source_type": "supporting_material",
+        "title": "Stryker launches new Prophecy Infinity Resect-Through Guides",
+        "url": "https://www.stryker.com/us/en/about/news/2021/Stryker_Launches_New_Prophecy_Infinity_Resect_Through_Guides.html",
+        "notes": "Official Stryker news page describing procedure workflow and guide usage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_TRIATHLON_KNEE",
+    "system_name": "Triathlon Knee System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Triathlon Total Knee System",
+        "url": "https://www.stryker.com/ch/it/joint-replacement/products/triathlon-total-knee-system/index-eu.html",
+        "notes": "Official Stryker product page for Triathlon total knee system."
+      },
+      {
+        "source_type": "instrumentation_page",
+        "title": "Triathlon AS-1 instruments",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/triathlon-as-1-instruments.html",
+        "notes": "Official instrumentation page with tray/case reduction and workflow details."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Triathlon Cementless",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/triathlon-tritanium.html",
+        "notes": "Official cementless Triathlon variant page."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_ACCOLADE_TRIDENT",
+    "system_name": "Accolade II / Trident II",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Trident II",
+        "url": "https://www.stryker.com/it/it/joint-replacement/products/trident-ii/index-eu.html",
+        "notes": "Official Stryker product page referencing Trident II design rationale and surgical protocol resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_VARIAX_DISTAL_RADIUS",
+    "system_name": "VariAx Distal Radius Plate",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "VariAx 2 Distal Radius and Distal Ulna",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/variax-2-distal-radius-plating-system.html",
+        "notes": "Official Stryker product page describing the distal radius plating family, instrumentation, and linked resources."
+      },
+      {
+        "source_type": "operative_technique_pdf",
+        "title": "VariAx 2 Volar Distal Radius Operative Technique",
+        "url": "https://www.stryker.com/content/dam/stryker/trauma-and-extremeties/products/variaxdistalradius/eu/resources/2025/variax-2-volar-distal-radius-operative-technique-EN.pdf",
+        "notes": "Official operative technique PDF describing plate family usage and screw/instrument workflow."
+      },
+      {
+        "source_type": "tray_layout_card_pdf",
+        "title": "Tray Layout Card - VariAx 2 Dedicated Wrist Tray",
+        "url": "https://www.stryker.com/content/dam/stryker/trauma-and-extremeties/products/variaxdistalradius/resources/VAX_TLC_28.pdf",
+        "notes": "Official tray layout card explicitly identifying the dedicated wrist tray and implant references."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_ASCEND_FLEX",
+    "system_name": "Ascend Flex",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Tornier Flex Shoulder System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/tornier-flex.html",
+        "notes": "Official Stryker product page describing the convertible Tornier Flex shoulder system with anatomic and reversed options."
+      },
+      {
+        "source_type": "operative_technique_reference",
+        "title": "Tornier Flex Shoulder System Operative Technique (U.S.)",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/tornier-flex.html",
+        "notes": "Official Stryker page explicitly linking the Tornier Flex Shoulder System operative technique and inlay addendum."
+      },
+      {
+        "source_type": "training_case_page",
+        "title": "Shoulder arthroplasty featuring the Aequalis Ascend Flex",
+        "url": "https://www.stryker.com/us/en/training-and-education/orthopaedics/trauma-extremities/te-virtual-learning-center/upper-extremities/shoulder-exposure/shoulder-arthroplasty-featuring-the-aequalis-ascend--flex--rever1.html",
+        "notes": "Official Stryker education page referencing the Aequalis Ascend Flex system in live surgical-use context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_SHOULDER_ARTHROSCOPY_PORTFOLIO",
+    "system_name": "Stryker Shoulder arthroscopy Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Arthroscopy",
+        "url": "https://www.stryker.com/us/en/sports-medicine/shoulder/shoulder-arthroscopy.html",
+        "notes": "Official Stryker sports medicine shoulder arthroscopy page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.stryker.com/us/en/sports-medicine.html",
+        "notes": "Official Stryker sports medicine specialty page used as supporting portfolio context."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CrossFlow Integrated Arthroscopy Pump",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/crossflow-integrated-arthroscopy-pump.html",
+        "notes": "Official Stryker shoulder arthroscopy workflow reference used as supporting context for the broader arthroscopy portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_SPORTS_MEDICINE_KNEE_PORTFOLIO",
+    "system_name": "Stryker Sports medicine knee Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Sports Medicine",
+        "url": "https://www.stryker.com/us/en/sports-medicine/knee.html",
+        "notes": "Official Stryker knee sports medicine page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.stryker.com/us/en/sports-medicine.html",
+        "notes": "Official Stryker sports medicine specialty page used as supporting portfolio context."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ACL Reconstruction Solutions",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/acl-reconstruction.html",
+        "notes": "Official Stryker ACL reconstruction workflow page used as supporting knee sports medicine context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_SHOULDER_SPORTS_MEDICINE_PORTFOLIO",
+    "system_name": "Stryker Shoulder sports medicine Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Sports Medicine",
+        "url": "https://www.stryker.com/us/en/sports-medicine/shoulder.html",
+        "notes": "Official Stryker shoulder sports medicine page used as the portfolio anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.stryker.com/us/en/sports-medicine.html",
+        "notes": "Official Stryker sports medicine specialty page used as supporting portfolio context."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Shoulder Repair Solutions",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/shoulder-repair.html",
+        "notes": "Official Stryker shoulder repair workflow page used as supporting shoulder sports medicine context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_SHOULDER_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Stryker Shoulder reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder Sports Medicine",
+        "url": "https://www.stryker.com/us/en/sports-medicine/shoulder.html",
+        "notes": "Official Stryker shoulder page used as the portfolio anchor for reconstruction workflow context."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine",
+        "url": "https://www.stryker.com/us/en/sports-medicine.html",
+        "notes": "Official Stryker sports medicine specialty page used as supporting portfolio context."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Shoulder Repair Solutions",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/shoulder-repair.html",
+        "notes": "Official Stryker shoulder repair workflow page used as supporting shoulder reconstruction context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_CONSERVE_PLUS",
+    "system_name": "Conserve Plus",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Conserve Plus Total Resurfacing Implant",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/conserve-plus.html",
+        "notes": "Official Stryker hip resurfacing product page used as the public source anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Hip Replacement",
+        "url": "https://www.stryker.com/us/en/joint-replacement/hip.html",
+        "notes": "Official Stryker hip replacement page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_KATALYST_RH",
+    "system_name": "Katalyst Radial Head",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Katalyst Radial Head System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/katalyst-radial-head-system.html",
+        "notes": "Official Stryker radial head product page used as the public source anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Upper Extremities",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/upper-extremities.html",
+        "notes": "Official Stryker upper extremities page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_SALTO_TALARIS",
+    "system_name": "SALTO Talaris",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "SALTO Talaris Total Ankle Prosthesis",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/salto-talaris-total-ankle-prosthesis.html",
+        "notes": "Official Stryker total ankle product page used as the public source anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle.html",
+        "notes": "Official Stryker foot and ankle page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_SOLERA_SPINE",
+    "system_name": "Solera Spine System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Solera Spinal System",
+        "url": "https://www.stryker.com/us/en/spine/products/solera.html",
+        "notes": "Official Stryker spine product page used as the public source anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Spine",
+        "url": "https://www.stryker.com/us/en/spine.html",
+        "notes": "Official Stryker spine page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_KYPHOPLASTY",
+    "system_name": "Stryker Kyphon Balloon",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Kyphon Balloon Kyphoplasty",
+        "url": "https://www.stryker.com/us/en/interventional-spine/products/kyphon-balloon-kyphoplasty.html",
+        "notes": "Official Stryker interventional spine product page used as the public source anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Interventional Spine",
+        "url": "https://www.stryker.com/us/en/interventional-spine.html",
+        "notes": "Official Stryker interventional spine page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_GMRS_ENDOPROSTHETIC",
+    "system_name": "GMRS Modular Endoprosthesis",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker orthopaedic oncology product page used as the public source anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Orthopaedic Oncology",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_ACETABULAR_FRACTURE_FIXATION_PORTFOLIO",
+    "system_name": "Acetabular Fracture Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Trauma and Extremities",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities.html",
+        "notes": "Official Stryker trauma and extremities page used as the primary public source anchor for the acetabular fracture fixation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Linear Reduction Clamp",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/Linear-Reduction-Clamp.html",
+        "notes": "Official Stryker reduction instrument page used as supporting public evidence because it explicitly references pelvic and acetabular fracture applications."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Tibia and Femur",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/tibia-and-femur.html",
+        "notes": "Official Stryker trauma specialty page used as broader public context for the fracture fixation portfolio and documented as a closest current public match where dedicated acetabular plating pages are not prominently exposed."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_ANKLE_FUSION_PORTFOLIO",
+    "system_name": "Ankle Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "AxSOS 3 Ti Platform - Ankle Fusion System",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/AxSOS-3-Ti-Ankle-Fusion.html",
+        "notes": "Official Stryker ankle fusion product page used as the primary public source anchor for the ankle fusion portfolio entry."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Stryker's AxSOS 3 Ankle Fusion System offers innovative plates that are designed to fit a range of patients",
+        "url": "https://www.stryker.com/us/en/about/news/2020/stryker-s-axsos-3--ankle-fusion-system-offers-innovative-plates-.html",
+        "notes": "Official Stryker launch announcement used as supporting public evidence for the ankle fusion portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Valor Hindfoot Fusion Nail System",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/valor.html",
+        "notes": "Official Stryker hindfoot fusion nail page used as supporting public evidence for broader ankle and hindfoot fusion workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_ARTHROSCOPY_VISUALIZATION_SYSTEM",
+    "system_name": "Arthroscopy Visualization System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "1688 AIM 4K Platform",
+        "url": "https://www.stryker.com/us/en/endoscopy/systems/1688-aim-platform.html",
+        "notes": "Official Stryker 1688 visualization platform page used as the primary public source anchor for the arthroscopy visualization system entry."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Stryker introduces new visualization platform designed to enhance orthopaedic surgical efficiency and the patient experience",
+        "url": "https://www.stryker.com/us/en/about/news/2019/stryker-introduces-new-visualization-platform-designed-to-enhanc.html",
+        "notes": "Official Stryker visualization platform announcement used as supporting public evidence for arthroscopy-focused imaging workflow coverage."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine Hip",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/sports-medicine/hip.html",
+        "notes": "Official Stryker sports medicine portfolio page used as broader arthroscopy workflow context because it lists Stryker visualization and pump platform components."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_AXSOS___VARIAX_DISTAL_FEMUR_PLATING",
+    "system_name": "AxSOS / VariAx Distal Femur Plating",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "AxSOS 3 Ti Distal Lateral Femur",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/axsos-3-distal-femur.html",
+        "notes": "Official Stryker distal femur plating page used as the primary public source anchor for the AxSOS / VariAx distal femur plating entry."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Tibia and Femur",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/tibia-and-femur.html",
+        "notes": "Official Stryker tibia and femur specialty page used as supporting public evidence for broader femoral trauma plating coverage."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Trauma and Extremities",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities.html",
+        "notes": "Official Stryker trauma and extremities page used as broader portfolio context for the distal femur plating entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_AXSOS_DISTAL_TIBIA_PLATE",
+    "system_name": "AxSOS Distal Tibia Plate",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "AxSOS 3 Ti Distal Tibia",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/axsos-3-distal-tibia.html",
+        "notes": "Official Stryker distal tibia plating page used as the primary public source anchor for the AxSOS distal tibia plate entry."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Tibia and Femur",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/tibia-and-femur.html",
+        "notes": "Official Stryker tibia and femur specialty page used as supporting public evidence for broader lower-extremity trauma plating coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "AxSOS 3 Ti Distal Tibia Global",
+        "url": "https://www.stryker.com/eg/en/trauma-and-extremities/products/axsos-3-distal-tibia/index-eu.html",
+        "notes": "Official Stryker global AxSOS distal tibia page used as supporting public evidence and additional operative-technique-rich product context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_AXSOS_TIBIAL_PLATEAU_PLATING",
+    "system_name": "AxSOS Tibial Plateau Plating",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "AxSOS 3 Ti Proximal Tibia",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/axsos-3-proximal-tibia.html",
+        "notes": "Official Stryker proximal tibia plating page used as the primary public source anchor for the AxSOS tibial plateau plating entry."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Tibia and Femur",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/tibia-and-femur.html",
+        "notes": "Official Stryker tibia and femur specialty page used as supporting public evidence for tibial plateau fracture fixation coverage."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Trauma and Extremities",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities.html",
+        "notes": "Official Stryker trauma and extremities page used as broader portfolio context for tibial plateau plating."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_CROSSFLOW___ARTHROSCOPY_PORTFOLIO",
+    "system_name": "CrossFlow / Arthroscopy Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "CrossFlow Integrated Arthroscopy Pump",
+        "url": "https://www.stryker.com/it/en/sports-medicine/products/crossflow-integrated-arthroscopy-pump/index-eu.html",
+        "notes": "Official Stryker CrossFlow page used as the primary public source anchor for the CrossFlow arthroscopy portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CrossFire 2 Integrated Resection and Energy System",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/crossfire-2-integrated-resection-and-energy-system.html",
+        "notes": "Official Stryker CrossFire 2 page used as supporting public evidence because it explicitly integrates with the CrossFlow pump for arthroscopy workflows."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Sports Medicine Hip",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/sports-medicine/hip.html",
+        "notes": "Official Stryker sports medicine portfolio page used as broader arthroscopy workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_FOOT___ANKLE_FOREFOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Foot & Ankle Forefoot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "VariAx 2 Foot",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/variax-2-foot-plating-system.html",
+        "notes": "Official Stryker VariAx 2 Foot page used as the primary public source anchor for the forefoot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PROstep Minimally Invasive Surgery",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/prostep.html/",
+        "notes": "Official Stryker PROstep page used as supporting public evidence for bunion and forefoot reconstructive procedures."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Anchorage Plating Platform",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/anchorage.html",
+        "notes": "Official Stryker Anchorage plating page used as supporting public evidence for forefoot arthrodesis and reconstruction procedures."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_GMRS___ONCOLOGY_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "GMRS / Oncology Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker GMRS page used as the primary public source anchor for the oncology reconstruction portfolio entry."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Orthopaedic Oncology",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as supporting public evidence for the broader oncology reconstruction offering."
+      },
+      {
+        "source_type": "product_page",
+        "title": "METS Distal Femur",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/mets-distal-femur.html",
+        "notes": "Official Stryker METS distal femur page used as supporting public evidence for limb-salvage and oncology reconstruction breadth alongside GMRS."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_HINDFOOT_FUSION_PORTFOLIO",
+    "system_name": "Hindfoot Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Valor Hindfoot Fusion Nail System",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/valor.html",
+        "notes": "Official Stryker Valor page used as the primary public source anchor for the hindfoot fusion portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "AxSOS 3 Ti Platform - Ankle Fusion System",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/AxSOS-3-Ti-Ankle-Fusion.html",
+        "notes": "Official Stryker ankle fusion page used as supporting public evidence for broader hindfoot and ankle arthrodesis coverage."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle.html",
+        "notes": "Official Stryker foot and ankle page used as broader portfolio context for hindfoot fusion procedures."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_HOFFMANN_EXTERNAL_FIXATION_SYSTEM",
+    "system_name": "Hoffmann External Fixation System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Hoffmann 3 External Fixation System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/hoffmann-3-external-fixation-system.html",
+        "notes": "Official Stryker Hoffmann 3 page used as the primary public source anchor for the Hoffmann external fixation system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Hoffmann LRF Circular External Fixation System",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/hoffmann-lrf-circular-external-fixation.html",
+        "notes": "Official Stryker Hoffmann LRF page used as supporting public evidence for circular external fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Hoffmann Compact & Monotube Triax",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/hoffmann-compact.html",
+        "notes": "Official Stryker Hoffmann Compact page used as supporting public evidence for modular unilateral fixation coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_INBONE___STAR_TOTAL_ANKLE_PORTFOLIO",
+    "system_name": "INBONE / STAR Total Ankle Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Inbone Total Ankle System",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/inbone.html",
+        "notes": "Official Stryker Inbone page used as the primary public source anchor for the INBONE / STAR total ankle portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "STAR Ankle",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/star.html",
+        "notes": "Official Stryker STAR page used as supporting public evidence for the broader total ankle arthroplasty portfolio."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Stryker receives FDA clearance for Incompass Total Ankle System",
+        "url": "https://www.stryker.com/us/en/about/news/2025/stryker-receives-fda-clearance-for-incompass-total-ankle-system.html",
+        "notes": "Official Stryker total ankle announcement used as supporting public evidence for the current ankle arthroplasty portfolio built on Inbone and Infinity technologies."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_ICONIX___CINCHLOCK_SHOULDER_REPAIR",
+    "system_name": "Iconix / CinchLock Shoulder Repair",
+    "sources": [
+      {
+        "source_type": "procedure_page",
+        "title": "Shoulder Instability",
+        "url": "https://www.stryker.com/us/en/sports-medicine/procedures/instability.html/",
+        "notes": "Official Stryker shoulder instability procedure page used as the primary public source anchor for the Iconix / CinchLock shoulder repair entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Iconix Speed",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/iconix-speed.html",
+        "notes": "Official Stryker Iconix Speed page used as supporting public evidence for all-suture anchor-based shoulder repair workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CinchLock SS and CinchLock Flex Knotless Anchor System",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/cinchlock-ss-and-cinchlock-flex-knotless-anchor-system.html",
+        "notes": "Official Stryker CinchLock page used as supporting public evidence for knotless shoulder repair fixation coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_OMEGA___HIP_FRACTURE_FIXATION_PORTFOLIO",
+    "system_name": "Omega / Hip Fracture Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gamma4 Hip Fracture Nailing System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/gamma4-hip-fracture-nailing-system.html",
+        "notes": "Official Stryker Gamma4 page used as the primary public source anchor for the hip fracture fixation portfolio entry."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Tibia and Femur",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/tibia-and-femur.html",
+        "notes": "Official Stryker tibia and femur specialty page used as supporting public evidence for proximal femur fracture fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Omega Knotless PEEK Anchor System",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/omega.html",
+        "notes": "Official Stryker Omega page used as supporting public evidence for the branded Omega component of this combined portfolio entry and documented as a mixed closest current public match."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_PARTIAL_KNEE_PORTFOLIO",
+    "system_name": "Partial Knee Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Triathlon Partial Knee",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/triathlon-partial-knee.html",
+        "notes": "Official Stryker Triathlon Partial Knee page used as the primary public source anchor for the partial knee portfolio entry."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Knee Replacement",
+        "url": "https://www.stryker.com/us/en/joint-replacement/knee.html",
+        "notes": "Official Stryker knee replacement page used as supporting public evidence for the broader partial knee offering."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Mako Total Knee",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/mako-total-knee.html",
+        "notes": "Official Stryker Mako knee page used as supporting public evidence because the partial knee portfolio commonly sits within the same robotic knee workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_PATELLA_FIXATION_PORTFOLIO",
+    "system_name": "Patella Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Tibia and Femur",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/tibia-and-femur.html",
+        "notes": "Official Stryker tibia and femur specialty page used as the primary public source anchor for the patella fixation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Asnis Micro Cannulated Screw System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/asnis-micro-cannulated-screw-system.html",
+        "notes": "Official Stryker cannulated screw page used as supporting public evidence for patella fracture fixation and documented as a closest current public match where a dedicated patella fixation page is not prominently exposed."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Trauma and Extremities",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities.html",
+        "notes": "Official Stryker trauma and extremities page used as broader portfolio context for patella fixation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_PELVIC_FIXATION_PORTFOLIO",
+    "system_name": "Pelvic Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "PRO Pelvis Pelvic and Acetabulum Plating System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/pro-pelvis.html",
+        "notes": "Official Stryker PRO Pelvis page used as the primary public source anchor for the pelvic fixation portfolio entry."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Trauma and Extremities",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities.html",
+        "notes": "Official Stryker trauma and extremities page used as supporting public evidence for the broader pelvic fixation offering."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Stryker to feature expanding Trauma portfolio at the Orthopaedic Trauma Association annual meeting 2025",
+        "url": "https://www.stryker.com/us/en/about/news/2025/stryker-to-feature-expanding-trauma-portfolio-at-the-orthopaedic-trauma-association-annual-meeting-2025.html",
+        "notes": "Official Stryker trauma portfolio announcement used as supporting public evidence for the current pelvic and acetabular fixation platform."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_SPORTS_MEDICINE_ACL_PORTFOLIO",
+    "system_name": "Sports Medicine ACL Portfolio",
+    "sources": [
+      {
+        "source_type": "procedure_page",
+        "title": "ACL",
+        "url": "https://www.stryker.com/us/en/sports-medicine/procedures/acl.html/",
+        "notes": "Official Stryker ACL procedure page used as the primary public source anchor for the sports medicine ACL portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CinchLock SS and CinchLock Flex Knotless Anchor System",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/cinchlock-ss-and-cinchlock-flex-knotless-anchor-system.html",
+        "notes": "Official Stryker fixation page used as supporting public evidence for soft-tissue fixation options within ACL and sports medicine workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Iconix Speed",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/iconix-speed.html",
+        "notes": "Official Stryker all-suture anchor page used as supporting public evidence for sports medicine fixation breadth."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_STANMORE_ONCOLOGY_HERITAGE_LIMB_SALVAGE_ENDOPROSTHETICS_PORTFOLIO",
+    "system_name": "Stryker (Stanmore oncology heritage) Limb salvage endoprosthetics Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Orthopaedic Oncology",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the primary public source anchor for the Stanmore-oncology heritage limb salvage endoprosthetics portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker GMRS page used as supporting public evidence for current limb salvage endoprosthetic reconstruction."
+      },
+      {
+        "source_type": "product_page",
+        "title": "METS Proximal Tibia",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/mets-proximal-tibia.html",
+        "notes": "Official Stryker METS page used as supporting public evidence for modular limb salvage endoprosthetic breadth and Stanmore heritage oncology reconstruction coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_CARTILAGE_RESTORATION_PORTFOLIO",
+    "system_name": "Stryker Cartilage restoration Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "ProChondrix CR",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/prochondrix-cr.html",
+        "notes": "Official Stryker ProChondrix CR page used as the primary public source anchor for the cartilage restoration portfolio entry."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "AlloSource and Stryker Launch ProChondrix CR Cryopreserved Osteochondral Allograft",
+        "url": "https://www.stryker.com/us/en/about/news/2018/allosource-and-stryker-launch-prochondrix-cr-cryopreserved-osteo.html",
+        "notes": "Official Stryker launch announcement used as supporting public evidence for cartilage restoration positioning."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Sports biologics",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/sports-medicine/sports-biologics.html",
+        "notes": "Official Stryker sports biologics portfolio page used as broader portfolio context for cartilage repair and restoration technologies."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ELBOW_REVISION_PORTFOLIO",
+    "system_name": "Stryker Elbow Revision Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Latitude EV Total Elbow Arthroplasty",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/latitude-ev-total-elbow-arthroplasty.html",
+        "notes": "Official Stryker Latitude EV page used as the primary public source anchor for the elbow revision portfolio entry because it covers linked and unlinked revision-capable elbow arthroplasty workflows."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder and elbow",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/trauma-and-extremities/shoulder.html",
+        "notes": "Official Stryker shoulder and elbow portfolio page used as supporting public evidence for the broader elbow arthroplasty offering."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Latitude EV Total Elbow Arthroplasty Global",
+        "url": "https://www.stryker.com/gb/en/trauma-and-extremities/products/latitude-ev-total-elbow-arthroplasty/index-eu.html",
+        "notes": "Official Stryker global Latitude EV page used as supporting public evidence and additional operative-technique-rich context for revision elbow arthroplasty."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ELBOW_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Elbow arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Latitude EV Total Elbow Arthroplasty",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/latitude-ev-total-elbow-arthroplasty.html",
+        "notes": "Official Stryker Latitude EV page used as the primary public source anchor for the elbow arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder and elbow",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/trauma-and-extremities/shoulder.html",
+        "notes": "Official Stryker shoulder and elbow portfolio page used as supporting public evidence for the broader elbow arthroplasty offering."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Latitude EV Total Elbow Arthroplasty Global",
+        "url": "https://www.stryker.com/gb/en/trauma-and-extremities/products/latitude-ev-total-elbow-arthroplasty/index-eu.html",
+        "notes": "Official Stryker global Latitude EV page used as supporting public evidence and additional brochure-rich product context for elbow arthroplasty."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ELBOW_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Stryker Elbow reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Shoulder and elbow",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/trauma-and-extremities/shoulder.html",
+        "notes": "Official Stryker shoulder and elbow portfolio page used as the primary public source anchor for the elbow reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Latitude EV Total Elbow Arthroplasty",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/latitude-ev-total-elbow-arthroplasty.html",
+        "notes": "Official Stryker Latitude EV page used as supporting public evidence for reconstructive elbow replacement workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Evolve Radial Head System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/evolve-radial-head-system.html",
+        "notes": "Official Stryker Evolve Radial Head page used as supporting public evidence for broader elbow reconstruction coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_HIP_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Hip arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/joint-replacement/hip.html",
+        "notes": "Official Stryker hip portfolio page used as the primary public source anchor for the hip arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Insignia",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/Insignia.html",
+        "notes": "Official Stryker Insignia page used as supporting public evidence for the primary hip arthroplasty platform."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Modular Dual Mobility",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/modular-dual-mobility.html",
+        "notes": "Official Stryker Modular Dual Mobility page used as supporting public evidence for broader primary and revision hip arthroplasty coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_HIP_PRESERVATION_PORTFOLIO",
+    "system_name": "Stryker Hip preservation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Conserve Plus Total Resurfacing Implant",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/conserve-plus.html",
+        "notes": "Official Stryker Conserve Plus page used as the primary public source anchor for the hip preservation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/joint-replacement/hip.html",
+        "notes": "Official Stryker hip portfolio page used as supporting public evidence for the broader hip preservation and reconstruction offering."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Mako Total Hip",
+        "url": "https://www.stryker.com/us/en/joint-replacement/systems/mako-total-hip.html",
+        "notes": "Official Stryker hip planning and robotic workflow page used as supporting public evidence for contemporary hip joint preservation and reconstruction pathway context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_HIP_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Hip revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Restoration Modular",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/restoration-modular.html",
+        "notes": "Official Stryker Restoration Modular page used as the primary public source anchor for the hip revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Modular Dual Mobility",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/modular-dual-mobility.html",
+        "notes": "Official Stryker Modular Dual Mobility page used as supporting public evidence for revision hip stability and fixation options."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Mako Total Hip with Advanced Primary and Revision",
+        "url": "https://www.stryker.com/us/en/joint-replacement/systems/mako-total-hip.html",
+        "notes": "Official Stryker Mako Total Hip page used as supporting public evidence because it explicitly references compatibility with the revision hip implant portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ONCOLOGY_MEGAPROSTHESIS_PORTFOLIO",
+    "system_name": "Stryker Oncology / Megaprosthesis Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/gmrs.html",
+        "notes": "Official Stryker GMRS page used as the primary public source anchor for the oncology megaprosthesis portfolio entry."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Orthopaedic Oncology",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as supporting public evidence for the broader megaprosthesis offering."
+      },
+      {
+        "source_type": "product_page",
+        "title": "METS Distal Femur",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/mets-distal-femur.html",
+        "notes": "Official Stryker METS page used as supporting public evidence for oncology limb salvage and megaprosthetic reconstruction breadth."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ONCOLOGY_ENDOPROSTHETIC_PORTFOLIO",
+    "system_name": "Stryker Oncology Endoprosthetic Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Orthopaedic Oncology",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the primary public source anchor for the oncology endoprosthetic portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/gmrs.html",
+        "notes": "Official Stryker GMRS page used as supporting public evidence for modular endoprosthetic reconstruction."
+      },
+      {
+        "source_type": "product_page",
+        "title": "METS Proximal Tibia",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/mets-proximal-tibia.html",
+        "notes": "Official Stryker METS page used as supporting public evidence for the breadth of endoprosthetic reconstruction options."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ONCOLOGY_PELVIC_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Stryker Oncology Pelvic Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Orthopaedic Oncology",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the primary public source anchor for the oncology pelvic reconstruction portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "METS Coned Hemipelvis",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/mets-coned-hemipelvis.html",
+        "notes": "Official Stryker METS coned hemipelvis page used as supporting public evidence for pelvic reconstruction and limb-salvage oncology workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "GMRS Global Modular Replacement System",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/gmrs.html",
+        "notes": "Official Stryker GMRS page used as supporting public evidence for modular oncologic reconstruction breadth."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ONCOLOGY_FIXATION_PORTFOLIO",
+    "system_name": "Stryker Oncology fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Orthopaedic Oncology",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as the primary public source anchor for the oncology fixation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "METS Distal Femur",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/mets-distal-femur.html",
+        "notes": "Official Stryker METS distal femur page used as supporting public evidence for fixation and modular reconstruction in oncology cases."
+      },
+      {
+        "source_type": "product_page",
+        "title": "METS Proximal Tibia",
+        "url": "https://www.stryker.com/us/en/orthopaedic-oncology/products/mets-proximal-tibia.html",
+        "notes": "Official Stryker METS proximal tibia page used as supporting public evidence for fixation-adjacent oncologic reconstruction breadth."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_REVERSE_SHOULDER_REVISION_PORTFOLIO",
+    "system_name": "Stryker Reverse Shoulder Revision Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "ReUnion RSA",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/reunion-rsa.html",
+        "notes": "Official Stryker ReUnion RSA page used as the primary public source anchor for the reverse shoulder revision portfolio entry because it explicitly covers revision use."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ReUnion RFX",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/reunion-rfx.html",
+        "notes": "Official Stryker ReUnion RFX page used as supporting public evidence for fracture and revision-capable reverse shoulder workflows."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Upper extremities",
+        "url": "https://www.stryker.com/gb/en/portfolios/orthopaedics/upper-extremities.html",
+        "notes": "Official Stryker upper extremities portfolio page used as broader public context for the shoulder arthroplasty and revision offering."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_SHOULDER_UPPER_EXTREMITY_TRAUMA_PORTFOLIO",
+    "system_name": "Stryker Shoulder / Upper Extremity Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Upper extremities",
+        "url": "https://www.stryker.com/gb/en/portfolios/orthopaedics/upper-extremities.html",
+        "notes": "Official Stryker upper extremities portfolio page used as the primary public source anchor for the shoulder and upper extremity trauma portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "AxSOS 3 Ti Proximal Humerus",
+        "url": "https://www.stryker.com/gb/en/trauma-and-extremities/products/axsos-3-proximal-humerus/index-eu.html",
+        "notes": "Official Stryker proximal humerus page used as supporting public evidence for shoulder trauma fixation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "VariAx 2 Elbow Plating System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/variax-2-elbow-plating-system.html",
+        "notes": "Official Stryker VariAx 2 Elbow page used as supporting public evidence for upper extremity trauma fixation breadth."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_SHOULDER_REVISION_PORTFOLIO",
+    "system_name": "Stryker Shoulder Revision Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "ReUnion TSA",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/reunion-tsa.html",
+        "notes": "Official Stryker ReUnion TSA page used as the primary public source anchor for the shoulder revision portfolio entry because it explicitly covers revision use."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ReUnion RSA",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/reunion-rsa.html",
+        "notes": "Official Stryker ReUnion RSA page used as supporting public evidence for reverse and revision shoulder arthroplasty workflows."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Shoulder and elbow",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/trauma-and-extremities/shoulder.html",
+        "notes": "Official Stryker shoulder and elbow portfolio page used as broader context for the revision shoulder offering."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_SHOULDER_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Shoulder arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Shoulder and elbow",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/trauma-and-extremities/shoulder.html",
+        "notes": "Official Stryker shoulder and elbow portfolio page used as the primary public source anchor for the shoulder arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ReUnion TSA",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/reunion-tsa.html",
+        "notes": "Official Stryker ReUnion TSA page used as supporting public evidence for anatomic total shoulder arthroplasty."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Tornier Perform Humeral Stem",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/tornier-perform.html",
+        "notes": "Official Stryker Tornier Perform Humeral Stem page used as supporting public evidence for the broader shoulder arthroplasty portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_SHOULDER_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "Stryker Shoulder soft tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "procedure_page",
+        "title": "Shoulder instability",
+        "url": "https://www.stryker.com/us/en/sports-medicine/procedures/instability.html/",
+        "notes": "Official Stryker shoulder instability procedure page used as the primary public source anchor for the shoulder soft tissue portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Iconix Speed",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/iconix-speed.html",
+        "notes": "Official Stryker Iconix page used as supporting public evidence for all-suture anchor-based soft tissue repair."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CinchLock SS and CinchLock Flex Knotless Anchor System",
+        "url": "https://www.stryker.com/us/en/sports-medicine/products/cinchlock-ss-and-cinchlock-flex-knotless-anchor-system.html",
+        "notes": "Official Stryker CinchLock page used as supporting public evidence for knotless shoulder soft tissue fixation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_TORNIER_REVERSE_SHOULDER_PORTFOLIO",
+    "system_name": "Stryker Tornier Reverse Shoulder Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Tornier Perform Reversed Glenoid and Reversed Augmented Glenoid",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/tornier-perform-reversed-glenoid-reversed-augmented-glenoid.html",
+        "notes": "Official Stryker Tornier Perform reversed glenoid page used as the primary public source anchor for the Tornier reverse shoulder portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ReUnion RSA",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/reunion-rsa.html",
+        "notes": "Official Stryker ReUnion RSA page used as supporting public evidence for the broader reverse shoulder arthroplasty portfolio."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Stryker Introduces Market-Leading Tornier Shoulder Arthroplasty Portfolio and Launches New Tornier Perform Humeral System",
+        "url": "https://www.stryker.com/us/en/about/news/2021/stryker-introduces-market-leading-tornier-shoulder-arthroplasty-.html",
+        "notes": "Official Stryker Tornier portfolio announcement used as broader public context for the reverse shoulder portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_TORNIER_SHOULDER_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Tornier Shoulder Arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "official_news_release",
+        "title": "Stryker Introduces Market-Leading Tornier Shoulder Arthroplasty Portfolio and Launches New Tornier Perform Humeral System",
+        "url": "https://www.stryker.com/us/en/about/news/2021/stryker-introduces-market-leading-tornier-shoulder-arthroplasty-.html",
+        "notes": "Official Stryker Tornier portfolio announcement used as the primary public source anchor for the Tornier shoulder arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Tornier Perform Humeral Stem",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/tornier-perform.html",
+        "notes": "Official Stryker Tornier Perform Humeral Stem page used as supporting public evidence for anatomic, reverse, and hemi-arthroplasty coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Tornier Perform Humeral Stemless",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/tornier-perform-humeral-stemless.html",
+        "notes": "Official Stryker Tornier Perform Stemless page used as supporting public evidence for the broader shoulder arthroplasty platform."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_UPPER_EXTREMITY_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Upper Extremity Arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Shoulder and elbow",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/trauma-and-extremities/shoulder.html",
+        "notes": "Official Stryker shoulder and elbow portfolio page used as the primary public source anchor for the upper extremity arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ReUnion TSA",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/reunion-tsa.html",
+        "notes": "Official Stryker ReUnion TSA page used as supporting public evidence for shoulder arthroplasty."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Latitude EV Total Elbow Arthroplasty",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/latitude-ev-total-elbow-arthroplasty.html",
+        "notes": "Official Stryker Latitude EV page used as supporting public evidence for elbow arthroplasty within the broader upper extremity portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_UPPER_EXTREMITY_TRAUMA_PORTFOLIO",
+    "system_name": "Stryker Upper Extremity Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper extremities",
+        "url": "https://www.stryker.com/gb/en/portfolios/orthopaedics/upper-extremities.html",
+        "notes": "Official Stryker upper extremities portfolio page used as the primary public source anchor for the upper extremity trauma portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "VariAx 2 Elbow Plating System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/variax-2-elbow-plating-system.html",
+        "notes": "Official Stryker VariAx 2 Elbow page used as supporting public evidence for upper extremity trauma fixation breadth."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Evolve Elbow Plating System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/evolve-eps.html",
+        "notes": "Official Stryker Evolve EPS page used as supporting public evidence for shoulder and upper extremity trauma fixation workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_T2_PROXIMAL_HUMERUS___PLATING_PORTFOLIO",
+    "system_name": "T2 Proximal Humerus / Plating Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "T2 Proximal Humeral Nailing System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/t2-proximal-humeral-nailing-system.html",
+        "notes": "Official Stryker T2 Proximal Humeral page used as the primary public source anchor for the T2 proximal humerus / plating portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "AxSOS 3 Ti Proximal Humerus",
+        "url": "https://www.stryker.com/gb/en/trauma-and-extremities/products/axsos-3-proximal-humerus/index-eu.html",
+        "notes": "Official Stryker proximal humerus plating page used as supporting public evidence for plate-based humeral fracture fixation within the same portfolio."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Stryker launches T2 Alpha Humerus Nailing System, supporting surgical workflow and care for complex fractures",
+        "url": "https://www.stryker.com/us/en/about/news/2026/stryker-launches-t2-alpha-humerus-nailing-system.html",
+        "notes": "Official Stryker humerus nailing announcement used as supporting public evidence for the current T2 humerus fixation platform."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_TORNIER_RADIAL_HEAD_PORTFOLIO",
+    "system_name": "Tornier Radial Head Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Tornier Latitude Radial Head",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/tornier-latitude-radial-head.html",
+        "notes": "Official Stryker Tornier Latitude Radial Head page used as the primary public source anchor for the Tornier radial head portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper extremities",
+        "url": "https://www.stryker.com/gb/en/portfolios/orthopaedics/upper-extremities.html",
+        "notes": "Official Stryker upper extremities portfolio page used as supporting public evidence for the broader elbow reconstruction offering."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Evolve Radial Head System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/evolve-radial-head-system.html",
+        "notes": "Official Stryker Evolve Radial Head page used as supporting public evidence for Stryker's radial head reconstruction breadth."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_TRAUMA_STABILISATION_PORTFOLIO",
+    "system_name": "Trauma Stabilisation Portfolio",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Trauma",
+        "url": "https://www.stryker.com/us/en/portfolios/orthopaedics/trauma-and-extremities.html",
+        "notes": "Official Stryker trauma portfolio page used as the primary public source anchor for the trauma stabilisation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Hoffmann 3 External Fixation System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/hoffmann-3-external-fixation-system.html",
+        "notes": "Official Stryker Hoffmann 3 page used as supporting public evidence for trauma stabilisation workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gamma4 Hip Fracture Nailing System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/gamma4-hip-fracture-nailing-system.html",
+        "notes": "Official Stryker Gamma4 page used as supporting public evidence for broader trauma stabilisation coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_VARIAX_ANKLE_FRACTURE_SYSTEM",
+    "system_name": "VariAx Ankle Fracture System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "VariAx Distal Fibula",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/Variax-Distal-Fibula.html",
+        "notes": "Official Stryker VariAx Distal Fibula page used as the primary public source anchor for the VariAx ankle fracture system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "VariAx 2",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/variax-2.html",
+        "notes": "Official Stryker VariAx 2 foot and ankle plating page used as supporting public evidence for broader ankle fracture fixation coverage."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle.html",
+        "notes": "Official Stryker foot and ankle page used as broader portfolio context for ankle fracture fixation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_VARIAX_CALCANEUS_PLATING",
+    "system_name": "VariAx Calcaneus Plating",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "VariAx 2 Foot",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/variax-2-foot.html",
+        "notes": "Official Stryker VariAx 2 Foot page used as the primary public source anchor for the VariAx calcaneus plating entry because it explicitly includes calcaneus plates."
+      },
+      {
+        "source_type": "product_page",
+        "title": "VariAx 2",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/variax-2.html",
+        "notes": "Official Stryker VariAx 2 page used as supporting public evidence for calcaneal fracture procedures within the broader platform."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Foot and Ankle",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle.html",
+        "notes": "Official Stryker foot and ankle page used as broader portfolio context for calcaneus plating."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_VARIAX_CLAVICLE_PLATE_SYSTEM",
+    "system_name": "VariAx Clavicle Plate System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "VariAx 2 Clavicle Plating System",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/variax-2-clavicle-plating-system.html",
+        "notes": "Official Stryker VariAx 2 Clavicle page used as the primary public source anchor for the clavicle plate system entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper extremities",
+        "url": "https://www.stryker.com/gb/en/portfolios/orthopaedics/upper-extremities.html",
+        "notes": "Official Stryker upper extremities portfolio page used as supporting public evidence for broader clavicle and shoulder-girdle trauma fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "VariAx 2 Clavicle Global",
+        "url": "https://www.stryker.com/eg/en/trauma-and-extremities/products/variax-2-clavicle-plating-system/index-eu.html",
+        "notes": "Official Stryker global VariAx 2 Clavicle page used as supporting public evidence and additional operative-technique-rich product context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_VARIAX_DISTAL_TIBIA___PILON_PLATING",
+    "system_name": "VariAx Distal Tibia / Pilon Plating",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "AxSOS 3 Ti Distal Tibia",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/axsos-3-distal-tibia.html",
+        "notes": "Official Stryker distal tibia plating page used as the primary public source anchor for the distal tibia and pilon plating entry and documented as the closest current public match where a dedicated VariAx pilon page is not prominently exposed."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Tibia and Femur",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/tibia-and-femur.html",
+        "notes": "Official Stryker tibia and femur specialty page used as supporting public evidence for distal tibia and pilon fracture fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "VariAx 2 Foot",
+        "url": "https://www.stryker.com/us/en/trauma-and-extremities/products/variax-2-foot-plating-system.html",
+        "notes": "Official Stryker VariAx 2 Foot page used as supporting public evidence for adjacent foot and ankle plating within the same trauma platform."
+      }
+    ]
+  }
+]

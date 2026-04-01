@@ -1,0 +1,98 @@
+[
+  {
+    "supplier_id": "SUP_MATORTHO",
+    "supplier_name": "MatOrtho",
+    "system_id": "SYS_MATORTHO_HIP_RESURFACING_PORTFOLIO",
+    "system_name": "MatOrtho Hip Resurfacing Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "MatOrtho - Pioneers of next generation orthopaedic implant devices",
+        "url": "https://www.matortho.com/",
+        "notes": "Official MatOrtho homepage used as the primary supplier anchor for the hip resurfacing portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ADEPT Hip Resurfacing System | MatOrtho",
+        "url": "https://www.matortho.com/products/adept-hip-resurfacing-system",
+        "notes": "Official MatOrtho ADEPT Hip Resurfacing System page used as the primary public product anchor for this hip resurfacing portfolio entry."
+      },
+      {
+        "source_type": "clinical_background_page",
+        "title": "Development of Modern-Day Hip Resurfacing | MatOrtho",
+        "url": "https://www.matortho.com/products/adept-hip-resurfacing-system/development-of-modern-day-hip-resurfacing",
+        "notes": "Official MatOrtho clinical background page used as supporting public evidence describing the development and intended clinical role of the ADEPT hip resurfacing system."
+      },
+      {
+        "source_type": "patient_information_page",
+        "title": "ADEPT Patient Guide | MatOrtho",
+        "url": "https://www.matortho.com/patient-area/adept-patient-guide",
+        "notes": "Official MatOrtho patient guide page used as the closest current public information source covering device purpose, suitability, and supporting material for the hip resurfacing portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MATORTHO",
+    "supplier_name": "MatOrtho",
+    "system_id": "SYS_MATORTHO_KNEE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "MatOrtho Knee arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "MatOrtho - Pioneers of next generation orthopaedic implant devices",
+        "url": "https://www.matortho.com/",
+        "notes": "Official MatOrtho homepage used as the primary supplier anchor for the knee arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "SAIPH Knee System | MatOrtho",
+        "url": "https://www.matortho.com/products/saiph-knee-system",
+        "notes": "Official MatOrtho SAIPH Knee System page used as the primary public product anchor for this knee arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "clinical_rationale_page",
+        "title": "Principles of the SAIPH Medially Stabilised Knee | MatOrtho",
+        "url": "https://www.matortho.com/products/saiph-knee-system/principles-of-the-saiph-medially-stabilised-knee",
+        "notes": "Official MatOrtho clinical rationale page used as supporting public evidence describing the design principles and intended clinical role of the SAIPH knee system."
+      },
+      {
+        "source_type": "patient_information_page",
+        "title": "Medial Stabilised Knee | MatOrtho",
+        "url": "https://www.matortho.com/patients/medial-stabilised-knee",
+        "notes": "Official MatOrtho patient information page used as the closest current public information source covering patient-facing indications and supporting material for the knee arthroplasty portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MATORTHO",
+    "supplier_name": "MatOrtho",
+    "system_id": "SYS_MATORTHO_KNEE_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "MatOrtho Knee revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "MatOrtho - Pioneers of next generation orthopaedic implant devices",
+        "url": "https://www.matortho.com/",
+        "notes": "Official MatOrtho homepage used as the primary supplier anchor for the knee revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "SAIPH Knee System | MatOrtho",
+        "url": "https://www.matortho.com/products/saiph-knee-system",
+        "notes": "Official MatOrtho SAIPH Knee System page used as the closest current public product anchor for this knee revision arthroplasty portfolio entry because a dedicated public MatOrtho revision knee page is not currently exposed."
+      },
+      {
+        "source_type": "clinical_rationale_page",
+        "title": "Principles of the SAIPH Medially Stabilised Knee | MatOrtho",
+        "url": "https://www.matortho.com/products/saiph-knee-system/principles-of-the-saiph-medially-stabilised-knee",
+        "notes": "Official MatOrtho clinical rationale page used as supporting public evidence for the company's knee platform and as the closest current public clinical anchor for this revision knee entry."
+      },
+      {
+        "source_type": "company_contact_page",
+        "title": "Contact MatOrtho",
+        "url": "https://www.matortho.com/contact",
+        "notes": "Official MatOrtho contact page used as an organisational anchor for the knee revision arthroplasty portfolio because no dedicated public revision knee catalogue or IFU page is currently exposed."
+      }
+    ]
+  }
+]

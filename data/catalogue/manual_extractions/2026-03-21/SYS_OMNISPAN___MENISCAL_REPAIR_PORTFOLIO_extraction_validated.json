@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "CONMED",
+    "system_name": "OMNISPAN / Meniscal Repair Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Meniscal Repair | CONMED",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_OMNISPAN_MENISCAL_REPAIR_PORTFOLIO_MENISCAL_REPAIR_FRAMEWORK",
+        "Component Name": "Meniscal Repair Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Sports Medicine",
+        "System ID": "SYS_OMNISPAN___MENISCAL_REPAIR_PORTFOLIO",
+        "Component Notes": "Framework component anchored to CONMED public meniscal-repair source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "OMNISPAN / Meniscal Repair Portfolio",
+          "supplier_name": "CONMED",
+          "system_category": "sports_medicine_knee",
+          "system_notes": "Official CONMED meniscal-repair materials used as the public source anchors for this meniscal repair portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "OMNISPAN / Meniscal Repair Portfolio",
+        "supplier_name": "CONMED",
+        "system_category": "sports_medicine_knee",
+        "system_notes": "Official CONMED meniscal-repair materials used as the public source anchors for this meniscal repair portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "OMNISPAN / Meniscal Repair Portfolio",
+        "supplier_name": "CONMED",
+        "system_category": "sports_medicine_knee",
+        "system_notes": "Official CONMED meniscal-repair materials used as the public source anchors for this meniscal repair portfolio entry."
+      }
+    }
+  ]
+}

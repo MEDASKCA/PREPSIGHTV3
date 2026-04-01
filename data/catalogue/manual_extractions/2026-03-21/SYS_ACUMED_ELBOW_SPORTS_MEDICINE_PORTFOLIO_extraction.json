@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acumed Elbow sports medicine Portfolio",
+    "source_type": "procedure_hub_page",
+    "source_document": "Elbow Procedures | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Acumed Elbow sports medicine Portfolio",
+      "supplier_name": "Acumed",
+      "system_category": "Elbow sports medicine",
+      "system_notes": "Official Acumed elbow procedures and tendon-ligament repair materials used as the public source anchors for this elbow sports medicine portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Elbow Sports Medicine Framework",
+      "system_name": "Acumed Elbow sports medicine Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Sports Medicine",
+      "component_notes": "Framework component anchored to Acumed public elbow sports medicine source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Acumed elbow sports medicine source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Elbow Procedures | Acumed; PEEK Suture Anchor System | Acumed; PEEK Suture Anchor System Surgical Technique | Acumed; Acumed Product Catalog"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Acumed elbow sports medicine source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Elbow Procedures | Acumed; PEEK Suture Anchor System | Acumed; PEEK Suture Anchor System Surgical Technique | Acumed; Acumed Product Catalog"
+    }
+  ]
+}

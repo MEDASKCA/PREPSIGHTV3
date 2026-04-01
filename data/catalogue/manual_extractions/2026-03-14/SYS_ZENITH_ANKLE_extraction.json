@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Corin",
+    "system_name": "Zenith Total Ankle",
+    "source_type": "product_page",
+    "source_document": "Zenith Total Ankle Replacement",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Zenith Total Ankle",
+      "supplier_name": "Corin",
+      "system_category": "Ankle Arthroplasty System",
+      "system_notes": "Fixed-bearing total ankle arthroplasty platform."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Zenith Instrumentation",
+      "system_name": "Zenith Total Ankle",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated Zenith instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Zenith Tibial Component",
+      "system_name": "Zenith Total Ankle",
+      "component_role": "Tibial Component",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Core tibial implant family referenced on the product page."
+    },
+    {
+      "component_name": "Zenith Talar Component",
+      "system_name": "Zenith Total Ankle",
+      "component_role": "Talar Component",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Core talar implant family referenced on the product page."
+    },
+    {
+      "component_name": "Zenith Poly Insert",
+      "system_name": "Zenith Total Ankle",
+      "component_role": "Poly Insert",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Polyethylene insert family referenced on the product page."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Instrumentation is referenced but individual cases are not split out on the product page.",
+      "reason": "Needs deeper technique or catalogue review before tray-level expansion.",
+      "source_excerpt": "Current extraction uses the main product page only."
+    }
+  ]
+}

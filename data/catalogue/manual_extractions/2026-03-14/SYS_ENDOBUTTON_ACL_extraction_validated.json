@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Endobutton CL",
+    "source_type": "product_page",
+    "source_document": "ENDOBUTTON CL ULTRA Fixation Device",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ENDOBUTTON_CL_ENDOBUTTON_ACL_INSTRUMENTATION",
+        "Tray Name": "ENDOBUTTON ACL Instrumentation",
+        "System ID": "SYS_ENDOBUTTON_ACL",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Smith+Nephew sports medicine materials describe dedicated delivery instrumentation for ENDOBUTTON fixation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ENDOBUTTON_CL_ENDOBUTTON_CL_ULTRA_FIXATION_DEVICE",
+        "Component Name": "ENDOBUTTON CL ULTRA Fixation Device",
+        "Component Role": "Fixation Device",
+        "Implant Category": "Sports Medicine Implant",
+        "System ID": "SYS_ENDOBUTTON_ACL",
+        "Component Notes": "Official Smith+Nephew materials describe the cortical suspensory fixation device used in ACL reconstruction."
+      },
+      {
+        "Component ID": "COMP_ENDOBUTTON_CL_ENDOBUTTON_CONTINUOUS_LOOP",
+        "Component Name": "ENDOBUTTON Continuous Loop",
+        "Component Role": "Loop Device",
+        "Implant Category": "Sports Medicine Implant",
+        "System ID": "SYS_ENDOBUTTON_ACL",
+        "Component Notes": "Official product materials describe the continuous-loop fixation construct within the ENDOBUTTON family."
+      },
+      {
+        "Component ID": "COMP_ENDOBUTTON_CL_ENDOBUTTON_INSERTER",
+        "Component Name": "ENDOBUTTON Inserter",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_ENDOBUTTON_ACL",
+        "Component Notes": "Official sports medicine materials describe the dedicated insertion and deployment workflow for ENDOBUTTON fixation."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Endobutton CL",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "ACL Fixation \u2014 Suspensory",
+          "system_notes": "Cortical suspensory fixation platform within the Smith+Nephew sports medicine portfolio for ACL reconstruction."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Endobutton CL",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "ACL Fixation \u2014 Suspensory",
+        "system_notes": "Cortical suspensory fixation platform within the Smith+Nephew sports medicine portfolio for ACL reconstruction."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Endobutton CL",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "ACL Fixation \u2014 Suspensory",
+        "system_notes": "Cortical suspensory fixation platform within the Smith+Nephew sports medicine portfolio for ACL reconstruction."
+      }
+    }
+  ]
+}

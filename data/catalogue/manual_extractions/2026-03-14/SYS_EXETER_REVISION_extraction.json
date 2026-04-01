@@ -1,0 +1,52 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Exeter Revision Stem",
+    "source_type": "product_page",
+    "source_document": "Exeter official product materials",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Exeter Revision Stem",
+      "supplier_name": "Stryker",
+      "system_category": "Hip Revision System",
+      "system_notes": "Cemented revision hip platform built around the Exeter femoral stem family for revision and complex femoral reconstruction cases."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Exeter Revision Instrumentation",
+      "system_name": "Exeter Revision Stem",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Exeter materials state the implant and instrument system is designed to accommodate revision cases."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Exeter Revision Femoral Stem",
+      "system_name": "Exeter Revision Stem",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Exeter materials describe a wide offset and body-size range used across primary, revision, and fracture workflows."
+    },
+    {
+      "component_name": "Exeter Femoral Head",
+      "system_name": "Exeter Revision Stem",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Revision use continues to rely on compatible femoral head options within the Exeter V40 platform."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public Exeter materials confirm revision indication and stem family detail but this pass does not expand a revision SKU table.",
+      "reason": "A deeper catalogue or IFU pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

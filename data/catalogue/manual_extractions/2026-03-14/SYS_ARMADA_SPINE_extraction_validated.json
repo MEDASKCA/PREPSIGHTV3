@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "NuVasive",
+    "system_name": "Armada Spine System",
+    "source_type": "product_page",
+    "source_document": "Armada",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ARMADA_SPINE_SYSTEM_ARMADA_SPINE_FIXATION_FAMILY",
+        "Component Name": "Armada Spine Fixation Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Spine Fixation Workflow",
+        "System ID": "SYS_ARMADA_SPINE",
+        "Component Notes": "Official NuVasive sources describe the broader Armada posterior spinal fixation family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Armada Spine System",
+          "supplier_name": "NuVasive",
+          "system_category": "Pedicle Screw-Rod System",
+          "system_notes": "Public source anchor for the NuVasive Armada posterior spinal fixation system."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Armada Spine System",
+        "supplier_name": "NuVasive",
+        "system_category": "Pedicle Screw-Rod System",
+        "system_notes": "Public source anchor for the NuVasive Armada posterior spinal fixation system."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Armada Spine System",
+        "supplier_name": "NuVasive",
+        "system_category": "Pedicle Screw-Rod System",
+        "system_notes": "Public source anchor for the NuVasive Armada posterior spinal fixation system."
+      }
+    }
+  ]
+}

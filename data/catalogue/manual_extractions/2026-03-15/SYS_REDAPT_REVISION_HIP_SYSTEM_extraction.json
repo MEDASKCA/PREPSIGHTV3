@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Smith+Nephew",
+    "system_name": "REDAPT Revision Hip System",
+    "source_type": "product_page",
+    "source_document": "REDAPT Revision Hip System",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_REDAPT_REVISION_HIP_SYSTEM",
+      "system_name": "REDAPT Revision Hip System",
+      "supplier": "Smith+Nephew",
+      "category": "Hip Revision Arthroplasty",
+      "source_notes": "Official Smith+Nephew REDAPT revision hip system page used as the primary source anchor for the named revision hip system."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_REDAPT_REVISION_HIP_SYSTEM",
+      "component_name": "REDAPT Revision Hip System Framework",
+      "role": "Revision Hip System",
+      "implant_category": "Hip Revision Arthroplasty",
+      "source_notes": "Named revision hip system framework anchored to the public REDAPT revision hip system page."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_REDAPT_REVISION_HIP_SYSTEM",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public product page does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_REDAPT_REVISION_HIP_SYSTEM",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public product page anchor was used without expanding SKU-level detail in this round."
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+{
+  "source_meta": {
+    "supplier_name": "B. Braun",
+    "system_name": "Combined Spinal Epidural Kit",
+    "source_type": "product_family_page",
+    "source_document": "Combined Spinal Epidural Trays (Kits)",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Combined Spinal Epidural Kit",
+      "supplier_name": "B. Braun",
+      "system_category": "Regional Anaesthesia",
+      "system_notes": "Official source anchor for B. Braun Espocan combined spinal-epidural tray workflow."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "ESPOCAN CSE Anesthesia Tray",
+      "system_name": "Combined Spinal Epidural Kit",
+      "tray_type": "Procedure Tray",
+      "tray_notes": "B. Braun combined spinal-epidural tray family with Tuohy, spinal needle, catheter, and LOR syringe."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Espocan Tuohy Needle",
+      "system_name": "Combined Spinal Epidural Kit",
+      "component_role": "Epidural Needle",
+      "implant_category": "Regional Anaesthesia Device",
+      "component_notes": "Back-eye Tuohy needle used in B. Braun Espocan CSE systems."
+    },
+    {
+      "component_name": "Espocan Sleeved Pencan Spinal Needle",
+      "system_name": "Combined Spinal Epidural Kit",
+      "component_role": "Spinal Needle",
+      "implant_category": "Regional Anaesthesia Device",
+      "component_notes": "Sleeved Pencan spinal needle option used in the Espocan combined spinal-epidural tray."
+    },
+    {
+      "component_name": "Perifix Epidural Catheter",
+      "system_name": "Combined Spinal Epidural Kit",
+      "component_role": "Epidural Catheter",
+      "implant_category": "Regional Anaesthesia Device",
+      "component_notes": "Perifix epidural catheter family used in B. Braun CSE tray configurations."
+    }
+  ],
+  "products": [
+    {
+      "component_name": "ESPOCAN CSE Anesthesia Tray",
+      "product_code": "333194",
+      "product_name": "ESPOCAN 18 Ga. x 3½ in. Tuohy, PENCAN 27 Ga. x 5½ in. Pencil-Point Spinal Needle, PERIFIX 20 Ga. SoftTip Closed Tip, 5 mL Glass Luer Lock LOR, ESPOCAN Docking System Tray (Kit)",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded combined spinal-epidural tray product."
+    },
+    {
+      "component_name": "ESPOCAN CSE Anesthesia Tray",
+      "product_code": "333182",
+      "product_name": "ESPOCAN 18 Ga. x 3½ in. Tuohy, SPINOCAN 27 Ga. x 5 in. Quincke-Bevel Spinal Needle, PERIFIX 20 Ga. Closed Tip, 5 mL Glass Luer Lock LOR Tray (Kit)",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded combined spinal-epidural tray product."
+    },
+    {
+      "component_name": "ESPOCAN CSE Anesthesia Tray",
+      "product_code": "333196",
+      "product_name": "ESPOCAN 17 Ga. x 3½ in. Tuohy, PENCAN 25 Ga. x 5 in. Pencil-Point Spinal Needle, PERIFIX FX 19 Ga. Springwound Closed Tip, 5 mL Glass Luer Slip LOR Tray (Kit)",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded combined spinal-epidural tray product."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": []
+}

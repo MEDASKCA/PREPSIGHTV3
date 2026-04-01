@@ -1,0 +1,84 @@
+[
+  { "procedure_id": "PROC_CORONARY_ARTERY_BYPASS_GRAFTING", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CORONARY_ARTERY_BYPASS_GRAFTING", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_AORTIC_VALVE_REPLACEMENT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_AORTIC_VALVE_REPLACEMENT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_MITRAL_VALVE_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_MITRAL_VALVE_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_MITRAL_VALVE_REPLACEMENT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_MITRAL_VALVE_REPLACEMENT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TRICUSPID_VALVE_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TRICUSPID_VALVE_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_ASCENDING_AORTIC_REPLACEMENT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ASCENDING_AORTIC_REPLACEMENT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_AORTIC_ROOT_REPLACEMENT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_AORTIC_ROOT_REPLACEMENT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PERICARDIAL_WINDOW", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_PERICARDIAL_WINDOW", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXPLORATION_FOR_CARDIAC_TAMPONADE", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_EXPLORATION_FOR_CARDIAC_TAMPONADE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SURGICAL_ABLATION_FOR_ATRIAL_FIBRILLATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SURGICAL_ABLATION_FOR_ATRIAL_FIBRILLATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_LOBECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_LOBECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PNEUMONECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_PNEUMONECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_WEDGE_RESECTION_OF_LUNG", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_WEDGE_RESECTION_OF_LUNG", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SEGMENTECTOMY_OF_LUNG", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_SEGMENTECTOMY_OF_LUNG", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_THORACOSCOPIC_PLEURAL_BIOPSY", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_THORACOSCOPIC_PLEURAL_BIOPSY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_PLEURODESIS", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PLEURODESIS", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_DECORTICATION_OF_LUNG", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_DECORTICATION_OF_LUNG", "case_tag_id": "CASE_ELECTIVE" },
+
+  { "procedure_id": "PROC_THYMECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_THYMECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_RESECTION_OF_MEDIASTINAL_MASS", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_RESECTION_OF_MEDIASTINAL_MASS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_OESOPHAGECTOMY_BY_CARDIOTHORACIC", "case_tag_id": "CASE_ONCOLOGY" },
+  { "procedure_id": "PROC_OESOPHAGECTOMY_BY_CARDIOTHORACIC", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_THORACOTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_VIDEO_ASSISTED_THORACOSCOPIC_SURGERY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+  { "procedure_id": "PROC_VIDEO_ASSISTED_THORACOSCOPIC_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_REPAIR_OF_ATRIAL_SEPTAL_DEFECT", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_REPAIR_OF_ATRIAL_SEPTAL_DEFECT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_REPAIR_OF_VENTRICULAR_SEPTAL_DEFECT", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_REPAIR_OF_VENTRICULAR_SEPTAL_DEFECT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PATENT_DUCTUS_ARTERIOSUS_LIGATION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_PATENT_DUCTUS_ARTERIOSUS_LIGATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TETRALOGY_OF_FALLOT_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_TETRALOGY_OF_FALLOT_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_AORTIC_COARCTATION_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_AORTIC_COARCTATION_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PULMONARY_ARTERY_BANDING", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_PULMONARY_ARTERY_BANDING", "case_tag_id": "CASE_RECONSTRUCTION" }
+]

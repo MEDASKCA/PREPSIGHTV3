@@ -1,0 +1,22 @@
+[
+  {
+    "supplier_id": "SUP_INTUITIVE_SURGICAL",
+    "supplier_name": "Intuitive Surgical",
+    "system_id": "SYS_DAVINCI",
+    "system_name": "Da Vinci Surgical System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "da Vinci Surgical System",
+        "url": "https://www.intuitive.com/en-us/products-and-services/da-vinci",
+        "notes": "Official Intuitive Surgical product page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Products and Services",
+        "url": "https://www.intuitive.com/en-us/products-and-services",
+        "notes": "Official Intuitive Surgical technology page used as broader workflow context."
+      }
+    ]
+  }
+]

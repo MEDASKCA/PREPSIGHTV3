@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Global FX Fracture System",
+    "source_type": "patient_information_leaflet",
+    "source_document": "Patient Information Leaflet for Shoulder Joint Replacement",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_GLOBAL_FX_FRACTURE_SYSTEM_GLOBAL_FX_HUMERAL_STEM",
+        "Component Name": "Global FX Humeral Stem",
+        "Component Role": "Humeral Stem",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_GLOBAL_FX",
+        "Component Notes": "Official TGA device records identify the Global FX humeral stem prosthesis within the fracture system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Global FX Fracture System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Shoulder Hemiarthroplasty \u2014 Fracture",
+          "system_notes": "Fracture-focused shoulder arthroplasty platform referenced by official J&J MedTech patient information and TGA humeral stem registrations."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Global FX Fracture System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Shoulder Hemiarthroplasty \u2014 Fracture",
+        "system_notes": "Fracture-focused shoulder arthroplasty platform referenced by official J&J MedTech patient information and TGA humeral stem registrations."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Global FX Fracture System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Shoulder Hemiarthroplasty \u2014 Fracture",
+        "system_notes": "Fracture-focused shoulder arthroplasty platform referenced by official J&J MedTech patient information and TGA humeral stem registrations."
+      }
+    }
+  ]
+}

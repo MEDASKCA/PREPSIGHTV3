@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Unassigned",
+    "system_name": "Otology and Neurotology Information System",
+    "source_type": "society_homepage",
+    "source_document": "ENT UK / EAONO Otology Resources",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_OTOLOGY_NEUROTOLOGY_INFORMATION_SYSTEM",
+      "system_name": "Otology and Neurotology Information System",
+      "supplier": "Unassigned",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public specialty society resources used as source anchors for otology and neurotology workflow information."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_OTOLOGY_NEUROTOLOGY_INFORMATION_SYSTEM",
+      "component_name": "Otology and Neurotology Workflow Framework",
+      "role": "Workflow Framework",
+      "implant_category": "Service Line Information Workflow",
+      "source_notes": "Workflow-level informational framework anchored to official otology and neurotology society resources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_OTOLOGY_NEUROTOLOGY_INFORMATION_SYSTEM",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Workflow information system entry has no tray or instrument set in the source anchors."
+    },
+    {
+      "system_id": "SYS_OTOLOGY_NEUROTOLOGY_INFORMATION_SYSTEM",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Workflow information system entry has no product or SKU detail in the source anchors."
+    }
+  ]
+}

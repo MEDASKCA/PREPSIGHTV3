@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "KLS Martin",
+    "system_name": "Wrist Instrumentation Portfolio",
+    "source_type": "catalogue_pdf",
+    "source_document": "Special Instruments for Hand Surgery",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Wrist Instrumentation Portfolio",
+      "supplier_name": "KLS Martin",
+      "system_category": "hand_wrist",
+      "system_notes": "Official KLS Martin hand surgery and hand instruments source materials used as the source anchors for the wrist instrumentation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Wrist Instrumentation Portfolio Framework",
+      "system_name": "Wrist Instrumentation Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Wrist Instrumentation Portfolio",
+      "component_notes": "Portfolio-level informational framework anchored to KLS Martin public wrist and hand surgery instrumentation materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public hand instrumentation materials do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Special Instruments for Hand Surgery"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public hand instrumentation materials do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Special Instruments for Hand Surgery"
+    }
+  ]
+}

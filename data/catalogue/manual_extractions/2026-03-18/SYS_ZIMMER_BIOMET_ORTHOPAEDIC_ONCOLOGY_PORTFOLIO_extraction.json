@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Zimmer Biomet Orthopaedic oncology Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Orthopaedic Oncology | Zimmer Biomet",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Zimmer Biomet Orthopaedic oncology Portfolio",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Orthopaedic oncology",
+      "system_notes": "Public Zimmer Biomet orthopaedic oncology and MUTARS materials used as the source anchors for the orthopaedic oncology portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Orthopaedic Oncology Portfolio Framework",
+      "system_name": "Zimmer Biomet Orthopaedic oncology Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Orthopaedic oncology",
+      "component_notes": "Portfolio-level informational framework anchored to Zimmer Biomet public orthopaedic oncology and MUTARS sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public oncology portfolio source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Zimmer Biomet orthopaedic oncology page and MUTARS page"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public oncology portfolio source anchors do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Zimmer Biomet orthopaedic oncology page and MUTARS page"
+    }
+  ]
+}

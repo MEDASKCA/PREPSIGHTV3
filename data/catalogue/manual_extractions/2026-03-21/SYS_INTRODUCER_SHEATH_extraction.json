@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Becton Dickinson",
+    "system_name": "Introducer Sheath",
+    "source_type": "product_family_page",
+    "source_document": "BD Introducers",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Introducer Sheath",
+      "supplier_name": "Becton Dickinson",
+      "system_category": "vascular_access",
+      "system_notes": "Official BD introducer and sheath materials used as the public source anchors for this introducer sheath entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Introducer Sheath Framework",
+      "system_name": "Introducer Sheath",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to BD public introducer and sheath source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public introducer-sheath source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "BD Introducers; Halo One Thin-Walled Guiding Sheath | BD; MicroEZ Microintroducer | BD; Capella Coaxial Micro-Introducer Kit, 5F sheath size - MK5181 | BD"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public introducer-sheath source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "BD Introducers; Halo One Thin-Walled Guiding Sheath | BD; MicroEZ Microintroducer | BD; Capella Coaxial Micro-Introducer Kit, 5F sheath size - MK5181 | BD"
+    }
+  ]
+}

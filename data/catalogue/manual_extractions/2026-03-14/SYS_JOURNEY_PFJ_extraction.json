@@ -1,0 +1,52 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Journey PFJ System",
+    "source_type": "product_page",
+    "source_document": "JOURNEY II PFJ Patellofemoral Joint with Oxidized Zirconium",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Journey PFJ System",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Patellofemoral Joint System",
+      "system_notes": "Patellofemoral arthroplasty platform within the JOURNEY knee family using OXINIUM material technology."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "JOURNEY PFJ Instrumentation",
+      "system_name": "Journey PFJ System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Smith+Nephew materials expose the JOURNEY PFJ surgical technique, implying a dedicated operative instrumentation set."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "JOURNEY PFJ Femoral Component",
+      "system_name": "Journey PFJ System",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official product materials describe the patellofemoral femoral implant within the JOURNEY PFJ system."
+    },
+    {
+      "component_name": "JOURNEY PFJ Patellar Component",
+      "system_name": "Journey PFJ System",
+      "component_role": "Patellar Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official product materials describe the patellar resurfacing component within the JOURNEY PFJ construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The official page confirms the implant construct and surgical technique reference but this pass does not expose a public SKU table.",
+      "reason": "A deeper brochure, IFU, or technique pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "JuggerKnot Shoulder Repair System",
+    "source_type": "product_page",
+    "source_document": "JuggerKnot Soft Anchor System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "JuggerKnot Shoulder Repair Implant Family",
+      "system_name": "JuggerKnot Shoulder Repair System",
+      "component_role": "Implant Family",
+      "implant_category": "Shoulder soft-tissue repair",
+      "component_notes": "Public Zimmer Biomet sports medicine sources position the JuggerKnot anchor platform as a shoulder repair family anchor."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "The public JuggerKnot shoulder sources do not publish a reusable tray manifest.",
+      "reason": "Tray detail should be added only from narrower instrumentation or ordering materials if required.",
+      "source_excerpt": "Current extraction uses public product anchors."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "The JuggerKnot platform spans multiple anchor sizes and suture configurations that were not normalized into SKU rows here.",
+      "reason": "Detailed product extraction should come from narrower shoulder anchor literature if needed later.",
+      "source_excerpt": "This extraction remains family-level."
+    }
+  ]
+}

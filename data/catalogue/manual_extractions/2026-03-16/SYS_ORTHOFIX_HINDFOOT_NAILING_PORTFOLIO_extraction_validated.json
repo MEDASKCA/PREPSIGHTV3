@@ -1,0 +1,82 @@
+{
+  "schema_errors": [
+    "Section source_meta is missing field supplier_name.",
+    "Section source_meta is missing field source_version.",
+    "systems[0] is missing field supplier_name.",
+    "systems[0] is missing field system_category.",
+    "systems[0] is missing field system_notes.",
+    "components[0] is missing field system_name.",
+    "components[0] is missing field component_role.",
+    "components[0] is missing field component_notes.",
+    "unresolved_items[0] is missing field entity_type.",
+    "unresolved_items[0] is missing field raw_text.",
+    "unresolved_items[0] is missing field source_excerpt.",
+    "unresolved_items[1] is missing field entity_type.",
+    "unresolved_items[1] is missing field raw_text.",
+    "unresolved_items[1] is missing field source_excerpt."
+  ],
+  "ready_to_import": {},
+  "needs_review": {},
+  "rejected": {},
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SCHEMA",
+      "reason": "Section source_meta is missing field supplier_name."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "Section source_meta is missing field source_version."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "systems[0] is missing field supplier_name."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "systems[0] is missing field system_category."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "systems[0] is missing field system_notes."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "components[0] is missing field system_name."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "components[0] is missing field component_role."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "components[0] is missing field component_notes."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "unresolved_items[0] is missing field entity_type."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "unresolved_items[0] is missing field raw_text."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "unresolved_items[0] is missing field source_excerpt."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "unresolved_items[1] is missing field entity_type."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "unresolved_items[1] is missing field raw_text."
+    },
+    {
+      "entity": "SCHEMA",
+      "reason": "unresolved_items[1] is missing field source_excerpt."
+    }
+  ]
+}

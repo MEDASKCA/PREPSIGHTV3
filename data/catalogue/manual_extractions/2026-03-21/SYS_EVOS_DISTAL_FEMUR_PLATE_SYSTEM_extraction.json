@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "EVOS Distal Femur Plate System",
+    "source_type": "product_page",
+    "source_document": "EVOS LARGE & PERIPROSTHETIC Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "EVOS Distal Femur Plate System",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "trauma",
+      "system_notes": "Official Smith+Nephew EVOS LARGE & PERIPROSTHETIC and Trauma & Extremities materials used as the source anchors for the distal femur plate system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Distal Femur Plate Framework",
+      "system_name": "EVOS Distal Femur Plate System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to Smith+Nephew public large-fragment distal femur fixation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public EVOS distal femur source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "EVOS LARGE & PERIPROSTHETIC Plating System; Trauma & Extremities Solutions; EVOS LARGE & PERIPROSTHETIC Plating System Global"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public EVOS distal femur source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "EVOS LARGE & PERIPROSTHETIC Plating System; Trauma & Extremities Solutions; EVOS LARGE & PERIPROSTHETIC Plating System Global"
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Karl Storz",
+    "system_name": "Karl Storz Laparoscopy Platform",
+    "source_type": "technology_page",
+    "source_document": "Laparoscopy",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_KARL_STORZ_LAPAROSCOPY_PLATFORM_KARL_STORZ_LAPAROSCOPY_PLATFORM_FAMILY",
+        "Component Name": "Karl Storz Laparoscopy Platform Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Laparoscopy Workflow",
+        "System ID": "SYS_STORZ_LAPAROSCOPY",
+        "Component Notes": "Official Karl Storz sources describe the broader laparoscopy platform family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Karl Storz Laparoscopy Platform",
+          "supplier_name": "Karl Storz",
+          "system_category": "Laparoscopic Platform",
+          "system_notes": "Public source anchor for the Karl Storz laparoscopy platform."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Karl Storz Laparoscopy Platform",
+        "supplier_name": "Karl Storz",
+        "system_category": "Laparoscopic Platform",
+        "system_notes": "Public source anchor for the Karl Storz laparoscopy platform."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Karl Storz Laparoscopy Platform",
+        "supplier_name": "Karl Storz",
+        "system_category": "Laparoscopic Platform",
+        "system_notes": "Public source anchor for the Karl Storz laparoscopy platform."
+      }
+    }
+  ]
+}

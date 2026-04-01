@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Patella Plating / Cerclage Portfolio",
+    "source_type": "operative_technique_pdf",
+    "source_document": "Variable Angle Locking Patella Plating System Surgical Technique | DePuy Synthes",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Patella Plating / Cerclage Portfolio",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "trauma",
+      "system_notes": "Official DePuy Synthes patella fixation materials used as the public source anchors for this trauma fixation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Patella Fixation Portfolio Framework",
+      "system_name": "Patella Plating / Cerclage Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to DePuy Synthes public patella plating and cerclage source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public patella plating and cerclage source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Variable Angle Locking Patella Plating System Surgical Technique | DePuy Synthes; Trauma & Extremities | DePuy Synthes | J&J MedTech US"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public patella plating and cerclage source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Variable Angle Locking Patella Plating System Surgical Technique | DePuy Synthes; Trauma & Extremities | DePuy Synthes | J&J MedTech US"
+    }
+  ]
+}

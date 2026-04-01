@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "TRIGEN META-NAIL",
+    "source_type": "product_page",
+    "source_document": "TRIGEN META-NAIL / Femoral Nailing Platform",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TRIGEN_META_NAIL_TRIGEN_META_NAIL_INSTRUMENTATION",
+        "Tray Name": "TRIGEN META-NAIL Instrumentation",
+        "System ID": "SYS_TRIGEN_META_NAIL",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Smith+Nephew materials support a dedicated TRIGEN META-NAIL instrumentation workflow for proximal femoral cephalomedullary nailing."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TRIGEN_META_NAIL_TRIGEN_META_NAIL",
+        "Component Name": "TRIGEN META-NAIL",
+        "Component Role": "Cephalomedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_META_NAIL",
+        "Component Notes": "Primary proximal femoral nail component described by the official TRIGEN META-NAIL materials."
+      },
+      {
+        "Component ID": "COMP_TRIGEN_META_NAIL_TRIGEN_LAG_SCREW",
+        "Component Name": "TRIGEN Lag Screw",
+        "Component Role": "Lag Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_META_NAIL",
+        "Component Notes": "The TRIGEN META-NAIL construct includes proximal lag screw fixation options."
+      },
+      {
+        "Component ID": "COMP_TRIGEN_META_NAIL_TRIGEN_LOCKING_SCREW",
+        "Component Name": "TRIGEN Locking Screw",
+        "Component Role": "Locking Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_META_NAIL",
+        "Component Notes": "The TRIGEN META-NAIL construct includes distal locking fixation options."
+      },
+      {
+        "Component ID": "COMP_TRIGEN_META_NAIL_TRIGEN_END_CAP",
+        "Component Name": "TRIGEN End Cap",
+        "Component Role": "End Cap",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_META_NAIL",
+        "Component Notes": "End-cap compatibility is part of the TRIGEN META-NAIL construct family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "TRIGEN META-NAIL",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Cephalomedullary Nail System",
+          "system_notes": "Proximal femoral cephalomedullary nailing platform anchored to the official Smith+Nephew TRIGEN META-NAIL product page."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "TRIGEN META-NAIL",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Cephalomedullary Nail System",
+        "system_notes": "Proximal femoral cephalomedullary nailing platform anchored to the official Smith+Nephew TRIGEN META-NAIL product page."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "TRIGEN META-NAIL",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Cephalomedullary Nail System",
+        "system_notes": "Proximal femoral cephalomedullary nailing platform anchored to the official Smith+Nephew TRIGEN META-NAIL product page."
+      }
+    }
+  ]
+}

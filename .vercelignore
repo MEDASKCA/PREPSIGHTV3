@@ -1,0 +1,12 @@
+.git
+.next
+node_modules
+.claude
+chrome-headless
+chrome-headless-2
+local-start*.log
+local-start*.err.log
+devtools-log.txt
+headless-dom.html
+PrepSight_Fixed_Data_Inventory_sourced_batch*.xlsx
+PrepSight_Fixed_Data_Inventory_import_test.xlsx

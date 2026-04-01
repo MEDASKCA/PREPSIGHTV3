@@ -1,0 +1,5 @@
+System: Vertebral Augmentation Portfolio
+System ID: SYS_VERTEBRAL_AUGMENTATION_PORTFOLIO
+Supplier: Medtronic
+Supplier ID: SUP_MEDTRONIC
+Store operative techniques, IFUs, catalogues, and evidence PDFs in this folder.

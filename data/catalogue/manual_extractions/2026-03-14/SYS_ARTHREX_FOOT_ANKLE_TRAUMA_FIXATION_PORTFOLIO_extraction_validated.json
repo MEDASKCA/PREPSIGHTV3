@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Arthrex Foot & ankle trauma fixation Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Foot and Ankle Trauma",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ARTHREX_FOOT_ANKLE_TRAUMA_FIXATION_PORTFOLIO_FOOT_AND_ANKLE_TRAUMA_FIXATION_PORTFOLIO_FAMILY",
+        "Component Name": "Foot and Ankle Trauma Fixation Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Foot and Ankle Trauma Workflow",
+        "System ID": "SYS_ARTHREX_FOOT_ANKLE_TRAUMA_FIXATION_PORTFOLIO",
+        "Component Notes": "Official Arthrex portfolio sources describe the broader foot and ankle trauma fixation workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Arthrex Foot & ankle trauma fixation Portfolio",
+          "supplier_name": "Arthrex",
+          "system_category": "Foot & ankle trauma fixation",
+          "system_notes": "Portfolio-level public anchor for Arthrex foot and ankle trauma fixation workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Arthrex Foot & ankle trauma fixation Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Foot & ankle trauma fixation",
+        "system_notes": "Portfolio-level public anchor for Arthrex foot and ankle trauma fixation workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Arthrex Foot & ankle trauma fixation Portfolio",
+        "supplier_name": "Arthrex",
+        "system_category": "Foot & ankle trauma fixation",
+        "system_notes": "Portfolio-level public anchor for Arthrex foot and ankle trauma fixation workflow resources."
+      }
+    }
+  ]
+}

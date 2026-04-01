@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "B. Braun",
+    "system_name": "Vascular Clamp Set",
+    "source_type": "catalogue_page",
+    "source_document": "AESCULAP Surgical Instruments",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_VASCULAR_CLAMP_SET_VASCULAR_CLAMP_FRAMEWORK",
+        "Component Name": "Vascular Clamp Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_VASCULAR_CLAMP_SET",
+        "Component Notes": "Framework component anchored to B. Braun public vascular-clamp source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Vascular Clamp Set",
+          "supplier_name": "B. Braun",
+          "system_category": "vascular_instruments",
+          "system_notes": "Official B. Braun Aesculap vascular-instrument materials used as the public source anchors for this vascular clamp set entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Vascular Clamp Set",
+        "supplier_name": "B. Braun",
+        "system_category": "vascular_instruments",
+        "system_notes": "Official B. Braun Aesculap vascular-instrument materials used as the public source anchors for this vascular clamp set entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Vascular Clamp Set",
+        "supplier_name": "B. Braun",
+        "system_category": "vascular_instruments",
+        "system_notes": "Official B. Braun Aesculap vascular-instrument materials used as the public source anchors for this vascular clamp set entry."
+      }
+    }
+  ]
+}

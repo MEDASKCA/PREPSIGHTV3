@@ -1,0 +1,137 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Triathlon Knee System",
+    "source_type": "surgical_protocol_compend",
+    "source_document": "Triathlon Knee System Surgical Protocol Compend",
+    "source_version": "TRIATH_SP_30_Rev-1_29865",
+    "source_date": "2025-11"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TRIATHLON_KNEE_SYSTEM_TRIATHLON_STANDARD_INSTRUMENTS",
+        "Tray Name": "Triathlon Standard Instruments",
+        "System ID": "SYS_TRIATHLON_KNEE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Standard instruments section is explicitly listed in the surgical protocol compend."
+      },
+      {
+        "Tray ID": "TRAY_TRIATHLON_KNEE_SYSTEM_TIBIAL_PREPARATION_AND_TRAY_ADDENDUM",
+        "Tray Name": "Tibial Preparation and Tray Addendum",
+        "System ID": "SYS_TRIATHLON_KNEE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Tibial preparation and tray addendum is explicitly listed in the surgical protocol compend."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TRIATHLON_KNEE_SYSTEM_TRIATHLON_FEMORAL_COMPONENT",
+        "Component Name": "Triathlon Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TRIATHLON_KNEE",
+        "Component Notes": "Femoral component compatibility is described in the surgical protocol compend."
+      },
+      {
+        "Component ID": "COMP_TRIATHLON_KNEE_SYSTEM_TRIATHLON_TIBIAL_BASEPLATE",
+        "Component Name": "Triathlon Tibial Baseplate",
+        "Component Role": "Tibial Baseplate",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TRIATHLON_KNEE",
+        "Component Notes": "Tibial baseplate compatibility includes cemented, universal, beaded and Tritanium options."
+      },
+      {
+        "Component ID": "COMP_TRIATHLON_KNEE_SYSTEM_TRIATHLON_TIBIAL_INSERT",
+        "Component Name": "Triathlon Tibial Insert",
+        "Component Role": "Tibial Insert",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TRIATHLON_KNEE",
+        "Component Notes": "Insert compatibility includes CR, CS, PS, PSR and TS options."
+      },
+      {
+        "Component ID": "COMP_TRIATHLON_KNEE_SYSTEM_TRIATHLON_PATELLAR_COMPONENT",
+        "Component Name": "Triathlon Patellar Component",
+        "Component Role": "Patellar Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TRIATHLON_KNEE",
+        "Component Notes": "Patella compatibility includes asymmetric and symmetric patella options."
+      },
+      {
+        "Component ID": "COMP_TRIATHLON_KNEE_SYSTEM_TRIATHLON_FEMORAL_AUGMENT",
+        "Component Name": "Triathlon Femoral Augment",
+        "Component Role": "Femoral Augment",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TRIATHLON_KNEE",
+        "Component Notes": "Distal and posterior femoral augments are listed in the surgical protocol compend."
+      },
+      {
+        "Component ID": "COMP_TRIATHLON_KNEE_SYSTEM_TRIATHLON_TIBIAL_AUGMENT",
+        "Component Name": "Triathlon Tibial Augment",
+        "Component Role": "Tibial Augment",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TRIATHLON_KNEE",
+        "Component Notes": "Tibial augments are listed in the surgical protocol compend."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Triathlon Knee System",
+          "supplier_name": "Stryker",
+          "system_category": "Knee Arthroplasty System",
+          "system_notes": "Primary total knee arthroplasty platform with standard, express, MIS and single-use instrumentation pathways."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Triathlon Knee System",
+        "supplier_name": "Stryker",
+        "system_category": "Knee Arthroplasty System",
+        "system_notes": "Primary total knee arthroplasty platform with standard, express, MIS and single-use instrumentation pathways."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Triathlon Knee System",
+        "supplier_name": "Stryker",
+        "system_category": "Knee Arthroplasty System",
+        "system_notes": "Primary total knee arthroplasty platform with standard, express, MIS and single-use instrumentation pathways."
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Endocrine Surgery Information System",
+    "source_type": "society_homepage",
+    "source_document": "AAES / ESES Endocrine Surgery Resources",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "System ID": "SYS_UNASSIGNED_ENDOCRINE_SURGERY_INFORMATION_SYSTEM",
+        "System Name": "Endocrine Surgery Information System",
+        "Supplier ID": "SUP_UNASSIGNED",
+        "System Category": "Perioperative Specialty Workflow",
+        "System Notes": "Public source anchor for endocrine surgery information, education, and specialty workflow support."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ENDOCRINE_SURGERY_INFORMATION_SYSTEM_ENDOCRINE_SURGERY_WORKFLOW_FRAMEWORK",
+        "Component Name": "Endocrine Surgery Workflow Framework",
+        "Component Role": "Workflow Framework",
+        "Implant Category": "Service Line Information Workflow",
+        "System ID": "SYS_UNASSIGNED_ENDOCRINE_SURGERY_INFORMATION_SYSTEM",
+        "Component Notes": "AAES and ESES resources describe endocrine surgery guidelines, education, and specialty workflow support."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": []
+}

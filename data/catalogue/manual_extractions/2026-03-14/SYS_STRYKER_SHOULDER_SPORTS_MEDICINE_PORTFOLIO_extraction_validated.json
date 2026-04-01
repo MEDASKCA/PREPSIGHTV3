@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Stryker Shoulder sports medicine Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Shoulder Sports Medicine",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_STRYKER_SHOULDER_SPORTS_MEDICINE_PORTFOLIO_SHOULDER_SPORTS_MEDICINE_PORTFOLIO_FAMILY",
+        "Component Name": "Shoulder Sports Medicine Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Sports Medicine Workflow",
+        "System ID": "SYS_STRYKER_SHOULDER_SPORTS_MEDICINE_PORTFOLIO",
+        "Component Notes": "Official Stryker portfolio sources describe the broader shoulder sports medicine workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Stryker Shoulder sports medicine Portfolio",
+          "supplier_name": "Stryker",
+          "system_category": "Shoulder sports medicine",
+          "system_notes": "Portfolio-level public anchor for Stryker shoulder sports medicine workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Stryker Shoulder sports medicine Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "Shoulder sports medicine",
+        "system_notes": "Portfolio-level public anchor for Stryker shoulder sports medicine workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Stryker Shoulder sports medicine Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "Shoulder sports medicine",
+        "system_notes": "Portfolio-level public anchor for Stryker shoulder sports medicine workflow resources."
+      }
+    }
+  ]
+}

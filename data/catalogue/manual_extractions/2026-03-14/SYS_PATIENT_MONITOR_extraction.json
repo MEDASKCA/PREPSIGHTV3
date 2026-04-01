@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Edwards Lifesciences",
+    "system_name": "Patient Monitor",
+    "source_type": "technology_page",
+    "source_document": "Hemodynamic Monitoring",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Patient Monitor",
+      "supplier_name": "Edwards Lifesciences",
+      "system_category": "Monitoring",
+      "system_notes": "Public source anchor for the Edwards Lifesciences perioperative and hemodynamic monitoring platform."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Edwards Monitoring Platform Family",
+      "system_name": "Patient Monitor",
+      "component_role": "Portfolio Family",
+      "implant_category": "Perioperative Monitoring Workflow",
+      "component_notes": "Official Edwards Lifesciences sources describe the broader perioperative monitoring platform family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Public monitoring platform pages do not describe a dedicated tray in the current pass.",
+      "reason": "Tray detail should only be added from narrower accessory or module sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public technology pages do not expose a normalized product-code matrix in this pass.",
+      "reason": "Product codes should be captured from ordering guides or narrower monitor model sources.",
+      "source_excerpt": "Current extraction remains high-level only."
+    }
+  ]
+}

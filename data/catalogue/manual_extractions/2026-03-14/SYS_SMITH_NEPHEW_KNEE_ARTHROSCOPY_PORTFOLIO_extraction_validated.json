@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Smith+Nephew Knee Arthroscopy Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Knee Arthroscopy",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_SMITH_NEPHEW_KNEE_ARTHROSCOPY_PORTFOLIO_KNEE_ARTHROSCOPY_PORTFOLIO_FAMILY",
+        "Component Name": "Knee Arthroscopy Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Arthroscopy Workflow",
+        "System ID": "SYS_SMITH_NEPHEW_KNEE_ARTHROSCOPY_PORTFOLIO",
+        "Component Notes": "Official Smith+Nephew portfolio sources describe the broader knee arthroscopy workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Smith+Nephew Knee Arthroscopy Portfolio",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Knee arthroscopy",
+          "system_notes": "Portfolio-level public anchor for Smith+Nephew knee arthroscopy, sports medicine, and procedural workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Smith+Nephew Knee Arthroscopy Portfolio",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Knee arthroscopy",
+        "system_notes": "Portfolio-level public anchor for Smith+Nephew knee arthroscopy, sports medicine, and procedural workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Smith+Nephew Knee Arthroscopy Portfolio",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Knee arthroscopy",
+        "system_notes": "Portfolio-level public anchor for Smith+Nephew knee arthroscopy, sports medicine, and procedural workflow resources."
+      }
+    }
+  ]
+}

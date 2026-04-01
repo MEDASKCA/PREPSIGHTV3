@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "FastFix 360 Meniscal Repair",
+    "source_type": "product_page",
+    "source_document": "FAST-FIX 360 Meniscal Repair System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "FastFix 360 Meniscal Repair",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Meniscal Repair — All-Inside",
+      "system_notes": "All-inside meniscal repair platform within the Smith+Nephew sports medicine portfolio."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "FAST-FIX Meniscal Repair Instrumentation",
+      "system_name": "FastFix 360 Meniscal Repair",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Smith+Nephew materials describe dedicated FAST-FIX delivery instrumentation for all-inside meniscal repair."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "FAST-FIX 360 Meniscal Repair Device",
+      "system_name": "FastFix 360 Meniscal Repair",
+      "component_role": "Repair Device",
+      "implant_category": "Soft Tissue Fixation",
+      "component_notes": "Official Smith+Nephew materials describe the FAST-FIX 360 delivery construct used for all-inside meniscal repair."
+    },
+    {
+      "component_name": "FAST-FIX FLEX Meniscal Repair Device",
+      "system_name": "FastFix 360 Meniscal Repair",
+      "component_role": "Curved Repair Device",
+      "implant_category": "Soft Tissue Fixation",
+      "component_notes": "Official Smith+Nephew materials describe the curved FAST-FIX FLEX delivery construct."
+    },
+    {
+      "component_name": "FAST-FIX Inserter",
+      "system_name": "FastFix 360 Meniscal Repair",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official sports medicine materials describe the dedicated delivery instrumentation workflow for the FAST-FIX system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official sources confirm the FAST-FIX meniscal repair family and delivery instrumentation, but a full normalized product-code matrix has not yet been extracted in this pass.",
+      "reason": "A deeper ordering guide or product-matrix pass is required for comprehensive product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

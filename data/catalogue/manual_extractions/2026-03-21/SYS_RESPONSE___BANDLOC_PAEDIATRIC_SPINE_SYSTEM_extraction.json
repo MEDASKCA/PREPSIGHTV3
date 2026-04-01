@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "OrthoPediatrics",
+    "system_name": "RESPONSE / BandLoc Paediatric Spine System",
+    "source_type": "product_page",
+    "source_document": "RESPONSE 4.5/5.0 - OrthoPediatrics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "RESPONSE / BandLoc Paediatric Spine System",
+      "supplier_name": "OrthoPediatrics",
+      "system_category": "paediatric_spine",
+      "system_notes": "Official OrthoPediatrics paediatric spine materials used as the public source anchors for this paediatric spine system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Paediatric Spine System Framework",
+      "system_name": "RESPONSE / BandLoc Paediatric Spine System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Paediatric Spine",
+      "component_notes": "Framework component anchored to OrthoPediatrics public paediatric spine source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public paediatric spine system source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "RESPONSE 4.5/5.0 - OrthoPediatrics; BandLoc - OrthoPediatrics"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public paediatric spine system source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "RESPONSE 4.5/5.0 - OrthoPediatrics; BandLoc - OrthoPediatrics"
+    }
+  ]
+}

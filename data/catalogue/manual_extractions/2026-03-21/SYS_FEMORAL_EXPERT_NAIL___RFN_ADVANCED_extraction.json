@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Femoral Expert Nail / RFN-Advanced",
+    "source_type": "product_page",
+    "source_document": "RFN-ADVANCED Retrograde Femoral Nailing System | DePuy Synthes | J&J MedTech US",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Femoral Expert Nail / RFN-Advanced",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "trauma",
+      "system_notes": "Official DePuy Synthes femoral nailing materials used as the public source anchors for this femoral nail entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Femoral Nail Framework",
+      "system_name": "Femoral Expert Nail / RFN-Advanced",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to DePuy Synthes public femoral nailing source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public femoral nailing source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "RFN-ADVANCED Retrograde Femoral Nailing System; Expert Femoral Nail | DePuy Synthes"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public femoral nailing source anchors do not provide a complete SKU-level extraction for this system entry.",
+      "source_excerpt": "RFN-ADVANCED Retrograde Femoral Nailing System; Expert Femoral Nail | DePuy Synthes"
+    }
+  ]
+}

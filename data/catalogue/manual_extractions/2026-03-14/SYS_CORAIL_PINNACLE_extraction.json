@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Corail / Pinnacle",
+    "source_type": "product_page",
+    "source_document": "CORAIL Total Hip System and PINNACLE Acetabular Cup System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Corail / Pinnacle",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Primary total hip arthroplasty platform combining the CORAIL femoral stem family with the PINNACLE acetabular cup system."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Corail / Pinnacle Instrumentation",
+      "system_name": "Corail / Pinnacle",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official product materials support the combined stem and acetabular platform with dedicated operative instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "CORAIL Femoral Stem",
+      "system_name": "Corail / Pinnacle",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official DePuy Synthes materials describe CORAIL as the HA-coated primary femoral stem family."
+    },
+    {
+      "component_name": "PINNACLE Acetabular Cup",
+      "system_name": "Corail / Pinnacle",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official product materials describe PINNACLE as the core acetabular cup family."
+    },
+    {
+      "component_name": "PINNACLE Acetabular Liner",
+      "system_name": "Corail / Pinnacle",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official product materials describe crosslinked polyethylene and related PINNACLE liner options."
+    },
+    {
+      "component_name": "ARTICUL/EZE Femoral Head",
+      "system_name": "Corail / Pinnacle",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "DePuy hip portfolio materials pair the platform with modular femoral head options."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Public-facing source pages describe the implant families but do not expose a direct SKU table in this pass.",
+      "reason": "A deeper brochure or IFU pass is required for product-code expansion.",
+      "source_excerpt": "Current extraction captures tray and implant-family rows only."
+    }
+  ]
+}

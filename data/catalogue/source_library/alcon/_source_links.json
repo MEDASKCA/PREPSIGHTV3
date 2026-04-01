@@ -1,0 +1,22 @@
+[
+  {
+    "supplier_id": "SUP_ALCON",
+    "supplier_name": "Alcon",
+    "system_id": "SYS_CENTURION",
+    "system_name": "Centurion Vision System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "CENTURION Vision System with ACTIVE SENTRY",
+        "url": "https://www.myalcon.com/professional/cataract-surgery/phacoemulsification-systems/centurion-vision-system/",
+        "notes": "Official Alcon cataract surgery product page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Cataract Surgery",
+        "url": "https://www.myalcon.com/professional/cataract-surgery/",
+        "notes": "Official Alcon cataract surgery page used as broader workflow context."
+      }
+    ]
+  }
+]

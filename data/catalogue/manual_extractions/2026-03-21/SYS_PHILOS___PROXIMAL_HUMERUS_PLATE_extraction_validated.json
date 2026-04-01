@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "PHILOS / Proximal Humerus Plate",
+    "source_type": "product_page",
+    "source_document": "3.5 mm LCP Proximal Humerus Plates",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PHILOS_PROXIMAL_HUMERUS_PLATE_PROXIMAL_HUMERUS_PLATE_FRAMEWORK",
+        "Component Name": "Proximal Humerus Plate Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Upper Extremity Trauma",
+        "System ID": "SYS_PHILOS___PROXIMAL_HUMERUS_PLATE",
+        "Component Notes": "Framework component anchored to DePuy Synthes public proximal humerus plating source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "PHILOS / Proximal Humerus Plate",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "upper_extremity_trauma",
+          "system_notes": "Official DePuy Synthes proximal humerus plating materials used as the public source anchors for this upper-extremity trauma plate entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "PHILOS / Proximal Humerus Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "upper_extremity_trauma",
+        "system_notes": "Official DePuy Synthes proximal humerus plating materials used as the public source anchors for this upper-extremity trauma plate entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "PHILOS / Proximal Humerus Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "upper_extremity_trauma",
+        "system_notes": "Official DePuy Synthes proximal humerus plating materials used as the public source anchors for this upper-extremity trauma plate entry."
+      }
+    }
+  ]
+}

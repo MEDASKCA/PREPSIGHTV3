@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "UK Foot & Ankle Trauma Distribution Portfolio",
+    "source_type": "supplier_homepage",
+    "source_document": "LEDA Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_UK_FOOT_ANKLE_TRAUMA_DISTRIBUTION_PORTFOLIO_FOOT_AND_ANKLE_TRAUMA_DISTRIBUTION_FRAMEWORK",
+        "Component Name": "Foot and Ankle Trauma Distribution Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_UK_FOOT___ANKLE_TRAUMA_DISTRIBUTION_PORTFOLIO",
+        "Component Notes": "Framework component anchored to LEDA public company and extremities catalogue materials used as closest-match distribution evidence."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "UK Foot & Ankle Trauma Distribution Portfolio",
+          "supplier_name": "LEDA Orthopaedics",
+          "system_category": "foot_ankle_trauma",
+          "system_notes": "Official LEDA Orthopaedics homepage, carbon footprint report, and Extremities and Osteosynthesis Ranges brochure used as the source anchors for the UK foot and ankle trauma distribution portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "UK Foot & Ankle Trauma Distribution Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "foot_ankle_trauma",
+        "system_notes": "Official LEDA Orthopaedics homepage, carbon footprint report, and Extremities and Osteosynthesis Ranges brochure used as the source anchors for the UK foot and ankle trauma distribution portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "UK Foot & Ankle Trauma Distribution Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "foot_ankle_trauma",
+        "system_notes": "Official LEDA Orthopaedics homepage, carbon footprint report, and Extremities and Osteosynthesis Ranges brochure used as the source anchors for the UK foot and ankle trauma distribution portfolio entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Medtronic Navigation + Spine Portfolio",
+    "source_type": "product_page",
+    "source_document": "StealthStation S8 Navigation Platform | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Medtronic Navigation + Spine Portfolio",
+      "supplier_name": "Medtronic",
+      "system_category": "spine",
+      "system_notes": "Official Medtronic navigation and spine-enablement materials used as the public source anchors for this navigation and spine portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Navigation and Spine Framework",
+      "system_name": "Medtronic Navigation + Spine Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Framework component anchored to Medtronic public navigation and spine source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public navigation spine source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "StealthStation S8 Navigation Platform | Medtronic; Mazor Robotic Guidance System | Medtronic; Medtronic expands AiBLE spine surgery ecosystem with new technologies and Siemens Healthineers partnership"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public navigation spine source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "StealthStation S8 Navigation Platform | Medtronic; Mazor Robotic Guidance System | Medtronic; Medtronic expands AiBLE spine surgery ecosystem with new technologies and Siemens Healthineers partnership"
+    }
+  ]
+}

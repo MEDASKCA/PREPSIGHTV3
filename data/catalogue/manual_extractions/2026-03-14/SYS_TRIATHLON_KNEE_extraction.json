@@ -1,0 +1,86 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Triathlon Knee System",
+    "source_type": "surgical_protocol_compend",
+    "source_document": "Triathlon Knee System Surgical Protocol Compend",
+    "source_version": "TRIATH_SP_30_Rev-1_29865",
+    "source_date": "2025-11"
+  },
+  "systems": [
+    {
+      "system_name": "Triathlon Knee System",
+      "supplier_name": "Stryker",
+      "system_category": "Knee Arthroplasty System",
+      "system_notes": "Primary total knee arthroplasty platform with standard, express, MIS and single-use instrumentation pathways."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Triathlon Standard Instruments",
+      "system_name": "Triathlon Knee System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Standard instruments section is explicitly listed in the surgical protocol compend."
+    },
+    {
+      "tray_name": "Tibial Preparation and Tray Addendum",
+      "system_name": "Triathlon Knee System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Tibial preparation and tray addendum is explicitly listed in the surgical protocol compend."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Triathlon Femoral Component",
+      "system_name": "Triathlon Knee System",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Femoral component compatibility is described in the surgical protocol compend."
+    },
+    {
+      "component_name": "Triathlon Tibial Baseplate",
+      "system_name": "Triathlon Knee System",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Tibial baseplate compatibility includes cemented, universal, beaded and Tritanium options."
+    },
+    {
+      "component_name": "Triathlon Tibial Insert",
+      "system_name": "Triathlon Knee System",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Insert compatibility includes CR, CS, PS, PSR and TS options."
+    },
+    {
+      "component_name": "Triathlon Patellar Component",
+      "system_name": "Triathlon Knee System",
+      "component_role": "Patellar Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Patella compatibility includes asymmetric and symmetric patella options."
+    },
+    {
+      "component_name": "Triathlon Femoral Augment",
+      "system_name": "Triathlon Knee System",
+      "component_role": "Femoral Augment",
+      "implant_category": "Knee Implant",
+      "component_notes": "Distal and posterior femoral augments are listed in the surgical protocol compend."
+    },
+    {
+      "component_name": "Triathlon Tibial Augment",
+      "system_name": "Triathlon Knee System",
+      "component_role": "Tibial Augment",
+      "implant_category": "Knee Implant",
+      "component_notes": "Tibial augments are listed in the surgical protocol compend."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Femoral component, patella and tibial insert/baseplate compatibility tables are present but not fully expanded into SKU-level implant rows.",
+      "reason": "SKU-level implant catalogue rows need deeper source parsing from the compend or IFU set.",
+      "source_excerpt": "Compatibility tables identify component families but not a full final SKU list in this extraction pass."
+    }
+  ]
+}

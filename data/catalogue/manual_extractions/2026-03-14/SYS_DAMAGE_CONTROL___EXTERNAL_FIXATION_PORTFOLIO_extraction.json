@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Orthofix",
+    "system_name": "Damage Control / External Fixation Portfolio",
+    "source_type": "product_page",
+    "source_document": "ProCallus Hybrid Fixation and TL-HEX TrueLok Hexapod System Trauma",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Damage Control / External Fixation Portfolio",
+      "supplier_name": "Orthofix",
+      "system_category": "External Fixation System",
+      "system_notes": "Damage-control and complex-fracture external fixation platform."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Damage Control External Fixation Instrumentation",
+      "system_name": "Damage Control / External Fixation Portfolio",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated hybrid and external fixation instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Damage Control Ring",
+      "system_name": "Damage Control / External Fixation Portfolio",
+      "component_role": "Ring",
+      "implant_category": "External Fixation Implant",
+      "component_notes": "Ring family referenced in the source materials."
+    },
+    {
+      "component_name": "Damage Control Strut",
+      "system_name": "Damage Control / External Fixation Portfolio",
+      "component_role": "Strut",
+      "implant_category": "External Fixation Implant",
+      "component_notes": "Strut family referenced in the source materials."
+    },
+    {
+      "component_name": "Damage Control Wire",
+      "system_name": "Damage Control / External Fixation Portfolio",
+      "component_role": "Wire",
+      "implant_category": "External Fixation Implant",
+      "component_notes": "Wire family referenced in the source materials."
+    },
+    {
+      "component_name": "Damage Control Half Pin",
+      "system_name": "Damage Control / External Fixation Portfolio",
+      "component_role": "Half Pin",
+      "implant_category": "External Fixation Implant",
+      "component_notes": "Half pin family referenced in the source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Portfolio includes multiple hybrid fixation configurations and accessory options.",
+      "reason": "Needs deeper IFU or technique review before detailed construct expansion.",
+      "source_excerpt": "Current extraction keeps the core external fixation construct families only."
+    }
+  ]
+}

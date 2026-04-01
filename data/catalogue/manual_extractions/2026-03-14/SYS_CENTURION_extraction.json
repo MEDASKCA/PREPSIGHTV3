@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Alcon",
+    "system_name": "Centurion Vision System",
+    "source_type": "product_page",
+    "source_document": "CENTURION Vision System with ACTIVE SENTRY",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Centurion Vision System",
+      "supplier_name": "Alcon",
+      "system_category": "Phacoemulsification System",
+      "system_notes": "Public source anchor for the Alcon CENTURION cataract surgery phacoemulsification platform."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "CENTURION Vision Platform Family",
+      "system_name": "Centurion Vision System",
+      "component_role": "Portfolio Family",
+      "implant_category": "Phacoemulsification Workflow",
+      "component_notes": "Official Alcon sources describe the broader CENTURION vision platform family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Public ophthalmic platform sources do not describe a dedicated tray in the current pass.",
+      "reason": "Tray detail should only be added from narrower cassette, pack, or accessory sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public product pages do not expose a normalized product-code matrix in this pass.",
+      "reason": "Product codes should be captured from ordering guides or narrower consumable and accessory SKU sources.",
+      "source_excerpt": "Current extraction remains high-level only."
+    }
+  ]
+}

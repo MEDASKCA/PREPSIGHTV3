@@ -1,0 +1,58 @@
+{
+  "source_meta": {
+    "supplier_name": "Philips",
+    "system_name": "Capnography Monitor",
+    "source_type": "technology_page",
+    "source_document": "Capnography Monitoring",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "System ID": "SYS_PHILIPS_CAPNOGRAPHY_MONITOR",
+        "System Name": "Capnography Monitor",
+        "Supplier ID": "SUP_PHILIPS_2",
+        "System Category": "Monitoring",
+        "System Notes": "Public source anchor for the Philips capnography monitoring platform."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CAPNOGRAPHY_MONITOR_PHILIPS_CAPNOGRAPHY_MONITORING_FAMILY",
+        "Component Name": "Philips Capnography Monitoring Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Monitoring Workflow",
+        "System ID": "SYS_PHILIPS_CAPNOGRAPHY_MONITOR",
+        "Component Notes": "Official Philips sources describe the broader capnography monitoring family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": []
+}

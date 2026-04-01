@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "CPT / Bipolar Head",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "CPT 12/14 Hip System Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_CPT_BIPOLAR_HEAD_CPT_BIPOLAR_INSTRUMENTATION",
+        "Tray Name": "CPT / Bipolar Instrumentation",
+        "System ID": "SYS_CPT_BIPOLAR",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official CPT stem materials support a dedicated cemented hip stem instrumentation workflow applicable to the hemiarthroplasty construct."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CPT_BIPOLAR_HEAD_CPT_FEMORAL_STEM",
+        "Component Name": "CPT Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CPT_BIPOLAR",
+        "Component Notes": "Official CPT materials describe the polished taper cemented femoral stem family."
+      },
+      {
+        "Component ID": "COMP_CPT_BIPOLAR_HEAD_BIPOLAR_HEAD",
+        "Component Name": "Bipolar Head",
+        "Component Role": "Bipolar Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CPT_BIPOLAR",
+        "Component Notes": "Bipolar femoral head component used with the cemented CPT hemiarthroplasty construct."
+      },
+      {
+        "Component ID": "COMP_CPT_BIPOLAR_HEAD_INNER_FEMORAL_HEAD",
+        "Component Name": "Inner Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_CPT_BIPOLAR",
+        "Component Notes": "Inner modular femoral head component compatible with the CPT 12/14 taper within the bipolar construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "CPT / Bipolar Head",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Hip Hemiarthroplasty System",
+          "system_notes": "Cemented hemiarthroplasty construct anchored to official Zimmer Biomet CPT stem materials with bipolar head compatibility inferred only at component-family level."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "CPT / Bipolar Head",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Hip Hemiarthroplasty System",
+        "system_notes": "Cemented hemiarthroplasty construct anchored to official Zimmer Biomet CPT stem materials with bipolar head compatibility inferred only at component-family level."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "CPT / Bipolar Head",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Hip Hemiarthroplasty System",
+        "system_notes": "Cemented hemiarthroplasty construct anchored to official Zimmer Biomet CPT stem materials with bipolar head compatibility inferred only at component-family level."
+      }
+    }
+  ]
+}

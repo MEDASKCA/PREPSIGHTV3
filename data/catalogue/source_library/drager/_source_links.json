@@ -1,0 +1,22 @@
+[
+  {
+    "supplier_id": "SUP_DRAGER",
+    "supplier_name": "Dräger",
+    "system_id": "SYS_ANAESTHESIA_MACHINE",
+    "system_name": "Anaesthesia Machine",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Anesthesia Workstations",
+        "url": "https://www.draeger.com/en-us_us/Hospital/Anesthesia-Workstations",
+        "notes": "Official Dräger anesthesia workstations page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Perioperative Care",
+        "url": "https://www.draeger.com/en-us_us/Hospital/Perioperative-Care",
+        "notes": "Official Dräger perioperative care page used as broader workflow context."
+      }
+    ]
+  }
+]

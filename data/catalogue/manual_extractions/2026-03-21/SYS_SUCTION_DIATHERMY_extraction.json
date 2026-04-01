@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Suction Diathermy Set",
+    "source_type": "product_page",
+    "source_document": "Valleylab Suction Coagulator | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Suction Diathermy Set",
+      "supplier_name": "Medtronic",
+      "system_category": "surgical_energy",
+      "system_notes": "Official Medtronic suction-coagulation and electrosurgical-energy materials used as the closest current public source anchors for this suction diathermy set entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Suction Diathermy Framework",
+      "system_name": "Suction Diathermy Set",
+      "component_role": "Portfolio Framework",
+      "implant_category": "General Surgery",
+      "component_notes": "Framework component anchored to Medtronic public suction coagulation and electrosurgical source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public suction-diathermy source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Valleylab Suction Coagulator | Medtronic; PlasmaBlade - Indications, Safety, Warnings | Medtronic; Valleylab FX8 Energy Platform | Medtronic"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public suction-diathermy source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Valleylab Suction Coagulator | Medtronic; PlasmaBlade - Indications, Safety, Warnings | Medtronic; Valleylab FX8 Energy Platform | Medtronic"
+    }
+  ]
+}

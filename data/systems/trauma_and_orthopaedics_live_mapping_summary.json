@@ -1,0 +1,667 @@
+[
+  {
+    "subspecialty": "Arthroplasty",
+    "anatomy": "Hip",
+    "procedures": 31,
+    "variants": 13,
+    "systems": 341
+  },
+  {
+    "subspecialty": "Arthroplasty",
+    "anatomy": "Knee",
+    "procedures": 23,
+    "variants": 10,
+    "systems": 214
+  },
+  {
+    "subspecialty": "Arthroplasty",
+    "anatomy": "Shoulder",
+    "procedures": 12,
+    "variants": 8,
+    "systems": 194
+  },
+  {
+    "subspecialty": "Arthroplasty",
+    "anatomy": "Elbow",
+    "procedures": 5,
+    "variants": 2,
+    "systems": 40
+  },
+  {
+    "subspecialty": "Arthroplasty",
+    "anatomy": "Ankle",
+    "procedures": 2,
+    "variants": 2,
+    "systems": 48
+  },
+  {
+    "subspecialty": "Arthroplasty",
+    "anatomy": "Wrist",
+    "procedures": 1,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Arthroplasty",
+    "anatomy": "Hand",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Arthroplasty",
+    "anatomy": "Foot",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Foot & Ankle",
+    "anatomy": "Ankle",
+    "procedures": 18,
+    "variants": 4,
+    "systems": 54
+  },
+  {
+    "subspecialty": "Foot & Ankle",
+    "anatomy": "Hindfoot",
+    "procedures": 12,
+    "variants": 6,
+    "systems": 80
+  },
+  {
+    "subspecialty": "Foot & Ankle",
+    "anatomy": "Midfoot",
+    "procedures": 8,
+    "variants": 3,
+    "systems": 64
+  },
+  {
+    "subspecialty": "Foot & Ankle",
+    "anatomy": "Forefoot",
+    "procedures": 24,
+    "variants": 5,
+    "systems": 105
+  },
+  {
+    "subspecialty": "Foot & Ankle",
+    "anatomy": "Digits / Toes",
+    "procedures": 2,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Foot & Ankle",
+    "anatomy": "Foot",
+    "procedures": 15,
+    "variants": 2,
+    "systems": 10
+  },
+  {
+    "subspecialty": "Hand & Wrist",
+    "anatomy": "Wrist",
+    "procedures": 28,
+    "variants": 8,
+    "systems": 44
+  },
+  {
+    "subspecialty": "Hand & Wrist",
+    "anatomy": "Hand",
+    "procedures": 19,
+    "variants": 6,
+    "systems": 17
+  },
+  {
+    "subspecialty": "Hand & Wrist",
+    "anatomy": "Digits",
+    "procedures": 17,
+    "variants": 4,
+    "systems": 8
+  },
+  {
+    "subspecialty": "Hand & Wrist",
+    "anatomy": "Forearm",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Hip Preservation",
+    "anatomy": "Hip",
+    "procedures": 7,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Limb Reconstruction / Deformity",
+    "anatomy": "Femur",
+    "procedures": 4,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Limb Reconstruction / Deformity",
+    "anatomy": "Tibia",
+    "procedures": 4,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Limb Reconstruction / Deformity",
+    "anatomy": "Fibula",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Limb Reconstruction / Deformity",
+    "anatomy": "Upper Limb",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Limb Reconstruction / Deformity",
+    "anatomy": "Whole Limb",
+    "procedures": 3,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Limb Reconstruction / Deformity",
+    "anatomy": "Lower Limb",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Infection",
+    "anatomy": "Hip",
+    "procedures": 3,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Infection",
+    "anatomy": "Knee",
+    "procedures": 3,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Infection",
+    "anatomy": "Shoulder",
+    "procedures": 2,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Infection",
+    "anatomy": "Long Bones",
+    "procedures": 2,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Infection",
+    "anatomy": "Soft Tissue",
+    "procedures": 2,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Infection",
+    "anatomy": "Bone",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Infection",
+    "anatomy": "Joint",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Oncology",
+    "anatomy": "Bone",
+    "procedures": 19,
+    "variants": 8,
+    "systems": 42
+  },
+  {
+    "subspecialty": "Orthopaedic Oncology",
+    "anatomy": "Femur",
+    "procedures": 4,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Oncology",
+    "anatomy": "Tibia",
+    "procedures": 2,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Oncology",
+    "anatomy": "Humerus",
+    "procedures": 2,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Oncology",
+    "anatomy": "Pelvis",
+    "procedures": 4,
+    "variants": 2,
+    "systems": 12
+  },
+  {
+    "subspecialty": "Orthopaedic Oncology",
+    "anatomy": "Spine",
+    "procedures": 1,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Oncology",
+    "anatomy": "Soft Tissue",
+    "procedures": 2,
+    "variants": 4,
+    "systems": 40
+  },
+  {
+    "subspecialty": "Orthopaedic Oncology",
+    "anatomy": "Shoulder",
+    "procedures": 1,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Oncology",
+    "anatomy": "Acetabulum",
+    "procedures": 1,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Pelvis",
+    "procedures": 3,
+    "variants": 2,
+    "systems": 72
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Acetabulum",
+    "procedures": 3,
+    "variants": 2,
+    "systems": 72
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Shoulder",
+    "procedures": 2,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Clavicle",
+    "procedures": 2,
+    "variants": 2,
+    "systems": 72
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Elbow",
+    "procedures": 7,
+    "variants": 8,
+    "systems": 162
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Forearm",
+    "procedures": 5,
+    "variants": 2,
+    "systems": 72
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Wrist",
+    "procedures": 7,
+    "variants": 8,
+    "systems": 327
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Hand",
+    "procedures": 3,
+    "variants": 2,
+    "systems": 72
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Digits",
+    "procedures": 5,
+    "variants": 2,
+    "systems": 72
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Hip",
+    "procedures": 4,
+    "variants": 4,
+    "systems": 77
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Femur",
+    "procedures": 7,
+    "variants": 8,
+    "systems": 268
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Knee",
+    "procedures": 1,
+    "variants": 2,
+    "systems": 51
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Patella",
+    "procedures": 1,
+    "variants": 2,
+    "systems": 72
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Tibia",
+    "procedures": 6,
+    "variants": 5,
+    "systems": 195
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Fibula",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Ankle",
+    "procedures": 6,
+    "variants": 4,
+    "systems": 96
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Hindfoot",
+    "procedures": 3,
+    "variants": 4,
+    "systems": 146
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Midfoot",
+    "procedures": 1,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Forefoot",
+    "procedures": 1,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Foot",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Bone",
+    "procedures": 15,
+    "variants": 4,
+    "systems": 114
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Humerus",
+    "procedures": 2,
+    "variants": 5,
+    "systems": 188
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Distal Femur",
+    "procedures": 1,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Orthopaedic Trauma",
+    "anatomy": "Distal Tibia",
+    "procedures": 1,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Hip",
+    "procedures": 6,
+    "variants": 2,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Spine",
+    "procedures": 5,
+    "variants": 2,
+    "systems": 14
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Lower Limb",
+    "procedures": 7,
+    "variants": 4,
+    "systems": 38
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Foot",
+    "procedures": 5,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Upper Limb",
+    "procedures": 1,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Femur",
+    "procedures": 7,
+    "variants": 2,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Tibia",
+    "procedures": 6,
+    "variants": 4,
+    "systems": 9
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Pelvis",
+    "procedures": 1,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Elbow",
+    "procedures": 3,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Forearm",
+    "procedures": 2,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Knee",
+    "procedures": 2,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Paediatric Orthopaedics",
+    "anatomy": "Wrist",
+    "procedures": 1,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Revision Arthroplasty",
+    "anatomy": "Hip",
+    "procedures": 4,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Revision Arthroplasty",
+    "anatomy": "Knee",
+    "procedures": 4,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Revision Arthroplasty",
+    "anatomy": "Shoulder",
+    "procedures": 4,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Revision Arthroplasty",
+    "anatomy": "Elbow",
+    "procedures": 2,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Shoulder & Elbow",
+    "anatomy": "Shoulder",
+    "procedures": 32,
+    "variants": 11,
+    "systems": 65
+  },
+  {
+    "subspecialty": "Shoulder & Elbow",
+    "anatomy": "Elbow",
+    "procedures": 19,
+    "variants": 5,
+    "systems": 49
+  },
+  {
+    "subspecialty": "Shoulder & Elbow",
+    "anatomy": "Clavicle",
+    "procedures": 2,
+    "variants": 2,
+    "systems": 12
+  },
+  {
+    "subspecialty": "Shoulder & Elbow",
+    "anatomy": "Scapula",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Spine",
+    "anatomy": "Cervical Spine",
+    "procedures": 13,
+    "variants": 4,
+    "systems": 54
+  },
+  {
+    "subspecialty": "Spine",
+    "anatomy": "Thoracic Spine",
+    "procedures": 6,
+    "variants": 4,
+    "systems": 121
+  },
+  {
+    "subspecialty": "Spine",
+    "anatomy": "Lumbar Spine",
+    "procedures": 19,
+    "variants": 7,
+    "systems": 123
+  },
+  {
+    "subspecialty": "Spine",
+    "anatomy": "Spine",
+    "procedures": 26,
+    "variants": 6,
+    "systems": 138
+  },
+  {
+    "subspecialty": "Spine",
+    "anatomy": "Sacrum",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Sports & Knee",
+    "anatomy": "Knee",
+    "procedures": 55,
+    "variants": 17,
+    "systems": 153
+  },
+  {
+    "subspecialty": "Sports & Knee",
+    "anatomy": "Patella",
+    "procedures": 3,
+    "variants": 4,
+    "systems": 52
+  },
+  {
+    "subspecialty": "Sports & Knee",
+    "anatomy": "Shoulder",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Sports & Knee",
+    "anatomy": "Hip",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  },
+  {
+    "subspecialty": "Sports & Knee",
+    "anatomy": "Ankle",
+    "procedures": 0,
+    "variants": 0,
+    "systems": 0
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "AngioDynamics",
+    "system_name": "Endovenous Ablation Generator",
+    "source_type": "product_page",
+    "source_document": "The VenaCure EVLT System | AngioDynamics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Endovenous Ablation Generator",
+      "supplier_name": "AngioDynamics",
+      "system_category": "venous_ablation",
+      "system_notes": "Official AngioDynamics venous-ablation materials used as the public source anchors for this endovenous ablation generator entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Venous Ablation Framework",
+      "system_name": "Endovenous Ablation Generator",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to AngioDynamics public venous-ablation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public venous-ablation source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "The VenaCure EVLT System | AngioDynamics; AngioDynamics Launches VenaCure 1470nm Laser for Treatment of Varicose Veins; AngioDynamics Receives FDA Clearance for NeverTouch Direct Procedure Kit to be Used With the VenaCure EVLT System; Risk Information | AngioDynamics"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public venous-ablation source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "The VenaCure EVLT System | AngioDynamics; AngioDynamics Launches VenaCure 1470nm Laser for Treatment of Varicose Veins; AngioDynamics Receives FDA Clearance for NeverTouch Direct Procedure Kit to be Used With the VenaCure EVLT System; Risk Information | AngioDynamics"
+    }
+  ]
+}

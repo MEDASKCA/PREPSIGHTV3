@@ -1,0 +1,98 @@
+[
+  {
+    "supplier_id": "SUP_NEXTREMITY",
+    "supplier_name": "Nextremity",
+    "system_id": "SYS_CMC_ARTHROPLASTY___THUMB_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "CMC Arthroplasty / Thumb Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_parent_page",
+        "title": "Medartis | About us",
+        "url": "https://medartis.com/en/about-us",
+        "notes": "Current public parent-company page used as the supplier anchor because Nextremity became part of Medartis."
+      },
+      {
+        "source_type": "supplier_history_page",
+        "title": "Medartis | History",
+        "url": "https://medartis.com/en/about-us/history",
+        "notes": "Official Medartis history page states that Nextremity Solutions Inc. became part of Medartis in 2022."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Joint replacement | Medartis",
+        "url": "https://medartis.com/en/procedures/area-of-interest/hand/joint-replacement",
+        "notes": "Official Medartis hand joint replacement page used as the closest current public thumb CMC arthroplasty portfolio anchor."
+      },
+      {
+        "source_type": "product_news_pdf",
+        "title": "First TOUCH CMC 1 Prosthesis Implanted in the United States",
+        "url": "https://medartis.com/fileadmin/user_upload/008_About_us/002_News/Product_News/17_Sep_1st_TOUCH_Implant_-_Press_Release_US_FINAL.pdf",
+        "notes": "Official Medartis product news PDF used as current public evidence for thumb CMC arthroplasty activity in the Medartis portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_NEXTREMITY",
+    "supplier_name": "Nextremity",
+    "system_id": "SYS_BUNION_AND_FOREFOOT_PORTFOLIO",
+    "system_name": "Bunion and Forefoot Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_parent_page",
+        "title": "Medartis | About us",
+        "url": "https://medartis.com/en/about-us",
+        "notes": "Current public parent-company page used as the supplier anchor because Nextremity became part of Medartis."
+      },
+      {
+        "source_type": "supplier_history_page",
+        "title": "Medartis | History",
+        "url": "https://medartis.com/en/about-us/history",
+        "notes": "Official Medartis history page states that Nextremity Solutions Inc. became part of Medartis in 2022."
+      },
+      {
+        "source_type": "procedure_page",
+        "title": "Forefoot | Medartis",
+        "url": "https://medartis.com/en/procedures/area-of-interest/foot-ankle/forefoot",
+        "notes": "Official Medartis forefoot procedure page used as the closest current public bunion and forefoot portfolio anchor following the Nextremity acquisition."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Fore- and Midfoot System 2.0/2.3, 2.8 | Medartis",
+        "url": "https://medartis.com/en/solutions/lower-extremities/foot/fore-and-midfoot-system",
+        "notes": "Official Medartis fore- and midfoot fixation page used as supporting public evidence for bunion, forefoot osteotomy, and arthrodesis coverage in the current lower-extremity portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_NEXTREMITY",
+    "supplier_name": "Nextremity",
+    "system_id": "SYS_TOE___MTP_FUSION_PORTFOLIO",
+    "system_name": "Toe / MTP Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_parent_page",
+        "title": "Medartis | About us",
+        "url": "https://medartis.com/en/about-us",
+        "notes": "Current public parent-company page used as the supplier anchor because Nextremity became part of Medartis."
+      },
+      {
+        "source_type": "supplier_history_page",
+        "title": "Medartis | History",
+        "url": "https://medartis.com/en/about-us/history",
+        "notes": "Official Medartis history page states that Nextremity Solutions Inc. became part of Medartis in 2022."
+      },
+      {
+        "source_type": "procedure_page",
+        "title": "Forefoot | Medartis",
+        "url": "https://medartis.com/en/procedures/area-of-interest/foot-ankle/forefoot",
+        "notes": "Official Medartis forefoot procedure page used as the closest current public toe and MTP fusion portfolio anchor following the Nextremity acquisition."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Fore- and Midfoot System 2.0/2.3, 2.8 | Medartis",
+        "url": "https://medartis.com/en/solutions/lower-extremities/foot/fore-and-midfoot-system",
+        "notes": "Official Medartis fore- and midfoot fixation page used as supporting public evidence for toe and MTP arthrodesis coverage in the current lower-extremity portfolio."
+      }
+    ]
+  }
+]

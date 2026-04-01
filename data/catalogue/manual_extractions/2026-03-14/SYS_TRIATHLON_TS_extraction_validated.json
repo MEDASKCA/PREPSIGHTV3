@@ -1,0 +1,122 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Triathlon TS",
+    "source_type": "surgical_protocol_pdf",
+    "source_document": "Triathlon TS Knee System Surgical protocol",
+    "source_version": "TRITS_SP_1_Rev-3_30304",
+    "source_date": "2025-11"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TRIATHLON_TS_TRIATHLON_TS_REVISION_INSTRUMENTATION",
+        "Tray Name": "Triathlon TS Revision Instrumentation",
+        "System ID": "SYS_TRIATHLON_TS",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Triathlon TS revision materials support dedicated reamer-based revision instrumentation and component preparation workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TRIATHLON_TS_TRIATHLON_TS_FEMORAL_COMPONENT",
+        "Component Name": "Triathlon TS Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TRIATHLON_TS",
+        "Component Notes": "Official Triathlon TS materials describe the total stabilizer femoral component as the core revision femoral implant."
+      },
+      {
+        "Component ID": "COMP_TRIATHLON_TS_TRIATHLON_REVISION_BASEPLATE",
+        "Component Name": "Triathlon Revision Baseplate",
+        "Component Role": "Tibial Baseplate",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TRIATHLON_TS",
+        "Component Notes": "Official Triathlon TS materials describe the revision baseplate that extends the construct into revision workflows."
+      },
+      {
+        "Component ID": "COMP_TRIATHLON_TS_TRIATHLON_TS_INSERT_X3",
+        "Component Name": "Triathlon TS Insert X3",
+        "Component Role": "Tibial Insert",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TRIATHLON_TS",
+        "Component Notes": "Official Triathlon TS materials describe the TS insert X3 as the constrained polyethylene bearing option."
+      },
+      {
+        "Component ID": "COMP_TRIATHLON_TS_TRIATHLON_FEMORAL_DISTAL_AUGMENT",
+        "Component Name": "Triathlon Femoral Distal Augment",
+        "Component Role": "Femoral Augment",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TRIATHLON_TS",
+        "Component Notes": "The official surgical protocol lists Triathlon femoral distal augment options and catalog codes."
+      }
+    ],
+    "PRODUCTS": [
+      {
+        "SKU": "5542-A-101",
+        "Product Name": "Triathlon Femoral Distal Augment - 15mm #1 Left",
+        "Component ID": "COMP_TRIATHLON_TS_TRIATHLON_FEMORAL_DISTAL_AUGMENT",
+        "Packaging Type": "Implant",
+        "Product Notes": "Catalog code explicitly listed in the official Triathlon TS surgical protocol PDF."
+      }
+    ],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Triathlon TS",
+          "supplier_name": "Stryker",
+          "system_category": "Knee Revision System",
+          "system_notes": "Semi-constrained revision knee platform anchored to the official Stryker Triathlon TS revision page and surgical protocol."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Triathlon TS",
+        "supplier_name": "Stryker",
+        "system_category": "Knee Revision System",
+        "system_notes": "Semi-constrained revision knee platform anchored to the official Stryker Triathlon TS revision page and surgical protocol."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Triathlon TS",
+        "supplier_name": "Stryker",
+        "system_category": "Knee Revision System",
+        "system_notes": "Semi-constrained revision knee platform anchored to the official Stryker Triathlon TS revision page and surgical protocol."
+      }
+    }
+  ]
+}

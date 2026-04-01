@@ -1,0 +1,65 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Cardiothoracic Anaesthesia Workflow System",
+    "source_type": "practice_resources",
+    "source_document": "SCA Practice Resources / E-Manual of Cardiac Anesthesia",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [
+      {
+        "Supplier ID": "SUP_UNASSIGNED",
+        "Supplier Name": "Unassigned",
+        "Supplier Country": "",
+        "Supplier Notes": ""
+      }
+    ],
+    "SYSTEMS": [
+      {
+        "System ID": "SYS_UNASSIGNED_CARDIOTHORACIC_ANAESTHESIA_WORKFLOW_SYSTEM",
+        "System Name": "Cardiothoracic Anaesthesia Workflow System",
+        "Supplier ID": "SUP_UNASSIGNED",
+        "System Category": "Cardiothoracic Anaesthesia Workflow",
+        "System Notes": "Public source anchor for cardiothoracic anaesthesia workflow guidance and reference resources."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CARDIOTHORACIC_ANAESTHESIA_WORKFLOW_SYSTEM_CARDIOTHORACIC_ANAESTHESIA_WORKFLOW_FRAMEWORK",
+        "Component Name": "Cardiothoracic Anaesthesia Workflow Framework",
+        "Component Role": "Workflow Framework",
+        "Implant Category": "Perioperative Documentation Workflow",
+        "System ID": "SYS_UNASSIGNED_CARDIOTHORACIC_ANAESTHESIA_WORKFLOW_SYSTEM",
+        "Component Notes": "Official SCA resources describe clinical practice resources and a cardiac-anesthesia e-manual rather than a device-specific hardware set."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": []
+}

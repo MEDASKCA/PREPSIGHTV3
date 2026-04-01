@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Pelvic / Acetabular Plating System",
+    "source_type": "product_page",
+    "source_document": "Intrapelvic Acetabular System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PELVIC_ACETABULAR_PLATING_SYSTEM_PELVIC_ACETABULAR_PLATING_FRAMEWORK",
+        "Component Name": "Pelvic / Acetabular Plating Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_PELVIC___ACETABULAR_PLATING_SYSTEM",
+        "Component Notes": "Portfolio-level informational framework anchored to DePuy Synthes public pelvic and acetabular plating sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Pelvic / Acetabular Plating System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "trauma",
+          "system_notes": "Public DePuy Synthes intrapelvic acetabular, low-profile pelvic, and curved LCP plating materials used as the source anchors for the pelvic and acetabular plating system entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Pelvic / Acetabular Plating System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Public DePuy Synthes intrapelvic acetabular, low-profile pelvic, and curved LCP plating materials used as the source anchors for the pelvic and acetabular plating system entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Pelvic / Acetabular Plating System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Public DePuy Synthes intrapelvic acetabular, low-profile pelvic, and curved LCP plating materials used as the source anchors for the pelvic and acetabular plating system entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Regional Anaesthesia Workflow System",
+    "source_type": "society_homepage",
+    "source_document": "ASRA / ESRA Regional Anaesthesia Resources",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Regional Anaesthesia Workflow System",
+      "supplier_name": "Unassigned",
+      "system_category": "Perioperative Documentation",
+      "system_notes": "Public source anchor for regional anaesthesia workflow guidance, education, and practice support."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Regional Anaesthesia Workflow Framework",
+      "system_name": "Regional Anaesthesia Workflow System",
+      "component_role": "Workflow Framework",
+      "implant_category": "Perioperative Documentation Workflow",
+      "component_notes": "ASRA and ESRA resources describe hands-on education, workflow support, and practice guidance for regional anaesthesia."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Society workflow resources do not define a tray or instrument case for this regional anaesthesia workflow row.",
+      "reason": "Tray rows should only be added from device-specific block-set or site-specific cart sources.",
+      "source_excerpt": "Current extraction remains workflow-level only."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public society workflow resources do not provide normalized product codes.",
+      "reason": "Product rows should only be added from vendor-specific regional anaesthesia platforms if identified later.",
+      "source_excerpt": "Current extraction remains source-backed and high-level."
+    }
+  ]
+}

@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "STAR Total Ankle",
+    "source_type": "product_page",
+    "source_document": "STAR Ankle",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_STAR_TOTAL_ANKLE_STAR_ANKLE_INSTRUMENTATION",
+        "Tray Name": "STAR Ankle Instrumentation",
+        "System ID": "SYS_STAR_ANKLE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official STAR materials reference the surgical technique and dedicated ankle replacement instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_STAR_TOTAL_ANKLE_STAR_TIBIAL_COMPONENT",
+        "Component Name": "STAR Tibial Component",
+        "Component Role": "Tibial Component",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_STAR_ANKLE",
+        "Component Notes": "Official STAR materials describe the tibial implant as part of the mobile-bearing construct."
+      },
+      {
+        "Component ID": "COMP_STAR_TOTAL_ANKLE_STAR_TALAR_COMPONENT",
+        "Component Name": "STAR Talar Component",
+        "Component Role": "Talar Component",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_STAR_ANKLE",
+        "Component Notes": "Official STAR materials describe the talar implant as part of the three-component ankle replacement."
+      },
+      {
+        "Component ID": "COMP_STAR_TOTAL_ANKLE_STAR_MOBILE_BEARING_INSERT",
+        "Component Name": "STAR Mobile Bearing Insert",
+        "Component Role": "Poly Insert",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_STAR_ANKLE",
+        "Component Notes": "Official STAR materials describe the mobile-bearing polyethylene component within the system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "STAR Total Ankle",
+          "supplier_name": "Stryker",
+          "system_category": "Total Ankle Replacement System",
+          "system_notes": "Mobile-bearing total ankle arthroplasty platform for end-stage ankle arthritis with a three-component construct."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "STAR Total Ankle",
+        "supplier_name": "Stryker",
+        "system_category": "Total Ankle Replacement System",
+        "system_notes": "Mobile-bearing total ankle arthroplasty platform for end-stage ankle arthritis with a three-component construct."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "STAR Total Ankle",
+        "supplier_name": "Stryker",
+        "system_category": "Total Ankle Replacement System",
+        "system_notes": "Mobile-bearing total ankle arthroplasty platform for end-stage ankle arthritis with a three-component construct."
+      }
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Comprehensive Reverse Shoulder System",
+    "source_type": "product_page",
+    "source_document": "Comprehensive Reverse Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_COMPREHENSIVE_REVERSE_SHOULDER_SYSTEM_COMPREHENSIVE_REVERSE_INSTRUMENTATION",
+        "Tray Name": "Comprehensive Reverse Instrumentation",
+        "System ID": "SYS_COMPREHENSIVE_REVERSE_SHOULDER_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Zimmer Biomet materials support dedicated reverse shoulder instrumentation and linked technique resources."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_COMPREHENSIVE_REVERSE_SHOULDER_SYSTEM_COMPREHENSIVE_REVERSE_HUMERAL_STEM",
+        "Component Name": "Comprehensive Reverse Humeral Stem",
+        "Component Role": "Humeral Stem",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_COMPREHENSIVE_REVERSE_SHOULDER_SYSTEM",
+        "Component Notes": "Official materials describe the humeral stem platform used for reverse shoulder reconstruction."
+      },
+      {
+        "Component ID": "COMP_COMPREHENSIVE_REVERSE_SHOULDER_SYSTEM_COMPREHENSIVE_REVERSE_GLENOID_BASEPLATE",
+        "Component Name": "Comprehensive Reverse Glenoid Baseplate",
+        "Component Role": "Baseplate",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_COMPREHENSIVE_REVERSE_SHOULDER_SYSTEM",
+        "Component Notes": "Official materials describe the reverse glenoid baseplate fixation platform."
+      },
+      {
+        "Component ID": "COMP_COMPREHENSIVE_REVERSE_SHOULDER_SYSTEM_COMPREHENSIVE_REVERSE_GLENOSPHERE",
+        "Component Name": "Comprehensive Reverse Glenosphere",
+        "Component Role": "Glenosphere",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_COMPREHENSIVE_REVERSE_SHOULDER_SYSTEM",
+        "Component Notes": "Official materials describe the glenosphere family within the reverse construct."
+      },
+      {
+        "Component ID": "COMP_COMPREHENSIVE_REVERSE_SHOULDER_SYSTEM_COMPREHENSIVE_REVERSE_HUMERAL_BEARING",
+        "Component Name": "Comprehensive Reverse Humeral Bearing",
+        "Component Role": "Humeral Liner",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_COMPREHENSIVE_REVERSE_SHOULDER_SYSTEM",
+        "Component Notes": "Official materials describe the reverse humeral polyethylene bearing component."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Comprehensive Reverse Shoulder System",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Reverse Shoulder Arthroplasty System",
+          "system_notes": "Reverse shoulder arthroplasty platform for cuff-deficient shoulders and complex reconstruction within the Comprehensive family."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Comprehensive Reverse Shoulder System",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Reverse Shoulder Arthroplasty System",
+        "system_notes": "Reverse shoulder arthroplasty platform for cuff-deficient shoulders and complex reconstruction within the Comprehensive family."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Comprehensive Reverse Shoulder System",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Reverse Shoulder Arthroplasty System",
+        "system_notes": "Reverse shoulder arthroplasty platform for cuff-deficient shoulders and complex reconstruction within the Comprehensive family."
+      }
+    }
+  ]
+}

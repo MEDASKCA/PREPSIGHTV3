@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "TFN-ADVANCED Nail System",
+    "source_type": "product_page",
+    "source_document": "TFN-ADVANCED Proximal Femoral Nailing System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "TFN-ADVANCED Nail System",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Intramedullary Nail System",
+      "system_notes": "Current cephalomedullary proximal femoral nailing platform for intertrochanteric, subtrochanteric, and associated proximal femur fracture fixation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "TFN-ADVANCED Instrumentation",
+      "system_name": "TFN-ADVANCED Nail System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official TFNA materials expose surgical technique resources and screw-only workflow guides for the dedicated instrument platform."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "TFN-ADVANCED Nail",
+      "system_name": "TFN-ADVANCED Nail System",
+      "component_role": "Intramedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official materials describe the proximal femoral nail platform for hip fracture fixation."
+    },
+    {
+      "component_name": "TFN-ADVANCED Helical Blade",
+      "system_name": "TFN-ADVANCED Nail System",
+      "component_role": "Helical Blade",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official TFNA resources describe the helical blade fixation option within the system."
+    },
+    {
+      "component_name": "TFN-ADVANCED Lag Screw",
+      "system_name": "TFN-ADVANCED Nail System",
+      "component_role": "Lag Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official TFNA resources describe screw-only instrumentation and lag screw fixation options."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public TFNA pages expose technique resources but this pass does not expand the full implant code matrix.",
+      "reason": "A deeper IFU, inventory control form, or catalogue pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

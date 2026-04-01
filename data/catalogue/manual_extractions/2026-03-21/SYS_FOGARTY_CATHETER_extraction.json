@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Becton Dickinson",
+    "system_name": "Fogarty Embolectomy Catheter",
+    "source_type": "product_family_page",
+    "source_document": "Fogarty Occlusion Catheters | BD",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Fogarty Embolectomy Catheter",
+      "supplier_name": "Becton Dickinson",
+      "system_category": "vascular_intervention",
+      "system_notes": "Official BD Fogarty catheter materials used as the closest current public source anchors for this Fogarty embolectomy catheter entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Fogarty Catheter Framework",
+      "system_name": "Fogarty Embolectomy Catheter",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to BD public Fogarty catheter source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Fogarty-catheter source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Fogarty Occlusion Catheters | BD; Fogarty Occlusion Catheters | BD; 2025 Billing Guide; Left AV Graft Thrombectomy with Fogarty and Conquest PTA Dilatation Catheter - BD Advance Training"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Fogarty-catheter source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Fogarty Occlusion Catheters | BD; Fogarty Occlusion Catheters | BD; 2025 Billing Guide; Left AV Graft Thrombectomy with Fogarty and Conquest PTA Dilatation Catheter - BD Advance Training"
+    }
+  ]
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Zimmer Biomet",
+    "system_name": "Zimmer Biomet Foot & ankle trauma fixation Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Zimmer Biomet Foot and Ankle Trauma Fixation Portfolio",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_ZIMMER_BIOMET_FOOT_ANKLE_TRAUMA_FIXATION_PORTFOLIO",
+      "system_name": "Zimmer Biomet Foot & ankle trauma fixation Portfolio",
+      "supplier": "Zimmer Biomet",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public Zimmer Biomet foot and ankle plus trauma portfolio pages used as source anchors for the foot and ankle trauma fixation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_ZIMMER_BIOMET_FOOT_ANKLE_TRAUMA_FIXATION_PORTFOLIO",
+      "component_name": "Foot and Ankle Trauma Fixation Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Foot and Ankle Trauma Fixation Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to Zimmer Biomet foot and ankle and trauma public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_ZIMMER_BIOMET_FOOT_ANKLE_TRAUMA_FIXATION_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_ZIMMER_BIOMET_FOOT_ANKLE_TRAUMA_FIXATION_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

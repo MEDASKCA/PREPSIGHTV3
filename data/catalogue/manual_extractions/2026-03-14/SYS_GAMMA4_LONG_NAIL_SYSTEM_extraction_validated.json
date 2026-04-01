@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Gamma4 Long Nail System",
+    "source_type": "product_page",
+    "source_document": "Gamma4 Hip Fracture Nailing System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_GAMMA4_LONG_NAIL_SYSTEM_GAMMA4_LONG_NAIL_INSTRUMENTATION",
+        "Tray Name": "Gamma4 Long Nail Instrumentation",
+        "System ID": "SYS_GAMMA4_LONG_NAIL_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Gamma4 materials support dedicated long-nail instrumentation and integrated fracture fixation workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_GAMMA4_LONG_NAIL_SYSTEM_GAMMA4_LONG_NAIL",
+        "Component Name": "Gamma4 Long Nail",
+        "Component Role": "Cephalomedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_GAMMA4_LONG_NAIL_SYSTEM",
+        "Component Notes": "Primary long Gamma4 nail component described within the official Gamma4 hip fracture nailing platform."
+      },
+      {
+        "Component ID": "COMP_GAMMA4_LONG_NAIL_SYSTEM_GAMMA4_LAG_SCREW",
+        "Component Name": "Gamma4 Lag Screw",
+        "Component Role": "Lag Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_GAMMA4_LONG_NAIL_SYSTEM",
+        "Component Notes": "The Gamma4 construct includes proximal lag screw fixation options."
+      },
+      {
+        "Component ID": "COMP_GAMMA4_LONG_NAIL_SYSTEM_GAMMA4_LOCKING_SCREW",
+        "Component Name": "Gamma4 Locking Screw",
+        "Component Role": "Locking Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_GAMMA4_LONG_NAIL_SYSTEM",
+        "Component Notes": "The Gamma4 long nail construct includes distal locking fixation options."
+      },
+      {
+        "Component ID": "COMP_GAMMA4_LONG_NAIL_SYSTEM_GAMMA4_END_CAP",
+        "Component Name": "Gamma4 End Cap",
+        "Component Role": "End Cap",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_GAMMA4_LONG_NAIL_SYSTEM",
+        "Component Notes": "End-cap compatibility is part of the Gamma4 long nail construct family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Gamma4 Long Nail System",
+          "supplier_name": "Stryker",
+          "system_category": "Cephalomedullary Nail System",
+          "system_notes": "Long cephalomedullary proximal femoral nailing platform anchored to the official Stryker Gamma4 product family materials."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Gamma4 Long Nail System",
+        "supplier_name": "Stryker",
+        "system_category": "Cephalomedullary Nail System",
+        "system_notes": "Long cephalomedullary proximal femoral nailing platform anchored to the official Stryker Gamma4 product family materials."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Gamma4 Long Nail System",
+        "supplier_name": "Stryker",
+        "system_category": "Cephalomedullary Nail System",
+        "system_notes": "Long cephalomedullary proximal femoral nailing platform anchored to the official Stryker Gamma4 product family materials."
+      }
+    }
+  ]
+}

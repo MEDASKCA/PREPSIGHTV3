@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Distal Humerus Plate",
+    "source_type": "technique_index_page",
+    "source_document": "Accompanying Product Information",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "LCP Distal Humerus Plate",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Locking Plate — Distal Humerus",
+      "system_notes": "Distal humerus locking plate system supporting parallel or perpendicular plating constructs in the DePuy Synthes trauma portfolio."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "LCP Distal Humerus Instrument Set",
+      "system_name": "LCP Distal Humerus Plate",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official DePuy Synthes technique resources reference dedicated distal humerus plating instrumentation for the LCP system."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "LCP Distal Humerus Plate",
+      "system_name": "LCP Distal Humerus Plate",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official technique-library resources identify the distal humerus plate family within the LCP system."
+    },
+    {
+      "component_name": "LCP Distal Humerus Locking Screw",
+      "system_name": "LCP Distal Humerus Plate",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official technique resources describe locking screw fixation used with the distal humerus plate construct."
+    },
+    {
+      "component_name": "LCP Distal Humerus Drill Guide",
+      "system_name": "LCP Distal Humerus Plate",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official technique resources describe the dedicated guide and instrument workflow for distal humerus plating."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official sources confirm the distal humerus plate family and technique references but do not expose a full product-code matrix in this pass.",
+      "reason": "A deeper sterile implant listing, inventory form, or ordering guide pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

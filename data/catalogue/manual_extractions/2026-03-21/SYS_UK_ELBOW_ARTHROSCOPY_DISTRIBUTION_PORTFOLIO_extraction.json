@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "UK Elbow Arthroscopy Distribution Portfolio",
+    "source_type": "supplier_homepage",
+    "source_document": "LEDA Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "UK Elbow Arthroscopy Distribution Portfolio",
+      "supplier_name": "LEDA Orthopaedics",
+      "system_category": "elbow",
+      "system_notes": "Official LEDA Orthopaedics upper-limb and elbow procedure materials used as the public source anchors for this elbow arthroscopy distribution portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Elbow Arthroscopy Distribution Framework",
+      "system_name": "UK Elbow Arthroscopy Distribution Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Elbow Arthroscopy",
+      "component_notes": "Framework component anchored to LEDA public elbow arthroscopy and upper-limb distribution source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public LEDA elbow arthroscopy source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "LEDA Orthopaedics; Upper Limb | LEDA Orthopaedics; IJS Elbow Stabilization System Surgical Technique Guide; Distal Elbow Set Sales Sheet"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public LEDA elbow arthroscopy source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "LEDA Orthopaedics; Upper Limb | LEDA Orthopaedics; IJS Elbow Stabilization System Surgical Technique Guide; Distal Elbow Set Sales Sheet"
+    }
+  ]
+}

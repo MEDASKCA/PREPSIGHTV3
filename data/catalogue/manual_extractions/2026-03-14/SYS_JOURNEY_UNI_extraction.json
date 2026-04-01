@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Journey Uni",
+    "source_type": "official_news_release",
+    "source_document": "JOURNEY II Unicompartmental Knee System launch materials",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Journey Uni",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Unicompartmental Knee System",
+      "system_notes": "Partial knee arthroplasty platform within the JOURNEY II unicompartmental knee family."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "JOURNEY UNI Instrumentation",
+      "system_name": "Journey Uni",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official launch materials describe a modular two-tray configuration with instrumentation customizable to a familiar surgical flow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "JOURNEY UNI Femoral Component",
+      "system_name": "Journey Uni",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official materials describe increased size range for femoral components in the JOURNEY II unicompartmental system."
+    },
+    {
+      "component_name": "JOURNEY UNI Tibia Baseplate",
+      "system_name": "Journey Uni",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official materials describe medial and lateral tibia baseplate options for the JOURNEY II unicompartmental system."
+    },
+    {
+      "component_name": "JOURNEY UNI Insert",
+      "system_name": "Journey Uni",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official materials describe the unicompartmental implant construct and bearing family without exposing full public SKU detail in this pass."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The available official materials are launch and showcase announcements rather than a full public product catalogue.",
+      "reason": "A deeper brochure, IFU, or technique pass is needed for richer component and product-code detail.",
+      "source_excerpt": "Current extraction stays conservative at tray and implant-family level."
+    }
+  ]
+}

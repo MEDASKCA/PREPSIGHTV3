@@ -1,0 +1,136 @@
+[
+  {
+    "id": "CARD_PRIMARY_THR_POSTERIOR_EXETER_TRIDENT",
+    "procedure_variant_id": "PV_PRIMARY_THR_POSTERIOR",
+    "system_id": "SYS_EXETER_TRIDENT",
+    "name": "Primary Total Hip Replacement – Posterior – Exeter / Trident",
+    "ppe": [
+      "Sterile gown",
+      "Sterile gloves",
+      "Eye protection",
+      "Lead apron (if fluoroscopy used)"
+    ],
+    "operative_references": [
+      "Local arthroplasty protocol",
+      "WHO Surgical Safety Checklist"
+    ],
+    "nurse_prep_notes": [
+      "Confirm implant sizes available",
+      "Check cement preparation system",
+      "Confirm instrument trays complete"
+    ],
+    "theatre_equipment": [
+      "Orthopaedic table",
+      "Diathermy unit",
+      "Suction",
+      "Pulse lavage",
+      "Cement mixing system"
+    ],
+    "patient_positioning": "Lateral decubitus",
+    "sterile_field_and_draping": "Standard hip arthroplasty draping",
+    "instrument_trays": [
+      "Exeter femoral tray",
+      "Trident acetabular tray",
+      "Hip arthroplasty basic set"
+    ],
+    "consumables": [
+      "Bone cement",
+      "Cement restrictor",
+      "Suction tubing",
+      "Pulse lavage tips"
+    ],
+    "medications": [
+      "Antibiotic prophylaxis",
+      "Tranexamic acid"
+    ],
+    "thromboprophylaxis": "According to local protocol",
+    "local_anaesthetic": "Optional periarticular infiltration",
+    "post_procedure_dressing": "Standard hip dressing",
+    "status": "active"
+  },
+
+  {
+    "id": "CARD_PRIMARY_THR_POSTERIOR_CORAIL_PINNACLE",
+    "procedure_variant_id": "PV_PRIMARY_THR_POSTERIOR",
+    "system_id": "SYS_CORAIL_PINNACLE",
+    "name": "Primary Total Hip Replacement – Posterior – Corail / Pinnacle",
+    "ppe": [
+      "Sterile gown",
+      "Sterile gloves",
+      "Eye protection"
+    ],
+    "operative_references": [
+      "Local arthroplasty protocol"
+    ],
+    "nurse_prep_notes": [
+      "Confirm Corail stems available",
+      "Check Pinnacle acetabular shells"
+    ],
+    "theatre_equipment": [
+      "Orthopaedic table",
+      "Diathermy unit",
+      "Suction",
+      "Pulse lavage"
+    ],
+    "patient_positioning": "Lateral decubitus",
+    "sterile_field_and_draping": "Standard hip arthroplasty draping",
+    "instrument_trays": [
+      "Corail femoral tray",
+      "Pinnacle acetabular tray"
+    ],
+    "consumables": [
+      "Bone cement (if cemented)",
+      "Pulse lavage tips"
+    ],
+    "medications": [
+      "Antibiotic prophylaxis",
+      "Tranexamic acid"
+    ],
+    "thromboprophylaxis": "According to local protocol",
+    "local_anaesthetic": "Optional periarticular infiltration",
+    "post_procedure_dressing": "Standard hip dressing",
+    "status": "active"
+  },
+
+  {
+    "id": "CARD_PRIMARY_THR_POSTERIOR_POLAR_R3",
+    "procedure_variant_id": "PV_PRIMARY_THR_POSTERIOR",
+    "system_id": "SYS_POLAR_R3",
+    "name": "Primary Total Hip Replacement – Posterior – Polar / R3",
+    "ppe": [
+      "Sterile gown",
+      "Sterile gloves",
+      "Eye protection"
+    ],
+    "operative_references": [
+      "Local arthroplasty protocol"
+    ],
+    "nurse_prep_notes": [
+      "Confirm Polar stem sizes available",
+      "Check R3 acetabular components"
+    ],
+    "theatre_equipment": [
+      "Orthopaedic table",
+      "Diathermy",
+      "Suction"
+    ],
+    "patient_positioning": "Lateral decubitus",
+    "sterile_field_and_draping": "Standard hip draping",
+    "instrument_trays": [
+      "Polar femoral tray",
+      "R3 acetabular tray"
+    ],
+    "consumables": [
+      "Pulse lavage",
+      "Suction tubing"
+    ],
+    "medications": [
+      "Antibiotic prophylaxis",
+      "Tranexamic acid"
+    ],
+    "thromboprophylaxis": "According to local protocol",
+    "local_anaesthetic": "Optional infiltration",
+    "post_procedure_dressing": "Standard hip dressing",
+    "status": "active"
+  }
+]

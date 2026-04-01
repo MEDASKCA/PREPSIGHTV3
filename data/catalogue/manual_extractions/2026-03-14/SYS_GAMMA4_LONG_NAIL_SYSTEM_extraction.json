@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Gamma4 Long Nail System",
+    "source_type": "product_page",
+    "source_document": "Gamma4 Hip Fracture Nailing System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Gamma4 Long Nail System",
+      "supplier_name": "Stryker",
+      "system_category": "Cephalomedullary Nail System",
+      "system_notes": "Long cephalomedullary proximal femoral nailing platform anchored to the official Stryker Gamma4 product family materials."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Gamma4 Long Nail Instrumentation",
+      "system_name": "Gamma4 Long Nail System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Gamma4 materials support dedicated long-nail instrumentation and integrated fracture fixation workflow."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Gamma4 Long Nail",
+      "system_name": "Gamma4 Long Nail System",
+      "component_role": "Cephalomedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Primary long Gamma4 nail component described within the official Gamma4 hip fracture nailing platform."
+    },
+    {
+      "component_name": "Gamma4 Lag Screw",
+      "system_name": "Gamma4 Long Nail System",
+      "component_role": "Lag Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The Gamma4 construct includes proximal lag screw fixation options."
+    },
+    {
+      "component_name": "Gamma4 Locking Screw",
+      "system_name": "Gamma4 Long Nail System",
+      "component_role": "Locking Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The Gamma4 long nail construct includes distal locking fixation options."
+    },
+    {
+      "component_name": "Gamma4 End Cap",
+      "system_name": "Gamma4 Long Nail System",
+      "component_role": "End Cap",
+      "implant_category": "Trauma Implant",
+      "component_notes": "End-cap compatibility is part of the Gamma4 long nail construct family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public Gamma4 source set confirms the long nail family but this pass does not include a clean long-nail implant code matrix.",
+      "reason": "A deeper IFU or sterile implant listing pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

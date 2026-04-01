@@ -1,0 +1,67 @@
+{
+  "source_meta": {
+    "supplier_name": "B. Braun",
+    "system_name": "Epidural Kit",
+    "source_type": "product_page",
+    "source_document": "PERIFIX Continuous Epidural Set / Single Dose Epidural Tray",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Epidural Kit",
+      "supplier_name": "B. Braun",
+      "system_category": "Regional Anaesthesia",
+      "system_notes": "Official source anchor for B. Braun Perifix epidural tray and continuous epidural set workflow."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "PERIFIX Single Dose Epidural Tray",
+      "system_name": "Epidural Kit",
+      "tray_type": "Procedure Tray",
+      "tray_notes": "B. Braun single-dose epidural tray with Tuohy needle and loss-of-resistance syringe."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "PERIFIX Continuous Epidural Set",
+      "system_name": "Epidural Kit",
+      "component_role": "Epidural Set",
+      "implant_category": "Regional Anaesthesia Kit",
+      "component_notes": "B. Braun epidural needle set supplied with catheter for continuous epidural procedures."
+    },
+    {
+      "component_name": "PERIFIX Epidural Catheter",
+      "system_name": "Epidural Kit",
+      "component_role": "Epidural Catheter",
+      "implant_category": "Regional Anaesthesia Device",
+      "component_notes": "Classic nylon epidural catheter family used in the Perifix system."
+    },
+    {
+      "component_name": "Perican Tuohy Epidural Needle",
+      "system_name": "Epidural Kit",
+      "component_role": "Epidural Needle",
+      "implant_category": "Regional Anaesthesia Device",
+      "component_notes": "B. Braun Tuohy epidural needle component used across Perifix epidural procedures."
+    }
+  ],
+  "products": [
+    {
+      "component_name": "PERIFIX Continuous Epidural Set",
+      "product_code": "CE18TIN",
+      "product_name": "PERIFIX Continuous Epidural Set 18 Ga. x 3 1/2 in. Tuohy Needle Set with 20 Ga. Open Tip Nylon Catheter",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded continuous epidural set product."
+    },
+    {
+      "component_name": "PERIFIX Single Dose Epidural Tray",
+      "product_code": "SD18TB",
+      "product_name": "PERIFIX 18 Ga. x 3 1/2 in. Tuohy, 5 mL Glass Luer Lock LOR Tray (Kit)",
+      "supplier_name": "B. Braun",
+      "product_notes": "Official B. Braun coded single-dose epidural tray product."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": []
+}

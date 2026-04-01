@@ -1,0 +1,74 @@
+[
+  {
+    "supplier_id": "SUP_KARL_STORZ",
+    "supplier_name": "Karl Storz",
+    "system_id": "SYS_HOPKINS_ENDOSCOPY",
+    "system_name": "Hopkins Endoscopy Platform",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "HOPKINS Telescopes",
+        "url": "https://www.karlstorz.com/gb/en/product-list/rigid-endoscopy/telescopes/hopkins-telescopes.htm",
+        "notes": "Official Karl Storz HOPKINS rigid telescope page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Rigid Endoscopy",
+        "url": "https://www.karlstorz.com/gb/en/rigid-endoscopy.htm",
+        "notes": "Official Karl Storz rigid endoscopy page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_KARL_STORZ",
+    "supplier_name": "Karl Storz",
+    "system_id": "SYS_STORZ_LAPAROSCOPY",
+    "system_name": "Karl Storz Laparoscopy Platform",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Laparoscopy",
+        "url": "https://www.karlstorz.com/gb/en/laparoscopy.htm",
+        "notes": "Official Karl Storz laparoscopy page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "HOPKINS Telescopes",
+        "url": "https://www.karlstorz.com/gb/en/product-list/rigid-endoscopy/telescopes/hopkins-telescopes.htm",
+        "notes": "Official Karl Storz telescope page used as broader laparoscopic visualization context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_KARL_STORZ",
+    "supplier_name": "Karl Storz",
+    "system_id": "SYS_RIGID_URS",
+    "system_name": "Rigid Ureteroscope",
+    "sources": [
+      {
+        "source_type": "specialty_page",
+        "title": "Urology | KARL STORZ Endoskope | United States",
+        "url": "https://www.karlstorz.com/us/en/urology.htm",
+        "notes": "Official Karl Storz urology specialty page used as the primary public anchor for ureteroscopy and endourology workflows. This is a closest current public match because the public site emphasizes procedure pathways and catalog access rather than a single rigid-ureteroscope landing page."
+      },
+      {
+        "source_type": "procedure_search_page",
+        "title": "Search - Ureterorenoscopy for urolithiasis (URS/RIRS) | KARL STORZ Endoskope",
+        "url": "https://www.karlstorz.com/is/en/search.htm?cat=1000111998",
+        "notes": "Official Karl Storz search result page used as direct ureterorenoscopy evidence for URS workflows relevant to rigid ureteroscope use."
+      },
+      {
+        "source_type": "catalog_landing_page",
+        "title": "Urology | KARL STORZ Endoskope | France",
+        "url": "https://www.karlstorz.com/fr/en/urology.htm",
+        "notes": "Official Karl Storz regional urology page used as additional public evidence because it explicitly exposes the online catalog path for Karl Storz urology products and accessories."
+      },
+      {
+        "source_type": "imaging_platform_page",
+        "title": "HOPKINS Telescopes | KARL STORZ Endoskope | United States",
+        "url": "https://www.karlstorz.com/us/en/hopkins-telescopes.htm",
+        "notes": "Official Karl Storz rigid telescope page used as broader visualization-system evidence for rigid endoscopic platforms adjacent to rigid ureteroscopic workflows."
+      }
+    ]
+  }
+]

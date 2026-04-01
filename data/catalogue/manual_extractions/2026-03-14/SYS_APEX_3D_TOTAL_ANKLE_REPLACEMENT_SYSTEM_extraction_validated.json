@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "APEX 3D Total Ankle Replacement System",
+    "source_type": "product_page",
+    "source_document": "Apex 3D Total Ankle Replacement System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_APEX_3D_TOTAL_ANKLE_REPLACEMENT_SYSTEM_APEX_3D_ANKLE_INSTRUMENTATION",
+        "Tray Name": "APEX 3D Ankle Instrumentation",
+        "System ID": "SYS_APEX_3D_TOTAL_ANKLE_REPLACEMENT_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated APEX 3D instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_APEX_3D_TOTAL_ANKLE_REPLACEMENT_SYSTEM_APEX_3D_TIBIAL_COMPONENT",
+        "Component Name": "APEX 3D Tibial Component",
+        "Component Role": "Tibial Component",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_APEX_3D_TOTAL_ANKLE_REPLACEMENT_SYSTEM",
+        "Component Notes": "Core tibial component family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_APEX_3D_TOTAL_ANKLE_REPLACEMENT_SYSTEM_APEX_3D_TALAR_COMPONENT",
+        "Component Name": "APEX 3D Talar Component",
+        "Component Role": "Talar Component",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_APEX_3D_TOTAL_ANKLE_REPLACEMENT_SYSTEM",
+        "Component Notes": "Core talar component family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_APEX_3D_TOTAL_ANKLE_REPLACEMENT_SYSTEM_APEX_3D_POLY_INSERT",
+        "Component Name": "APEX 3D Poly Insert",
+        "Component Role": "Poly Insert",
+        "Implant Category": "Ankle Implant",
+        "System ID": "SYS_APEX_3D_TOTAL_ANKLE_REPLACEMENT_SYSTEM",
+        "Component Notes": "Polyethylene insert family referenced on the product page."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "APEX 3D Total Ankle Replacement System",
+          "supplier_name": "Paragon 28",
+          "system_category": "Ankle Arthroplasty System",
+          "system_notes": "Total ankle arthroplasty platform with tibial, talar and insert families."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "APEX 3D Total Ankle Replacement System",
+        "supplier_name": "Paragon 28",
+        "system_category": "Ankle Arthroplasty System",
+        "system_notes": "Total ankle arthroplasty platform with tibial, talar and insert families."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "APEX 3D Total Ankle Replacement System",
+        "supplier_name": "Paragon 28",
+        "system_category": "Ankle Arthroplasty System",
+        "system_notes": "Total ankle arthroplasty platform with tibial, talar and insert families."
+      }
+    }
+  ]
+}

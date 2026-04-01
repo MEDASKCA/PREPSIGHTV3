@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Globus Medical",
+    "system_name": "Xtend / Coalition ACDF Portfolio",
+    "source_type": "product_page",
+    "source_document": "Xtend Anterior Cervical Plate System and Coalition AGX Spacer System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_XTEND_COALITION_ACDF_PORTFOLIO_XTEND_COALITION_ACDF_INSTRUMENTATION",
+        "Tray Name": "Xtend / Coalition ACDF Instrumentation",
+        "System ID": "SYS_XTEND___COALITION_ACDF_PORTFOLIO",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated anterior cervical instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_XTEND_COALITION_ACDF_PORTFOLIO_XTEND_CERVICAL_PLATE",
+        "Component Name": "Xtend Cervical Plate",
+        "Component Role": "Cervical Plate",
+        "Implant Category": "Spine Implant",
+        "System ID": "SYS_XTEND___COALITION_ACDF_PORTFOLIO",
+        "Component Notes": "Core anterior cervical plate family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_XTEND_COALITION_ACDF_PORTFOLIO_XTEND_CERVICAL_SCREW",
+        "Component Name": "Xtend Cervical Screw",
+        "Component Role": "Cervical Screw",
+        "Implant Category": "Spine Implant",
+        "System ID": "SYS_XTEND___COALITION_ACDF_PORTFOLIO",
+        "Component Notes": "Core anterior cervical screw family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_XTEND_COALITION_ACDF_PORTFOLIO_COALITION_SPACER",
+        "Component Name": "Coalition Spacer",
+        "Component Role": "Interbody Spacer",
+        "Implant Category": "Spine Implant",
+        "System ID": "SYS_XTEND___COALITION_ACDF_PORTFOLIO",
+        "Component Notes": "Integrated interbody spacer family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_XTEND_COALITION_ACDF_PORTFOLIO_COALITION_FIXATION_SCREW",
+        "Component Name": "Coalition Fixation Screw",
+        "Component Role": "Fixation Screw",
+        "Implant Category": "Spine Implant",
+        "System ID": "SYS_XTEND___COALITION_ACDF_PORTFOLIO",
+        "Component Notes": "Integrated fixation screw family referenced on the product page."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Xtend / Coalition ACDF Portfolio",
+          "supplier_name": "Globus Medical",
+          "system_category": "ACDF System",
+          "system_notes": "Anterior cervical discectomy and fusion platform combining plate and integrated spacer options."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Xtend / Coalition ACDF Portfolio",
+        "supplier_name": "Globus Medical",
+        "system_category": "ACDF System",
+        "system_notes": "Anterior cervical discectomy and fusion platform combining plate and integrated spacer options."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Xtend / Coalition ACDF Portfolio",
+        "supplier_name": "Globus Medical",
+        "system_category": "ACDF System",
+        "system_notes": "Anterior cervical discectomy and fusion platform combining plate and integrated spacer options."
+      }
+    }
+  ]
+}

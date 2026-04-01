@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Distal Radius Plate",
+    "source_type": "product_page",
+    "source_document": "Variable Angle LCP Two-Column Volar Distal Radius Plate",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "LCP Distal Radius Plate",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Volar Locking Plate — Distal Radius",
+      "system_notes": "Variable-angle volar distal radius locking plate family within the DePuy Synthes trauma plating portfolio."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Distal Radius Plate and Instrument Set",
+      "system_name": "LCP Distal Radius Plate",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official DePuy Synthes materials describe dedicated distal radius plating instrumentation used with the variable-angle volar plate family."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "LCP Distal Radius Plate",
+      "system_name": "LCP Distal Radius Plate",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official J&J MedTech materials describe the variable-angle two-column volar distal radius plate family."
+    },
+    {
+      "component_name": "LCP Distal Radius Locking Screw",
+      "system_name": "LCP Distal Radius Plate",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official inventory and technique materials describe compatible locking screw fixation used with the distal radius plate system."
+    },
+    {
+      "component_name": "LCP Distal Radius Drill Guide",
+      "system_name": "LCP Distal Radius Plate",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official technique materials describe guides and instrumentation for controlled distal radius screw placement."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official sources identify the plate family, instrumentation workflow, and coded inventory form but a full normalized product matrix has not yet been extracted in this pass.",
+      "reason": "A deeper inventory-control and sterile implant listing pass is required for comprehensive product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

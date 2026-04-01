@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Sports Medicine ACL Portfolio",
+    "source_type": "procedure_page",
+    "source_document": "ACL",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Sports Medicine ACL Portfolio",
+      "supplier_name": "Stryker",
+      "system_category": "sports_medicine_knee",
+      "system_notes": "Official Stryker ACL and sports medicine fixation materials used as the public source anchors for this ACL portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Sports Medicine ACL Framework",
+      "system_name": "Sports Medicine ACL Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Sports Medicine",
+      "component_notes": "Framework component anchored to Stryker public ACL source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public ACL source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "ACL; CinchLock SS and CinchLock Flex Knotless Anchor System; Iconix Speed"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public ACL source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "ACL; CinchLock SS and CinchLock Flex Knotless Anchor System; Iconix Speed"
+    }
+  ]
+}

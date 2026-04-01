@@ -1,0 +1,28 @@
+[
+  {
+    "supplier_id": "SUP_RICHARD_WOLF",
+    "supplier_name": "Richard Wolf",
+    "system_id": "SYS_RESECTOSCOPE",
+    "system_name": "Resectoscope",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Princess Resectoscope",
+        "url": "https://www.richard-wolf.com/en-us/disciplines/gynecology/princess-resectoscope/",
+        "notes": "Official Richard Wolf resectoscope product page used as the primary public source anchor for the generic resectoscope system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "SHARK Resectoscope",
+        "url": "https://www.richard-wolf.com/en-us/disciplines/urology/shark/",
+        "notes": "Official Richard Wolf resectoscope product page used as supporting public evidence for the supplier's current resectoscope platform across specialties."
+      },
+      {
+        "source_type": "download_center",
+        "title": "Richard Wolf Download Center",
+        "url": "https://www.richard-wolf.com/en-us/download-center/",
+        "notes": "Official Richard Wolf download center used as supporting public evidence that brochures and catalogues for current resectoscope products are publicly exposed."
+      }
+    ]
+  }
+]

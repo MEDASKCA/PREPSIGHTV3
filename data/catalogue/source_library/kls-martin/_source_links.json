@@ -1,0 +1,280 @@
+[
+  {
+    "supplier_id": "SUP_KLS_MARTIN",
+    "supplier_name": "KLS Martin",
+    "system_id": "SYS_FOREARM_TRAUMA_PORTFOLIO",
+    "system_name": "Forearm Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "KLS Martin | Products - Implants | Hand - Radius and Ulna",
+        "url": "https://www.klsmartin.com/shop/en/products/278/",
+        "notes": "Official KLS Martin product-family page showing the Radius and Ulna implant category, used as the primary public source anchor for the forearm trauma portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | Recos - Ulna Shortening and Radius Reconstruction System",
+        "url": "https://www.klsmartin.com/en/products/implants-hand/plates-and-screws/recos/",
+        "notes": "Official KLS Martin radius and ulna reconstruction system page, used as supporting public evidence for forearm fixation and reconstruction coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | Products - Traumatology upper-limb product navigation",
+        "url": "https://www.klsmartin.com/shop/en/products/product/22-500-20-07/",
+        "notes": "Official KLS Martin product page exposing traumatology upper-limb navigation and product-overview traumatology references, used as broader public workflow context for forearm trauma coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_KLS_MARTIN",
+    "supplier_name": "KLS Martin",
+    "system_id": "SYS_ELBOW___DISTAL_HUMERUS_PLATE_PORTFOLIO",
+    "system_name": "Elbow / Distal Humerus Plate Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | LevelOne Fixation fracture plate, 2.3 mm, curved",
+        "url": "https://www.klsmartin.com/shop/en/products/product/51-130-04-71/",
+        "notes": "Official KLS Martin product page for a LevelOne fixation fracture plate under traumatology upper-limb product navigation, used as the primary public source anchor for the elbow and distal humerus plate portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | LevelOne Fixation reconstruction plate, 2.7 mm",
+        "url": "https://www.klsmartin.com/shop/en/products/product/50-794-20-71/",
+        "notes": "Official KLS Martin product page for a LevelOne fixation reconstruction plate under traumatology product navigation, used as supporting public evidence for upper-extremity plate fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | LevelOne Fixation Smart Shape plate, 2.3 mm",
+        "url": "https://www.klsmartin.com/shop/en/products/product/51-213-27-09/",
+        "notes": "Official KLS Martin product page for a LevelOne fixation plate under traumatology product navigation, used as additional public evidence for plate-based trauma fixation portfolio coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_KLS_MARTIN",
+    "supplier_name": "KLS Martin",
+    "system_id": "SYS_CALCANEAL_PLATE",
+    "system_name": "Calcaneal Plate System",
+    "sources": [
+      {
+        "source_type": "discipline_page",
+        "title": "KLS Martin | Implants and implant systems foot surgery",
+        "url": "https://www.klsmartin.com/en/products/implants-foot/",
+        "notes": "Official KLS Martin foot surgery implants page used as the primary public source anchor for the calcaneal plate system entry."
+      },
+      {
+        "source_type": "product_family_page",
+        "title": "KLS Martin | Plates and screws",
+        "url": "https://www.klsmartin.com/en/products/implants-foot/",
+        "notes": "Official KLS Martin foot surgery implants page describing the plates-and-screws portfolio for trauma and reconstruction procedures, used as supporting public evidence for the calcaneal plate system."
+      },
+      {
+        "source_type": "corporate_page",
+        "title": "KLS Martin | Foot surgery",
+        "url": "https://www.klsmartin.com/en/products/implants-foot/",
+        "notes": "Official KLS Martin foot surgery portfolio page used as broader public workflow context for calcaneal fixation coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_KLS_MARTIN",
+    "supplier_name": "KLS Martin",
+    "system_id": "SYS_WRIST_INSTRUMENTATION_PORTFOLIO",
+    "system_name": "Wrist Instrumentation Portfolio",
+    "sources": [
+      {
+        "source_type": "discipline_page",
+        "title": "KLS Martin | Hand surgery",
+        "url": "https://www.klsmartin.com/en/disciplines/hand-surgery/",
+        "notes": "Official KLS Martin hand surgery discipline page used as the public source anchor for the wrist instrumentation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | Surgical instruments",
+        "url": "https://www.klsmartin.com/en/products/surgical-instruments/",
+        "notes": "Official KLS Martin surgical instruments page used as supporting public evidence for the wrist instrumentation portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Special Instruments for Hand Surgery",
+        "url": "https://www.klsmartin.com/mediathek/90-312-02-10_Special_Instruments_for_Hand_Surgery.pdf",
+        "notes": "Official KLS Martin hand-surgery instruments catalogue used as direct public evidence for the wrist instrumentation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_KLS_MARTIN",
+    "supplier_name": "KLS Martin",
+    "system_id": "SYS_HAND_SURGERY_INSTRUMENTATION_PORTFOLIO",
+    "system_name": "Hand Surgery Instrumentation Portfolio",
+    "sources": [
+      {
+        "source_type": "discipline_page",
+        "title": "KLS Martin | Hand surgery",
+        "url": "https://www.klsmartin.com/en/disciplines/hand-surgery/",
+        "notes": "Official KLS Martin hand surgery discipline page used as the public source anchor for the hand surgery instrumentation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | Surgical instruments",
+        "url": "https://www.klsmartin.com/en/products/surgical-instruments/",
+        "notes": "Official KLS Martin surgical instruments page used as supporting public evidence for the hand surgery instrumentation portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Special Instruments for Hand Surgery",
+        "url": "https://www.klsmartin.com/mediathek/90-312-02-10_Special_Instruments_for_Hand_Surgery.pdf",
+        "notes": "Official KLS Martin hand-surgery instruments catalogue used as direct public evidence for the hand surgery instrumentation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_KLS_MARTIN",
+    "supplier_name": "KLS Martin",
+    "system_id": "SYS_HAND_TENDON_INSTRUMENTATION_PORTFOLIO",
+    "system_name": "Hand Tendon Instrumentation Portfolio",
+    "sources": [
+      {
+        "source_type": "discipline_page",
+        "title": "KLS Martin | Hand surgery",
+        "url": "https://www.klsmartin.com/en/disciplines/hand-surgery/",
+        "notes": "Official KLS Martin hand surgery discipline page used as the public source anchor for the hand tendon instrumentation portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Special Instruments for Hand Surgery",
+        "url": "https://www.klsmartin.com/mediathek/90-312-02-10_Special_Instruments_for_Hand_Surgery.pdf",
+        "notes": "Official KLS Martin hand-surgery instruments catalogue used as direct public evidence for the hand tendon instrumentation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Tendon interlacing, forceps, straight, length 15 cm",
+        "url": "https://www.klsmartin.com/shop/en/products/product/23-682-15-07/",
+        "notes": "Official KLS Martin product page for a tendon interlacing forceps instrument used as supporting public evidence for tendon-specific hand instrumentation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_KLS_MARTIN",
+    "supplier_name": "KLS Martin",
+    "system_id": "SYS_HAND_INSTRUMENTATION_PORTFOLIO",
+    "system_name": "Hand Instrumentation Portfolio",
+    "sources": [
+      {
+        "source_type": "discipline_page",
+        "title": "KLS Martin | Hand surgery",
+        "url": "https://www.klsmartin.com/en/disciplines/hand-surgery/",
+        "notes": "Official KLS Martin hand surgery discipline page used as the public source anchor for the hand instrumentation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | Surgical instruments",
+        "url": "https://www.klsmartin.com/en/products/surgical-instruments/",
+        "notes": "Official KLS Martin surgical instruments page used as supporting public evidence for the hand instrumentation portfolio entry."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Special Instruments for Hand Surgery",
+        "url": "https://www.klsmartin.com/mediathek/90-312-02-10_Special_Instruments_for_Hand_Surgery.pdf",
+        "notes": "Official KLS Martin hand-surgery instruments catalogue used as direct public evidence for the hand instrumentation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_KLS_MARTIN",
+    "supplier_name": "KLS Martin",
+    "system_id": "SYS_HAND_SMALL_FRAGMENT_PORTFOLIO",
+    "system_name": "Hand Small Fragment Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | Linos",
+        "url": "https://www.klsmartin.com/en/products/implants-hand/plates-and-screws/linos/",
+        "notes": "Official KLS Martin product page used as the primary public anchor for small-fragment fixation of phalanges and metacarpals in the hand."
+      },
+      {
+        "source_type": "category_page",
+        "title": "KLS Martin | Plates and screws",
+        "url": "https://www.klsmartin.com/en-na/products/implants-hand/plates-and-screws/",
+        "notes": "Official KLS Martin plates-and-screws category page used as broader public evidence for the hand small-fragment portfolio."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "KLS Martin | Implants and implant systems for hand surgery",
+        "url": "https://www.klsmartin.com/en/products/implants-hand/",
+        "notes": "Official KLS Martin hand-implant portfolio page used as the broader hand surgery anchor for small-fragment fixation workflows."
+      },
+      {
+        "source_type": "brochure_pdf",
+        "title": "Linos Hand Fracture System",
+        "url": "https://www.klsmartin.com/mediathek/90-209-02-08_Linos_hand_fracture_system.pdf",
+        "notes": "Official KLS Martin Linos brochure used as direct catalogue-style evidence for the hand small-fragment plating and screw system."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_KLS_MARTIN",
+    "supplier_name": "KLS Martin",
+    "system_id": "SYS_UPPER_EXTREMITY_SMALL_FRAGMENT_PORTFOLIO",
+    "system_name": "Upper Extremity Small Fragment Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | Products - Traumatology upper-limb product navigation",
+        "url": "https://www.klsmartin.com/shop/en/products/product/22-500-20-07/",
+        "notes": "Official KLS Martin traumatology upper-limb product page used as the primary public anchor for the broader upper-extremity small-fragment portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | LevelOne Fixation fracture plate, 2.3 mm, curved",
+        "url": "https://www.klsmartin.com/shop/en/products/product/51-130-04-71/",
+        "notes": "Official KLS Martin product page for a LevelOne fracture plate used as direct public evidence for upper-extremity small-fragment plate fixation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | LevelOne Fixation reconstruction plate, 2.7 mm",
+        "url": "https://www.klsmartin.com/shop/en/products/product/50-794-20-71/",
+        "notes": "Official KLS Martin product page for a LevelOne reconstruction plate used as supporting public evidence for the upper-extremity small-fragment portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | Linos",
+        "url": "https://www.klsmartin.com/en/products/implants-hand/plates-and-screws/linos/",
+        "notes": "Official KLS Martin Linos page used as additional small-bone fixation evidence spanning hand and distal upper-extremity small-fragment workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_KLS_MARTIN",
+    "supplier_name": "KLS Martin",
+    "system_id": "SYS_UPPER_EXTREMITY_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "Upper Extremity Soft Tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "discipline_page",
+        "title": "KLS Martin | Hand surgery",
+        "url": "https://www.klsmartin.com/en/disciplines/hand-surgery/",
+        "notes": "Official KLS Martin hand surgery discipline page used as the primary broad portfolio anchor for upper-extremity soft-tissue workflows. This is a closest current public match because a dedicated upper-extremity soft-tissue implant page does not appear to be publicly exposed."
+      },
+      {
+        "source_type": "product_page",
+        "title": "KLS Martin | Surgical instruments",
+        "url": "https://www.klsmartin.com/en/products/surgical-instruments/",
+        "notes": "Official KLS Martin surgical instruments page used as broader public evidence for upper-extremity soft-tissue instrumentation and exposure tools."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Special Instruments for Hand Surgery",
+        "url": "https://www.klsmartin.com/mediathek/90-312-02-10_Special_Instruments_for_Hand_Surgery.pdf",
+        "notes": "Official KLS Martin hand-surgery instruments catalogue used as direct catalogue-style evidence for soft-tissue and tendon-related upper-extremity instrumentation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Tendon interlacing, forceps, straight, length 15 cm",
+        "url": "https://www.klsmartin.com/shop/en/products/product/23-682-15-07/",
+        "notes": "Official KLS Martin product page used as direct soft-tissue evidence because it is a tendon-specific upper-extremity instrument."
+      }
+    ]
+  }
+]

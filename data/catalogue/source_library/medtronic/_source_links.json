@@ -1,0 +1,680 @@
+[
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_VIDEO_LARYNGOSCOPE",
+    "system_name": "Video Laryngoscope",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "McGRATH MAC Video Laryngoscope",
+        "url": "https://www.medtronic.com/covidien/en-us/products/airway-management/mcgrath-mac-video-laryngoscope.html",
+        "notes": "Official Medtronic airway management product page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Airway Management",
+        "url": "https://www.medtronic.com/covidien/en-us/products/airway-management.html",
+        "notes": "Official Medtronic airway management page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_LIGASURE",
+    "system_name": "LigaSure Vessel Sealing System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "LigaSure Vessel Sealing System",
+        "url": "https://www.medtronic.com/covidien/en-us/products/vessel-sealing/ligasure-vessel-sealing-system.html",
+        "notes": "Official Medtronic vessel sealing product page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Energy Products",
+        "url": "https://www.medtronic.com/covidien/en-us/products/energy-products.html",
+        "notes": "Official Medtronic energy products page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_CD_HORIZON",
+    "system_name": "CD HORIZON LEGACY Spine",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "CD HORIZON Spinal System",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/spine-fixation/cd-horizon-spinal-system.html",
+        "notes": "Official Medtronic spine fixation product page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine page used as broader workflow context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_STENT_GRAFT_AAA",
+    "system_name": "Abdominal Aortic Stent Graft",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Endurant II and Endurant IIs Stent Graft System | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/cardiovascular/aortic/aortic-stent-grafts/endurant-ii-stent-graft-system.html",
+        "notes": "Official Medtronic Endurant stent graft product page used as the primary public source anchor for the abdominal aortic stent graft entry."
+      },
+      {
+        "source_type": "therapy_page",
+        "title": "Abdominal Endovascular Aneurysm Repair (EVAR) | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/specialties/interventional-cardiology/therapies-procedures/aortic-endovascular-repair/aortic-endovascular-repair-procedures/abdominal-endovascular-aneurysm-repair.html",
+        "notes": "Official Medtronic EVAR therapy page used as broader procedural and disease-state context for the abdominal aortic stent graft entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_CD_HORIZON___CATALYFT_LUMBAR_FUSION_PORTFOLIO",
+    "system_name": "CD Horizon / Catalyft Lumbar Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "CD HORIZON Spinal System | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/spine-fixation/cd-horizon-spinal-system.html",
+        "notes": "Official Medtronic CD HORIZON spinal fixation page used as the primary public source anchor for the lumbar fusion portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CATALYFT PL Expandable Titanium Interbody Device | Medtronic",
+        "url": "https://www.medtronic.com/xg-en/healthcare-professionals/products/spinal-orthopaedic/posterior-interbody-fusion/catalyft-interbody-system.html",
+        "notes": "Official Medtronic CATALYFT PL interbody page used as supporting public evidence for lumbar interbody fusion coverage in this portfolio entry."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine page used as broader workflow context for the lumbar fusion portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_CERVICAL_DECOMPRESSION_PORTFOLIO",
+    "system_name": "Cervical Decompression Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Prestige LP Cervical Disc | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/cervical-spine/cervical-discs/prestige-lp-cervical-disc.html",
+        "notes": "Official Medtronic Prestige LP cervical disc page used as the primary public source anchor for the cervical decompression portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Atlantis Translational Anterior Cervical Plate | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/cervical-spine/plates/atlantis-translational-anterior-cervical-plate.html",
+        "notes": "Official Medtronic anterior cervical plate page used as supporting public evidence for anterior decompression and reconstruction workflows in this cervical portfolio entry."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Cervical Spine | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/cervical-spine.html",
+        "notes": "Official Medtronic cervical spine therapy page used as broader workflow context for the cervical decompression portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_DEFORMITY___SCOLIOSIS_FUSION_PORTFOLIO",
+    "system_name": "Deformity / Scoliosis Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "product_news_page",
+        "title": "CD Horizon ModuLeX Spinal System for Deformity Procedures | Medtronic",
+        "url": "https://news.medtronic.com/Medtronic-amplifies-AiBLE-TM-ecosystem-with-CD-Horizon-TM-ModuLeX-TM-spinal-system-for-deformity-procedures",
+        "notes": "Official Medtronic launch announcement for the CD Horizon ModuLeX spinal system for deformity procedures, used as the primary public source anchor for the deformity and scoliosis fusion portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "UNiD Adaptive Spine Intelligence | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/complex-spine/fixation-systems/unid-adaptive-spine-intelligence.html",
+        "notes": "Official Medtronic UNiD adaptive spine intelligence page used as supporting public evidence for scoliosis and complex spine deformity correction planning."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine page used as broader workflow context for the deformity and scoliosis fusion portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_ENDOVASCULAR_WORKSTATION",
+    "system_name": "Endovascular Imaging Workstation",
+    "sources": [
+      {
+        "source_type": "service_launch_page",
+        "title": "Medtronic Introduces 3D Recon Service to Enhance Endovascular Treatment of Aortic Aneurysms",
+        "url": "https://news.medtronic.com/2009-11-19-Medtronic-Introduces-3D-Recon-Service-to-Enhance-Endovascular-Treatment-of-Aortic-Aneurysms",
+        "notes": "Official Medtronic announcement for the 3D Recon imaging and visualization service used as the primary public source anchor for the endovascular imaging workstation entry and documented as the closest currently exposed public match."
+      },
+      {
+        "source_type": "therapy_page",
+        "title": "Abdominal Endovascular Aneurysm Repair (EVAR) | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/specialties/interventional-cardiology/therapies-procedures/aortic-endovascular-repair/aortic-endovascular-repair-procedures/abdominal-endovascular-aneurysm-repair.html",
+        "notes": "Official Medtronic EVAR therapy page used as broader procedural context for imaging, planning, and endovascular workflow support in this workstation entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Endurant II and Endurant IIs Stent Graft System | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/cardiovascular/aortic/aortic-stent-grafts/endurant-ii-stent-graft-system.html",
+        "notes": "Official Medtronic aortic stent graft product page used as supporting public evidence for the endovascular planning and sizing workflow associated with this workstation entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_HOLMIUM_LASER",
+    "system_name": "Holmium Laser System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Visualase MRI-Guided Laser Ablation | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/surgical-energy/ablation/laser-ablation/visualase-mri-guided-laser-ablation.html",
+        "notes": "Official Medtronic laser-ablation product page used as the closest current public source anchor for the holmium laser system entry because a dedicated publicly exposed Medtronic holmium laser page is not currently available."
+      },
+      {
+        "source_type": "clearance_news_page",
+        "title": "Medtronic receives FDA 510(k) clearance for Visualase V2 MRI-Guided Laser Ablation System",
+        "url": "https://news.medtronic.com/Medtronic-receives-FDA-510-k-clearance-for-Visualase-TM-V2-MRI-Guided-Laser-Ablation-System",
+        "notes": "Official Medtronic clearance announcement used as supporting public evidence for the company's current laser system platform and capital equipment updates."
+      },
+      {
+        "source_type": "patient_therapy_page",
+        "title": "MRI-Guided Laser Ablation for Focal Epilepsy | Medtronic",
+        "url": "https://www.medtronic.com/en-us/l/patients/treatments-therapies/brain/mri-guided-laser-ablation.html",
+        "notes": "Official Medtronic patient therapy page used as broader public context for the laser-ablation workflow associated with this entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_KYPHON___KYPHOPLASTY_PORTFOLIO",
+    "system_name": "Kyphon / Kyphoplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Kyphon Balloon Kyphoplasty Platform | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/vertebral-augmentation/kyphon-balloon-kyphoplasty-platform.html",
+        "notes": "Official Medtronic Kyphon balloon kyphoplasty platform page used as the primary public source anchor for the Kyphon and kyphoplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Kyphon KyphoFlex Unipedicular Balloon Kit | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/vertebral-augmentation/balloon-kyphoplasty-kits/kyphon-kyphoflex-unipedicular-balloon-kit.html",
+        "notes": "Official Medtronic KyphoFlex balloon kit page used as supporting public evidence for procedural kit and balloon access components within this kyphoplasty portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Kyphon V Premium Vertebroplasty Platform | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/vertebral-augmentation/vertebroplasty/kyphon-v-premium-vertebroplasty-platform.html",
+        "notes": "Official Medtronic vertebroplasty platform page used as supporting public evidence for the broader Kyphon vertebral augmentation portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_LUMBAR_DECOMPRESSION___DISCECTOMY_PORTFOLIO",
+    "system_name": "Lumbar Decompression / Discectomy Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as the primary public source anchor for the lumbar decompression and discectomy portfolio entry."
+      },
+      {
+        "source_type": "planning_platform_page",
+        "title": "UNiD Adaptive Spine Intelligence | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/complex-spine/fixation-systems/unid-adaptive-spine-intelligence.html",
+        "notes": "Official Medtronic UNiD planning platform page used as supporting public evidence for degenerative lumbar spine procedural planning and workflow support in this portfolio entry."
+      },
+      {
+        "source_type": "clearance_news_page",
+        "title": "Medtronic receives FDA clearance for next-generation UNiD Spine Analyzer with degenerative spine surgery predictive model",
+        "url": "https://news.medtronic.com/2022-07-14-Medtronic-receives-FDA-clearance-for-next-generation-UNiD-TM-Spine-Analyzer-with-degenerative-spine-surgery-predictive-model",
+        "notes": "Official Medtronic clearance announcement used as the closest current public match for degenerative lumbar decompression and discectomy planning support because a dedicated publicly exposed decompression or discectomy system page is not currently available."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_LUMBAR_DECOMPRESSION_PORTFOLIO",
+    "system_name": "Lumbar Decompression Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as the primary public source anchor for the lumbar decompression portfolio entry."
+      },
+      {
+        "source_type": "planning_platform_page",
+        "title": "UNiD Adaptive Spine Intelligence | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/complex-spine/fixation-systems/unid-adaptive-spine-intelligence.html",
+        "notes": "Official Medtronic UNiD planning platform page used as supporting public evidence for degenerative lumbar spine procedural planning and workflow support in this decompression portfolio entry."
+      },
+      {
+        "source_type": "clearance_news_page",
+        "title": "Medtronic receives FDA clearance for next-generation UNiD Spine Analyzer with degenerative spine surgery predictive model",
+        "url": "https://news.medtronic.com/2022-07-14-Medtronic-receives-FDA-clearance-for-next-generation-UNiD-TM-Spine-Analyzer-with-degenerative-spine-surgery-predictive-model",
+        "notes": "Official Medtronic clearance announcement used as the closest current public match for degenerative lumbar decompression planning support because a dedicated publicly exposed decompression-only system page is not currently available."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_MEDTRONIC_CERVICAL_SPINE_PORTFOLIO",
+    "system_name": "Medtronic Cervical Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Cervical Spine | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/cervical-spine.html",
+        "notes": "Official Medtronic cervical spine therapy page used as the primary public source anchor for the cervical spine portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Prestige LP Cervical Disc | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/cervical-spine/cervical-discs/prestige-lp-cervical-disc.html",
+        "notes": "Official Medtronic cervical disc page used as supporting public evidence for cervical motion-preservation coverage in this portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Atlantis Translational Anterior Cervical Plate | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/cervical-spine/plates/atlantis-translational-anterior-cervical-plate.html",
+        "notes": "Official Medtronic anterior cervical plate page used as supporting public evidence for cervical fixation and fusion coverage in this portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_MEDTRONIC_DEFORMITY_PORTFOLIO",
+    "system_name": "Medtronic Deformity Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as the primary public source anchor for the deformity portfolio entry."
+      },
+      {
+        "source_type": "product_news_page",
+        "title": "CD Horizon ModuLeX Spinal System for Deformity Procedures | Medtronic",
+        "url": "https://news.medtronic.com/Medtronic-amplifies-AiBLE-TM-ecosystem-with-CD-Horizon-TM-ModuLeX-TM-spinal-system-for-deformity-procedures",
+        "notes": "Official Medtronic launch announcement for the CD Horizon ModuLeX spinal system for deformity procedures, used as the primary deformity-focused public product anchor for this portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "UNiD Adaptive Spine Intelligence | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/complex-spine/fixation-systems/unid-adaptive-spine-intelligence.html",
+        "notes": "Official Medtronic UNiD adaptive spine intelligence page used as supporting public evidence for complex spine deformity planning and workflow support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_MEDTRONIC_NAVIGATION_SPINE_PORTFOLIO",
+    "system_name": "Medtronic Navigation + Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "StealthStation S8 Navigation Platform | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/surgical-navigation-imaging/surgical-navigation-systems/stealthstation-s8-navigation-platform.html",
+        "notes": "Official Medtronic StealthStation S8 page used as the primary public source anchor for the spine navigation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Mazor Robotic Guidance System | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/surgical-robotics/robotic-systems/mazor-robotic-guidance-system.html",
+        "notes": "Official Medtronic Mazor robotic guidance page used as supporting public evidence for navigation-enabled spinal surgery workflows in this portfolio entry."
+      },
+      {
+        "source_type": "ecosystem_news_page",
+        "title": "Medtronic expands AiBLE spine surgery ecosystem with new technologies and Siemens Healthineers partnership",
+        "url": "https://news.medtronic.com/2024-09-25-Medtronic-expands-AiBLE-TM-spine-surgery-ecosystem-with-new-technologies-and-Siemens-Healthineers-partnership",
+        "notes": "Official Medtronic AiBLE ecosystem announcement used as supporting public evidence for integrated navigation, imaging, software, and robotic workflow support across the spine portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_MEDTRONIC_NEURO_SPINE_PORTFOLIO",
+    "system_name": "Medtronic Neuro / Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as the primary public source anchor for the neuro and spine portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "StealthStation S8 Navigation Platform | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/surgical-navigation-imaging/surgical-navigation-systems/stealthstation-s8-navigation-platform.html",
+        "notes": "Official Medtronic StealthStation S8 page used as supporting public evidence for neurosurgical and spine navigation workflows in this portfolio entry."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Neuroscience | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/neurological.html",
+        "notes": "Official Medtronic neuroscience page used as supporting public evidence for the broader neuro component of this combined neuro and spine portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_MEDTRONIC_ORTHOPAEDIC_ONCOLOGY_PORTFOLIO",
+    "system_name": "Medtronic Orthopaedic oncology Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "OsteoCool 2.0 Bone Tumor Ablation System | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/surgical-energy/ablation/radiofrequency-ablation/systems/osteocool-2-0-bone-tumor-ablation-system.html",
+        "notes": "Official Medtronic OsteoCool 2.0 bone tumor ablation page used as the primary public source anchor for the orthopaedic oncology portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "T2 Altitude Expandable Corpectomy System | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/complex-spine/interbody-devices/t2-altitude-expandable-corpectomy-system.html",
+        "notes": "Official Medtronic corpectomy system page used as supporting public evidence for tumor-related spinal reconstruction coverage within this orthopaedic oncology portfolio entry."
+      },
+      {
+        "source_type": "clearance_news_page",
+        "title": "Medtronic receives FDA clearance for OsteoCool 2.0 bone tumor ablation system",
+        "url": "https://news.medtronic.com/Medtronic-receives-FDA-clearance-for-OsteoCool-TM-2-0-bone-tumor-ablation-system",
+        "notes": "Official Medtronic clearance announcement used as supporting public evidence for the company's current oncology-focused bone tumor ablation platform."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_MEDTRONIC_PEDIATRIC_DEFORMITY_PORTFOLIO",
+    "system_name": "Medtronic Pediatric Deformity Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as the primary public source anchor for the pediatric deformity portfolio entry."
+      },
+      {
+        "source_type": "product_news_page",
+        "title": "CD Horizon ModuLeX Spinal System for Deformity Procedures | Medtronic",
+        "url": "https://news.medtronic.com/Medtronic-amplifies-AiBLE-TM-ecosystem-with-CD-Horizon-TM-ModuLeX-TM-spinal-system-for-deformity-procedures",
+        "notes": "Official Medtronic launch announcement for the CD Horizon ModuLeX spinal system for deformity procedures, used as the closest current public product anchor for this pediatric deformity portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "UNiD Adaptive Spine Intelligence | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/complex-spine/fixation-systems/unid-adaptive-spine-intelligence.html",
+        "notes": "Official Medtronic UNiD adaptive spine intelligence page used as supporting public evidence for complex deformity planning and workflow support, including pediatric deformity contexts."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_MEDTRONIC_PEDIATRIC_ORTHOPAEDICS_PORTFOLIO",
+    "system_name": "Medtronic Pediatric orthopaedics Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as the primary public source anchor for the pediatric orthopaedics portfolio entry."
+      },
+      {
+        "source_type": "product_news_page",
+        "title": "CD Horizon ModuLeX Spinal System for Deformity Procedures | Medtronic",
+        "url": "https://news.medtronic.com/Medtronic-amplifies-AiBLE-TM-ecosystem-with-CD-Horizon-TM-ModuLeX-TM-spinal-system-for-deformity-procedures",
+        "notes": "Official Medtronic launch announcement for the CD Horizon ModuLeX spinal system for deformity procedures, used as the closest current public product anchor for this pediatric orthopaedics portfolio entry because a broader dedicated public pediatric orthopaedics page is not currently exposed."
+      },
+      {
+        "source_type": "product_page",
+        "title": "UNiD Adaptive Spine Intelligence | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/complex-spine/fixation-systems/unid-adaptive-spine-intelligence.html",
+        "notes": "Official Medtronic UNiD adaptive spine intelligence page used as supporting public evidence for planning and workflow support across complex pediatric orthopaedic deformity cases."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_MEDTRONIC_SPINE_PORTFOLIO",
+    "system_name": "Medtronic Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as the primary public source anchor for the spine portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CD HORIZON Spinal System | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/spine-fixation/cd-horizon-spinal-system.html",
+        "notes": "Official Medtronic CD HORIZON spinal fixation page used as supporting public evidence for the broader Medtronic spine portfolio."
+      },
+      {
+        "source_type": "product_page",
+        "title": "UNiD Adaptive Spine Intelligence | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/complex-spine/fixation-systems/unid-adaptive-spine-intelligence.html",
+        "notes": "Official Medtronic UNiD adaptive spine intelligence page used as supporting public evidence for planning and workflow support across the spine portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_MEDTRONIC_SPINE_TRAUMA_PORTFOLIO",
+    "system_name": "Medtronic Spine trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as the primary public source anchor for the spine trauma portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CD HORIZON Spinal System | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/spine-fixation/cd-horizon-spinal-system.html",
+        "notes": "Official Medtronic CD HORIZON spinal fixation page used as supporting public evidence for posterior fixation and stabilisation workflows relevant to spine trauma coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "StealthStation S8 Navigation Platform | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/surgical-navigation-imaging/surgical-navigation-systems/stealthstation-s8-navigation-platform.html",
+        "notes": "Official Medtronic navigation page used as supporting public evidence for image-guided workflow support in complex spinal trauma procedures."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_MEDTRONIC_VERTEBRAL_AUGMENTATION_PORTFOLIO",
+    "system_name": "Medtronic Vertebral Augmentation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Kyphon Balloon Kyphoplasty Platform | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/vertebral-augmentation/kyphon-balloon-kyphoplasty-platform.html",
+        "notes": "Official Medtronic Kyphon balloon kyphoplasty platform page used as the primary public source anchor for the vertebral augmentation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Kyphon V Premium Vertebroplasty Platform | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/vertebral-augmentation/vertebroplasty/kyphon-v-premium-vertebroplasty-platform.html",
+        "notes": "Official Medtronic vertebroplasty platform page used as supporting public evidence for the broader vertebral augmentation portfolio."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as broader workflow context for the vertebral augmentation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_PAEDIATRIC_DEFORMITY_SPINE_PORTFOLIO",
+    "system_name": "Paediatric Deformity Spine Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as the primary public source anchor for the paediatric deformity spine portfolio entry."
+      },
+      {
+        "source_type": "product_news_page",
+        "title": "CD Horizon ModuLeX Spinal System for Deformity Procedures | Medtronic",
+        "url": "https://news.medtronic.com/Medtronic-amplifies-AiBLE-TM-ecosystem-with-CD-Horizon-TM-ModuLeX-TM-spinal-system-for-deformity-procedures",
+        "notes": "Official Medtronic launch announcement for the CD Horizon ModuLeX spinal system for deformity procedures, used as the closest current public product anchor for this paediatric deformity spine portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "UNiD Adaptive Spine Intelligence | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/complex-spine/fixation-systems/unid-adaptive-spine-intelligence.html",
+        "notes": "Official Medtronic UNiD adaptive spine intelligence page used as supporting public evidence for complex paediatric deformity planning and workflow support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_PRESTIGE___DIVERGENCE___ACDF_PORTFOLIO",
+    "system_name": "Prestige / Divergence / ACDF Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Cervical Spine | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/cervical-spine.html",
+        "notes": "Official Medtronic cervical spine therapy page used as the primary public source anchor for the Prestige, Divergence, and ACDF portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Prestige LP Cervical Disc | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/cervical-spine/cervical-discs/prestige-lp-cervical-disc.html",
+        "notes": "Official Medtronic Prestige LP cervical disc page used as supporting public evidence for cervical disc arthroplasty coverage within this portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Divergence-L Anterior/Oblique Lumbar Fusion System | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/lumbar-spine/interbody-fusion/divergence-l-anterior-oblique-lumbar-fusion-system.html",
+        "notes": "Official Medtronic Divergence-L page used as the closest current public match for the Divergence element of this ACDF-named portfolio because a dedicated publicly exposed cervical Divergence page is not currently available."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_SUCTION_DIATHERMY",
+    "system_name": "Suction Diathermy Set",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Valleylab Suction Coagulator | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/access-instruments/suction-irrigation-devices/valleylab-suction-coagulator.html",
+        "notes": "Official Medtronic Valleylab suction coagulator page used as the primary public source anchor for the suction diathermy set entry and documented as the closest current public match."
+      },
+      {
+        "source_type": "indications_page",
+        "title": "PlasmaBlade - Indications, Safety, Warnings | Medtronic",
+        "url": "https://www.medtronic.com/xg-en/healthcare-professionals/products/general-surgery/electrosurgical/plasmablade-soft-tissue-dissection/indications-safety-warnings.html",
+        "notes": "Official Medtronic indications page used as supporting public evidence because it explicitly describes the suction coagulator indication for procedures requiring coagulation and suction of fluids."
+      },
+      {
+        "source_type": "platform_page",
+        "title": "Valleylab FX8 Energy Platform | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/surgical-energy/electrosurgical-hardware/electrosurgical-generators-monitors/valleylab-fx8-energy-platform.html",
+        "notes": "Official Medtronic electrosurgical platform page used as supporting public evidence for the compatible energy generator workflow paired with suction coagulation instruments."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_THORACOLUMBAR_FUSION_PORTFOLIO",
+    "system_name": "Thoracolumbar Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as the primary public source anchor for the thoracolumbar fusion portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "CD HORIZON Spinal System | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic/spine-fixation/cd-horizon-spinal-system.html",
+        "notes": "Official Medtronic CD HORIZON spinal fixation page used as supporting public evidence for thoracolumbar fusion fixation workflows."
+      },
+      {
+        "source_type": "regulatory_news_page",
+        "title": "Medtronic Announces FDA approval of Infuse Bone Graft for one-and-two level TLIF spine procedures",
+        "url": "https://news.medtronic.com/2026-02-17-Medtronic-Announces-FDA-approval-of-Infuse-TM-bone-graft-for-one-and-two-level-Transforaminal-Lumbar-Interbody-Fusion-TLIF-spine-procedures",
+        "notes": "Official Medtronic regulatory announcement used as supporting public evidence for thoracolumbar interbody fusion coverage within this portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MEDTRONIC",
+    "supplier_name": "Medtronic",
+    "system_id": "SYS_VERTEBRAL_AUGMENTATION_PORTFOLIO",
+    "system_name": "Vertebral Augmentation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Kyphon Balloon Kyphoplasty Platform | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/vertebral-augmentation/kyphon-balloon-kyphoplasty-platform.html",
+        "notes": "Official Medtronic Kyphon balloon kyphoplasty platform page used as the primary public source anchor for the vertebral augmentation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Kyphon V Premium Vertebroplasty Platform | Medtronic",
+        "url": "https://www.medtronic.com/en-us/healthcare-professionals/products/spinal-orthopedic/vertebral-augmentation/vertebroplasty/kyphon-v-premium-vertebroplasty-platform.html",
+        "notes": "Official Medtronic vertebroplasty platform page used as supporting public evidence for the broader vertebral augmentation portfolio."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Spine and Biologics | Medtronic",
+        "url": "https://www.medtronic.com/us-en/healthcare-professionals/products/spinal-orthopaedic.html",
+        "notes": "Official Medtronic spine and biologics page used as broader workflow context for the vertebral augmentation portfolio entry."
+      }
+    ]
+  }
+]

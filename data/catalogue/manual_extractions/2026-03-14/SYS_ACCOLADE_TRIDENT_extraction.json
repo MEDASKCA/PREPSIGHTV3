@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Accolade II / Trident II",
+    "source_type": "product_page",
+    "source_document": "Trident II",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Accolade II / Trident II",
+      "supplier_name": "Stryker",
+      "system_category": "Hip Arthroplasty System",
+      "system_notes": "Primary total hip arthroplasty platform combining Accolade II femoral and Trident II acetabular families."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Accolade II / Trident II Instrumentation",
+      "system_name": "Accolade II / Trident II",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Stryker platform materials reference dedicated femoral and acetabular instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Trident II Acetabular Shell",
+      "system_name": "Accolade II / Trident II",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core Trident II shell family referenced on the product page."
+    },
+    {
+      "component_name": "Trident II Acetabular Liner",
+      "system_name": "Accolade II / Trident II",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core Trident II liner family referenced on the product page."
+    },
+    {
+      "component_name": "Accolade II Femoral Stem",
+      "system_name": "Accolade II / Trident II",
+      "component_role": "Femoral Stem",
+      "implant_category": "Hip Implant",
+      "component_notes": "Core Accolade II stem family referenced within the platform."
+    },
+    {
+      "component_name": "Accolade II Femoral Head",
+      "system_name": "Accolade II / Trident II",
+      "component_role": "Femoral Head",
+      "implant_category": "Hip Implant",
+      "component_notes": "Femoral head family used with the Accolade II / Trident II platform."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Platform includes multiple shell, liner and stem configurations.",
+      "reason": "Needs deeper technique or catalogue review before detailed family expansion.",
+      "source_excerpt": "Current extraction keeps the combined platform-level implant families only."
+    }
+  ]
+}

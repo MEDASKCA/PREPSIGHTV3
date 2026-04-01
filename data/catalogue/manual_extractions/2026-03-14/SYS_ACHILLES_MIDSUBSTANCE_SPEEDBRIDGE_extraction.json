@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Achilles Midsubstance SpeedBridge",
+    "source_type": "specialty_page",
+    "source_document": "Foot & Ankle Surgery",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Achilles Midsubstance SpeedBridge",
+      "supplier_name": "Arthrex",
+      "system_category": "Achilles repair",
+      "system_notes": "Portfolio-level public anchor for Arthrex Achilles midsubstance SpeedBridge repair workflow resources."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Achilles SpeedBridge Repair Family",
+      "system_name": "Achilles Midsubstance SpeedBridge",
+      "component_role": "Portfolio Family",
+      "implant_category": "Achilles Repair Workflow",
+      "component_notes": "Official Arthrex portfolio sources describe the broader Achilles midsubstance SpeedBridge repair workflow family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "This is a portfolio-level row rather than a single Achilles repair instrumentation tray, so no dedicated tray is asserted in this pass.",
+      "reason": "Tray detail should only be added from narrower Achilles SpeedBridge technique or product-family sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Portfolio-level sources do not expose a normalized product-code matrix.",
+      "reason": "Product codes should be captured from narrower Achilles SpeedBridge implant or ordering sources.",
+      "source_excerpt": "Current extraction remains portfolio-level only."
+    }
+  ]
+}

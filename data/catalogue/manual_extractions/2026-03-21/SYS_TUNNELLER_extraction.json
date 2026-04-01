@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LeMaitre Vascular",
+    "system_name": "Graft Tunneller",
+    "source_type": "product_overview_page",
+    "source_document": "Products by Country | LeMaitre",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Graft Tunneller",
+      "supplier_name": "LeMaitre Vascular",
+      "system_category": "vascular_instruments",
+      "system_notes": "Official LeMaitre Vascular product-overview and IFU materials used as the closest current public source anchors for this graft tunneller entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Graft Tunneller Framework",
+      "system_name": "Graft Tunneller",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Vascular",
+      "component_notes": "Framework component anchored to LeMaitre public graft-tunneller source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public graft-tunneller source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Home | LeMaitre; Products by Country | LeMaitre; Contact Us | LeMaitre; English (EU) - Instructions for Use | LeMaitre"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public graft-tunneller source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Home | LeMaitre; Products by Country | LeMaitre; Contact Us | LeMaitre; English (EU) - Instructions for Use | LeMaitre"
+    }
+  ]
+}

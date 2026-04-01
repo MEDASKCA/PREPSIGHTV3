@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Becton Dickinson",
+    "system_name": "Fogarty Embolectomy Catheter",
+    "source_type": "product_family_page",
+    "source_document": "Fogarty Occlusion Catheters | BD",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_FOGARTY_EMBOLECTOMY_CATHETER_FOGARTY_CATHETER_FRAMEWORK",
+        "Component Name": "Fogarty Catheter Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_FOGARTY_CATHETER",
+        "Component Notes": "Framework component anchored to BD public Fogarty catheter source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Fogarty Embolectomy Catheter",
+          "supplier_name": "Becton Dickinson",
+          "system_category": "vascular_intervention",
+          "system_notes": "Official BD Fogarty catheter materials used as the closest current public source anchors for this Fogarty embolectomy catheter entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Fogarty Embolectomy Catheter",
+        "supplier_name": "Becton Dickinson",
+        "system_category": "vascular_intervention",
+        "system_notes": "Official BD Fogarty catheter materials used as the closest current public source anchors for this Fogarty embolectomy catheter entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Fogarty Embolectomy Catheter",
+        "supplier_name": "Becton Dickinson",
+        "system_category": "vascular_intervention",
+        "system_notes": "Official BD Fogarty catheter materials used as the closest current public source anchors for this Fogarty embolectomy catheter entry."
+      }
+    }
+  ]
+}

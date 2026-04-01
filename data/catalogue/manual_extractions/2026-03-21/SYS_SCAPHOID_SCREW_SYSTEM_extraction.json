@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "TriMed",
+    "system_name": "Scaphoid Screw System",
+    "source_type": "product_page",
+    "source_document": "Scaphoid Screw",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Scaphoid Screw System",
+      "supplier_name": "TriMed",
+      "system_category": "hand_wrist_trauma",
+      "system_notes": "Official TriMed scaphoid fixation materials used as the public source anchors for this hand and wrist trauma system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Scaphoid Screw Framework",
+      "system_name": "Scaphoid Screw System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Hand and Wrist Trauma",
+      "component_notes": "Framework component anchored to TriMed public scaphoid screw source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public scaphoid screw source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Scaphoid Screw; Upper Extremity; Surgical Techniques"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public scaphoid screw source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Scaphoid Screw; Upper Extremity; Surgical Techniques"
+    }
+  ]
+}

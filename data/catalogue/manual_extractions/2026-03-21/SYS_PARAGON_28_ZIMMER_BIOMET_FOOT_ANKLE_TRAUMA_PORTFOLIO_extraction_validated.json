@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "Paragon 28 / Zimmer Biomet Foot & Ankle Trauma Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Foot and Ankle Products - Paragon 28",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PARAGON_28_ZIMMER_BIOMET_FOOT_ANKLE_TRAUMA_PORTFOLIO_FOOT_AND_ANKLE_TRAUMA_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Foot and Ankle Trauma Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Foot & ankle trauma fixation",
+        "System ID": "SYS_PARAGON_28_ZIMMER_BIOMET_FOOT_ANKLE_TRAUMA_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Paragon 28 public foot and ankle trauma source anchors used for this mixed portfolio mapping."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Paragon 28 / Zimmer Biomet Foot & Ankle Trauma Portfolio",
+          "supplier_name": "Paragon 28",
+          "system_category": "Foot & ankle trauma fixation",
+          "system_notes": "Official Paragon 28 Foot and Ankle Products, Gorilla Ankle Fracture Plating System, and Gorilla Calcaneal Fracture Plating System materials used as the source anchors for the mixed foot and ankle trauma portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Paragon 28 / Zimmer Biomet Foot & Ankle Trauma Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "Foot & ankle trauma fixation",
+        "system_notes": "Official Paragon 28 Foot and Ankle Products, Gorilla Ankle Fracture Plating System, and Gorilla Calcaneal Fracture Plating System materials used as the source anchors for the mixed foot and ankle trauma portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Paragon 28 / Zimmer Biomet Foot & Ankle Trauma Portfolio",
+        "supplier_name": "Paragon 28",
+        "system_category": "Foot & ankle trauma fixation",
+        "system_notes": "Official Paragon 28 Foot and Ankle Products, Gorilla Ankle Fracture Plating System, and Gorilla Calcaneal Fracture Plating System materials used as the source anchors for the mixed foot and ankle trauma portfolio entry."
+      }
+    }
+  ]
+}

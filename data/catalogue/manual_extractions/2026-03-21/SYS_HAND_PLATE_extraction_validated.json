@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "AAP Implantate",
+    "system_name": "Hand Plating System",
+    "source_type": "product_family_page",
+    "source_document": "LOQTEQ Plating System | aap Implantate AG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_HAND_PLATING_SYSTEM_HAND_PLATING_FRAMEWORK",
+        "Component Name": "Hand Plating Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_HAND_PLATE",
+        "Component Notes": "Framework component anchored to AAP public hand-plating and LOQTEQ source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Hand Plating System",
+          "supplier_name": "AAP Implantate",
+          "system_category": "orthopaedic_fixation",
+          "system_notes": "Official AAP Implantate LOQTEQ plating-system page, Straight Plates page, and LOQTEQ catalogue materials used as the source anchors for the hand plating system entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Hand Plating System",
+        "supplier_name": "AAP Implantate",
+        "system_category": "orthopaedic_fixation",
+        "system_notes": "Official AAP Implantate LOQTEQ plating-system page, Straight Plates page, and LOQTEQ catalogue materials used as the source anchors for the hand plating system entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Hand Plating System",
+        "supplier_name": "AAP Implantate",
+        "system_category": "orthopaedic_fixation",
+        "system_notes": "Official AAP Implantate LOQTEQ plating-system page, Straight Plates page, and LOQTEQ catalogue materials used as the source anchors for the hand plating system entry."
+      }
+    }
+  ]
+}

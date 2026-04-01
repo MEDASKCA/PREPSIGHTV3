@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "AAP Implantate",
+    "system_name": "Intramedullary Nail System",
+    "source_type": "supplier_homepage",
+    "source_document": "aap Implantate AG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_INTRAMEDULLARY_NAIL_SYSTEM_INTRAMEDULLARY_NAIL_FRAMEWORK",
+        "Component Name": "Intramedullary Nail Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_INTRAMEDULLARY_NAIL",
+        "Component Notes": "Framework component anchored to AAP public trauma fixation and products-overview source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Intramedullary Nail System",
+          "supplier_name": "AAP Implantate",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Official AAP Implantate products overview, LOQTEQ portfolio page, and LOQTEQ catalogue materials used as the source anchors for the intramedullary nail system entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Intramedullary Nail System",
+        "supplier_name": "AAP Implantate",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Official AAP Implantate products overview, LOQTEQ portfolio page, and LOQTEQ catalogue materials used as the source anchors for the intramedullary nail system entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Intramedullary Nail System",
+        "supplier_name": "AAP Implantate",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Official AAP Implantate products overview, LOQTEQ portfolio page, and LOQTEQ catalogue materials used as the source anchors for the intramedullary nail system entry."
+      }
+    }
+  ]
+}

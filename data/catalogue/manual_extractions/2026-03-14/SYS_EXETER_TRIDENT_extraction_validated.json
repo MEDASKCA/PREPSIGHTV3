@@ -1,0 +1,122 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Exeter / Trident",
+    "source_type": "product_page",
+    "source_document": "Exeter and Trident II official product materials",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_EXETER_TRIDENT_EXETER_TRIDENT_INSTRUMENTATION",
+        "Tray Name": "Exeter / Trident Instrumentation",
+        "System ID": "SYS_EXETER_TRIDENT",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Exeter is described by Stryker as one implant and instrument system, while Trident II materials describe simplified trays that complement the new instruments."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_EXETER_TRIDENT_EXETER_V40_FEMORAL_STEM",
+        "Component Name": "Exeter V40 Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_EXETER_TRIDENT",
+        "Component Notes": "Official Exeter materials list the Exeter V40 femoral stem range with multiple offsets and lengths."
+      },
+      {
+        "Component ID": "COMP_EXETER_TRIDENT_TRIDENT_II_ACETABULAR_SHELL",
+        "Component Name": "Trident II Acetabular Shell",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_EXETER_TRIDENT",
+        "Component Notes": "Official Trident II product materials describe the Trident II acetabular system and Tritanium/PureFix shell family."
+      },
+      {
+        "Component ID": "COMP_EXETER_TRIDENT_X3_POLYETHYLENE_LINER",
+        "Component Name": "X3 Polyethylene Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_EXETER_TRIDENT",
+        "Component Notes": "Trident II materials explicitly reference X3 polyethylene as a supported bearing option."
+      },
+      {
+        "Component ID": "COMP_EXETER_TRIDENT_MODULAR_DUAL_MOBILITY_LINER",
+        "Component Name": "Modular Dual Mobility Liner",
+        "Component Role": "Dual Mobility Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_EXETER_TRIDENT",
+        "Component Notes": "Trident II materials explicitly reference the Modular Dual Mobility (MDM) liner option."
+      }
+    ],
+    "PRODUCTS": [
+      {
+        "SKU": "0580-1-300",
+        "Product Name": "Exeter V40 Femoral Stem 30mm 95mm",
+        "Component ID": "COMP_EXETER_TRIDENT_EXETER_V40_FEMORAL_STEM",
+        "Packaging Type": "",
+        "Product Notes": "Official Exeter product page lists product code 0580-1-300 for a 30mm offset 95mm Exeter V40 femoral stem."
+      }
+    ],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Exeter / Trident",
+          "supplier_name": "Stryker",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Hybrid hip arthroplasty platform pairing the Exeter cemented femoral stem family with the Trident acetabular system."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Exeter / Trident",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Hybrid hip arthroplasty platform pairing the Exeter cemented femoral stem family with the Trident acetabular system."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Exeter / Trident",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Hybrid hip arthroplasty platform pairing the Exeter cemented femoral stem family with the Trident acetabular system."
+      }
+    }
+  ]
+}

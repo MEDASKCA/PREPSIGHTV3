@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "VariAx Calcaneus Plating",
+    "source_type": "product_page",
+    "source_document": "VariAx 2 Foot",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_VARIAX_CALCANEUS_PLATING_CALCANEUS_PLATING_FRAMEWORK",
+        "Component Name": "Calcaneus Plating Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Foot and Ankle Trauma",
+        "System ID": "SYS_VARIAX_CALCANEUS_PLATING",
+        "Component Notes": "Framework component anchored to Stryker public calcaneus plating source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "VariAx Calcaneus Plating",
+          "supplier_name": "Stryker",
+          "system_category": "foot_ankle_trauma",
+          "system_notes": "Official Stryker VariAx calcaneus plating materials used as the public source anchors for this foot and ankle trauma fixation entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "VariAx Calcaneus Plating",
+        "supplier_name": "Stryker",
+        "system_category": "foot_ankle_trauma",
+        "system_notes": "Official Stryker VariAx calcaneus plating materials used as the public source anchors for this foot and ankle trauma fixation entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "VariAx Calcaneus Plating",
+        "supplier_name": "Stryker",
+        "system_category": "foot_ankle_trauma",
+        "system_notes": "Official Stryker VariAx calcaneus plating materials used as the public source anchors for this foot and ankle trauma fixation entry."
+      }
+    }
+  ]
+}

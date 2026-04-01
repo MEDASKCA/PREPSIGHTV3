@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "CONMED",
+    "system_name": "Linvatec Arthroscopy System",
+    "source_type": "portfolio_page",
+    "source_document": "Orthopedic Surgical Solutions | CONMED",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Linvatec Arthroscopy System",
+      "supplier_name": "CONMED",
+      "system_category": "arthroscopy",
+      "system_notes": "Official CONMED arthroscopy platform, resection, and fluid-management materials used as the public source anchors for this Linvatec arthroscopy system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Arthroscopy System Framework",
+      "system_name": "Linvatec Arthroscopy System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Arthroscopy",
+      "component_notes": "Framework component anchored to CONMED public arthroscopy system source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public arthroscopy system source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Orthopedic Surgical Solutions | CONMED; Arthroscopic Resection Systems, Blades, and Burrs | CONMED; Arthroscopic Fluid Management Systems | CONMED; Why Fast Inflow is Crucial for Arthroscopic Pumps | CONMED Blog"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public arthroscopy system source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Orthopedic Surgical Solutions | CONMED; Arthroscopic Resection Systems, Blades, and Burrs | CONMED; Arthroscopic Fluid Management Systems | CONMED; Why Fast Inflow is Crucial for Arthroscopic Pumps | CONMED Blog"
+    }
+  ]
+}

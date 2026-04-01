@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Richard Wolf",
+    "system_name": "Resectoscope",
+    "source_type": "product_page",
+    "source_document": "Princess Resectoscope",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_RESECTOSCOPE_RESECTOSCOPE_FRAMEWORK",
+        "Component Name": "Resectoscope Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Urology",
+        "System ID": "SYS_RESECTOSCOPE",
+        "Component Notes": "Framework component anchored to Richard Wolf public resectoscope source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Resectoscope",
+          "supplier_name": "Richard Wolf",
+          "system_category": "urology_endoscopy",
+          "system_notes": "Official Richard Wolf resectoscope materials used as the public source anchors for this generic resectoscope entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Resectoscope",
+        "supplier_name": "Richard Wolf",
+        "system_category": "urology_endoscopy",
+        "system_notes": "Official Richard Wolf resectoscope materials used as the public source anchors for this generic resectoscope entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Resectoscope",
+        "supplier_name": "Richard Wolf",
+        "system_category": "urology_endoscopy",
+        "system_notes": "Official Richard Wolf resectoscope materials used as the public source anchors for this generic resectoscope entry."
+      }
+    }
+  ]
+}

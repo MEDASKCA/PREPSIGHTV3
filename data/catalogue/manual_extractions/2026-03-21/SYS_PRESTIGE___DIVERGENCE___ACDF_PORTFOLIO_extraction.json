@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Prestige / Divergence / ACDF Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Cervical Spine | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Prestige / Divergence / ACDF Portfolio",
+      "supplier_name": "Medtronic",
+      "system_category": "spine",
+      "system_notes": "Official Medtronic cervical spine and ACDF-adjacent materials used as the public source anchors for this cervical portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "ACDF Portfolio Framework",
+      "system_name": "Prestige / Divergence / ACDF Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Framework component anchored to Medtronic public ACDF and cervical spine source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public ACDF portfolio source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Cervical Spine | Medtronic; Prestige LP Cervical Disc | Medtronic; Divergence-L Anterior/Oblique Lumbar Fusion System | Medtronic"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public ACDF portfolio source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Cervical Spine | Medtronic; Prestige LP Cervical Disc | Medtronic; Divergence-L Anterior/Oblique Lumbar Fusion System | Medtronic"
+    }
+  ]
+}

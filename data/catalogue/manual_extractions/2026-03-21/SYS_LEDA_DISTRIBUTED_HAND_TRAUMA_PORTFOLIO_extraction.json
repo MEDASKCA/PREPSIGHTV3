@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "LEDA Distributed Hand Trauma Portfolio",
+    "source_type": "company_page",
+    "source_document": "LEDA Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "LEDA Distributed Hand Trauma Portfolio",
+      "supplier_name": "LEDA Orthopaedics",
+      "system_category": "Hand soft tissue trauma",
+      "system_notes": "Official LEDA Orthopaedics, Upper Limb, and Hand Trauma materials used as the source anchors for the distributed hand trauma portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Hand Trauma Portfolio Framework",
+      "system_name": "LEDA Distributed Hand Trauma Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Hand Trauma Portfolio",
+      "component_notes": "Framework component anchored to LEDA public upper-limb and hand-trauma source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public LEDA hand trauma source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "LEDA Orthopaedics; Upper Limb; Hand Trauma"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public LEDA hand trauma source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "LEDA Orthopaedics; Upper Limb; Hand Trauma"
+    }
+  ]
+}

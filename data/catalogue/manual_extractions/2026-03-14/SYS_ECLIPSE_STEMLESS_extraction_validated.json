@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Eclipse Stemless Shoulder",
+    "source_type": "product_page",
+    "source_document": "Eclipse Total Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ECLIPSE_STEMLESS_SHOULDER_ECLIPSE_STEMLESS_SHOULDER_INSTRUMENT_TRAY",
+        "Tray Name": "Eclipse Stemless Shoulder Instrument Tray",
+        "System ID": "SYS_ECLIPSE_STEMLESS",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Arthrex materials describe a streamlined single-tray instrumentation workflow for the Eclipse shoulder system."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ECLIPSE_STEMLESS_SHOULDER_ECLIPSE_CAGE_SCREW",
+        "Component Name": "Eclipse Cage Screw",
+        "Component Role": "Humeral Fixation",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_ECLIPSE_STEMLESS",
+        "Component Notes": "Official Arthrex materials describe metaphyseal humeral fixation using the Eclipse cage screw concept."
+      },
+      {
+        "Component ID": "COMP_ECLIPSE_STEMLESS_SHOULDER_ECLIPSE_HUMERAL_HEAD",
+        "Component Name": "Eclipse Humeral Head",
+        "Component Role": "Humeral Head",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_ECLIPSE_STEMLESS",
+        "Component Notes": "Official product materials describe modular humeral head options within the Eclipse shoulder construct."
+      },
+      {
+        "Component ID": "COMP_ECLIPSE_STEMLESS_SHOULDER_ECLIPSE_GLENOID_COMPONENT",
+        "Component Name": "Eclipse Glenoid Component",
+        "Component Role": "Glenoid Component",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_ECLIPSE_STEMLESS",
+        "Component Notes": "Official product materials describe compatible glenoid component options for anatomic shoulder reconstruction."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Eclipse Stemless Shoulder",
+          "supplier_name": "Arthrex",
+          "system_category": "Stemless Shoulder Arthroplasty System",
+          "system_notes": "Stemless anatomic shoulder arthroplasty platform built around a cage screw humeral fixation concept with streamlined instrumentation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Eclipse Stemless Shoulder",
+        "supplier_name": "Arthrex",
+        "system_category": "Stemless Shoulder Arthroplasty System",
+        "system_notes": "Stemless anatomic shoulder arthroplasty platform built around a cage screw humeral fixation concept with streamlined instrumentation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Eclipse Stemless Shoulder",
+        "supplier_name": "Arthrex",
+        "system_category": "Stemless Shoulder Arthroplasty System",
+        "system_notes": "Stemless anatomic shoulder arthroplasty platform built around a cage screw humeral fixation concept with streamlined instrumentation."
+      }
+    }
+  ]
+}

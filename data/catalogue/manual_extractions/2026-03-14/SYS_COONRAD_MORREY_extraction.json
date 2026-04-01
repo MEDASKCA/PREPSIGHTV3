@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Coonrad-Morrey Total Elbow",
+    "source_type": "product_page",
+    "source_document": "Coonrad/Morrey Total Elbow System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Coonrad-Morrey Total Elbow",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Total Elbow Arthroplasty System",
+      "system_notes": "Linked semi-constrained total elbow arthroplasty platform with humeral and ulnar stem options."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Coonrad-Morrey Total Elbow Instrumentation",
+      "system_name": "Coonrad-Morrey Total Elbow",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet materials describe dedicated instrumentation supporting preparation and assembly of the linked elbow construct."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Coonrad-Morrey Humeral Component",
+      "system_name": "Coonrad-Morrey Total Elbow",
+      "component_role": "Humeral Component",
+      "implant_category": "Elbow Implant",
+      "component_notes": "Official materials describe humeral stem and spool options within the linked elbow system."
+    },
+    {
+      "component_name": "Coonrad-Morrey Ulnar Component",
+      "system_name": "Coonrad-Morrey Total Elbow",
+      "component_role": "Ulnar Component",
+      "implant_category": "Elbow Implant",
+      "component_notes": "Official materials describe the ulnar component and stem options used with the linked construct."
+    },
+    {
+      "component_name": "Coonrad-Morrey Hinge Pin",
+      "system_name": "Coonrad-Morrey Total Elbow",
+      "component_role": "Articulation Link",
+      "implant_category": "Elbow Implant",
+      "component_notes": "Official materials describe the linked articulation assembly using dedicated hinge hardware."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public product page and brochure identify implant families and instrumentation context but do not expose a complete coded product table in this pass.",
+      "reason": "A deeper brochure, IFU, or ordering guide pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

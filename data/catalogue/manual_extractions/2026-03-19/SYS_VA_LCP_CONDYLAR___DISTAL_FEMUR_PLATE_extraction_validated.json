@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "VA-LCP Condylar / Distal Femur Plate",
+    "source_type": "technique_index_page",
+    "source_document": "Accompanying Product Information",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_VA_LCP_CONDYLAR_DISTAL_FEMUR_PLATE_VA_LCP_DISTAL_FEMUR_PLATE_FRAMEWORK",
+        "Component Name": "VA-LCP Distal Femur Plate Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_VA_LCP_CONDYLAR___DISTAL_FEMUR_PLATE",
+        "Component Notes": "Portfolio-level informational framework anchored to DePuy Synthes public distal femur plating sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "VA-LCP Condylar / Distal Femur Plate",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "trauma",
+          "system_notes": "Public DePuy Synthes technique-library, inventory-form, and hosted product-model materials used as the source anchors for the VA-LCP condylar and distal femur plate entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "VA-LCP Condylar / Distal Femur Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Public DePuy Synthes technique-library, inventory-form, and hosted product-model materials used as the source anchors for the VA-LCP condylar and distal femur plate entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "VA-LCP Condylar / Distal Femur Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Public DePuy Synthes technique-library, inventory-form, and hosted product-model materials used as the source anchors for the VA-LCP condylar and distal femur plate entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Insignia / Trident II Total Hip System",
+    "source_type": "design_rationale_pdf",
+    "source_document": "Insignia Design Rationale",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_INSIGNIA_TRIDENT_II_TOTAL_HIP_SYSTEM_INSIGNIA_TRIDENT_II_INSTRUMENTATION",
+        "Tray Name": "Insignia / Trident II Instrumentation",
+        "System ID": "SYS_INSIGNIA___TRIDENT_II_TOTAL_HIP_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Stryker materials support shared general hip instrumentation across Insignia and Trident II total hip workflows."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_INSIGNIA_TRIDENT_II_TOTAL_HIP_SYSTEM_INSIGNIA_FEMORAL_STEM",
+        "Component Name": "Insignia Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_INSIGNIA___TRIDENT_II_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Official Insignia materials describe the collared metaphyseal-filling femoral stem family."
+      },
+      {
+        "Component ID": "COMP_INSIGNIA_TRIDENT_II_TOTAL_HIP_SYSTEM_TRIDENT_II_ACETABULAR_SHELL",
+        "Component Name": "Trident II Acetabular Shell",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_INSIGNIA___TRIDENT_II_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Official Trident II materials describe the acetabular shell family used in the construct."
+      },
+      {
+        "Component ID": "COMP_INSIGNIA_TRIDENT_II_TOTAL_HIP_SYSTEM_TRIDENT_II_ACETABULAR_LINER",
+        "Component Name": "Trident II Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_INSIGNIA___TRIDENT_II_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Official Trident II materials describe compatible polyethylene and modular bearing options."
+      },
+      {
+        "Component ID": "COMP_INSIGNIA_TRIDENT_II_TOTAL_HIP_SYSTEM_V40_FEMORAL_HEAD",
+        "Component Name": "V40 Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_INSIGNIA___TRIDENT_II_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Official Insignia surgical protocol states the stem is designed for use with Stryker V40 femoral heads and compatible acetabular components."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Insignia / Trident II Total Hip System",
+          "supplier_name": "Stryker",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Primary total hip construct anchored to official Stryker Insignia stem and Trident II acetabular materials."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Insignia / Trident II Total Hip System",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip construct anchored to official Stryker Insignia stem and Trident II acetabular materials."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Insignia / Trident II Total Hip System",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip construct anchored to official Stryker Insignia stem and Trident II acetabular materials."
+      }
+    }
+  ]
+}

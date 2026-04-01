@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "NuVasive",
+    "system_name": "RELINE / Modulus Lumbar Fusion Portfolio",
+    "source_type": "product_news_page",
+    "source_document": "NuVasive Portfolio Introduces Low-Profile Modular Implants For Posterior Fixation",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "RELINE / Modulus Lumbar Fusion Portfolio",
+      "supplier_name": "NuVasive",
+      "system_category": "spine",
+      "system_notes": "Official NuVasive posterior fixation and lumbar interbody materials used as the public source anchors for this lumbar fusion portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Lumbar Fusion Portfolio Framework",
+      "system_name": "RELINE / Modulus Lumbar Fusion Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Framework component anchored to NuVasive public lumbar fusion source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public lumbar fusion source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "NuVasive Portfolio Introduces Low-Profile Modular Implants For Posterior Fixation; NuVasive Expands its Advanced Materials Science Portfolio to Offer Porous Titanium Spine Implants for all TLIF Procedures; NuVasive's Thoracolumbar Interbody Portfolio Receives First Clearance in the US for the Treatment of Sagittal Deformities"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public lumbar fusion source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "NuVasive Portfolio Introduces Low-Profile Modular Implants For Posterior Fixation; NuVasive Expands its Advanced Materials Science Portfolio to Offer Porous Titanium Spine Implants for all TLIF Procedures; NuVasive's Thoracolumbar Interbody Portfolio Receives First Clearance in the US for the Treatment of Sagittal Deformities"
+    }
+  ]
+}

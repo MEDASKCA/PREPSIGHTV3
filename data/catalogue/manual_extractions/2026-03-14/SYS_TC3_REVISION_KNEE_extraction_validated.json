@@ -1,0 +1,122 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "TC3 Revision Knee System",
+    "source_type": "product_page",
+    "source_document": "PFC SIGMA TC3 Revision Knee System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TC3_REVISION_KNEE_SYSTEM_TC3_REVISION_KNEE_INSTRUMENTATION",
+        "Tray Name": "TC3 Revision Knee Instrumentation",
+        "System ID": "SYS_TC3_REVISION_KNEE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes materials support dedicated TC3 revision instrumentation and linked revision-knee resources."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TC3_REVISION_KNEE_SYSTEM_TC3_FEMORAL_COMPONENT",
+        "Component Name": "TC3 Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TC3_REVISION_KNEE",
+        "Component Notes": "Official product materials describe the constrained femoral revision component family."
+      },
+      {
+        "Component ID": "COMP_TC3_REVISION_KNEE_SYSTEM_TC3_TIBIAL_TRAY",
+        "Component Name": "TC3 Tibial Tray",
+        "Component Role": "Tibial Baseplate",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TC3_REVISION_KNEE",
+        "Component Notes": "Official product materials describe the tibial revision tray and modular fixation construct."
+      },
+      {
+        "Component ID": "COMP_TC3_REVISION_KNEE_SYSTEM_TC3_REVISION_INSERT",
+        "Component Name": "TC3 Revision Insert",
+        "Component Role": "Tibial Insert",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TC3_REVISION_KNEE",
+        "Component Notes": "Official product materials describe the constrained revision insert family."
+      },
+      {
+        "Component ID": "COMP_TC3_REVISION_KNEE_SYSTEM_TC3_STEM_EXTENSION",
+        "Component Name": "TC3 Stem Extension",
+        "Component Role": "Stem Extension",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TC3_REVISION_KNEE",
+        "Component Notes": "Official product materials describe modular stem extensions used within the revision construct."
+      },
+      {
+        "Component ID": "COMP_TC3_REVISION_KNEE_SYSTEM_TC3_AUGMENT",
+        "Component Name": "TC3 Augment",
+        "Component Role": "Block Augment",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_TC3_REVISION_KNEE",
+        "Component Notes": "Official product materials describe modular augments for bone-loss management in revision arthroplasty."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "TC3 Revision Knee System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Revision Knee System",
+          "system_notes": "Constrained modular revision knee arthroplasty platform for instability, bone loss, and complex reconstruction."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "TC3 Revision Knee System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Revision Knee System",
+        "system_notes": "Constrained modular revision knee arthroplasty platform for instability, bone loss, and complex reconstruction."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "TC3 Revision Knee System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Revision Knee System",
+        "system_notes": "Constrained modular revision knee arthroplasty platform for instability, bone loss, and complex reconstruction."
+      }
+    }
+  ]
+}

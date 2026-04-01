@@ -1,0 +1,66 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "TRIGEN META-NAIL",
+    "source_type": "product_page",
+    "source_document": "TRIGEN META-NAIL / Femoral Nailing Platform",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "TRIGEN META-NAIL",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Cephalomedullary Nail System",
+      "system_notes": "Proximal femoral cephalomedullary nailing platform anchored to the official Smith+Nephew TRIGEN META-NAIL product page."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "TRIGEN META-NAIL Instrumentation",
+      "system_name": "TRIGEN META-NAIL",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Smith+Nephew materials support a dedicated TRIGEN META-NAIL instrumentation workflow for proximal femoral cephalomedullary nailing."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "TRIGEN META-NAIL",
+      "system_name": "TRIGEN META-NAIL",
+      "component_role": "Cephalomedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Primary proximal femoral nail component described by the official TRIGEN META-NAIL materials."
+    },
+    {
+      "component_name": "TRIGEN Lag Screw",
+      "system_name": "TRIGEN META-NAIL",
+      "component_role": "Lag Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The TRIGEN META-NAIL construct includes proximal lag screw fixation options."
+    },
+    {
+      "component_name": "TRIGEN Locking Screw",
+      "system_name": "TRIGEN META-NAIL",
+      "component_role": "Locking Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "The TRIGEN META-NAIL construct includes distal locking fixation options."
+    },
+    {
+      "component_name": "TRIGEN End Cap",
+      "system_name": "TRIGEN META-NAIL",
+      "component_role": "End Cap",
+      "implant_category": "Trauma Implant",
+      "component_notes": "End-cap compatibility is part of the TRIGEN META-NAIL construct family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public TRIGEN META-NAIL source confirms the implant family but this pass does not include the full sterile implant code matrix.",
+      "reason": "A deeper IFU, inventory control form, or catalogue pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

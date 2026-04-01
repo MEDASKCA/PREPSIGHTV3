@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acumed Elbow soft tissue Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Elbow | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACUMED_ELBOW_SOFT_TISSUE_PORTFOLIO_ELBOW_SOFT_TISSUE_FRAMEWORK",
+        "Component Name": "Elbow Soft Tissue Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Sports Medicine",
+        "System ID": "SYS_ACUMED_ELBOW_SOFT_TISSUE_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Acumed public elbow soft-tissue source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Acumed Elbow soft tissue Portfolio",
+          "supplier_name": "Acumed",
+          "system_category": "Elbow soft tissue",
+          "system_notes": "Official Acumed elbow and tendon-ligament repair materials used as the public source anchors for this elbow soft tissue portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Acumed Elbow soft tissue Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Elbow soft tissue",
+        "system_notes": "Official Acumed elbow and tendon-ligament repair materials used as the public source anchors for this elbow soft tissue portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Acumed Elbow soft tissue Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Elbow soft tissue",
+        "system_notes": "Official Acumed elbow and tendon-ligament repair materials used as the public source anchors for this elbow soft tissue portfolio entry."
+      }
+    }
+  ]
+}

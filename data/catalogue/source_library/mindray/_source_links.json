@@ -1,0 +1,22 @@
+[
+  {
+    "supplier_id": "SUP_MINDRAY",
+    "supplier_name": "Mindray",
+    "system_id": "SYS_BIS_MONITOR",
+    "system_name": "BIS Monitor",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Anesthesia Monitoring",
+        "url": "https://www.mindray.com/en/products/monitoring-and-life-support/patient-monitoring/anesthesia-monitoring",
+        "notes": "Official Mindray anesthesia monitoring page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Patient Monitoring",
+        "url": "https://www.mindray.com/en/products/monitoring-and-life-support/patient-monitoring",
+        "notes": "Official Mindray patient monitoring page used as broader workflow context."
+      }
+    ]
+  }
+]

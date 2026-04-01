@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Journey Uni",
+    "source_type": "official_news_release",
+    "source_document": "JOURNEY II Unicompartmental Knee System launch materials",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_JOURNEY_UNI_JOURNEY_UNI_INSTRUMENTATION",
+        "Tray Name": "JOURNEY UNI Instrumentation",
+        "System ID": "SYS_JOURNEY_UNI",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official launch materials describe a modular two-tray configuration with instrumentation customizable to a familiar surgical flow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_JOURNEY_UNI_JOURNEY_UNI_FEMORAL_COMPONENT",
+        "Component Name": "JOURNEY UNI Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_JOURNEY_UNI",
+        "Component Notes": "Official materials describe increased size range for femoral components in the JOURNEY II unicompartmental system."
+      },
+      {
+        "Component ID": "COMP_JOURNEY_UNI_JOURNEY_UNI_TIBIA_BASEPLATE",
+        "Component Name": "JOURNEY UNI Tibia Baseplate",
+        "Component Role": "Tibial Baseplate",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_JOURNEY_UNI",
+        "Component Notes": "Official materials describe medial and lateral tibia baseplate options for the JOURNEY II unicompartmental system."
+      },
+      {
+        "Component ID": "COMP_JOURNEY_UNI_JOURNEY_UNI_INSERT",
+        "Component Name": "JOURNEY UNI Insert",
+        "Component Role": "Tibial Insert",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_JOURNEY_UNI",
+        "Component Notes": "Official materials describe the unicompartmental implant construct and bearing family without exposing full public SKU detail in this pass."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Journey Uni",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Unicompartmental Knee System",
+          "system_notes": "Partial knee arthroplasty platform within the JOURNEY II unicompartmental knee family."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Journey Uni",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Unicompartmental Knee System",
+        "system_notes": "Partial knee arthroplasty platform within the JOURNEY II unicompartmental knee family."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Journey Uni",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Unicompartmental Knee System",
+        "system_notes": "Partial knee arthroplasty platform within the JOURNEY II unicompartmental knee family."
+      }
+    }
+  ]
+}

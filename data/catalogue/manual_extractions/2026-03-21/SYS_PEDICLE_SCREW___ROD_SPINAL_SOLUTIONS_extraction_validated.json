@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Biedermann Motech",
+    "system_name": "Pedicle Screw / Rod Spinal Solutions",
+    "source_type": "portfolio_page",
+    "source_document": "Spine | Biedermann Motech GmbH & Co. KG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PEDICLE_SCREW_ROD_SPINAL_SOLUTIONS_PEDICLE_SCREW_AND_ROD_FRAMEWORK",
+        "Component Name": "Pedicle Screw and Rod Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Spine",
+        "System ID": "SYS_PEDICLE_SCREW___ROD_SPINAL_SOLUTIONS",
+        "Component Notes": "Framework component anchored to Biedermann public pedicle screw and rod source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Pedicle Screw / Rod Spinal Solutions",
+          "supplier_name": "Biedermann Motech",
+          "system_category": "spine",
+          "system_notes": "Official Biedermann pedicle screw and rod materials used as the public source anchors for this posterior fixation portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Pedicle Screw / Rod Spinal Solutions",
+        "supplier_name": "Biedermann Motech",
+        "system_category": "spine",
+        "system_notes": "Official Biedermann pedicle screw and rod materials used as the public source anchors for this posterior fixation portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Pedicle Screw / Rod Spinal Solutions",
+        "supplier_name": "Biedermann Motech",
+        "system_category": "spine",
+        "system_notes": "Official Biedermann pedicle screw and rod materials used as the public source anchors for this posterior fixation portfolio entry."
+      }
+    }
+  ]
+}

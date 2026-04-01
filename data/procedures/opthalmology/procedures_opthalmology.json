@@ -1,0 +1,372 @@
+[
+  {
+    "id": "PROC_PHACOEMULSIFICATION_AND_INTRAOCULAR_LENS_INSERTION",
+    "name": "Phacoemulsification and Intraocular Lens Insertion",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_CATARACT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_LENS",
+    "aliases": [
+      "Cataract Surgery",
+      "Phaco and IOL"
+    ],
+    "description": "Removal of cataractous lens with insertion of intraocular lens.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXTRACAPSULAR_CATARACT_EXTRACTION",
+    "name": "Extracapsular Cataract Extraction",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_CATARACT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_LENS",
+    "aliases": [
+      "ECCE"
+    ],
+    "description": "Manual extracapsular extraction of cataractous lens.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SECONDARY_INTRAOCULAR_LENS_INSERTION",
+    "name": "Secondary Intraocular Lens Insertion",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_CATARACT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_LENS",
+    "aliases": [],
+    "description": "Insertion of secondary intraocular lens where primary implantation was not performed or has failed.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_YAG_LASER_CAPSULOTOMY",
+    "name": "YAG Laser Capsulotomy",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_CATARACT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_LENS",
+    "aliases": [],
+    "description": "Laser capsulotomy for posterior capsule opacification after cataract surgery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PARS_PLANA_VITRECTOMY",
+    "name": "Pars Plana Vitrectomy",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_VITREORETINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_VITREOUS",
+    "aliases": [
+      "PPV"
+    ],
+    "description": "Vitrectomy performed via pars plana approach.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_RETINAL_DETACHMENT",
+    "name": "Repair of Retinal Detachment",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_VITREORETINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_RETINA",
+    "aliases": [],
+    "description": "Operative repair of rhegmatogenous retinal detachment.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SCLERAL_BUCKLE",
+    "name": "Scleral Buckle",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_VITREORETINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_RETINA",
+    "aliases": [],
+    "description": "Scleral buckle procedure for retinal detachment repair.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MEMBRANE_PEELING",
+    "name": "Membrane Peeling",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_VITREORETINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_RETINA",
+    "aliases": [],
+    "description": "Peeling of epiretinal or internal limiting membrane during vitreoretinal surgery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MACULAR_HOLE_SURGERY",
+    "name": "Macular Hole Surgery",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_VITREORETINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_MACULA",
+    "aliases": [],
+    "description": "Vitreoretinal surgery for closure of macular hole.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_INTRAOCULAR_FOREIGN_BODY_REMOVAL",
+    "name": "Intraocular Foreign Body Removal",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_VITREORETINAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_GLOBE",
+    "aliases": [],
+    "description": "Removal of intraocular foreign body through vitreoretinal approach.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRABECULECTOMY",
+    "name": "Trabeculectomy",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_GLAUCOMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_ANTERIOR_CHAMBER",
+    "aliases": [],
+    "description": "Filtering surgery to lower intraocular pressure in glaucoma.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_GLAUCOMA_DRAINAGE_DEVICE_INSERTION",
+    "name": "Glaucoma Drainage Device Insertion",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_GLAUCOMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_ANTERIOR_CHAMBER",
+    "aliases": [
+      "Tube Shunt Surgery"
+    ],
+    "description": "Insertion of glaucoma drainage implant to control intraocular pressure.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MINIMALLY_INVASIVE_GLAUCOMA_SURGERY",
+    "name": "Minimally Invasive Glaucoma Surgery",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_GLAUCOMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_ANTERIOR_CHAMBER",
+    "aliases": [
+      "MIGS"
+    ],
+    "description": "Minimally invasive glaucoma procedure to reduce intraocular pressure.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_GONIOTOMY",
+    "name": "Goniotomy",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_GLAUCOMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_ANTERIOR_CHAMBER",
+    "aliases": [],
+    "description": "Incision into trabecular meshwork under gonioscopic view.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CYCLODESTRUCTIVE_PROCEDURE",
+    "name": "Cyclodestructive Procedure",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_GLAUCOMA_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_CILIARY_BODY",
+    "aliases": [],
+    "description": "Procedure to reduce aqueous production by treating ciliary body tissue.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PENETRATING_KERATOPLASTY",
+    "name": "Penetrating Keratoplasty",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_CORNEAL_AND_ANTERIOR_SEGMENT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_CORNEA",
+    "aliases": [],
+    "description": "Full-thickness corneal transplantation.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ANTERIOR_LAMELLAR_KERATOPLASTY",
+    "name": "Anterior Lamellar Keratoplasty",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_CORNEAL_AND_ANTERIOR_SEGMENT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_CORNEA",
+    "aliases": [
+      "DALK"
+    ],
+    "description": "Lamellar corneal transplantation preserving recipient endothelium.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENDOTHELIAL_KERATOPLASTY",
+    "name": "Endothelial Keratoplasty",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_CORNEAL_AND_ANTERIOR_SEGMENT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_CORNEA",
+    "aliases": [
+      "DMEK",
+      "DSAEK"
+    ],
+    "description": "Selective endothelial corneal transplantation.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PTERYGIUM_EXCISION",
+    "name": "Pterygium Excision",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_CORNEAL_AND_ANTERIOR_SEGMENT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_CONJUNCTIVA",
+    "aliases": [],
+    "description": "Excision of pterygium from ocular surface.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CORNEAL_LACERATION_REPAIR",
+    "name": "Corneal Laceration Repair",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_CORNEAL_AND_ANTERIOR_SEGMENT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_CORNEA",
+    "aliases": [],
+    "description": "Repair of traumatic corneal laceration.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ANTERIOR_CHAMBER_WASHOUT",
+    "name": "Anterior Chamber Washout",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_CORNEAL_AND_ANTERIOR_SEGMENT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_ANTERIOR_CHAMBER",
+    "aliases": [],
+    "description": "Washout of anterior chamber for blood, inflammatory material, or debris.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PTOSIS_REPAIR",
+    "name": "Ptosis Repair",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_EYELID",
+    "aliases": [],
+    "description": "Surgical elevation or suspension of the upper eyelid for ptosis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BLEPHAROPLASTY",
+    "name": "Blepharoplasty",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_EYELID",
+    "aliases": [],
+    "description": "Surgical reshaping of the eyelid.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENTROPION_REPAIR",
+    "name": "Entropion Repair",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_EYELID",
+    "aliases": [],
+    "description": "Correction of inward turning eyelid.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ECTROPION_REPAIR",
+    "name": "Ectropion Repair",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_EYELID",
+    "aliases": [],
+    "description": "Correction of outward turning eyelid.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DACRYOCYSTORHINOSTOMY",
+    "name": "Dacryocystorhinostomy",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_LACRIMAL_SYSTEM",
+    "aliases": [
+      "DCR"
+    ],
+    "description": "Creation of drainage passage from lacrimal sac to nasal cavity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EYELID_LACERATION_REPAIR",
+    "name": "Eyelid Laceration Repair",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_EYELID",
+    "aliases": [],
+    "description": "Repair of traumatic eyelid laceration.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ORBITAL_DECOMPRESSION",
+    "name": "Orbital Decompression",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_ORBIT",
+    "aliases": [],
+    "description": "Expansion of orbital volume for compressive or thyroid eye disease indications.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENUCLEATION",
+    "name": "Enucleation",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_GLOBE",
+    "aliases": [],
+    "description": "Removal of the globe while preserving orbital contents.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EVISCERATION",
+    "name": "Evisceration",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_OCULOPLASTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_GLOBE",
+    "aliases": [],
+    "description": "Removal of intraocular contents while preserving scleral shell.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SQUINT_SURGERY",
+    "name": "Squint Surgery",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_PAEDIATRIC_OPHTHALMOLOGY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_EXTRAOCULAR_MUSCLES",
+    "aliases": [
+      "Strabismus Surgery"
+    ],
+    "description": "Surgical correction of ocular misalignment by extraocular muscle adjustment.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PROBING_OF_NASOLACRIMAL_DUCT",
+    "name": "Probing of Nasolacrimal Duct",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_PAEDIATRIC_OPHTHALMOLOGY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_LACRIMAL_SYSTEM",
+    "aliases": [],
+    "description": "Probing procedure for congenital nasolacrimal duct obstruction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXAMINATION_UNDER_ANAESTHESIA_OF_EYE",
+    "name": "Examination Under Anaesthesia of Eye",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_PAEDIATRIC_OPHTHALMOLOGY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_GLOBE",
+    "aliases": [],
+    "description": "Comprehensive ophthalmic examination under anaesthesia in paediatric practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PAEDIATRIC_CATARACT_SURGERY",
+    "name": "Paediatric Cataract Surgery",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_PAEDIATRIC_OPHTHALMOLOGY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_LENS",
+    "aliases": [],
+    "description": "Lens surgery for congenital or developmental cataract in paediatric practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PRIMARY_REPAIR_OF_OPEN_GLOBE_IN_CHILD",
+    "name": "Primary Repair of Open Globe in Child",
+    "specialty_id": "SPEC_OPHTHALMOLOGY",
+    "service_line_id": "SL_PAEDIATRIC_OPHTHALMOLOGY",
+    "anatomy_id": "ANAT_SPEC_OPHTHALMOLOGY_GLOBE",
+    "aliases": [],
+    "description": "Emergency primary repair of open globe injury in paediatric practice.",
+    "status": "active"
+  }
+]

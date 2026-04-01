@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "AC TightRope / AC Joint Reconstruction",
+    "source_type": "specialty_page",
+    "source_document": "Shoulder",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_AC_TIGHTROPE_AC_JOINT_RECONSTRUCTION_AC_TIGHTROPE_RECONSTRUCTION_PORTFOLIO_FAMILY",
+        "Component Name": "AC TightRope Reconstruction Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "AC Joint Reconstruction Workflow",
+        "System ID": "SYS_AC_TIGHTROPE___AC_JOINT_RECONSTRUCTION",
+        "Component Notes": "Official Arthrex portfolio sources describe the broader AC TightRope and AC joint reconstruction workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "AC TightRope / AC Joint Reconstruction",
+          "supplier_name": "Arthrex",
+          "system_category": "AC joint reconstruction",
+          "system_notes": "Portfolio-level public anchor for Arthrex AC TightRope and AC joint reconstruction workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "AC TightRope / AC Joint Reconstruction",
+        "supplier_name": "Arthrex",
+        "system_category": "AC joint reconstruction",
+        "system_notes": "Portfolio-level public anchor for Arthrex AC TightRope and AC joint reconstruction workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "AC TightRope / AC Joint Reconstruction",
+        "supplier_name": "Arthrex",
+        "system_category": "AC joint reconstruction",
+        "system_notes": "Portfolio-level public anchor for Arthrex AC TightRope and AC joint reconstruction workflow resources."
+      }
+    }
+  ]
+}

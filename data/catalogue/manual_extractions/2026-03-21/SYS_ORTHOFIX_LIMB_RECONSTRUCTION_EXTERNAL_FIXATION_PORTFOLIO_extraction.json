@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Orthofix",
+    "system_name": "Orthofix Limb Reconstruction / External Fixation Portfolio",
+    "source_type": "procedure_page",
+    "source_document": "Limb Reconstruction - Orthofix",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Orthofix Limb Reconstruction / External Fixation Portfolio",
+      "supplier_name": "Orthofix",
+      "system_category": "External fixation",
+      "system_notes": "Official Orthofix limb reconstruction, TrueLok EVO, and LRS ADVanced materials used as the source anchors for the limb reconstruction and external fixation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Limb Reconstruction External Fixation Framework",
+      "system_name": "Orthofix Limb Reconstruction / External Fixation Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "External Fixation",
+      "component_notes": "Framework component anchored to Orthofix public limb reconstruction and external fixation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Orthofix limb reconstruction and external fixation source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Limb Reconstruction - Orthofix; TrueLok EVO Ring Fixation System; LRS ADVanced"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Orthofix limb reconstruction and external fixation source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Limb Reconstruction - Orthofix; TrueLok EVO Ring Fixation System; LRS ADVanced"
+    }
+  ]
+}

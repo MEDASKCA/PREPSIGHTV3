@@ -1,0 +1,54 @@
+[
+  {
+    "supplier_id": "SUP_OSTEOMED",
+    "supplier_name": "OsteoMed",
+    "system_id": "SYS_EXTREMILOCK_FINGER_FIXATION",
+    "system_name": "ExtremiLOCK Finger Fixation",
+    "sources": [
+      {
+        "source_type": "supplier_parent_page",
+        "title": "About Acumed | Acumed",
+        "url": "https://www.osteomedcorp.com/about/about-acumed/",
+        "notes": "Current public company page used as the supplier anchor because the historical OsteoMed hand and extremity portfolio is represented on the current Acumed/OsteoMed domain."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Comprehensive Hand Fracture Solutions",
+        "url": "https://www.osteomedcorp.com/wp-content/uploads/2021/09/Acumed-Brochure-EN-Hand-Solutions-HNW10-14-B.pdf",
+        "notes": "Official Acumed hand solutions brochure used as the closest current public product-range anchor for finger fixation coverage, with image-rich fracture, fusion, and osteotomy examples across phalangeal and metacarpal applications."
+      },
+      {
+        "source_type": "procedure_page",
+        "title": "External Fixation System | Acumed",
+        "url": "https://www.osteomedcorp.com/products/hand-wrist/external-fixation-system/",
+        "notes": "Official Acumed hand and wrist fixation page used as supporting public evidence for phalangeal fixation and small-bone trauma workflows on the current public domain."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_OSTEOMED",
+    "supplier_name": "OsteoMed",
+    "system_id": "SYS_EXTREMILOCK_HAND_FRACTURE_SYSTEM",
+    "system_name": "ExtremiLOCK Hand Fracture System",
+    "sources": [
+      {
+        "source_type": "supplier_parent_page",
+        "title": "About Acumed | Acumed",
+        "url": "https://www.osteomedcorp.com/about/about-acumed/",
+        "notes": "Current public company page used as the supplier anchor because the historical OsteoMed hand and extremity portfolio is represented on the current Acumed/OsteoMed domain."
+      },
+      {
+        "source_type": "catalogue_pdf",
+        "title": "Comprehensive Hand Fracture Solutions",
+        "url": "https://www.osteomedcorp.com/wp-content/uploads/2021/09/Acumed-Brochure-EN-Hand-Solutions-HNW10-14-B.pdf",
+        "notes": "Official Acumed hand solutions brochure used as the primary current public product-range anchor for the hand fracture system entry, with image-rich metacarpal and phalangeal fracture fixation coverage."
+      },
+      {
+        "source_type": "procedure_page",
+        "title": "External Fixation System | Acumed",
+        "url": "https://www.osteomedcorp.com/products/hand-wrist/external-fixation-system/",
+        "notes": "Official Acumed hand and wrist fixation page used as supporting public evidence for complex hand fracture management and small-bone fixation workflows on the current public domain."
+      }
+    ]
+  }
+]

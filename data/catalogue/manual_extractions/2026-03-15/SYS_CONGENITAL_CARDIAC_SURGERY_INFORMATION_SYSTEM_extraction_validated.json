@@ -1,0 +1,58 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Congenital Cardiac Surgery Information System",
+    "source_type": "database_page",
+    "source_document": "STS CHSD / CHSS Resources",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "System ID": "SYS_UNASSIGNED_CONGENITAL_CARDIAC_SURGERY_INFORMATION_SYSTEM",
+        "System Name": "Congenital Cardiac Surgery Information System",
+        "Supplier ID": "SUP_UNASSIGNED",
+        "System Category": "Paediatric Cardiac Surgical Management",
+        "System Notes": "Public source anchor for congenital cardiac surgery information, benchmarking, and quality-improvement workflow support."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CONGENITAL_CARDIAC_SURGERY_INFORMATION_SYSTEM_CONGENITAL_CARDIAC_SURGERY_WORKFLOW_FRAMEWORK",
+        "Component Name": "Congenital Cardiac Surgery Workflow Framework",
+        "Component Role": "Workflow Framework",
+        "Implant Category": "Service Line Information Workflow",
+        "System ID": "SYS_UNASSIGNED_CONGENITAL_CARDIAC_SURGERY_INFORMATION_SYSTEM",
+        "Component Notes": "STS CHSD and CHSS resources describe congenital cardiac surgical benchmarking, quality improvement, and research workflow support."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": []
+}

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Holmium Laser System",
+    "source_type": "product_page",
+    "source_document": "Visualase MRI-Guided Laser Ablation | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Holmium Laser System",
+      "supplier_name": "Medtronic",
+      "system_category": "urology_energy",
+      "system_notes": "Official Medtronic laser-platform materials used as the closest current public source anchors for this holmium laser system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Laser System Framework",
+      "system_name": "Holmium Laser System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Urology",
+      "component_notes": "Framework component anchored to Medtronic public laser-system source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public laser-system source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Visualase MRI-Guided Laser Ablation | Medtronic; Medtronic receives FDA 510(k) clearance for Visualase V2 MRI-Guided Laser Ablation System; MRI-Guided Laser Ablation for Focal Epilepsy | Medtronic"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public laser-system source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Visualase MRI-Guided Laser Ablation | Medtronic; Medtronic receives FDA 510(k) clearance for Visualase V2 MRI-Guided Laser Ablation System; MRI-Guided Laser Ablation for Focal Epilepsy | Medtronic"
+    }
+  ]
+}

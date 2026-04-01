@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Clavicle Plate System",
+    "source_type": "product_page",
+    "source_document": "2.7 mm VA LCP Clavicle Plate System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_LCP_CLAVICLE_PLATE_SYSTEM_LCP_CLAVICLE_PLATE_SYSTEM_INSTRUMENT_SET",
+        "Tray Name": "LCP Clavicle Plate System Instrument Set",
+        "System ID": "SYS_LCP_CLAVICLE_PLATE_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes product and inventory resources describe dedicated clavicle plating instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LCP_CLAVICLE_PLATE_SYSTEM_LCP_CLAVICLE_PLATE_SYSTEM_PLATE",
+        "Component Name": "LCP Clavicle Plate System Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_CLAVICLE_PLATE_SYSTEM",
+        "Component Notes": "Official DePuy Synthes materials describe the clavicle plate system family."
+      },
+      {
+        "Component ID": "COMP_LCP_CLAVICLE_PLATE_SYSTEM_LCP_CLAVICLE_PLATE_SYSTEM_SCREW",
+        "Component Name": "LCP Clavicle Plate System Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_CLAVICLE_PLATE_SYSTEM",
+        "Component Notes": "Official inventory materials describe compatible screw fixation for the clavicle plate system."
+      },
+      {
+        "Component ID": "COMP_LCP_CLAVICLE_PLATE_SYSTEM_LCP_CLAVICLE_PLATE_SYSTEM_DRILL_GUIDE",
+        "Component Name": "LCP Clavicle Plate System Drill Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_LCP_CLAVICLE_PLATE_SYSTEM",
+        "Component Notes": "Official product materials describe dedicated instrumentation and drill-guide workflow for clavicle plate application."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "LCP Clavicle Plate System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Locking Plate \u2014 Clavicle",
+          "system_notes": "Clavicle locking plate system within the DePuy Synthes trauma portfolio, covering superior and anterior plate configurations."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "LCP Clavicle Plate System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Clavicle",
+        "system_notes": "Clavicle locking plate system within the DePuy Synthes trauma portfolio, covering superior and anterior plate configurations."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "LCP Clavicle Plate System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Clavicle",
+        "system_notes": "Clavicle locking plate system within the DePuy Synthes trauma portfolio, covering superior and anterior plate configurations."
+      }
+    }
+  ]
+}

@@ -1,0 +1,204 @@
+[
+  {
+    "supplier_id": "SUP_INTEGRA_LIFESCIENCES",
+    "supplier_name": "Integra LifeSciences",
+    "system_id": "SYS_SOFT_TISSUE_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Soft Tissue Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "corporate_page",
+        "title": "Who We Are | Integra LifeSciences",
+        "url": "https://www.integralife.com/who-we-are",
+        "notes": "Official Integra corporate page describing regenerative tissue technologies and reconstructive solutions, used as the primary public source anchor for the soft tissue reconstruction portfolio entry."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Integra LifeSciences launches SurgiMend MP Collagen Matrix for Hernia Repair",
+        "url": "https://investor.integralife.com/news-releases/news-release-details/integra-lifesciences-launches-surgimendr-mp-collagen-matrix",
+        "notes": "Official Integra release describing biologic soft tissue repair products for reconstructive surgery, used as supporting public evidence for the soft tissue reconstruction portfolio."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Integra LifeSciences launches Revize / Revize-X Collagen Matrix for Plastic and Reconstructive Surgery",
+        "url": "https://investor.integralife.com/news-releases/news-release-details/integra-lifesciences-launches-revizetm-revizetm-x-collagen",
+        "notes": "Official Integra release describing soft tissue reinforcement for reconstructive surgery, used as supporting public evidence for this portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_INTEGRA_LIFESCIENCES",
+    "supplier_name": "Integra LifeSciences",
+    "system_id": "SYS_PERIPHERAL_NERVE___HAND_SURGERY_PORTFOLIO",
+    "system_name": "Peripheral Nerve / Hand Surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Upper Extremities",
+        "url": "https://integralife.com/orthopedics/upper-extremities/",
+        "notes": "Official Integra orthopedics upper-extremities page used as the primary public source anchor for the peripheral nerve and hand surgery portfolio entry."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Integra LifeSciences Will Feature Its New EndoRelease Endoscopic Cubital Tunnel Release System At American Society for Surgery of the Hand Annual Meeting",
+        "url": "https://investor.integralife.com/news-releases/news-release-details/integra-lifesciences-will-feature-its-new-endorelease-endoscopic",
+        "notes": "Official Integra release describing upper-extremity nerve treatment options including cubital tunnel release, used as supporting public evidence for the peripheral nerve and hand surgery portfolio."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Integra LifeSciences Launches NeuraGen 3D Nerve Guide Matrix",
+        "url": "https://investor.integralife.com/news-releases/news-release-details/integra-lifesciences-launches-neuragenr-3d-nerve-guide-matrix",
+        "notes": "Official Integra release describing the company peripheral nerve repair portfolio, used as supporting public evidence for the peripheral nerve and hand surgery portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_INTEGRA_LIFESCIENCES",
+    "supplier_name": "Integra LifeSciences",
+    "system_id": "SYS_PAEDIATRIC_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "Paediatric Soft Tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "corporate_page",
+        "title": "Who We Are | Integra LifeSciences",
+        "url": "https://www.integralife.com/who-we-are",
+        "notes": "Official Integra corporate page describing regenerative tissue technologies and reconstructive solutions, used as the primary public source anchor for the paediatric soft tissue portfolio entry."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Integra LifeSciences Completes the Acquisition of Surgical Innovation Associates",
+        "url": "https://investor.integralife.com/news-releases/news-release-details/integra-lifesciences-completes-acquisition-surgical-innovation",
+        "notes": "Official Integra release describing expansion of implant-based breast reconstruction capabilities, used as supporting public evidence for paediatric and reconstructive soft tissue coverage."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Integra LifeSciences launches SurgiMend MP Collagen Matrix for Hernia Repair",
+        "url": "https://investor.integralife.com/news-releases/news-release-details/integra-lifesciences-launches-surgimendr-mp-collagen-matrix",
+        "notes": "Official Integra release describing biologic soft tissue repair and reconstructive surgery applications, used as supporting public evidence for the paediatric soft tissue portfolio context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_INTEGRA_LIFESCIENCES",
+    "supplier_name": "Integra LifeSciences",
+    "system_id": "SYS_HAND_TENDON_REPAIR_PORTFOLIO",
+    "system_name": "Hand Tendon Repair Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Upper Extremities",
+        "url": "https://integralife.com/orthopedics/upper-extremities/",
+        "notes": "Official Integra orthopedics upper-extremities page used as the public source anchor for the hand tendon repair portfolio entry."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Integra LifeSciences Launches TenoGlide Tendon Protector Sheet",
+        "url": "https://investor.integralife.com/news-releases/news-release-details/integra-lifesciences-launches-tenoglide-tendon-protector-sheet",
+        "notes": "Official Integra release describing tendon protection for tendon injuries including hand tendon repair, used as supporting public evidence for the portfolio entry."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Integra LifeSciences Launches Integra Reinforcement Matrix",
+        "url": "https://investor.integralife.com/news-releases/news-release-details/integra-lifesciences-launches-integrar-reinforcement-matrix",
+        "notes": "Official Integra release describing tendon repair and reconstruction use cases including flexor tendon injury of the hand, used as supporting public evidence for this portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_INTEGRA_LIFESCIENCES",
+    "supplier_name": "Integra LifeSciences",
+    "system_id": "SYS_HAND_SOFT_TISSUE_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Hand Soft Tissue Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Upper Extremities",
+        "url": "https://integralife.com/orthopedics/upper-extremities/",
+        "notes": "Official Integra orthopedics upper-extremities page used as the public source anchor for the hand soft tissue reconstruction portfolio entry."
+      },
+      {
+        "source_type": "corporate_page",
+        "title": "Who We Are | Integra LifeSciences",
+        "url": "https://www.integralife.com/who-we-are",
+        "notes": "Official Integra corporate page describing surgical reconstruction and tissue restoration, used as supporting public evidence for the hand soft tissue reconstruction portfolio entry."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Integra LifeSciences Launches Integra Reinforcement Matrix",
+        "url": "https://investor.integralife.com/news-releases/news-release-details/integra-lifesciences-launches-integrar-reinforcement-matrix",
+        "notes": "Official Integra release describing tendon repair products and upper-extremity surgeon use cases, used as supporting public evidence for hand soft tissue reconstruction coverage."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_INTEGRA_LIFESCIENCES",
+    "supplier_name": "Integra LifeSciences",
+    "system_id": "SYS_HAND_SOFT_TISSUE_PORTFOLIO",
+    "system_name": "Hand Soft Tissue Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Upper Extremities",
+        "url": "https://integralife.com/orthopedics/upper-extremities/",
+        "notes": "Official Integra orthopedics upper-extremities page used as the public source anchor for the hand soft tissue portfolio entry."
+      },
+      {
+        "source_type": "corporate_page",
+        "title": "Who We Are | Integra LifeSciences",
+        "url": "https://www.integralife.com/who-we-are",
+        "notes": "Official Integra corporate page describing surgical reconstruction, nerve and tendon repair and protection, used as supporting public evidence for hand soft tissue coverage."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Integra LifeSciences and IsoTis to Combine Creating a Global Leader in Orthobiologics",
+        "url": "https://investor.integralife.com/news-releases/news-release-details/integra-lifesciences-and-isotis-combine-creating-global-leader",
+        "notes": "Official Integra release referencing upper-extremity reconstruction markets, used as supporting public evidence for hand soft tissue portfolio context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_INTEGRA_LIFESCIENCES",
+    "supplier_name": "Integra LifeSciences",
+    "system_id": "SYS_HAND___NERVE_DECOMPRESSION_PORTFOLIO",
+    "system_name": "Hand / Nerve Decompression Portfolio",
+    "sources": [
+      {
+        "source_type": "technology_page",
+        "title": "Upper Extremities",
+        "url": "https://integralife.com/orthopedics/upper-extremities/",
+        "notes": "Official Integra orthopedics upper-extremities page used as the public source anchor for the hand and nerve decompression portfolio entry."
+      },
+      {
+        "source_type": "corporate_page",
+        "title": "Who We Are | Integra LifeSciences",
+        "url": "https://www.integralife.com/who-we-are",
+        "notes": "Official Integra corporate page describing surgical reconstruction, nerve and tendon repair and protection, used as supporting public evidence for hand and nerve decompression coverage."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Integra LifeSciences and IsoTis to Combine Creating a Global Leader in Orthobiologics",
+        "url": "https://investor.integralife.com/news-releases/news-release-details/integra-lifesciences-and-isotis-combine-creating-global-leader",
+        "notes": "Official Integra release referencing upper-extremity reconstruction markets, used as supporting public evidence for the hand and nerve decompression portfolio context."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_INTEGRA_LIFESCIENCES",
+    "supplier_name": "Integra LifeSciences",
+    "system_id": "SYS_LATITUDE_ELBOW",
+    "system_name": "Latitude EV Total Elbow",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Latitude EV Total Elbow Arthroplasty System",
+        "url": "https://integralife.com/latitude-ev-total-elbow-arthroplasty-system/",
+        "notes": "Official Integra product page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Upper Extremities",
+        "url": "https://integralife.com/orthopedics/upper-extremities/",
+        "notes": "Official Integra orthopedics page used as broader workflow context."
+      }
+    ]
+  }
+]

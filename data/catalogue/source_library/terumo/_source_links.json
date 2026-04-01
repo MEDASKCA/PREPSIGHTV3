@@ -1,0 +1,54 @@
+[
+  {
+    "supplier_id": "SUP_TERUMO",
+    "supplier_name": "Terumo",
+    "system_id": "SYS_BRANCHED_ENDOGRAFT",
+    "system_name": "Branched Endograft",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Relay Branch",
+        "url": "https://terumoaortic.com/custom-solutions/relay-branch/",
+        "notes": "Official Terumo Aortic Relay Branch page used as the primary public source anchor for the branched endograft entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Thoraflex Hybrid",
+        "url": "https://terumoaortic.com/products/thoraflex-hybrid/",
+        "notes": "Official Terumo Aortic Thoraflex Hybrid page used as supporting public evidence for multi-branched and hybrid arch endograft solutions."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Anaconda Custom Made",
+        "url": "https://terumoaortic.com/custom-solutions/anaconda-custom-made/",
+        "notes": "Official Terumo Aortic Anaconda custom-made page used as supporting public evidence for branched and fenestrated complex endograft capability."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_TERUMO",
+    "supplier_name": "Terumo",
+    "system_id": "SYS_DACRON_GRAFT",
+    "system_name": "Dacron Vascular Graft",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Gelweave",
+        "url": "https://terumoaortic.com/products/gelweave/",
+        "notes": "Official Terumo Aortic Gelweave page used as the primary public source anchor for the dacron vascular graft entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Gelsoft Plus",
+        "url": "https://terumoaortic.com/products/gelsoft-plus/",
+        "notes": "Official Terumo Aortic Gelsoft Plus page used as supporting public evidence for woven polyester vascular graft coverage."
+      },
+      {
+        "source_type": "official_news_release",
+        "title": "Terumo acquires Aortica Corporation",
+        "url": "https://terumoaortic.com/terumo-acquires-aortica-corporation/",
+        "notes": "Official Terumo Aortic announcement used as supporting public evidence for the supplier's expanding vascular graft portfolio."
+      }
+    ]
+  }
+]

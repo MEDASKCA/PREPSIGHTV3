@@ -1,0 +1,158 @@
+[
+  {
+    "supplier_id": "SUP_SKELETAL_DYNAMICS",
+    "supplier_name": "Skeletal Dynamics",
+    "system_id": "SYS_THUMB_BASAL_JOINT_PORTFOLIO",
+    "system_name": "Thumb Basal Joint Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Skeletal Dynamics",
+        "url": "https://skeletaldynamics.com/",
+        "notes": "Official Skeletal Dynamics site used as the public source anchor for the thumb basal joint portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "STABLYX CMC Arthroplasty System",
+        "url": "https://skeletaldynamics.com/products/stablyx/",
+        "notes": "Official Skeletal Dynamics product page for the STABLYX CMC arthroplasty system used as the closest public thumb basal joint portfolio anchor."
+      },
+      {
+        "source_type": "legal_reference",
+        "title": "Legal | Skeletal Dynamics",
+        "url": "https://skeletaldynamics.com/compliance/",
+        "notes": "Official Skeletal Dynamics legal page listing the STABLYX CMC Arthroplasty System among company products, used as supporting public evidence."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SKELETAL_DYNAMICS",
+    "supplier_name": "Skeletal Dynamics",
+    "system_id": "SYS_DIGIT_FRACTURE_FIXATION_PORTFOLIO",
+    "system_name": "Digit Fracture Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "THREADED HAND NAIL",
+        "url": "https://skeletaldynamics.com/products/threaded-hand-nail/",
+        "notes": "Official Skeletal Dynamics threaded hand nail page used as the primary public source anchor for digit fracture fixation because it explicitly covers metacarpal and phalangeal fracture repair."
+      },
+      {
+        "source_type": "supplier_homepage",
+        "title": "Skeletal Dynamics",
+        "url": "https://skeletaldynamics.com/",
+        "notes": "Official Skeletal Dynamics homepage used as supporting public evidence for the supplier's upper extremity trauma portfolio."
+      },
+      {
+        "source_type": "contact_page",
+        "title": "Contact - Skeletal Dynamics",
+        "url": "https://skeletaldynamics.com/contact/",
+        "notes": "Official Skeletal Dynamics contact page used as a secondary organisational anchor for the digit fracture fixation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SKELETAL_DYNAMICS",
+    "supplier_name": "Skeletal Dynamics",
+    "system_id": "SYS_ELBOW_FRACTURE_FIXATION_PORTFOLIO",
+    "system_name": "Elbow Fracture Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "DISTAL ELBOW SET",
+        "url": "https://skeletaldynamics.com/products/distal-elbow-set/",
+        "notes": "Official Skeletal Dynamics distal elbow set page used as the primary public source anchor for elbow fracture fixation coverage."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PROTEAN Fragment Plating Technology",
+        "url": "https://skeletaldynamics.com/products/protean/",
+        "notes": "Official Skeletal Dynamics PROTEAN elbow-related fragment plating page used as supporting public evidence for distal elbow fracture fixation."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Proximal Ulna Plate",
+        "url": "https://skeletaldynamics.com/products/pup/",
+        "notes": "Official Skeletal Dynamics proximal ulna plate page used as supporting public evidence for olecranon and proximal ulna fracture fixation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SKELETAL_DYNAMICS",
+    "supplier_name": "Skeletal Dynamics",
+    "system_id": "SYS_ELBOW_TRAUMA_PORTFOLIO",
+    "system_name": "Elbow Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "DISTAL ELBOW SET",
+        "url": "https://skeletaldynamics.com/products/distal-elbow-set/",
+        "notes": "Official Skeletal Dynamics distal elbow set page used as the primary public source anchor for the elbow trauma portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "IJS Elbow Stabilization System",
+        "url": "https://skeletaldynamics.com/products/ijs-elbow/",
+        "notes": "Official Skeletal Dynamics IJS elbow stabilization page used as supporting public evidence for traumatic elbow instability management."
+      },
+      {
+        "source_type": "product_page",
+        "title": "ALIGN Radial Head System",
+        "url": "https://skeletaldynamics.com/products/align/",
+        "notes": "Official Skeletal Dynamics radial head page used as supporting public evidence for elbow trauma reconstruction and fracture-dislocation workflows."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SKELETAL_DYNAMICS",
+    "supplier_name": "Skeletal Dynamics",
+    "system_id": "SYS_GEMINUS_DISTAL_RADIUS_SYSTEM",
+    "system_name": "Geminus Distal Radius System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "GEMINUS Distal Radius System",
+        "url": "https://skeletaldynamics.com/products/geminus/",
+        "notes": "Official Skeletal Dynamics GEMINUS product page used as the primary public source anchor for the distal radius system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "FREEFIX Forearm Plating System",
+        "url": "https://skeletaldynamics.com/products/freefix-forearm-plating-system/",
+        "notes": "Official Skeletal Dynamics FREEFIX forearm plating page used as supporting public evidence because the wrist and forearm trauma set references GEMINUS among the included systems."
+      },
+      {
+        "source_type": "supplier_homepage",
+        "title": "Skeletal Dynamics",
+        "url": "https://skeletaldynamics.com/",
+        "notes": "Official Skeletal Dynamics homepage used as secondary company-level support for the distal radius portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SKELETAL_DYNAMICS",
+    "supplier_name": "Skeletal Dynamics",
+    "system_id": "SYS_HAND_FRACTURE_FIXATION_PORTFOLIO",
+    "system_name": "Hand Fracture Fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "THREADED HAND NAIL",
+        "url": "https://skeletaldynamics.com/products/threaded-hand-nail/",
+        "notes": "Official Skeletal Dynamics threaded hand nail page used as the primary public source anchor for the hand fracture fixation portfolio entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "PROTEAN Fragment Plating System",
+        "url": "https://skeletaldynamics.com/products/protean-fragment-plates/",
+        "notes": "Official Skeletal Dynamics fragment plating page used as supporting public evidence for low-profile fracture fixation options across the hand and wrist."
+      },
+      {
+        "source_type": "supplier_homepage",
+        "title": "Skeletal Dynamics",
+        "url": "https://skeletaldynamics.com/",
+        "notes": "Official Skeletal Dynamics homepage used as secondary organisational support for the hand fracture fixation portfolio entry."
+      }
+    ]
+  }
+]

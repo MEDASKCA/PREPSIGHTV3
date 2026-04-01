@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "AAP Implantate",
+    "system_name": "Intramedullary Nail System",
+    "source_type": "supplier_homepage",
+    "source_document": "aap Implantate AG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Intramedullary Nail System",
+      "supplier_name": "AAP Implantate",
+      "system_category": "Intramedullary Nail System",
+      "system_notes": "Official AAP Implantate products overview, LOQTEQ portfolio page, and LOQTEQ catalogue materials used as the source anchors for the intramedullary nail system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Intramedullary Nail Framework",
+      "system_name": "Intramedullary Nail System",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to AAP public trauma fixation and products-overview source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public intramedullary nail source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "aap Implantate AG; LOQTEQ Plating System; Catalog LOQTEQ"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public intramedullary nail source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "aap Implantate AG; LOQTEQ Plating System; Catalog LOQTEQ"
+    }
+  ]
+}

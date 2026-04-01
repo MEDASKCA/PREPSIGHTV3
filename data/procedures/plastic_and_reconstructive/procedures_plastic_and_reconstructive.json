@@ -1,0 +1,366 @@
+[
+  {
+    "id": "PROC_BURNS_DEBRIDEMENT",
+    "name": "Burns Debridement",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BURNS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_TRUNK",
+    "aliases": [],
+    "description": "Excision of devitalised tissue in burn injury.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TANGENTIAL_EXCISION_OF_BURN",
+    "name": "Tangential Excision of Burn",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BURNS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_TRUNK",
+    "aliases": [],
+    "description": "Tangential excision of burned tissue to viable bleeding tissue.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SPLIT_THICKNESS_SKIN_GRAFT_FOR_BURN",
+    "name": "Split Thickness Skin Graft for Burn",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BURNS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_TRUNK",
+    "aliases": [
+      "STSG for Burn"
+    ],
+    "description": "Skin graft reconstruction following burn excision.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FULL_THICKNESS_SKIN_GRAFT_FOR_BURN",
+    "name": "Full Thickness Skin Graft for Burn",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BURNS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_FACE",
+    "aliases": [
+      "FTSG for Burn"
+    ],
+    "description": "Full thickness skin graft reconstruction following burn injury.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ESCHAROTOMY",
+    "name": "Escharotomy",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BURNS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_UPPER_LIMB",
+    "aliases": [],
+    "description": "Incision through burn eschar to relieve constriction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FASCIOTOMY_FOR_BURN_COMPLICATION",
+    "name": "Fasciotomy for Burn Complication",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BURNS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_LOWER_LIMB",
+    "aliases": [],
+    "description": "Fasciotomy for compartment syndrome associated with burn injury.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BURN_CONTRACTURE_RELEASE",
+    "name": "Burn Contracture Release",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BURNS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_FACE",
+    "aliases": [],
+    "description": "Release of burn scar contracture with reconstruction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_SKIN_LESION_OF_HEAD_AND_NECK",
+    "name": "Excision of Skin Lesion of Head and Neck",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_DERMATOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKIN_OF_HEAD_AND_NECK",
+    "aliases": [],
+    "description": "Excision of cutaneous lesion of the head and neck.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_SKIN_LESION_OF_TRUNK",
+    "name": "Excision of Skin Lesion of Trunk",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_DERMATOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKIN_OF_TRUNK",
+    "aliases": [],
+    "description": "Excision of cutaneous lesion of the trunk.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_SKIN_LESION_OF_UPPER_LIMB",
+    "name": "Excision of Skin Lesion of Upper Limb",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_DERMATOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKIN_OF_UPPER_LIMB",
+    "aliases": [],
+    "description": "Excision of cutaneous lesion of the upper limb.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_SKIN_LESION_OF_LOWER_LIMB",
+    "name": "Excision of Skin Lesion of Lower Limb",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_DERMATOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKIN_OF_LOWER_LIMB",
+    "aliases": [],
+    "description": "Excision of cutaneous lesion of the lower limb.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_WIDE_LOCAL_EXCISION_OF_SKIN_CANCER",
+    "name": "Wide Local Excision of Skin Cancer",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_DERMATOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKIN_OF_HEAD_AND_NECK",
+    "aliases": [],
+    "description": "Wide local excision of cutaneous malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RECONSTRUCTION_AFTER_SKIN_CANCER_EXCISION",
+    "name": "Reconstruction after Skin Cancer Excision",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_DERMATOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKIN_OF_HEAD_AND_NECK",
+    "aliases": [],
+    "description": "Reconstruction following excision of skin cancer.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LOCAL_FLAP_RECONSTRUCTION_OF_SKIN_DEFECT",
+    "name": "Local Flap Reconstruction of Skin Defect",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_DERMATOLOGIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKIN_OF_HEAD_AND_NECK",
+    "aliases": [],
+    "description": "Local flap coverage of a skin and soft tissue defect.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CARPAL_TUNNEL_RELEASE_BY_PLASTICS",
+    "name": "Carpal Tunnel Release",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_HAND_AND_MICROSURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_WRIST",
+    "aliases": [],
+    "description": "Decompression of the median nerve at the carpal tunnel.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRIGGER_FINGER_RELEASE_BY_PLASTICS",
+    "name": "Trigger Finger Release",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_HAND_AND_MICROSURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_HAND",
+    "aliases": [],
+    "description": "Release of stenosing tenosynovitis of a digit.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DUPUYTREN_FASCIECTOMY_BY_PLASTICS",
+    "name": "Dupuytren Fasciectomy",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_HAND_AND_MICROSURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_HAND",
+    "aliases": [],
+    "description": "Excision of pathological palmar fascia for Dupuytren disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FLEXOR_TENDON_REPAIR_OF_HAND_BY_PLASTICS",
+    "name": "Flexor Tendon Repair of Hand",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_HAND_AND_MICROSURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_HAND",
+    "aliases": [],
+    "description": "Repair of flexor tendon laceration of the hand.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXTENSOR_TENDON_REPAIR_OF_HAND_BY_PLASTICS",
+    "name": "Extensor Tendon Repair of Hand",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_HAND_AND_MICROSURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_HAND",
+    "aliases": [],
+    "description": "Repair of extensor tendon laceration of the hand.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DIGITAL_NERVE_REPAIR",
+    "name": "Digital Nerve Repair",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_HAND_AND_MICROSURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_HAND",
+    "aliases": [],
+    "description": "Microsurgical repair of digital nerve injury.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPLANTATION_OF_DIGIT",
+    "name": "Replantation of Digit",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_HAND_AND_MICROSURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_HAND",
+    "aliases": [],
+    "description": "Microsurgical replantation of amputated finger or thumb.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FREE_FLAP_RECONSTRUCTION_OF_UPPER_LIMB",
+    "name": "Free Flap Reconstruction of Upper Limb",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_HAND_AND_MICROSURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_FOREARM",
+    "aliases": [],
+    "description": "Microsurgical free flap reconstruction of upper limb defect.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CRANIOSYNOSTOSIS_RECONSTRUCTION",
+    "name": "Craniosynostosis Reconstruction",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_CRANIOFACIAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_SKULL",
+    "aliases": [],
+    "description": "Cranial vault reconstruction for craniosynostosis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CRANIOFACIAL_RECONSTRUCTION",
+    "name": "Craniofacial Reconstruction",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_CRANIOFACIAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_FACE",
+    "aliases": [],
+    "description": "Reconstruction of craniofacial deformity or defect.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ORBITAL_RECONSTRUCTION_BY_PLASTICS",
+    "name": "Orbital Reconstruction",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_CRANIOFACIAL_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_FACE",
+    "aliases": [],
+    "description": "Reconstruction of orbital region deformity or defect.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CLEFT_LIP_REPAIR",
+    "name": "Cleft Lip Repair",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_CLEFT_LIP_AND_PALATE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_LIP",
+    "aliases": [],
+    "description": "Primary repair of cleft lip.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CLEFT_PALATE_REPAIR",
+    "name": "Cleft Palate Repair",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_CLEFT_LIP_AND_PALATE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_PALATE",
+    "aliases": [],
+    "description": "Primary repair of cleft palate.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ALVEOLAR_BONE_GRAFTING_FOR_CLEFT",
+    "name": "Alveolar Bone Grafting for Cleft",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_CLEFT_LIP_AND_PALATE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_PALATE",
+    "aliases": [],
+    "description": "Secondary alveolar bone grafting in cleft care.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CLEFT_LIP_REVISION",
+    "name": "Cleft Lip Revision",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_CLEFT_LIP_AND_PALATE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_LIP",
+    "aliases": [],
+    "description": "Revision surgery for cleft lip scar or deformity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FISTULA_REPAIR_AFTER_CLEFT_PALATE",
+    "name": "Fistula Repair after Cleft Palate",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_CLEFT_LIP_AND_PALATE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_PALATE",
+    "aliases": [],
+    "description": "Closure of palatal fistula following cleft palate repair.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_IMPLANT_BASED_BREAST_RECONSTRUCTION",
+    "name": "Implant Based Breast Reconstruction",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BREAST_RECONSTRUCTION_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_BREAST",
+    "aliases": [],
+    "description": "Breast reconstruction using implant or tissue expander.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AUTOLOGOUS_BREAST_RECONSTRUCTION",
+    "name": "Autologous Breast Reconstruction",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BREAST_RECONSTRUCTION_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_BREAST",
+    "aliases": [],
+    "description": "Breast reconstruction using autologous tissue flap.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DIEP_FLAP_BREAST_RECONSTRUCTION",
+    "name": "DIEP Flap Breast Reconstruction",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BREAST_RECONSTRUCTION_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_BREAST",
+    "aliases": [],
+    "description": "Breast reconstruction using deep inferior epigastric perforator flap.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LATISSIMUS_DORSI_FLAP_BREAST_RECONSTRUCTION",
+    "name": "Latissimus Dorsi Flap Breast Reconstruction",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BREAST_RECONSTRUCTION_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_CHEST_WALL",
+    "aliases": [],
+    "description": "Breast reconstruction using latissimus dorsi flap.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BREAST_RECONSTRUCTION_REVISION",
+    "name": "Breast Reconstruction Revision",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BREAST_RECONSTRUCTION_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_BREAST",
+    "aliases": [],
+    "description": "Revision procedure following prior breast reconstruction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_NIPPLE_AREOLA_RECONSTRUCTION",
+    "name": "Nipple Areola Reconstruction",
+    "specialty_id": "SPEC_PLASTIC_RECONSTRUCTIVE_SURGERY",
+    "service_line_id": "SL_BREAST_RECONSTRUCTION_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PLASTIC_AND_RECONSTRUCTIVE_SURGERY_BREAST",
+    "aliases": [],
+    "description": "Reconstruction of nipple areola complex after breast reconstruction.",
+    "status": "active"
+  }
+]

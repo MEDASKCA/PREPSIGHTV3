@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Vanguard M / Microplasty",
+    "source_type": "product_page",
+    "source_document": "Oxford Partial Knee",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_VANGUARD_M_MICROPLASTY_VANGUARD_M_MICROPLASTY_INSTRUMENTATION",
+        "Tray Name": "Vanguard M / Microplasty Instrumentation",
+        "System ID": "SYS_VANGUARD_M_UKR",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Zimmer Biomet materials reference the Microplasty instrumentation workflow for the Vanguard M partial knee platform."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_VANGUARD_M_MICROPLASTY_VANGUARD_M_FEMORAL_COMPONENT",
+        "Component Name": "Vanguard M Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_VANGUARD_M_UKR",
+        "Component Notes": "Official Zimmer Biomet materials describe fixed-bearing femoral options for the Vanguard M partial knee platform."
+      },
+      {
+        "Component ID": "COMP_VANGUARD_M_MICROPLASTY_VANGUARD_M_TIBIAL_COMPONENT",
+        "Component Name": "Vanguard M Tibial Component",
+        "Component Role": "Tibial Baseplate",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_VANGUARD_M_UKR",
+        "Component Notes": "Official materials describe the fixed-bearing tibial component used within the Vanguard M unicompartmental construct."
+      },
+      {
+        "Component ID": "COMP_VANGUARD_M_MICROPLASTY_VANGUARD_M_BEARING",
+        "Component Name": "Vanguard M Bearing",
+        "Component Role": "Bearing Insert",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_VANGUARD_M_UKR",
+        "Component Notes": "Official materials describe fixed-bearing insert options for the Vanguard M platform."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Vanguard M / Microplasty",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Unicompartmental Knee Replacement",
+          "system_notes": "Fixed-bearing medial partial knee platform supported by Microplasty instrumentation and referenced in official Oxford/Vanguard M Zimmer Biomet materials."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Vanguard M / Microplasty",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Unicompartmental Knee Replacement",
+        "system_notes": "Fixed-bearing medial partial knee platform supported by Microplasty instrumentation and referenced in official Oxford/Vanguard M Zimmer Biomet materials."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Vanguard M / Microplasty",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Unicompartmental Knee Replacement",
+        "system_notes": "Fixed-bearing medial partial knee platform supported by Microplasty instrumentation and referenced in official Oxford/Vanguard M Zimmer Biomet materials."
+      }
+    }
+  ]
+}

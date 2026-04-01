@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Large / Small External Fixator Portfolio",
+    "source_type": "product_page",
+    "source_document": "Large External Fixation System | DePuy Synthes",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LARGE_SMALL_EXTERNAL_FIXATOR_PORTFOLIO_LARGE_AND_SMALL_EXTERNAL_FIXATOR_FRAMEWORK",
+        "Component Name": "Large and Small External Fixator Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "External Fixation",
+        "System ID": "SYS_LARGE___SMALL_EXTERNAL_FIXATOR_PORTFOLIO",
+        "Component Notes": "Framework component anchored to DePuy Synthes public large and mini external fixation sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Large / Small External Fixator Portfolio",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "trauma",
+          "system_notes": "Official DePuy Synthes Large External Fixation System, Mini External Fixator, and Accompanying Product Information materials used as the source anchors for the large and small external fixator portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Large / Small External Fixator Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Official DePuy Synthes Large External Fixation System, Mini External Fixator, and Accompanying Product Information materials used as the source anchors for the large and small external fixator portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Large / Small External Fixator Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "trauma",
+        "system_notes": "Official DePuy Synthes Large External Fixation System, Mini External Fixator, and Accompanying Product Information materials used as the source anchors for the large and small external fixator portfolio entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,402 @@
+[
+  {
+    "id": "PROC_URETEROSCOPY_AND_STONE_EXTRACTION",
+    "name": "Ureteroscopy and Stone Extraction",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ENDOUROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETER",
+    "aliases": [
+      "URS and Stone Extraction"
+    ],
+    "description": "Endoscopic treatment of ureteric stone disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_URETEROSCOPY_AND_LASER_LITHOTRIPSY",
+    "name": "Ureteroscopy and Laser Lithotripsy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ENDOUROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETER",
+    "aliases": [
+      "URS and Laser Lithotripsy"
+    ],
+    "description": "Endoscopic fragmentation of ureteric or renal calculi using laser.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FLEXIBLE_URETERORENOSCOPY",
+    "name": "Flexible Ureterorenoscopy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ENDOUROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_KIDNEY",
+    "aliases": [
+      "Flexible URS",
+      "FURS"
+    ],
+    "description": "Flexible endoscopic inspection and treatment of the upper urinary tract.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PERCUTANEOUS_NEPHROLITHOTOMY",
+    "name": "Percutaneous Nephrolithotomy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ENDOUROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_KIDNEY",
+    "aliases": [
+      "PCNL"
+    ],
+    "description": "Percutaneous removal of renal calculi.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_INSERTION_OF_URETERIC_STENT",
+    "name": "Insertion of Ureteric Stent",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ENDOUROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETER",
+    "aliases": [
+      "JJ Stent Insertion",
+      "Double J Stent Insertion"
+    ],
+    "description": "Endoscopic insertion of ureteric stent for drainage or patency.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCHANGE_OF_URETERIC_STENT",
+    "name": "Exchange of Ureteric Stent",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ENDOUROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETER",
+    "aliases": [],
+    "description": "Removal and replacement of existing ureteric stent.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRANSURETHRAL_RESECTION_OF_BLADDER_TUMOUR",
+    "name": "Transurethral Resection of Bladder Tumour",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "aliases": [
+      "TURBT"
+    ],
+    "description": "Endoscopic resection of bladder tumour.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RADICAL_CYSTECTOMY",
+    "name": "Radical Cystectomy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "aliases": [],
+    "description": "Removal of the bladder for invasive malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RADICAL_PROSTATECTOMY",
+    "name": "Radical Prostatectomy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PROSTATE",
+    "aliases": [],
+    "description": "Complete excision of the prostate for malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RADICAL_NEPHRECTOMY",
+    "name": "Radical Nephrectomy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_KIDNEY",
+    "aliases": [],
+    "description": "Complete removal of the kidney for malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PARTIAL_NEPHRECTOMY",
+    "name": "Partial Nephrectomy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_KIDNEY",
+    "aliases": [
+      "Nephron-Sparing Surgery"
+    ],
+    "description": "Partial removal of kidney preserving renal parenchyma.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_NEPHROURETERECTOMY",
+    "name": "Nephroureterectomy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETER",
+    "aliases": [],
+    "description": "Removal of kidney and ureter for upper tract urothelial malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RADICAL_ORCHIDECTOMY",
+    "name": "Radical Orchidectomy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_TESTIS",
+    "aliases": [
+      "Radical Orchiectomy"
+    ],
+    "description": "Removal of testis via inguinal approach for malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PARTIAL_PENECTOMY",
+    "name": "Partial Penectomy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PENIS",
+    "aliases": [],
+    "description": "Partial removal of penis for malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TOTAL_PENECTOMY",
+    "name": "Total Penectomy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_UROLOGIC_ONCOLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PENIS",
+    "aliases": [],
+    "description": "Complete removal of penis for advanced malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRANSURETHRAL_RESECTION_OF_PROSTATE",
+    "name": "Transurethral Resection of Prostate",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PROSTATE",
+    "aliases": [
+      "TURP"
+    ],
+    "description": "Endoscopic resection of prostatic tissue causing obstruction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HOLMIUM_LASER_ENUCLEATION_OF_PROSTATE",
+    "name": "Holmium Laser Enucleation of Prostate",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PROSTATE",
+    "aliases": [
+      "HoLEP"
+    ],
+    "description": "Laser enucleation of obstructing prostatic adenoma.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BLADDER_NECK_INCISION",
+    "name": "Bladder Neck Incision",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "aliases": [],
+    "description": "Endoscopic incision of bladder neck obstruction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_INTRAVESICAL_BOTOX_INJECTION",
+    "name": "Intravesical Botox Injection",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "aliases": [],
+    "description": "Injection of botulinum toxin into the bladder for detrusor overactivity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SACRAL_NEUROMODULATION",
+    "name": "Sacral Neuromodulation",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PELVIC_FLOOR",
+    "aliases": [],
+    "description": "Neuromodulation procedure for refractory lower urinary tract dysfunction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CYSTOSCOPY",
+    "name": "Cystoscopy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_FUNCTIONAL_UROLOGY_AND_INCONTINENCE",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "aliases": [],
+    "description": "Endoscopic inspection of urethra and bladder.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PENILE_PROSTHESIS_INSERTION",
+    "name": "Penile Prosthesis Insertion",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ANDROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PENIS",
+    "aliases": [],
+    "description": "Insertion of penile prosthesis for erectile dysfunction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CIRCUMCISION",
+    "name": "Circumcision",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ANDROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PENIS",
+    "aliases": [],
+    "description": "Excision of foreskin.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VASECTOMY",
+    "name": "Vasectomy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ANDROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_TESTIS",
+    "aliases": [],
+    "description": "Division and occlusion of vas deferens for sterilisation.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VASECTOMY_REVERSAL",
+    "name": "Vasectomy Reversal",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ANDROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_TESTIS",
+    "aliases": [
+      "Vasovasostomy"
+    ],
+    "description": "Microsurgical reversal of vasectomy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VARICOCELECTOMY",
+    "name": "Varicocelectomy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ANDROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_SCROTUM",
+    "aliases": [],
+    "description": "Ligation of spermatic veins for varicocele.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HYDROCOELE_REPAIR",
+    "name": "Hydrocoele Repair",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ANDROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_SCROTUM",
+    "aliases": [
+      "Hydrocele Repair"
+    ],
+    "description": "Repair or excision of hydrocoele sac.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_URETHROPLASTY",
+    "name": "Urethroplasty",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_RECONSTRUCTIVE_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETHRA",
+    "aliases": [],
+    "description": "Open reconstruction of urethral stricture disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AUGMENTATION_CYSTOPLASTY",
+    "name": "Augmentation Cystoplasty",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_RECONSTRUCTIVE_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "aliases": [],
+    "description": "Bladder enlargement using bowel segment.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_URINARY_DIVERSION",
+    "name": "Urinary Diversion",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_RECONSTRUCTIVE_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_BLADDER",
+    "aliases": [],
+    "description": "Diversion of urine using intestinal conduit or continent reservoir.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PYELOPLASTY",
+    "name": "Pyeloplasty",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_PAEDIATRIC_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_RENAL_PELVIS",
+    "aliases": [],
+    "description": "Reconstruction of pelvi-ureteric junction obstruction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ORCHIDOPEXY",
+    "name": "Orchidopexy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_PAEDIATRIC_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_TESTIS",
+    "aliases": [
+      "Orchiopexy"
+    ],
+    "description": "Fixation of undescended testis within the scrotum.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HYPOSPADIAS_REPAIR",
+    "name": "Hypospadias Repair",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_PAEDIATRIC_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_PENIS",
+    "aliases": [],
+    "description": "Reconstruction of hypospadias and penile curvature correction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_POSTERIOR_URETHRAL_VALVE_ABLATION",
+    "name": "Posterior Urethral Valve Ablation",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_PAEDIATRIC_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETHRA",
+    "aliases": [],
+    "description": "Endoscopic ablation of posterior urethral valves.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DEFLUX_INJECTION",
+    "name": "Deflux Injection",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_PAEDIATRIC_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETER",
+    "aliases": [],
+    "description": "Endoscopic injection therapy for vesicoureteric reflux.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_URETERIC_REIMPLANTATION",
+    "name": "Ureteric Reimplantation",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_PAEDIATRIC_UROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETER",
+    "aliases": [],
+    "description": "Reimplantation of ureter into the bladder.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_URETEROSCOPY_LASER",
+    "name": "Ureteroscopy Laser Lithotripsy",
+    "specialty_id": "SPEC_UROLOGY",
+    "service_line_id": "SL_ENDOUROLOGY",
+    "anatomy_id": "ANAT_SPEC_UROLOGY_URETER",
+    "aliases": [
+      "URS Laser"
+    ],
+    "description": "Endoscopic fragmentation of ureteric stones",
+    "status": "active"
+  }
+]

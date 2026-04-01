@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Corin",
+    "system_name": "Corin / ApolloKnee or comparable knee portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Corin ApolloKnee or Comparable Knee Portfolio",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_CORIN_APOLLOKNEE_OR_COMPARABLE_KNEE_PORTFOLIO",
+      "system_name": "Corin / ApolloKnee or comparable knee portfolio",
+      "supplier": "Corin",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public Corin knee portfolio and ApolloKnee pages used as source anchors for the ApolloKnee or comparable knee portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_CORIN_APOLLOKNEE_OR_COMPARABLE_KNEE_PORTFOLIO",
+      "component_name": "ApolloKnee or Comparable Knee Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Knee Arthroplasty Robotics Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to Corin ApolloKnee and knee arthroplasty public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_CORIN_APOLLOKNEE_OR_COMPARABLE_KNEE_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_CORIN_APOLLOKNEE_OR_COMPARABLE_KNEE_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

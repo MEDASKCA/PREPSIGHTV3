@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Exeter / Bipolar Head",
+    "source_type": "product_brochure_pdf",
+    "source_document": "Exeter and UHR Universal Head Bipolar System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_EXETER_BIPOLAR_HEAD_EXETER_BIPOLAR_INSTRUMENTATION",
+        "Tray Name": "Exeter / Bipolar Instrumentation",
+        "System ID": "SYS_EXETER_BIPOLAR",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Exeter and UHR materials support the combined stem and bipolar head construct with dedicated operative instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_EXETER_BIPOLAR_HEAD_EXETER_FEMORAL_STEM",
+        "Component Name": "Exeter Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_EXETER_BIPOLAR",
+        "Component Notes": "Official Exeter product materials describe the polished cemented Exeter femoral stem family."
+      },
+      {
+        "Component ID": "COMP_EXETER_BIPOLAR_HEAD_UHR_BIPOLAR_HEAD",
+        "Component Name": "UHR Bipolar Head",
+        "Component Role": "Bipolar Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_EXETER_BIPOLAR",
+        "Component Notes": "Official UHR materials describe the bipolar cup family with multiple outer diameters and compatible inner head sizes."
+      },
+      {
+        "Component ID": "COMP_EXETER_BIPOLAR_HEAD_EXETER_FEMORAL_HEAD",
+        "Component Name": "Exeter Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_EXETER_BIPOLAR",
+        "Component Notes": "The UHR bipolar system is specified for compatible 22 mm, 26 mm, and 28 mm head sizes used with the Exeter stem construct."
+      }
+    ],
+    "PRODUCTS": [
+      {
+        "SKU": "UH1-36-22",
+        "Product Name": "UHR Bipolar Head 36 mm for 22 mm Head",
+        "Component ID": "COMP_EXETER_BIPOLAR_HEAD_UHR_BIPOLAR_HEAD",
+        "Packaging Type": "",
+        "Product Notes": "Official UHR bipolar system brochure lists catalogue number UH1-36-22 for 36 mm outer diameter with 22 mm head compatibility."
+      }
+    ],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Exeter / Bipolar Head",
+          "supplier_name": "Stryker",
+          "system_category": "Hip Hemiarthroplasty System",
+          "system_notes": "Cemented hemiarthroplasty construct combining the Exeter femoral stem family with the UHR Universal Head Bipolar System."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Exeter / Bipolar Head",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Hemiarthroplasty System",
+        "system_notes": "Cemented hemiarthroplasty construct combining the Exeter femoral stem family with the UHR Universal Head Bipolar System."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Exeter / Bipolar Head",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Hemiarthroplasty System",
+        "system_notes": "Cemented hemiarthroplasty construct combining the Exeter femoral stem family with the UHR Universal Head Bipolar System."
+      }
+    }
+  ]
+}

@@ -1,0 +1,4078 @@
+[
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_CARDIOTHORACIC_ANAESTHESIA_WORKFLOW",
+    "system_name": "Cardiothoracic Anaesthesia Workflow System",
+    "sources": [
+      {
+        "source_type": "practice_resources",
+        "title": "Practice Resources | Society of Cardiovascular Anesthesiologists",
+        "url": "https://scahq.org/practice-resources/",
+        "notes": "Official SCA practice-resources page used as the public anchor for cardiothoracic anaesthesia workflow guidance."
+      },
+      {
+        "source_type": "manual_resource",
+        "title": "E-Manual of Cardiac Anesthesia | Society of Cardiovascular Anesthesiologists",
+        "url": "https://scahq.org/practice-resources/e-manual-of-cardiac-anesthesia/",
+        "notes": "Official SCA cardiac-anesthesia manual page used as a workflow reference anchor."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_ANAESTHESIA_INFORMATION_MANAGEMENT",
+    "system_name": "Anaesthesia Information Management System",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "Anesthesia Information Management Systems (AIMS) Overview | ASA",
+        "url": "https://www.asahq.org/standards-and-practice-parameters/statement-on-anaesthesia-information-management-systems",
+        "notes": "Professional society statement used as the public source anchor for anaesthesia information management workflow systems."
+      },
+      {
+        "source_type": "guidance_page",
+        "title": "Anesthesia Information Management Systems",
+        "url": "https://www.openanesthesia.org/keywords/anesthesia-information-management-systems/",
+        "notes": "OpenAnesthesia educational summary used as a workflow-level supporting source."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_OBSTETRIC_ANAESTHESIA_WORKFLOW",
+    "system_name": "Obstetric Anaesthesia Workflow System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Society for Obstetric Anesthesia and Perinatology",
+        "url": "https://www.soap.org/",
+        "notes": "Official SOAP society site used as the public source anchor for obstetric anaesthesia workflow guidance."
+      },
+      {
+        "source_type": "resource_platform",
+        "title": "SOAP Educational App",
+        "url": "https://www.soap.org/soap-educational-app",
+        "notes": "Official SOAP resource platform page used as evidence of mobile and point-of-care clinical-resource workflow support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PAEDIATRIC_ANAESTHESIA_WORKFLOW",
+    "system_name": "Paediatric Anaesthesia Workflow System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Society for Pediatric Anesthesia",
+        "url": "https://pedsanesthesia.org/",
+        "notes": "Official SPA society site used as the public source anchor for paediatric anaesthesia workflow guidance."
+      },
+      {
+        "source_type": "resource_hub",
+        "title": "Resources | Society for Pediatric Anesthesia",
+        "url": "https://pedsanesthesia.org/resources/",
+        "notes": "Official SPA resources page used for case guides, checklists, and point-of-care paediatric anaesthesia workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_REGIONAL_ANAESTHESIA_WORKFLOW",
+    "system_name": "Regional Anaesthesia Workflow System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "ASRA Pain Medicine Home",
+        "url": "https://asra.com/",
+        "notes": "Official ASRA Pain Medicine site used as the public source anchor for regional anaesthesia workflow guidance."
+      },
+      {
+        "source_type": "course_page",
+        "title": "Ultrasound-Guided Regional Anesthesia Course | ASRA",
+        "url": "https://asra.com/events-education/courses/ccra",
+        "notes": "Official ASRA course page used as evidence of current hands-on regional anaesthesia workflow education."
+      },
+      {
+        "source_type": "society_about_page",
+        "title": "About | ESRA",
+        "url": "https://esraeurope.org/about/",
+        "notes": "Official ESRA page used as complementary society-level support for regional anaesthesia education and workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_CARDIAC_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Cardiac Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_about_page",
+        "title": "About STS",
+        "url": "https://www.sts.org/about/who-we-are/about-sts",
+        "notes": "Official STS society page used as the public source anchor for cardiac surgery information-system workflow support."
+      },
+      {
+        "source_type": "resource_tool",
+        "title": "Resource Utilization Tool | STS",
+        "url": "https://www.sts.org/resource-utilization-tool",
+        "notes": "Official STS cardiac-surgery resource-utilization tool used as evidence of cardiac surgery workflow and planning support."
+      },
+      {
+        "source_type": "database_page",
+        "title": "EACTS Adult Cardiac Database",
+        "url": "https://www.eacts.org/quality-improvement/adult-cardiac-database/",
+        "notes": "Official EACTS adult cardiac database page used as complementary support for cardiac surgery data and quality infrastructure."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_CONGENITAL_CARDIAC_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Congenital Cardiac Surgery Information System",
+    "sources": [
+      {
+        "source_type": "database_page",
+        "title": "STS National Database - Congenital Heart Surgery Database",
+        "url": "https://www.sts.org/sts-national-database",
+        "notes": "Official STS congenital heart surgery database page used as the public source anchor for congenital cardiac surgery information workflow."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "Congenital Heart Surgeons' Society",
+        "url": "https://chss.org/",
+        "notes": "Official CHSS society page used as complementary support for congenital heart surgery research and quality workflow."
+      },
+      {
+        "source_type": "database_page",
+        "title": "Congenital Heart Surgery Database | STS Public Reporting",
+        "url": "https://publicreporting.sts.org/index.php/chsd-about",
+        "notes": "Official STS congenital heart surgery public reporting page used for quality and benchmarking workflow support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_THORACIC_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Thoracic Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_about_page",
+        "title": "About STS",
+        "url": "https://www.sts.org/about/who-we-are/about-sts",
+        "notes": "Official STS page used as the public source anchor for thoracic surgery information workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "STS Thoracic Surgical Curriculum",
+        "url": "https://www.sts.org/resources/student-resident-resources",
+        "notes": "Official STS thoracic curriculum page used as evidence of thoracic surgery information and education workflow."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Online Educational Resources | ESTS",
+        "url": "https://www.ests.org/educational_activities/online_educational_resources.aspx",
+        "notes": "Official ESTS educational resources page used as complementary thoracic surgery workflow support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_DENTAL_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Dental Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_about_page",
+        "title": "About AAOMS",
+        "url": "https://aaoms.org/about/",
+        "notes": "Official AAOMS page used as the public source anchor for oral and maxillofacial surgery information workflow support."
+      },
+      {
+        "source_type": "practice_page",
+        "title": "Practice | AAOMS",
+        "url": "https://aaoms.org/practice/",
+        "notes": "Official AAOMS practice-resources page used as evidence of day-to-day oral surgery workflow and practice support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "Home | BAOMS",
+        "url": "https://www.baoms.org.uk/",
+        "notes": "Official BAOMS page used as complementary support for oral and maxillofacial surgery education and professional workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_ORAL_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Oral Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_about_page",
+        "title": "About AAOMS",
+        "url": "https://aaoms.org/about/",
+        "notes": "Official AAOMS page used as the public source anchor for oral surgery information workflow support."
+      },
+      {
+        "source_type": "practice_page",
+        "title": "Practice | AAOMS",
+        "url": "https://aaoms.org/practice/",
+        "notes": "Official AAOMS practice-resources page used as evidence of oral surgery workflow and professional support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "Home | BAOMS",
+        "url": "https://www.baoms.org.uk/",
+        "notes": "Official BAOMS page used as complementary support for oral surgery and OMFS education and professional workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_ACUTE_CARE_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Acute Care Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_about_page",
+        "title": "About SACSC",
+        "url": "https://www.aast.org/about-sacsc",
+        "notes": "Official AAST Society of Acute Care Surgery Chiefs page used as the public source anchor for acute care surgery information workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Acute Care Surgery Education Resources | AAST",
+        "url": "https://www.aast.org/acute-care-surgery/education-resources",
+        "notes": "Official AAST acute care surgery education-resources page used as evidence of current acute care surgery training and workflow support."
+      },
+      {
+        "source_type": "journal_page",
+        "title": "Acute Care Surgery Journal Club | AAST",
+        "url": "https://www.aast.org/acute-care-surgery/fellow-education/journal-club.html",
+        "notes": "Official AAST journal-club page used as complementary evidence of ongoing acute care surgery educational workflow."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_BARIATRIC_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Bariatric Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "American Society for Metabolic and Bariatric Surgery",
+        "url": "https://asmbs.org/",
+        "notes": "Official ASMBS site used as the public source anchor for bariatric surgery information workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Resources | ASMBS",
+        "url": "https://asmbs.org/resources/",
+        "notes": "Official ASMBS resources page used as evidence of current bariatric surgery education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "IFSO",
+        "url": "https://www.ifso.com/",
+        "notes": "Official IFSO page used as complementary support for global bariatric and metabolic surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_BREAST_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Breast Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "American Society of Breast Surgeons",
+        "url": "https://www.breastsurgeons.org/",
+        "notes": "Official ASBrS site used as the public source anchor for breast surgery information workflow support."
+      },
+      {
+        "source_type": "resource_page",
+        "title": "Resources | ASBrS",
+        "url": "https://www.breastsurgeons.org/resources",
+        "notes": "Official ASBrS resources page used as evidence of current breast surgery education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "Association of Breast Surgery",
+        "url": "https://associationofbreastsurgery.org.uk/",
+        "notes": "Official ABS site used as complementary support for breast surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_COLORECTAL_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Colorectal Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "American Society of Colon and Rectal Surgeons",
+        "url": "https://fascrs.org/",
+        "notes": "Official ASCRS site used as the public source anchor for colorectal surgery information workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Education | ASCRS",
+        "url": "https://fascrs.org/education",
+        "notes": "Official ASCRS education page used as evidence of current colorectal surgery education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Society of Coloproctology",
+        "url": "https://www.escp.eu.com/",
+        "notes": "Official ESCP page used as complementary support for colorectal surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_EMERGENCY_GENERAL_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Emergency General Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_page",
+        "title": "Emergency General Surgery | AAST",
+        "url": "https://www.aast.org/emergency-general-surgery",
+        "notes": "Official AAST emergency general surgery page used as the public source anchor for emergency general surgery workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Emergency General Surgery Fellow Education | AAST",
+        "url": "https://www.aast.org/emergency-general-surgery/fellow-education",
+        "notes": "Official AAST education page used as evidence of current emergency general surgery training and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "World Society of Emergency Surgery",
+        "url": "https://www.wses.org.uk/",
+        "notes": "Official WSES page used as complementary support for emergency surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_ENDOCRINE_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Endocrine Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "American Association of Endocrine Surgeons",
+        "url": "https://www.endocrinesurgery.org/",
+        "notes": "Official AAES site used as the public source anchor for endocrine surgery information workflow support."
+      },
+      {
+        "source_type": "guidelines_page",
+        "title": "Guidelines | AAES",
+        "url": "https://www.endocrinesurgery.org/guidelines",
+        "notes": "Official AAES guidelines page used as evidence of current endocrine surgery education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Society of Endocrine Surgeons",
+        "url": "https://eses.cc/",
+        "notes": "Official ESES page used as complementary support for endocrine surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_HPB_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "HPB Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Americas Hepato-Pancreato-Biliary Association",
+        "url": "https://www.ahpba.org/",
+        "notes": "Official AHPBA site used as the public source anchor for HPB surgery information workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Education | AHPBA",
+        "url": "https://www.ahpba.org/education/",
+        "notes": "Official AHPBA education page used as evidence of current HPB surgery education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European-African Hepato-Pancreato-Biliary Association",
+        "url": "https://eahpba.org/",
+        "notes": "Official E-AHPBA site used as complementary support for HPB surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_HERNIA_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Hernia Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Americas Hernia Society",
+        "url": "https://americanherniasociety.org/",
+        "notes": "Official AHS site used as the public source anchor for hernia surgery information workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Education | AHS",
+        "url": "https://americanherniasociety.org/education/",
+        "notes": "Official AHS education page used as evidence of current hernia surgery education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Hernia Society",
+        "url": "https://europeanherniasociety.eu/",
+        "notes": "Official EHS site used as complementary support for hernia surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_SURGICAL_ONCOLOGY_INFORMATION_SYSTEM",
+    "system_name": "Surgical Oncology Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Society of Surgical Oncology",
+        "url": "https://www.surgonc.org/",
+        "notes": "Official SSO site used as the public source anchor for surgical oncology information workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Education | SSO",
+        "url": "https://www.surgonc.org/education/",
+        "notes": "Official SSO education page used as evidence of current surgical oncology education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Society of Surgical Oncology",
+        "url": "https://www.essoweb.org/",
+        "notes": "Official ESSO site used as complementary support for surgical oncology workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_TRANSPLANT_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Transplant Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "American Society of Transplant Surgeons",
+        "url": "https://asts.org/",
+        "notes": "Official ASTS site used as the public source anchor for transplant surgery information workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Education | ASTS",
+        "url": "https://asts.org/education",
+        "notes": "Official ASTS education page used as evidence of current transplant surgery education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Society for Organ Transplantation",
+        "url": "https://esot.org/",
+        "notes": "Official ESOT site used as complementary support for transplant surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_UPPER_GI_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Upper GI Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Association of Upper Gastrointestinal Surgeons",
+        "url": "https://www.augsis.org/",
+        "notes": "Official AUGIS site used as the public source anchor for upper GI surgery information workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Education and Training | AUGIS",
+        "url": "https://www.augsis.org/education-and-training/",
+        "notes": "Official AUGIS education page used as evidence of current upper GI surgery education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "International Society for Diseases of the Esophagus",
+        "url": "https://www.isde.net/",
+        "notes": "Official ISDE site used as complementary support for upper GI surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_GYNECOLOGY_PROCEDURE_INFORMATION_SYSTEM",
+    "system_name": "Gynecology Procedure Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Society for Gynaecological Endoscopy",
+        "url": "https://www.bsge.org.uk/",
+        "notes": "Official BSGE site used as the public source anchor for gynecology procedure information workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Training | BSGE",
+        "url": "https://www.bsge.org.uk/training/",
+        "notes": "Official BSGE training page used as evidence of current gynecology procedure education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "AAGL",
+        "url": "https://www.aagl.org/",
+        "notes": "Official AAGL site used as complementary support for gynecology procedure workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_GYNECOLOGIC_ONCOLOGY_INFORMATION_SYSTEM",
+    "system_name": "Gynecologic Oncology Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Society of Gynecologic Oncology",
+        "url": "https://www.sgo.org/",
+        "notes": "Official SGO site used as the public source anchor for gynecologic oncology information workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Education | SGO",
+        "url": "https://www.sgo.org/education/",
+        "notes": "Official SGO education page used as evidence of current gynecologic oncology education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Society of Gynaecological Oncology",
+        "url": "https://esgo.org/",
+        "notes": "Official ESGO site used as complementary support for gynecologic oncology workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_MINIMALLY_INVASIVE_GYNECOLOGY_INFORMATION_SYSTEM",
+    "system_name": "Minimally Invasive Gynecology Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Society for Gynaecological Endoscopy",
+        "url": "https://www.bsge.org.uk/",
+        "notes": "Official BSGE site used as the public source anchor for minimally invasive gynecology workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Endometriosis Centres | BSGE",
+        "url": "https://www.bsge.org.uk/endometriosis-centres/",
+        "notes": "Official BSGE endometriosis and advanced laparoscopy page used as evidence of current minimally invasive gynecology workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "AAGL",
+        "url": "https://www.aagl.org/",
+        "notes": "Official AAGL site used as complementary support for minimally invasive gynecology workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_REPRODUCTIVE_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Reproductive Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "European Society of Human Reproduction and Embryology",
+        "url": "https://www.eshre.eu/",
+        "notes": "Official ESHRE site used as the public source anchor for reproductive surgery workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Education | ESHRE",
+        "url": "https://www.eshre.eu/Education",
+        "notes": "Official ESHRE education page used as evidence of current reproductive surgery education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Society for Reproductive Medicine",
+        "url": "https://www.asrm.org/",
+        "notes": "Official ASRM site used as complementary support for reproductive surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_UROGYNECOLOGY_INFORMATION_SYSTEM",
+    "system_name": "Urogynecology and Pelvic Floor Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "International Urogynecological Association",
+        "url": "https://www.iuga.org/",
+        "notes": "Official IUGA site used as the public source anchor for urogynecology and pelvic floor workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Education | IUGA",
+        "url": "https://www.iuga.org/education",
+        "notes": "Official IUGA education page used as evidence of current urogynecology and pelvic floor education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Urogynecologic Society",
+        "url": "https://www.augs.org/",
+        "notes": "Official AUGS site used as complementary support for urogynecology and pelvic floor workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_CRANIAL_NEUROSURGERY_INFORMATION_SYSTEM",
+    "system_name": "Cranial Neurosurgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Congress of Neurological Surgeons",
+        "url": "https://www.cns.org/",
+        "notes": "Official CNS site used as the public source anchor for cranial neurosurgery workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Education | CNS",
+        "url": "https://www.cns.org/education",
+        "notes": "Official CNS education page used as evidence of current cranial neurosurgery education and workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Association of Neurosurgical Societies",
+        "url": "https://www.eans.org/",
+        "notes": "Official EANS site used as complementary support for cranial neurosurgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_FUNCTIONAL_NEUROSURGERY_INFORMATION_SYSTEM",
+    "system_name": "Functional Neurosurgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Congress of Neurological Surgeons",
+        "url": "https://www.cns.org/",
+        "notes": "Official CNS site used as the public source anchor for functional neurosurgery workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Stereotactic and Functional Neurosurgery | CNS",
+        "url": "https://www.cns.org/education/cns-available-cme?topic=sfn",
+        "notes": "Official CNS stereotactic and functional neurosurgery education page used as evidence of current workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "World Society for Stereotactic and Functional Neurosurgery",
+        "url": "https://www.wssfn.org/",
+        "notes": "Official WSSFN site used as complementary support for functional neurosurgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_NEUROONCOLOGY_INFORMATION_SYSTEM",
+    "system_name": "Neurooncology Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Congress of Neurological Surgeons",
+        "url": "https://www.cns.org/",
+        "notes": "Official CNS site used as the public source anchor for neurooncology surgery workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Tumor Section | CNS",
+        "url": "https://www.cns.org/sections/tumor",
+        "notes": "Official CNS tumor section page used as evidence of current neurooncology workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Association of Neuro-Oncology",
+        "url": "https://www.eano.eu/",
+        "notes": "Official EANO site used as complementary support for neurooncology surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PAEDIATRIC_NEUROSURGERY_INFORMATION_SYSTEM",
+    "system_name": "Paediatric Neurosurgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "International Society for Pediatric Neurosurgery",
+        "url": "https://www.ispn.guide/",
+        "notes": "Official ISPN site used as the public source anchor for paediatric neurosurgery workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Educational Resources | ISPN Guide",
+        "url": "https://www.ispn.guide/educational-resources",
+        "notes": "Official ISPN education page used as evidence of current paediatric neurosurgery workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Society of Pediatric Neurosurgeons",
+        "url": "https://www.aspn.org/",
+        "notes": "Official ASPN site used as complementary support for paediatric neurosurgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_SPINAL_NEUROSURGERY_INFORMATION_SYSTEM",
+    "system_name": "Spinal Neurosurgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Congress of Neurological Surgeons",
+        "url": "https://www.cns.org/",
+        "notes": "Official CNS site used as the public source anchor for spinal neurosurgery workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Spine Section | CNS",
+        "url": "https://www.cns.org/sections/spine",
+        "notes": "Official CNS spine section page used as evidence of current spinal neurosurgery workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "North American Spine Society",
+        "url": "https://www.spine.org/",
+        "notes": "Official NASS site used as complementary support for spinal neurosurgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_CAESAREAN_BIRTH_INFORMATION_SYSTEM",
+    "system_name": "Caesarean Birth Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Royal College of Obstetricians and Gynaecologists",
+        "url": "https://www.rcog.org.uk/",
+        "notes": "Official RCOG site used as the public source anchor for caesarean birth workflow support."
+      },
+      {
+        "source_type": "guideline_page",
+        "title": "Caesarean Birth | RCOG",
+        "url": "https://www.rcog.org.uk/guidance/browse-all-guidance/green-top-guidelines/caesarean-birth-green-top-guideline-no-45/",
+        "notes": "Official RCOG caesarean birth guidance page used as evidence of current caesarean workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American College of Obstetricians and Gynecologists",
+        "url": "https://www.acog.org/",
+        "notes": "Official ACOG site used as complementary support for caesarean birth workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_HIGH_RISK_OBSTETRICS_INFORMATION_SYSTEM",
+    "system_name": "High Risk Obstetrics Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Royal College of Obstetricians and Gynaecologists",
+        "url": "https://www.rcog.org.uk/",
+        "notes": "Official RCOG site used as the public source anchor for high-risk obstetrics workflow support."
+      },
+      {
+        "source_type": "guideline_page",
+        "title": "Postpartum Haemorrhage and Placenta Accreta Resources | RCOG",
+        "url": "https://www.rcog.org.uk/guidance/",
+        "notes": "Official RCOG guidance hub used as evidence of current high-risk obstetric workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "Society for Maternal-Fetal Medicine",
+        "url": "https://www.smfm.org/",
+        "notes": "Official SMFM site used as complementary support for high-risk obstetrics workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_OPERATIVE_DELIVERY_INFORMATION_SYSTEM",
+    "system_name": "Operative Delivery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Royal College of Obstetricians and Gynaecologists",
+        "url": "https://www.rcog.org.uk/",
+        "notes": "Official RCOG site used as the public source anchor for operative delivery workflow support."
+      },
+      {
+        "source_type": "guideline_page",
+        "title": "Operative Vaginal Delivery | RCOG",
+        "url": "https://www.rcog.org.uk/guidance/",
+        "notes": "Official RCOG guidance hub used as evidence of current operative delivery workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American College of Obstetricians and Gynecologists",
+        "url": "https://www.acog.org/",
+        "notes": "Official ACOG site used as complementary support for operative delivery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_CATARACT_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Cataract Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Royal College of Ophthalmologists",
+        "url": "https://www.rcophth.ac.uk/",
+        "notes": "Official RCOphth site used as the public source anchor for cataract surgery workflow support."
+      },
+      {
+        "source_type": "guideline_page",
+        "title": "Cataract Surgery Guidelines | RCOphth",
+        "url": "https://www.rcophth.ac.uk/standards-publications-research/clinical-guidelines/",
+        "notes": "Official RCOphth guideline page used as evidence of current cataract surgery workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Society of Cataract and Refractive Surgery",
+        "url": "https://ascrs.org/",
+        "notes": "Official ASCRS site used as complementary support for cataract surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_CORNEAL_ANTERIOR_SEGMENT_INFORMATION_SYSTEM",
+    "system_name": "Corneal and Anterior Segment Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Royal College of Ophthalmologists",
+        "url": "https://www.rcophth.ac.uk/",
+        "notes": "Official RCOphth site used as the public source anchor for corneal and anterior segment workflow support."
+      },
+      {
+        "source_type": "guideline_page",
+        "title": "Cornea and Ocular Surface Guidance | RCOphth",
+        "url": "https://www.rcophth.ac.uk/standards-publications-research/clinical-guidelines/",
+        "notes": "Official RCOphth guideline page used as evidence of current corneal and anterior segment workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Society of Cornea and Refractive Surgery",
+        "url": "https://ascrs.org/",
+        "notes": "Official ASCRS site used as complementary support for corneal and anterior segment workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_GLAUCOMA_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Glaucoma Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Royal College of Ophthalmologists",
+        "url": "https://www.rcophth.ac.uk/",
+        "notes": "Official RCOphth site used as the public source anchor for glaucoma surgery workflow support."
+      },
+      {
+        "source_type": "guideline_page",
+        "title": "Glaucoma Guidelines | RCOphth",
+        "url": "https://www.rcophth.ac.uk/standards-publications-research/clinical-guidelines/",
+        "notes": "Official RCOphth guideline page used as evidence of current glaucoma surgery workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Glaucoma Society",
+        "url": "https://www.americanglaucomasociety.net/",
+        "notes": "Official AGS site used as complementary support for glaucoma surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_OCULOPLASTIC_INFORMATION_SYSTEM",
+    "system_name": "Oculoplastic Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Oculoplastic Surgery Society",
+        "url": "https://www.bopss.co.uk/",
+        "notes": "Official BOPSS site used as the public source anchor for oculoplastic surgery workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Professional Standards and Training | BOPSS",
+        "url": "https://www.bopss.co.uk/professionals/",
+        "notes": "Official BOPSS professional guidance page used as evidence of current oculoplastic workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Society of Ophthalmic Plastic and Reconstructive Surgery",
+        "url": "https://www.asoprs.org/",
+        "notes": "Official ASOPRS site used as complementary support for oculoplastic surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PAEDIATRIC_OPHTHALMOLOGY_INFORMATION_SYSTEM",
+    "system_name": "Paediatric Ophthalmology Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Royal College of Ophthalmologists",
+        "url": "https://www.rcophth.ac.uk/",
+        "notes": "Official RCOphth site used as the public source anchor for paediatric ophthalmology workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Paediatric Ophthalmology and Strabismus | RCOphth",
+        "url": "https://www.rcophth.ac.uk/membership/faculties-and-special-interest-groups/paediatric-ophthalmology-and-strabismus/",
+        "notes": "Official RCOphth subspecialty page used as evidence of current paediatric ophthalmology workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Association for Pediatric Ophthalmology and Strabismus",
+        "url": "https://aapos.org/",
+        "notes": "Official AAPOS site used as complementary support for paediatric ophthalmology workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_VITREORETINAL_INFORMATION_SYSTEM",
+    "system_name": "Vitreoretinal Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "Royal College of Ophthalmologists",
+        "url": "https://www.rcophth.ac.uk/",
+        "notes": "Official RCOphth site used as the public source anchor for vitreoretinal surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Vitreoretinal Surgery | RCOphth",
+        "url": "https://www.rcophth.ac.uk/membership/faculties-and-special-interest-groups/vitreoretinal-surgery/",
+        "notes": "Official RCOphth subspecialty page used as evidence of current vitreoretinal workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Society of Retina Specialists",
+        "url": "https://www.asrs.org/",
+        "notes": "Official ASRS site used as complementary support for vitreoretinal surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_DENTOALVEOLAR_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Dentoalveolar Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Association of Oral Surgeons",
+        "url": "https://www.baos.org.uk/",
+        "notes": "Official BAOS site used as the public source anchor for dentoalveolar surgery workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Education and Training | BAOS",
+        "url": "https://www.baos.org.uk/professionals/education_and_training.aspx",
+        "notes": "Official BAOS education page used as evidence of current dentoalveolar surgery workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Association of Oral and Maxillofacial Surgeons",
+        "url": "https://www.aaoms.org/",
+        "notes": "Official AAOMS site used as complementary support for dentoalveolar surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_MAXILLOFACIAL_ONCOLOGY_INFORMATION_SYSTEM",
+    "system_name": "Maxillofacial Oncology and Reconstruction Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Association of Oral and Maxillofacial Surgeons",
+        "url": "https://www.baoms.org.uk/",
+        "notes": "Official BAOMS site used as the public source anchor for maxillofacial oncology and reconstruction workflow support."
+      },
+      {
+        "source_type": "education_page",
+        "title": "Professional Guidance | BAOMS",
+        "url": "https://www.baoms.org.uk/professionals/professional_guidance.aspx",
+        "notes": "Official BAOMS professional guidance page used as evidence of current maxillofacial oncology workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Association of Oral and Maxillofacial Surgeons",
+        "url": "https://www.aaoms.org/",
+        "notes": "Official AAOMS site used as complementary support for maxillofacial oncology and reconstruction workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_MAXILLOFACIAL_TRAUMA_INFORMATION_SYSTEM",
+    "system_name": "Maxillofacial Trauma Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Association of Oral and Maxillofacial Surgeons",
+        "url": "https://www.baoms.org.uk/",
+        "notes": "Official BAOMS site used as the public source anchor for maxillofacial trauma workflow support."
+      },
+      {
+        "source_type": "professional_guidance",
+        "title": "Facial Injuries | BAOMS",
+        "url": "https://www.baoms.org.uk/patients/procedures/facial_injuries.aspx",
+        "notes": "Official BAOMS facial injuries page used as evidence of current maxillofacial trauma workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Association of Oral and Maxillofacial Surgeons",
+        "url": "https://www.aaoms.org/",
+        "notes": "Official AAOMS site used as complementary support for maxillofacial trauma workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_ORTHOGNATHIC_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Orthognathic Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Association of Oral and Maxillofacial Surgeons",
+        "url": "https://www.baoms.org.uk/",
+        "notes": "Official BAOMS site used as the public source anchor for orthognathic surgery workflow support."
+      },
+      {
+        "source_type": "professional_guidance",
+        "title": "Orthognathic Surgery | BAOMS",
+        "url": "https://www.baoms.org.uk/patients/procedures/orthognathic_surgery.aspx",
+        "notes": "Official BAOMS orthognathic surgery page used as evidence of current orthognathic workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Association of Oral and Maxillofacial Surgeons",
+        "url": "https://www.aaoms.org/",
+        "notes": "Official AAOMS site used as complementary support for orthognathic surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_TMJ_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Temporomandibular Joint Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Association of Oral and Maxillofacial Surgeons",
+        "url": "https://www.baoms.org.uk/",
+        "notes": "Official BAOMS site used as the public source anchor for temporomandibular joint surgery workflow support."
+      },
+      {
+        "source_type": "patient_information",
+        "title": "Temporomandibular Joint Disorders | BAOMS",
+        "url": "https://www.baoms.org.uk/patients/conditions/10/temporomandibular_joint_disorders",
+        "notes": "Official BAOMS temporomandibular joint disorders page used as evidence of current TMJ surgery workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Association of Oral and Maxillofacial Surgeons",
+        "url": "https://www.aaoms.org/",
+        "notes": "Official AAOMS site used as complementary support for temporomandibular joint surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_ENT_HEAD_NECK_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "ENT Head and Neck Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "ENT UK",
+        "url": "https://www.entuk.org/",
+        "notes": "Official ENT UK site used as the public source anchor for head and neck surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Head and Neck | ENT UK",
+        "url": "https://www.entuk.org/head-and-neck",
+        "notes": "Official ENT UK head and neck page used as evidence of current endocrine and head and neck surgical workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Head and Neck Society",
+        "url": "https://www.ahns.info/",
+        "notes": "Official AHNS site used as complementary support for head and neck surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_LARYNGOLOGY_AIRWAY_INFORMATION_SYSTEM",
+    "system_name": "Laryngology and Airway Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "ENT UK",
+        "url": "https://www.entuk.org/",
+        "notes": "Official ENT UK site used as the public source anchor for laryngology and airway surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Laryngology | ENT UK",
+        "url": "https://www.entuk.org/laryngology",
+        "notes": "Official ENT UK laryngology page used as evidence of current laryngeal and airway surgical workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Laryngological Society",
+        "url": "https://www.elsoc.org/",
+        "notes": "Official ELS site used as complementary support for laryngology and airway surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_OTOLOGY_NEUROTOLOGY_INFORMATION_SYSTEM",
+    "system_name": "Otology and Neurotology Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "ENT UK",
+        "url": "https://www.entuk.org/",
+        "notes": "Official ENT UK site used as the public source anchor for otology and neurotology workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Otology | ENT UK",
+        "url": "https://www.entuk.org/otology",
+        "notes": "Official ENT UK otology page used as evidence of current ear and hearing surgical workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Academy of Otology & Neurotology",
+        "url": "https://www.eaono.org/",
+        "notes": "Official EAONO site used as complementary support for otology and neurotology workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PAEDIATRIC_ENT_INFORMATION_SYSTEM",
+    "system_name": "Paediatric Otolaryngology Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "ENT UK",
+        "url": "https://www.entuk.org/",
+        "notes": "Official ENT UK site used as the public source anchor for paediatric otolaryngology workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Paediatric ENT | ENT UK",
+        "url": "https://www.entuk.org/paediatric-ent",
+        "notes": "Official ENT UK paediatric ENT page used as evidence of current paediatric otolaryngology workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Society of Pediatric Otorhinolaryngology",
+        "url": "https://espo.eu.com/",
+        "notes": "Official ESPO site used as complementary support for paediatric otolaryngology workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_RHINOLOGY_INFORMATION_SYSTEM",
+    "system_name": "Rhinology and Sinus Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "ENT UK",
+        "url": "https://www.entuk.org/",
+        "notes": "Official ENT UK site used as the public source anchor for rhinology and sinus surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Rhinology | ENT UK",
+        "url": "https://www.entuk.org/rhinology",
+        "notes": "Official ENT UK rhinology page used as evidence of current sinonasal and sinus surgical workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "European Rhinologic Society",
+        "url": "https://www.europeanrhinologicsociety.org/",
+        "notes": "Official ERS site used as complementary support for rhinology and sinus surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_NEONATAL_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Neonatal Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Association of Paediatric Surgeons",
+        "url": "https://www.baps.org.uk/",
+        "notes": "Official BAPS site used as the public source anchor for neonatal surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Neonatal Surgery | BAPS",
+        "url": "https://www.baps.org.uk/professionals/specialist-interest-groups/neonatal-surgery/",
+        "notes": "Official BAPS neonatal surgery page used as evidence of current neonatal surgery workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Pediatric Surgical Association",
+        "url": "https://www.pedsurglibrary.com/",
+        "notes": "Official APSA library portal used as complementary support for neonatal surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PAEDIATRIC_GENERAL_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Paediatric General Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Association of Paediatric Surgeons",
+        "url": "https://www.baps.org.uk/",
+        "notes": "Official BAPS site used as the public source anchor for paediatric general surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "General Surgery | BAPS",
+        "url": "https://www.baps.org.uk/professionals/specialist-interest-groups/general-surgery/",
+        "notes": "Official BAPS general surgery page used as evidence of current paediatric general surgery workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Pediatric Surgical Association",
+        "url": "https://www.pedsurglibrary.com/",
+        "notes": "Official APSA library portal used as complementary support for paediatric general surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PAEDIATRIC_THORACIC_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Paediatric Thoracic Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Association of Paediatric Surgeons",
+        "url": "https://www.baps.org.uk/",
+        "notes": "Official BAPS site used as the public source anchor for paediatric thoracic surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Thoracic Surgery | BAPS",
+        "url": "https://www.baps.org.uk/professionals/specialist-interest-groups/thoracic-surgery/",
+        "notes": "Official BAPS thoracic surgery page used as evidence of current paediatric thoracic surgery workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Pediatric Surgical Association",
+        "url": "https://www.pedsurglibrary.com/",
+        "notes": "Official APSA library portal used as complementary support for paediatric thoracic surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PAEDIATRIC_TRAUMA_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Paediatric Trauma Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Association of Paediatric Surgeons",
+        "url": "https://www.baps.org.uk/",
+        "notes": "Official BAPS site used as the public source anchor for paediatric trauma surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Trauma Surgery | BAPS",
+        "url": "https://www.baps.org.uk/professionals/specialist-interest-groups/trauma-surgery/",
+        "notes": "Official BAPS trauma surgery page used as evidence of current paediatric trauma surgery workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Pediatric Surgical Association",
+        "url": "https://www.pedsurglibrary.com/",
+        "notes": "Official APSA library portal used as complementary support for paediatric trauma surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_BREAST_RECONSTRUCTION_INFORMATION_SYSTEM",
+    "system_name": "Breast Reconstruction Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "BAPRAS",
+        "url": "https://www.bapras.org.uk/",
+        "notes": "Official BAPRAS site used as the public source anchor for breast reconstruction workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Breast Reconstruction | BAPRAS",
+        "url": "https://www.bapras.org.uk/public/patient_information/surgery_guides/breast_reconstruction.aspx",
+        "notes": "Official BAPRAS breast reconstruction page used as evidence of current reconstructive workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Society of Plastic Surgeons",
+        "url": "https://www.plasticsurgery.org/",
+        "notes": "Official ASPS site used as complementary support for breast reconstruction workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_BURNS_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Burns Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "BAPRAS",
+        "url": "https://www.bapras.org.uk/",
+        "notes": "Official BAPRAS site used as the public source anchor for burns surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Burns Surgery | BAPRAS",
+        "url": "https://www.bapras.org.uk/public/patient_information/surgery_guides/burns_surgery.aspx",
+        "notes": "Official BAPRAS burns surgery page used as evidence of current burns and reconstructive workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Burn Association",
+        "url": "https://ameriburn.org/",
+        "notes": "Official ABA site used as complementary support for burns surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_CLEFT_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Cleft Lip and Palate Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "BAPRAS",
+        "url": "https://www.bapras.org.uk/",
+        "notes": "Official BAPRAS site used as the public source anchor for cleft surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Cleft Lip and Palate | BAPRAS",
+        "url": "https://www.bapras.org.uk/public/patient_information/surgery_guides/cleft_lip_and_palate.aspx",
+        "notes": "Official BAPRAS cleft lip and palate page used as evidence of current cleft reconstruction workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Cleft Palate Craniofacial Association",
+        "url": "https://acpacares.org/",
+        "notes": "Official ACPA site used as complementary support for cleft surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_CRANIOFACIAL_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Craniofacial Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "BAPRAS",
+        "url": "https://www.bapras.org.uk/",
+        "notes": "Official BAPRAS site used as the public source anchor for craniofacial surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Craniofacial Surgery | BAPRAS",
+        "url": "https://www.bapras.org.uk/public/patient_information/surgery_guides/craniofacial_surgery.aspx",
+        "notes": "Official BAPRAS craniofacial surgery page used as evidence of current craniofacial reconstruction workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "International Society of Craniofacial Surgery",
+        "url": "https://iscfs.org/",
+        "notes": "Official ISCFS site used as complementary support for craniofacial surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_DERMATOLOGIC_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Dermatologic Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Society for Dermatological Surgery",
+        "url": "https://bsds.org.uk/",
+        "notes": "Official BSDS site used as the public source anchor for dermatologic surgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Skin Surgery Information | BSDS",
+        "url": "https://bsds.org.uk/patient-information/",
+        "notes": "Official BSDS patient information page used as evidence of current skin surgery and reconstruction workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Society for Dermatologic Surgery",
+        "url": "https://www.asds.net/",
+        "notes": "Official ASDS site used as complementary support for dermatologic surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_HAND_MICROSURGERY_INFORMATION_SYSTEM",
+    "system_name": "Hand and Microsurgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "BAPRAS",
+        "url": "https://www.bapras.org.uk/",
+        "notes": "Official BAPRAS site used as the public source anchor for hand and microsurgery workflow support."
+      },
+      {
+        "source_type": "subspecialty_page",
+        "title": "Hand Surgery | BAPRAS",
+        "url": "https://www.bapras.org.uk/public/patient_information/surgery_guides/hand_surgery.aspx",
+        "notes": "Official BAPRAS hand surgery page used as evidence of current hand and microsurgical workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "British Society for Surgery of the Hand",
+        "url": "https://www.bssh.ac.uk/",
+        "notes": "Official BSSH site used as complementary support for hand and microsurgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_DIABETIC_FOOT_SURGERY_INFORMATION_SYSTEM",
+    "system_name": "Diabetic Foot Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Orthopaedic Foot & Ankle Society",
+        "url": "https://www.bofas.org.uk/",
+        "notes": "Official BOFAS site used as the public source anchor for diabetic foot surgery workflow support."
+      },
+      {
+        "source_type": "guidance_page",
+        "title": "Hyperbook: Diabetic Foot | BOFAS",
+        "url": "https://www.bofas.org.uk/hyperbook/diabetic-foot",
+        "notes": "Official BOFAS diabetic foot guidance page used as evidence of current limb salvage and diabetic foot workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Orthopaedic Foot & Ankle Society",
+        "url": "https://www.aofas.org/",
+        "notes": "Official AOFAS site used as complementary support for diabetic foot surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PODIATRIC_FOREFOOT_INFORMATION_SYSTEM",
+    "system_name": "Podiatric Forefoot Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Orthopaedic Foot & Ankle Society",
+        "url": "https://www.bofas.org.uk/",
+        "notes": "Official BOFAS site used as the public source anchor for forefoot surgery workflow support."
+      },
+      {
+        "source_type": "guidance_page",
+        "title": "Hyperbook: Hallux Valgus | BOFAS",
+        "url": "https://www.bofas.org.uk/hyperbook/forefoot/hallux-valgus",
+        "notes": "Official BOFAS forefoot guidance page used as evidence of current forefoot reconstruction workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Orthopaedic Foot & Ankle Society",
+        "url": "https://www.aofas.org/",
+        "notes": "Official AOFAS site used as complementary support for forefoot surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PODIATRIC_MIDFOOT_INFORMATION_SYSTEM",
+    "system_name": "Podiatric Midfoot Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Orthopaedic Foot & Ankle Society",
+        "url": "https://www.bofas.org.uk/",
+        "notes": "Official BOFAS site used as the public source anchor for midfoot surgery workflow support."
+      },
+      {
+        "source_type": "guidance_page",
+        "title": "Hyperbook: Midfoot | BOFAS",
+        "url": "https://www.bofas.org.uk/hyperbook/mid-hindfoot/midfoot",
+        "notes": "Official BOFAS midfoot guidance page used as evidence of current midfoot reconstruction workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Orthopaedic Foot & Ankle Society",
+        "url": "https://www.aofas.org/",
+        "notes": "Official AOFAS site used as complementary support for midfoot surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PODIATRIC_REARFOOT_ANKLE_INFORMATION_SYSTEM",
+    "system_name": "Podiatric Rearfoot and Ankle Surgery Information System",
+    "sources": [
+      {
+        "source_type": "society_homepage",
+        "title": "British Orthopaedic Foot & Ankle Society",
+        "url": "https://www.bofas.org.uk/",
+        "notes": "Official BOFAS site used as the public source anchor for rearfoot and ankle surgery workflow support."
+      },
+      {
+        "source_type": "guidance_page",
+        "title": "Hyperbook: Hindfoot | BOFAS",
+        "url": "https://www.bofas.org.uk/hyperbook/mid-hindfoot",
+        "notes": "Official BOFAS hindfoot guidance page used as evidence of current rearfoot and ankle reconstruction workflow support."
+      },
+      {
+        "source_type": "society_homepage",
+        "title": "American Orthopaedic Foot & Ankle Society",
+        "url": "https://www.aofas.org/",
+        "notes": "Official AOFAS site used as complementary support for rearfoot and ankle surgery workflow resources."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_ACETABULAR_REVISION_PORTFOLIO",
+    "system_name": "Zimmer Biomet Acetabular Revision Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the acetabular revision portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip.html",
+        "notes": "Official Zimmer Biomet hip portfolio page used as evidence of public acetabular revision portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Hip | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip/revision-hip.html",
+        "notes": "Official Zimmer Biomet revision hip page used as the closest public match for acetabular revision portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_TOTAL_ANKLE_PORTFOLIO",
+    "system_name": "Paragon 28 Total Ankle Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the total ankle portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public total ankle portfolio coverage."
+      },
+      {
+        "source_type": "ankle_page",
+        "title": "Apex 3D Total Ankle Replacement System | Paragon 28",
+        "url": "https://paragon28.com/products/apex-3d-total-ankle-replacement-system/",
+        "notes": "Official Paragon 28 total ankle replacement page used as the closest public match for primary total ankle portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOFIX",
+    "supplier_name": "Orthofix",
+    "system_id": "SYS_ORTHOFIX_ANKLE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Orthofix Ankle arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Orthofix",
+        "url": "https://orthofix.com/",
+        "notes": "Official Orthofix site used as the public source anchor for the ankle arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Extremities | Orthofix",
+        "url": "https://orthofix.com/products/extremities/",
+        "notes": "Official Orthofix extremities portfolio page used as evidence of public ankle arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "ankle_page",
+        "title": "Total Ankle Arthroplasty | Orthofix",
+        "url": "https://orthofix.com/products/extremities/total-ankle-arthroplasty/",
+        "notes": "Official Orthofix total ankle arthroplasty page used as the closest public match for total ankle arthroplasty with patient specific instrumentation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOFIX",
+    "supplier_name": "Orthofix",
+    "system_id": "SYS_ORTHOFIX_ANKLE_FUSION_PORTFOLIO",
+    "system_name": "Orthofix Ankle Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Orthofix",
+        "url": "https://orthofix.com/",
+        "notes": "Official Orthofix site used as the public source anchor for the ankle fusion portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Extremities | Orthofix",
+        "url": "https://orthofix.com/products/extremities/",
+        "notes": "Official Orthofix extremities portfolio page used as evidence of public ankle fusion portfolio coverage."
+      },
+      {
+        "source_type": "fusion_page",
+        "title": "Ankle Fusion | Orthofix",
+        "url": "https://orthofix.com/products/extremities/ankle-fusion/",
+        "notes": "Official Orthofix ankle fusion page used as the closest public match for the ankle fusion portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOFIX",
+    "supplier_name": "Orthofix",
+    "system_id": "SYS_ORTHOFIX_ANKLE_HINDFOOT_FUSION_PORTFOLIO",
+    "system_name": "Orthofix Ankle / hindfoot fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Orthofix",
+        "url": "https://orthofix.com/",
+        "notes": "Official Orthofix site used as the public source anchor for the ankle and hindfoot fusion portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Extremities | Orthofix",
+        "url": "https://orthofix.com/products/extremities/",
+        "notes": "Official Orthofix extremities portfolio page used as evidence of public ankle and hindfoot fusion portfolio coverage."
+      },
+      {
+        "source_type": "fusion_page",
+        "title": "Ankle and Hindfoot Fusion | Orthofix",
+        "url": "https://orthofix.com/products/extremities/ankle-and-hindfoot-fusion/",
+        "notes": "Official Orthofix ankle and hindfoot fusion page used as the closest public match for the ankle and hindfoot fusion portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOFIX",
+    "supplier_name": "Orthofix",
+    "system_id": "SYS_ORTHOFIX_FOOT_ANKLE_SURGERY_PORTFOLIO",
+    "system_name": "Orthofix Foot & ankle surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Orthofix",
+        "url": "https://orthofix.com/",
+        "notes": "Official Orthofix site used as the public source anchor for the foot and ankle surgery portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Extremities | Orthofix",
+        "url": "https://orthofix.com/products/extremities/",
+        "notes": "Official Orthofix extremities portfolio page used as evidence of public foot and ankle surgery portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot and Ankle | Orthofix",
+        "url": "https://orthofix.com/products/extremities/foot-and-ankle/",
+        "notes": "Official Orthofix foot and ankle page used as the closest public match for the foot and ankle surgery portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOFIX",
+    "supplier_name": "Orthofix",
+    "system_id": "SYS_ORTHOFIX_FOOT_ANKLE_TRAUMA_FIXATION_PORTFOLIO",
+    "system_name": "Orthofix Foot & ankle trauma fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Orthofix",
+        "url": "https://orthofix.com/",
+        "notes": "Official Orthofix site used as the public source anchor for the foot and ankle trauma fixation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Extremities | Orthofix",
+        "url": "https://orthofix.com/products/extremities/",
+        "notes": "Official Orthofix extremities portfolio page used as evidence of public foot and ankle trauma fixation portfolio coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Foot and Ankle Trauma | Orthofix",
+        "url": "https://orthofix.com/products/extremities/foot-and-ankle-trauma/",
+        "notes": "Official Orthofix foot and ankle trauma page used as the closest public match for the foot and ankle trauma fixation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOOT_ANKLE_SURGERY_PORTFOLIO",
+    "system_name": "Paragon 28 Foot & ankle surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the foot and ankle surgery portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public foot and ankle surgery portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the foot and ankle surgery portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOOT_ANKLE_TRAUMA_FIXATION_PORTFOLIO",
+    "system_name": "Paragon 28 Foot & ankle trauma fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the foot and ankle trauma fixation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public foot and ankle trauma fixation portfolio coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Trauma Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/trauma/",
+        "notes": "Official Paragon 28 trauma page used as the closest public match for the foot and ankle trauma fixation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_UNASSIGNED",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PILON_FUSION___TTC_FUSION_PORTFOLIO",
+    "system_name": "Pilon Fusion / TTC Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "category_anchor",
+        "title": "Tibiotalocalcaneal Arthrodesis",
+        "url": "https://en.wikipedia.org/wiki/Arthrodesis",
+        "notes": "Generic public category anchor used for the pilon fusion and TTC fusion portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_UNASSIGNED",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_ANKLE_FUSION_PORTFOLIO",
+    "system_name": "Ankle Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "category_anchor",
+        "title": "Ankle Arthrodesis",
+        "url": "https://en.wikipedia.org/wiki/Arthrodesis",
+        "notes": "Generic public category anchor used for the unassigned ankle fusion portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_ANKLE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Paragon 28 Ankle arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the ankle arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public ankle arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "ankle_page",
+        "title": "Apex 3D Total Ankle Replacement System | Paragon 28",
+        "url": "https://paragon28.com/products/apex-3d-total-ankle-replacement-system/",
+        "notes": "Official Paragon 28 total ankle replacement page used as the closest public match for total ankle arthroplasty with patient specific instrumentation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_FOOT_ANKLE_SURGERY_PORTFOLIO",
+    "system_name": "Zimmer Biomet Foot & ankle surgery Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the foot and ankle surgery portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Solutions | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/foot-and-ankle.html",
+        "notes": "Official Zimmer Biomet foot and ankle portfolio page used as evidence of public foot and ankle surgery portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot and Ankle | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/foot-and-ankle.html",
+        "notes": "Official Zimmer Biomet foot and ankle page used as the closest public match for the foot and ankle surgery portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_ANKLE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Zimmer Biomet Ankle arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the ankle arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Solutions | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/foot-and-ankle.html",
+        "notes": "Official Zimmer Biomet foot and ankle portfolio page used as evidence of public ankle arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "ankle_page",
+        "title": "Ankle Solutions | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/foot-and-ankle/ankle.html",
+        "notes": "Official Zimmer Biomet ankle solutions page used as the closest public match for total ankle arthroplasty with patient specific instrumentation."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_ACUMED_ELBOW_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Acumed Elbow arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Acumed",
+        "url": "https://www.acumed.net/",
+        "notes": "Official Acumed site used as the public source anchor for the elbow arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Extremity | Acumed",
+        "url": "https://www.acumed.net/upper-extremity/",
+        "notes": "Official Acumed upper extremity portfolio page used as evidence of public elbow arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "elbow_page",
+        "title": "Anatomic Radial Head and Elbow Solutions | Acumed",
+        "url": "https://www.acumed.net/elbow/",
+        "notes": "Official Acumed elbow solutions page used as the closest public match for distal humeral hemiarthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ELBOW_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Elbow arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the elbow arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Extremities | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedics/upper-extremities.html",
+        "notes": "Official Stryker upper extremities portfolio page used as evidence of public elbow arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "elbow_page",
+        "title": "Elbow Solutions | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedics/upper-extremities/elbow.html",
+        "notes": "Official Stryker elbow solutions page used as the closest public match for distal humeral hemiarthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_UPPER_EXTREMITY_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Upper Extremity Arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the upper extremity arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Extremities | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedics/upper-extremities.html",
+        "notes": "Official Stryker upper extremities portfolio page used as evidence of public upper extremity arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "elbow_page",
+        "title": "Elbow Solutions | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedics/upper-extremities/elbow.html",
+        "notes": "Official Stryker elbow solutions page used as the closest public match for primary total elbow replacement portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_DEPUY_SYNTHES",
+    "supplier_name": "DePuy Synthes",
+    "system_id": "SYS_DEPUY_SYNTHES_ELBOW_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "DePuy Synthes Elbow arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/companies/depuy-synthes",
+        "notes": "Official DePuy Synthes site used as the public source anchor for the elbow arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Extremity Solutions | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/product-family/upper-extremities",
+        "notes": "Official DePuy Synthes upper extremity portfolio page used as evidence of public elbow arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "elbow_page",
+        "title": "Radial Head Arthroplasty | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/product/radial-head-replacement-system",
+        "notes": "Official DePuy Synthes radial head arthroplasty page used as the closest public match for elbow arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ELBOW_REVISION_PORTFOLIO",
+    "system_name": "Stryker Elbow Revision Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the elbow revision portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Extremities | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedics/upper-extremities.html",
+        "notes": "Official Stryker upper extremities portfolio page used as evidence of public elbow revision portfolio coverage."
+      },
+      {
+        "source_type": "elbow_page",
+        "title": "Elbow Solutions | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedics/upper-extremities/elbow.html",
+        "notes": "Official Stryker elbow solutions page used as the closest public match for revision total elbow replacement portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_FEMORAL_REVISION_PORTFOLIO",
+    "system_name": "Zimmer Biomet Femoral Revision Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the femoral revision portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip.html",
+        "notes": "Official Zimmer Biomet hip portfolio page used as evidence of public femoral revision portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Hip | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip/revision-hip.html",
+        "notes": "Official Zimmer Biomet revision hip page used as the closest public match for femoral revision portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_HIP_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Corin Hip revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Corin",
+        "url": "https://www.coringroup.com/",
+        "notes": "Official Corin site used as the public source anchor for the hip revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Solutions | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/hip-solutions/",
+        "notes": "Official Corin hip solutions page used as evidence of public hip revision arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Hip Arthroplasty | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/hip-solutions/revision-hip-arthroplasty/",
+        "notes": "Official Corin revision hip arthroplasty page used as the closest public match for acetabular cup revision of hip arthroplasty."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_DEPUY_SYNTHES",
+    "supplier_name": "DePuy Synthes",
+    "system_id": "SYS_DEPUY_SYNTHES_HIP_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "DePuy Synthes Hip revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/companies/depuy-synthes",
+        "notes": "Official DePuy Synthes site used as the public source anchor for the hip revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Solutions | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/product-family/hip",
+        "notes": "Official DePuy Synthes hip portfolio page used as evidence of public hip revision arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Hip Arthroplasty | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/procedure/revision-hip-arthroplasty",
+        "notes": "Official DePuy Synthes revision hip arthroplasty page used as the closest public match for acetabular cup revision of hip arthroplasty."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_HIP_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Smith+Nephew Hip revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Smith+Nephew",
+        "url": "https://www.smith-nephew.com/",
+        "notes": "Official Smith+Nephew site used as the public source anchor for the hip revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Reconstruction | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/hip-reconstruction",
+        "notes": "Official Smith+Nephew hip reconstruction page used as evidence of public hip revision arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Hip Solutions | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/hip-reconstruction/revision-hip",
+        "notes": "Official Smith+Nephew revision hip page used as the closest public match for acetabular cup revision of hip arthroplasty."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_HIP_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Hip revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the hip revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/hip.html",
+        "notes": "Official Stryker hip portfolio page used as evidence of public hip revision arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Hip Replacement | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/hip/revision-hip.html",
+        "notes": "Official Stryker revision hip page used as the closest public match for acetabular cup revision of hip arthroplasty."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_HIP_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Zimmer Biomet Hip revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the hip revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip.html",
+        "notes": "Official Zimmer Biomet hip portfolio page used as evidence of public hip revision arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Hip | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip/revision-hip.html",
+        "notes": "Official Zimmer Biomet revision hip page used as the closest public match for acetabular cup revision of hip arthroplasty."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_HIP_FRACTURE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Zimmer Biomet Hip Fracture Arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the hip fracture arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip.html",
+        "notes": "Official Zimmer Biomet hip portfolio page used as evidence of public hip fracture arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "fracture_page",
+        "title": "Hip Fracture | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip/hip-fracture.html",
+        "notes": "Official Zimmer Biomet hip fracture page used as the closest public match for hip fracture arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_HIP_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Corin Hip arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Corin",
+        "url": "https://www.coringroup.com/",
+        "notes": "Official Corin site used as the public source anchor for the hip arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Solutions | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/hip-solutions/",
+        "notes": "Official Corin hip solutions page used as evidence of public hip arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Primary Hip Arthroplasty | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/hip-solutions/primary-hip-arthroplasty/",
+        "notes": "Official Corin primary hip arthroplasty page used as the closest public match for hip arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_DEPUY_SYNTHES",
+    "supplier_name": "DePuy Synthes",
+    "system_id": "SYS_DEPUY_SYNTHES_HIP_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "DePuy Synthes Hip arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/companies/depuy-synthes",
+        "notes": "Official DePuy Synthes site used as the public source anchor for the hip arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Solutions | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/product-family/hip",
+        "notes": "Official DePuy Synthes hip portfolio page used as evidence of public hip arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Primary Hip Arthroplasty | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/procedure/primary-hip-arthroplasty",
+        "notes": "Official DePuy Synthes primary hip arthroplasty page used as the closest public match for hip arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_HIP_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Smith+Nephew Hip arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Smith+Nephew",
+        "url": "https://www.smith-nephew.com/",
+        "notes": "Official Smith+Nephew site used as the public source anchor for the hip arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Reconstruction | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/hip-reconstruction",
+        "notes": "Official Smith+Nephew hip reconstruction page used as evidence of public hip arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Primary Hip Arthroplasty | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/hip-reconstruction/primary-hip",
+        "notes": "Official Smith+Nephew primary hip page used as the closest public match for hip arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_HIP_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Hip arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the hip arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/hip.html",
+        "notes": "Official Stryker hip portfolio page used as evidence of public hip arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Primary Hip Replacement | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/hip/primary-hip.html",
+        "notes": "Official Stryker primary hip page used as the closest public match for hip arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_HIP_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Zimmer Biomet Hip arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the hip arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip.html",
+        "notes": "Official Zimmer Biomet hip portfolio page used as evidence of public hip arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Primary Hip | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip/primary-hip.html",
+        "notes": "Official Zimmer Biomet primary hip page used as the closest public match for hip arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_REVISION_HIP_PORTFOLIO",
+    "system_name": "Zimmer Biomet Revision Hip Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the revision hip portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip.html",
+        "notes": "Official Zimmer Biomet hip portfolio page used as evidence of public revision hip portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Hip | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip/revision-hip.html",
+        "notes": "Official Zimmer Biomet revision hip page used as the closest public match for revision hip portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_HIP_PRESERVATION_PORTFOLIO",
+    "system_name": "Smith+Nephew Hip preservation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Smith+Nephew",
+        "url": "https://www.smith-nephew.com/",
+        "notes": "Official Smith+Nephew site used as the public source anchor for the hip preservation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Reconstruction | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/hip-reconstruction",
+        "notes": "Official Smith+Nephew hip reconstruction page used as evidence of public hip preservation portfolio coverage."
+      },
+      {
+        "source_type": "preservation_page",
+        "title": "Hip Preservation | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/hip-reconstruction/hip-preservation",
+        "notes": "Official Smith+Nephew hip preservation page used as the closest public match for hip preservation portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_HIP_PRESERVATION_PORTFOLIO",
+    "system_name": "Stryker Hip preservation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the hip preservation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/hip.html",
+        "notes": "Official Stryker hip portfolio page used as evidence of public hip preservation portfolio coverage."
+      },
+      {
+        "source_type": "preservation_page",
+        "title": "Hip Preservation | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/hip/hip-preservation.html",
+        "notes": "Official Stryker hip preservation page used as the closest public match for hip preservation portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MATORTHO",
+    "supplier_name": "MatOrtho",
+    "system_id": "SYS_MATORTHO_HIP_RESURFACING_PORTFOLIO",
+    "system_name": "MatOrtho Hip Resurfacing Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "MatOrtho",
+        "url": "https://www.matortho.com/",
+        "notes": "Official MatOrtho site used as the public source anchor for the hip resurfacing portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip | MatOrtho",
+        "url": "https://www.matortho.com/our-products/hip/",
+        "notes": "Official MatOrtho hip portfolio page used as evidence of public hip resurfacing portfolio coverage."
+      },
+      {
+        "source_type": "resurfacing_page",
+        "title": "Hip Resurfacing | MatOrtho",
+        "url": "https://www.matortho.com/our-products/hip/hip-resurfacing/",
+        "notes": "Official MatOrtho hip resurfacing page used as the closest public match for hip resurfacing portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_DEPUY_SYNTHES",
+    "supplier_name": "DePuy Synthes",
+    "system_id": "SYS_DEPUY_SYNTHES_PERIPROSTHETIC_TRAUMA_PORTFOLIO",
+    "system_name": "DePuy Synthes Periprosthetic Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/companies/depuy-synthes",
+        "notes": "Official DePuy Synthes site used as the public source anchor for the periprosthetic trauma portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Trauma | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/specialties/trauma",
+        "notes": "Official DePuy Synthes trauma portfolio page used as evidence of public periprosthetic trauma portfolio coverage."
+      },
+      {
+        "source_type": "periprosthetic_page",
+        "title": "Periprosthetic Fracture Solutions | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/specialties/trauma/periprosthetic-fracture-solutions",
+        "notes": "Official DePuy Synthes periprosthetic fracture solutions page used as the closest public match for periprosthetic trauma portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_REDAPT_REVISION_HIP_SYSTEM",
+    "system_name": "REDAPT Revision Hip System",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Smith+Nephew",
+        "url": "https://www.smith-nephew.com/",
+        "notes": "Official Smith+Nephew site used as the public source anchor for the REDAPT revision hip system."
+      },
+      {
+        "source_type": "product_page",
+        "title": "REDAPT Revision Hip System | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/hip-reconstruction/redapt-revision-hip-system",
+        "notes": "Official Smith+Nephew REDAPT revision hip system page used as the primary public source for the named revision hip system."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Hip Solutions | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/hip-reconstruction/revision-hip",
+        "notes": "Official Smith+Nephew revision hip page used as supporting source context for the REDAPT system."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_UNASSIGNED",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_REVISION_HIP_PORTFOLIO",
+    "system_name": "Revision Hip Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official supplier site used as a public source anchor for the generic revision hip portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip.html",
+        "notes": "Official hip portfolio page used as evidence of public revision hip portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Hip | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip/revision-hip.html",
+        "notes": "Official revision hip page used as the closest public match for the generic revision hip portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_HIP_ARTHROPLASTY_ROBOTICS_PORTFOLIO",
+    "system_name": "Corin Hip Arthroplasty + Robotics Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Corin",
+        "url": "https://www.coringroup.com/",
+        "notes": "Official Corin site used as the public source anchor for the hip arthroplasty plus robotics portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Solutions | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/hip-solutions/",
+        "notes": "Official Corin hip portfolio page used as evidence of public hip arthroplasty coverage."
+      },
+      {
+        "source_type": "robotics_page",
+        "title": "ApolloHipX | Corin",
+        "url": "https://www.coringroup.com/technology/apollohipx/",
+        "notes": "Official Corin robotics page used as the closest public match for hip arthroplasty plus robotics portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_DEPUY_SYNTHES",
+    "supplier_name": "DePuy Synthes",
+    "system_id": "SYS_DEPUY_SYNTHES_HIP_PRESERVATION_PORTFOLIO",
+    "system_name": "DePuy Synthes Hip preservation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/companies/depuy-synthes",
+        "notes": "Official DePuy Synthes site used as the public source anchor for the hip preservation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Solutions | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/product-family/hip",
+        "notes": "Official DePuy Synthes hip portfolio page used as evidence of public hip preservation portfolio coverage."
+      },
+      {
+        "source_type": "preservation_page",
+        "title": "Hip Preservation | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/procedure/hip-preservation",
+        "notes": "Official DePuy Synthes hip preservation page used as the closest public match for hip preservation portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_HIP_PRESERVATION_PORTFOLIO",
+    "system_name": "Zimmer Biomet Hip preservation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the hip preservation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip.html",
+        "notes": "Official Zimmer Biomet hip portfolio page used as evidence of public hip preservation portfolio coverage."
+      },
+      {
+        "source_type": "preservation_page",
+        "title": "Hip Preservation | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/hip/hip-preservation.html",
+        "notes": "Official Zimmer Biomet hip preservation page used as the closest public match for hip preservation portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_DEPUY_SYNTHES",
+    "supplier_name": "DePuy Synthes",
+    "system_id": "SYS_DEPUY_SYNTHES_REVISION_HIP_ADJUNCT_PORTFOLIO",
+    "system_name": "DePuy Synthes Revision Hip Adjunct Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/companies/depuy-synthes",
+        "notes": "Official DePuy Synthes site used as the public source anchor for the revision hip adjunct portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip Solutions | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/product-family/hip",
+        "notes": "Official DePuy Synthes hip portfolio page used as evidence of public revision hip adjunct portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Hip Arthroplasty | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/procedure/revision-hip-arthroplasty",
+        "notes": "Official DePuy Synthes revision hip page used as the closest public match for revision hip adjunct portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_KNEE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Corin Knee arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Corin",
+        "url": "https://www.coringroup.com/",
+        "notes": "Official Corin site used as the public source anchor for the knee arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee Solutions | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/knee-solutions/",
+        "notes": "Official Corin knee portfolio page used as evidence of public knee arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Knee Arthroplasty | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/knee-solutions/arthroplasty/",
+        "notes": "Official Corin knee arthroplasty page used as the closest public match for knee arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MATORTHO",
+    "supplier_name": "MatOrtho",
+    "system_id": "SYS_MATORTHO_KNEE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "MatOrtho Knee arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "MatOrtho",
+        "url": "https://www.matortho.com/",
+        "notes": "Official MatOrtho site used as the public source anchor for the knee arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee | MatOrtho",
+        "url": "https://www.matortho.com/our-products/knee/",
+        "notes": "Official MatOrtho knee portfolio page used as evidence of public knee arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Knee Arthroplasty | MatOrtho",
+        "url": "https://www.matortho.com/our-products/knee/total-knee-replacement/",
+        "notes": "Official MatOrtho knee arthroplasty page used as the closest public match for knee arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_KNEE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Smith+Nephew Knee arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Smith+Nephew",
+        "url": "https://www.smith-nephew.com/",
+        "notes": "Official Smith+Nephew site used as the public source anchor for the knee arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee Reconstruction | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-reconstruction",
+        "notes": "Official Smith+Nephew knee reconstruction page used as evidence of public knee arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Knee Arthroplasty | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-reconstruction/primary-knee",
+        "notes": "Official Smith+Nephew primary knee page used as the closest public match for knee arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_SMITH_NEPHEW_KNEE_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Smith+Nephew Knee revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Smith+Nephew",
+        "url": "https://www.smith-nephew.com/",
+        "notes": "Official Smith+Nephew site used as the public source anchor for the knee revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee Reconstruction | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-reconstruction",
+        "notes": "Official Smith+Nephew knee reconstruction page used as evidence of public knee revision arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Knee | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-reconstruction/revision-knee",
+        "notes": "Official Smith+Nephew revision knee page used as the closest public match for knee revision arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_KNEE_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Zimmer Biomet Knee arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the knee arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/knee.html",
+        "notes": "Official Zimmer Biomet knee portfolio page used as evidence of public knee arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Primary Knee | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/knee/primary-knee.html",
+        "notes": "Official Zimmer Biomet primary knee page used as the closest public match for knee arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_REVISION_KNEE_PORTFOLIO",
+    "system_name": "Zimmer Biomet Revision Knee Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the revision knee portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/knee.html",
+        "notes": "Official Zimmer Biomet knee portfolio page used as evidence of public revision knee portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Knee | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/knee/revision-knee.html",
+        "notes": "Official Zimmer Biomet revision knee page used as the closest public match for revision knee portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_KNEE_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Zimmer Biomet Knee revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the knee revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/knee.html",
+        "notes": "Official Zimmer Biomet knee portfolio page used as evidence of public knee revision arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Knee | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/knee/revision-knee.html",
+        "notes": "Official Zimmer Biomet revision knee page used as the closest public match for knee revision arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_ONCOLOGY_MEGAPROSTHESIS_PORTFOLIO",
+    "system_name": "Stryker Oncology / Megaprosthesis Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the oncology and megaprosthesis portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Orthopaedic Oncology | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedics/oncology.html",
+        "notes": "Official Stryker orthopaedic oncology page used as evidence of public oncology and megaprosthesis portfolio coverage."
+      },
+      {
+        "source_type": "megaprosthesis_page",
+        "title": "GMRS | Stryker",
+        "url": "https://www.stryker.com/us/en/orthopaedics/oncology/gmrs.html",
+        "notes": "Official Stryker GMRS megaprosthesis page used as the closest public match for the oncology and megaprosthesis portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_KNEE_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Corin Knee revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Corin",
+        "url": "https://www.coringroup.com/",
+        "notes": "Official Corin site used as the public source anchor for the knee revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee Solutions | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/knee-solutions/",
+        "notes": "Official Corin knee portfolio page used as evidence of public knee revision arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Knee Arthroplasty | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/knee-solutions/revision-knee-arthroplasty/",
+        "notes": "Official Corin revision knee arthroplasty page used as the closest public match for knee revision arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_APOLLOKNEE_OR_COMPARABLE_KNEE_PORTFOLIO",
+    "system_name": "Corin / ApolloKnee or comparable knee portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Corin",
+        "url": "https://www.coringroup.com/",
+        "notes": "Official Corin site used as the public source anchor for the ApolloKnee or comparable knee portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee Solutions | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/knee-solutions/",
+        "notes": "Official Corin knee portfolio page used as evidence of public knee portfolio coverage for ApolloKnee or comparable workflows."
+      },
+      {
+        "source_type": "robotics_page",
+        "title": "ApolloKnee | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/knee-solutions/apolloknee/",
+        "notes": "Official Corin ApolloKnee page used as the closest public match for the ApolloKnee or comparable knee portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_CORIN",
+    "supplier_name": "Corin",
+    "system_id": "SYS_CORIN_KNEE_ARTHROPLASTY_ROBOTICS_PORTFOLIO",
+    "system_name": "Corin Knee Arthroplasty + Robotics Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Corin",
+        "url": "https://www.coringroup.com/",
+        "notes": "Official Corin site used as the public source anchor for the knee arthroplasty plus robotics portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee Solutions | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/knee-solutions/",
+        "notes": "Official Corin knee portfolio page used as evidence of public knee arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "robotics_page",
+        "title": "ApolloKnee | Corin",
+        "url": "https://www.coringroup.com/orthopaedics/knee-solutions/apolloknee/",
+        "notes": "Official Corin ApolloKnee page used as the closest public match for knee arthroplasty plus robotics portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_UNASSIGNED",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_PARTIAL_KNEE_PORTFOLIO",
+    "system_name": "Partial Knee Portfolio",
+    "sources": [
+      {
+        "source_type": "category_anchor",
+        "title": "Partial Knee Arthroplasty",
+        "url": "https://en.wikipedia.org/wiki/Unicompartmental_knee_arthroplasty",
+        "notes": "Generic public category anchor used for the placeholder partial knee portfolio entry where no single supplier is assigned."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_JOURNEY_UNI___PARTIAL_KNEE_PORTFOLIO",
+    "system_name": "JOURNEY UNI / Partial Knee Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Smith+Nephew",
+        "url": "https://www.smith-nephew.com/",
+        "notes": "Official Smith+Nephew site used as the public source anchor for the JOURNEY UNI partial knee portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee Reconstruction | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-reconstruction",
+        "notes": "Official Smith+Nephew knee reconstruction page used as evidence of public partial knee portfolio coverage."
+      },
+      {
+        "source_type": "partial_knee_page",
+        "title": "JOURNEY II Uni | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en-us/health-care-professionals/products/orthopaedics/knee-reconstruction/partial-knee/journey-ii-uni",
+        "notes": "Official Smith+Nephew JOURNEY uni page used as the closest public match for the partial knee portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_UNASSIGNED",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_UNITY_PARTIAL_KNEE_PORTFOLIO",
+    "system_name": "Unity Partial Knee Portfolio",
+    "sources": [
+      {
+        "source_type": "category_anchor",
+        "title": "Partial Knee Arthroplasty",
+        "url": "https://en.wikipedia.org/wiki/Unicompartmental_knee_arthroplasty",
+        "notes": "Generic public category anchor used for the Unity partial knee portfolio placeholder entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_PARTIAL_KNEE_PORTFOLIO",
+    "system_name": "Zimmer Biomet Partial Knee Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the partial knee portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/knee.html",
+        "notes": "Official Zimmer Biomet knee portfolio page used as evidence of public partial knee portfolio coverage."
+      },
+      {
+        "source_type": "partial_knee_page",
+        "title": "Partial Knee | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/knee/partial-knee.html",
+        "notes": "Official Zimmer Biomet partial knee page used as the closest public match for the partial knee portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOPEDIATRICS",
+    "supplier_name": "OrthoPediatrics",
+    "system_id": "SYS_ORTHOPEDIATRICS_HIP_PRESERVATION_PORTFOLIO",
+    "system_name": "OrthoPediatrics Hip preservation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "OrthoPediatrics",
+        "url": "https://orthopediatrics.com/",
+        "notes": "Official OrthoPediatrics site used as the public source anchor for the hip preservation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Hip | OrthoPediatrics",
+        "url": "https://orthopediatrics.com/products/hip/",
+        "notes": "Official OrthoPediatrics hip portfolio page used as evidence of public hip preservation portfolio coverage."
+      },
+      {
+        "source_type": "hip_preservation_page",
+        "title": "Hip Preservation | OrthoPediatrics",
+        "url": "https://orthopediatrics.com/products/hip-preservation/",
+        "notes": "Official OrthoPediatrics hip preservation page used as the closest public match for hip preservation portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_DEPUY_SYNTHES",
+    "supplier_name": "DePuy Synthes",
+    "system_id": "SYS_DEPUY_SYNTHES_SHOULDER_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "DePuy Synthes Shoulder arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/companies/depuy-synthes",
+        "notes": "Official DePuy Synthes site used as the public source anchor for the shoulder arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Shoulder Solutions | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/product-family/shoulder-solutions",
+        "notes": "Official DePuy Synthes shoulder portfolio page used as evidence of public shoulder arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Shoulder Arthroplasty | DePuy Synthes",
+        "url": "https://www.jnjmedtech.com/en-US/product-family/shoulder-solutions/anatomic-and-reverse-shoulder-arthroplasty",
+        "notes": "Official DePuy Synthes shoulder arthroplasty page used as the closest public match for shoulder arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_SHOULDER_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Shoulder arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the shoulder arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Shoulder | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder.html",
+        "notes": "Official Stryker shoulder portfolio page used as evidence of public shoulder arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Shoulder Arthroplasty | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder/shoulder-arthroplasty.html",
+        "notes": "Official Stryker shoulder arthroplasty page used as the closest public match for shoulder arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_TORNIER_SHOULDER_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Stryker Tornier Shoulder Arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the Tornier shoulder arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Shoulder | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder.html",
+        "notes": "Official Stryker shoulder portfolio page used as evidence of public Tornier shoulder arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Tornier Shoulder Arthroplasty | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder/tornier-shoulder-systems.html",
+        "notes": "Official Stryker Tornier shoulder systems page used as the closest public match for the Tornier shoulder arthroplasty portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_SHOULDER_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Zimmer Biomet Shoulder arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the shoulder arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Shoulder Portfolio | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/shoulder.html",
+        "notes": "Official Zimmer Biomet shoulder portfolio page used as evidence of public shoulder arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Shoulder Arthroplasty | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/shoulder/anatomic-and-reverse-shoulder.html",
+        "notes": "Official Zimmer Biomet shoulder arthroplasty page used as the closest public match for shoulder arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_UNASSIGNED",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_SHOULDER_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "Shoulder Arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "category_anchor",
+        "title": "Shoulder Arthroplasty",
+        "url": "https://en.wikipedia.org/wiki/Shoulder_replacement",
+        "notes": "Generic public category anchor used for the unassigned shoulder arthroplasty portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_UNASSIGNED",
+    "supplier_name": "Unassigned",
+    "system_id": "SYS_REVERSE_SHOULDER_PORTFOLIO",
+    "system_name": "Reverse Shoulder Portfolio",
+    "sources": [
+      {
+        "source_type": "category_anchor",
+        "title": "Reverse Shoulder Arthroplasty",
+        "url": "https://en.wikipedia.org/wiki/Reverse_shoulder_replacement",
+        "notes": "Generic public category anchor used for the unassigned reverse shoulder portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_TORNIER_REVERSE_SHOULDER_PORTFOLIO",
+    "system_name": "Stryker Tornier Reverse Shoulder Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the Tornier reverse shoulder portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Shoulder | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder.html",
+        "notes": "Official Stryker shoulder portfolio page used as evidence of public Tornier reverse shoulder portfolio coverage."
+      },
+      {
+        "source_type": "reverse_shoulder_page",
+        "title": "Tornier Reverse Shoulder Systems | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder/reverse-shoulder.html",
+        "notes": "Official Stryker reverse shoulder page used as the closest public match for the Tornier reverse shoulder portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_REVERSE_SHOULDER_REVISION_PORTFOLIO",
+    "system_name": "Stryker Reverse Shoulder Revision Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the reverse shoulder revision portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Shoulder | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder.html",
+        "notes": "Official Stryker shoulder portfolio page used as evidence of public reverse shoulder revision portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Reverse Shoulder | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder/revision-shoulder.html",
+        "notes": "Official Stryker revision shoulder page used as the closest public match for the reverse shoulder revision portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_STRYKER_SHOULDER_REVISION_PORTFOLIO",
+    "system_name": "Stryker Shoulder Revision Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the shoulder revision portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Shoulder | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder.html",
+        "notes": "Official Stryker shoulder portfolio page used as evidence of public shoulder revision portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Shoulder | Stryker",
+        "url": "https://www.stryker.com/us/en/joint-replacement/products/shoulder/revision-shoulder.html",
+        "notes": "Official Stryker revision shoulder page used as the closest public match for the shoulder revision portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_LEDA_DISTRIBUTED_WRIST_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "LEDA Distributed Wrist Arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the distributed wrist arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Upper Limb | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/",
+        "notes": "Official LEDA upper limb portfolio page used as evidence of public wrist arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "arthroplasty_page",
+        "title": "Wrist Arthroplasty | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/upper-limb/wrist-arthroplasty/",
+        "notes": "Official LEDA wrist arthroplasty page used as the closest public match for the distributed wrist arthroplasty portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_MATORTHO",
+    "supplier_name": "MatOrtho",
+    "system_id": "SYS_MATORTHO_KNEE_REVISION_ARTHROPLASTY_PORTFOLIO",
+    "system_name": "MatOrtho Knee revision arthroplasty Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "MatOrtho",
+        "url": "https://www.matortho.com/",
+        "notes": "Official MatOrtho site used as the public source anchor for the knee revision arthroplasty portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Knee | MatOrtho",
+        "url": "https://www.matortho.com/our-products/knee/",
+        "notes": "Official MatOrtho knee portfolio page used as evidence of public knee revision arthroplasty portfolio coverage."
+      },
+      {
+        "source_type": "revision_page",
+        "title": "Revision Knee Arthroplasty | MatOrtho",
+        "url": "https://www.matortho.com/our-products/knee/revision-knee-replacement/",
+        "notes": "Official MatOrtho revision knee arthroplasty page used as the closest public match for knee revision arthroplasty portfolio support."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_FOOT_ANKLE_TRAUMA_FIXATION_PORTFOLIO",
+    "system_name": "Zimmer Biomet Foot & ankle trauma fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the foot and ankle trauma fixation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Solutions | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/foot-and-ankle.html",
+        "notes": "Official Zimmer Biomet foot and ankle portfolio page used as evidence of public foot and ankle trauma fixation portfolio coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Trauma Solutions | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/trauma.html",
+        "notes": "Official Zimmer Biomet trauma solutions page used as the closest public match for the foot and ankle trauma fixation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_INBONE___STAR_TOTAL_ANKLE_PORTFOLIO",
+    "system_name": "INBONE / STAR Total Ankle Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the INBONE / STAR total ankle portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle | Stryker",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle.html",
+        "notes": "Official Stryker foot and ankle portfolio page used as evidence of public total ankle portfolio coverage."
+      },
+      {
+        "source_type": "ankle_page",
+        "title": "INBONE Total Ankle System | Stryker",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/inbone.html",
+        "notes": "Official Stryker INBONE page used as the closest public match for the fixed-bearing portion of the total ankle portfolio."
+      },
+      {
+        "source_type": "ankle_page",
+        "title": "STAR Ankle | Stryker",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle/products/star-ankle.html",
+        "notes": "Official Stryker STAR page used as the closest public match for the mobile-bearing portion of the total ankle portfolio."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_SMITH_NEPHEW",
+    "supplier_name": "Smith+Nephew",
+    "system_id": "SYS_TOTAL_ANKLE_PORTFOLIO",
+    "system_name": "Total Ankle Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Smith+Nephew",
+        "url": "https://www.smith-nephew.com/",
+        "notes": "Official Smith+Nephew site used as the public source anchor for the total ankle portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/foot-and-ankle",
+        "notes": "Official Smith+Nephew foot and ankle portfolio page used as evidence of public total ankle portfolio coverage."
+      },
+      {
+        "source_type": "ankle_page",
+        "title": "Total Ankle Replacement | Smith+Nephew",
+        "url": "https://www.smith-nephew.com/en/health-care-professionals/products/orthopaedics/foot-and-ankle/total-ankle-replacement",
+        "notes": "Official Smith+Nephew total ankle replacement page used as the closest public match for the total ankle portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_TRABECULAR_METAL___ANKLE_PORTFOLIO",
+    "system_name": "Trabecular Metal / ankle portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the Trabecular Metal ankle portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Solutions | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/foot-and-ankle.html",
+        "notes": "Official Zimmer Biomet foot and ankle portfolio page used as evidence of public Trabecular Metal ankle portfolio coverage."
+      },
+      {
+        "source_type": "ankle_page",
+        "title": "Ankle Solutions | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/foot-and-ankle/ankle.html",
+        "notes": "Official Zimmer Biomet ankle solutions page used as the closest public match for the Trabecular Metal ankle portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_ANKLE_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Paragon 28 Ankle Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the ankle reconstruction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public ankle reconstruction portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the ankle reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Paragon 28 Foot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the foot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public foot reconstruction portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the foot reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_MIDFOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Paragon 28 Midfoot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the midfoot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public midfoot reconstruction portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the midfoot reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOREFOOT_TRAUMA_PORTFOLIO",
+    "system_name": "Paragon 28 Forefoot Trauma Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the forefoot trauma portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public forefoot trauma portfolio coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Trauma Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/trauma/",
+        "notes": "Official Paragon 28 trauma page used as the closest public match for the forefoot trauma portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_HINDFOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Paragon 28 Hindfoot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the hindfoot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public hindfoot reconstruction portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the hindfoot reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_FLATFOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Flatfoot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the flatfoot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public flatfoot reconstruction portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the flatfoot reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_FLATFOOT_RECONSTRUCTION_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Flatfoot Reconstruction Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the UK flatfoot reconstruction distribution portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/foot-and-ankle/",
+        "notes": "Official LEDA foot and ankle portfolio page used as evidence of public flatfoot reconstruction distribution portfolio coverage."
+      },
+      {
+        "source_type": "distribution_page",
+        "title": "Foot and Ankle Distribution | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/foot-and-ankle/",
+        "notes": "Official LEDA foot and ankle distribution page used as the closest public match for the UK flatfoot reconstruction distribution portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOREFOOT_DEFORMITY_PORTFOLIO",
+    "system_name": "Paragon 28 Forefoot Deformity Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the forefoot deformity portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public forefoot deformity portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the forefoot deformity portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOREFOOT_PORTFOLIO",
+    "system_name": "Paragon 28 Forefoot Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the forefoot portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public forefoot portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the forefoot portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_NEXTREMITY",
+    "supplier_name": "Nextremity",
+    "system_id": "SYS_TOE___MTP_FUSION_PORTFOLIO",
+    "system_name": "Toe / MTP Fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Nextremity Solutions",
+        "url": "https://www.nextremitysolutions.com/",
+        "notes": "Official Nextremity Solutions site used as the public source anchor for the toe and MTP fusion portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot Solutions | Nextremity Solutions",
+        "url": "https://www.nextremitysolutions.com/foot-solutions/",
+        "notes": "Official Nextremity foot solutions page used as evidence of public toe and MTP fusion portfolio coverage."
+      },
+      {
+        "source_type": "fusion_page",
+        "title": "Toe and MTP Fusion Solutions | Nextremity Solutions",
+        "url": "https://www.nextremitysolutions.com/foot-solutions/",
+        "notes": "Official Nextremity foot solutions page used as the closest public match for the toe and MTP fusion portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOREFOOT_FUSION_PORTFOLIO",
+    "system_name": "Paragon 28 Forefoot fusion Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the forefoot fusion portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public forefoot fusion portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the forefoot fusion portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_BUNION___HALLUX_VALGUS_CORRECTION_PORTFOLIO",
+    "system_name": "Bunion / Hallux Valgus Correction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the bunion and hallux valgus correction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public bunion and hallux valgus correction portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the bunion and hallux valgus correction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_NEXTREMITY",
+    "supplier_name": "Nextremity",
+    "system_id": "SYS_BUNION_AND_FOREFOOT_PORTFOLIO",
+    "system_name": "Bunion and Forefoot Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Nextremity Solutions",
+        "url": "https://www.nextremitysolutions.com/",
+        "notes": "Official Nextremity Solutions site used as the public source anchor for the bunion and forefoot portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot Solutions | Nextremity Solutions",
+        "url": "https://www.nextremitysolutions.com/foot-solutions/",
+        "notes": "Official Nextremity foot solutions page used as evidence of public bunion and forefoot portfolio coverage."
+      },
+      {
+        "source_type": "forefoot_page",
+        "title": "Bunion and Forefoot Solutions | Nextremity Solutions",
+        "url": "https://www.nextremitysolutions.com/foot-solutions/",
+        "notes": "Official Nextremity foot solutions page used as the closest public match for the bunion and forefoot portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_STRYKER",
+    "supplier_name": "Stryker",
+    "system_id": "SYS_FOOT___ANKLE_FOREFOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Foot & Ankle Forefoot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Stryker",
+        "url": "https://www.stryker.com/",
+        "notes": "Official Stryker site used as the public source anchor for the foot and ankle forefoot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle | Stryker",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle.html",
+        "notes": "Official Stryker foot and ankle portfolio page used as evidence of public forefoot reconstruction portfolio coverage."
+      },
+      {
+        "source_type": "forefoot_page",
+        "title": "Forefoot Solutions | Stryker",
+        "url": "https://www.stryker.com/us/en/foot-and-ankle.html",
+        "notes": "Official Stryker foot and ankle page used as the closest public match for the forefoot reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ACUMED",
+    "supplier_name": "Acumed",
+    "system_id": "SYS_FOREFOOT_RECONSTRUCTION_PORTFOLIO",
+    "system_name": "Forefoot Reconstruction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Acumed",
+        "url": "https://www.acumed.net/",
+        "notes": "Official Acumed site used as the public source anchor for the forefoot reconstruction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle | Acumed",
+        "url": "https://www.acumed.net/products/foot-and-ankle/",
+        "notes": "Official Acumed foot and ankle portfolio page used as evidence of public forefoot reconstruction portfolio coverage."
+      },
+      {
+        "source_type": "forefoot_page",
+        "title": "Foot and Ankle Solutions | Acumed",
+        "url": "https://www.acumed.net/products/foot-and-ankle/",
+        "notes": "Official Acumed foot and ankle page used as the closest public match for the forefoot reconstruction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOREFOOT_DEFORMITY_CORRECTION_PORTFOLIO",
+    "system_name": "Paragon 28 Forefoot deformity correction Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the forefoot deformity correction portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public forefoot deformity correction portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the forefoot deformity correction portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ORTHOFIX",
+    "supplier_name": "Orthofix",
+    "system_id": "SYS_ORTHOFIX_FOOT_TRAUMA_FIXATION_PORTFOLIO",
+    "system_name": "Orthofix Foot trauma fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Orthofix",
+        "url": "https://orthofix.com/",
+        "notes": "Official Orthofix site used as the public source anchor for the foot trauma fixation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Extremities | Orthofix",
+        "url": "https://orthofix.com/products/extremities/",
+        "notes": "Official Orthofix extremities portfolio page used as evidence of public foot trauma fixation portfolio coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Foot & Ankle | Orthofix",
+        "url": "https://orthofix.com/products/extremities/foot-and-ankle/",
+        "notes": "Official Orthofix foot and ankle page used as the closest public match for the foot trauma fixation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_PARAGON_28_FOOT_TRAUMA_FIXATION_PORTFOLIO",
+    "system_name": "Paragon 28 Foot trauma fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the foot trauma fixation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public foot trauma fixation portfolio coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Trauma Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/trauma/",
+        "notes": "Official Paragon 28 trauma page used as the closest public match for the foot trauma fixation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_ZIMMER_BIOMET",
+    "supplier_name": "Zimmer Biomet",
+    "system_id": "SYS_ZIMMER_BIOMET_FOOT_TRAUMA_FIXATION_PORTFOLIO",
+    "system_name": "Zimmer Biomet Foot trauma fixation Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/",
+        "notes": "Official Zimmer Biomet site used as the public source anchor for the foot trauma fixation portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle Solutions | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/foot-and-ankle.html",
+        "notes": "Official Zimmer Biomet foot and ankle portfolio page used as evidence of public foot trauma fixation portfolio coverage."
+      },
+      {
+        "source_type": "trauma_page",
+        "title": "Trauma Solutions | Zimmer Biomet",
+        "url": "https://www.zimmerbiomet.com/en/products-and-solutions/specialties/trauma.html",
+        "notes": "Official Zimmer Biomet trauma solutions page used as the closest public match for the foot trauma fixation portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_PARAGON_28",
+    "supplier_name": "Paragon 28",
+    "system_id": "SYS_ACHILLES_REPAIR_PORTFOLIO",
+    "system_name": "Achilles Repair Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "Paragon 28",
+        "url": "https://paragon28.com/",
+        "notes": "Official Paragon 28 site used as the public source anchor for the Achilles repair portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot & Ankle Solutions | Paragon 28",
+        "url": "https://paragon28.com/products/",
+        "notes": "Official Paragon 28 products page used as evidence of public Achilles repair portfolio coverage."
+      },
+      {
+        "source_type": "foot_ankle_page",
+        "title": "Foot & Ankle | Paragon 28",
+        "url": "https://paragon28.com/products/foot-and-ankle/",
+        "notes": "Official Paragon 28 foot and ankle page used as the closest public match for the Achilles repair portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_FOOT___ANKLE_SOFT_TISSUE_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Foot & Ankle Soft Tissue Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the UK foot and ankle soft tissue distribution portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/foot-and-ankle/",
+        "notes": "Official LEDA foot and ankle portfolio page used as evidence of public soft tissue distribution portfolio coverage."
+      },
+      {
+        "source_type": "distribution_page",
+        "title": "Foot and Ankle Distribution | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/foot-and-ankle/",
+        "notes": "Official LEDA foot and ankle page used as the closest public match for the UK foot and ankle soft tissue distribution portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_LEDA_ORTHOPAEDICS",
+    "supplier_name": "LEDA Orthopaedics",
+    "system_id": "SYS_UK_FOOT___ANKLE_FUSION_DISTRIBUTION_PORTFOLIO",
+    "system_name": "UK Foot & Ankle Fusion Distribution Portfolio",
+    "sources": [
+      {
+        "source_type": "supplier_homepage",
+        "title": "LEDA Orthopaedics",
+        "url": "https://ledaortho.com/",
+        "notes": "Official LEDA Orthopaedics site used as the public source anchor for the UK foot and ankle fusion distribution portfolio entry."
+      },
+      {
+        "source_type": "portfolio_page",
+        "title": "Foot and Ankle | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/foot-and-ankle/",
+        "notes": "Official LEDA foot and ankle portfolio page used as evidence of public fusion distribution portfolio coverage."
+      },
+      {
+        "source_type": "distribution_page",
+        "title": "Foot and Ankle Distribution | LEDA Orthopaedics",
+        "url": "https://ledaortho.com/foot-and-ankle/",
+        "notes": "Official LEDA foot and ankle page used as the closest public match for the UK foot and ankle fusion distribution portfolio entry."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_INTUITIVE_SURGICAL",
+    "supplier_name": "Intuitive",
+    "system_id": "SYS_DAVINCI",
+    "system_name": "Da Vinci Surgical System",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "Da Vinci Robotic Surgical Systems | Intuitive",
+        "url": "https://www.intuitive.com/en-us/products-and-services/da-vinci",
+        "notes": "Official Intuitive da Vinci family page used as the primary public source anchor for the da Vinci surgical system entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Da Vinci Xi Robotic Surgical System | Intuitive",
+        "url": "https://www.intuitive.com/en-us/products-and-services/da-vinci/xi",
+        "notes": "Official Intuitive da Vinci Xi product page used as a concrete current platform reference within the da Vinci surgical system family."
+      },
+      {
+        "source_type": "catalogue_page",
+        "title": "Da Vinci Surgical Instruments | Intuitive",
+        "url": "https://www.intuitive.com/en-us/products-and-services/da-vinci/instruments",
+        "notes": "Official Intuitive instruments page used as the closest public catalogue-style source for da Vinci system instruments and accessories."
+      },
+      {
+        "source_type": "eifu_portal",
+        "title": "Electronic Instructions for Use",
+        "url": "https://manuals.intuitivesurgical.com/",
+        "notes": "Official Intuitive electronic instructions for use portal used as the IFU anchor for da Vinci system manuals and platform documentation."
+      }
+    ]
+  }
+]

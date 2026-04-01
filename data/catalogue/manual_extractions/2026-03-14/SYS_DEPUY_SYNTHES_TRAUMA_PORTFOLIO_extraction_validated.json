@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "DePuy Synthes Trauma Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Trauma & Extremities",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_DEPUY_SYNTHES_TRAUMA_PORTFOLIO_TRAUMA_PLATING_PORTFOLIO",
+        "Component Name": "Trauma Plating Portfolio",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_DEPUY_SYNTHES_TRAUMA_PORTFOLIO",
+        "Component Notes": "Official portfolio sources describe the broader trauma plating family across upper and lower extremity fixation."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "DePuy Synthes Trauma Portfolio",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Nonunion surgery",
+          "system_notes": "Portfolio-level public anchor for DePuy Synthes trauma implant and fixation families."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "DePuy Synthes Trauma Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Nonunion surgery",
+        "system_notes": "Portfolio-level public anchor for DePuy Synthes trauma implant and fixation families."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "DePuy Synthes Trauma Portfolio",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Nonunion surgery",
+        "system_notes": "Portfolio-level public anchor for DePuy Synthes trauma implant and fixation families."
+      }
+    }
+  ]
+}

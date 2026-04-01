@@ -1,0 +1,227 @@
+[
+  {
+    "id": "PROC_VENTOUSE_DELIVERY",
+    "name": "Ventouse Delivery",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_OPERATIVE_DELIVERY",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_BIRTH_CANAL",
+    "aliases": [
+      "Vacuum-Assisted Delivery"
+    ],
+    "description": "Instrumental vaginal delivery using vacuum extraction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FORCEPS_DELIVERY",
+    "name": "Forceps Delivery",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_OPERATIVE_DELIVERY",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_BIRTH_CANAL",
+    "aliases": [],
+    "description": "Instrumental vaginal delivery using forceps.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ROTATIONAL_FORCEPS_DELIVERY",
+    "name": "Rotational Forceps Delivery",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_OPERATIVE_DELIVERY",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_BIRTH_CANAL",
+    "aliases": [],
+    "description": "Operative vaginal delivery using rotational forceps for malposition.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EPISIOTOMY_AND_REPAIR",
+    "name": "Episiotomy and Repair",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_OPERATIVE_DELIVERY",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_PERINEUM",
+    "aliases": [],
+    "description": "Episiotomy with surgical repair following delivery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_OBSTETRIC_PERINEAL_TRAUMA",
+    "name": "Repair of Obstetric Perineal Trauma",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_OPERATIVE_DELIVERY",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_PERINEUM",
+    "aliases": [],
+    "description": "Repair of perineal tear sustained during childbirth.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_THIRD_OR_FOURTH_DEGREE_PERINEAL_TEAR",
+    "name": "Repair of Third or Fourth Degree Perineal Tear",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_OPERATIVE_DELIVERY",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_PERINEUM",
+    "aliases": [
+      "OASI Repair"
+    ],
+    "description": "Repair of obstetric anal sphincter injury following childbirth.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MANUAL_ROTATION_AND_ASSISTED_DELIVERY",
+    "name": "Manual Rotation and Assisted Delivery",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_OPERATIVE_DELIVERY",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_BIRTH_CANAL",
+    "aliases": [],
+    "description": "Manual rotation of fetal head followed by assisted vaginal delivery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ELECTIVE_CAESAREAN_BIRTH",
+    "name": "Elective Caesarean Birth",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_CAESAREAN_BIRTH",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_UTERUS",
+    "aliases": [
+      "Elective Caesarean Section",
+      "Planned Caesarean Birth"
+    ],
+    "description": "Planned caesarean birth performed before onset of labour.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EMERGENCY_CAESAREAN_BIRTH",
+    "name": "Emergency Caesarean Birth",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_CAESAREAN_BIRTH",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_UTERUS",
+    "aliases": [
+      "Emergency Caesarean Section"
+    ],
+    "description": "Urgent caesarean birth performed for maternal or fetal indication.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPEAT_CAESAREAN_BIRTH",
+    "name": "Repeat Caesarean Birth",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_CAESAREAN_BIRTH",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_UTERUS",
+    "aliases": [
+      "Repeat Caesarean Section"
+    ],
+    "description": "Caesarean birth in a patient with prior caesarean delivery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CAESAREAN_BIRTH_WITH_TUBAL_STERILISATION",
+    "name": "Caesarean Birth with Tubal Sterilisation",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_CAESAREAN_BIRTH",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_UTERUS",
+    "aliases": [],
+    "description": "Caesarean birth with concurrent tubal sterilisation procedure.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_UTERINE_EXTENSION_AT_CAESAREAN_BIRTH",
+    "name": "Repair of Uterine Extension at Caesarean Birth",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_CAESAREAN_BIRTH",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_UTERUS",
+    "aliases": [],
+    "description": "Repair of unintended uterine incision extension during caesarean birth.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MANUAL_REMOVAL_OF_PLACENTA",
+    "name": "Manual Removal of Placenta",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_PLACENTA",
+    "aliases": [],
+    "description": "Manual removal of retained placenta from the uterus.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXAMINATION_UNDER_ANAESTHESIA_AFTER_DELIVERY",
+    "name": "Examination Under Anaesthesia After Delivery",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_BIRTH_CANAL",
+    "aliases": [],
+    "description": "Post-delivery examination under anaesthesia for bleeding or suspected trauma.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_CERVICAL_LACERATION",
+    "name": "Repair of Cervical Laceration",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_CERVIX",
+    "aliases": [],
+    "description": "Surgical repair of cervical trauma sustained during labour or delivery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BALLOON_TAMPONADE_FOR_POSTPARTUM_HAEMORRHAGE",
+    "name": "Balloon Tamponade for Postpartum Haemorrhage",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_UTERUS",
+    "aliases": [],
+    "description": "Insertion of uterine balloon tamponade device for postpartum haemorrhage control.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_COMPRESSION_SUTURES_FOR_POSTPARTUM_HAEMORRHAGE",
+    "name": "Compression Sutures for Postpartum Haemorrhage",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_UTERUS",
+    "aliases": [
+      "B-Lynch Suture"
+    ],
+    "description": "Application of uterine compression sutures to control postpartum haemorrhage.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXPLORATORY_LAPAROTOMY_FOR_OBSTETRIC_HAEMORRHAGE",
+    "name": "Exploratory Laparotomy for Obstetric Haemorrhage",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_ABDOMINAL_WALL",
+    "aliases": [],
+    "description": "Open abdominal exploration for major obstetric haemorrhage or suspected internal bleeding.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OBSTETRIC_HYSTERECTOMY",
+    "name": "Obstetric Hysterectomy",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_UTERUS",
+    "aliases": [],
+    "description": "Emergency hysterectomy performed for life-threatening obstetric haemorrhage or abnormal placentation.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SURGERY_FOR_ABNORMALLY_INVASIVE_PLACENTA",
+    "name": "Surgery for Abnormally Invasive Placenta",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_PLACENTA",
+    "aliases": [
+      "Placenta Accreta Spectrum Surgery"
+    ],
+    "description": "Surgical management of placenta accreta spectrum disorder.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CERVICAL_CERCLAGE",
+    "name": "Cervical Cerclage",
+    "specialty_id": "SPEC_OBSTETRICS",
+    "service_line_id": "SL_HIGH_RISK_OBSTETRICS",
+    "anatomy_id": "ANAT_SPEC_OBSTETRICS_CERVIX",
+    "aliases": [],
+    "description": "Placement of cervical suture to reduce risk of preterm birth due to cervical insufficiency.",
+    "status": "active"
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Smith+Nephew Knee Preservation Portfolio",
+    "source_type": "official_news_release",
+    "source_document": "Smith+Nephew launches new JOURNEY II Unicompartmental Knee System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Smith+Nephew Knee Preservation Portfolio",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "knee_preservation",
+      "system_notes": "Official Smith+Nephew partial-knee and knee-preservation materials used as the public source anchors for this knee preservation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Knee Preservation Framework",
+      "system_name": "Smith+Nephew Knee Preservation Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Knee Preservation",
+      "component_notes": "Framework component anchored to Smith+Nephew public knee preservation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public knee preservation source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Smith+Nephew launches new JOURNEY II Unicompartmental Knee System; Smith+Nephew acquires novel cementless partial knee system; Knee Reconstruction"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public knee preservation source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Smith+Nephew launches new JOURNEY II Unicompartmental Knee System; Smith+Nephew acquires novel cementless partial knee system; Knee Reconstruction"
+    }
+  ]
+}

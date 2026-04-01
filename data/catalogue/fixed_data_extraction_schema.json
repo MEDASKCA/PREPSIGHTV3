@@ -1,0 +1,234 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://prepsight.local/schemas/fixed-data-extraction.schema.json",
+  "title": "PrepSight Fixed Data Extraction",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "source_meta",
+    "systems",
+    "trays",
+    "components",
+    "products",
+    "system_mappings",
+    "unresolved_items"
+  ],
+  "properties": {
+    "source_meta": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "supplier_name",
+        "system_name",
+        "source_type",
+        "source_document",
+        "source_version",
+        "source_date"
+      ],
+      "properties": {
+        "supplier_name": {
+          "type": "string",
+          "description": "Supplier or manufacturer name exactly as stated in the source."
+        },
+        "system_name": {
+          "type": "string",
+          "description": "Primary system or portfolio name exactly as stated in the source."
+        },
+        "source_type": {
+          "type": "string",
+          "description": "Document type such as IFU, Operative Technique, or Catalogue."
+        },
+        "source_document": {
+          "type": "string",
+          "description": "Document title or filename."
+        },
+        "source_version": {
+          "type": "string",
+          "description": "Document version or revision identifier."
+        },
+        "source_date": {
+          "type": "string",
+          "description": "Source publication date if explicitly stated, otherwise empty string."
+        }
+      }
+    },
+    "systems": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "system_name",
+          "supplier_name",
+          "system_category",
+          "system_notes"
+        ],
+        "properties": {
+          "system_name": {
+            "type": "string"
+          },
+          "supplier_name": {
+            "type": "string"
+          },
+          "system_category": {
+            "type": "string"
+          },
+          "system_notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "trays": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "tray_name",
+          "system_name",
+          "tray_type",
+          "tray_notes"
+        ],
+        "properties": {
+          "tray_name": {
+            "type": "string"
+          },
+          "system_name": {
+            "type": "string"
+          },
+          "tray_type": {
+            "type": "string"
+          },
+          "tray_notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "component_name",
+          "system_name",
+          "component_role",
+          "implant_category",
+          "component_notes"
+        ],
+        "properties": {
+          "component_name": {
+            "type": "string"
+          },
+          "system_name": {
+            "type": "string"
+          },
+          "component_role": {
+            "type": "string"
+          },
+          "implant_category": {
+            "type": "string"
+          },
+          "component_notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "products": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "sku",
+          "product_name",
+          "component_name",
+          "packaging_type",
+          "product_notes"
+        ],
+        "properties": {
+          "sku": {
+            "type": "string"
+          },
+          "product_name": {
+            "type": "string"
+          },
+          "component_name": {
+            "type": "string"
+          },
+          "packaging_type": {
+            "type": "string"
+          },
+          "product_notes": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "system_mappings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "procedure_name",
+          "procedure_variant",
+          "system_name",
+          "data_source",
+          "research_notes",
+          "last_verified"
+        ],
+        "properties": {
+          "procedure_name": {
+            "type": "string"
+          },
+          "procedure_variant": {
+            "type": "string"
+          },
+          "system_name": {
+            "type": "string"
+          },
+          "data_source": {
+            "type": "string"
+          },
+          "research_notes": {
+            "type": "string"
+          },
+          "last_verified": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "unresolved_items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "entity_type",
+          "raw_text",
+          "reason",
+          "source_excerpt"
+        ],
+        "properties": {
+          "entity_type": {
+            "type": "string"
+          },
+          "raw_text": {
+            "type": "string"
+          },
+          "reason": {
+            "type": "string"
+          },
+          "source_excerpt": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

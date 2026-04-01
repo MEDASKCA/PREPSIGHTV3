@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "ACTIS / PINNACLE Total Hip System",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "ACTIS Total Hip System and Pinnacle Acetabular Cup System Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ACTIS_PINNACLE_TOTAL_HIP_SYSTEM_ACTIS_PINNACLE_INSTRUMENTATION",
+        "Tray Name": "ACTIS / PINNACLE Instrumentation",
+        "System ID": "SYS_ACTIS___PINNACLE_TOTAL_HIP_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "System materials reference dedicated stem and acetabular instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACTIS_PINNACLE_TOTAL_HIP_SYSTEM_PINNACLE_ACETABULAR_CUP",
+        "Component Name": "PINNACLE Acetabular Cup",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACTIS___PINNACLE_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Core PINNACLE acetabular shell family referenced in product and technique materials."
+      },
+      {
+        "Component ID": "COMP_ACTIS_PINNACLE_TOTAL_HIP_SYSTEM_PINNACLE_ACETABULAR_LINER",
+        "Component Name": "PINNACLE Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACTIS___PINNACLE_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Core PINNACLE liner family referenced in product and technique materials."
+      },
+      {
+        "Component ID": "COMP_ACTIS_PINNACLE_TOTAL_HIP_SYSTEM_ACTIS_FEMORAL_STEM",
+        "Component Name": "ACTIS Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACTIS___PINNACLE_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Core ACTIS stem family referenced in product and technique materials."
+      },
+      {
+        "Component ID": "COMP_ACTIS_PINNACLE_TOTAL_HIP_SYSTEM_ACTIS_FEMORAL_HEAD",
+        "Component Name": "ACTIS Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACTIS___PINNACLE_TOTAL_HIP_SYSTEM",
+        "Component Notes": "Femoral head family used with the ACTIS / PINNACLE platform."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "ACTIS / PINNACLE Total Hip System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Primary total hip arthroplasty platform combining ACTIS femoral and PINNACLE acetabular families."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "ACTIS / PINNACLE Total Hip System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform combining ACTIS femoral and PINNACLE acetabular families."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "ACTIS / PINNACLE Total Hip System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform combining ACTIS femoral and PINNACLE acetabular families."
+      }
+    }
+  ]
+}

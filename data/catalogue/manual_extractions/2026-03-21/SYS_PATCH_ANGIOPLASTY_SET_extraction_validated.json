@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "B. Braun",
+    "system_name": "Patch Angioplasty Set",
+    "source_type": "product_brochure_pdf",
+    "source_document": "Vascular Patch",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PATCH_ANGIOPLASTY_SET_PATCH_ANGIOPLASTY_FRAMEWORK",
+        "Component Name": "Patch Angioplasty Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_PATCH_ANGIOPLASTY_SET",
+        "Component Notes": "Framework component anchored to B. Braun public vascular-patch source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Patch Angioplasty Set",
+          "supplier_name": "B. Braun",
+          "system_category": "vascular_patch",
+          "system_notes": "Official B. Braun vascular-patch materials used as the public source anchors for this patch angioplasty set entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Patch Angioplasty Set",
+        "supplier_name": "B. Braun",
+        "system_category": "vascular_patch",
+        "system_notes": "Official B. Braun vascular-patch materials used as the public source anchors for this patch angioplasty set entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Patch Angioplasty Set",
+        "supplier_name": "B. Braun",
+        "system_category": "vascular_patch",
+        "system_notes": "Official B. Braun vascular-patch materials used as the public source anchors for this patch angioplasty set entry."
+      }
+    }
+  ]
+}

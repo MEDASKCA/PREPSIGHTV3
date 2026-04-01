@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "CONMED",
+    "system_name": "Arthroscopic Resection Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Arthroscopic Resection, Fluid Management, & RF Ablation | CONMED",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ARTHROSCOPIC_RESECTION_PORTFOLIO_ARTHROSCOPIC_RESECTION_FRAMEWORK",
+        "Component Name": "Arthroscopic Resection Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Arthroscopy",
+        "System ID": "SYS_ARTHROSCOPIC_RESECTION_PORTFOLIO",
+        "Component Notes": "Framework component anchored to CONMED public arthroscopic resection source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Arthroscopic Resection Portfolio",
+          "supplier_name": "CONMED",
+          "system_category": "arthroscopy",
+          "system_notes": "Official CONMED arthroscopic resection and resection-system materials used as the public source anchors for this arthroscopic resection portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Arthroscopic Resection Portfolio",
+        "supplier_name": "CONMED",
+        "system_category": "arthroscopy",
+        "system_notes": "Official CONMED arthroscopic resection and resection-system materials used as the public source anchors for this arthroscopic resection portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Arthroscopic Resection Portfolio",
+        "supplier_name": "CONMED",
+        "system_category": "arthroscopy",
+        "system_notes": "Official CONMED arthroscopic resection and resection-system materials used as the public source anchors for this arthroscopic resection portfolio entry."
+      }
+    }
+  ]
+}

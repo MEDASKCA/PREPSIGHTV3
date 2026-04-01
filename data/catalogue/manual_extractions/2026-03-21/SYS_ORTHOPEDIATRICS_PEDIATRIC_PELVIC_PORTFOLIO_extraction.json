@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "OrthoPediatrics",
+    "system_name": "OrthoPediatrics Pediatric Pelvic Portfolio",
+    "source_type": "supplier_homepage",
+    "source_document": "OrthoPediatrics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "OrthoPediatrics Pediatric Pelvic Portfolio",
+      "supplier_name": "OrthoPediatrics",
+      "system_category": "Pediatric orthopaedics",
+      "system_notes": "Official OrthoPediatrics pediatric pelvic materials used as the public source anchors for this pediatric orthopaedics portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Pediatric Pelvic Portfolio Framework",
+      "system_name": "OrthoPediatrics Pediatric Pelvic Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Pediatric Orthopaedics",
+      "component_notes": "Framework component anchored to OrthoPediatrics public pediatric pelvic source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public pediatric pelvic source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "OrthoPediatrics; Pediatric Plating Platform | Hip (Trauma) - OrthoPediatrics"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public pediatric pelvic source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "OrthoPediatrics; Pediatric Plating Platform | Hip (Trauma) - OrthoPediatrics"
+    }
+  ]
+}

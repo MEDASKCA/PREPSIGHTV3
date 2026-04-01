@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Cardiothoracic Anaesthesia Workflow System",
+    "source_type": "practice_resources",
+    "source_document": "SCA Practice Resources / E-Manual of Cardiac Anesthesia",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Cardiothoracic Anaesthesia Workflow System",
+      "supplier_name": "Unassigned",
+      "system_category": "Cardiothoracic Anaesthesia Workflow",
+      "system_notes": "Public source anchor for cardiothoracic anaesthesia workflow guidance and reference resources."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Cardiothoracic Anaesthesia Workflow Framework",
+      "system_name": "Cardiothoracic Anaesthesia Workflow System",
+      "component_role": "Workflow Framework",
+      "implant_category": "Perioperative Documentation Workflow",
+      "component_notes": "Official SCA resources describe clinical practice resources and a cardiac-anesthesia e-manual rather than a device-specific hardware set."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Professional-society workflow resources do not define a tray set for this system row.",
+      "reason": "Tray data should only be added from equipment-specific or site-specific workflow sources.",
+      "source_excerpt": "Current extraction remains workflow-level only."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public workflow resources do not provide normalized product codes.",
+      "reason": "Product rows should only be added if a narrower equipment or documentation platform source is identified.",
+      "source_excerpt": "Current extraction remains source-backed and high-level."
+    }
+  ]
+}

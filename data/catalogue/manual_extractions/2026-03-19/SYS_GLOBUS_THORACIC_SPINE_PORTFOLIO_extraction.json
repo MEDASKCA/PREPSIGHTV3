@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Globus Medical",
+    "system_name": "Globus Thoracic Spine Portfolio",
+    "source_type": "procedure_page",
+    "source_document": "XLIF Thoracic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Globus Thoracic Spine Portfolio",
+      "supplier_name": "Globus Medical",
+      "system_category": "Spine",
+      "system_notes": "Official Globus Medical thoracic lateral access, vertebral body replacement, and corpectomy pages used as the source anchors for the thoracic spine portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Thoracic Spine Portfolio Framework",
+      "system_name": "Globus Thoracic Spine Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Portfolio-level informational framework anchored to Globus Medical public thoracic spine sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Globus Medical source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "XLIF Thoracic, XCore 2 VBR, and NIKO Corpectomy Spacer"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public Globus Medical source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "XLIF Thoracic, XCore 2 VBR, and NIKO Corpectomy Spacer"
+    }
+  ]
+}

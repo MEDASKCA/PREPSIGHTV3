@@ -1,0 +1,22 @@
+[
+  {
+    "supplier_id": "SUP_AESCULAP",
+    "supplier_name": "Aesculap",
+    "system_id": "SYS_TARGON_PF",
+    "system_name": "TARGON PF Nail",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "TARGON PF",
+        "url": "https://www.aesculapimplantsystems.com/products/trauma/targon-pf/",
+        "notes": "Official Aesculap product page used as the public source anchor."
+      },
+      {
+        "source_type": "specialty_page",
+        "title": "Trauma",
+        "url": "https://www.aesculapimplantsystems.com/products/trauma/",
+        "notes": "Official Aesculap trauma page used as broader workflow context."
+      }
+    ]
+  }
+]

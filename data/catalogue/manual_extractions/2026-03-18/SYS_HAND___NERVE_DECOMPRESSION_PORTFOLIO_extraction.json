@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Integra LifeSciences",
+    "system_name": "Hand / Nerve Decompression Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Upper Extremities",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Hand / Nerve Decompression Portfolio",
+      "supplier_name": "Integra LifeSciences",
+      "system_category": "hand_wrist",
+      "system_notes": "Public Integra upper-extremity and surgical reconstruction materials used as the source anchors for the hand and nerve decompression portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Hand / Nerve Decompression Portfolio Framework",
+      "system_name": "Hand / Nerve Decompression Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Hand / Nerve Decompression Portfolio",
+      "component_notes": "Portfolio-level informational framework anchored to Integra public upper-extremity and nerve-repair-supporting sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public portfolio source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Upper Extremities and surgical reconstruction coverage for nerve and tendon repair and protection"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public portfolio source anchors do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Upper Extremities and surgical reconstruction coverage for nerve and tendon repair and protection"
+    }
+  ]
+}

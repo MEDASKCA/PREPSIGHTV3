@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "Q-FIX Suture Anchor",
+    "source_type": "product_page",
+    "source_document": "Q-FIX All-Suture Anchor",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Q-FIX Suture Anchor",
+      "supplier_name": "Smith+Nephew",
+      "system_category": "Suture Anchor — All-Suture",
+      "system_notes": "All-suture anchor platform for rotator cuff and soft-tissue fixation with both standard and knotless variants."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Q-FIX Suture Anchor Instrumentation",
+      "system_name": "Q-FIX Suture Anchor",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Smith+Nephew materials describe dedicated insertion instrumentation and preparation workflow for the Q-FIX anchor family."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Q-FIX All-Suture Anchor",
+      "system_name": "Q-FIX Suture Anchor",
+      "component_role": "Anchor",
+      "implant_category": "Soft Tissue Fixation",
+      "component_notes": "Official Smith+Nephew materials describe the Q-FIX all-suture anchor construct used for soft-tissue fixation."
+    },
+    {
+      "component_name": "Q-FIX Knotless All-Suture Anchor",
+      "system_name": "Q-FIX Suture Anchor",
+      "component_role": "Knotless Anchor",
+      "implant_category": "Soft Tissue Fixation",
+      "component_notes": "Official Smith+Nephew materials describe the knotless variant within the Q-FIX family."
+    },
+    {
+      "component_name": "Q-FIX Drill Guide",
+      "system_name": "Q-FIX Suture Anchor",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official product materials describe prepared insertion workflow using dedicated guides and instrumentation."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current public Smith+Nephew pages define the anchor families and insertion workflow but do not expose a full coded item table in this pass.",
+      "reason": "A deeper brochure, IFU, or ordering guide pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and component-family level."
+    }
+  ]
+}

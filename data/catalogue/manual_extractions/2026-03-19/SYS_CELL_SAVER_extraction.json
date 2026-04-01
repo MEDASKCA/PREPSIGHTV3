@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Getinge",
+    "system_name": "Cell Salvage System",
+    "source_type": "portfolio_page",
+    "source_document": "Serving cardiovascular procedures",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Cell Salvage System",
+      "supplier_name": "Getinge",
+      "system_category": "blood management",
+      "system_notes": "Current public Getinge cardiovascular-procedures, documentation, and autotransfusion-related materials used as the source anchors for the cell salvage system entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Cell Salvage System Framework",
+      "system_name": "Cell Salvage System",
+      "component_role": "Platform Framework",
+      "implant_category": "Blood management",
+      "component_notes": "Portfolio-level informational framework anchored to Getinge public blood-management and autotransfusion-related sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The current public Getinge source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Serving cardiovascular procedures, Documentation, and Getinge Thoracic Drainage"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The current public Getinge source anchors do not provide a complete SKU-level extraction for this system entry.",
+      "source_excerpt": "Serving cardiovascular procedures, Documentation, and Getinge Thoracic Drainage"
+    }
+  ]
+}

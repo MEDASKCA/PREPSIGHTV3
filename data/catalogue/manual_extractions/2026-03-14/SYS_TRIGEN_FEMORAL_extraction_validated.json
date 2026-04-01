@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "TRIGEN Femoral Nail System",
+    "source_type": "product_page",
+    "source_document": "TRIGEN META-NAIL / Femoral Nailing Platform",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TRIGEN_FEMORAL_NAIL_SYSTEM_TRIGEN_FEMORAL_INSTRUMENTATION",
+        "Tray Name": "TRIGEN Femoral Instrumentation",
+        "System ID": "SYS_TRIGEN_FEMORAL_NAIL_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Smith+Nephew materials support the TRIGEN femoral nail platform with dedicated operative instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TRIGEN_FEMORAL_NAIL_SYSTEM_TRIGEN_FEMORAL_NAIL",
+        "Component Name": "TRIGEN Femoral Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_FEMORAL_NAIL_SYSTEM",
+        "Component Notes": "Official product materials describe the TRIGEN femoral nail platform for femoral fracture fixation."
+      },
+      {
+        "Component ID": "COMP_TRIGEN_FEMORAL_NAIL_SYSTEM_TRIGEN_LOCKING_SCREW",
+        "Component Name": "TRIGEN Locking Screw",
+        "Component Role": "Locking Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_FEMORAL_NAIL_SYSTEM",
+        "Component Notes": "The TRIGEN femoral nail construct includes proximal and distal locking fixation options."
+      },
+      {
+        "Component ID": "COMP_TRIGEN_FEMORAL_NAIL_SYSTEM_TRIGEN_END_CAP",
+        "Component Name": "TRIGEN End Cap",
+        "Component Role": "End Cap",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TRIGEN_FEMORAL_NAIL_SYSTEM",
+        "Component Notes": "The TRIGEN femoral nail platform includes end-cap compatibility within the nail construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "TRIGEN Femoral Nail System",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Femoral intramedullary nailing platform within the TRIGEN family for antegrade and retrograde femoral fracture fixation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "TRIGEN Femoral Nail System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Femoral intramedullary nailing platform within the TRIGEN family for antegrade and retrograde femoral fracture fixation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "TRIGEN Femoral Nail System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Femoral intramedullary nailing platform within the TRIGEN family for antegrade and retrograde femoral fracture fixation."
+      }
+    }
+  ]
+}

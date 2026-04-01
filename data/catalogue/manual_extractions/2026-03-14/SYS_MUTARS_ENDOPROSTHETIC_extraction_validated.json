@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "MUTARS Endoprosthesis",
+    "source_type": "product_page",
+    "source_document": "MUTARS",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_MUTARS_ENDOPROSTHESIS_MUTARS_ENDOPROSTHETIC_RECONSTRUCTION_FAMILY",
+        "Component Name": "MUTARS Endoprosthetic Reconstruction Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Endoprosthetic Reconstruction Workflow",
+        "System ID": "SYS_MUTARS_ENDOPROSTHETIC",
+        "Component Notes": "Official Zimmer Biomet sources describe the broader MUTARS modular endoprosthetic reconstruction family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "MUTARS Endoprosthesis",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Endoprosthetic Reconstruction",
+          "system_notes": "Public source anchor for the Zimmer Biomet MUTARS modular endoprosthetic reconstruction system."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "MUTARS Endoprosthesis",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Endoprosthetic Reconstruction",
+        "system_notes": "Public source anchor for the Zimmer Biomet MUTARS modular endoprosthetic reconstruction system."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "MUTARS Endoprosthesis",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Endoprosthetic Reconstruction",
+        "system_notes": "Public source anchor for the Zimmer Biomet MUTARS modular endoprosthetic reconstruction system."
+      }
+    }
+  ]
+}

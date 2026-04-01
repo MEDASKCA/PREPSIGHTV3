@@ -1,0 +1,276 @@
+[
+  {
+    "id": "PROC_FEMORAL_ENDARTERECTOMY",
+    "name": "Femoral Endarterectomy",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_FEMORAL_ARTERY",
+    "aliases": [],
+    "description": "Open endarterectomy of the femoral artery for occlusive disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FEMOROPOPLITEAL_BYPASS",
+    "name": "Femoropopliteal Bypass",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_LOWER_LIMB_ARTERIES",
+    "aliases": [],
+    "description": "Bypass graft from femoral to popliteal artery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FEMORODISTAL_BYPASS",
+    "name": "Femorodistal Bypass",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_LOWER_LIMB_ARTERIES",
+    "aliases": [],
+    "description": "Bypass graft from femoral artery to distal tibial or pedal vessel.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AORTOBIFEMORAL_BYPASS",
+    "name": "Aortobifemoral Bypass",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_AORTA",
+    "aliases": [],
+    "description": "Bypass from abdominal aorta to both femoral arteries for aortoiliac occlusive disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AXILLOFEMORAL_BYPASS",
+    "name": "Axillofemoral Bypass",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_AXILLARY_ARTERY",
+    "aliases": [],
+    "description": "Extra-anatomical bypass from axillary to femoral artery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EMBOLECTOMY_OF_PERIPHERAL_ARTERY",
+    "name": "Embolectomy of Peripheral Artery",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_PERIPHERAL_ARTERIES",
+    "aliases": [],
+    "description": "Open embolectomy or thrombectomy of peripheral artery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PATCH_ANGIOPLASTY_OF_PERIPHERAL_ARTERY",
+    "name": "Patch Angioplasty of Peripheral Artery",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_PERIPHERAL_ARTERIES",
+    "aliases": [],
+    "description": "Patch angioplasty to enlarge or reconstruct diseased peripheral artery.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LOWER_LIMB_AMPUTATION_FOR_VASCULAR_DISEASE",
+    "name": "Lower Limb Amputation for Vascular Disease",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_LOWER_LIMB",
+    "aliases": [],
+    "description": "Major amputation performed for critical limb ischaemia or unsalvageable vascular disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OPEN_REPAIR_OF_ABDOMINAL_AORTIC_ANEURYSM",
+    "name": "Open Repair of Abdominal Aortic Aneurysm",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_AORTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_AORTA",
+    "aliases": [
+      "Open AAA Repair"
+    ],
+    "description": "Open surgical replacement of aneurysmal abdominal aorta.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENDOVASCULAR_REPAIR_OF_ABDOMINAL_AORTIC_ANEURYSM",
+    "name": "Endovascular Repair of Abdominal Aortic Aneurysm",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_AORTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_AORTA",
+    "aliases": [
+      "EVAR"
+    ],
+    "description": "Endovascular stent graft repair of abdominal aortic aneurysm.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OPEN_REPAIR_OF_THORACIC_AORTIC_ANEURYSM",
+    "name": "Open Repair of Thoracic Aortic Aneurysm",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_AORTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_THORACIC_AORTA",
+    "aliases": [],
+    "description": "Open repair of thoracic aortic aneurysm.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THRORACIC_ENDOVASCULAR_AORTIC_REPAIR",
+    "name": "Thoracic Endovascular Aortic Repair",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_AORTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_THORACIC_AORTA",
+    "aliases": [
+      "TEVAR"
+    ],
+    "description": "Thoracic endovascular stent graft repair of aortic pathology.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FENESTRATED_ENDOVASCULAR_AORTIC_REPAIR",
+    "name": "Fenestrated Endovascular Aortic Repair",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_AORTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_AORTA",
+    "aliases": [
+      "FEVAR"
+    ],
+    "description": "Fenestrated endovascular repair for complex aortic aneurysm.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BRANCHED_ENDOVASCULAR_AORTIC_REPAIR",
+    "name": "Branched Endovascular Aortic Repair",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_AORTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_AORTA",
+    "aliases": [
+      "BEVAR"
+    ],
+    "description": "Branched endovascular repair for complex aortic aneurysm.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_RUPTURED_AORTIC_ANEURYSM",
+    "name": "Repair of Ruptured Aortic Aneurysm",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_AORTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_AORTA",
+    "aliases": [],
+    "description": "Emergency repair of ruptured aortic aneurysm.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AORTIC_DISSECTION_REPAIR",
+    "name": "Aortic Dissection Repair",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_AORTIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_AORTA",
+    "aliases": [],
+    "description": "Open or endovascular repair for aortic dissection.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ARTERIOVENOUS_FISTULA_CREATION",
+    "name": "Arteriovenous Fistula Creation",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_VASCULAR_ACCESS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_UPPER_LIMB_VESSELS",
+    "aliases": [
+      "AV Fistula Creation"
+    ],
+    "description": "Creation of autogenous arteriovenous fistula for dialysis access.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ARTERIOVENOUS_GRAFT_INSERTION",
+    "name": "Arteriovenous Graft Insertion",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_VASCULAR_ACCESS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_UPPER_LIMB_VESSELS",
+    "aliases": [
+      "AV Graft Insertion"
+    ],
+    "description": "Insertion of prosthetic graft for dialysis vascular access.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REVISION_OF_DIALYSIS_ACCESS",
+    "name": "Revision of Dialysis Access",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_VASCULAR_ACCESS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_UPPER_LIMB_VESSELS",
+    "aliases": [],
+    "description": "Revision procedure for failing or malfunctioning dialysis access.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THROMBECTOMY_OF_DIALYSIS_ACCESS",
+    "name": "Thrombectomy of Dialysis Access",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_VASCULAR_ACCESS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_UPPER_LIMB_VESSELS",
+    "aliases": [],
+    "description": "Thrombectomy of thrombosed fistula or graft for dialysis access salvage.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LIGATION_OF_ARTERIOVENOUS_FISTULA",
+    "name": "Ligation of Arteriovenous Fistula",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_VASCULAR_ACCESS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_UPPER_LIMB_VESSELS",
+    "aliases": [],
+    "description": "Ligation of dialysis fistula when access is no longer required or causing complications.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TUNNELLED_CENTRAL_VENOUS_CATHETER_INSERTION_FOR_DIALYSIS",
+    "name": "Tunnelled Central Venous Catheter Insertion for Dialysis",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_VASCULAR_ACCESS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_CENTRAL_VEINS",
+    "aliases": [],
+    "description": "Insertion of tunnelled central venous catheter for haemodialysis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CAROTID_ENDARTERECTOMY",
+    "name": "Carotid Endarterectomy",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_CAROTID_ARTERY",
+    "aliases": [],
+    "description": "Open endarterectomy of carotid artery for stenotic disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VARICOSE_VEIN_SURGERY",
+    "name": "Varicose Vein Surgery",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_SUPERFICIAL_VEINS",
+    "aliases": [],
+    "description": "Operative treatment of superficial venous incompetence and varicosities.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HIGH_LIGATION_AND_STRIPPING_OF_SAPHENOUS_VEIN",
+    "name": "High Ligation and Stripping of Saphenous Vein",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_SUPERFICIAL_VEINS",
+    "aliases": [],
+    "description": "Traditional operative treatment for saphenous vein reflux.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VENOUS_ULCER_DEBRIDEMENT",
+    "name": "Venous Ulcer Debridement",
+    "specialty_id": "SPEC_VASCULAR_SURGERY",
+    "service_line_id": "SL_PERIPHERAL_VASCULAR_SURGERY",
+    "anatomy_id": "ANAT_SPEC_VASCULAR_SURGERY_LOWER_LIMB",
+    "aliases": [],
+    "description": "Debridement of chronic venous ulcer.",
+    "status": "active"
+  }
+]

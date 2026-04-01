@@ -1,0 +1,22 @@
+[
+  {
+    "supplier_id": "SUP_FUJI_FILM_MEDICAL",
+    "supplier_name": "Fujifilm Medical",
+    "system_id": "SYS_ULTRASOUND",
+    "system_name": "Ultrasound Machine",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "Portable, Point-of-Care Ultrasound | FUJIFILM Sonosite",
+        "url": "https://www.sonosite.com/",
+        "notes": "Official Fujifilm Sonosite ultrasound portfolio page used as the public source anchor."
+      },
+      {
+        "source_type": "press_release",
+        "title": "FUJIFILM Sonosite launches Sonosite LX",
+        "url": "https://www.sonosite.com/press-releases/fujifilm-sonosite-launches-sonosite-lx-industry-leaders-latest-premium-point-care",
+        "notes": "Official Fujifilm Sonosite release used for current live product-family detail."
+      }
+    ]
+  }
+]

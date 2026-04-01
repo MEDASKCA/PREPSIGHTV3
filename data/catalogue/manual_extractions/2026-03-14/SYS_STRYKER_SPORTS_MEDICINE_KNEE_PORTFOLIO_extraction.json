@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Stryker Sports medicine knee Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Knee Sports Medicine",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Stryker Sports medicine knee Portfolio",
+      "supplier_name": "Stryker",
+      "system_category": "Sports medicine knee",
+      "system_notes": "Portfolio-level public anchor for Stryker knee sports medicine workflow resources."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Knee Sports Medicine Portfolio Family",
+      "system_name": "Stryker Sports medicine knee Portfolio",
+      "component_role": "Portfolio Family",
+      "implant_category": "Sports Medicine Workflow",
+      "component_notes": "Official Stryker portfolio sources describe the broader knee sports medicine workflow family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "This is a portfolio-level row rather than a single implant system, so no dedicated tray is asserted in this pass.",
+      "reason": "Tray detail should only be added from narrower product-family sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Portfolio-level sources do not expose a normalized product-code matrix.",
+      "reason": "Product codes should be captured from narrower sports medicine device or implant-family sources.",
+      "source_excerpt": "Current extraction remains portfolio-level only."
+    }
+  ]
+}

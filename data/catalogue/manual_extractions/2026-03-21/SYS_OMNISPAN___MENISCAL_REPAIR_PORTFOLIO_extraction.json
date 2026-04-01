@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "CONMED",
+    "system_name": "OMNISPAN / Meniscal Repair Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Meniscal Repair | CONMED",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "OMNISPAN / Meniscal Repair Portfolio",
+      "supplier_name": "CONMED",
+      "system_category": "sports_medicine_knee",
+      "system_notes": "Official CONMED meniscal-repair materials used as the public source anchors for this meniscal repair portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Meniscal Repair Framework",
+      "system_name": "OMNISPAN / Meniscal Repair Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Sports Medicine",
+      "component_notes": "Framework component anchored to CONMED public meniscal-repair source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public meniscal-repair source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Meniscal Repair | CONMED; Sequent Meniscal Repair Device | CONMED; Infinity AIM Meniscal Repair Device | CONMED; Zone Specific II Meniscal Repair System | CONMED"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public meniscal-repair source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Meniscal Repair | CONMED; Sequent Meniscal Repair Device | CONMED; Infinity AIM Meniscal Repair Device | CONMED; Zone Specific II Meniscal Repair System | CONMED"
+    }
+  ]
+}

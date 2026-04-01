@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "UK Shoulder Stabilisation Distribution Portfolio",
+    "source_type": "supplier_homepage",
+    "source_document": "LEDA Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "UK Shoulder Stabilisation Distribution Portfolio",
+      "supplier_name": "LEDA Orthopaedics",
+      "system_category": "shoulder_sports",
+      "system_notes": "Official LEDA Orthopaedics company and distribution materials used as the public source anchors for this shoulder stabilisation distribution portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Shoulder Stabilisation Distribution Framework",
+      "system_name": "UK Shoulder Stabilisation Distribution Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Shoulder Stabilisation",
+      "component_notes": "Framework component anchored to LEDA public shoulder stabilisation distribution source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public LEDA shoulder stabilisation source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "LEDA Orthopaedics; LEDA Orthopaedics Carbon Footprint Report 2024; Extremities and Osteosynthesis Ranges; LEDA Orthopaedics | About"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public LEDA shoulder stabilisation source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "LEDA Orthopaedics; LEDA Orthopaedics Carbon Footprint Report 2024; Extremities and Osteosynthesis Ranges; LEDA Orthopaedics | About"
+    }
+  ]
+}

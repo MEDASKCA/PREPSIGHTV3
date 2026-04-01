@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Stryker (Stanmore oncology heritage) Limb salvage endoprosthetics Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Orthopaedic Oncology",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Stryker (Stanmore oncology heritage) Limb salvage endoprosthetics Portfolio",
+      "supplier_name": "Stryker",
+      "system_category": "Orthopaedic oncology",
+      "system_notes": "Public Stryker orthopaedic oncology, GMRS, and METS proximal tibia materials used as the source anchors for the Stanmore-heritage limb salvage endoprosthetics portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Limb Salvage Endoprosthetics Portfolio Framework",
+      "system_name": "Stryker (Stanmore oncology heritage) Limb salvage endoprosthetics Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Orthopaedic oncology",
+      "component_notes": "Portfolio-level informational framework anchored to Stryker public orthopaedic oncology and limb-salvage endoprosthetic sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Stanmore-heritage limb salvage source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Orthopaedic Oncology; GMRS Global Modular Replacement System; METS Proximal Tibia"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public Stanmore-heritage limb salvage source anchors do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Orthopaedic Oncology; GMRS Global Modular Replacement System; METS Proximal Tibia"
+    }
+  ]
+}

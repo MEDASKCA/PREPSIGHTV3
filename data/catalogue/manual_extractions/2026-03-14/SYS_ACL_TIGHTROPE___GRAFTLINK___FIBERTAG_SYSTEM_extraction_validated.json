@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "ACL TightRope / GraftLink / FiberTag System",
+    "source_type": "specialty_page",
+    "source_document": "Sports Medicine",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACL_TIGHTROPE_GRAFTLINK_FIBERTAG_SYSTEM_ACL_TIGHTROPE_GRAFTLINK_FIBERTAG_PORTFOLIO_FAMILY",
+        "Component Name": "ACL TightRope / GraftLink / FiberTag Portfolio Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "ACL Reconstruction Workflow",
+        "System ID": "SYS_ACL_TIGHTROPE___GRAFTLINK___FIBERTAG_SYSTEM",
+        "Component Notes": "Official Arthrex portfolio sources describe the broader ACL TightRope, GraftLink, and FiberTag workflow family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "ACL TightRope / GraftLink / FiberTag System",
+          "supplier_name": "Arthrex",
+          "system_category": "ACL reconstruction",
+          "system_notes": "Portfolio-level public anchor for Arthrex ACL TightRope, GraftLink, and FiberTag workflow resources."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "ACL TightRope / GraftLink / FiberTag System",
+        "supplier_name": "Arthrex",
+        "system_category": "ACL reconstruction",
+        "system_notes": "Portfolio-level public anchor for Arthrex ACL TightRope, GraftLink, and FiberTag workflow resources."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "ACL TightRope / GraftLink / FiberTag System",
+        "supplier_name": "Arthrex",
+        "system_category": "ACL reconstruction",
+        "system_notes": "Portfolio-level public anchor for Arthrex ACL TightRope, GraftLink, and FiberTag workflow resources."
+      }
+    }
+  ]
+}

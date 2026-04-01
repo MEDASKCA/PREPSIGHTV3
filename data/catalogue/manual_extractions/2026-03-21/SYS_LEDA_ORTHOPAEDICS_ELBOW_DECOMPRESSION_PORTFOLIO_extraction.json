@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "LEDA Orthopaedics Elbow decompression Portfolio",
+    "source_type": "supplier_homepage",
+    "source_document": "LEDA Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "LEDA Orthopaedics Elbow decompression Portfolio",
+      "supplier_name": "LEDA Orthopaedics",
+      "system_category": "Elbow decompression",
+      "system_notes": "Official LEDA Orthopaedics upper-limb and elbow procedure materials used as the public source anchors for this elbow decompression portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Elbow Decompression Framework",
+      "system_name": "LEDA Orthopaedics Elbow decompression Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Elbow Decompression",
+      "component_notes": "Framework component anchored to LEDA public elbow decompression source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public LEDA elbow decompression source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "LEDA Orthopaedics; Upper Limb | LEDA Orthopaedics; IJS Elbow Stabilization System Surgical Technique Guide; Distal Elbow Set Sales Sheet"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public LEDA elbow decompression source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "LEDA Orthopaedics; Upper Limb | LEDA Orthopaedics; IJS Elbow Stabilization System Surgical Technique Guide; Distal Elbow Set Sales Sheet"
+    }
+  ]
+}

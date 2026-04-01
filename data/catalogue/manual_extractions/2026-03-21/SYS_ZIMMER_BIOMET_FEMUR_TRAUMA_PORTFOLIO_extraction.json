@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Zimmer Biomet Femur Trauma Portfolio",
+    "source_type": "product_page",
+    "source_document": "AFFIXUS Hip Fracture Nail System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Zimmer Biomet Femur Trauma Portfolio",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Trauma fixation",
+      "system_notes": "Official Zimmer Biomet femur trauma materials used as the public source anchors for this trauma fixation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Femur Trauma Portfolio Framework",
+      "system_name": "Zimmer Biomet Femur Trauma Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to Zimmer Biomet public femur trauma source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Zimmer Biomet femur trauma source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "AFFIXUS Hip Fracture Nail System; NCB Periprosthetic Femur System; Trauma"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Zimmer Biomet femur trauma source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "AFFIXUS Hip Fracture Nail System; NCB Periprosthetic Femur System; Trauma"
+    }
+  ]
+}

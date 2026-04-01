@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Accolade II / Trident II",
+    "source_type": "product_page",
+    "source_document": "Trident II",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ACCOLADE_II_TRIDENT_II_ACCOLADE_II_TRIDENT_II_INSTRUMENTATION",
+        "Tray Name": "Accolade II / Trident II Instrumentation",
+        "System ID": "SYS_ACCOLADE_TRIDENT",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Stryker platform materials reference dedicated femoral and acetabular instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACCOLADE_II_TRIDENT_II_TRIDENT_II_ACETABULAR_SHELL",
+        "Component Name": "Trident II Acetabular Shell",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACCOLADE_TRIDENT",
+        "Component Notes": "Core Trident II shell family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_ACCOLADE_II_TRIDENT_II_TRIDENT_II_ACETABULAR_LINER",
+        "Component Name": "Trident II Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACCOLADE_TRIDENT",
+        "Component Notes": "Core Trident II liner family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_ACCOLADE_II_TRIDENT_II_ACCOLADE_II_FEMORAL_STEM",
+        "Component Name": "Accolade II Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACCOLADE_TRIDENT",
+        "Component Notes": "Core Accolade II stem family referenced within the platform."
+      },
+      {
+        "Component ID": "COMP_ACCOLADE_II_TRIDENT_II_ACCOLADE_II_FEMORAL_HEAD",
+        "Component Name": "Accolade II Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_ACCOLADE_TRIDENT",
+        "Component Notes": "Femoral head family used with the Accolade II / Trident II platform."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Accolade II / Trident II",
+          "supplier_name": "Stryker",
+          "system_category": "Hip Arthroplasty System",
+          "system_notes": "Primary total hip arthroplasty platform combining Accolade II femoral and Trident II acetabular families."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Accolade II / Trident II",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform combining Accolade II femoral and Trident II acetabular families."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Accolade II / Trident II",
+        "supplier_name": "Stryker",
+        "system_category": "Hip Arthroplasty System",
+        "system_notes": "Primary total hip arthroplasty platform combining Accolade II femoral and Trident II acetabular families."
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Solera Spine System",
+    "source_type": "product_page",
+    "source_document": "Solera Spinal System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_SOLERA_SPINE_SYSTEM_SOLERA_SPINE_FIXATION_FAMILY",
+        "Component Name": "Solera Spine Fixation Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Spine Fixation Workflow",
+        "System ID": "SYS_SOLERA_SPINE",
+        "Component Notes": "Official Stryker sources describe the broader Solera posterior spinal fixation family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Solera Spine System",
+          "supplier_name": "Stryker",
+          "system_category": "Pedicle Screw-Rod System",
+          "system_notes": "Public source anchor for the Stryker Solera posterior spinal fixation system."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Solera Spine System",
+        "supplier_name": "Stryker",
+        "system_category": "Pedicle Screw-Rod System",
+        "system_notes": "Public source anchor for the Stryker Solera posterior spinal fixation system."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Solera Spine System",
+        "supplier_name": "Stryker",
+        "system_category": "Pedicle Screw-Rod System",
+        "system_notes": "Public source anchor for the Stryker Solera posterior spinal fixation system."
+      }
+    }
+  ]
+}

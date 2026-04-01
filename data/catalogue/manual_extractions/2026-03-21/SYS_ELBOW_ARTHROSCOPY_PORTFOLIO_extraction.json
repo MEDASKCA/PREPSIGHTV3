@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "CONMED",
+    "system_name": "Elbow Arthroscopy Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Arthroscopic Resection, Fluid Management, & RF Ablation | CONMED",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Elbow Arthroscopy Portfolio",
+      "supplier_name": "CONMED",
+      "system_category": "Elbow arthroscopy",
+      "system_notes": "Official CONMED arthroscopy and small-joint instrumentation materials used as the public source anchors for this elbow arthroscopy portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Elbow Arthroscopy Framework",
+      "system_name": "Elbow Arthroscopy Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Sports Medicine",
+      "component_notes": "Framework component anchored to CONMED public elbow arthroscopy source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public elbow arthroscopy source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Arthroscopic Resection, Fluid Management, & RF Ablation | CONMED; Shutt Small Joint Instruments | CONMED; Small Joint Probes, Curettes, Knives, Dissectors | CONMED; Shutt Manual Instrument - Product Brochure | CONMED"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public elbow arthroscopy source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Arthroscopic Resection, Fluid Management, & RF Ablation | CONMED; Shutt Small Joint Instruments | CONMED; Small Joint Probes, Curettes, Knives, Dissectors | CONMED; Shutt Manual Instrument - Product Brochure | CONMED"
+    }
+  ]
+}

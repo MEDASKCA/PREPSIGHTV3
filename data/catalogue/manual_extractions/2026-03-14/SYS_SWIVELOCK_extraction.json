@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "SwiveLock Anchor",
+    "source_type": "product_page",
+    "source_document": "BioComposite SwiveLock Anchor",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "SwiveLock Anchor",
+      "supplier_name": "Arthrex",
+      "system_category": "Suture Anchor System",
+      "system_notes": "Knotless suture anchor platform for soft tissue fixation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "SwiveLock Instrumentation",
+      "system_name": "SwiveLock Anchor",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated tapping and insertion instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "SwiveLock Anchor",
+      "system_name": "SwiveLock Anchor",
+      "component_role": "Suture Anchor",
+      "implant_category": "Soft Tissue Fixation Implant",
+      "component_notes": "Core knotless anchor family referenced on the product page."
+    },
+    {
+      "component_name": "SwiveLock Tap",
+      "system_name": "SwiveLock Anchor",
+      "component_role": "Tap",
+      "implant_category": "Instrumentation",
+      "component_notes": "Dedicated tap family referenced in anchor workflow materials."
+    },
+    {
+      "component_name": "SwiveLock Driver",
+      "system_name": "SwiveLock Anchor",
+      "component_role": "Driver",
+      "implant_category": "Instrumentation",
+      "component_notes": "Dedicated driver/inserter family referenced in anchor workflow materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "SwiveLock includes multiple material and size variants.",
+      "reason": "Needs deeper catalogue review before splitting detailed anchor variants.",
+      "source_excerpt": "Current extraction keeps the main anchor/instrument families only."
+    }
+  ]
+}

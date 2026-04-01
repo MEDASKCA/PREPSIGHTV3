@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Zimmer Biomet Pelvic Trauma Portfolio",
+    "source_type": "product_page",
+    "source_document": "A.L.P.S. Pelvic System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Zimmer Biomet Pelvic Trauma Portfolio",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Pelvic trauma fixation",
+      "system_notes": "Official Zimmer Biomet pelvic trauma materials used as the public source anchors for this pelvic trauma fixation portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Pelvic Trauma Portfolio Framework",
+      "system_name": "Zimmer Biomet Pelvic Trauma Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Trauma",
+      "component_notes": "Framework component anchored to Zimmer Biomet public pelvic trauma source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public pelvic trauma source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "A.L.P.S. Pelvic System; Trauma; Zimmer Biomet Labeling Portal"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public pelvic trauma source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "A.L.P.S. Pelvic System; Trauma; Zimmer Biomet Labeling Portal"
+    }
+  ]
+}

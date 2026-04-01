@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Oxford Partial Knee System",
+    "source_type": "product_brochure_pdf",
+    "source_document": "Oxford Cementless Partial Knee Brochure",
+    "source_version": "5045.1-US-en",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Oxford Partial Knee System",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Partial Knee System",
+      "system_notes": "Mobile-bearing unicompartmental knee platform anchored to the official Zimmer Biomet Oxford Partial Knee product page and cementless brochure."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Oxford Partial Knee Instrumentation",
+      "system_name": "Oxford Partial Knee System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet Oxford materials support dedicated instrumentation for unicompartmental knee preparation and implantation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Oxford Femoral Component",
+      "system_name": "Oxford Partial Knee System",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official Oxford materials describe the unicompartmental femoral component family."
+    },
+    {
+      "component_name": "Oxford Tibial Tray",
+      "system_name": "Oxford Partial Knee System",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official Oxford materials describe tibial tray/baseplate options within the partial knee construct."
+    },
+    {
+      "component_name": "Oxford Meniscal Bearing",
+      "system_name": "Oxford Partial Knee System",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Official Oxford materials describe the mobile meniscal bearing used in the unicompartmental construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The current Oxford public source set confirms the construct and implant families but this pass does not include the full partial-knee product-code matrix.",
+      "reason": "A deeper catalogue or technique appendix pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

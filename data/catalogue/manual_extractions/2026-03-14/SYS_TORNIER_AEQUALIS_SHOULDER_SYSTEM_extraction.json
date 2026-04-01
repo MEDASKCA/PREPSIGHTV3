@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "Tornier Aequalis Shoulder System",
+    "source_type": "product_page",
+    "source_document": "Aequalis Ascend Flex and Shoulder Arthroplasty Solutions",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Tornier Aequalis Shoulder System",
+      "supplier_name": "Stryker",
+      "system_category": "Shoulder Arthroplasty System",
+      "system_notes": "Platform shoulder arthroplasty system within the Tornier Aequalis family supporting anatomic shoulder reconstruction."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Aequalis Shoulder Instrumentation",
+      "system_name": "Tornier Aequalis Shoulder System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Stryker/Tornier materials support dedicated Aequalis shoulder instrumentation and linked shoulder arthroplasty resources."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Aequalis Humeral Stem",
+      "system_name": "Tornier Aequalis Shoulder System",
+      "component_role": "Humeral Stem",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the humeral stem family within the Tornier Aequalis platform."
+    },
+    {
+      "component_name": "Aequalis Glenoid Component",
+      "system_name": "Tornier Aequalis Shoulder System",
+      "component_role": "Glenoid Component",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the anatomic glenoid component family within the platform."
+    },
+    {
+      "component_name": "Aequalis Humeral Head",
+      "system_name": "Tornier Aequalis Shoulder System",
+      "component_role": "Humeral Head",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe humeral head options for anatomic shoulder arthroplasty."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public Aequalis pages define the implant construct but do not expose a public implant code table in this pass.",
+      "reason": "A deeper brochure, IFU, or technique pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

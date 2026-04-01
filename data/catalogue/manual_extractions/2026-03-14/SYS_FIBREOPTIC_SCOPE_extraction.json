@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Ambu",
+    "system_name": "Fibreoptic Bronchoscope",
+    "source_type": "product_page",
+    "source_document": "aScope Broncho",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Fibreoptic Bronchoscope",
+      "supplier_name": "Ambu",
+      "system_category": "Airway Endoscopy",
+      "system_notes": "Public source anchor for the Ambu flexible bronchoscopy and airway scope platform."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Ambu Flexible Bronchoscopy Family",
+      "system_name": "Fibreoptic Bronchoscope",
+      "component_role": "Portfolio Family",
+      "implant_category": "Airway Endoscopy Workflow",
+      "component_notes": "Official Ambu sources describe the broader flexible bronchoscopy and airway scope family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Public bronchoscopy product pages do not describe a dedicated tray in the current pass.",
+      "reason": "Tray detail should only be added from narrower accessory or cart sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public product pages do not expose a normalized product-code matrix in this pass.",
+      "reason": "Product codes should be captured from ordering guides or narrower scope model sources.",
+      "source_excerpt": "Current extraction remains high-level only."
+    }
+  ]
+}

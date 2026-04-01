@@ -1,0 +1,73 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Comprehensive Shoulder",
+    "source_type": "product_page",
+    "source_document": "Comprehensive Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Comprehensive Shoulder",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Shoulder Arthroplasty System",
+      "system_notes": "Platform shoulder arthroplasty system supporting anatomic and reverse shoulder reconstruction."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Comprehensive Shoulder Instrumentation",
+      "system_name": "Comprehensive Shoulder",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet materials support dedicated Comprehensive shoulder instrumentation and linked technique resources."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Comprehensive Humeral Stem",
+      "system_name": "Comprehensive Shoulder",
+      "component_role": "Humeral Stem",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the humeral stem platform used across the shoulder reconstruction family."
+    },
+    {
+      "component_name": "Comprehensive Glenoid Component",
+      "system_name": "Comprehensive Shoulder",
+      "component_role": "Glenoid Component",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the anatomic glenoid component family within the platform."
+    },
+    {
+      "component_name": "Comprehensive Humeral Head",
+      "system_name": "Comprehensive Shoulder",
+      "component_role": "Humeral Head",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe humeral head options for anatomic shoulder reconstruction."
+    },
+    {
+      "component_name": "Comprehensive Reverse Glenosphere",
+      "system_name": "Comprehensive Shoulder",
+      "component_role": "Glenosphere",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the reverse glenosphere family within the platform."
+    },
+    {
+      "component_name": "Comprehensive Humeral Bearing",
+      "system_name": "Comprehensive Shoulder",
+      "component_role": "Humeral Liner",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official materials describe the reverse humeral bearing component within the platform."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public Comprehensive shoulder page defines the platform and reconstruction families but does not expose a public implant code table in this pass.",
+      "reason": "A deeper brochure, IFU, or technique pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

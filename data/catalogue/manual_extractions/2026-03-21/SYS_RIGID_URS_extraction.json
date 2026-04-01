@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Karl Storz",
+    "system_name": "Rigid Ureteroscope",
+    "source_type": "specialty_page",
+    "source_document": "Urology | KARL STORZ Endoskope | United States",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Rigid Ureteroscope",
+      "supplier_name": "Karl Storz",
+      "system_category": "urology_endoscopy",
+      "system_notes": "Official Karl Storz ureterorenoscopy and urology materials used as the public source anchors for this rigid ureteroscope entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Rigid Ureteroscope Framework",
+      "system_name": "Rigid Ureteroscope",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Urology",
+      "component_notes": "Framework component anchored to Karl Storz public rigid ureteroscopy source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public rigid ureteroscopy source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Urology | KARL STORZ Endoskope | United States; Search - Ureterorenoscopy for urolithiasis (URS/RIRS) | KARL STORZ Endoskope; Urology | KARL STORZ Endoskope | France; HOPKINS Telescopes | KARL STORZ Endoskope | United States"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public rigid ureteroscopy source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Urology | KARL STORZ Endoskope | United States; Search - Ureterorenoscopy for urolithiasis (URS/RIRS) | KARL STORZ Endoskope; Urology | KARL STORZ Endoskope | France; HOPKINS Telescopes | KARL STORZ Endoskope | United States"
+    }
+  ]
+}

@@ -1,0 +1,98 @@
+[
+  {
+    "supplier_id": "SUP_BOSTON_SCIENTIFIC",
+    "supplier_name": "Boston Scientific",
+    "system_id": "SYS_BALLOON_CATHETER",
+    "system_name": "Angioplasty Balloon Catheter",
+    "sources": [
+      {
+        "source_type": "product_family_page",
+        "title": "Athletis Ultra-High-Pressure Balloon - Boston Scientific",
+        "url": "https://www.bostonscientific.com/en-US/products/catheters--balloon/athletis.html",
+        "notes": "Official Boston Scientific angioplasty balloon family page used as the primary public source anchor for the angioplasty balloon catheter entry."
+      },
+      {
+        "source_type": "prescriptive_information",
+        "title": "Athletis PTA Balloon Catheter Indications, Safety and Warnings - Boston Scientific",
+        "url": "https://www.bostonscientific.com/en-US/products/catheters--balloon/athletis/athletis-indications-safety-and-warning.html",
+        "notes": "Official Boston Scientific prescriptive-information page used as the IFU-style source anchor for peripheral PTA balloon catheter indications and warnings."
+      },
+      {
+        "source_type": "prescriptive_information",
+        "title": "Mustang Balloon Dilatation Catheter Indications - Boston Scientific",
+        "url": "https://www.bostonscientific.com/en-US/products/catheters--balloon/Mustang_Balloon_Dilatation_Catheter/mustang-balloon-dilatation-catheter-indications.html",
+        "notes": "Official Boston Scientific prescriptive-information page used as supporting evidence for standard peripheral angioplasty balloon catheter use cases."
+      },
+      {
+        "source_type": "prescriptive_information",
+        "title": "Coyote Balloon Dilatation Catheter - Indications, Safety and Warnings - Boston Scientific",
+        "url": "https://www.bostonscientific.com/en-US/products/catheters--balloon/coyote-balloon-dilatation-catheter/coyote-prescriptive-information.html",
+        "notes": "Official Boston Scientific prescriptive-information page used as broader catalogue-style support for the peripheral angioplasty balloon catheter category."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BOSTON_SCIENTIFIC",
+    "supplier_name": "Boston Scientific",
+    "system_id": "SYS_GUIDEWIRE_SET",
+    "system_name": "Guidewire Set",
+    "sources": [
+      {
+        "source_type": "catalogue_page",
+        "title": "Guidewires - All Specialties - Boston Scientific",
+        "url": "https://www.bostonscientific.com/en-US/products/guidewires.html",
+        "notes": "Official Boston Scientific guidewire catalogue page used as the primary public source anchor for the guidewire set entry."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Meier Guidewire - Boston Scientific",
+        "url": "https://www.bostonscientific.com/en-US/products/guidewires/Meier_Guidewire/meier-guidewire.html",
+        "notes": "Official Boston Scientific guidewire page used as supporting evidence for interventional guidewire placement and exchange workflows."
+      },
+      {
+        "source_type": "product_page",
+        "title": "Amplatz Super Stiff Guidewire - Boston Scientific",
+        "url": "https://www.bostonscientific.com/en-US/products/guidewires/amplatz-super-stiff-guidewire.html",
+        "notes": "Official Boston Scientific product page used as supporting evidence for extra-support vascular guidewire options within a guidewire set."
+      },
+      {
+        "source_type": "prescriptive_information",
+        "title": "SAFARI2 Pre-Shaped Guidewire Indications, Safety, and Warnings - Boston Scientific",
+        "url": "https://www.bostonscientific.com/en-US/products/guidewires/safari2-preshaped-guidewire/safari2_preshaped_guidewire.html",
+        "notes": "Official Boston Scientific prescriptive-information page used as IFU-style support for guidewire indications, warnings, and procedural use."
+      }
+    ]
+  },
+  {
+    "supplier_id": "SUP_BOSTON_SCIENTIFIC",
+    "supplier_name": "Boston Scientific",
+    "system_id": "SYS_NEPRHOSCOPE",
+    "system_name": "Nephroscope",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "LithoVue Single-Use Digital Flexible Ureteroscope - Boston Scientific",
+        "url": "https://www.bostonscientific.com/en-US/products/Ureteroscopes/LithoVue.html",
+        "notes": "Official Boston Scientific endoscopic visualization page used as the primary current public source anchor and closest current public match for the nephroscope entry."
+      },
+      {
+        "source_type": "specifications_page",
+        "title": "Specifications - LithoVue Ureteroscope - Boston Scientific",
+        "url": "https://www.bostonscientific.com/en-US/products/Ureteroscopes/LithoVue/specifications.html",
+        "notes": "Official Boston Scientific specifications page used as supporting evidence for endoscopic visualization, channel size, and working-distance detail."
+      },
+      {
+        "source_type": "product_page",
+        "title": "LithoVue Elite Single-Use Digital Flexible Ureteroscope System - Boston Scientific",
+        "url": "https://www.bostonscientific.com/en-US/products/Ureteroscopes/LithoVue-Elite.html",
+        "notes": "Official Boston Scientific next-generation single-use scope page used as supporting public evidence for current renal endoscopy visualization workflow."
+      },
+      {
+        "source_type": "press_release",
+        "title": "Boston Scientific Receives FDA Clearance for LithoVue Elite Single-Use Digital Flexible Ureteroscope System",
+        "url": "https://news.bostonscientific.com/2023-02-03-Boston-Scientific-Receives-FDA-Clearance-for-LithoVue-TM-Elite-Single-Use-Digital-Flexible-Ureteroscope-System",
+        "notes": "Official Boston Scientific announcement used as broader public evidence for the current renal stone endoscopy platform where a distinct public nephroscope page is not exposed."
+      }
+    ]
+  }
+]

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "CONMED",
+    "system_name": "CrossFT / BIOSURE / Sports Knee Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Implants and Suture Anchors | CONMED",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CROSSFT_BIOSURE_SPORTS_KNEE_PORTFOLIO_SPORTS_KNEE_FIXATION_FRAMEWORK",
+        "Component Name": "Sports Knee Fixation Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Sports Medicine",
+        "System ID": "SYS_CROSSFT___BIOSURE___SPORTS_KNEE_PORTFOLIO",
+        "Component Notes": "Framework component anchored to CONMED public sports knee source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "CrossFT / BIOSURE / Sports Knee Portfolio",
+          "supplier_name": "CONMED",
+          "system_category": "sports_medicine_knee",
+          "system_notes": "Official CONMED sports knee fixation and augmentation materials used as the public source anchors for this sports knee portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "CrossFT / BIOSURE / Sports Knee Portfolio",
+        "supplier_name": "CONMED",
+        "system_category": "sports_medicine_knee",
+        "system_notes": "Official CONMED sports knee fixation and augmentation materials used as the public source anchors for this sports knee portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "CrossFT / BIOSURE / Sports Knee Portfolio",
+        "supplier_name": "CONMED",
+        "system_category": "sports_medicine_knee",
+        "system_notes": "Official CONMED sports knee fixation and augmentation materials used as the public source anchors for this sports knee portfolio entry."
+      }
+    }
+  ]
+}

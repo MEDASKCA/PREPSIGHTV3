@@ -1,0 +1,76 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "INFINITY Total Ankle",
+    "source_type": "operative_technique_reference",
+    "source_document": "INFINITY Total Ankle Surgical Technique",
+    "source_version": "Rev B",
+    "source_date": "2024-01"
+  },
+  "systems": [
+    {
+      "system_name": "INFINITY Total Ankle",
+      "supplier_name": "Stryker",
+      "system_category": "Ankle Arthroplasty System",
+      "system_notes": "Fixed-bearing total ankle replacement system with Prophecy guide workflow support."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "INFINITY Primary Instrument Tray",
+      "system_name": "INFINITY Total Ankle",
+      "tray_type": "Primary",
+      "tray_notes": "Primary instrument tray referenced in the surgical technique."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "INFINITY Tibial Tray",
+      "system_name": "INFINITY Total Ankle",
+      "component_role": "Tibial Component",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Referenced as tibial tray in the source materials."
+    },
+    {
+      "component_name": "INFINITY Talar Component",
+      "system_name": "INFINITY Total Ankle",
+      "component_role": "Talar Component",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Core talar implant component referenced in product materials."
+    },
+    {
+      "component_name": "INFINITY Poly Insert",
+      "system_name": "INFINITY Total Ankle",
+      "component_role": "Poly Insert",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Polyethylene insert component referenced in system materials."
+    }
+  ],
+  "products": [
+    {
+      "sku": "INF-TT-001",
+      "product_name": "INFINITY Tibial Tray Size 1",
+      "component_name": "INFINITY Tibial Tray",
+      "packaging_type": "Sterile",
+      "product_notes": "Size 1 implant packaging example from the initial source set."
+    }
+  ],
+  "system_mappings": [
+    {
+      "procedure_name": "Primary Total Ankle Replacement",
+      "procedure_variant": "Fixed-Bearing Total Ankle Replacement",
+      "system_name": "INFINITY Total Ankle",
+      "data_source": "INFINITY Total Ankle Surgical Technique",
+      "research_notes": "Primary total ankle replacement mapping supported by official INFINITY source materials.",
+      "last_verified": "2024-01"
+    }
+  ],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Available in multiple insert sizes and tibial/talar size combinations.",
+      "reason": "Full SKU matrix not yet extracted in this pass.",
+      "source_excerpt": "System supports multiple sizing combinations across tibial, talar and insert components."
+    }
+  ]
+}

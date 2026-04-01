@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "RigidFix Cross-Pin System",
+    "source_type": "product_page",
+    "source_document": "RIGIDFIX Cross Pin System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_RIGIDFIX_CROSS_PIN_SYSTEM_RIGIDFIX_ACL_INSTRUMENTATION",
+        "Tray Name": "RIGIDFIX ACL Instrumentation",
+        "System ID": "SYS_RIGIDFIX",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes sports medicine materials describe dedicated instrumentation for RIGIDFIX graft fixation workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_RIGIDFIX_CROSS_PIN_SYSTEM_RIGIDFIX_CROSS_PIN",
+        "Component Name": "RIGIDFIX Cross Pin",
+        "Component Role": "Fixation Pin",
+        "Implant Category": "Sports Medicine Implant",
+        "System ID": "SYS_RIGIDFIX",
+        "Component Notes": "Official DePuy Synthes materials describe the transverse cross-pin fixation construct used in ACL reconstruction."
+      },
+      {
+        "Component ID": "COMP_RIGIDFIX_CROSS_PIN_SYSTEM_RIGIDFIX_GUIDE_FRAME",
+        "Component Name": "RIGIDFIX Guide Frame",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_RIGIDFIX",
+        "Component Notes": "Official sports medicine materials describe the guide-frame workflow used for cross-pin placement."
+      },
+      {
+        "Component ID": "COMP_RIGIDFIX_CROSS_PIN_SYSTEM_RIGIDFIX_DRILL_SLEEVE",
+        "Component Name": "RIGIDFIX Drill Sleeve",
+        "Component Role": "Guide Sleeve",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_RIGIDFIX",
+        "Component Notes": "Official sports medicine materials describe the dedicated sleeve/instrument workflow for RIGIDFIX insertion."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "RigidFix Cross-Pin System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "ACL Fixation \u2014 Cross-Pin",
+          "system_notes": "Cross-pin femoral fixation platform within the DePuy Synthes Mitek sports medicine portfolio for ACL reconstruction."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "RigidFix Cross-Pin System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "ACL Fixation \u2014 Cross-Pin",
+        "system_notes": "Cross-pin femoral fixation platform within the DePuy Synthes Mitek sports medicine portfolio for ACL reconstruction."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "RigidFix Cross-Pin System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "ACL Fixation \u2014 Cross-Pin",
+        "system_notes": "Cross-pin femoral fixation platform within the DePuy Synthes Mitek sports medicine portfolio for ACL reconstruction."
+      }
+    }
+  ]
+}

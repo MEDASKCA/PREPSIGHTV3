@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "LeMaitre Vascular",
+    "system_name": "Graft Tunneller",
+    "source_type": "product_overview_page",
+    "source_document": "Products by Country | LeMaitre",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_GRAFT_TUNNELLER_GRAFT_TUNNELLER_FRAMEWORK",
+        "Component Name": "Graft Tunneller Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_TUNNELLER",
+        "Component Notes": "Framework component anchored to LeMaitre public graft-tunneller source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Graft Tunneller",
+          "supplier_name": "LeMaitre Vascular",
+          "system_category": "vascular_instruments",
+          "system_notes": "Official LeMaitre Vascular product-overview and IFU materials used as the closest current public source anchors for this graft tunneller entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Graft Tunneller",
+        "supplier_name": "LeMaitre Vascular",
+        "system_category": "vascular_instruments",
+        "system_notes": "Official LeMaitre Vascular product-overview and IFU materials used as the closest current public source anchors for this graft tunneller entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Graft Tunneller",
+        "supplier_name": "LeMaitre Vascular",
+        "system_category": "vascular_instruments",
+        "system_notes": "Official LeMaitre Vascular product-overview and IFU materials used as the closest current public source anchors for this graft tunneller entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Globus Medical",
+    "system_name": "Lumbar Discectomy Portfolio",
+    "source_type": "procedure_page",
+    "source_document": "Lumbar Discectomy",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LUMBAR_DISCECTOMY_PORTFOLIO_LUMBAR_DISCECTOMY_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Lumbar Discectomy Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Spine",
+        "System ID": "SYS_LUMBAR_DISCECTOMY_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Globus Medical public lumbar discectomy sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Lumbar Discectomy Portfolio",
+          "supplier_name": "Globus Medical",
+          "system_category": "spine",
+          "system_notes": "Official Globus Medical lumbar discectomy procedure, retraction, and powered decompression pages used as the source anchors for the lumbar discectomy portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Lumbar Discectomy Portfolio",
+        "supplier_name": "Globus Medical",
+        "system_category": "spine",
+        "system_notes": "Official Globus Medical lumbar discectomy procedure, retraction, and powered decompression pages used as the source anchors for the lumbar discectomy portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Lumbar Discectomy Portfolio",
+        "supplier_name": "Globus Medical",
+        "system_category": "spine",
+        "system_notes": "Official Globus Medical lumbar discectomy procedure, retraction, and powered decompression pages used as the source anchors for the lumbar discectomy portfolio entry."
+      }
+    }
+  ]
+}

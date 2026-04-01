@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Unassigned",
+    "system_name": "Breast Reconstruction Surgery Information System",
+    "source_type": "society_homepage",
+    "source_document": "BAPRAS / ASPS Breast Reconstruction Resources",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_BREAST_RECONSTRUCTION_INFORMATION_SYSTEM",
+      "system_name": "Breast Reconstruction Surgery Information System",
+      "supplier": "Unassigned",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public specialty society resources used as source anchors for breast reconstruction workflow information."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_BREAST_RECONSTRUCTION_INFORMATION_SYSTEM",
+      "component_name": "Breast Reconstruction Workflow Framework",
+      "role": "Workflow Framework",
+      "implant_category": "Service Line Information Workflow",
+      "source_notes": "Workflow-level informational framework anchored to official breast reconstruction society resources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_BREAST_RECONSTRUCTION_INFORMATION_SYSTEM",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Workflow information system entry has no tray or instrument set in the source anchors."
+    },
+    {
+      "system_id": "SYS_BREAST_RECONSTRUCTION_INFORMATION_SYSTEM",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Workflow information system entry has no product or SKU detail in the source anchors."
+    }
+  ]
+}

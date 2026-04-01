@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Orthofix",
+    "system_name": "Orthofix Complex Fracture Management Portfolio",
+    "source_type": "procedure_page",
+    "source_document": "Complex Fracture Management - Orthofix",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Orthofix Complex Fracture Management Portfolio",
+      "supplier_name": "Orthofix",
+      "system_category": "Complex fracture management",
+      "system_notes": "Official Orthofix complex fracture management, ProCallus Hybrid Fixation, and TL-HEX TrueLok Hexapod System Trauma materials used as the source anchors for the complex fracture management portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Complex Fracture Management Framework",
+      "system_name": "Orthofix Complex Fracture Management Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "External Fixation",
+      "component_notes": "Framework component anchored to Orthofix public complex fracture management and trauma fixation source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Orthofix complex fracture management source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Complex Fracture Management - Orthofix; ProCallus Hybrid Fixation; TL-HEX TrueLok Hexapod System Trauma"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public Orthofix complex fracture management source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Complex Fracture Management - Orthofix; ProCallus Hybrid Fixation; TL-HEX TrueLok Hexapod System Trauma"
+    }
+  ]
+}

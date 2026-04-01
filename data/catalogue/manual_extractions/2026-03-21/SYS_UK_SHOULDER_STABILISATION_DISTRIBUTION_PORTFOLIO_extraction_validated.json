@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "LEDA Orthopaedics",
+    "system_name": "UK Shoulder Stabilisation Distribution Portfolio",
+    "source_type": "supplier_homepage",
+    "source_document": "LEDA Orthopaedics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_UK_SHOULDER_STABILISATION_DISTRIBUTION_PORTFOLIO_SHOULDER_STABILISATION_DISTRIBUTION_FRAMEWORK",
+        "Component Name": "Shoulder Stabilisation Distribution Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Shoulder Stabilisation",
+        "System ID": "SYS_UK_SHOULDER_STABILISATION_DISTRIBUTION_PORTFOLIO",
+        "Component Notes": "Framework component anchored to LEDA public shoulder stabilisation distribution source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "UK Shoulder Stabilisation Distribution Portfolio",
+          "supplier_name": "LEDA Orthopaedics",
+          "system_category": "shoulder_sports",
+          "system_notes": "Official LEDA Orthopaedics company and distribution materials used as the public source anchors for this shoulder stabilisation distribution portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "UK Shoulder Stabilisation Distribution Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "shoulder_sports",
+        "system_notes": "Official LEDA Orthopaedics company and distribution materials used as the public source anchors for this shoulder stabilisation distribution portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "UK Shoulder Stabilisation Distribution Portfolio",
+        "supplier_name": "LEDA Orthopaedics",
+        "system_category": "shoulder_sports",
+        "system_notes": "Official LEDA Orthopaedics company and distribution materials used as the public source anchors for this shoulder stabilisation distribution portfolio entry."
+      }
+    }
+  ]
+}

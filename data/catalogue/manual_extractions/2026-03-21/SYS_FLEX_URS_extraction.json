@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Olympus",
+    "system_name": "Flexible Ureteroscope",
+    "source_type": "product_page",
+    "source_document": "Flexible Video Ureteroscopes | Olympus America | Medical",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Flexible Ureteroscope",
+      "supplier_name": "Olympus",
+      "system_category": "urology_endoscopy",
+      "system_notes": "Official Olympus flexible ureteroscopy materials used as the public source anchors for this flexible ureteroscope entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Flexible Ureteroscope Framework",
+      "system_name": "Flexible Ureteroscope",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Urology",
+      "component_notes": "Framework component anchored to Olympus public flexible ureteroscopy source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public flexible ureteroscopy source anchors do not enumerate tray-level data for this system entry.",
+      "source_excerpt": "Flexible Video Ureteroscopes | Olympus America | Medical; Flexible Ureteroscopes | Olympus America | Medical; Olympus Announces FDA Clearance of RenaFlex, Its First Single-use Flexible Ureteroscope"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public flexible ureteroscopy source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Flexible Video Ureteroscopes | Olympus America | Medical; Flexible Ureteroscopes | Olympus America | Medical; Olympus Announces FDA Clearance of RenaFlex, Its First Single-use Flexible Ureteroscope"
+    }
+  ]
+}

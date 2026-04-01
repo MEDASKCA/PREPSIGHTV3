@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acumed Small joint arthroplasty Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Hand and Wrist | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACUMED_SMALL_JOINT_ARTHROPLASTY_PORTFOLIO_SMALL_JOINT_ARTHROPLASTY_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Small Joint Arthroplasty Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Small Joint Arthroplasty Portfolio",
+        "System ID": "SYS_ACUMED_SMALL_JOINT_ARTHROPLASTY_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Acumed public hand and wrist reconstruction pages."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Acumed Small joint arthroplasty Portfolio",
+          "supplier_name": "Acumed",
+          "system_category": "Small joint arthroplasty",
+          "system_notes": "Public Acumed hand and wrist portfolio and hand reconstruction pages used as the source anchors for the small joint arthroplasty portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Acumed Small joint arthroplasty Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Small joint arthroplasty",
+        "system_notes": "Public Acumed hand and wrist portfolio and hand reconstruction pages used as the source anchors for the small joint arthroplasty portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Acumed Small joint arthroplasty Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Small joint arthroplasty",
+        "system_notes": "Public Acumed hand and wrist portfolio and hand reconstruction pages used as the source anchors for the small joint arthroplasty portfolio entry."
+      }
+    }
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Pinnacle / Sector Augments",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "Pinnacle Acetabular Cup System Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Pinnacle / Sector Augments",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Acetabular Revision System",
+      "system_notes": "Revision acetabular construct anchored to official Pinnacle cup product and surgical-technique materials, with sector augment reconstruction support."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Pinnacle Revision Acetabular Instrumentation",
+      "system_name": "Pinnacle / Sector Augments",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Pinnacle revision materials support dedicated acetabular instrumentation for cup preparation and augment-enabled reconstruction workflows."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Pinnacle Revision Acetabular Shell",
+      "system_name": "Pinnacle / Sector Augments",
+      "component_role": "Acetabular Shell",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Pinnacle materials describe the revision acetabular shell family used in reconstructive hip surgery."
+    },
+    {
+      "component_name": "Pinnacle Sector Augment",
+      "system_name": "Pinnacle / Sector Augments",
+      "component_role": "Acetabular Augment",
+      "implant_category": "Hip Implant",
+      "component_notes": "Sector augment reconstruction component used to address acetabular bone loss within the Pinnacle revision construct."
+    },
+    {
+      "component_name": "Pinnacle Acetabular Liner",
+      "system_name": "Pinnacle / Sector Augments",
+      "component_role": "Acetabular Liner",
+      "implant_category": "Hip Implant",
+      "component_notes": "Official Pinnacle materials describe compatible liner and bearing options used with the revision acetabular construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The current Pinnacle source set confirms revision acetabular shell and augment families but this pass does not expand the full sector-augment and shell code matrix.",
+      "reason": "A deeper revision catalogue or implant listing pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

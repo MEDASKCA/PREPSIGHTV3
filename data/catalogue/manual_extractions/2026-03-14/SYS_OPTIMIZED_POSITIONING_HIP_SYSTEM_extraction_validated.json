@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Corin",
+    "system_name": "Optimized Positioning Hip System",
+    "source_type": "product_page",
+    "source_document": "OPS - Optimized Positioning System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_OPTIMIZED_POSITIONING_HIP_SYSTEM_OPS_INSTRUMENTATION",
+        "Tray Name": "OPS Instrumentation",
+        "System ID": "SYS_OPTIMIZED_POSITIONING_HIP_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "OPS materials reference procedure-specific guides and supporting instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_OPTIMIZED_POSITIONING_HIP_SYSTEM_OPS_ACETABULAR_COMPONENT",
+        "Component Name": "OPS Acetabular Component",
+        "Component Role": "Acetabular Shell",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_OPTIMIZED_POSITIONING_HIP_SYSTEM",
+        "Component Notes": "Platform-level acetabular component family used within the OPS workflow."
+      },
+      {
+        "Component ID": "COMP_OPTIMIZED_POSITIONING_HIP_SYSTEM_OPS_ACETABULAR_LINER",
+        "Component Name": "OPS Acetabular Liner",
+        "Component Role": "Acetabular Liner",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_OPTIMIZED_POSITIONING_HIP_SYSTEM",
+        "Component Notes": "Platform-level liner family used within the OPS workflow."
+      },
+      {
+        "Component ID": "COMP_OPTIMIZED_POSITIONING_HIP_SYSTEM_OPS_FEMORAL_STEM",
+        "Component Name": "OPS Femoral Stem",
+        "Component Role": "Femoral Stem",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_OPTIMIZED_POSITIONING_HIP_SYSTEM",
+        "Component Notes": "Platform-level femoral stem family used within the OPS workflow."
+      },
+      {
+        "Component ID": "COMP_OPTIMIZED_POSITIONING_HIP_SYSTEM_OPS_FEMORAL_HEAD",
+        "Component Name": "OPS Femoral Head",
+        "Component Role": "Femoral Head",
+        "Implant Category": "Hip Implant",
+        "System ID": "SYS_OPTIMIZED_POSITIONING_HIP_SYSTEM",
+        "Component Notes": "Platform-level femoral head family used within the OPS workflow."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Optimized Positioning Hip System",
+          "supplier_name": "Corin",
+          "system_category": "Hip Arthroplasty Planning and Implant System",
+          "system_notes": "Personalized total hip workflow linking pre-operative planning and implant positioning."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Optimized Positioning Hip System",
+        "supplier_name": "Corin",
+        "system_category": "Hip Arthroplasty Planning and Implant System",
+        "system_notes": "Personalized total hip workflow linking pre-operative planning and implant positioning."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Optimized Positioning Hip System",
+        "supplier_name": "Corin",
+        "system_category": "Hip Arthroplasty Planning and Implant System",
+        "system_notes": "Personalized total hip workflow linking pre-operative planning and implant positioning."
+      }
+    }
+  ]
+}

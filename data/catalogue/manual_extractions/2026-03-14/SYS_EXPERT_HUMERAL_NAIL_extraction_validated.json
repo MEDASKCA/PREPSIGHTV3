@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Expert Humeral Nail (EHN)",
+    "source_type": "accompanying_information_page",
+    "source_document": "Accompanying Product Information",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_EXPERT_HUMERAL_NAIL_EHN_EXPERT_HUMERAL_NAIL_INSTRUMENTATION",
+        "Tray Name": "Expert Humeral Nail Instrumentation",
+        "System ID": "SYS_EXPERT_HUMERAL_NAIL",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes materials list a dedicated Expert Humeral Nailing System surgical technique and associated instrumentation workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_EXPERT_HUMERAL_NAIL_EHN_EXPERT_HUMERAL_NAIL",
+        "Component Name": "Expert Humeral Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_EXPERT_HUMERAL_NAIL",
+        "Component Notes": "Primary humeral nail component described by the Expert Humeral Nailing System technique listing."
+      },
+      {
+        "Component ID": "COMP_EXPERT_HUMERAL_NAIL_EHN_EXPERT_HUMERAL_LOCKING_SCREW",
+        "Component Name": "Expert Humeral Locking Screw",
+        "Component Role": "Locking Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_EXPERT_HUMERAL_NAIL",
+        "Component Notes": "The Expert humeral construct uses locking fixation options as part of the nail system."
+      },
+      {
+        "Component ID": "COMP_EXPERT_HUMERAL_NAIL_EHN_EXPERT_HUMERAL_END_CAP",
+        "Component Name": "Expert Humeral End Cap",
+        "Component Role": "End Cap",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_EXPERT_HUMERAL_NAIL",
+        "Component Notes": "End-cap compatibility is part of the Expert humeral nail construct family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Expert Humeral Nail (EHN)",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Humeral intramedullary nailing platform listed in official DePuy Synthes trauma accompanying product information."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Expert Humeral Nail (EHN)",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Humeral intramedullary nailing platform listed in official DePuy Synthes trauma accompanying product information."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Expert Humeral Nail (EHN)",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Humeral intramedullary nailing platform listed in official DePuy Synthes trauma accompanying product information."
+      }
+    }
+  ]
+}

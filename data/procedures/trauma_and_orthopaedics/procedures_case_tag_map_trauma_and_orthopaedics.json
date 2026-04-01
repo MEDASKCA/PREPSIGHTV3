@@ -1,0 +1,494 @@
+[
+  {
+    "procedure_id": "PROC_ACETABULAR_FRACTURE_FIXATION",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_ACETABULAR_REVISION_OF_HIP_REPLACEMENT",
+    "case_tag_id": "CASE_REVISION"
+  },
+  {
+    "procedure_id": "PROC_ACHILLES_TENDON_REPAIR",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_ACROMIOCLAVICULAR_JOINT_RECONSTRUCTION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_ANKLE_FUSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_ANTERIOR_CRUCIATE_LIGAMENT_RECONSTRUCTION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_ARTHROSCOPIC_ROTATOR_CUFF_REPAIR",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_CARPAL_TUNNEL_RELEASE",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_CEPHALOMEDULLARY_NAIL_FIXATION_OF_INTERTROCHANTERIC_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_CERVICAL_DECOMPRESSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_CERVICAL_DISCECTOMY_AND_FUSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_CHRONIC_OSTEOMYELITIS_DEBRIDEMENT",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_CIRCULAR_FRAME_DEFORMITY_CORRECTION",
+    "case_tag_id": "CASE_RECONSTRUCTION"
+  },
+  {
+    "procedure_id": "PROC_DAIR_OF_HIP_ARTHROPLASTY",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_DAIR_OF_KNEE_ARTHROPLASTY",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_DAIR_OF_SHOULDER_ARTHROPLASTY",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_DE_QUERVAIN_RELEASE",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_DEEP_SOFT_TISSUE_DEBRIDEMENT",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_DIAGNOSTIC_ANKLE_ARTHROSCOPY",
+    "case_tag_id": "CASE_MINIMALLY_INVASIVE"
+  },
+  {
+    "procedure_id": "PROC_DIAGNOSTIC_KNEE_ARTHROSCOPY",
+    "case_tag_id": "CASE_MINIMALLY_INVASIVE"
+  },
+  {
+    "procedure_id": "PROC_DISTAL_TIBIAL_OSTEOTOMY",
+    "case_tag_id": "CASE_RECONSTRUCTION"
+  },
+  {
+    "procedure_id": "PROC_DUPUYTREN_FASCIECTOMY",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_DYNAMIC_HIP_SCREW_FIXATION_OF_INTERTROCHANTERIC_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_ELBOW_ARTHROLYSIS",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_ENDOPROSTHETIC_RECONSTRUCTION_AFTER_TUMOUR_RESECTION",
+    "case_tag_id": "CASE_ONCOLOGY"
+  },
+  {
+    "procedure_id": "PROC_EPIPHYSIODESIS_HEMIEPIPHYSIODESIS",
+    "case_tag_id": "CASE_RECONSTRUCTION"
+  },
+  {
+    "procedure_id": "PROC_EXCISION_OF_BONE_TUMOUR",
+    "case_tag_id": "CASE_ONCOLOGY"
+  },
+  {
+    "procedure_id": "PROC_EXCISION_OF_SOFT_TISSUE_TUMOUR",
+    "case_tag_id": "CASE_ONCOLOGY"
+  },
+  {
+    "procedure_id": "PROC_EXTENSOR_TENDON_REPAIR_OF_HAND",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_EXTERNAL_FIXATION_OF_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_FEMORAL_COMPONENT_REVISION_OF_KNEE_ARTHROPLASTY",
+    "case_tag_id": "CASE_REVISION"
+  },
+  {
+    "procedure_id": "PROC_FEMORAL_LENGTHENING",
+    "case_tag_id": "CASE_RECONSTRUCTION"
+  },
+  {
+    "procedure_id": "PROC_FEMORAL_OSTEOTOMY",
+    "case_tag_id": "CASE_RECONSTRUCTION"
+  },
+  {
+    "procedure_id": "PROC_FEMORAL_REVISION_OF_HIP_REPLACEMENT",
+    "case_tag_id": "CASE_REVISION"
+  },
+  {
+    "procedure_id": "PROC_FIRST_METATARSOPHALANGEAL_JOINT_FUSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_FLEXOR_TENDON_REPAIR_OF_HAND",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_HALLUX_VALGUS_CORRECTION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_HEMIARTHROPLASTY_OF_HIP",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_HEMIARTHROPLASTY_OF_SHOULDER",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_HEMIEPIPHYSIODESIS",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_HEXAPOD_FRAME_CORRECTION",
+    "case_tag_id": "CASE_RECONSTRUCTION"
+  },
+  {
+    "procedure_id": "PROC_HIP_RESURFACING",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_INTRAMEDULLARY_NAILING_OF_FEMORAL_SHAFT_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_INTRAMEDULLARY_NAILING_OF_SUBTROCHANTERIC_FEMUR_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_INTRAMEDULLARY_NAILING_OF_TIBIAL_SHAFT_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_KYPHOPLASTY",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_LABRAL_RECONSTRUCTION_OF_HIP",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_LATARJET_PROCEDURE",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_LIMB_SALVAGE_RESECTION_AND_RECONSTRUCTION",
+    "case_tag_id": "CASE_ONCOLOGY"
+  },
+  {
+    "procedure_id": "PROC_LUMBAR_DECOMPRESSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_LUMBAR_DISCECTOMY",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_LUMBAR_SPINAL_FUSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_MANAGEMENT_OF_OPEN_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_MENISCAL_REPAIR",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_METASTATIC_BONE_DISEASE_FIXATION",
+    "case_tag_id": "CASE_ONCOLOGY"
+  },
+  {
+    "procedure_id": "PROC_MIDFOOT_FUSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_MULTILIGAMENT_KNEE_RECONSTRUCTION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_ONE_STAGE_REVISION_HIP_FOR_INFECTION",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_ONE_STAGE_REVISION_KNEE_FOR_INFECTION",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_ANKLE_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_CALCANEAL_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_CLAVICLE_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_DISTAL_FEMUR_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_DISTAL_HUMERUS_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_DISTAL_RADIUS_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_DISTAL_TIBIA_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_FOREARM_SHAFT_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_HUMERAL_SHAFT_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_METACARPAL_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_OLECRANON_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_PATELLA_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_PHALANGEAL_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_PILON_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_PROXIMAL_HUMERUS_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_RADIAL_HEAD_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_SCAPHOID_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_TALAR_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OPEN_REDUCTION_AND_INTERNAL_FIXATION_OF_TIBIAL_PLATEAU_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_OSTEOCHONDRAL_REPAIR_OF_KNEE",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_PAEDIATRIC_SPINAL_DEFORMITY_CORRECTION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_PARTIAL_MENISCECTOMY",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_PATELLOFEMORAL_JOINT_REPLACEMENT",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_PATELLOFEMORAL_STABILISATION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_PELVIC_RING_FIXATION",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_PELVIC_TUMOUR_RESECTION",
+    "case_tag_id": "CASE_ONCOLOGY"
+  },
+  {
+    "procedure_id": "PROC_PERCUTANEOUS_FIXATION_OF_SCAPHOID_FRACTURE",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_POSTERIOR_CRUCIATE_LIGAMENT_RECONSTRUCTION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_PRIMARY_TOTAL_ANKLE_REPLACEMENT",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_PRIMARY_TOTAL_ELBOW_REPLACEMENT",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_PRIMARY_TOTAL_HIP_REPLACEMENT",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_PRIMARY_TOTAL_KNEE_REPLACEMENT",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_PRIMARY_TOTAL_SHOULDER_REPLACEMENT",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_PROXIMAL_FEMORAL_OSTEOTOMY",
+    "case_tag_id": "CASE_RECONSTRUCTION"
+  },
+  {
+    "procedure_id": "PROC_PROXIMAL_ROW_CARPECTOMY",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_RADIAL_HEAD_REPLACEMENT",
+    "case_tag_id": "CASE_TRAUMA"
+  },
+  {
+    "procedure_id": "PROC_REDUCTION_OF_DEVELOPMENTAL_DYSPLASIA_OF_HIP",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_REVERSE_TOTAL_SHOULDER_REPLACEMENT",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_REVISION_SHOULDER_ARTHROPLASTY_FOR_INFECTION",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_REVISION_TOTAL_HIP_REPLACEMENT",
+    "case_tag_id": "CASE_REVISION"
+  },
+  {
+    "procedure_id": "PROC_REVISION_TOTAL_KNEE_REPLACEMENT",
+    "case_tag_id": "CASE_REVISION"
+  },
+  {
+    "procedure_id": "PROC_SCOLIOSIS_CORRECTION_AND_FUSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_SEQUESTRECTOMY_AND_DEAD_SPACE_MANAGEMENT",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_SHOULDER_STABILISATION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_SUBACROMIAL_DECOMPRESSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_SUBTALAR_FUSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_SURGICAL_SITE_WASHOUT_AND_DEBRIDEMENT",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_TENDON_LENGTHENING_FOR_CEREBRAL_PALSY",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_THORACOLUMBAR_FUSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_THUMB_BASAL_JOINT_ARTHROPLASTY",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_TIBIAL_COMPONENT_REVISION_OF_KNEE_ARTHROPLASTY",
+    "case_tag_id": "CASE_REVISION"
+  },
+  {
+    "procedure_id": "PROC_TIBIAL_LENGTHENING",
+    "case_tag_id": "CASE_RECONSTRUCTION"
+  },
+  {
+    "procedure_id": "PROC_TIBIAL_OSTEOTOMY",
+    "case_tag_id": "CASE_RECONSTRUCTION"
+  },
+  {
+    "procedure_id": "PROC_TIBIALIS_POSTERIOR_TENDON_RECONSTRUCTION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_TRIGGER_FINGER_RELEASE",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_TRIPLE_FUSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_TWO_STAGE_REVISION_HIP_FOR_INFECTION",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_TWO_STAGE_REVISION_KNEE_FOR_INFECTION",
+    "case_tag_id": "CASE_THERAPEUTIC"
+  },
+  {
+    "procedure_id": "PROC_TWO_STAGE_REVISION_KNEE_REPLACEMENT",
+    "case_tag_id": "CASE_REVISION"
+  },
+  {
+    "procedure_id": "PROC_TWO_STAGE_REVISION_TOTAL_HIP_REPLACEMENT",
+    "case_tag_id": "CASE_REVISION"
+  },
+  {
+    "procedure_id": "PROC_ULNAR_NERVE_DECOMPRESSION_AT_ELBOW",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_UNICOMPARTMENTAL_KNEE_REPLACEMENT",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_VERTEBROPLASTY",
+    "case_tag_id": "CASE_ELECTIVE"
+  },
+  {
+    "procedure_id": "PROC_WRIST_FUSION",
+    "case_tag_id": "CASE_ELECTIVE"
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "Arthrex Shoulder reconstruction Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Shoulder",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Arthrex Shoulder reconstruction Portfolio",
+      "supplier_name": "Arthrex",
+      "system_category": "Shoulder reconstruction",
+      "system_notes": "Portfolio-level public anchor for Arthrex shoulder reconstruction workflow resources."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Shoulder Reconstruction Portfolio Family",
+      "system_name": "Arthrex Shoulder reconstruction Portfolio",
+      "component_role": "Portfolio Family",
+      "implant_category": "Shoulder Reconstruction Workflow",
+      "component_notes": "Official Arthrex portfolio sources describe the broader shoulder reconstruction workflow family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "This is a portfolio-level row rather than a single implant system, so no dedicated tray is asserted in this pass.",
+      "reason": "Tray detail should only be added from narrower product-family sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Portfolio-level sources do not expose a normalized product-code matrix.",
+      "reason": "Product codes should be captured from narrower shoulder reconstruction device or implant-family sources.",
+      "source_excerpt": "Current extraction remains portfolio-level only."
+    }
+  ]
+}

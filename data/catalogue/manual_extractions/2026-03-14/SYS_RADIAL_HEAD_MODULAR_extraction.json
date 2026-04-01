@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acumed Modular Radial Head",
+    "source_type": "product_page",
+    "source_document": "Acumed Modular Radial Head System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Acumed Modular Radial Head",
+      "supplier_name": "Acumed",
+      "system_category": "Elbow Arthroplasty / Radial Head Replacement System",
+      "system_notes": "Radial head replacement platform with head, stem and instrumentation families."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Modular Radial Head Instrumentation",
+      "system_name": "Acumed Modular Radial Head",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product materials reference dedicated radial head system instrumentation."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Modular Radial Head Head Component",
+      "system_name": "Acumed Modular Radial Head",
+      "component_role": "Radial Head Component",
+      "implant_category": "Elbow Implant",
+      "component_notes": "Core radial head component family referenced on the product page."
+    },
+    {
+      "component_name": "Modular Radial Head Stem",
+      "system_name": "Acumed Modular Radial Head",
+      "component_role": "Stem",
+      "implant_category": "Elbow Implant",
+      "component_notes": "Core stem family referenced on the product page."
+    },
+    {
+      "component_name": "Modular Radial Head Trial",
+      "system_name": "Acumed Modular Radial Head",
+      "component_role": "Trial",
+      "implant_category": "Instrumentation",
+      "component_notes": "Trial family referenced within the radial head system workflow."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "System includes multiple head diameters and stem options.",
+      "reason": "Needs deeper catalogue review before splitting detailed radial head implant variants.",
+      "source_excerpt": "Current extraction keeps the main implant families only."
+    }
+  ]
+}

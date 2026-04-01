@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Arthrex",
+    "system_name": "PCL TightRope / Button Fixation Portfolio",
+    "source_type": "specialty_page",
+    "source_document": "Knee",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "PCL TightRope / Button Fixation Portfolio",
+      "supplier_name": "Arthrex",
+      "system_category": "PCL reconstruction",
+      "system_notes": "Portfolio-level public anchor for Arthrex PCL TightRope and button fixation workflow resources."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "PCL TightRope Button Fixation Portfolio Family",
+      "system_name": "PCL TightRope / Button Fixation Portfolio",
+      "component_role": "Portfolio Family",
+      "implant_category": "PCL Reconstruction Workflow",
+      "component_notes": "Official Arthrex portfolio sources describe the broader PCL TightRope and button fixation workflow family."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "This is a portfolio-level row rather than a single fixation system, so no dedicated tray is asserted in this pass.",
+      "reason": "Tray detail should only be added from narrower PCL reconstruction or button fixation product-family sources.",
+      "source_excerpt": "Current extraction is intentionally broad and source-backed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Portfolio-level sources do not expose a normalized product-code matrix.",
+      "reason": "Product codes should be captured from narrower PCL reconstruction or button fixation device or implant-family sources.",
+      "source_excerpt": "Current extraction remains portfolio-level only."
+    }
+  ]
+}

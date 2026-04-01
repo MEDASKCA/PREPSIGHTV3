@@ -1,0 +1,215 @@
+[
+  { "procedure_id": "PROC_APPENDICECTOMY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_APPENDICECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DRAINAGE_OF_INTRA_ABDOMINAL_ABSCESS", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_DRAINAGE_OF_INTRA_ABDOMINAL_ABSCESS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ADHESIOLYSIS_FOR_BOWEL_OBSTRUCTION", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_ADHESIOLYSIS_FOR_BOWEL_OBSTRUCTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SMALL_BOWEL_RESECTION", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_SMALL_BOWEL_RESECTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CLOSURE_OF_PERFORATED_DUODENAL_ULCER", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_CLOSURE_OF_PERFORATED_DUODENAL_ULCER", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EMERGENCY_LAPAROTOMY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_EMERGENCY_LAPAROTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DAMAGE_CONTROL_LAPAROTOMY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_DAMAGE_CONTROL_LAPAROTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_RELOOK_LAPAROTOMY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_RELOOK_LAPAROTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ABDOMINAL_WALL_DEBRIDEMENT", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_ABDOMINAL_WALL_DEBRIDEMENT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_NEGATIVE_PRESSURE_THERAPY_FOR_OPEN_ABDOMEN", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_NEGATIVE_PRESSURE_THERAPY_FOR_OPEN_ABDOMEN", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_WIDE_LOCAL_EXCISION_OF_BREAST_LESION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_WIDE_LOCAL_EXCISION_OF_BREAST_LESION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_MASTECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_MASTECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_SENTINEL_LYMPH_NODE_BIOPSY_OF_BREAST", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SENTINEL_LYMPH_NODE_BIOPSY_OF_BREAST", "case_tag_id": "CASE_DIAGNOSTIC" },
+
+  { "procedure_id": "PROC_AXILLARY_NODE_CLEARANCE", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_AXILLARY_NODE_CLEARANCE", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_EXCISION_OF_BREAST_CYST", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_BREAST_CYST", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_RIGHT_HEMICOLECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_RIGHT_HEMICOLECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_LEFT_HEMICOLECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LEFT_HEMICOLECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_SIGMOID_COLECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SIGMOID_COLECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_ANTERIOR_RESECTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ANTERIOR_RESECTION", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_LOW_ANTERIOR_RESECTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LOW_ANTERIOR_RESECTION", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_ABDOMINOPERINEAL_RESECTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ABDOMINOPERINEAL_RESECTION", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_HARTMANNS_PROCEDURE", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_HARTMANNS_PROCEDURE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SUBTOTAL_COLECTOMY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_SUBTOTAL_COLECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TOTAL_COLECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TOTAL_COLECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FORMATION_OF_LOOP_ILEOSTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_FORMATION_OF_LOOP_ILEOSTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_REVERSAL_OF_ILEOSTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_REVERSAL_OF_ILEOSTOMY", "case_tag_id": "CASE_REVISION" },
+
+  { "procedure_id": "PROC_HAEMORRHOIDECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HAEMORRHOIDECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_LATERAL_INTERNAL_SPHINCTEROTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LATERAL_INTERNAL_SPHINCTEROTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FISTULOTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_FISTULOTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SETON_INSERTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SETON_INSERTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_OESOPHAGECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_OESOPHAGECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_TOTAL_GASTRECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TOTAL_GASTRECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_SUBTOTAL_GASTRECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SUBTOTAL_GASTRECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_ANTI_REFLUX_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ANTI_REFLUX_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_HIATUS_HERNIA_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HIATUS_HERNIA_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_GASTROJEJUNOSTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_GASTROJEJUNOSTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_WEDGE_RESECTION_OF_LIVER", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_WEDGE_RESECTION_OF_LIVER", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_SEGMENTECTOMY_OF_LIVER", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SEGMENTECTOMY_OF_LIVER", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_RIGHT_HEPATECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_RIGHT_HEPATECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_LEFT_HEPATECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LEFT_HEPATECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_CHOLECYSTECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CHOLECYSTECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_COMMON_BILE_DUCT_EXPLORATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_COMMON_BILE_DUCT_EXPLORATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_HEPATICOJEJUNOSTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HEPATICOJEJUNOSTOMY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_DISTAL_PANCREATECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_DISTAL_PANCREATECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_PANCREATICODUODENECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PANCREATICODUODENECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_LIVER_TRANSPLANTATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LIVER_TRANSPLANTATION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_PANCREAS_TRANSPLANTATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PANCREAS_TRANSPLANTATION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_SMALL_BOWEL_TRANSPLANTATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SMALL_BOWEL_TRANSPLANTATION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_SLEEVE_GASTRECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SLEEVE_GASTRECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_SLEEVE_GASTRECTOMY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_ROUX_EN_Y_GASTRIC_BYPASS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ROUX_EN_Y_GASTRIC_BYPASS", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ROUX_EN_Y_GASTRIC_BYPASS", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_ONE_ANASTOMOSIS_GASTRIC_BYPASS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ONE_ANASTOMOSIS_GASTRIC_BYPASS", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_ONE_ANASTOMOSIS_GASTRIC_BYPASS", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_BARIATRIC_REVISION_SURGERY", "case_tag_id": "CASE_REVISION" },
+  { "procedure_id": "PROC_BARIATRIC_REVISION_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_THYROIDECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_THYROIDECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_HEMITHYROIDECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HEMITHYROIDECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PARATHYROIDECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PARATHYROIDECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ADRENALECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ADRENALECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CYTOREDUCTIVE_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CYTOREDUCTIVE_SURGERY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_PERITONEAL_TUMOUR_DEBULKING", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PERITONEAL_TUMOUR_DEBULKING", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_ONCOLOGICAL_LIVER_RESECTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ONCOLOGICAL_LIVER_RESECTION", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_ONCOLOGICAL_GASTRECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ONCOLOGICAL_GASTRECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_ONCOLOGICAL_PANCREATECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ONCOLOGICAL_PANCREATECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_ONCOLOGICAL_COLECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ONCOLOGICAL_COLECTOMY", "case_tag_id": "CASE_ONCOLOGY" },
+
+  { "procedure_id": "PROC_INGUINAL_HERNIA_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_INGUINAL_HERNIA_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FEMORAL_HERNIA_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_FEMORAL_HERNIA_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_UMBILICAL_HERNIA_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_UMBILICAL_HERNIA_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EPIGASTRIC_HERNIA_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EPIGASTRIC_HERNIA_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_INCISIONAL_HERNIA_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_INCISIONAL_HERNIA_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_INCISIONAL_HERNIA_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_PARASTOMAL_HERNIA_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PARASTOMAL_HERNIA_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_VENTRAL_HERNIA_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_VENTRAL_HERNIA_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DIAPHRAGMATIC_HERNIA_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_DIAPHRAGMATIC_HERNIA_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" }
+]

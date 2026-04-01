@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Medtronic Cervical Spine Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Cervical Spine | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_MEDTRONIC_CERVICAL_SPINE_PORTFOLIO_CERVICAL_SPINE_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Cervical Spine Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Spine",
+        "System ID": "SYS_MEDTRONIC_CERVICAL_SPINE_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Medtronic public cervical spine source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Medtronic Cervical Spine Portfolio",
+          "supplier_name": "Medtronic",
+          "system_category": "spine",
+          "system_notes": "Official Medtronic cervical spine materials used as the public source anchors for this cervical spine portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Medtronic Cervical Spine Portfolio",
+        "supplier_name": "Medtronic",
+        "system_category": "spine",
+        "system_notes": "Official Medtronic cervical spine materials used as the public source anchors for this cervical spine portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Medtronic Cervical Spine Portfolio",
+        "supplier_name": "Medtronic",
+        "system_category": "spine",
+        "system_notes": "Official Medtronic cervical spine materials used as the public source anchors for this cervical spine portfolio entry."
+      }
+    }
+  ]
+}

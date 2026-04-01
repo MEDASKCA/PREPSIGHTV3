@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "TFN-ADVANCED Nail System",
+    "source_type": "product_page",
+    "source_document": "TFN-ADVANCED Proximal Femoral Nailing System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_TFN_ADVANCED_NAIL_SYSTEM_TFN_ADVANCED_INSTRUMENTATION",
+        "Tray Name": "TFN-ADVANCED Instrumentation",
+        "System ID": "SYS_TFNA",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official TFNA materials expose surgical technique resources and screw-only workflow guides for the dedicated instrument platform."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_TFN_ADVANCED_NAIL_SYSTEM_TFN_ADVANCED_NAIL",
+        "Component Name": "TFN-ADVANCED Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TFNA",
+        "Component Notes": "Official materials describe the proximal femoral nail platform for hip fracture fixation."
+      },
+      {
+        "Component ID": "COMP_TFN_ADVANCED_NAIL_SYSTEM_TFN_ADVANCED_HELICAL_BLADE",
+        "Component Name": "TFN-ADVANCED Helical Blade",
+        "Component Role": "Helical Blade",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TFNA",
+        "Component Notes": "Official TFNA resources describe the helical blade fixation option within the system."
+      },
+      {
+        "Component ID": "COMP_TFN_ADVANCED_NAIL_SYSTEM_TFN_ADVANCED_LAG_SCREW",
+        "Component Name": "TFN-ADVANCED Lag Screw",
+        "Component Role": "Lag Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_TFNA",
+        "Component Notes": "Official TFNA resources describe screw-only instrumentation and lag screw fixation options."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "TFN-ADVANCED Nail System",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Current cephalomedullary proximal femoral nailing platform for intertrochanteric, subtrochanteric, and associated proximal femur fracture fixation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "TFN-ADVANCED Nail System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Current cephalomedullary proximal femoral nailing platform for intertrochanteric, subtrochanteric, and associated proximal femur fracture fixation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "TFN-ADVANCED Nail System",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Current cephalomedullary proximal femoral nailing platform for intertrochanteric, subtrochanteric, and associated proximal femur fracture fixation."
+      }
+    }
+  ]
+}

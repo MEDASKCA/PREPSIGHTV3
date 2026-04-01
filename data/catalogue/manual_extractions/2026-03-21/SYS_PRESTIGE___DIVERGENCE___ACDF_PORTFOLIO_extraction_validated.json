@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Prestige / Divergence / ACDF Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Cervical Spine | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PRESTIGE_DIVERGENCE_ACDF_PORTFOLIO_ACDF_PORTFOLIO_FRAMEWORK",
+        "Component Name": "ACDF Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Spine",
+        "System ID": "SYS_PRESTIGE___DIVERGENCE___ACDF_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Medtronic public ACDF and cervical spine source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Prestige / Divergence / ACDF Portfolio",
+          "supplier_name": "Medtronic",
+          "system_category": "spine",
+          "system_notes": "Official Medtronic cervical spine and ACDF-adjacent materials used as the public source anchors for this cervical portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Prestige / Divergence / ACDF Portfolio",
+        "supplier_name": "Medtronic",
+        "system_category": "spine",
+        "system_notes": "Official Medtronic cervical spine and ACDF-adjacent materials used as the public source anchors for this cervical portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Prestige / Divergence / ACDF Portfolio",
+        "supplier_name": "Medtronic",
+        "system_category": "spine",
+        "system_notes": "Official Medtronic cervical spine and ACDF-adjacent materials used as the public source anchors for this cervical portfolio entry."
+      }
+    }
+  ]
+}

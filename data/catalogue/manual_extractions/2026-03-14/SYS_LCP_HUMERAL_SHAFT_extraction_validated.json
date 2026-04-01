@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Humeral Shaft Plate",
+    "source_type": "technique_index_page",
+    "source_document": "Accompanying Product Information",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_LCP_HUMERAL_SHAFT_PLATE_LCP_HUMERAL_SHAFT_INSTRUMENT_SET",
+        "Tray Name": "LCP Humeral Shaft Instrument Set",
+        "System ID": "SYS_LCP_HUMERAL_SHAFT",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes upper-extremity trauma resources anchor the dedicated humeral shaft plating instrumentation workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LCP_HUMERAL_SHAFT_PLATE_LCP_HUMERAL_SHAFT_PLATE",
+        "Component Name": "LCP Humeral Shaft Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_HUMERAL_SHAFT",
+        "Component Notes": "Official DePuy Synthes trauma catalogue resources identify the humeral shaft plate family within the LCP system."
+      },
+      {
+        "Component ID": "COMP_LCP_HUMERAL_SHAFT_PLATE_LCP_HUMERAL_SHAFT_LOCKING_SCREW",
+        "Component Name": "LCP Humeral Shaft Locking Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_HUMERAL_SHAFT",
+        "Component Notes": "Official trauma references describe compatible locking screw fixation used with the humeral shaft plate system."
+      },
+      {
+        "Component ID": "COMP_LCP_HUMERAL_SHAFT_PLATE_LCP_HUMERAL_SHAFT_DRILL_GUIDE",
+        "Component Name": "LCP Humeral Shaft Drill Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_LCP_HUMERAL_SHAFT",
+        "Component Notes": "Official trauma references describe guide and instrumentation workflow for humeral shaft plate application."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "LCP Humeral Shaft Plate",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Locking Plate \u2014 Humeral Shaft",
+          "system_notes": "Humeral shaft locking plate system within the DePuy Synthes trauma portfolio for open reduction and plate fixation of humeral shaft fractures."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "LCP Humeral Shaft Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Humeral Shaft",
+        "system_notes": "Humeral shaft locking plate system within the DePuy Synthes trauma portfolio for open reduction and plate fixation of humeral shaft fractures."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "LCP Humeral Shaft Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Humeral Shaft",
+        "system_notes": "Humeral shaft locking plate system within the DePuy Synthes trauma portfolio for open reduction and plate fixation of humeral shaft fractures."
+      }
+    }
+  ]
+}

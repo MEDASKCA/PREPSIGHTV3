@@ -1,0 +1,77 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Attune Knee System",
+    "source_type": "product_brochure",
+    "source_document": "ATTUNE AFFIXIUM Product Brochure",
+    "source_version": "168686-210301",
+    "source_date": "2021-03"
+  },
+  "systems": [
+    {
+      "system_name": "Attune Knee System",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Knee Arthroplasty System",
+      "system_notes": "ATTUNE cementless fixed-bearing knee platform supported by INTUITION instrumentation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Tibial Trial and Preparation Case",
+      "system_name": "Attune Knee System",
+      "tray_type": "Instrumentation Case",
+      "tray_notes": "Listed as part of the INTUITION Instruments set configuration."
+    },
+    {
+      "tray_name": "FB Tibial Preparation Case",
+      "system_name": "Attune Knee System",
+      "tray_type": "Instrumentation Case",
+      "tray_notes": "Listed as part of the INTUITION Instruments set configuration."
+    },
+    {
+      "tray_name": "Femoral Cut Assessment Instruments",
+      "system_name": "Attune Knee System",
+      "tray_type": "Instrumentation Case",
+      "tray_notes": "Listed as part of the INTUITION Instruments set configuration."
+    },
+    {
+      "tray_name": "Tibial Protection Plate Case",
+      "system_name": "Attune Knee System",
+      "tray_type": "Instrumentation Case",
+      "tray_notes": "Listed as part of the INTUITION Instruments set configuration."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "ATTUNE Femoral Component",
+      "system_name": "Attune Knee System",
+      "component_role": "Femoral Component",
+      "implant_category": "Knee Implant",
+      "component_notes": "Brochure explicitly references CR and PS femoral components."
+    },
+    {
+      "component_name": "ATTUNE Tibial Base Component",
+      "system_name": "Attune Knee System",
+      "component_role": "Tibial Baseplate",
+      "implant_category": "Knee Implant",
+      "component_notes": "ATTUNE fixed-bearing construct references tibial preparation and tibial base workflow."
+    },
+    {
+      "component_name": "ATTUNE Fixed Bearing Insert",
+      "system_name": "Attune Knee System",
+      "component_role": "Tibial Insert",
+      "implant_category": "Knee Implant",
+      "component_notes": "Source brochure is specific to the fixed-bearing construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "component",
+      "raw_text": "Patellar component options are not fully captured in this brochure snippet.",
+      "reason": "Requires deeper ATTUNE operative technique or full IFU review before adding patellar component rows.",
+      "source_excerpt": "Current extraction is limited to the cementless fixed-bearing brochure material."
+    }
+  ]
+}

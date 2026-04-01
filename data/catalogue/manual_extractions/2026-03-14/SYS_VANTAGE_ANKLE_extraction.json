@@ -1,0 +1,68 @@
+{
+  "source_meta": {
+    "supplier_name": "Exactech",
+    "system_name": "Vantage Total Ankle",
+    "source_type": "product_page",
+    "source_document": "Vantage Total Ankle System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Vantage Total Ankle",
+      "supplier_name": "Exactech",
+      "system_category": "Ankle Arthroplasty System",
+      "system_notes": "Fixed-bearing total ankle arthroplasty platform."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "Vantage Instrumentation",
+      "system_name": "Vantage Total Ankle",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Product page references dedicated instrumentation for the Vantage ankle system."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "Vantage Tibial Component",
+      "system_name": "Vantage Total Ankle",
+      "component_role": "Tibial Component",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Core tibial implant family referenced on the product page."
+    },
+    {
+      "component_name": "Vantage Talar Component",
+      "system_name": "Vantage Total Ankle",
+      "component_role": "Talar Component",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Core talar implant family referenced on the product page."
+    },
+    {
+      "component_name": "Vantage Poly Insert",
+      "system_name": "Vantage Total Ankle",
+      "component_role": "Poly Insert",
+      "implant_category": "Ankle Implant",
+      "component_notes": "Polyethylene insert family referenced on the product page."
+    }
+  ],
+  "products": [],
+  "system_mappings": [
+    {
+      "procedure_name": "Primary Total Ankle Replacement",
+      "procedure_variant": "Fixed-Bearing Total Ankle Replacement",
+      "system_name": "Vantage Total Ankle",
+      "data_source": "Vantage Total Ankle System",
+      "research_notes": "Fixed-bearing total ankle replacement mapping supported by the official Exactech Vantage product materials.",
+      "last_verified": ""
+    }
+  ],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Dedicated instrumentation is referenced but individual case/tray names are not fully expanded on the product page.",
+      "reason": "Needs operative technique or instrument brochure for tray-level expansion.",
+      "source_excerpt": "Current extraction relies on the primary product page only."
+    }
+  ]
+}

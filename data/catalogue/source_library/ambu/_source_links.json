@@ -1,0 +1,22 @@
+[
+  {
+    "supplier_id": "SUP_AMBU",
+    "supplier_name": "Ambu",
+    "system_id": "SYS_FIBREOPTIC_SCOPE",
+    "system_name": "Fibreoptic Bronchoscope",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "aScope Broncho",
+        "url": "https://www.ambu.com/endoscopy/pulmonology/products/ambu-ascope-broncho",
+        "notes": "Official Ambu bronchoscopy product page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Pulmonology",
+        "url": "https://www.ambu.com/endoscopy/pulmonology",
+        "notes": "Official Ambu pulmonology page used as broader airway workflow context."
+      }
+    ]
+  }
+]

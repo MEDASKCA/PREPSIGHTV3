@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Acumed Elbow sports medicine Portfolio",
+    "source_type": "procedure_hub_page",
+    "source_document": "Elbow Procedures | Acumed",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ACUMED_ELBOW_SPORTS_MEDICINE_PORTFOLIO_ELBOW_SPORTS_MEDICINE_FRAMEWORK",
+        "Component Name": "Elbow Sports Medicine Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Sports Medicine",
+        "System ID": "SYS_ACUMED_ELBOW_SPORTS_MEDICINE_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Acumed public elbow sports medicine source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Acumed Elbow sports medicine Portfolio",
+          "supplier_name": "Acumed",
+          "system_category": "Elbow sports medicine",
+          "system_notes": "Official Acumed elbow procedures and tendon-ligament repair materials used as the public source anchors for this elbow sports medicine portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Acumed Elbow sports medicine Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Elbow sports medicine",
+        "system_notes": "Official Acumed elbow procedures and tendon-ligament repair materials used as the public source anchors for this elbow sports medicine portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Acumed Elbow sports medicine Portfolio",
+        "supplier_name": "Acumed",
+        "system_category": "Elbow sports medicine",
+        "system_notes": "Official Acumed elbow procedures and tendon-ligament repair materials used as the public source anchors for this elbow sports medicine portfolio entry."
+      }
+    }
+  ]
+}

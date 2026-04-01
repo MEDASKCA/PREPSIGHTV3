@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Paragon 28",
+    "system_name": "Gorilla Ankle Fracture Plating System",
+    "source_type": "product_page",
+    "source_document": "Gorilla Ankle Fracture Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_GORILLA_ANKLE_FRACTURE_PLATING_SYSTEM_GORILLA_ANKLE_FRACTURE_INSTRUMENTATION",
+        "Tray Name": "Gorilla Ankle Fracture Instrumentation",
+        "System ID": "SYS_GORILLA_ANKLE_FRACTURE_PLATING_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product materials reference dedicated fracture plating instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_GORILLA_ANKLE_FRACTURE_PLATING_SYSTEM_GORILLA_ANKLE_PLATE",
+        "Component Name": "Gorilla Ankle Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_GORILLA_ANKLE_FRACTURE_PLATING_SYSTEM",
+        "Component Notes": "Core ankle plate family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_GORILLA_ANKLE_FRACTURE_PLATING_SYSTEM_GORILLA_ANKLE_SCREW",
+        "Component Name": "Gorilla Ankle Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_GORILLA_ANKLE_FRACTURE_PLATING_SYSTEM",
+        "Component Notes": "Core screw family referenced on the product page."
+      },
+      {
+        "Component ID": "COMP_GORILLA_ANKLE_FRACTURE_PLATING_SYSTEM_GORILLA_ANKLE_GUIDE",
+        "Component Name": "Gorilla Ankle Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_GORILLA_ANKLE_FRACTURE_PLATING_SYSTEM",
+        "Component Notes": "Guide and instrumentation family referenced by the fixation system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Gorilla Ankle Fracture Plating System",
+          "supplier_name": "Paragon 28",
+          "system_category": "Foot and Ankle Trauma Fixation System",
+          "system_notes": "Ankle fracture fixation platform with plates, screws and instrumentation."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Gorilla Ankle Fracture Plating System",
+        "supplier_name": "Paragon 28",
+        "system_category": "Foot and Ankle Trauma Fixation System",
+        "system_notes": "Ankle fracture fixation platform with plates, screws and instrumentation."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Gorilla Ankle Fracture Plating System",
+        "supplier_name": "Paragon 28",
+        "system_category": "Foot and Ankle Trauma Fixation System",
+        "system_notes": "Ankle fracture fixation platform with plates, screws and instrumentation."
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+[
+  {
+    "supplier_id": "SUP_HEINE",
+    "supplier_name": "HEINE",
+    "system_id": "SYS_DIRECT_LARYNGOSCOPE",
+    "system_name": "Direct Laryngoscope",
+    "sources": [
+      {
+        "source_type": "product_page",
+        "title": "HEINE laryngoscope handles and blades",
+        "url": "https://www.heine.com/en_US/products/laryngoscopes",
+        "notes": "Official HEINE laryngoscope product page used as the public source anchor."
+      },
+      {
+        "source_type": "technology_page",
+        "title": "Airway Management",
+        "url": "https://www.heine.com/en_US/products/laryngoscopes",
+        "notes": "Official HEINE airway instrumentation page used as broader workflow context."
+      }
+    ]
+  }
+]

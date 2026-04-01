@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Boston Scientific",
+    "system_name": "Guidewire Set",
+    "source_type": "catalogue_page",
+    "source_document": "Guidewires - All Specialties - Boston Scientific",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_GUIDEWIRE_SET_GUIDEWIRE_FRAMEWORK",
+        "Component Name": "Guidewire Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Vascular",
+        "System ID": "SYS_GUIDEWIRE_SET",
+        "Component Notes": "Framework component anchored to Boston Scientific public guidewire source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Guidewire Set",
+          "supplier_name": "Boston Scientific",
+          "system_category": "vascular_access",
+          "system_notes": "Official Boston Scientific guidewire materials used as the public source anchors for this guidewire set entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Guidewire Set",
+        "supplier_name": "Boston Scientific",
+        "system_category": "vascular_access",
+        "system_notes": "Official Boston Scientific guidewire materials used as the public source anchors for this guidewire set entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Guidewire Set",
+        "supplier_name": "Boston Scientific",
+        "system_category": "vascular_access",
+        "system_notes": "Official Boston Scientific guidewire materials used as the public source anchors for this guidewire set entry."
+      }
+    }
+  ]
+}

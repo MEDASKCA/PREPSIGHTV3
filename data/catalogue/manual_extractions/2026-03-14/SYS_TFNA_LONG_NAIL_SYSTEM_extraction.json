@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "TFNA Long Nail System",
+    "source_type": "product_page",
+    "source_document": "TFN-ADVANCED Proximal Femoral Nailing System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "TFNA Long Nail System",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Intramedullary Nail System",
+      "system_notes": "Long cephalomedullary proximal femoral nailing platform for intertrochanteric, subtrochanteric, and associated shaft-extension fracture fixation."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "TFNA Long Nail Instrumentation",
+      "system_name": "TFNA Long Nail System",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official TFNA materials expose dedicated proximal femoral instrumentation and long-nail workflow resources."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "TFNA Long Nail",
+      "system_name": "TFNA Long Nail System",
+      "component_role": "Long Intramedullary Nail",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official materials describe long TFNA nail options for extended proximal femur fixation patterns."
+    },
+    {
+      "component_name": "TFNA Helical Blade",
+      "system_name": "TFNA Long Nail System",
+      "component_role": "Helical Blade",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official TFNA resources describe the helical blade fixation option within the long-nail construct."
+    },
+    {
+      "component_name": "TFNA Lag Screw",
+      "system_name": "TFNA Long Nail System",
+      "component_role": "Lag Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official TFNA resources describe lag screw fixation options used with the long nail construct."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "The public TFNA pages expose long-nail family and technique resources but this pass does not expand the full implant code matrix.",
+      "reason": "A deeper IFU, inventory control form, or catalogue pass is needed for product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

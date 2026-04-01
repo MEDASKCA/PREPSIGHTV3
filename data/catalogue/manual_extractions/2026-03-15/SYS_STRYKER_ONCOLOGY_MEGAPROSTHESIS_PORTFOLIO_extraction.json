@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Stryker",
+    "system_name": "Stryker Oncology / Megaprosthesis Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Stryker Oncology and Megaprosthesis Portfolio",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_STRYKER_ONCOLOGY_MEGAPROSTHESIS_PORTFOLIO",
+      "system_name": "Stryker Oncology / Megaprosthesis Portfolio",
+      "supplier": "Stryker",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public Stryker orthopaedic oncology and GMRS megaprosthesis pages used as source anchors for the oncology and megaprosthesis portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_STRYKER_ONCOLOGY_MEGAPROSTHESIS_PORTFOLIO",
+      "component_name": "Oncology and Megaprosthesis Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Oncology Megaprosthesis Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to Stryker orthopaedic oncology public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_STRYKER_ONCOLOGY_MEGAPROSTHESIS_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_STRYKER_ONCOLOGY_MEGAPROSTHESIS_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

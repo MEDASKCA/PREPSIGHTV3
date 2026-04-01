@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Mindray",
+    "system_name": "BIS Monitor",
+    "source_type": "technology_page",
+    "source_document": "Anesthesia Monitoring",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_BIS_MONITOR_MINDRAY_ANESTHESIA_DEPTH_MONITORING_FAMILY",
+        "Component Name": "Mindray Anesthesia Depth Monitoring Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Monitoring Workflow",
+        "System ID": "SYS_BIS_MONITOR",
+        "Component Notes": "Official Mindray sources describe the broader anesthesia monitoring family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "BIS Monitor",
+          "supplier_name": "Mindray",
+          "system_category": "Monitoring",
+          "system_notes": "Public source anchor for the Mindray anesthesia depth monitoring platform."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "BIS Monitor",
+        "supplier_name": "Mindray",
+        "system_category": "Monitoring",
+        "system_notes": "Public source anchor for the Mindray anesthesia depth monitoring platform."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "BIS Monitor",
+        "supplier_name": "Mindray",
+        "system_category": "Monitoring",
+        "system_notes": "Public source anchor for the Mindray anesthesia depth monitoring platform."
+      }
+    }
+  ]
+}

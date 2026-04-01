@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "LCP Calcaneal Plate",
+    "source_type": "technique_index_page",
+    "source_document": "Accompanying Product Information",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_LCP_CALCANEAL_PLATE_LOCKING_CALCANEAL_PLATE_INSTRUMENT_SET",
+        "Tray Name": "Locking Calcaneal Plate Instrument Set",
+        "System ID": "SYS_LCP_CALCANEUM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes technique resources describe dedicated calcaneal plating instrumentation for the locking plate family."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LCP_CALCANEAL_PLATE_LOCKING_CALCANEAL_PLATE",
+        "Component Name": "Locking Calcaneal Plate",
+        "Component Role": "Plate",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_CALCANEUM",
+        "Component Notes": "Official DePuy Synthes materials describe the locking calcaneal plate family, including variable-angle options."
+      },
+      {
+        "Component ID": "COMP_LCP_CALCANEAL_PLATE_CALCANEAL_LOCKING_SCREW",
+        "Component Name": "Calcaneal Locking Screw",
+        "Component Role": "Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_LCP_CALCANEUM",
+        "Component Notes": "Official technique and specialty materials describe compatible locking screw fixation used with the calcaneal plate system."
+      },
+      {
+        "Component ID": "COMP_LCP_CALCANEAL_PLATE_CALCANEAL_PLATE_GUIDE",
+        "Component Name": "Calcaneal Plate Guide",
+        "Component Role": "Guide",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_LCP_CALCANEUM",
+        "Component Notes": "Official technique resources describe guide and instrumentation workflow for calcaneal plate application."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "LCP Calcaneal Plate",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Locking Plate \u2014 Calcaneum",
+          "system_notes": "Locking calcaneal plating system within the DePuy Synthes foot and ankle trauma portfolio for displaced intra-articular calcaneal fractures."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "LCP Calcaneal Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Calcaneum",
+        "system_notes": "Locking calcaneal plating system within the DePuy Synthes foot and ankle trauma portfolio for displaced intra-articular calcaneal fractures."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "LCP Calcaneal Plate",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Locking Plate \u2014 Calcaneum",
+        "system_notes": "Locking calcaneal plating system within the DePuy Synthes foot and ankle trauma portfolio for displaced intra-articular calcaneal fractures."
+      }
+    }
+  ]
+}

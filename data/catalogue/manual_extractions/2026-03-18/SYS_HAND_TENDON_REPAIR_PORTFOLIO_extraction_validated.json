@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Integra LifeSciences",
+    "system_name": "Hand Tendon Repair Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Upper Extremities",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_HAND_TENDON_REPAIR_PORTFOLIO_HAND_TENDON_REPAIR_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Hand Tendon Repair Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Hand Tendon Repair Portfolio",
+        "System ID": "SYS_HAND_TENDON_REPAIR_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Integra public hand tendon repair and tendon protection sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Hand Tendon Repair Portfolio",
+          "supplier_name": "Integra LifeSciences",
+          "system_category": "hand_wrist",
+          "system_notes": "Public Integra upper-extremity and tendon repair materials used as the source anchors for the hand tendon repair portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Hand Tendon Repair Portfolio",
+        "supplier_name": "Integra LifeSciences",
+        "system_category": "hand_wrist",
+        "system_notes": "Public Integra upper-extremity and tendon repair materials used as the source anchors for the hand tendon repair portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Hand Tendon Repair Portfolio",
+        "supplier_name": "Integra LifeSciences",
+        "system_category": "hand_wrist",
+        "system_notes": "Public Integra upper-extremity and tendon repair materials used as the source anchors for the hand tendon repair portfolio entry."
+      }
+    }
+  ]
+}

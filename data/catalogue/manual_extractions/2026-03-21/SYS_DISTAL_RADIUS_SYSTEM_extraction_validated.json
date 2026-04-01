@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "AAP Implantate",
+    "system_name": "Distal Radius Fixation System",
+    "source_type": "product_page",
+    "source_document": "Distal Radius/Ulna Plates 2.5 | aap Implantate AG",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_DISTAL_RADIUS_FIXATION_SYSTEM_DISTAL_RADIUS_FIXATION_FRAMEWORK",
+        "Component Name": "Distal Radius Fixation Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Trauma",
+        "System ID": "SYS_DISTAL_RADIUS_SYSTEM",
+        "Component Notes": "Framework component anchored to AAP public distal radius and ulna fixation source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Distal Radius Fixation System",
+          "supplier_name": "AAP Implantate",
+          "system_category": "orthopaedic_fixation",
+          "system_notes": "Official AAP Implantate distal radius/ulna product page, LOQTEQ catalogue, and distal radius surgical technique materials used as the source anchors for the distal radius fixation system entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Distal Radius Fixation System",
+        "supplier_name": "AAP Implantate",
+        "system_category": "orthopaedic_fixation",
+        "system_notes": "Official AAP Implantate distal radius/ulna product page, LOQTEQ catalogue, and distal radius surgical technique materials used as the source anchors for the distal radius fixation system entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Distal Radius Fixation System",
+        "supplier_name": "AAP Implantate",
+        "system_category": "orthopaedic_fixation",
+        "system_notes": "Official AAP Implantate distal radius/ulna product page, LOQTEQ catalogue, and distal radius surgical technique materials used as the source anchors for the distal radius fixation system entry."
+      }
+    }
+  ]
+}

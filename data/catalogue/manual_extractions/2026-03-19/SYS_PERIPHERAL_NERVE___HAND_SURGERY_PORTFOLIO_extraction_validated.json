@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Integra LifeSciences",
+    "system_name": "Peripheral Nerve / Hand Surgery Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Upper Extremities",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PERIPHERAL_NERVE_HAND_SURGERY_PORTFOLIO_PERIPHERAL_NERVE_HAND_SURGERY_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Peripheral Nerve / Hand Surgery Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Peripheral nerve surgery",
+        "System ID": "SYS_PERIPHERAL_NERVE___HAND_SURGERY_PORTFOLIO",
+        "Component Notes": "Portfolio-level informational framework anchored to Integra public upper-extremity and peripheral-nerve-treatment sources."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Peripheral Nerve / Hand Surgery Portfolio",
+          "supplier_name": "Integra LifeSciences",
+          "system_category": "Peripheral nerve surgery",
+          "system_notes": "Public Integra upper-extremity and peripheral-nerve-treatment materials used as the source anchors for the peripheral nerve and hand surgery portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Peripheral Nerve / Hand Surgery Portfolio",
+        "supplier_name": "Integra LifeSciences",
+        "system_category": "Peripheral nerve surgery",
+        "system_notes": "Public Integra upper-extremity and peripheral-nerve-treatment materials used as the source anchors for the peripheral nerve and hand surgery portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Peripheral Nerve / Hand Surgery Portfolio",
+        "supplier_name": "Integra LifeSciences",
+        "system_category": "Peripheral nerve surgery",
+        "system_notes": "Public Integra upper-extremity and peripheral-nerve-treatment materials used as the source anchors for the peripheral nerve and hand surgery portfolio entry."
+      }
+    }
+  ]
+}

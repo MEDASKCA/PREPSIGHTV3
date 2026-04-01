@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "KLS Martin",
+    "system_name": "Forearm Trauma Portfolio",
+    "source_type": "product_family_page",
+    "source_document": "KLS Martin | Products - Implants | Hand - Radius and Ulna",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Forearm Trauma Portfolio",
+      "supplier_name": "KLS Martin",
+      "system_category": "Forearm trauma fixation",
+      "system_notes": "Public KLS Martin radius, ulna, and traumatology product materials used as the source anchors for the forearm trauma portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Forearm Trauma Portfolio Framework",
+      "system_name": "Forearm Trauma Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Forearm fixation",
+      "component_notes": "Portfolio-level informational framework anchored to KLS Martin public radius, ulna, and traumatology product sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public source anchors do not enumerate tray-level data for this forearm trauma portfolio entry.",
+      "source_excerpt": "Radius and ulna implants, reconstruction system, and traumatology upper-limb product navigation"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level forearm trauma list",
+      "reason": "The public source anchors do not provide a complete SKU-level portfolio extraction for this entry.",
+      "source_excerpt": "Radius and ulna implants, reconstruction system, and traumatology upper-limb product navigation"
+    }
+  ]
+}

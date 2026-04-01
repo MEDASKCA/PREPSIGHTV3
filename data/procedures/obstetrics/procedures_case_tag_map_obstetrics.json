@@ -1,0 +1,66 @@
+[
+  { "procedure_id": "PROC_VENTOUSE_DELIVERY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_VENTOUSE_DELIVERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FORCEPS_DELIVERY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_FORCEPS_DELIVERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ROTATIONAL_FORCEPS_DELIVERY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_ROTATIONAL_FORCEPS_DELIVERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EPISIOTOMY_AND_REPAIR", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_EPISIOTOMY_AND_REPAIR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_REPAIR_OF_OBSTETRIC_PERINEAL_TRAUMA", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_REPAIR_OF_OBSTETRIC_PERINEAL_TRAUMA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_REPAIR_OF_THIRD_OR_FOURTH_DEGREE_PERINEAL_TEAR", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_REPAIR_OF_THIRD_OR_FOURTH_DEGREE_PERINEAL_TEAR", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_MANUAL_ROTATION_AND_ASSISTED_DELIVERY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_MANUAL_ROTATION_AND_ASSISTED_DELIVERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ELECTIVE_CAESAREAN_BIRTH", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ELECTIVE_CAESAREAN_BIRTH", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EMERGENCY_CAESAREAN_BIRTH", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_EMERGENCY_CAESAREAN_BIRTH", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_REPEAT_CAESAREAN_BIRTH", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_REPEAT_CAESAREAN_BIRTH", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_REPEAT_CAESAREAN_BIRTH", "case_tag_id": "CASE_REVISION" },
+
+  { "procedure_id": "PROC_CAESAREAN_BIRTH_WITH_TUBAL_STERILISATION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CAESAREAN_BIRTH_WITH_TUBAL_STERILISATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_REPAIR_OF_UTERINE_EXTENSION_AT_CAESAREAN_BIRTH", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_REPAIR_OF_UTERINE_EXTENSION_AT_CAESAREAN_BIRTH", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_MANUAL_REMOVAL_OF_PLACENTA", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_MANUAL_REMOVAL_OF_PLACENTA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXAMINATION_UNDER_ANAESTHESIA_AFTER_DELIVERY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_EXAMINATION_UNDER_ANAESTHESIA_AFTER_DELIVERY", "case_tag_id": "CASE_DIAGNOSTIC" },
+
+  { "procedure_id": "PROC_REPAIR_OF_CERVICAL_LACERATION", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_REPAIR_OF_CERVICAL_LACERATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_BALLOON_TAMPONADE_FOR_POSTPARTUM_HAEMORRHAGE", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_BALLOON_TAMPONADE_FOR_POSTPARTUM_HAEMORRHAGE", "case_tag_id": "CASE_THERAPEUTIC" },
+  { "procedure_id": "PROC_BALLOON_TAMPONADE_FOR_POSTPARTUM_HAEMORRHAGE", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_COMPRESSION_SUTURES_FOR_POSTPARTUM_HAEMORRHAGE", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_COMPRESSION_SUTURES_FOR_POSTPARTUM_HAEMORRHAGE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXPLORATORY_LAPAROTOMY_FOR_OBSTETRIC_HAEMORRHAGE", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_EXPLORATORY_LAPAROTOMY_FOR_OBSTETRIC_HAEMORRHAGE", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_OBSTETRIC_HYSTERECTOMY", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_OBSTETRIC_HYSTERECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_SURGERY_FOR_ABNORMALLY_INVASIVE_PLACENTA", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_SURGERY_FOR_ABNORMALLY_INVASIVE_PLACENTA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CERVICAL_CERCLAGE", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CERVICAL_CERCLAGE", "case_tag_id": "CASE_THERAPEUTIC" }
+]

@@ -1,0 +1,742 @@
+[
+  {
+    "id": "PROC_CORONARY_ARTERY_BYPASS_GRAFTING",
+    "name": "Coronary Artery Bypass Grafting",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [
+      "CABG"
+    ],
+    "description": "Surgical bypass grafting of coronary arteries.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AORTIC_VALVE_REPLACEMENT",
+    "name": "Aortic Valve Replacement",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART_VALVES",
+    "aliases": [
+      "AVR"
+    ],
+    "description": "Replacement of the aortic valve.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MITRAL_VALVE_REPAIR",
+    "name": "Mitral Valve Repair",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART_VALVES",
+    "aliases": [],
+    "description": "Reconstructive repair of the mitral valve.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MITRAL_VALVE_REPLACEMENT",
+    "name": "Mitral Valve Replacement",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART_VALVES",
+    "aliases": [],
+    "description": "Replacement of the mitral valve.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRICUSPID_VALVE_REPAIR",
+    "name": "Tricuspid Valve Repair",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART_VALVES",
+    "aliases": [],
+    "description": "Reconstructive repair of the tricuspid valve.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ASCENDING_AORTIC_REPLACEMENT",
+    "name": "Ascending Aortic Replacement",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_AORTA",
+    "aliases": [],
+    "description": "Replacement of the ascending aorta.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AORTIC_ROOT_REPLACEMENT",
+    "name": "Aortic Root Replacement",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_AORTA",
+    "aliases": [],
+    "description": "Replacement of the aortic root with valve-sparing or composite graft technique.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PERICARDIAL_WINDOW",
+    "name": "Pericardial Window",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_PERICARDIUM",
+    "aliases": [],
+    "description": "Surgical drainage window for pericardial effusion.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXPLORATION_FOR_CARDIAC_TAMPONADE",
+    "name": "Exploration for Cardiac Tamponade",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_PERICARDIUM",
+    "aliases": [],
+    "description": "Emergency exploration for cardiac tamponade.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SURGICAL_ABLATION_FOR_ATRIAL_FIBRILLATION",
+    "name": "Surgical Ablation for Atrial Fibrillation",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [
+      "Maze Procedure"
+    ],
+    "description": "Surgical ablation procedure for atrial fibrillation.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LOBECTOMY",
+    "name": "Lobectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_LUNG",
+    "aliases": [],
+    "description": "Resection of a pulmonary lobe.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PNEUMONECTOMY",
+    "name": "Pneumonectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_LUNG",
+    "aliases": [],
+    "description": "Resection of an entire lung.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_WEDGE_RESECTION_OF_LUNG",
+    "name": "Wedge Resection of Lung",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_LUNG",
+    "aliases": [],
+    "description": "Non-anatomical resection of lung tissue.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SEGMENTECTOMY_OF_LUNG",
+    "name": "Segmentectomy of Lung",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_LUNG",
+    "aliases": [],
+    "description": "Anatomical segmental lung resection.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THORACOSCOPIC_PLEURAL_BIOPSY",
+    "name": "Thoracoscopic Pleural Biopsy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_PLEURA",
+    "aliases": [],
+    "description": "Thoracoscopic biopsy of pleural lesion or pleura.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PLEURODESIS",
+    "name": "Pleurodesis",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_PLEURA",
+    "aliases": [],
+    "description": "Procedure to obliterate pleural space and prevent recurrence of pleural effusion or pneumothorax.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DECORTICATION_OF_LUNG",
+    "name": "Decortication of Lung",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_PLEURA",
+    "aliases": [],
+    "description": "Removal of fibrous pleural peel restricting lung expansion.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THYMECTOMY",
+    "name": "Thymectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_MEDIASTINUM",
+    "aliases": [],
+    "description": "Excision of the thymus gland.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RESECTION_OF_MEDIASTINAL_MASS",
+    "name": "Resection of Mediastinal Mass",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_MEDIASTINUM",
+    "aliases": [],
+    "description": "Resection of mediastinal tumour or mass.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OESOPHAGECTOMY_BY_CARDIOTHORACIC",
+    "name": "Oesophagectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_OESOPHAGUS",
+    "aliases": [
+      "Esophagectomy"
+    ],
+    "description": "Resection of oesophagus via thoracic surgical approach.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THORACOTOMY",
+    "name": "Thoracotomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_CHEST_WALL",
+    "aliases": [],
+    "description": "Open surgical access to the thoracic cavity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VIDEO_ASSISTED_THORACOSCOPIC_SURGERY",
+    "name": "Video Assisted Thoracoscopic Surgery",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_CHEST_CAVITY",
+    "aliases": [
+      "VATS"
+    ],
+    "description": "Thoracoscopic minimally invasive procedure within the chest.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_ATRIAL_SEPTAL_DEFECT",
+    "name": "Repair of Atrial Septal Defect",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [
+      "ASD Repair"
+    ],
+    "description": "Surgical closure of atrial septal defect.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_VENTRICULAR_SEPTAL_DEFECT",
+    "name": "Repair of Ventricular Septal Defect",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [
+      "VSD Repair"
+    ],
+    "description": "Surgical closure of ventricular septal defect.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PATENT_DUCTUS_ARTERIOSUS_LIGATION",
+    "name": "Patent Ductus Arteriosus Ligation",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "aliases": [
+      "PDA Ligation"
+    ],
+    "description": "Surgical ligation of patent ductus arteriosus.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TETRALOGY_OF_FALLOT_REPAIR",
+    "name": "Tetralogy of Fallot Repair",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [],
+    "description": "Corrective surgery for tetralogy of Fallot.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AORTIC_COARCTATION_REPAIR",
+    "name": "Aortic Coarctation Repair",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_AORTA",
+    "aliases": [],
+    "description": "Repair of coarctation of the aorta.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PULMONARY_ARTERY_BANDING",
+    "name": "Pulmonary Artery Banding",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "aliases": [],
+    "description": "Pulmonary artery banding procedure for congenital cardiac physiology management.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AORTIC_ARCH_REPLACEMENT",
+    "name": "Aortic Arch Replacement",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_AORTA",
+    "aliases": [],
+    "description": "Replacement of the aortic arch.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_TYPE_A_AORTIC_DISSECTION",
+    "name": "Repair of Type A Aortic Dissection",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_AORTA",
+    "aliases": [],
+    "description": "Emergency operative repair of acute type A aortic dissection.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PULMONARY_THROMBOENDARTERECTOMY",
+    "name": "Pulmonary Thromboendarterectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "aliases": [
+      "PTE"
+    ],
+    "description": "Endarterectomy for chronic thromboembolic obstruction of the pulmonary arteries.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SURGICAL_PULMONARY_EMBOLECTOMY",
+    "name": "Surgical Pulmonary Embolectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "aliases": [],
+    "description": "Open surgical removal of pulmonary arterial embolus.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HEART_TRANSPLANTATION",
+    "name": "Heart Transplantation",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [],
+    "description": "Orthotopic transplantation of donor heart.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LEFT_VENTRICULAR_ANEURYSM_REPAIR",
+    "name": "Left Ventricular Aneurysm Repair",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [],
+    "description": "Repair or resection of left ventricular aneurysm.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_POST_INFARCTION_VENTRICULAR_SEPTAL_RUPTURE",
+    "name": "Repair of Post-Infarction Ventricular Septal Rupture",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [],
+    "description": "Surgical closure of ventricular septal rupture following myocardial infarction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RESECTION_OF_CARDIAC_TUMOUR",
+    "name": "Resection of Cardiac Tumour",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [],
+    "description": "Excision of an intracardiac or cardiac wall tumour.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SEPTAL_MYECTOMY_FOR_HYPERTROPHIC_CARDIOMYOPATHY",
+    "name": "Septal Myectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [],
+    "description": "Resection of hypertrophied septal myocardium for obstructive cardiomyopathy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LEFT_ATRIAL_APPENDAGE_OCCLUSION_SURGICAL",
+    "name": "Surgical Left Atrial Appendage Occlusion",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [
+      "LAA Occlusion"
+    ],
+    "description": "Surgical exclusion or closure of the left atrial appendage.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VENTRICULAR_ASSIST_DEVICE_IMPLANTATION",
+    "name": "Ventricular Assist Device Implantation",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [
+      "VAD"
+    ],
+    "description": "Implantation of a durable ventricular assist device.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_AORTIC_VALVE_REPAIR",
+    "name": "Aortic Valve Repair",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART_VALVES",
+    "aliases": [],
+    "description": "Reconstructive repair of the aortic valve.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PULMONARY_VALVE_REPLACEMENT",
+    "name": "Pulmonary Valve Replacement",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART_VALVES",
+    "aliases": [
+      "PVR"
+    ],
+    "description": "Replacement of the pulmonary valve.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRICUSPID_VALVE_REPLACEMENT",
+    "name": "Tricuspid Valve Replacement",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART_VALVES",
+    "aliases": [
+      "TVR"
+    ],
+    "description": "Replacement of the tricuspid valve.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PERICARDIECTOMY",
+    "name": "Pericardiectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_PERICARDIUM",
+    "aliases": [],
+    "description": "Excision of the pericardium for constrictive or recurrent pericardial disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HYPOPLASTIC_AORTIC_ARCH_REPAIR",
+    "name": "Hypoplastic Aortic Arch Repair",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_AORTA",
+    "aliases": [],
+    "description": "Repair and augmentation of hypoplastic aortic arch.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ARTERIAL_SWITCH_OPERATION",
+    "name": "Arterial Switch Operation",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "aliases": [
+      "ASO"
+    ],
+    "description": "Anatomic repair for transposition of the great arteries.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BIDIRECTIONAL_GLENN_SHUNT",
+    "name": "Bidirectional Glenn Shunt",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "aliases": [
+      "Glenn"
+    ],
+    "description": "Superior cavopulmonary connection for single ventricle palliation.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FONTAN_PROCEDURE",
+    "name": "Fontan Procedure",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "aliases": [],
+    "description": "Completion cavopulmonary connection for single ventricle physiology.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RASTELLI_PROCEDURE",
+    "name": "Rastelli Procedure",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "aliases": [],
+    "description": "Intraventricular rerouting with right ventricle to pulmonary artery conduit.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PARTIAL_ANOMALOUS_PULMONARY_VENOUS_RETURN_REPAIR",
+    "name": "Repair of Partial Anomalous Pulmonary Venous Return",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "aliases": [
+      "PAPVR Repair"
+    ],
+    "description": "Correction of partial anomalous pulmonary venous return.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TOTAL_ANOMALOUS_PULMONARY_VENOUS_RETURN_REPAIR",
+    "name": "Repair of Total Anomalous Pulmonary Venous Return",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "aliases": [
+      "TAPVR Repair"
+    ],
+    "description": "Correction of total anomalous pulmonary venous return.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRUNCUS_ARTERIOSUS_REPAIR",
+    "name": "Truncus Arteriosus Repair",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_GREAT_VESSELS",
+    "aliases": [],
+    "description": "Repair of truncus arteriosus with right ventricle to pulmonary artery continuity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ATRIOVENTRICULAR_SEPTAL_DEFECT_REPAIR",
+    "name": "Atrioventricular Septal Defect Repair",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [
+      "AVSD Repair"
+    ],
+    "description": "Corrective repair of complete or partial atrioventricular septal defect.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_NORWOOD_PROCEDURE",
+    "name": "Norwood Procedure",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [],
+    "description": "Stage I palliation for hypoplastic left heart syndrome.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_DOUBLE_OUTLET_RIGHT_VENTRICLE",
+    "name": "Repair of Double Outlet Right Ventricle",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [
+      "DORV Repair"
+    ],
+    "description": "Corrective surgery for double outlet right ventricle.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_EBSTEIN_ANOMALY",
+    "name": "Repair of Ebstein Anomaly",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_CONGENITAL_CARDIAC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_HEART",
+    "aliases": [],
+    "description": "Repair or reconstruction for Ebstein anomaly of the tricuspid valve.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BRONCHOPLASTY",
+    "name": "Bronchoplasty",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_AIRWAY",
+    "aliases": [],
+    "description": "Reconstruction of bronchial airway.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CHEST_WALL_RESECTION",
+    "name": "Chest Wall Resection",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_CHEST_WALL",
+    "aliases": [],
+    "description": "Resection of chest wall tumour or destructive lesion.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DIAPHRAGMATIC_PLICATION",
+    "name": "Diaphragmatic Plication",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_DIAPHRAGM",
+    "aliases": [],
+    "description": "Plication of elevated or paralysed hemidiaphragm.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BILOBECTOMY",
+    "name": "Bilobectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_LUNG",
+    "aliases": [],
+    "description": "Resection of two pulmonary lobes.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_BULLECTOMY",
+    "name": "Bullectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_LUNG",
+    "aliases": [],
+    "description": "Resection of giant bullae from the lung.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LUNG_VOLUME_REDUCTION_SURGERY",
+    "name": "Lung Volume Reduction Surgery",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_LUNG",
+    "aliases": [
+      "LVRS"
+    ],
+    "description": "Resection of diseased emphysematous lung to improve respiratory mechanics.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SLEEVE_LOBECTOMY",
+    "name": "Sleeve Lobectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_LUNG",
+    "aliases": [],
+    "description": "Lobectomy with bronchial sleeve resection and reconstruction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MEDIASTINOSCOPY",
+    "name": "Mediastinoscopy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_MEDIASTINUM",
+    "aliases": [],
+    "description": "Endoscopic evaluation and biopsy of mediastinal structures.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_RESECTION_OF_THYMIC_TUMOUR",
+    "name": "Resection of Thymic Tumour",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_MEDIASTINUM",
+    "aliases": [],
+    "description": "Excision of thymic neoplasm.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_THORACIC_SYMPATHECTOMY",
+    "name": "Thoracic Sympathectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_MEDIASTINUM",
+    "aliases": [],
+    "description": "Division or ablation of thoracic sympathetic chain.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HELLER_MYOTOMY",
+    "name": "Heller Myotomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_OESOPHAGUS",
+    "aliases": [],
+    "description": "Operative myotomy for oesophageal achalasia.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_REPAIR_OF_OESOPHAGEAL_PERFORATION",
+    "name": "Repair of Oesophageal Perforation",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_OESOPHAGUS",
+    "aliases": [],
+    "description": "Operative repair of oesophageal perforation.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OPEN_DRAINAGE_OF_EMPYEMA",
+    "name": "Open Drainage of Empyema",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_PLEURA",
+    "aliases": [],
+    "description": "Operative drainage and debridement for empyema.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PLEURECTOMY",
+    "name": "Pleurectomy",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_PLEURA",
+    "aliases": [],
+    "description": "Surgical excision of pleura.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRACHEAL_RESECTION_AND_RECONSTRUCTION",
+    "name": "Tracheal Resection and Reconstruction",
+    "specialty_id": "SPEC_CARDIOTHORACIC_SURGERY",
+    "service_line_id": "SL_THORACIC_SURGERY",
+    "anatomy_id": "ANAT_SPEC_CARDIOTHORACIC_SURGERY_TRACHEA",
+    "aliases": [],
+    "description": "Segmental resection of trachea with primary reconstruction.",
+    "status": "active"
+  }
+]

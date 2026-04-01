@@ -1,0 +1,114 @@
+{
+  "source_meta": {
+    "supplier_name": "Smith+Nephew",
+    "system_name": "LEGION Total Knee System",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "LEGION Total Knee System Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_LEGION_TOTAL_KNEE_SYSTEM_LEGION_INSTRUMENTATION",
+        "Tray Name": "LEGION Instrumentation",
+        "System ID": "SYS_LEGION_KNEE",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "LEGION system materials reference dedicated instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LEGION_TOTAL_KNEE_SYSTEM_LEGION_FEMORAL_COMPONENT",
+        "Component Name": "LEGION Femoral Component",
+        "Component Role": "Femoral Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_LEGION_KNEE",
+        "Component Notes": "Core femoral implant family referenced in product and technique materials."
+      },
+      {
+        "Component ID": "COMP_LEGION_TOTAL_KNEE_SYSTEM_LEGION_TIBIAL_BASEPLATE",
+        "Component Name": "LEGION Tibial Baseplate",
+        "Component Role": "Tibial Baseplate",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_LEGION_KNEE",
+        "Component Notes": "Core tibial baseplate family referenced in product and technique materials."
+      },
+      {
+        "Component ID": "COMP_LEGION_TOTAL_KNEE_SYSTEM_LEGION_INSERT",
+        "Component Name": "LEGION Insert",
+        "Component Role": "Tibial Insert",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_LEGION_KNEE",
+        "Component Notes": "Insert family referenced in product and technique materials."
+      },
+      {
+        "Component ID": "COMP_LEGION_TOTAL_KNEE_SYSTEM_LEGION_PATELLA",
+        "Component Name": "LEGION Patella",
+        "Component Role": "Patellar Component",
+        "Implant Category": "Knee Implant",
+        "System ID": "SYS_LEGION_KNEE",
+        "Component Notes": "Patellar implant family referenced in product and technique materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "LEGION Total Knee System",
+          "supplier_name": "Smith+Nephew",
+          "system_category": "Knee Arthroplasty System",
+          "system_notes": "Primary knee arthroplasty system with CR and PS options."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "LEGION Total Knee System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Knee Arthroplasty System",
+        "system_notes": "Primary knee arthroplasty system with CR and PS options."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "LEGION Total Knee System",
+        "supplier_name": "Smith+Nephew",
+        "system_category": "Knee Arthroplasty System",
+        "system_notes": "Primary knee arthroplasty system with CR and PS options."
+      }
+    }
+  ]
+}

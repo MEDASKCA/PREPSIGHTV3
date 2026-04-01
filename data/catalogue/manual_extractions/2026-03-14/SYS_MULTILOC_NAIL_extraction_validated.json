@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "MultiLoc Proximal Humeral Nail",
+    "source_type": "accompanying_information_page",
+    "source_document": "Accompanying Product Information",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_MULTILOC_PROXIMAL_HUMERAL_NAIL_MULTILOC_PROXIMAL_HUMERAL_NAIL_INSTRUMENTATION",
+        "Tray Name": "MultiLoc Proximal Humeral Nail Instrumentation",
+        "System ID": "SYS_MULTILOC_NAIL",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official DePuy Synthes materials list a dedicated MultiLoc proximal humeral nail technique and associated instrumentation workflow."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_MULTILOC_PROXIMAL_HUMERAL_NAIL_MULTILOC_PROXIMAL_HUMERAL_NAIL",
+        "Component Name": "MultiLoc Proximal Humeral Nail",
+        "Component Role": "Intramedullary Nail",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_MULTILOC_NAIL",
+        "Component Notes": "Primary proximal humeral nail component described by the MultiLoc humeral nail technique listing."
+      },
+      {
+        "Component ID": "COMP_MULTILOC_PROXIMAL_HUMERAL_NAIL_MULTILOC_LOCKING_SCREW",
+        "Component Name": "MultiLoc Locking Screw",
+        "Component Role": "Locking Screw",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_MULTILOC_NAIL",
+        "Component Notes": "The MultiLoc proximal humerus construct uses locking fixation options as part of the nail system."
+      },
+      {
+        "Component ID": "COMP_MULTILOC_PROXIMAL_HUMERAL_NAIL_MULTILOC_END_CAP",
+        "Component Name": "MultiLoc End Cap",
+        "Component Role": "End Cap",
+        "Implant Category": "Trauma Implant",
+        "System ID": "SYS_MULTILOC_NAIL",
+        "Component Notes": "End-cap compatibility is part of the MultiLoc humeral nail construct family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "MultiLoc Proximal Humeral Nail",
+          "supplier_name": "DePuy Synthes",
+          "system_category": "Intramedullary Nail System",
+          "system_notes": "Proximal humeral intramedullary nailing platform listed in official DePuy Synthes trauma accompanying product information."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "MultiLoc Proximal Humeral Nail",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Proximal humeral intramedullary nailing platform listed in official DePuy Synthes trauma accompanying product information."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "MultiLoc Proximal Humeral Nail",
+        "supplier_name": "DePuy Synthes",
+        "system_category": "Intramedullary Nail System",
+        "system_notes": "Proximal humeral intramedullary nailing platform listed in official DePuy Synthes trauma accompanying product information."
+      }
+    }
+  ]
+}

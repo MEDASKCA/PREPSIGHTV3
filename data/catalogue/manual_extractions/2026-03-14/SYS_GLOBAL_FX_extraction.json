@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "DePuy Synthes",
+    "system_name": "Global FX Fracture System",
+    "source_type": "patient_information_leaflet",
+    "source_document": "Patient Information Leaflet for Shoulder Joint Replacement",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Global FX Fracture System",
+      "supplier_name": "DePuy Synthes",
+      "system_category": "Shoulder Hemiarthroplasty — Fracture",
+      "system_notes": "Fracture-focused shoulder arthroplasty platform referenced by official J&J MedTech patient information and TGA humeral stem registrations."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Global FX Humeral Stem",
+      "system_name": "Global FX Fracture System",
+      "component_role": "Humeral Stem",
+      "implant_category": "Shoulder Implant",
+      "component_notes": "Official TGA device records identify the Global FX humeral stem prosthesis within the fracture system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Current official source set confirms the system and humeral stem registrations but does not expose a dedicated instrumentation tray description in this pass.",
+      "reason": "A deeper technique or loan-set document pass is required for tray detail.",
+      "source_excerpt": "Tray detail intentionally left blank rather than guessed."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Current official source set confirms the Global FX stem family but does not expose a full normalized product-code matrix in this pass.",
+      "reason": "A deeper IFU, ordering guide, or implant listing pass is required for product-code detail.",
+      "source_excerpt": "Current extraction remains conservative and source-backed."
+    }
+  ]
+}

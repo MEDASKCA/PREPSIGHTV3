@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "Sidus Stem-Free Shoulder",
+    "source_type": "product_page",
+    "source_document": "Sidus Stem-Free Shoulder System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_SIDUS_STEM_FREE_SHOULDER_SIDUS_STEM_FREE_INSTRUMENTATION",
+        "Tray Name": "Sidus Stem-Free Instrumentation",
+        "System ID": "SYS_SIDUS_STEMLESS",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Official Zimmer Biomet materials support dedicated Sidus stem-free instrumentation and linked technique resources."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_SIDUS_STEM_FREE_SHOULDER_SIDUS_HUMERAL_ANCHOR",
+        "Component Name": "Sidus Humeral Anchor",
+        "Component Role": "Humeral Anchor",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_SIDUS_STEMLESS",
+        "Component Notes": "Official product materials describe the metaphyseal humeral anchor platform of the stem-free construct."
+      },
+      {
+        "Component ID": "COMP_SIDUS_STEM_FREE_SHOULDER_SIDUS_HUMERAL_HEAD",
+        "Component Name": "Sidus Humeral Head",
+        "Component Role": "Humeral Head",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_SIDUS_STEMLESS",
+        "Component Notes": "Official materials describe humeral head options paired with the Sidus stem-free anchor."
+      },
+      {
+        "Component ID": "COMP_SIDUS_STEM_FREE_SHOULDER_SIDUS_GLENOID_COMPONENT",
+        "Component Name": "Sidus Glenoid Component",
+        "Component Role": "Glenoid Component",
+        "Implant Category": "Shoulder Implant",
+        "System ID": "SYS_SIDUS_STEMLESS",
+        "Component Notes": "Official materials describe compatible glenoid component options within the anatomic shoulder construct."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Sidus Stem-Free Shoulder",
+          "supplier_name": "Zimmer Biomet",
+          "system_category": "Stemless Shoulder Arthroplasty System",
+          "system_notes": "Stem-free anatomic shoulder arthroplasty platform designed to preserve humeral bone stock."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Sidus Stem-Free Shoulder",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Stemless Shoulder Arthroplasty System",
+        "system_notes": "Stem-free anatomic shoulder arthroplasty platform designed to preserve humeral bone stock."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Sidus Stem-Free Shoulder",
+        "supplier_name": "Zimmer Biomet",
+        "system_category": "Stemless Shoulder Arthroplasty System",
+        "system_notes": "Stem-free anatomic shoulder arthroplasty platform designed to preserve humeral bone stock."
+      }
+    }
+  ]
+}

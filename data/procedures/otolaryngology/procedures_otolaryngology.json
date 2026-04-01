@@ -1,0 +1,372 @@
+[
+  {
+    "id": "PROC_THYROID_LOBECTOMY_BY_ENT",
+    "name": "Thyroid Lobectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_NECK",
+    "aliases": [],
+    "description": "Removal of one lobe of the thyroid gland within head and neck practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TOTAL_THYROIDECTOMY_BY_ENT",
+    "name": "Total Thyroidectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_NECK",
+    "aliases": [],
+    "description": "Complete removal of the thyroid gland within head and neck practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PAROTIDECTOMY",
+    "name": "Parotidectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_SALIVARY_GLANDS",
+    "aliases": [],
+    "description": "Partial or total excision of the parotid gland.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SUBMANDIBULAR_GLAND_EXCISION",
+    "name": "Submandibular Gland Excision",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_SALIVARY_GLANDS",
+    "aliases": [],
+    "description": "Excision of the submandibular gland.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_NECK_DISSECTION",
+    "name": "Neck Dissection",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_NECK",
+    "aliases": [],
+    "description": "Lymph node dissection of the neck for oncological disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PARTIAL_GLOSSECTOMY",
+    "name": "Partial Glossectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_PHARYNX",
+    "aliases": [],
+    "description": "Partial excision of tongue for neoplastic disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LATERAL_PHARYNGECTOMY",
+    "name": "Lateral Pharyngectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_PHARYNX",
+    "aliases": [],
+    "description": "Resection of lateral pharyngeal wall for malignancy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LARYNGECTOMY",
+    "name": "Laryngectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_HEAD_AND_NECK_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_LARYNX",
+    "aliases": [],
+    "description": "Partial or total removal of the larynx.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FUNCTIONAL_ENDOSCOPIC_SINUS_SURGERY",
+    "name": "Functional Endoscopic Sinus Surgery",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_PARANASAL_SINUSES",
+    "aliases": [
+      "FESS"
+    ],
+    "description": "Endoscopic surgery to open and clear diseased paranasal sinuses.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENDOSCOPIC_ANTROSTOMY",
+    "name": "Endoscopic Antrostomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_PARANASAL_SINUSES",
+    "aliases": [],
+    "description": "Endoscopic enlargement of maxillary sinus ostium.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENDOSCOPIC_ETHMOIDECTOMY",
+    "name": "Endoscopic Ethmoidectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_PARANASAL_SINUSES",
+    "aliases": [],
+    "description": "Endoscopic removal of ethmoidal air cells.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENDOSCOPIC_SPHENOIDOTOMY",
+    "name": "Endoscopic Sphenoidotomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_PARANASAL_SINUSES",
+    "aliases": [],
+    "description": "Endoscopic opening of the sphenoid sinus.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENDOSCOPIC_FRONTAL_SINUS_SURGERY",
+    "name": "Endoscopic Frontal Sinus Surgery",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_PARANASAL_SINUSES",
+    "aliases": [],
+    "description": "Endoscopic surgery involving the frontal sinus drainage pathway.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SEPTOPLASTY",
+    "name": "Septoplasty",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_NOSE",
+    "aliases": [],
+    "description": "Correction of deviated nasal septum.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TURBINATE_REDUCTION",
+    "name": "Turbinate Reduction",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_NOSE",
+    "aliases": [],
+    "description": "Reduction of inferior turbinate hypertrophy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENDOSCOPIC_SKULL_BASE_APPROACH",
+    "name": "Endoscopic Skull Base Approach",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_RHINOLOGY_AND_SINUS_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_SKULL_BASE",
+    "aliases": [],
+    "description": "Endoscopic transnasal approach to skull base pathology.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MYRINGOTOMY_AND_GROMMET_INSERTION",
+    "name": "Myringotomy and Grommet Insertion",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_MIDDLE_EAR",
+    "aliases": [
+      "Ventilation Tube Insertion"
+    ],
+    "description": "Incision of tympanic membrane with insertion of ventilation tube.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TYMPANOPLASTY",
+    "name": "Tympanoplasty",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_MIDDLE_EAR",
+    "aliases": [],
+    "description": "Repair of tympanic membrane with or without ossicular reconstruction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MASTOIDECTOMY",
+    "name": "Mastoidectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_MIDDLE_EAR",
+    "aliases": [],
+    "description": "Surgical removal of mastoid air cells for chronic ear disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ATTICOTOMY",
+    "name": "Atticotomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_MIDDLE_EAR",
+    "aliases": [],
+    "description": "Surgery of the attic/epitympanum for cholesteatoma or chronic ear disease.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_STAPEDECTOMY",
+    "name": "Stapedectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_MIDDLE_EAR",
+    "aliases": [
+      "Stapedotomy"
+    ],
+    "description": "Middle ear surgery for otosclerosis involving the stapes.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_COHLEAR_IMPLANT_INSERTION",
+    "name": "Cochlear Implant Insertion",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_INNER_EAR",
+    "aliases": [],
+    "description": "Insertion of cochlear implant device for severe hearing loss.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_OSSICULOPLASTY",
+    "name": "Ossiculoplasty",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_MIDDLE_EAR",
+    "aliases": [],
+    "description": "Reconstruction of ossicular chain.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_PINNA_LESION",
+    "name": "Excision of Pinna Lesion",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_OTOLOGY_AND_NEUROTOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_EXTERNAL_EAR",
+    "aliases": [],
+    "description": "Excision of lesion of the external ear.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MICROLARYNGOSCOPY",
+    "name": "Microlaryngoscopy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_LARYNGOLOGY_AND_AIRWAY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_LARYNX",
+    "aliases": [],
+    "description": "Endoscopic examination of the larynx under microscopy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MICROLARYNGOSCOPY_AND_EXCISION_OF_VOCAL_CORD_LESION",
+    "name": "Microlaryngoscopy and Excision of Vocal Cord Lesion",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_LARYNGOLOGY_AND_AIRWAY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_LARYNX",
+    "aliases": [],
+    "description": "Microlaryngoscopic excision of lesion from the vocal fold.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_VOCAL_CORD_INJECTION",
+    "name": "Vocal Cord Injection",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_LARYNGOLOGY_AND_AIRWAY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_LARYNX",
+    "aliases": [
+      "Injection Laryngoplasty"
+    ],
+    "description": "Injection augmentation of the vocal cord.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRACHEOSTOMY",
+    "name": "Tracheostomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_LARYNGOLOGY_AND_AIRWAY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_TRACHEA",
+    "aliases": [],
+    "description": "Creation of tracheal airway through the neck.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ENDOSCOPIC_AIRWAY_DILATATION",
+    "name": "Endoscopic Airway Dilatation",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_LARYNGOLOGY_AND_AIRWAY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_TRACHEA",
+    "aliases": [],
+    "description": "Endoscopic dilatation of laryngotracheal stenosis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LARYNGOTRACHEAL_RECONSTRUCTION",
+    "name": "Laryngotracheal Reconstruction",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_LARYNGOLOGY_AND_AIRWAY_SURGERY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_TRACHEA",
+    "aliases": [],
+    "description": "Open reconstructive airway surgery for laryngotracheal stenosis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TONSILLECTOMY",
+    "name": "Tonsillectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_PAEDIATRIC_OTOLARYNGOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_TONSILS_AND_ADENOIDS",
+    "aliases": [],
+    "description": "Removal of palatine tonsils.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ADENOIDECTOMY",
+    "name": "Adenoidectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_PAEDIATRIC_OTOLARYNGOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_TONSILS_AND_ADENOIDS",
+    "aliases": [],
+    "description": "Removal of adenoidal tissue.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TONSILLECTOMY_AND_ADENOIDECTOMY",
+    "name": "Tonsillectomy and Adenoidectomy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_PAEDIATRIC_OTOLARYNGOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_TONSILS_AND_ADENOIDS",
+    "aliases": [
+      "T&A"
+    ],
+    "description": "Combined tonsillectomy and adenoidectomy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PAEDIATRIC_GROMMET_INSERTION",
+    "name": "Paediatric Grommet Insertion",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_PAEDIATRIC_OTOLARYNGOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_MIDDLE_EAR",
+    "aliases": [],
+    "description": "Ventilation tube insertion in paediatric practice.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MICROLARYNGOBRONCHOSCOPY",
+    "name": "Microlaryngobronchoscopy",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_PAEDIATRIC_OTOLARYNGOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_AIRWAY",
+    "aliases": [],
+    "description": "Endoscopic assessment of paediatric upper and lower airway.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FOREIGN_BODY_REMOVAL_FROM_AIRWAY",
+    "name": "Foreign Body Removal from Airway",
+    "specialty_id": "SPEC_ENT",
+    "service_line_id": "SL_PAEDIATRIC_OTOLARYNGOLOGY",
+    "anatomy_id": "ANAT_SPEC_OTOLARYNGOLOGY_EAR_NOSE_AND_THROAT_AIRWAY",
+    "aliases": [],
+    "description": "Removal of inhaled foreign body from paediatric airway.",
+    "status": "active"
+  }
+]

@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier": "Zimmer Biomet",
+    "system_name": "Zimmer Biomet Femoral Revision Portfolio",
+    "source_type": "portfolio_page",
+    "source_document": "Zimmer Biomet Revision Hip Portfolio",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_id": "SYS_ZIMMER_BIOMET_FEMORAL_REVISION_PORTFOLIO",
+      "system_name": "Zimmer Biomet Femoral Revision Portfolio",
+      "supplier": "Zimmer Biomet",
+      "category": "Perioperative Specialty Workflow",
+      "source_notes": "Public Zimmer Biomet hip and revision hip pages used as source anchors for the femoral revision portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "system_id": "SYS_ZIMMER_BIOMET_FEMORAL_REVISION_PORTFOLIO",
+      "component_name": "Femoral Revision Portfolio Framework",
+      "role": "Portfolio Framework",
+      "implant_category": "Hip Revision Portfolio",
+      "source_notes": "Portfolio-level informational framework anchored to Zimmer Biomet revision hip public pages."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "system_id": "SYS_ZIMMER_BIOMET_FEMORAL_REVISION_PORTFOLIO",
+      "item_type": "tray",
+      "item_name": "No tray-level data",
+      "reason": "Public portfolio source anchor does not enumerate tray-level data for this entry."
+    },
+    {
+      "system_id": "SYS_ZIMMER_BIOMET_FEMORAL_REVISION_PORTFOLIO",
+      "item_type": "product",
+      "item_name": "No product-level data",
+      "reason": "Public portfolio source anchor does not enumerate SKU-level data for this entry."
+    }
+  ]
+}

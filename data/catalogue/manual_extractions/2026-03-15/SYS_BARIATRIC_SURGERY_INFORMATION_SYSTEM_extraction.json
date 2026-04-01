@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Unassigned",
+    "system_name": "Bariatric Surgery Information System",
+    "source_type": "society_homepage",
+    "source_document": "ASMBS / IFSO Bariatric Surgery Resources",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Bariatric Surgery Information System",
+      "supplier_name": "Unassigned",
+      "system_category": "Perioperative Specialty Workflow",
+      "system_notes": "Public source anchor for bariatric surgery information, education, and specialty workflow support."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Bariatric Surgery Workflow Framework",
+      "system_name": "Bariatric Surgery Information System",
+      "component_role": "Workflow Framework",
+      "implant_category": "Service Line Information Workflow",
+      "component_notes": "ASMBS and IFSO resources describe bariatric surgery education, guidelines, and specialty workflow support."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "Society education resources do not define a tray or instrument case for this bariatric surgery information row.",
+      "reason": "Tray rows should only be added from device-specific or procedural kit sources.",
+      "source_excerpt": "Current extraction remains workflow-level only."
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "Public society resources do not provide normalized product codes.",
+      "reason": "Product rows should only be added from vendor-specific bariatric workflow platforms if identified later.",
+      "source_excerpt": "Current extraction remains source-backed and high-level."
+    }
+  ]
+}

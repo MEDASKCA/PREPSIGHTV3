@@ -1,0 +1,310 @@
+[
+  {
+    "id": "PROC_HALLUX_VALGUS_CORRECTION_BY_PODIATRIC_SURGERY",
+    "name": "Hallux Valgus Correction",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_FOREFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOREFOOT",
+    "aliases": [
+      "Bunion Correction"
+    ],
+    "description": "Corrective surgery for hallux valgus deformity of the forefoot.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_FIRST_METATARSOPHALANGEAL_JOINT_FUSION_BY_PODIATRIC_SURGERY",
+    "name": "First Metatarsophalangeal Joint Fusion",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_FOREFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FIRST_METATARSOPHALANGEAL_JOINT",
+    "aliases": [
+      "First MTP Joint Fusion"
+    ],
+    "description": "Arthrodesis of the first metatarsophalangeal joint.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CHEILECTOMY",
+    "name": "Cheilectomy",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_FOREFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FIRST_METATARSOPHALANGEAL_JOINT",
+    "aliases": [],
+    "description": "Excision of dorsal osteophytes for hallux rigidus.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_METATARSAL_OSTEOTOMY",
+    "name": "Metatarsal Osteotomy",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_FOREFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOREFOOT",
+    "aliases": [],
+    "description": "Corrective osteotomy of one or more metatarsals.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_HAMMERTOE_CORRECTION",
+    "name": "Hammertoe Correction",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_FOREFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_TOES",
+    "aliases": [],
+    "description": "Correction of hammertoe deformity.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_WEILS_OSTEOTOMY",
+    "name": "Weils Osteotomy",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_FOREFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOREFOOT",
+    "aliases": [
+      "Weil Osteotomy"
+    ],
+    "description": "Distal metatarsal osteotomy for metatarsalgia or lesser toe pathology.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXCISION_OF_MORTONS_NEUROMA",
+    "name": "Excision of Mortons Neuroma",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_FOREFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOREFOOT",
+    "aliases": [
+      "Excision of Morton's Neuroma"
+    ],
+    "description": "Excision of interdigital neuroma of the forefoot.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PLANTAR_PLATE_REPAIR",
+    "name": "Plantar Plate Repair",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_FOREFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOREFOOT",
+    "aliases": [],
+    "description": "Repair of plantar plate instability of a lesser metatarsophalangeal joint.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_MIDFOOT_FUSION_BY_PODIATRIC_SURGERY",
+    "name": "Midfoot Fusion",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_MIDFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_MIDFOOT",
+    "aliases": [
+      "Midfoot Arthrodesis"
+    ],
+    "description": "Fusion of one or more midfoot joints.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LISFRANC_FIXATION",
+    "name": "Lisfranc Fixation",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_MIDFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_MIDFOOT",
+    "aliases": [],
+    "description": "Fixation of Lisfranc joint injury or instability.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LISFRANC_ARTHRODESIS",
+    "name": "Lisfranc Arthrodesis",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_MIDFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_MIDFOOT",
+    "aliases": [],
+    "description": "Fusion procedure for Lisfranc joint complex.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXOSTECTOMY_OF_MIDFOOT",
+    "name": "Exostectomy of Midfoot",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_MIDFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_MIDFOOT",
+    "aliases": [],
+    "description": "Excision of bony prominence from the midfoot.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_COTTON_OSTEOTOMY",
+    "name": "Cotton Osteotomy",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_MIDFOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_MIDFOOT",
+    "aliases": [],
+    "description": "Opening wedge medial cuneiform osteotomy for flatfoot reconstruction.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ANKLE_FUSION_BY_PODIATRIC_SURGERY",
+    "name": "Ankle Fusion",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_ANKLE",
+    "aliases": [
+      "Ankle Arthrodesis"
+    ],
+    "description": "Fusion of the ankle joint.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_SUBTALAR_FUSION_BY_PODIATRIC_SURGERY",
+    "name": "Subtalar Fusion",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_REARFOOT",
+    "aliases": [
+      "Subtalar Arthrodesis"
+    ],
+    "description": "Fusion of the subtalar joint.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRIPLE_FUSION_BY_PODIATRIC_SURGERY",
+    "name": "Triple Fusion",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_REARFOOT",
+    "aliases": [
+      "Triple Arthrodesis"
+    ],
+    "description": "Fusion of the subtalar, talonavicular, and calcaneocuboid joints.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CALCANEAL_OSTEOTOMY",
+    "name": "Calcaneal Osteotomy",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_REARFOOT",
+    "aliases": [],
+    "description": "Corrective osteotomy of the calcaneus.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ACHILLES_TENDON_REPAIR_BY_PODIATRIC_SURGERY",
+    "name": "Achilles Tendon Repair",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_ACHILLES_TENDON",
+    "aliases": [],
+    "description": "Repair of ruptured Achilles tendon.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ACHILLES_TENDON_LENGTHENING",
+    "name": "Achilles Tendon Lengthening",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_ACHILLES_TENDON",
+    "aliases": [],
+    "description": "Surgical lengthening of the Achilles tendon.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PERONEAL_TENDON_REPAIR",
+    "name": "Peroneal Tendon Repair",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_ANKLE",
+    "aliases": [],
+    "description": "Repair of torn or unstable peroneal tendon.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_LATERAL_ANKLE_LIGAMENT_RECONSTRUCTION",
+    "name": "Lateral Ankle Ligament Reconstruction",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_ANKLE",
+    "aliases": [
+      "Brostrom Procedure"
+    ],
+    "description": "Reconstruction of lateral ankle ligament complex for instability.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_ANKLE_ARTHROSCOPY",
+    "name": "Ankle Arthroscopy",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_REARFOOT_AND_ANKLE_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_ANKLE",
+    "aliases": [],
+    "description": "Diagnostic or therapeutic arthroscopy of the ankle joint.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DEBRIDEMENT_OF_DIABETIC_FOOT_ULCER",
+    "name": "Debridement of Diabetic Foot Ulcer",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOOT",
+    "aliases": [],
+    "description": "Debridement of soft tissue and devitalised tissue in diabetic foot ulceration.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_DRAINAGE_OF_DIABETIC_FOOT_ABSCESS",
+    "name": "Drainage of Diabetic Foot Abscess",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOOT",
+    "aliases": [],
+    "description": "Incision and drainage of abscess in the diabetic foot.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_PARTIAL_RAY_AMPUTATION",
+    "name": "Partial Ray Amputation",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOREFOOT",
+    "aliases": [],
+    "description": "Amputation of toe with associated metatarsal ray for diabetic foot infection or necrosis.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TOE_AMPUTATION_FOR_DIABETIC_FOOT",
+    "name": "Toe Amputation for Diabetic Foot",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_TOES",
+    "aliases": [],
+    "description": "Amputation of toe for diabetic foot sepsis, osteomyelitis, or gangrene.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_TRANSMETATARSAL_AMPUTATION",
+    "name": "Transmetatarsal Amputation",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOREFOOT",
+    "aliases": [],
+    "description": "Forefoot amputation through the metatarsals.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_CHARCOT_FOOT_RECONSTRUCTION",
+    "name": "Charcot Foot Reconstruction",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_MIDFOOT",
+    "aliases": [],
+    "description": "Reconstructive surgery for deformity and instability in Charcot neuroarthropathy.",
+    "status": "active"
+  },
+  {
+    "id": "PROC_EXOSTECTOMY_FOR_DIABETIC_FOOT_PRESSURE_POINT",
+    "name": "Exostectomy for Diabetic Foot Pressure Point",
+    "specialty_id": "SPEC_PODIATRIC_SURGERY",
+    "service_line_id": "SL_DIABETIC_FOOT_SURGERY",
+    "anatomy_id": "ANAT_SPEC_PODIATRIC_SURGERY_FOOT",
+    "aliases": [],
+    "description": "Excision of bony prominence contributing to recurrent diabetic foot ulceration.",
+    "status": "active"
+  }
+]

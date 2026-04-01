@@ -1,0 +1,53 @@
+{
+  "source_meta": {
+    "supplier_name": "BD",
+    "system_name": "Arterial Line Kit",
+    "source_type": "product_family_page",
+    "source_document": "StatLock Arterial Ultra Stabilisation Device | BD",
+    "source_version": "",
+    "source_date": "2026-03-15"
+  },
+  "systems": [
+    {
+      "system_name": "Arterial Line Kit",
+      "supplier_name": "BD",
+      "system_category": "Vascular Access",
+      "system_notes": "Official source anchor for BD arterial-line stabilisation and accessory workflow."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "StatLock Arterial Ultra Stabilisation Device",
+      "system_name": "Arterial Line Kit",
+      "component_role": "Arterial Line Securement Device",
+      "implant_category": "Vascular Access Device",
+      "component_notes": "Official BD arterial-line stabilisation family used for non-winged arterial lines."
+    },
+    {
+      "component_name": "StatLock Arterial Select Stabilization Device",
+      "system_name": "Arterial Line Kit",
+      "component_role": "Arterial Line Securement Device",
+      "implant_category": "Vascular Access Device",
+      "component_notes": "Official BD arterial-line stabilisation option listed with tubing extension and accessory materials."
+    }
+  ],
+  "products": [
+    {
+      "component_name": "StatLock Arterial Ultra Stabilisation Device",
+      "product_code": "VADAC",
+      "product_name": "StatLock Arterial Stabilization Device for Arrow Catheters, Crescent",
+      "supplier_name": "BD",
+      "product_notes": "Official BD coded product page for arterial-line stabilization."
+    }
+  ],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "The public BD arterial-line pages do not define a full kit tray in the current pass.",
+      "reason": "Tray rows should only be added from packaged arterial-line kit or procedural set sources.",
+      "source_excerpt": "Current extraction remains device-family based."
+    }
+  ]
+}

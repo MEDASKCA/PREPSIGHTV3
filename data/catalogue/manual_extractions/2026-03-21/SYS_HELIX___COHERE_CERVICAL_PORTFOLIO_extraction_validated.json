@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "NuVasive",
+    "system_name": "Helix / Cohere Cervical Portfolio",
+    "source_type": "product_history_page",
+    "source_document": "Dr Gary Michelson | NuVasive",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_HELIX_COHERE_CERVICAL_PORTFOLIO_HELIX_AND_COHERE_CERVICAL_FRAMEWORK",
+        "Component Name": "Helix and Cohere Cervical Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Spine",
+        "System ID": "SYS_HELIX___COHERE_CERVICAL_PORTFOLIO",
+        "Component Notes": "Framework component anchored to NuVasive public cervical source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Helix / Cohere Cervical Portfolio",
+          "supplier_name": "NuVasive",
+          "system_category": "spine",
+          "system_notes": "Official NuVasive cervical plate and interbody materials used as the public source anchors for this cervical portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Helix / Cohere Cervical Portfolio",
+        "supplier_name": "NuVasive",
+        "system_category": "spine",
+        "system_notes": "Official NuVasive cervical plate and interbody materials used as the public source anchors for this cervical portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Helix / Cohere Cervical Portfolio",
+        "supplier_name": "NuVasive",
+        "system_category": "spine",
+        "system_notes": "Official NuVasive cervical plate and interbody materials used as the public source anchors for this cervical portfolio entry."
+      }
+    }
+  ]
+}

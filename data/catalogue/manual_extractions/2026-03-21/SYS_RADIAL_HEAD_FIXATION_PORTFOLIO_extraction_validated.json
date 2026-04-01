@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "TriMed",
+    "system_name": "Radial Head Fixation Portfolio",
+    "source_type": "product_page",
+    "source_document": "Upper Extremity",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_RADIAL_HEAD_FIXATION_PORTFOLIO_RADIAL_HEAD_FIXATION_FRAMEWORK",
+        "Component Name": "Radial Head Fixation Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Upper Extremity Trauma",
+        "System ID": "SYS_RADIAL_HEAD_FIXATION_PORTFOLIO",
+        "Component Notes": "Framework component anchored to TriMed public radial head fixation source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Radial Head Fixation Portfolio",
+          "supplier_name": "TriMed",
+          "system_category": "upper_extremity_trauma",
+          "system_notes": "Official TriMed upper-extremity fixation materials used as the public source anchors for this radial head fixation portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Radial Head Fixation Portfolio",
+        "supplier_name": "TriMed",
+        "system_category": "upper_extremity_trauma",
+        "system_notes": "Official TriMed upper-extremity fixation materials used as the public source anchors for this radial head fixation portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Radial Head Fixation Portfolio",
+        "supplier_name": "TriMed",
+        "system_category": "upper_extremity_trauma",
+        "system_notes": "Official TriMed upper-extremity fixation materials used as the public source anchors for this radial head fixation portfolio entry."
+      }
+    }
+  ]
+}

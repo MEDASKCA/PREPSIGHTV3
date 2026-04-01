@@ -1,0 +1,241 @@
+{
+  "source_meta": {
+    "supplier_name": "Orthofix",
+    "system_name": "Paediatric Deformity Correction Portfolio",
+    "source_type": "product_page",
+    "source_document": "LRS Pediatric, eight-Plate Guided Growth System and JuniOrtho Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_PAEDIATRIC_DEFORMITY_CORRECTION_PORTFOLIO_JUNIORTHO_PLATE",
+        "Component Name": "JuniOrtho Plate",
+        "Component Role": "Paediatric Plate",
+        "Implant Category": "Paediatric Orthopaedic Implant",
+        "System ID": "SYS_PAEDIATRIC_DEFORMITY_CORRECTION_PORTFOLIO",
+        "Component Notes": "JuniOrtho plate family referenced in updated Orthofix source material."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Paediatric Deformity Correction Portfolio",
+          "supplier_name": "Orthofix",
+          "system_category": "Paediatric Deformity Correction System",
+          "system_notes": "Paediatric deformity correction portfolio spanning limb-lengthening and guided-growth solutions."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [
+      {
+        "row": {
+          "tray_name": "Paediatric Deformity Correction Instrumentation",
+          "system_name": "Paediatric Deformity Correction Portfolio",
+          "tray_type": "Instrumentation",
+          "tray_notes": "Portfolio materials reference guided-growth and limb-reconstruction instrumentation."
+        },
+        "reason": "Duplicate tray already exists in master dataset."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "row": {
+          "component_name": "Guided Growth Plate",
+          "system_name": "Paediatric Deformity Correction Portfolio",
+          "component_role": "Plate",
+          "implant_category": "Paediatric Orthopaedic Implant",
+          "component_notes": "Guided-growth plate family referenced in the portfolio materials."
+        },
+        "reason": "Possible component role duplicate for this system."
+      },
+      {
+        "row": {
+          "component_name": "Guided Growth Screw",
+          "system_name": "Paediatric Deformity Correction Portfolio",
+          "component_role": "Screw",
+          "implant_category": "Paediatric Orthopaedic Implant",
+          "component_notes": "Guided-growth screw family referenced in the portfolio materials."
+        },
+        "reason": "Possible component role duplicate for this system."
+      },
+      {
+        "row": {
+          "component_name": "Pediatric LRS Rail",
+          "system_name": "Paediatric Deformity Correction Portfolio",
+          "component_role": "Rail",
+          "implant_category": "External Fixation Implant",
+          "component_notes": "Pediatric limb reconstruction rail family referenced in the portfolio materials."
+        },
+        "reason": "Possible component role duplicate for this system."
+      },
+      {
+        "row": {
+          "component_name": "Pediatric Half Pin",
+          "system_name": "Paediatric Deformity Correction Portfolio",
+          "component_role": "Half Pin",
+          "implant_category": "External Fixation Implant",
+          "component_notes": "Half pin family referenced in the portfolio materials."
+        },
+        "reason": "Possible component role duplicate for this system."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "supplier_name": "Orthofix",
+        "system_category": "Paediatric Deformity Correction System",
+        "system_notes": "Paediatric deformity correction portfolio spanning limb-lengthening and guided-growth solutions."
+      },
+      "reason": "System already exists in master dataset."
+    },
+    {
+      "entity": "TRAYS",
+      "row": {
+        "tray_name": "Paediatric Deformity Correction Instrumentation",
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "tray_type": "Instrumentation",
+        "tray_notes": "Portfolio materials reference guided-growth and limb-reconstruction instrumentation."
+      },
+      "reason": "Tray already exists in master dataset."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "Guided Growth Plate",
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "component_role": "Plate",
+        "implant_category": "Paediatric Orthopaedic Implant",
+        "component_notes": "Guided-growth plate family referenced in the portfolio materials."
+      },
+      "reason": "Possible component role duplicate for this system."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "Guided Growth Screw",
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "component_role": "Screw",
+        "implant_category": "Paediatric Orthopaedic Implant",
+        "component_notes": "Guided-growth screw family referenced in the portfolio materials."
+      },
+      "reason": "Possible component role duplicate for this system."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "Pediatric LRS Rail",
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "component_role": "Rail",
+        "implant_category": "External Fixation Implant",
+        "component_notes": "Pediatric limb reconstruction rail family referenced in the portfolio materials."
+      },
+      "reason": "Possible component role duplicate for this system."
+    },
+    {
+      "entity": "COMPONENTS",
+      "row": {
+        "component_name": "Pediatric Half Pin",
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "component_role": "Half Pin",
+        "implant_category": "External Fixation Implant",
+        "component_notes": "Half pin family referenced in the portfolio materials."
+      },
+      "reason": "Possible component role duplicate for this system."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "supplier_name": "Orthofix",
+        "system_category": "Paediatric Deformity Correction System",
+        "system_notes": "Paediatric deformity correction portfolio spanning limb-lengthening and guided-growth solutions."
+      }
+    },
+    {
+      "entity": "TRAYS",
+      "reason": "Duplicate tray already exists in master dataset.",
+      "row": {
+        "tray_name": "Paediatric Deformity Correction Instrumentation",
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "tray_type": "Instrumentation",
+        "tray_notes": "Portfolio materials reference guided-growth and limb-reconstruction instrumentation."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "Guided Growth Plate",
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "component_role": "Plate",
+        "implant_category": "Paediatric Orthopaedic Implant",
+        "component_notes": "Guided-growth plate family referenced in the portfolio materials."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "Guided Growth Screw",
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "component_role": "Screw",
+        "implant_category": "Paediatric Orthopaedic Implant",
+        "component_notes": "Guided-growth screw family referenced in the portfolio materials."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "Pediatric LRS Rail",
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "component_role": "Rail",
+        "implant_category": "External Fixation Implant",
+        "component_notes": "Pediatric limb reconstruction rail family referenced in the portfolio materials."
+      }
+    },
+    {
+      "entity": "COMPONENTS",
+      "reason": "Possible component role duplicate for this system.",
+      "row": {
+        "component_name": "Pediatric Half Pin",
+        "system_name": "Paediatric Deformity Correction Portfolio",
+        "component_role": "Half Pin",
+        "implant_category": "External Fixation Implant",
+        "component_notes": "Half pin family referenced in the portfolio materials."
+      }
+    }
+  ]
+}

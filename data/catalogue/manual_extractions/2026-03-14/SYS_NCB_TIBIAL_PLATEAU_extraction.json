@@ -1,0 +1,59 @@
+{
+  "source_meta": {
+    "supplier_name": "Zimmer Biomet",
+    "system_name": "NCB Tibial Plateau Plate",
+    "source_type": "product_page",
+    "source_document": "NCB Proximal Tibia Plating System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "NCB Tibial Plateau Plate",
+      "supplier_name": "Zimmer Biomet",
+      "system_category": "Locking Plate — Tibial Plateau",
+      "system_notes": "NCB proximal tibia plating platform used for tibial plateau fixation within the Zimmer Biomet trauma portfolio."
+    }
+  ],
+  "trays": [
+    {
+      "tray_name": "NCB Proximal Tibia Instrument Set",
+      "system_name": "NCB Tibial Plateau Plate",
+      "tray_type": "Instrumentation",
+      "tray_notes": "Official Zimmer Biomet technique materials describe dedicated instrumentation and MIS targeting workflow for the NCB proximal tibia system."
+    }
+  ],
+  "components": [
+    {
+      "component_name": "NCB Proximal Tibia Plate",
+      "system_name": "NCB Tibial Plateau Plate",
+      "component_role": "Plate",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official Zimmer Biomet materials describe the NCB proximal tibia plate family used for tibial plateau fixation."
+    },
+    {
+      "component_name": "NCB Locking Screw",
+      "system_name": "NCB Tibial Plateau Plate",
+      "component_role": "Screw",
+      "implant_category": "Trauma Implant",
+      "component_notes": "Official surgical technique materials describe polyaxial locking screw fixation used with the NCB proximal tibia construct."
+    },
+    {
+      "component_name": "NCB Targeting Guide",
+      "system_name": "NCB Tibial Plateau Plate",
+      "component_role": "Guide",
+      "implant_category": "Instrumentation",
+      "component_notes": "Official technique materials describe the dedicated targeting guide and instrument workflow for the NCB proximal tibia system."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "product",
+      "raw_text": "Current official Zimmer Biomet sources confirm the NCB proximal tibia plate family and instrumentation, but a full normalized product-code matrix has not yet been extracted in this pass.",
+      "reason": "A deeper product-matrix or sterile implant listing pass is required for comprehensive product-code detail.",
+      "source_excerpt": "Current extraction remains at tray and implant-family level."
+    }
+  ]
+}

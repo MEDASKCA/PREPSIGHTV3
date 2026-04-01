@@ -1,0 +1,106 @@
+{
+  "source_meta": {
+    "supplier_name": "Acumed",
+    "system_name": "Anatomic Radial Head System",
+    "source_type": "surgical_technique_pdf",
+    "source_document": "Anatomic Radial Head Solutions Surgical Technique",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [
+      {
+        "Tray ID": "TRAY_ANATOMIC_RADIAL_HEAD_SYSTEM_ANATOMIC_RADIAL_HEAD_INSTRUMENTATION",
+        "Tray Name": "Anatomic Radial Head Instrumentation",
+        "System ID": "SYS_ANATOMIC_RADIAL_HEAD_SYSTEM",
+        "Tray Type": "Instrumentation",
+        "Tray Notes": "Product and technique materials reference dedicated radial head system instrumentation."
+      }
+    ],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ANATOMIC_RADIAL_HEAD_SYSTEM_ANATOMIC_RADIAL_HEAD_COMPONENT",
+        "Component Name": "Anatomic Radial Head Component",
+        "Component Role": "Radial Head Component",
+        "Implant Category": "Elbow Implant",
+        "System ID": "SYS_ANATOMIC_RADIAL_HEAD_SYSTEM",
+        "Component Notes": "Core radial head implant family referenced in the product and technique materials."
+      },
+      {
+        "Component ID": "COMP_ANATOMIC_RADIAL_HEAD_SYSTEM_ANATOMIC_RADIAL_HEAD_STEM",
+        "Component Name": "Anatomic Radial Head Stem",
+        "Component Role": "Stem",
+        "Implant Category": "Elbow Implant",
+        "System ID": "SYS_ANATOMIC_RADIAL_HEAD_SYSTEM",
+        "Component Notes": "Core stem family referenced in the product and technique materials."
+      },
+      {
+        "Component ID": "COMP_ANATOMIC_RADIAL_HEAD_SYSTEM_ANATOMIC_RADIAL_HEAD_TRIAL",
+        "Component Name": "Anatomic Radial Head Trial",
+        "Component Role": "Trial",
+        "Implant Category": "Instrumentation",
+        "System ID": "SYS_ANATOMIC_RADIAL_HEAD_SYSTEM",
+        "Component Notes": "Trial family referenced within the system workflow."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Anatomic Radial Head System",
+          "supplier_name": "Acumed",
+          "system_category": "Elbow Arthroplasty / Radial Head Replacement System",
+          "system_notes": "Anatomic radial head replacement platform with head, stem and instrumentation families."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Anatomic Radial Head System",
+        "supplier_name": "Acumed",
+        "system_category": "Elbow Arthroplasty / Radial Head Replacement System",
+        "system_notes": "Anatomic radial head replacement platform with head, stem and instrumentation families."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Anatomic Radial Head System",
+        "supplier_name": "Acumed",
+        "system_category": "Elbow Arthroplasty / Radial Head Replacement System",
+        "system_notes": "Anatomic radial head replacement platform with head, stem and instrumentation families."
+      }
+    }
+  ]
+}

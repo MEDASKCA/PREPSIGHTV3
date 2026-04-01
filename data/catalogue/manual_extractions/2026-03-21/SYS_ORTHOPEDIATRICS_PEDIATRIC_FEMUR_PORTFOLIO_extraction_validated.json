@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "OrthoPediatrics",
+    "system_name": "OrthoPediatrics Pediatric Femur Portfolio",
+    "source_type": "product_page",
+    "source_document": "Pediatric Nailing Platform | Femur - OrthoPediatrics",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_ORTHOPEDIATRICS_PEDIATRIC_FEMUR_PORTFOLIO_PEDIATRIC_FEMUR_PORTFOLIO_FRAMEWORK",
+        "Component Name": "Pediatric Femur Portfolio Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Pediatric Orthopaedics",
+        "System ID": "SYS_ORTHOPEDIATRICS_PEDIATRIC_FEMUR_PORTFOLIO",
+        "Component Notes": "Framework component anchored to OrthoPediatrics public pediatric femur source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "OrthoPediatrics Pediatric Femur Portfolio",
+          "supplier_name": "OrthoPediatrics",
+          "system_category": "Pediatric orthopaedics",
+          "system_notes": "Official OrthoPediatrics pediatric femur materials used as the public source anchors for this pediatric femur portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "OrthoPediatrics Pediatric Femur Portfolio",
+        "supplier_name": "OrthoPediatrics",
+        "system_category": "Pediatric orthopaedics",
+        "system_notes": "Official OrthoPediatrics pediatric femur materials used as the public source anchors for this pediatric femur portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "OrthoPediatrics Pediatric Femur Portfolio",
+        "supplier_name": "OrthoPediatrics",
+        "system_category": "Pediatric orthopaedics",
+        "system_notes": "Official OrthoPediatrics pediatric femur materials used as the public source anchors for this pediatric femur portfolio entry."
+      }
+    }
+  ]
+}

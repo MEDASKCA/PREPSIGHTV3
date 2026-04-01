@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Stryker",
+    "system_name": "CrossFlow / Arthroscopy Portfolio",
+    "source_type": "product_page",
+    "source_document": "CrossFlow Integrated Arthroscopy Pump",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_CROSSFLOW_ARTHROSCOPY_PORTFOLIO_CROSSFLOW_ARTHROSCOPY_FRAMEWORK",
+        "Component Name": "CrossFlow Arthroscopy Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Arthroscopy",
+        "System ID": "SYS_CROSSFLOW___ARTHROSCOPY_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Stryker public arthroscopy source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "CrossFlow / Arthroscopy Portfolio",
+          "supplier_name": "Stryker",
+          "system_category": "arthroscopy",
+          "system_notes": "Official Stryker arthroscopy pump and resection materials used as the public source anchors for this CrossFlow arthroscopy portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "CrossFlow / Arthroscopy Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "arthroscopy",
+        "system_notes": "Official Stryker arthroscopy pump and resection materials used as the public source anchors for this CrossFlow arthroscopy portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "CrossFlow / Arthroscopy Portfolio",
+        "supplier_name": "Stryker",
+        "system_category": "arthroscopy",
+        "system_notes": "Official Stryker arthroscopy pump and resection materials used as the public source anchors for this CrossFlow arthroscopy portfolio entry."
+      }
+    }
+  ]
+}

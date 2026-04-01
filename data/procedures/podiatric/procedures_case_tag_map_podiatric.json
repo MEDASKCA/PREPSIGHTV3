@@ -1,0 +1,88 @@
+[
+  { "procedure_id": "PROC_HALLUX_VALGUS_CORRECTION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HALLUX_VALGUS_CORRECTION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_FIRST_METATARSOPHALANGEAL_JOINT_FUSION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_FIRST_METATARSOPHALANGEAL_JOINT_FUSION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_CHEILECTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CHEILECTOMY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_METATARSAL_OSTEOTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_METATARSAL_OSTEOTOMY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_HAMMERTOE_CORRECTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_HAMMERTOE_CORRECTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_WEILS_OSTEOTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_WEILS_OSTEOTOMY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_EXCISION_OF_MORTONS_NEUROMA", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXCISION_OF_MORTONS_NEUROMA", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PLANTAR_PLATE_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PLANTAR_PLATE_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_MIDFOOT_FUSION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_MIDFOOT_FUSION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_LISFRANC_FIXATION", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_LISFRANC_FIXATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_LISFRANC_ARTHRODESIS", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LISFRANC_ARTHRODESIS", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_EXOSTECTOMY_OF_MIDFOOT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXOSTECTOMY_OF_MIDFOOT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_COTTON_OSTEOTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_COTTON_OSTEOTOMY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_ANKLE_FUSION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ANKLE_FUSION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_SUBTALAR_FUSION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_SUBTALAR_FUSION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_TRIPLE_FUSION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_TRIPLE_FUSION_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_CALCANEAL_OSTEOTOMY", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_CALCANEAL_OSTEOTOMY", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_ACHILLES_TENDON_REPAIR_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_TRAUMA" },
+  { "procedure_id": "PROC_ACHILLES_TENDON_REPAIR_BY_PODIATRIC_SURGERY", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_ACHILLES_TENDON_LENGTHENING", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_ACHILLES_TENDON_LENGTHENING", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_PERONEAL_TENDON_REPAIR", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_PERONEAL_TENDON_REPAIR", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_LATERAL_ANKLE_LIGAMENT_RECONSTRUCTION", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_LATERAL_ANKLE_LIGAMENT_RECONSTRUCTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+
+  { "procedure_id": "PROC_ANKLE_ARTHROSCOPY", "case_tag_id": "CASE_DIAGNOSTIC" },
+  { "procedure_id": "PROC_ANKLE_ARTHROSCOPY", "case_tag_id": "CASE_MINIMALLY_INVASIVE" },
+
+  { "procedure_id": "PROC_DEBRIDEMENT_OF_DIABETIC_FOOT_ULCER", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_DEBRIDEMENT_OF_DIABETIC_FOOT_ULCER", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_DRAINAGE_OF_DIABETIC_FOOT_ABSCESS", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_DRAINAGE_OF_DIABETIC_FOOT_ABSCESS", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_PARTIAL_RAY_AMPUTATION", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_PARTIAL_RAY_AMPUTATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TOE_AMPUTATION_FOR_DIABETIC_FOOT", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_TOE_AMPUTATION_FOR_DIABETIC_FOOT", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_TRANSMETATARSAL_AMPUTATION", "case_tag_id": "CASE_EMERGENCY" },
+  { "procedure_id": "PROC_TRANSMETATARSAL_AMPUTATION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_CHARCOT_FOOT_RECONSTRUCTION", "case_tag_id": "CASE_RECONSTRUCTION" },
+  { "procedure_id": "PROC_CHARCOT_FOOT_RECONSTRUCTION", "case_tag_id": "CASE_THERAPEUTIC" },
+
+  { "procedure_id": "PROC_EXOSTECTOMY_FOR_DIABETIC_FOOT_PRESSURE_POINT", "case_tag_id": "CASE_ELECTIVE" },
+  { "procedure_id": "PROC_EXOSTECTOMY_FOR_DIABETIC_FOOT_PRESSURE_POINT", "case_tag_id": "CASE_THERAPEUTIC" }
+]

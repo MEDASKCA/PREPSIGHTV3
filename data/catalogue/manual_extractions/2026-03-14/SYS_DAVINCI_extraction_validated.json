@@ -1,0 +1,65 @@
+{
+  "source_meta": {
+    "supplier_name": "Intuitive Surgical",
+    "system_name": "Da Vinci Surgical System",
+    "source_type": "product_page",
+    "source_document": "da Vinci Surgical System",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [
+      {
+        "Supplier ID": "SUP_INTUITIVE_SURGICAL",
+        "Supplier Name": "Intuitive Surgical",
+        "Supplier Country": "",
+        "Supplier Notes": ""
+      }
+    ],
+    "SYSTEMS": [
+      {
+        "System ID": "SYS_INTUITIVE_SURGICAL_DA_VINCI_SURGICAL_SYSTEM",
+        "System Name": "Da Vinci Surgical System",
+        "Supplier ID": "SUP_INTUITIVE_SURGICAL",
+        "System Category": "Robotic Surgical Platform",
+        "System Notes": "Public source anchor for the Intuitive da Vinci robotic surgical platform."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_DA_VINCI_SURGICAL_SYSTEM_DA_VINCI_SURGICAL_PLATFORM_FAMILY",
+        "Component Name": "da Vinci Surgical Platform Family",
+        "Component Role": "Portfolio Family",
+        "Implant Category": "Robotic Surgery Workflow",
+        "System ID": "SYS_INTUITIVE_SURGICAL_DA_VINCI_SURGICAL_SYSTEM",
+        "Component Notes": "Official Intuitive sources describe the broader da Vinci surgical platform family."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": []
+}

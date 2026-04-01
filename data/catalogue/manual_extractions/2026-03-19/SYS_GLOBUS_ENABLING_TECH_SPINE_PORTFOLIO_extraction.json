@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Globus Medical",
+    "system_name": "Globus Enabling Tech + Spine Portfolio",
+    "source_type": "solution_page",
+    "source_document": "Musculoskeletal Solutions",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Globus Enabling Tech + Spine Portfolio",
+      "supplier_name": "Globus Medical",
+      "system_category": "Spine",
+      "system_notes": "Official Globus Medical enabling-technology solution, robotic navigation, and integrated platform pages used as the source anchors for the enabling tech and spine portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Enabling Tech Spine Portfolio Framework",
+      "system_name": "Globus Enabling Tech + Spine Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Portfolio-level informational framework anchored to Globus Medical public enabling-technology and spine sources."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public Globus Medical source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Musculoskeletal Solutions, ExcelsiusGPS Robotic Navigation Platform, and Pulse"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level portfolio list",
+      "reason": "The public Globus Medical source anchors do not provide a complete SKU-level extraction for this portfolio entry.",
+      "source_excerpt": "Musculoskeletal Solutions, ExcelsiusGPS Robotic Navigation Platform, and Pulse"
+    }
+  ]
+}

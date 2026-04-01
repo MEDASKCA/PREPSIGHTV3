@@ -1,0 +1,44 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Lumbar Decompression / Discectomy Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Spine and Biologics | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "systems": [
+    {
+      "system_name": "Lumbar Decompression / Discectomy Portfolio",
+      "supplier_name": "Medtronic",
+      "system_category": "spine",
+      "system_notes": "Official Medtronic lumbar decompression and discectomy planning materials used as the public source anchors for this lumbar decompression and discectomy portfolio entry."
+    }
+  ],
+  "trays": [],
+  "components": [
+    {
+      "component_name": "Lumbar Decompression and Discectomy Framework",
+      "system_name": "Lumbar Decompression / Discectomy Portfolio",
+      "component_role": "Portfolio Framework",
+      "implant_category": "Spine",
+      "component_notes": "Framework component anchored to Medtronic public lumbar decompression and discectomy source materials."
+    }
+  ],
+  "products": [],
+  "system_mappings": [],
+  "unresolved_items": [
+    {
+      "entity_type": "tray",
+      "raw_text": "No tray-level data",
+      "reason": "The public lumbar decompression and discectomy source anchors do not enumerate tray-level data for this portfolio entry.",
+      "source_excerpt": "Spine and Biologics | Medtronic; UNiD Adaptive Spine Intelligence | Medtronic; Medtronic receives FDA clearance for next-generation UNiD Spine Analyzer with degenerative spine surgery predictive model"
+    },
+    {
+      "entity_type": "product",
+      "raw_text": "No complete SKU-level list",
+      "reason": "The public lumbar decompression and discectomy source anchors do not provide a complete SKU-level extraction for this entry.",
+      "source_excerpt": "Spine and Biologics | Medtronic; UNiD Adaptive Spine Intelligence | Medtronic; Medtronic receives FDA clearance for next-generation UNiD Spine Analyzer with degenerative spine surgery predictive model"
+    }
+  ]
+}

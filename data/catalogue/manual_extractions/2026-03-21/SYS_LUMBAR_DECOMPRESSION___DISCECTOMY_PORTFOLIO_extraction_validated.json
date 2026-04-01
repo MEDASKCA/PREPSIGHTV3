@@ -1,0 +1,82 @@
+{
+  "source_meta": {
+    "supplier_name": "Medtronic",
+    "system_name": "Lumbar Decompression / Discectomy Portfolio",
+    "source_type": "technology_page",
+    "source_document": "Spine and Biologics | Medtronic",
+    "source_version": "",
+    "source_date": ""
+  },
+  "ready_to_import": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [
+      {
+        "Component ID": "COMP_LUMBAR_DECOMPRESSION_DISCECTOMY_PORTFOLIO_LUMBAR_DECOMPRESSION_AND_DISCECTOMY_FRAMEWORK",
+        "Component Name": "Lumbar Decompression and Discectomy Framework",
+        "Component Role": "Portfolio Framework",
+        "Implant Category": "Spine",
+        "System ID": "SYS_LUMBAR_DECOMPRESSION___DISCECTOMY_PORTFOLIO",
+        "Component Notes": "Framework component anchored to Medtronic public lumbar decompression and discectomy source materials."
+      }
+    ],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "needs_review": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [
+      {
+        "row": {
+          "system_name": "Lumbar Decompression / Discectomy Portfolio",
+          "supplier_name": "Medtronic",
+          "system_category": "spine",
+          "system_notes": "Official Medtronic lumbar decompression and discectomy planning materials used as the public source anchors for this lumbar decompression and discectomy portfolio entry."
+        },
+        "reason": "Duplicate system already exists in master dataset."
+      }
+    ],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "rejected": {
+    "PROCEDURES": [],
+    "SUPPLIERS": [],
+    "SYSTEMS": [],
+    "TRAYS": [],
+    "COMPONENTS": [],
+    "PRODUCTS": [],
+    "SYSTEM_MAPPINGS": []
+  },
+  "duplicate_warnings": [
+    {
+      "entity": "SYSTEMS",
+      "row": {
+        "system_name": "Lumbar Decompression / Discectomy Portfolio",
+        "supplier_name": "Medtronic",
+        "system_category": "spine",
+        "system_notes": "Official Medtronic lumbar decompression and discectomy planning materials used as the public source anchors for this lumbar decompression and discectomy portfolio entry."
+      },
+      "reason": "System already exists in master dataset."
+    }
+  ],
+  "missing_field_warnings": [],
+  "bad_link_warnings": [],
+  "exception_report": [
+    {
+      "entity": "SYSTEMS",
+      "reason": "Duplicate system already exists in master dataset.",
+      "row": {
+        "system_name": "Lumbar Decompression / Discectomy Portfolio",
+        "supplier_name": "Medtronic",
+        "system_category": "spine",
+        "system_notes": "Official Medtronic lumbar decompression and discectomy planning materials used as the public source anchors for this lumbar decompression and discectomy portfolio entry."
+      }
+    }
+  ]
+}
