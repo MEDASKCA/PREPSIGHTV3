@@ -57,7 +57,13 @@ export default function LoginPage() {
           setAuthenticated(true)
           setLoading(null)
           router.replace("/")
+          return
         }
+        if (typeof window !== "undefined") {
+          window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
+        }
+        setLoading(null)
+        setError("Sign-in could not be completed. Please try again.")
       })
       .catch((e: unknown) => {
         if (typeof window !== "undefined") {
@@ -68,6 +74,7 @@ export default function LoginPage() {
             ? String((e as { code?: string }).code ?? "")
             : ""
         if (code === "auth/missing-initial-state") {
+          setError("Sign-in session expired. Open the site in your browser and try again.")
           setLoading(null)
           return
         }
