@@ -176,6 +176,7 @@ export default function OnboardingPage() {
   const [collapsedDepartments, setCollapsedDepartments] = useState<string[]>([])
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState("")
+  const [finishing, setFinishing] = useState(false)
 
   const hospitalWrapRef = useRef<HTMLDivElement>(null)
 
@@ -345,9 +346,10 @@ export default function OnboardingPage() {
   }
 
   async function handleFinish() {
-    if (saving) return
+    if (saving || finishing) return
 
     setHasStartedOnboarding(true)
+    setFinishing(true)
     setSaving(true)
     setSaveError("")
 
@@ -362,18 +364,34 @@ export default function OnboardingPage() {
 
     try {
       await saveProfile(profile, user?.uid)
-      router.push("/")
+      router.replace("/")
     } catch (error) {
       console.error("[PrepSight] Onboarding save failed:", error)
       setSaveError(
         "PrepSight could not finish setting up your workspace. Check Firestore rules for the new project and try again.",
       )
+      setFinishing(false)
     } finally {
       setSaving(false)
     }
   }
 
   const progressPct = ((step - 1) / (TOTAL_STEPS - 1)) * 100
+
+  if (finishing) {
+    return (
+      <div className="onboarding-stage min-h-screen flex items-center justify-center overflow-hidden">
+        <div className="onboarding-ambient" aria-hidden="true">
+          <div className="onboarding-ambient-glow onboarding-ambient-glow-a" />
+          <div className="onboarding-ambient-glow onboarding-ambient-glow-b" />
+          <div className="onboarding-ambient-grid" />
+        </div>
+        <div className="relative z-10 text-center">
+          <p className="text-sm text-[#475569]">Setting up your workspace...</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="onboarding-stage min-h-screen flex flex-col overflow-hidden">
