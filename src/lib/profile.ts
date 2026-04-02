@@ -142,6 +142,38 @@ export function hasProfile(): boolean {
   return getProfile() !== null
 }
 
+export function setActiveOrganizationId(organizationId: string): PrepSightProfile | null {
+  const profile = getProfile()
+  if (!profile) return null
+  const normalized = organizationId.trim()
+  if (!normalized) return profile
+
+  const next: PrepSightProfile = {
+    ...profile,
+    activeOrganizationId: normalized,
+    organizationIds: Array.from(new Set([...(profile.organizationIds ?? []), normalized])),
+  }
+
+  saveProfileLocal(next)
+  return next
+}
+
+export function addOrganizationMembershipToProfile(organizationId: string): PrepSightProfile | null {
+  const profile = getProfile()
+  if (!profile) return null
+  const normalized = organizationId.trim()
+  if (!normalized) return profile
+
+  const next: PrepSightProfile = {
+    ...profile,
+    activeOrganizationId: profile.activeOrganizationId ?? normalized,
+    organizationIds: Array.from(new Set([...(profile.organizationIds ?? []), normalized])),
+  }
+
+  saveProfileLocal(next)
+  return next
+}
+
 export function shouldForceOnboarding(): boolean {
   if (typeof window === "undefined") return false
   return window.localStorage.getItem(FORCE_ONBOARDING_KEY) === "true"
@@ -201,6 +233,25 @@ export async function resolveProfile(uid: string): Promise<PrepSightProfile | nu
   }
 
   return null
+}
+
+export async function syncMembershipsIntoProfile(uid: string): Promise<PrepSightProfile | null> {
+  const profile = await resolveProfile(uid)
+  if (!profile) return null
+
+  const memberships = await getUserOrganizationMemberships(uid)
+  const activeMembershipIds = memberships
+    .filter((membership) => membership.status === "active")
+    .map((membership) => membership.organizationId)
+
+  const next: PrepSightProfile = {
+    ...profile,
+    activeOrganizationId: profile.activeOrganizationId ?? activeMembershipIds[0],
+    organizationIds: Array.from(new Set([...(profile.organizationIds ?? []), ...activeMembershipIds])),
+  }
+
+  saveProfileLocal(next)
+  return next
 }
 
 const DEPT_TO_SETTING: Record<string, ClinicalSetting> = {

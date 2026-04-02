@@ -12,8 +12,10 @@ import {
   getSharedLibraryId,
   subscribeLibraries,
 } from "@/lib/libraries"
+import { getProfile, getRelevantSettings } from "@/lib/profile"
 import { getAnatomyNameById, getServiceLineNameById } from "@/lib/operating-theatre-taxonomy"
-import type { Procedure } from "@/lib/types"
+import { CLINICAL_SETTINGS } from "@/lib/settings"
+import type { ClinicalSetting, Procedure } from "@/lib/types"
 
 function getSpecialtyLabel(card: Procedure) {
   return card.specialty || card.setting || "General"
@@ -267,10 +269,19 @@ export default function LibraryPageClient({
     getLibrariesSnapshot,
     getLibrariesSnapshot,
   )
+  const profile = getProfile()
   const library = getLibraryByIdSnapshot(libraryId)
   const cards = useMemo(() => getLibraryCardsSnapshot(libraryId), [libraryId, libraries])
-  const sharedLibrary = libraries.find((entry) => entry.libraryType === "shared")
+  const activeSetting = useMemo<ClinicalSetting>(() => {
+    if (library?.libraryType === "shared" && CLINICAL_SETTINGS.includes(library.name as ClinicalSetting)) {
+      return library.name as ClinicalSetting
+    }
+    const settings = profile ? getRelevantSettings(profile) : []
+    return settings[0] ?? "Operating Theatre"
+  }, [library, profile])
+  const sharedLibrary = libraries.find((entry) => entry.libraryType === "shared" && entry.name === activeSetting)
   const sharedCards = sharedLibrary ? getLibraryCardsSnapshot(sharedLibrary.id) : []
+  const sharedLibraryId = sharedLibrary?.id ?? getSharedLibraryId(activeSetting)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [desktopNavOpen, setDesktopNavOpen] = useState(true)
   const [query, setQuery] = useState("")
@@ -413,9 +424,9 @@ export default function LibraryPageClient({
 
       <main className="w-full px-4 py-6 lg:px-6 lg:py-6">
         <div className="space-y-6 lg:hidden">
-          <section className="space-y-3 rounded-[22px] border border-[#B8DEE6] bg-[linear-gradient(135deg,#0F4C5C_0%,#15728A_58%,#2A96A8_100%)] px-4 py-5 shadow-[0_20px_42px_-28px_rgba(16,36,62,0.48)]">
+          <section className="space-y-3 rounded-[3px] border border-[#7FD3E4] bg-[#2E9FBE] px-4 py-5 shadow-[0_14px_28px_-26px_rgba(16,36,62,0.22)]">
             <div>
-              {showOwnerName ? <p className="text-[13px] text-[#CDEFF5]">{ownerLabel}</p> : null}
+              {showOwnerName ? <p className="text-[13px] text-[#D9F6FB]">{ownerLabel}</p> : null}
               <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-white">{displayName}</h1>
             </div>
           </section>
@@ -435,8 +446,8 @@ export default function LibraryPageClient({
                     <p>Your hospital hasn&apos;t added any procedures yet.</p>
                     <p>Browse the PrepSight Library to find a procedure and adapt it for your team.</p>
                     <Link
-                      href={`/libraries/${getSharedLibraryId()}`}
-                      className="inline-flex rounded-[10px] bg-[#0F4C5C] px-3 py-2 text-[13px] font-medium text-white"
+                      href={`/libraries/${sharedLibraryId}`}
+                      className="inline-flex border border-[#0F4C5C] bg-[#0F4C5C] px-3 py-2 text-[13px] font-medium text-white"
                     >
                       Browse PrepSight Library
                     </Link>
@@ -516,9 +527,9 @@ export default function LibraryPageClient({
           ) : null}
 
           <div className="min-w-0 space-y-5">
-            <section className="space-y-3 rounded-[24px] border border-[#B8DEE6] bg-[linear-gradient(135deg,#0F4C5C_0%,#15728A_58%,#2A96A8_100%)] px-6 py-6 shadow-[0_22px_46px_-30px_rgba(16,36,62,0.48)]">
+            <section className="space-y-3 rounded-[3px] border border-[#7FD3E4] bg-[#2E9FBE] px-6 py-6 shadow-[0_14px_28px_-26px_rgba(16,36,62,0.22)]">
               <div>
-                {showOwnerName ? <p className="text-[13px] text-[#CDEFF5]">{ownerLabel}</p> : null}
+                {showOwnerName ? <p className="text-[13px] text-[#D9F6FB]">{ownerLabel}</p> : null}
                 <h1 className="mt-1 text-[30px] tracking-[-0.04em] text-white">{displayName}</h1>
               </div>
             </section>
@@ -530,7 +541,7 @@ export default function LibraryPageClient({
               </nav>
             </section>
 
-            <section className="overflow-hidden rounded-[24px] border border-[#C2DFE7] bg-white shadow-[0_20px_40px_-32px_rgba(16,36,62,0.35)]">
+            <section className="overflow-hidden rounded-[3px] border border-[#C2DFE7] bg-white shadow-[0_14px_28px_-26px_rgba(16,36,62,0.18)]">
               <div className="border-b border-[#D7E9EE] bg-[#10243E] px-4 py-3 text-[14px] text-white">
                 Specialty hierarchy
               </div>
@@ -543,8 +554,8 @@ export default function LibraryPageClient({
                         <p>Your hospital hasn&apos;t added any procedures yet.</p>
                         <p>Browse the PrepSight Library to find a procedure and adapt it for your team.</p>
                         <Link
-                          href={`/libraries/${getSharedLibraryId()}`}
-                          className="inline-flex rounded-[10px] bg-[#0F4C5C] px-3 py-2 text-[13px] font-medium text-white"
+                          href={`/libraries/${sharedLibraryId}`}
+                          className="inline-flex border border-[#0F4C5C] bg-[#0F4C5C] px-3 py-2 text-[13px] font-medium text-white"
                         >
                           Browse PrepSight Library
                         </Link>
@@ -594,13 +605,13 @@ export default function LibraryPageClient({
           </div>
 
           <aside className="min-w-0">
-            <div className="overflow-hidden rounded-[24px] border border-[#C2DFE7] bg-white shadow-[0_20px_40px_-32px_rgba(16,36,62,0.35)]">
+            <div className="overflow-hidden rounded-[3px] border border-[#C2DFE7] bg-white shadow-[0_14px_28px_-26px_rgba(16,36,62,0.18)]">
               <div className="border-b border-[#E8EFF6] bg-[#10243E] px-4 py-3 text-[14px] text-white">PrepSight Library</div>
               <div className="divide-y divide-[#E8EFF6]">
                 {sharedCards.slice(0, 8).map((card) => (
                   <Link
                     key={card.id}
-                    href={`/libraries/${getSharedLibraryId()}/cards/${card.id}`}
+                    href={`/libraries/${sharedLibraryId}/cards/${card.id}`}
                     className="block px-4 py-2 text-left transition-colors hover:bg-[#F4FBFF]"
                   >
                     <p className="truncate text-[15px] text-[#10243E]">{card.name}</p>

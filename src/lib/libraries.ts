@@ -1,5 +1,6 @@
 import { procedures } from "./data"
 import { getProfile } from "./profile"
+import { CLINICAL_SETTINGS } from "./settings"
 import { getActiveTeamSnapshot, getMemberPublicAlias } from "./team-workspaces"
 import type { LibraryRecord, Procedure } from "./types"
 
@@ -8,7 +9,6 @@ const LIBRARY_CARDS_STORAGE_KEY = "prepsight_local_library_cards"
 const PUBLISHED_CARDS_STORAGE_KEY = "prepsight_published_cards"
 const LIBRARIES_EVENT = "prepsight:libraries"
 
-const SHARED_LIBRARY_ID = "shared-prepsight-reference"
 const SHARED_LIBRARY_CREATED_AT = "2026-03-30T00:00:00.000Z"
 
 type StoredCardsByLibrary = Record<string, Procedure[]>
@@ -151,24 +151,34 @@ function buildSharedCardsSnapshot(): Procedure[] {
 
 function buildSharedLibraries(): LibraryRecord[] {
   const sharedCards = buildSharedCardsSnapshot()
+  return CLINICAL_SETTINGS.map((setting) => {
+    const settingCards = sharedCards.filter((procedure) => procedure.setting === setting)
+    const slug = slugify(setting)
 
-  return [
-    {
-      id: SHARED_LIBRARY_ID,
-      name: "PrepSight Global Cards",
-      slug: "prepsight-global-cards",
-      description: "Global bank of procedure cards published from local repositories across the platform.",
-      libraryType: "shared",
-      visibility: "public",
-      ownerType: "platform",
+    return {
+      id: `shared-${slug}-reference`,
+      name: setting,
+      slug: `${slug}-global-cards`,
+      description: `Global procedure repository for ${setting}.`,
+      libraryType: "shared" as const,
+      visibility: "public" as const,
+      ownerType: "platform" as const,
       ownerId: "prepsight",
       ownerName: "PrepSight",
       ownerPublicAlias: "PSH-000",
-      cardIds: sharedCards.map((procedure) => procedure.id),
+      cardIds: settingCards.map((procedure) => procedure.id),
       createdAt: SHARED_LIBRARY_CREATED_AT,
-      updatedAt: sharedCards[0]?.updatedAt ?? SHARED_LIBRARY_CREATED_AT,
-    },
-  ]
+      updatedAt: settingCards[0]?.updatedAt ?? SHARED_LIBRARY_CREATED_AT,
+    }
+  }).filter((library) => library.cardIds.length > 0)
+}
+
+function buildSharedLibraryId(setting: Procedure["setting"]): string {
+  return `shared-${slugify(setting)}-reference`
+}
+
+function getSharedLibraryName(setting: Procedure["setting"]): string {
+  return setting
 }
 
 function getActiveLocalLibraryIdentity() {
@@ -262,7 +272,7 @@ export function getLibrariesSnapshot(): LibraryRecord[] {
   const localLibraries = ensureDefaultLocalLibrary(readLocalLibraries())
   const snapshotKey = JSON.stringify({
     localLibraries,
-    sharedIds: sharedLibraries[0]?.cardIds ?? [],
+    sharedIds: sharedLibraries.map((library) => [library.id, library.cardIds]),
     publishedIds: readPublishedCards().map((card) => card.id),
   })
 
@@ -282,7 +292,8 @@ export function getLibraryCardsSnapshot(libraryId: string): Procedure[] {
   if (!library) return []
 
   if (library.libraryType === "shared") {
-    return buildSharedCardsSnapshot()
+    const cardIds = new Set(library.cardIds)
+    return buildSharedCardsSnapshot().filter((card) => cardIds.has(card.id))
   }
 
   const cardsByLibrary = readLocalCards()
@@ -376,8 +387,8 @@ export function addCardToLocalLibrary(options: {
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
     sourceCardId: sourceCard.id,
-    sourceLibraryId: sourceCard.cardScope === "local" ? sourceCard.sourceLibraryId ?? libraryId : SHARED_LIBRARY_ID,
-    sourceLibraryName: sourceCard.sourceLibraryName ?? "PrepSight Global Cards",
+    sourceLibraryId: sourceCard.cardScope === "local" ? sourceCard.sourceLibraryId ?? libraryId : buildSharedLibraryId(sourceCard.setting),
+    sourceLibraryName: sourceCard.sourceLibraryName ?? getSharedLibraryName(sourceCard.setting),
     sourceOrganizationName: library.ownerName,
     sourceOrganizationPublicAlias: library.ownerPublicAlias,
     sourceContributorName: profile?.name?.trim() || "You",
@@ -481,6 +492,6 @@ export function getDefaultLocalLibraryId(): string | null {
   return library?.id ?? null
 }
 
-export function getSharedLibraryId(): string {
-  return SHARED_LIBRARY_ID
+export function getSharedLibraryId(setting: Procedure["setting"] = "Operating Theatre"): string {
+  return buildSharedLibraryId(setting)
 }

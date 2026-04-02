@@ -364,6 +364,10 @@ export default function OnboardingPage() {
 
     try {
       await saveProfile(profile, user?.uid)
+      if (typeof window !== "undefined") {
+        window.location.replace("/")
+        return
+      }
       router.replace("/")
     } catch (error) {
       console.error("[PrepSight] Onboarding save failed:", error)

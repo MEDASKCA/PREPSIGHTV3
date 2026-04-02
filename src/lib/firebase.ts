@@ -9,6 +9,8 @@ const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
 const messagingSenderId = process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
 const appId = process.env.NEXT_PUBLIC_FIREBASE_APP_ID
 const AUTH_PROXY_HOSTS = new Set([
+  "localhost",
+  "127.0.0.1",
   "prepsight.medaskca.com",
   "prepsight.vercel.app",
   "prepsightv3.vercel.app",

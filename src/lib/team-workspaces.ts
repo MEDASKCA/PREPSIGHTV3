@@ -101,6 +101,13 @@ export function getTeamWorkspacesSnapshot(): TeamWorkspaceRecord[] {
   return readTeams()
 }
 
+export function getTeamWorkspacesForProfile(profile: PrepSightProfile | null): TeamWorkspaceRecord[] {
+  if (!profile) return []
+  const allowed = new Set(profile.organizationIds ?? [])
+  if (profile.activeOrganizationId) allowed.add(profile.activeOrganizationId)
+  return readTeams().filter((team) => allowed.has(team.id))
+}
+
 export function getActiveTeamSnapshot(profile: PrepSightProfile | null): TeamWorkspaceRecord | null {
   if (!profile?.activeOrganizationId) return null
   return readTeams().find((team) => team.id === profile.activeOrganizationId) ?? null

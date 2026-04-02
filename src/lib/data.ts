@@ -18,6 +18,7 @@ import vascularProcedures from "../../data/procedures/vascular/procedures_vascul
 import { ClinicalSetting, Procedure } from "./types"
 import { canonicalSpecialtyName } from "./specialty-normalization"
 import { referenceProcedures } from "./reference-data"
+import { procedures as seededWorkspaceProcedures } from "./seed-data"
 
 function normalizeText(v?: string): string {
   return (v ?? "").trim().toLowerCase()
@@ -95,6 +96,14 @@ for (const procedure of registryProcedures) {
 }
 
 for (const procedure of referenceProcedures) {
+  mergedProcedures.set(procedure.id, {
+    ...procedure,
+    cardScope: procedure.cardScope ?? "shared",
+    specialty: canonicalSpecialtyName(procedure.setting, procedure.specialty),
+  })
+}
+
+for (const procedure of seededWorkspaceProcedures) {
   mergedProcedures.set(procedure.id, {
     ...procedure,
     cardScope: procedure.cardScope ?? "shared",
