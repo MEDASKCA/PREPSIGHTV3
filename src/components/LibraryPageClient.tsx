@@ -155,6 +155,17 @@ function FolderBadge({
   )
 }
 
+function MobileTriangle({ open }: { open: boolean }) {
+  return (
+    <span
+      className={`block text-[13px] leading-none text-[#0077B6] transition-transform ${open ? "rotate-180" : ""}`}
+      aria-hidden="true"
+    >
+      ▼
+    </span>
+  )
+}
+
 function TreeBranchNode({
   children,
   isLast,
@@ -265,7 +276,9 @@ function TreeGroupContent({
                       {branch.label}
                     </p>
                   </div>
-                  <span className={`text-[12px] leading-none text-[#0077B6] transition-transform lg:hidden ${isBranchExpanded(branch.id) ? "rotate-180" : ""}`}>▼</span>
+                  <span className="lg:hidden">
+                    <MobileTriangle open={isBranchExpanded(branch.id)} />
+                  </span>
                   <ChevronDown
                     size={14}
                     className={`hidden shrink-0 text-[#406175] transition-transform lg:block ${isBranchExpanded(branch.id) ? "rotate-180" : ""}`}
@@ -352,7 +365,9 @@ function TreeBranchContent({
                     {child.label}
                   </p>
                 </div>
-                <span className={`text-[12px] leading-none text-[#0077B6] transition-transform lg:hidden ${expanded ? "rotate-180" : ""}`}>▼</span>
+                <span className="lg:hidden">
+                  <MobileTriangle open={expanded} />
+                </span>
                 <ChevronDown
                   size={14}
                   className={`hidden shrink-0 text-[#406175] transition-transform lg:block ${expanded ? "rotate-180" : ""}`}
@@ -404,7 +419,6 @@ export default function LibraryPageClient({
     return settings[0] ?? "Operating Theatre"
   }, [library, profile])
   const sharedLibrary = libraries.find((entry) => entry.libraryType === "shared" && entry.name === activeSetting)
-  const sharedCards = sharedLibrary ? getLibraryCardsSnapshot(sharedLibrary.id) : []
   const sharedLibraryId = sharedLibrary?.id ?? getSharedLibraryId(activeSetting)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [desktopNavOpen, setDesktopNavOpen] = useState(true)
@@ -567,7 +581,10 @@ export default function LibraryPageClient({
             </nav>
           </section>
 
-          <div className="-mx-4 border-y border-[#C2DFE7] bg-white">
+          <section className="-mx-1 overflow-hidden rounded-[12px] border border-[#DCEAF0] bg-white shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+            <div className="border-b border-[#D7E9EE] bg-[#10243E] px-4 py-3 text-[14px] text-white">
+              Specialty hierarchy
+            </div>
             {tree.length === 0 ? (
               <div className="px-4 py-5 text-[14px] text-[#61758B]">
                 {library.libraryType === "local" ? (
@@ -587,22 +604,20 @@ export default function LibraryPageClient({
               </div>
             ) : (
               tree.map((group) => (
-                <section key={group.id}>
+                <section key={group.id} className="border-b border-[#E8EFF6] last:border-b-0">
                   <button
                     type="button"
                     onClick={() => toggleMobileGroup(group.id)}
-                    className="flex w-full items-center justify-between gap-3 bg-[#F0FAFC] px-4 py-3 text-left font-normal text-[#10243E]"
+                    className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px_18px] items-center gap-x-2 bg-[#EAF7FD] px-4 py-3 text-left font-normal text-[#10243E]"
                   >
-                    <div className="flex min-w-0 items-center gap-2">
+                    <div className="flex items-center justify-center">
                       <FolderBadge tone={folderTone} open={isMobileGroupExpanded(group.id)} size="lg" />
-                      <p className="pr-2 text-[14px] leading-5 font-normal text-[#10243E]">{group.label}</p>
-                      <span className="text-[14px] font-normal text-[#10243E]">{totalForGroup(group)}</span>
                     </div>
-                    <span className={`text-[12px] leading-none text-[#0077B6] transition-transform lg:hidden ${isMobileGroupExpanded(group.id) ? "rotate-180" : ""}`}>▼</span>
-                    <ChevronDown
-                      size={16}
-                      className={`hidden shrink-0 text-[#406175] transition-transform lg:block ${isMobileGroupExpanded(group.id) ? "rotate-180" : ""}`}
-                    />
+                    <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#10243E]">{group.label}</p>
+                    <span className="text-right text-[15px] font-normal text-[#10243E]">{totalForGroup(group)}</span>
+                    <span className="flex justify-end">
+                      <MobileTriangle open={isMobileGroupExpanded(group.id)} />
+                    </span>
                   </button>
 
                   {isMobileGroupExpanded(group.id) ? (
@@ -618,10 +633,10 @@ export default function LibraryPageClient({
                 </section>
               ))
             )}
-          </div>
+          </section>
         </div>
 
-        <div className={`hidden lg:grid lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)_300px]" : "lg:grid-cols-[minmax(0,1fr)_300px]"}`}>
+        <div className={`hidden lg:grid lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)]"}`}>
           {desktopNavOpen ? <WorkspaceNavRail currentNav="collections" /> : null}
 
           <div className="min-w-0 space-y-2">
@@ -699,22 +714,6 @@ export default function LibraryPageClient({
             </section>
           </div>
 
-          <aside className="min-w-0">
-            <div className="overflow-hidden rounded-[12px] border border-[#DCEAF0] bg-white shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <div className="border-b border-[#D7E9EE] bg-[#10243E] px-4 py-3 text-[14px] text-white">PrepSight Library</div>
-              <div className="divide-y divide-[#E8EFF6]">
-                {sharedCards.slice(0, 8).map((card) => (
-                  <Link
-                    key={card.id}
-                    href={`/libraries/${sharedLibraryId}/cards/${card.id}`}
-                    className="block px-3 py-2 text-left transition-colors hover:bg-[#F4FBFF]"
-                  >
-                    <p className="truncate text-[15px] text-[#10243E]">{card.name}</p>
-                  </Link>
-                ))}
-              </div>
-            </div>
-          </aside>
         </div>
       </main>
     </div>

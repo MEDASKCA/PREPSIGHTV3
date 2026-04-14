@@ -19,7 +19,7 @@ export default function WorkspaceNavRail({
             <Link
               key={item.key}
               href={item.href}
-              className={`flex items-center gap-2.5 rounded-[8px] px-3 py-2.5 text-[15px] ${
+              className={`flex items-center gap-3.5 rounded-[8px] px-3 py-2.5 text-[15px] ${
                 active
                   ? "bg-white/10 font-medium text-white"
                   : "text-[#D7E7F7] hover:bg-white/6"
@@ -29,7 +29,7 @@ export default function WorkspaceNavRail({
                 src={item.iconSrc}
                 alt=""
                 aria-hidden="true"
-                className="h-[16px] w-[16px] shrink-0 object-contain"
+                className="h-[26px] w-[26px] shrink-0 object-contain"
               />
               {item.label}
             </Link>
