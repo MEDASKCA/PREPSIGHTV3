@@ -278,13 +278,13 @@ export default function AppTopBar({
 
   return (
     <div ref={rootRef} className="sticky top-0 z-30">
-      <header className="relative border-b border-[#00679D] bg-[#0077B6] px-3 pt-[calc(env(safe-area-inset-top,0px)+12px)] pb-3">
+      <header className="relative border-b border-[#0F4C5C] bg-[#0077B6] px-3 pt-[calc(env(safe-area-inset-top,0px)+12px)] pb-3">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={onToggleMenu}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#6FBECB] bg-white/88 text-[#22425C]"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#0F4C5C] bg-white/88 text-[#22425C]"
               aria-label={menuOpen ? "Close navigation" : "Open navigation"}
             >
               {menuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -298,7 +298,7 @@ export default function AppTopBar({
 
           <div className="ml-auto hidden lg:block">
             <div className="relative w-[440px] xl:w-[520px]">
-            <label className="flex min-w-0 items-center gap-2 rounded-[12px] border border-[#5FB3DB] bg-white/96 px-3 py-2.5">
+            <label className="flex min-w-0 items-center gap-2 rounded-[12px] border border-[#0F4C5C] bg-white/96 px-3 py-2.5">
               <Search size={16} className="shrink-0 text-[#61758B]" />
               <input
                 value={query}
@@ -326,7 +326,7 @@ export default function AppTopBar({
             </label>
 
             {searchOpen && query.trim() ? (
-              <div className="absolute inset-x-0 top-[calc(100%+6px)] z-50 overflow-hidden rounded-[16px] border border-[#CFE3E8] bg-white shadow-[0_18px_40px_rgba(16,36,62,0.18)]">
+              <div className="absolute inset-x-0 top-[calc(100%+6px)] z-50 overflow-hidden rounded-[16px] border border-[#0F4C5C] bg-white shadow-[0_18px_40px_rgba(16,36,62,0.18)]">
                 {results.length > 0 ? (
                   <div className="max-h-[min(60vh,28rem)] overflow-y-auto py-2">
                     {results.map((item, index) => (
@@ -359,7 +359,7 @@ export default function AppTopBar({
           <div className="relative flex items-center gap-2">
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#5FB3DB] bg-white/88 text-[#22425C]"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#0F4C5C] bg-white/88 text-[#22425C]"
               aria-label="Activity"
             >
               <Bell size={17} />
@@ -371,7 +371,7 @@ export default function AppTopBar({
                 setAccountError(null)
                 setAccountMenuOpen((current) => !current)
               }}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#5FB3DB] bg-white/88 text-[#22425C]"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#0F4C5C] bg-white/88 text-[#22425C]"
               aria-label="Profile"
               aria-expanded={accountMenuOpen}
             >
@@ -379,7 +379,7 @@ export default function AppTopBar({
             </button>
 
             {accountMenuOpen ? (
-              <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[19rem] overflow-hidden rounded-[16px] border border-[#B9D8E6] bg-white shadow-[0_18px_40px_rgba(16,36,62,0.18)]">
+              <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[19rem] overflow-hidden rounded-[16px] border border-[#0F4C5C] bg-white shadow-[0_18px_40px_rgba(16,36,62,0.18)]">
                 <div className="border-b border-[#D9E7EF] bg-[#F2FAFD] px-4 py-3">
                   <div className="text-[14px] font-medium text-[#10243E]">{displayName}</div>
                   {displayEmail ? <div className="mt-0.5 text-[12px] text-[#61758B]">{displayEmail}</div> : null}
@@ -431,14 +431,14 @@ export default function AppTopBar({
         </div>
 
         {menuOpen && menuContent ? (
-          <div className={`absolute left-3 top-full z-40 mt-2 w-[calc(34vw-0.75rem)] min-w-[9rem] max-w-[11.5rem] rounded-[14px] border border-[#0085B2] bg-[#0096C7] p-2.5 shadow-[0_18px_38px_rgba(16,36,62,0.22)]${mobileMenuOnly ? " lg:hidden" : ""}`}>
+          <div className={`absolute left-3 top-full z-40 mt-2 w-[calc(34vw-0.75rem)] min-w-[9rem] max-w-[11.5rem] rounded-[14px] border border-white/32 bg-[linear-gradient(180deg,rgba(0,150,199,0.78)_0%,rgba(0,119,182,0.72)_100%)] p-2.5 shadow-[0_20px_42px_rgba(16,36,62,0.24)] backdrop-blur-2xl${mobileMenuOnly ? " lg:hidden" : ""}`}>
             {menuContent}
           </div>
         ) : null}
       </header>
 
-      <div className="relative border-b border-[#CFE3E8] bg-[#F4F7FA] px-3 py-3 lg:hidden">
-        <label className="flex min-w-0 items-center gap-2 rounded-[12px] border border-[#CFE3E8] bg-white px-3 py-2.5">
+      <div className="relative bg-[#F4F7FA] px-3 py-3 lg:hidden">
+        <label className="flex min-w-0 items-center gap-2 rounded-[12px] border border-[#0F4C5C] bg-white px-3 py-2.5">
           <Search size={16} className="shrink-0 text-[#61758B]" />
           <input
             value={query}
@@ -466,7 +466,7 @@ export default function AppTopBar({
         </label>
 
         {searchOpen && query.trim() ? (
-          <div className="absolute inset-x-3 top-[calc(100%+6px)] z-50 overflow-hidden rounded-[16px] border border-[#CFE3E8] bg-white shadow-[0_18px_40px_rgba(16,36,62,0.18)]">
+          <div className="absolute inset-x-3 top-[calc(100%+6px)] z-50 overflow-hidden rounded-[16px] border border-[#0F4C5C] bg-white shadow-[0_18px_40px_rgba(16,36,62,0.18)]">
             {results.length > 0 ? (
               <div className="max-h-[min(60vh,28rem)] overflow-y-auto py-2">
                 {results.map((item, index) => (
