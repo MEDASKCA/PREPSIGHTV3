@@ -160,20 +160,22 @@ function TreeBranchNode({
   isLast,
   nodeColor,
   lineColor,
+  compact = false,
 }: {
   children: ReactNode
   isLast: boolean
   nodeColor: string
   lineColor: string
+  compact?: boolean
 }) {
   return (
-    <div className="relative pl-11">
-      <div className="absolute left-0 top-0 bottom-0 w-9">
-        {!isLast ? <div className="absolute left-[12px] top-0 bottom-0 w-px" style={{ backgroundColor: lineColor }} /> : null}
-        <div className="absolute left-[12px] top-0 h-[16px] w-px" style={{ backgroundColor: lineColor }} />
-        <div className="absolute left-[12px] top-[16px] h-px w-[16px]" style={{ backgroundColor: lineColor }} />
+    <div className={`relative ${compact ? "pl-6" : "pl-11"}`}>
+      <div className={`absolute left-0 top-0 bottom-0 ${compact ? "w-5" : "w-9"}`}>
+        {!isLast ? <div className={`absolute top-0 bottom-0 w-px ${compact ? "left-[6px]" : "left-[12px]"}`} style={{ backgroundColor: lineColor }} /> : null}
+        <div className={`absolute top-0 h-[16px] w-px ${compact ? "left-[6px]" : "left-[12px]"}`} style={{ backgroundColor: lineColor }} />
+        <div className={`absolute top-[16px] h-px ${compact ? "left-[6px] w-[8px]" : "left-[12px] w-[16px]"}`} style={{ backgroundColor: lineColor }} />
         <div
-          className="absolute left-[27px] top-[13px] h-[6px] w-[6px] rounded-full"
+          className={`absolute top-[13px] h-[6px] w-[6px] rounded-full ${compact ? "left-[13px]" : "left-[27px]"}`}
           style={{ backgroundColor: nodeColor }}
         />
       </div>
@@ -186,10 +188,12 @@ function TreeLeafList({
   cards,
   libraryId,
   className = "ml-3",
+  compact = false,
 }: {
   cards: Procedure[]
   libraryId: string
   className?: string
+  compact?: boolean
 }) {
   return (
     <div className={className}>
@@ -199,10 +203,11 @@ function TreeLeafList({
           isLast={index === cards.length - 1}
           lineColor="#6FD3EA"
           nodeColor="#2FB8D6"
+          compact={compact}
         >
           <Link
             href={`/libraries/${libraryId}/cards/${card.id}`}
-            className="block py-1 text-[15px] text-[#10243E] transition-colors hover:text-[#0F4C5C]"
+            className="block py-1 text-[14px] leading-6 text-[#10243E] transition-colors hover:text-[#0F4C5C] lg:text-[15px]"
           >
             {card.name}
           </Link>
@@ -218,12 +223,14 @@ function TreeGroupContent({
   isBranchExpanded,
   toggleBranch,
   folderTone,
+  compact = false,
 }: {
   group: TreeGroup
   libraryId: string
   isBranchExpanded: (branchId: string) => boolean
   toggleBranch: (branchId: string) => void
   folderTone: "global" | "local"
+  compact?: boolean
 }) {
   const directRows = [
     ...group.branches.map((branch) => ({ type: "branch" as const, branch })),
@@ -245,6 +252,7 @@ function TreeGroupContent({
                 isLast={isLast}
                 lineColor="#2FB8D6"
                 nodeColor="#0F9FC1"
+                compact={compact}
               >
                 <button
                   type="button"
@@ -253,13 +261,14 @@ function TreeGroupContent({
                 >
                   <div className="flex items-center gap-2">
                     <FolderBadge tone={folderTone} open={isBranchExpanded(branch.id)} size="md" />
-                    <p className="text-[14px] font-normal text-[#10243E]">
+                    <p className="text-[14px] leading-5 font-normal text-[#10243E]">
                       {branch.label}
                     </p>
                   </div>
+                  <span className={`text-[12px] leading-none text-[#0077B6] transition-transform lg:hidden ${isBranchExpanded(branch.id) ? "rotate-180" : ""}`}>▼</span>
                   <ChevronDown
                     size={14}
-                    className={`shrink-0 text-[#406175] transition-transform ${isBranchExpanded(branch.id) ? "rotate-180" : ""}`}
+                    className={`hidden shrink-0 text-[#406175] transition-transform lg:block ${isBranchExpanded(branch.id) ? "rotate-180" : ""}`}
                   />
                 </button>
 
@@ -270,6 +279,7 @@ function TreeGroupContent({
                   isBranchExpanded={isBranchExpanded}
                   toggleBranch={toggleBranch}
                   folderTone={folderTone}
+                  compact={compact}
                 />
               ) : null}
             </TreeBranchNode>
@@ -282,9 +292,10 @@ function TreeGroupContent({
               isLast={isLast}
               lineColor="#2FB8D6"
               nodeColor="#0F9FC1"
+              compact={compact}
             >
-              <p className="py-1 text-[14px] font-normal text-[#10243E]">Procedures</p>
-              <TreeLeafList cards={group.cards} libraryId={libraryId} />
+              <p className="py-1 text-[14px] leading-5 font-normal text-[#10243E]">Procedures</p>
+              <TreeLeafList cards={group.cards} libraryId={libraryId} compact={compact} />
             </TreeBranchNode>
           )
         })}
@@ -299,12 +310,14 @@ function TreeBranchContent({
   isBranchExpanded,
   toggleBranch,
   folderTone,
+  compact = false,
 }: {
   branch: TreeBranch
   libraryId: string
   isBranchExpanded: (branchId: string) => boolean
   toggleBranch: (branchId: string) => void
   folderTone: "global" | "local"
+  compact?: boolean
 }) {
   const directRows = [
     ...branch.branches.map((child) => ({ type: "branch" as const, branch: child })),
@@ -312,7 +325,7 @@ function TreeBranchContent({
   ]
 
   return (
-    <div className="ml-7">
+    <div className={compact ? "ml-2" : "ml-7"}>
       {directRows.map((row, index) => {
         const isLast = index === directRows.length - 1
 
@@ -326,6 +339,7 @@ function TreeBranchContent({
               isLast={isLast}
               lineColor="#6FD3EA"
               nodeColor="#2FB8D6"
+              compact={compact}
             >
               <button
               type="button"
@@ -334,13 +348,14 @@ function TreeBranchContent({
             >
                 <div className="flex items-center gap-2">
                   <FolderBadge tone={folderTone} open={expanded} size="md" />
-                  <p className="text-[14px] font-normal text-[#10243E]">
+                  <p className="text-[14px] leading-5 font-normal text-[#10243E]">
                     {child.label}
                   </p>
                 </div>
+                <span className={`text-[12px] leading-none text-[#0077B6] transition-transform lg:hidden ${expanded ? "rotate-180" : ""}`}>▼</span>
                 <ChevronDown
                   size={14}
-                  className={`shrink-0 text-[#406175] transition-transform ${expanded ? "rotate-180" : ""}`}
+                  className={`hidden shrink-0 text-[#406175] transition-transform lg:block ${expanded ? "rotate-180" : ""}`}
                 />
               </button>
 
@@ -351,6 +366,7 @@ function TreeBranchContent({
                   isBranchExpanded={isBranchExpanded}
                   toggleBranch={toggleBranch}
                   folderTone={folderTone}
+                  compact={compact}
                 />
               ) : null}
             </TreeBranchNode>
@@ -359,7 +375,7 @@ function TreeBranchContent({
 
         return (
           <div key={`${branch.id}:cards`}>
-            <TreeLeafList cards={branch.cards} libraryId={libraryId} className="" />
+            <TreeLeafList cards={branch.cards} libraryId={libraryId} className="" compact={compact} />
           </div>
         )
       })}
@@ -395,6 +411,8 @@ export default function LibraryPageClient({
   const [query, setQuery] = useState("")
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({})
   const [expandedBranches, setExpandedBranches] = useState<Record<string, boolean>>({})
+  const [mobileExpandedGroups, setMobileExpandedGroups] = useState<Record<string, boolean>>({})
+  const [mobileExpandedBranches, setMobileExpandedBranches] = useState<Record<string, boolean>>({})
   const contributorCount = library?.libraryType === "shared" ? 3 : 1
   const displayName = library ? getLibraryDisplayName(library.name) : ""
   const ownerLabel = getLibraryOwnerLabel(library)
@@ -484,6 +502,30 @@ export default function LibraryPageClient({
     setMobileMenuOpen((value) => !value)
   }
 
+  function isMobileGroupExpanded(groupId: string) {
+    if (mobileExpandedGroups[groupId] !== undefined) return mobileExpandedGroups[groupId]
+    return false
+  }
+
+  function toggleMobileGroup(groupId: string) {
+    setMobileExpandedGroups((current) => ({
+      ...current,
+      [groupId]: !isMobileGroupExpanded(groupId),
+    }))
+  }
+
+  function isMobileBranchExpanded(branchId: string) {
+    if (mobileExpandedBranches[branchId] !== undefined) return mobileExpandedBranches[branchId]
+    return false
+  }
+
+  function toggleMobileBranch(branchId: string) {
+    setMobileExpandedBranches((current) => ({
+      ...current,
+      [branchId]: !isMobileBranchExpanded(branchId),
+    }))
+  }
+
   if (!library) {
     return (
       <div className="app-shell-bg flex min-h-screen items-center justify-center px-6">
@@ -548,27 +590,29 @@ export default function LibraryPageClient({
                 <section key={group.id}>
                   <button
                     type="button"
-                    onClick={() => toggleGroup(group.id)}
+                    onClick={() => toggleMobileGroup(group.id)}
                     className="flex w-full items-center justify-between gap-3 bg-[#F0FAFC] px-4 py-3 text-left font-normal text-[#10243E]"
                   >
                     <div className="flex min-w-0 items-center gap-2">
-                      <FolderBadge tone={folderTone} open={isGroupExpanded(group.id)} size="lg" />
-                      <p className="truncate text-[14px] font-normal text-[#10243E]">{group.label}</p>
+                      <FolderBadge tone={folderTone} open={isMobileGroupExpanded(group.id)} size="lg" />
+                      <p className="pr-2 text-[14px] leading-5 font-normal text-[#10243E]">{group.label}</p>
                       <span className="text-[14px] font-normal text-[#10243E]">{totalForGroup(group)}</span>
                     </div>
+                    <span className={`text-[12px] leading-none text-[#0077B6] transition-transform lg:hidden ${isMobileGroupExpanded(group.id) ? "rotate-180" : ""}`}>▼</span>
                     <ChevronDown
                       size={16}
-                      className={`shrink-0 text-[#406175] transition-transform ${isGroupExpanded(group.id) ? "rotate-180" : ""}`}
+                      className={`hidden shrink-0 text-[#406175] transition-transform lg:block ${isMobileGroupExpanded(group.id) ? "rotate-180" : ""}`}
                     />
                   </button>
 
-                  {isGroupExpanded(group.id) ? (
+                  {isMobileGroupExpanded(group.id) ? (
                     <TreeGroupContent
                       group={group}
                       libraryId={library.id}
-                      isBranchExpanded={isBranchExpanded}
-                      toggleBranch={toggleBranch}
+                      isBranchExpanded={isMobileBranchExpanded}
+                      toggleBranch={toggleMobileBranch}
                       folderTone={folderTone}
+                      compact
                     />
                   ) : null}
                 </section>

@@ -150,20 +150,22 @@ function TreeBranchNode({
   isLast,
   nodeColor,
   lineColor,
+  compact = false,
 }: {
   children: React.ReactNode
   isLast: boolean
   nodeColor: string
   lineColor: string
+  compact?: boolean
 }) {
   return (
-    <div className="relative pl-11">
-      <div className="absolute left-0 top-0 bottom-0 w-9">
-        {!isLast ? <div className="absolute left-[12px] top-0 bottom-0 w-px" style={{ backgroundColor: lineColor }} /> : null}
-        <div className="absolute left-[12px] top-0 h-[16px] w-px" style={{ backgroundColor: lineColor }} />
-        <div className="absolute left-[12px] top-[16px] h-px w-[16px]" style={{ backgroundColor: lineColor }} />
+    <div className={`relative ${compact ? "pl-6" : "pl-11"}`}>
+      <div className={`absolute left-0 top-0 bottom-0 ${compact ? "w-5" : "w-9"}`}>
+        {!isLast ? <div className={`absolute top-0 bottom-0 w-px ${compact ? "left-[6px]" : "left-[12px]"}`} style={{ backgroundColor: lineColor }} /> : null}
+        <div className={`absolute top-0 h-[16px] w-px ${compact ? "left-[6px]" : "left-[12px]"}`} style={{ backgroundColor: lineColor }} />
+        <div className={`absolute top-[16px] h-px ${compact ? "left-[6px] w-[8px]" : "left-[12px] w-[16px]"}`} style={{ backgroundColor: lineColor }} />
         <div
-          className="absolute left-[27px] top-[13px] h-[6px] w-[6px] rounded-full"
+          className={`absolute top-[13px] h-[6px] w-[6px] rounded-full ${compact ? "left-[13px]" : "left-[27px]"}`}
           style={{ backgroundColor: nodeColor }}
         />
       </div>
@@ -180,6 +182,7 @@ function LibraryTree({
   description,
   libraries,
   emptyMessage,
+  compact = false,
 }: {
   title: string
   tone: "global" | "local"
@@ -188,6 +191,7 @@ function LibraryTree({
   description: string
   libraries: ReturnType<typeof getLibrariesSnapshot>
   emptyMessage: string
+  compact?: boolean
 }) {
   const borderColor = tone === "global" ? "border-[#9FD6E2]" : "border-[#D3E5EB]"
   const textColor = tone === "global" ? "text-[#0F4C5C]" : "text-[#10243E]"
@@ -206,16 +210,17 @@ function LibraryTree({
             <FolderBadge tone={tone} open={open} size="lg" />
             <span>{title}</span>
           </div>
+          <span className={`text-[12px] leading-none text-[#0077B6] transition-transform lg:hidden ${open ? "rotate-180" : ""}`}>▼</span>
           <ChevronDown
             size={16}
-            className={`shrink-0 text-[#61758B] transition-transform ${open ? "rotate-180" : ""}`}
+            className={`hidden shrink-0 text-[#61758B] transition-transform lg:block ${open ? "rotate-180" : ""}`}
           />
         </button>
         <div className="mt-1 text-[14px] text-[#61758B]">{description}</div>
       </div>
 
       {open ? (
-        <div className="ml-[14px] pl-6">
+        <div className={compact ? "ml-[4px] pl-1.5" : "ml-[14px] pl-6"}>
           {libraries.length > 0 ? (
             libraries.map((library, index) => {
               const cardCount = getLibraryCardsSnapshot(library.id).length
@@ -226,6 +231,7 @@ function LibraryTree({
                   isLast={index === libraries.length - 1}
                   lineColor={lineColor}
                   nodeColor={nodeColor}
+                  compact={compact}
                 >
                   <Link
                     href={`/libraries/${library.id}`}
@@ -236,10 +242,10 @@ function LibraryTree({
                         <FolderBadge tone={tone} open size="md" />
                       </div>
                       <div className="min-w-0">
-                        <p className="truncate text-[15px] font-normal text-[#10243E] hover:text-[#0F4C5C]">
+                        <p className="break-words text-[14px] leading-5 font-normal text-[#10243E] hover:text-[#0F4C5C] lg:truncate lg:text-[15px]">
                           {getLibraryOwnerLabel(library)}/{library.name}
                         </p>
-                        <p className="mt-0.5 truncate text-[14px] text-[#61758B]">
+                        <p className="mt-0.5 break-words text-[13px] leading-5 text-[#61758B] lg:truncate lg:text-[14px]">
                           {formatMeta(cardCount, getLibraryTypeLabel(library))}
                         </p>
                       </div>
@@ -314,6 +320,8 @@ export default function LibrariesDashboard() {
   const [desktopNavOpen, setDesktopNavOpen] = useState(true)
   const [globalOpen, setGlobalOpen] = useState(true)
   const [localOpen, setLocalOpen] = useState(true)
+  const [mobileGlobalOpen, setMobileGlobalOpen] = useState(false)
+  const [mobileLocalOpen, setMobileLocalOpen] = useState(false)
   const profile = getProfile()
   const activeTeam = getActiveTeamSnapshot(profile)
   const userTeams = getTeamWorkspacesForProfile(profile)
@@ -408,24 +416,26 @@ export default function LibrariesDashboard() {
               <LibraryTree
                 title="Community"
                 tone="global"
-                open={globalOpen}
-                onToggle={() => setGlobalOpen((value) => !value)}
+                open={mobileGlobalOpen}
+                onToggle={() => setMobileGlobalOpen((value) => !value)}
                 description="Shared collections for this workspace."
                 libraries={filteredGlobalLibraries}
                 emptyMessage={`No shared collections are available yet for ${workspaceLabel}.`}
+                compact
               />
 
               <div className="mt-3 border-t border-[#D9EBF0] pt-3">
                 <LibraryTree
                   title="My Team"
                   tone="local"
-                  open={localOpen}
-                  onToggle={() => setLocalOpen((value) => !value)}
+                  open={mobileLocalOpen}
+                  onToggle={() => setMobileLocalOpen((value) => !value)}
                   description="Collections specific to your organisation or access scope."
                   libraries={filteredLocalLibraries}
                   emptyMessage="No My Team collections are available yet."
+                  compact
                 />
-                {localOpen ? (
+                {mobileLocalOpen ? (
                   <div className="px-3 pt-2">
                     <Link href="/" className="inline-block text-[14px] text-[#0F4C5C]">
                       Request access to other collections

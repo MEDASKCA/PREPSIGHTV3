@@ -86,6 +86,22 @@ function getOverviewText(procedure: Procedure) {
   )
 }
 
+function buildBranchSummary(branch: BranchEntry) {
+  const parts = [
+    branch.systemName,
+    branch.approach?.trim(),
+    branch.supplierName?.trim(),
+    `${branch.versions.length} published version${branch.versions.length === 1 ? "" : "s"}`,
+    branch.defaultBranch ? "Default" : null,
+  ].filter(Boolean)
+
+  return parts.join(" | ")
+}
+
+function buildVersionSummary(version: PublishedVersion) {
+  return [version.name, version.organization].filter(Boolean).join(" | ")
+}
+
 function getClassificationLabel(branch: BranchEntry, procedureName: string) {
   const label = branch.variantName.trim()
   if (!label) return "Unclassified"
@@ -514,9 +530,6 @@ export default function SharedProcedureIndexView({
                 {procedure.name}
               </h1>
               <p className="mt-2 text-[15px] leading-7 text-[#5B7A8A] lg:text-[16px]">{hierarchyLabel}</p>
-              <p className="mt-3 max-w-[72rem] text-[15px] leading-7 text-[#61758B] lg:text-[16px]">
-                {getOverviewText(procedure)}
-              </p>
             </section>
 
             <section className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-[#D5EAF1] pb-3 text-[14px] lg:text-[15px]">
@@ -699,24 +712,14 @@ export default function SharedProcedureIndexView({
                   const expanded = selectedBranchId === branch.id
 
                   return (
-                    <div key={branch.id} className="border-b border-[#E3EDF1] px-1 py-1 last:border-b-0">
+                    <div key={branch.id} className="border-b border-[#E3EDF1] px-1 py-1.5 last:border-b-0">
                       <button
                         type="button"
                         onClick={() => handleSelectBranch(branch)}
-                        className="flex w-full items-center justify-between gap-4 rounded-[8px] px-2 py-2 text-left transition-colors hover:bg-[#C7EAF7]"
+                        className="flex w-full items-center justify-between gap-4 rounded-[10px] bg-[#D9EFF7] px-3 py-3 text-left transition-colors hover:bg-[#C7EAF7]"
                       >
-                        <span className="min-w-0 text-[15px] text-[#10243E] lg:text-[16px]">
-                          <span className="inline-flex flex-wrap items-center gap-y-1">
-                            <span>{branch.systemName}</span>
-                            {branch.approach ? <span className="mx-2.5 text-[#61758B]">|</span> : null}
-                            {branch.approach ? <span className="text-[#61758B]">{branch.approach}</span> : null}
-                            {branch.supplierName ? <span className="mx-2.5 text-[#61758B]">|</span> : null}
-                            {branch.supplierName ? <span className="text-[#61758B]">{branch.supplierName}</span> : null}
-                            <span className="mx-2.5 text-[#61758B]">|</span>
-                            <span className="text-[#61758B]">{branch.versions.length} published version{branch.versions.length === 1 ? "" : "s"}</span>
-                            {branch.defaultBranch ? <span className="mx-2.5 text-[#61758B]">|</span> : null}
-                            {branch.defaultBranch ? <span className="text-[#0F4C5C]">Default</span> : null}
-                          </span>
+                        <span className="min-w-0 text-[15px] leading-6 text-[#10243E] lg:text-[16px]">
+                          <span className="line-clamp-2">{buildBranchSummary(branch)}</span>
                         </span>
                         <ChevronDown size={16} className={`shrink-0 text-[#61758B] transition-transform ${expanded ? "rotate-180" : ""}`} />
                       </button>
@@ -729,20 +732,31 @@ export default function SharedProcedureIndexView({
                                 key={version.id}
                                 type="button"
                                 onClick={() => handleSelectVersion(branch, version)}
-                                className="flex w-full items-center justify-between gap-4 rounded-[8px] px-2 py-2 text-left hover:bg-[#EAF7FD]"
+                                className="flex w-full items-center justify-between gap-4 rounded-[10px] bg-[#F4FBFF] px-3 py-2.5 text-left hover:bg-[#EAF7FD]"
                               >
                                 <span className="min-w-0 text-[14px] text-[#10243E] lg:text-[15px]">
-                                  <span className="inline-flex flex-wrap items-center gap-y-1">
-                                    <span>{version.name}</span>
-                                    <span className="mx-2 text-[#61758B]">|</span>
-                                    <span className="text-[#61758B]">{version.organization}</span>
-                                    <span className="mx-2 text-[#61758B]">|</span>
-                                    <span className="text-[#61758B]">{version.likes} likes</span>
-                                    <span className="mx-2 text-[#61758B]">|</span>
-                                    <span className="text-[#61758B]">{version.views} views</span>
+                                  <span className="block truncate">{buildVersionSummary(version)}</span>
+                                </span>
+                                <span className="flex shrink-0 items-center gap-3 text-[#61758B]">
+                                  <span
+                                    role="button"
+                                    aria-label={`${version.likes} likes`}
+                                    className="inline-flex items-center gap-1 text-[13px] hover:text-[#0F4C5C]"
+                                    onClick={(event) => event.stopPropagation()}
+                                  >
+                                    <Heart size={14} />
+                                    {version.likes}
+                                  </span>
+                                  <span
+                                    role="button"
+                                    aria-label={`${version.views} views`}
+                                    className="inline-flex items-center gap-1 text-[13px] hover:text-[#0F4C5C]"
+                                    onClick={(event) => event.stopPropagation()}
+                                  >
+                                    <Eye size={14} />
+                                    {version.views}
                                   </span>
                                 </span>
-                                {version.recommended ? <span className="text-[12px] text-[#0F4C5C]">Recommended</span> : null}
                               </button>
                             )) : (
                               <div className="px-2 py-3 text-[14px] text-[#61758B]">

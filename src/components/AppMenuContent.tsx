@@ -10,13 +10,13 @@ export default function AppMenuContent() {
         <Link
           key={item.key}
           href={item.href}
-          className="flex items-center gap-2.5 rounded-[10px] px-3.5 py-2.5 text-[14px] font-medium text-[#EAF6FF] hover:bg-white/10"
+          className="flex items-center justify-center gap-3 rounded-[10px] px-3.5 py-2.5 text-center text-[15px] font-medium text-[#EAF6FF] hover:bg-white/10"
         >
           <img
             src={item.iconSrc}
             alt=""
             aria-hidden="true"
-            className="h-[15px] w-[15px] shrink-0 object-contain"
+            className="h-[18px] w-[18px] shrink-0 object-contain"
           />
           {item.label}
         </Link>
