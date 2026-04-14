@@ -6,7 +6,7 @@
   --font-display: "Sora", sans-serif;
   --app-shell-bg: #F4F7FA;
   --app-shell-bg-alt: #F8FBFD;
-  --app-header-bg: #00B4D8;
+  --app-header-bg: #0077B6;
   --app-header-text: rgba(16, 36, 62, 0.92);
   --app-header-muted: rgba(16, 36, 62, 0.7);
   --app-card-bg: #FFFFFF;
@@ -941,7 +941,7 @@ input[type="number"] {
 }
 
 .procedure-route-theme .app-header-bg {
-  background: #00B4D8 !important;
+  background: #0077B6 !important;
 }
 
 .procedure-route-theme .app-card-border {
@@ -985,7 +985,7 @@ input[type="number"] {
 
 .procedure-route-theme .kardex-section-header,
 .procedure-route-theme .checklist-panel-header {
-  background: #00B4D8 !important;
+  background: #0077B6 !important;
   border-color: #BFEAF5 !important;
 }
 
@@ -1026,7 +1026,7 @@ input[type="number"] {
 
 .procedure-route-theme .app-primary-bg,
 .procedure-route-theme [class*="bg-[#4DA3FF]"] {
-  background: #00B4D8 !important;
+  background: #0077B6 !important;
 }
 
 .procedure-route-theme [class*="hover:bg-[#2F8EF7]"]:hover,

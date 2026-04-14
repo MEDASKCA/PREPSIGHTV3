@@ -53,6 +53,27 @@ export async function saveUserProfile(uid: string, profile: PrepSightProfile): P
   }
 }
 
+export async function deleteUserAccountData(uid: string): Promise<void> {
+  if (!db) return
+
+  try {
+    await deleteDoc(doc(db, "users", uid))
+  } catch (err) {
+    console.warn("[PrepSight] Firestore deleteUserProfile failed:", err)
+  }
+
+  try {
+    const membershipsQuery = query(
+      collection(db, "organization_memberships"),
+      where("uid", "==", uid),
+    )
+    const snap = await getDocs(membershipsQuery)
+    await Promise.all(snap.docs.map((entry) => deleteDoc(entry.ref)))
+  } catch (err) {
+    console.warn("[PrepSight] Firestore deleteUserMemberships failed:", err)
+  }
+}
+
 export async function hasUserProfile(uid: string): Promise<boolean> {
   const p = await getUserProfile(uid)
   return p !== null

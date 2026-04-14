@@ -4,25 +4,17 @@ import Link from "next/link"
 import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import {
-  Bell,
   Bookmark,
   ChevronDown,
-  Clock3,
-  FileText,
   GitBranch,
-  History,
-  Info,
-  Menu,
   Play,
   Plus,
-  Search,
   ShieldAlert,
-  UserCircle2,
   Users,
-  X,
 } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
+import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import CollectionPanel from "@/components/CollectionPanel"
 import ItemDetailPanel from "@/components/ItemDetailPanel"
 import KardexSection from "@/components/KardexSection"
@@ -45,10 +37,6 @@ function formatUpdatedDate(value?: string) {
     month: "short",
     year: "numeric",
   })
-}
-
-function getStatusLabel(procedure: Procedure) {
-  return procedure.status === "draft" ? "Draft" : "Approved"
 }
 
 function slugify(value: string) {
@@ -96,10 +84,10 @@ export default function MobileProcedureRepositoryView({
   selectedSystemName?: string
 }) {
   const router = useRouter()
-  const [menuOpen, setMenuOpen] = useState(false)
-  const [search, setSearch] = useState("")
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [desktopNavOpen, setDesktopNavOpen] = useState(true)
+  const [mobileMetaOpen, setMobileMetaOpen] = useState(false)
   const [mode, setMode] = useState<"browse" | "collect">("browse")
-  const [followed, setFollowed] = useState(false)
   const [saved, setSaved] = useState(false)
   const [createOpen, setCreateOpen] = useState(false)
   const [cardName, setCardName] = useState("")
@@ -109,18 +97,7 @@ export default function MobileProcedureRepositoryView({
   const [sectionsState, setSectionsState] = useState(sections)
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set())
   const [selectedItemInfo, setSelectedItemInfo] = useState<ItemDisplayInfo | null>(null)
-  const statusLabel = getStatusLabel(procedure)
   const hierarchyLabel = formatProcedureHierarchy(sourceProcedure ?? procedure)
-
-  const filteredSections = useMemo(() => {
-    const normalized = search.trim().toLowerCase()
-    if (!normalized) return sectionsState
-    return sectionsState.filter((section) =>
-      `${section.title} ${section.summary ?? ""} ${section.items.map((item) => item.name).join(" ")}`
-        .toLowerCase()
-        .includes(normalized),
-    )
-  }, [search, sectionsState])
 
   const versionEntries = useMemo(() => {
     const publishedCards = getPublishedCardsByFamilySnapshot(sourceProcedure?.familyId ?? procedure.familyId)
@@ -229,27 +206,40 @@ export default function MobileProcedureRepositoryView({
     setCreateMessage("")
   }
 
+  function handleToggleNavigation() {
+    if (typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches) {
+      setDesktopNavOpen((value) => !value)
+      return
+    }
+    setMobileMenuOpen((value) => !value)
+  }
+
   return (
     <div className="shared-card-route min-h-screen bg-[#F6FAFC] text-[#10243E]">
       <div className="min-h-screen w-full bg-transparent">
-        <div className="lg:hidden">
-          <AppTopBar
-            menuOpen={menuOpen}
-            onToggleMenu={() => setMenuOpen((value) => !value)}
-            menuContent={<AppMenuContent />}
-            searchValue={search}
-            onSearchChange={setSearch}
-            searchPlaceholder="Go to section..."
-          />
-        </div>
+        <AppTopBar
+          menuOpen={mobileMenuOpen}
+          onToggleMenu={handleToggleNavigation}
+          menuContent={<AppMenuContent />}
+          mobileMenuOnly
+        />
 
         <main className="pb-8 lg:hidden">
           <section className="mx-4 mt-4 border-b border-[#C7DEE7] pb-4">
-            <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#35546D]">PrepSight Library</div>
-            <h1 className="mt-1 text-[28px] font-semibold leading-tight tracking-[-0.03em] text-[#10243E]">{procedure.name}</h1>
+            <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.03em] text-[#10243E]">{procedure.name}</h1>
             <p className="mt-2 text-[14px] leading-6 text-[#35546D]">{hierarchyLabel}</p>
+            <button
+              type="button"
+              onClick={() => setMobileMetaOpen((value) => !value)}
+              className="mt-3 inline-flex items-center gap-2 text-[14px] font-medium text-[#0F4C5C]"
+            >
+              <span className={`text-[12px] leading-none transition-transform ${mobileMetaOpen ? "rotate-180" : ""}`}>▼</span>
+              <span>{mobileMetaOpen ? "Hide details" : "Show details"}</span>
+            </button>
           </section>
 
+          {mobileMetaOpen ? (
+          <>
           <section className="mx-4 mt-3 border-b border-[#C7DEE7]">
             <nav className="flex overflow-x-auto whitespace-nowrap text-[14px]">
               {["Procedure", "Notes", "Suggest an edit", "More"].map((tab, index) => (
@@ -270,16 +260,12 @@ export default function MobileProcedureRepositoryView({
             <div className="flex items-start gap-3 text-[14px] leading-6 text-[#35546D]">
               <ShieldAlert size={16} className="mt-0.5 shrink-0 text-[#2A96A8]" />
               <p>
-                Updated {formatUpdatedDate(procedure.updatedAt)}. This is the global reference card. To customise it for your hospital, tap Adapt for my hospital. Your team's version stays private until you choose to share it.
+                Community reference card · Updated {formatUpdatedDate(procedure.updatedAt)}. Create a My Team version to adapt it locally.
               </p>
             </div>
           </section>
 
           <section className="mx-4 mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-[#C7DEE7] pb-3 text-[14px]">
-            <button type="button" onClick={() => setFollowed((value) => !value)} className="inline-flex items-center gap-1.5 font-medium text-[#0F4C5C] hover:text-[#10243E]">
-              <Bell size={14} />
-              {followed ? "Following" : "Follow"}
-            </button>
             <button
               type="button"
               onClick={() => {
@@ -289,53 +275,30 @@ export default function MobileProcedureRepositoryView({
               className="inline-flex items-center gap-1.5 font-medium text-[#0F4C5C] hover:text-[#10243E]"
             >
               <Plus size={14} />
-              Adapt for my hospital
+              Create My Team version
             </button>
             <button type="button" onClick={() => setSaved((value) => !value)} className="inline-flex items-center gap-1.5 font-medium text-[#0F4C5C] hover:text-[#10243E]">
               <Bookmark size={14} />
-              {saved ? "Saved" : "Save"}
+              {saved ? "Bookmarked" : "Bookmark"}
+            </button>
+            <button type="button" className="inline-flex items-center gap-2 font-medium text-[#0F4C5C] hover:text-[#10243E]">
+              <Play size={14} />
+              Start procedure
             </button>
           </section>
 
           <section className="mx-4 mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[14px] text-[#4C647A]">
             <button type="button" onClick={() => setSaved((value) => !value)} className="inline-flex items-center gap-1.5 transition-colors hover:text-[#10243E]">
               <Bookmark size={13} />
-              {saved ? 25 : 24} saved
+              {saved ? 25 : 24} bookmarks
             </button>
             <button type="button" onClick={handleOpenLocalVariants} className="inline-flex items-center gap-1.5 transition-colors hover:text-[#10243E]">
               <GitBranch size={13} />
-              3 hospital versions
-            </button>
-            <button type="button" onClick={() => setFollowed((value) => !value)} className="inline-flex items-center gap-1.5 transition-colors hover:text-[#10243E]">
-              <Bell size={13} />
-              {followed ? 13 : 12} following
-            </button>
-            <button type="button" onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))} className="inline-flex items-center gap-1.5 transition-colors hover:text-[#10243E]">
-              <History size={13} />
-              {versionEntries.length} versions
+              3 My Team versions
             </button>
             <button type="button" onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))} className="inline-flex items-center gap-1.5 transition-colors hover:text-[#10243E]">
               <Users size={13} />
-              3 hospital contributions
-            </button>
-            <button type="button" onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))} className="inline-flex items-center gap-1.5 transition-colors hover:text-[#10243E]">
-              <Clock3 size={13} />
-              Activity
-            </button>
-            <span className="inline-flex items-center gap-1.5">
-              <Info size={13} />
-              shared to global
-            </span>
-          </section>
-
-          <section className="mx-4 mt-4 flex items-center justify-between border-b border-[#C7DEE7] pb-3 text-[14px]">
-            <div className="flex items-center gap-2 font-medium text-[#35546D]">
-              <GitBranch size={14} className="text-[#61758B]" />
-              <span>{statusLabel} - version 1.2</span>
-            </div>
-            <button type="button" className="inline-flex items-center gap-2 font-semibold text-[#0F4C5C] hover:text-[#10243E]">
-              <Play size={14} />
-              Start procedure
+              3 contributors
             </button>
           </section>
 
@@ -365,8 +328,8 @@ export default function MobileProcedureRepositoryView({
 
           <section className="mx-4 mt-5 border-t border-[#C7DEE7]">
             <div className="flex items-center justify-between border-b border-[#D9EBF0] px-1 py-3 text-[14px] text-[#10243E]">
-              <span className="font-semibold">Approved versions</span>
-              <span className="font-medium text-[#35546D]">{versionEntries.length}</span>
+              <span className="font-semibold">Published versions</span>
+              <span className="font-medium text-[#35546D]">{versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}</span>
             </div>
             <div>
               {versionEntries.map((version) => (
@@ -376,13 +339,10 @@ export default function MobileProcedureRepositoryView({
                     onClick={() => setOpenVersionId((current) => (current === version.id ? "" : version.id))}
                     className="flex w-full items-center justify-between gap-3 text-left"
                   >
-                    <span className="flex min-w-0 items-center gap-2">
-                      <span className={`h-2 w-2 shrink-0 rounded-full ${version.active ? "bg-[#2A96A8]" : "bg-[#C1D7DE]"}`} />
-                      <span className="min-w-0">
-                        <span className="block truncate font-medium text-[#10243E]">{version.name}</span>
-                        <span className="block truncate text-[13px] text-[#4C647A]">
-                          Last updated {formatUpdatedDate(version.updatedAt)}
-                        </span>
+                    <span className="min-w-0">
+                      <span className="block truncate font-medium text-[#10243E]">{version.name}</span>
+                      <span className="block truncate text-[13px] text-[#4C647A]">
+                        Updated {formatUpdatedDate(version.updatedAt)}
                       </span>
                     </span>
                     <ChevronDown
@@ -406,6 +366,8 @@ export default function MobileProcedureRepositoryView({
               ))}
             </div>
           </section>
+          </>
+          ) : null}
 
           {localVersionLinks.length > 0 ? (
             <section className="mx-4 mt-5 border-t border-[#C7DEE7]">
@@ -427,9 +389,9 @@ export default function MobileProcedureRepositoryView({
           ) : null}
 
           <section className="mx-4 mt-5">
-            {filteredSections.length > 0 ? (
+            {sectionsState.length > 0 ? (
               <>
-                {filteredSections.map((section) => (
+                {sectionsState.map((section) => (
                   <KardexSection
                     key={`${section.id}:${section.items.length}:${section.nurseNotes ?? ""}:${section.patientPositionInstructions ?? ""}:${section.externalLinks?.length ?? 0}`}
                     section={section}
@@ -453,7 +415,7 @@ export default function MobileProcedureRepositoryView({
 
                 {mode === "collect" ? (
                   <CollectionPanel
-                    sections={filteredSections}
+                    sections={sectionsState}
                     checkedItems={checkedItems}
                     procedureId={procedure.id}
                     procedureName={procedure.name}
@@ -470,67 +432,14 @@ export default function MobileProcedureRepositoryView({
           </section>
         </main>
 
-        <main className="hidden lg:grid lg:min-h-screen lg:grid-cols-[440px_minmax(0,1fr)_440px] lg:gap-0">
+        <div className={`hidden lg:grid lg:min-h-0 lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)]"} lg:pl-0 lg:pr-4 lg:pt-4 lg:pb-4`}>
+          {desktopNavOpen ? <WorkspaceNavRail currentNav="collections" /> : null}
+
+        <main className="min-w-0 lg:grid lg:min-h-0 lg:flex-1 lg:grid-cols-[440px_minmax(0,1fr)_440px] lg:gap-0">
           <aside className="flex min-h-0 flex-col border-r border-[#C7DEE7] bg-[#F6FAFC]">
-            <div className="relative shrink-0 border-b border-[#4EA8B8] bg-[#2A96A8] px-4 py-4">
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3">
-                  <button
-                    type="button"
-                    onClick={() => setMenuOpen((value) => !value)}
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-[#6FBECB] bg-white/78 text-[#10243E]"
-                    aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-                  >
-                    {menuOpen ? <X size={18} /> : <Menu size={18} />}
-                  </button>
-                  <Link href="/" className="flex items-center">
-                    <span className="app-display-font text-[28px] tracking-[-0.05em] text-white">
-                      PrepSight
-                    </span>
-                  </Link>
-                </div>
-
-                <div className="flex items-center gap-2">
-                  <button
-                    type="button"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-[#6FBECB] bg-white/78 text-[#10243E]"
-                    aria-label="Activity"
-                  >
-                    <Bell size={18} />
-                  </button>
-                  <button
-                    type="button"
-                    className="inline-flex h-10 w-10 items-center justify-center rounded-[10px] border border-[#6FBECB] bg-white/78 text-[#10243E]"
-                    aria-label="Profile"
-                  >
-                    <UserCircle2 size={19} />
-                  </button>
-                </div>
-              </div>
-
-              {menuOpen ? (
-                <div className="absolute left-4 top-full z-40 mt-2 w-[18rem] rounded-[12px] border border-[#5FAFBE] bg-[#D9EEF2] p-2 shadow-[0_12px_32px_rgba(16,36,62,0.18)]">
-                  <AppMenuContent />
-                </div>
-              ) : null}
-            </div>
-
-            <div className="shrink-0 border-b border-[#CFE3E8] bg-[#F4F7FA] px-4 py-4">
-              <label className="flex min-w-0 items-center gap-3 rounded-[12px] border border-[#CFE3E8] bg-white px-4 py-3">
-                <Search size={18} className="shrink-0 text-[#61758B]" />
-                <input
-                  value={search}
-                  onChange={(event) => setSearch(event.target.value)}
-                  placeholder="Go to section..."
-                  className="min-w-0 flex-1 bg-transparent text-[16px] text-[#10243E] outline-none placeholder:text-[#7A8DA3]"
-                />
-              </label>
-            </div>
-
             <div className="min-h-0 flex-1 overflow-y-auto px-6 py-6">
               <section className="border-b border-[#C7DEE7] pb-5">
-                <div className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#35546D]">PrepSight Library</div>
-                <h1 className="mt-1 text-[36px] font-semibold leading-tight tracking-[-0.03em] text-[#10243E]">{procedure.name}</h1>
+                <h1 className="text-[36px] font-semibold leading-tight tracking-[-0.03em] text-[#10243E]">{procedure.name}</h1>
                 <p className="mt-2 text-[16px] leading-7 text-[#35546D]">{hierarchyLabel}</p>
               </section>
 
@@ -554,16 +463,12 @@ export default function MobileProcedureRepositoryView({
                 <div className="flex items-start gap-3 text-[16px] leading-7 text-[#35546D]">
                   <ShieldAlert size={20} className="mt-1 shrink-0 text-[#2A96A8]" />
                   <p>
-                    Updated {formatUpdatedDate(procedure.updatedAt)}. This is the global reference card. To customise it for your hospital, tap Adapt for my hospital. Your team's version stays private until you choose to share it.
+                    Community reference card · Updated {formatUpdatedDate(procedure.updatedAt)}. Create a My Team version to adapt it locally.
                   </p>
                 </div>
               </section>
 
               <section className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-3 border-b border-[#C7DEE7] pb-4 text-[16px]">
-                <button type="button" onClick={() => setFollowed((value) => !value)} className="inline-flex items-center gap-2 font-medium text-[#0F4C5C] hover:text-[#10243E]">
-                  <Bell size={18} />
-                  {followed ? "Following" : "Follow"}
-                </button>
                 <button
                   type="button"
                   onClick={() => {
@@ -573,53 +478,30 @@ export default function MobileProcedureRepositoryView({
                   className="inline-flex items-center gap-2 font-medium text-[#0F4C5C] hover:text-[#10243E]"
                 >
                   <Plus size={18} />
-                  Adapt for my hospital
+                  Create My Team version
                 </button>
                 <button type="button" onClick={() => setSaved((value) => !value)} className="inline-flex items-center gap-2 font-medium text-[#0F4C5C] hover:text-[#10243E]">
                   <Bookmark size={18} />
-                  {saved ? "Saved" : "Save"}
+                  {saved ? "Bookmarked" : "Bookmark"}
+                </button>
+                <button type="button" className="inline-flex items-center gap-2 font-medium text-[#0F4C5C] hover:text-[#10243E]">
+                  <Play size={18} />
+                  Start procedure
                 </button>
               </section>
 
               <section className="mt-4 flex flex-wrap gap-x-4 gap-y-3 text-[16px] text-[#4C647A]">
                 <button type="button" onClick={() => setSaved((value) => !value)} className="inline-flex items-center gap-2 transition-colors hover:text-[#10243E]">
                   <Bookmark size={17} />
-                  {saved ? 25 : 24} saved
+                  {saved ? 25 : 24} bookmarks
                 </button>
                 <button type="button" onClick={handleOpenLocalVariants} className="inline-flex items-center gap-2 transition-colors hover:text-[#10243E]">
                   <GitBranch size={17} />
-                  3 hospital versions
-                </button>
-                <button type="button" onClick={() => setFollowed((value) => !value)} className="inline-flex items-center gap-2 transition-colors hover:text-[#10243E]">
-                  <Bell size={17} />
-                  {followed ? 13 : 12} following
-                </button>
-                <button type="button" onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))} className="inline-flex items-center gap-2 transition-colors hover:text-[#10243E]">
-                  <History size={17} />
-                  {versionEntries.length} versions
+                  3 My Team versions
                 </button>
                 <button type="button" onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))} className="inline-flex items-center gap-2 transition-colors hover:text-[#10243E]">
                   <Users size={17} />
-                  3 hospital contributions
-                </button>
-                <button type="button" onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))} className="inline-flex items-center gap-2 transition-colors hover:text-[#10243E]">
-                  <Clock3 size={17} />
-                  Activity
-                </button>
-                <span className="inline-flex items-center gap-2">
-                  <Info size={17} />
-                  shared to global
-                </span>
-              </section>
-
-              <section className="mt-4 flex items-center justify-between border-b border-[#C7DEE7] pb-4 text-[16px]">
-                <div className="flex items-center gap-2 font-medium text-[#35546D]">
-                  <GitBranch size={18} className="text-[#61758B]" />
-                  <span>{statusLabel} - version 1.2</span>
-                </div>
-                <button type="button" className="inline-flex items-center gap-2 font-semibold text-[#0F4C5C] hover:text-[#10243E]">
-                  <Play size={18} />
-                  Start procedure
+                  3 contributors
                 </button>
               </section>
 
@@ -649,8 +531,8 @@ export default function MobileProcedureRepositoryView({
 
               <section className="mt-5 border-t border-[#C7DEE7]">
                 <div className="flex items-center justify-between border-b border-[#D9EBF0] px-1 py-3 text-[16px] text-[#10243E]">
-                  <span className="font-semibold">Approved versions</span>
-                  <span className="font-medium text-[#35546D]">{versionEntries.length}</span>
+                  <span className="font-semibold">Published versions</span>
+                  <span className="font-medium text-[#35546D]">{versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}</span>
                 </div>
                 <div>
                   {versionEntries.map((version) => (
@@ -660,13 +542,10 @@ export default function MobileProcedureRepositoryView({
                         onClick={() => setOpenVersionId((current) => (current === version.id ? "" : version.id))}
                         className="flex w-full items-center justify-between gap-3 text-left"
                       >
-                        <span className="flex min-w-0 items-center gap-2">
-                          <span className={`h-2 w-2 shrink-0 rounded-full ${version.active ? "bg-[#2A96A8]" : "bg-[#C1D7DE]"}`} />
-                          <span className="min-w-0">
-                            <span className="block truncate font-medium text-[#10243E]">{version.name}</span>
-                            <span className="block truncate text-[14px] text-[#4C647A]">
-                              Last updated {formatUpdatedDate(version.updatedAt)}
-                            </span>
+                        <span className="min-w-0">
+                          <span className="block truncate font-medium text-[#10243E]">{version.name}</span>
+                          <span className="block truncate text-[14px] text-[#4C647A]">
+                            Updated {formatUpdatedDate(version.updatedAt)}
                           </span>
                         </span>
                         <ChevronDown
@@ -695,9 +574,9 @@ export default function MobileProcedureRepositoryView({
 
           <section className="border-r border-[#C7DEE7] bg-[#F6FAFC]">
             <div className="h-full overflow-y-auto px-6 py-6">
-              {filteredSections.length > 0 ? (
+              {sectionsState.length > 0 ? (
                 <>
-                  {filteredSections.map((section) => (
+                  {sectionsState.map((section) => (
                     <KardexSection
                       key={`${section.id}:${section.items.length}:${section.nurseNotes ?? ""}:${section.patientPositionInstructions ?? ""}:${section.externalLinks?.length ?? 0}`}
                       section={section}
@@ -722,7 +601,7 @@ export default function MobileProcedureRepositoryView({
 
                   {mode === "collect" ? (
                     <CollectionPanel
-                      sections={filteredSections}
+                      sections={sectionsState}
                       checkedItems={checkedItems}
                       procedureId={procedure.id}
                       procedureName={procedure.name}
@@ -749,6 +628,7 @@ export default function MobileProcedureRepositoryView({
             </div>
           </aside>
         </main>
+        </div>
       </div>
     </div>
   )

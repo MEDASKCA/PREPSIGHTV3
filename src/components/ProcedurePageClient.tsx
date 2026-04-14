@@ -3,11 +3,14 @@
 import { useCallback, useEffect, useRef, useState, useTransition } from "react"
 import Link from "next/link"
 import { House, Plus } from "lucide-react"
+import AppMenuContent from "./AppMenuContent"
+import AppTopBar from "./AppTopBar"
 import KardexSection from "./KardexSection"
 import CollectionPanel from "./CollectionPanel"
 import HistoryBackButton from "./HistoryBackButton"
 import ItemDetailPanel from "./ItemDetailPanel"
 import RelatedWalkthroughs from "./RelatedWalkthroughs"
+import WorkspaceNavRail from "./WorkspaceNavRail"
 import { Procedure, Section, ItemDisplayInfo, SectionType } from "@/lib/types"
 import { getMockWalkthroughs } from "@/lib/video-mocks"
 import { SECTION_TYPE_CATALOGUE, SETTING_COLOUR } from "@/lib/settings"
@@ -59,6 +62,9 @@ export default function ProcedurePageClient({
   tertiaryLabel,
   implantSystem,
 }: Props) {
+  const isSharedPublishedCard = procedure.cardScope === "shared" && procedure.publishState === "published"
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [desktopNavOpen, setDesktopNavOpen] = useState(true)
   const [lastEdit, setLastEdit] = useState<LastEdit | null>(null)
   const [sectionsState, setSectionsState] = useState<Section[]>(cardSections)
   const [uid, setUid] = useState<string | null>(null)
@@ -148,12 +154,13 @@ export default function ProcedurePageClient({
   const settingColour =
     SETTING_COLOUR[procedure.setting] ?? "bg-gray-100 text-gray-700"
   const hasSections = sectionsState.length > 0
-  const walkthroughs = getMockWalkthroughs(procedure)
+  const walkthroughs = isSharedPublishedCard ? [] : getMockWalkthroughs(procedure)
   const hierarchyLabel = formatProcedureHierarchy(procedure)
   const canEditSections =
-    procedure.cardScope === "local" ||
-    procedure.status === "draft" ||
-    sectionsState.some((section) => section.contentMode !== "fixed")
+    !isSharedPublishedCard &&
+    (procedure.cardScope === "local" ||
+      procedure.status === "draft" ||
+      sectionsState.some((section) => section.contentMode !== "fixed"))
   const availableSectionOptions = SECTION_TYPE_CATALOGUE.filter(
     (entry) => !sectionsState.some((section) => section.sectionType === entry.type),
   )
@@ -277,9 +284,29 @@ export default function ProcedurePageClient({
     }
   }
 
+  function handleToggleNavigation() {
+    if (typeof window !== "undefined" && window.matchMedia("(min-width: 1024px)").matches) {
+      setDesktopNavOpen((value) => !value)
+      return
+    }
+    setMobileMenuOpen((value) => !value)
+  }
+
   return (
     <div className="procedure-route-theme app-shell-bg min-h-screen bg-[#F4F7FA] lg:h-screen lg:flex lg:flex-col lg:overflow-hidden">
-      <header data-dev-trigger className="shrink-0 sticky top-0 z-30 border-b border-[#8ADFF0] bg-[#00B4D8] lg:static">
+      <AppTopBar
+        menuOpen={mobileMenuOpen}
+        onToggleMenu={handleToggleNavigation}
+        menuContent={<AppMenuContent />}
+        searchPlaceholder="Search anywhere..."
+        mobileMenuOnly
+      />
+
+      <div className={`lg:grid lg:flex-1 lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)]"}`}>
+        {desktopNavOpen ? <WorkspaceNavRail currentNav="collections" /> : null}
+
+        <div className="min-w-0 lg:flex lg:flex-1 lg:flex-col lg:overflow-hidden">
+      <header data-dev-trigger className="shrink-0 border-b border-[#8ADFF0] bg-[#0077B6] lg:static">
         <div className="mx-auto flex max-w-none items-start gap-3 px-4 pb-2.5 pt-[calc(env(safe-area-inset-top,0px)+8px)] lg:items-center lg:gap-4 lg:px-10 lg:py-4">
           <HistoryBackButton
             fallbackHref="/"
@@ -291,7 +318,7 @@ export default function ProcedurePageClient({
               <h1 className="text-[18px] font-semibold leading-snug text-[#10243E] lg:text-[34px] lg:font-bold lg:tracking-[-0.03em]">
                 {title ?? procedure.name}
               </h1>
-              {(subtitle || tertiaryLabel) && (
+              {!isSharedPublishedCard && (subtitle || tertiaryLabel) && (
                 <span className="text-[13px] leading-snug text-[#406175] lg:text-[20px]">
                   {[subtitle, tertiaryLabel].filter(Boolean).join(" · ")}
                 </span>
@@ -308,7 +335,7 @@ export default function ProcedurePageClient({
                 {procedure.setting} / {hierarchyLabel}
               </span>
 
-              {walkthroughs.length > 0 && (
+              {!isSharedPublishedCard && walkthroughs.length > 0 && (
                 <>
                   <span className="text-[11px] text-[#7ECFDF] lg:text-[20px]">·</span>
                   <a
@@ -329,7 +356,7 @@ export default function ProcedurePageClient({
                 </>
               )}
 
-              <div className="ml-auto flex gap-0.5 rounded-lg border border-[#8CCFDF] bg-white/75 p-0.5 lg:hidden shrink-0">
+              {!isSharedPublishedCard ? <div className="ml-auto flex gap-0.5 rounded-lg border border-[#8CCFDF] bg-white/75 p-0.5 lg:hidden shrink-0">
                 {procedure.cardScope === "local" ? (
                   <button
                     type="button"
@@ -353,11 +380,11 @@ export default function ProcedurePageClient({
                     {m === "browse" ? "Browse" : "Collect"}
                   </button>
                 ))}
-              </div>
+              </div> : null}
             </div>
           </div>
 
-          <div className="hidden lg:flex gap-1 rounded-xl border border-[#8CCFDF] bg-white/75 p-1 shrink-0">
+          {!isSharedPublishedCard ? <div className="hidden lg:flex gap-1 rounded-xl border border-[#8CCFDF] bg-white/75 p-1 shrink-0">
             {procedure.cardScope === "local" ? (
               <button
                 type="button"
@@ -381,7 +408,7 @@ export default function ProcedurePageClient({
                 {m === "browse" ? "Browse & Update" : "Collection"}
               </button>
             ))}
-          </div>
+          </div> : null}
 
           <Link
             href="/"
@@ -456,8 +483,9 @@ export default function ProcedurePageClient({
                   key={`${section.id}:${section.items.length}:${section.nurseNotes ?? ""}:${section.patientPositionInstructions ?? ""}:${section.externalLinks?.length ?? 0}`}
                   section={section}
                   anchorId={`section-${section.id}`}
-                  defaultOpen={isDesktop}
-                  showChecks={mode === "collection"}
+                  defaultOpen={isSharedPublishedCard ? false : isDesktop}
+                  variant={isSharedPublishedCard ? "community" : "default"}
+                  showChecks={!isSharedPublishedCard && mode === "collection"}
                   checkedItems={checkedItems}
                   onItemCheck={toggleItem}
                   implantSystem={implantSystem ?? procedure.implantSystem}
@@ -470,7 +498,7 @@ export default function ProcedurePageClient({
                 />
               ))}
 
-              {mode === "collection" && (
+              {!isSharedPublishedCard && mode === "collection" && (
                 <CollectionPanel
                   sections={sectionsState}
                   checkedItems={checkedItems}
@@ -482,7 +510,7 @@ export default function ProcedurePageClient({
                 />
               )}
 
-              <RelatedWalkthroughs videos={walkthroughs} />
+              {!isSharedPublishedCard ? <RelatedWalkthroughs videos={walkthroughs} /> : null}
 
               <footer className="mt-6 border-t border-[#D5EAF1] px-4 pt-4 lg:mt-8 lg:px-7 lg:pt-6">
                 <p className="text-[13px] text-[#61758B] lg:text-sm">
@@ -527,6 +555,8 @@ export default function ProcedurePageClient({
           />
         </div>
       </main>
+        </div>
+      </div>
     </div>
   )
 }

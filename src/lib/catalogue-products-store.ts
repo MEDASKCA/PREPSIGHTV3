@@ -61,6 +61,7 @@ export interface CatalogueProductDraft {
   unitOfIssue: string
   location: string
   supplierPhone: string
+  imageUrl: string
 }
 
 export interface StoredCatalogueProduct extends CatalogueProduct {
@@ -122,6 +123,7 @@ export const DEFAULT_PRODUCT_DRAFT: CatalogueProductDraft = {
   unitOfIssue: "",
   location: "",
   supplierPhone: "",
+  imageUrl: "",
 }
 
 function slugify(value: string): string {
@@ -153,6 +155,7 @@ function normalizeDraft(draft: CatalogueProductDraft): CatalogueProductDraft {
     unitOfIssue: draft.unitOfIssue.trim(),
     location: draft.location.trim(),
     supplierPhone: draft.supplierPhone.trim(),
+    imageUrl: draft.imageUrl.trim(),
   }
 }
 
@@ -169,6 +172,7 @@ function toDraft(product: CatalogueProduct): CatalogueProductDraft {
     unitOfIssue: product.unitOfIssue ?? "",
     location: product.location ?? "",
     supplierPhone: product.supplierPhone ?? "",
+    imageUrl: product.imageUrl ?? "",
   }
 }
 
@@ -226,8 +230,15 @@ function isStoredCatalogueProduct(value: unknown): value is StoredCatalogueProdu
     typeof candidate.subcategory === "string" &&
     Array.isArray(candidate.specialty) &&
     typeof candidate.createdAt === "string" &&
-    typeof candidate.updatedAt === "string"
+    typeof candidate.updatedAt === "string" &&
+    (candidate.imageUrl === undefined || typeof candidate.imageUrl === "string")
   )
+}
+
+function buildInternalReference(name: string, supplier: string): string {
+  const seed = [supplier, name].filter(Boolean).join(" ")
+  const base = slugify(seed) || `catalogue-${Date.now()}`
+  return `REF-${base.slice(0, 48).toUpperCase()}`
 }
 
 function buildStoredProduct(
@@ -251,6 +262,7 @@ function buildStoredProduct(
     unitOfIssue: normalized.unitOfIssue || undefined,
     location: normalized.location || undefined,
     supplierPhone: normalized.supplierPhone || undefined,
+    imageUrl: normalized.imageUrl || undefined,
     sourceModel: existingStored?.sourceModel ?? existing?.sourceModel ?? "seeded_product",
     entityKind: existingStored?.entityKind ?? existing?.entityKind ?? "product",
     createdAt: existingStored?.createdAt ?? now,
@@ -330,25 +342,27 @@ export function saveCatalogueProduct(
   const normalized = normalizeDraft(draft)
 
   if (!normalized.name) return { ok: false, error: "Product name is required." }
-  if (!normalized.sku) return { ok: false, error: "Product code / SKU is required." }
   if (!normalized.supplier) return { ok: false, error: "Supplier is required." }
   if (!normalized.subcategory) return { ok: false, error: "Subcategory is required." }
+
+  const resolvedSku = normalized.sku || buildInternalReference(normalized.name, normalized.supplier)
+  const preparedDraft = { ...normalized, sku: resolvedSku }
 
   const allProducts = getCatalogueProducts()
   const existing = existingId ? allProducts.find((product) => product.id === existingId) : undefined
   const duplicateSku = allProducts.find(
     (product) =>
       product.id !== existingId &&
-      product.sku.localeCompare(normalized.sku, undefined, { sensitivity: "accent" }) === 0,
+      product.sku.localeCompare(resolvedSku, undefined, { sensitivity: "accent" }) === 0,
   )
 
   if (duplicateSku) {
-    return { ok: false, error: `Product code / SKU "${normalized.sku}" already exists.` }
+    return { ok: false, error: `Internal reference "${resolvedSku}" already exists.` }
   }
 
   const payload = readPayload()
   const existingStored = payload.products.find((product) => product.id === existingId)
-  const nextProduct = buildStoredProduct(normalized, existing, existingStored)
+  const nextProduct = buildStoredProduct(preparedDraft, existing, existingStored)
   const nextProducts = payload.products.filter((product) => product.id !== nextProduct.id)
   nextProducts.push(nextProduct)
   writePayload({ products: nextProducts.sort((left, right) => left.name.localeCompare(right.name)) })

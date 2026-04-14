@@ -2,9 +2,10 @@
 
 import Link from "next/link"
 import { useMemo, useState, useSyncExternalStore, type ReactNode } from "react"
-import { ChevronDown, Folder, FolderOpen } from "lucide-react"
+import { ChevronDown } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
+import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import {
   getLibrariesSnapshot,
   getLibraryByIdSnapshot,
@@ -43,10 +44,16 @@ interface TreeGroup {
   branches: TreeBranch[]
 }
 
-type TreeBranchMap = Map<string, Procedure[] | Map<string, Procedure[]>>
-type TreeGroupAccumulator = {
+type TreeAccumulator = {
   cards: Procedure[]
-  branches: TreeBranchMap
+  branches: Map<string, TreeAccumulator>
+}
+
+function createTreeAccumulator(): TreeAccumulator {
+  return {
+    cards: [],
+    branches: new Map<string, TreeAccumulator>(),
+  }
 }
 
 function getLibraryDisplayName(name: string) {
@@ -57,6 +64,95 @@ function getLibraryOwnerLabel(library?: { libraryType: "shared" | "local"; owner
   if (!library) return ""
   if (library.libraryType === "shared") return library.ownerPublicAlias?.trim() || library.ownerName
   return library.ownerName
+}
+
+function getProcedureClassBucket(card: Procedure): string | null {
+  const text = `${card.name} ${card.variantLabel ?? ""} ${card.description ?? ""}`.toLowerCase()
+
+  if (text.includes("robotic") || text.includes("patient specific instrumentation")) {
+    return "Robotic / Assisted"
+  }
+  if (text.includes("revision") || text.includes("reconstruction") || text.includes("periprosthetic") || text.includes("resection arthroplasty")) {
+    return "Revision / Reconstruction"
+  }
+  if (text.includes("direct anterior") || text.includes("posterior approach")) {
+    return "Approach / Technique"
+  }
+  if (text.includes("unicompartmental") || text.includes("resurfacing")) {
+    return "Partial / Resurfacing"
+  }
+  if (text.includes("stemless") || text.includes("dual mobility") || text.includes("constrained") || text.includes("rotating hinge") || text.includes("convertible") || text.includes("ceramic-on-ceramic") || text.includes("stemmed")) {
+    return "Special Constructs"
+  }
+  if (text.includes("primary") || text.includes("total") || text.includes("cemented") || text.includes("cementless") || text.includes("hybrid")) {
+    return "Primary"
+  }
+  return null
+}
+
+function getAdditionalBranchPath(card: Procedure, anatomyGroup: string | null): string[] {
+  if (anatomyGroup !== "Whole Joint") return []
+
+  const procedureClass = getProcedureClassBucket(card)
+  return procedureClass ? [procedureClass] : []
+}
+
+function buildBranchTree(parentId: string, accumulator: TreeAccumulator): TreeBranch[] {
+  return [...accumulator.branches.entries()]
+    .sort((left, right) => left[0].localeCompare(right[0]))
+    .map(([label, node]) => ({
+      id: `${parentId}:${label}`,
+      label,
+      cards: [...node.cards].sort((left, right) => left.name.localeCompare(right.name)),
+      branches: buildBranchTree(`${parentId}:${label}`, node),
+    }))
+}
+
+function FolderBadge({
+  tone,
+  open = false,
+  size = "md",
+}: {
+  tone: "global" | "local"
+  open?: boolean
+  size?: "md" | "lg"
+}) {
+  const palette =
+    tone === "global"
+      ? {
+          body: open ? "#79CFE6" : "#67C4DE",
+          tab: open ? "#A8E3F2" : "#93DAED",
+          edge: "#4FAFCD",
+          flap: "#D7F3FA",
+        }
+      : {
+          body: open ? "#60C7C8" : "#4ABABB",
+          tab: open ? "#9EE6E1" : "#87DDD8",
+          edge: "#349FA0",
+          flap: "#DDF8F4",
+        }
+
+  const width = size === "lg" ? 36 : 30
+  const height = size === "lg" ? 26 : 22
+
+  return (
+    <span className="inline-flex shrink-0">
+      <svg width={width} height={height} viewBox="0 0 36 26" aria-hidden="true">
+        {open ? (
+          <>
+            <path d="M4 8h10l2-3h7c1.3 0 2.4.7 3 1.8l1 1.7H4.8A2.8 2.8 0 0 0 2 11.3v1.2L4 8Z" fill={palette.tab} stroke={palette.edge} strokeWidth="1.2" strokeLinejoin="round" />
+            <path d="M3.2 11.2h29.4c1.1 0 1.8 1.1 1.4 2.1l-2.4 7.8A2.6 2.6 0 0 1 29 23H6a2.6 2.6 0 0 1-2.5-1.9L1.7 13A1.4 1.4 0 0 1 3.2 11.2Z" fill={palette.flap} stroke={palette.edge} strokeWidth="1.2" strokeLinejoin="round" />
+            <path d="M5.2 9.6h11l2-2.8h6.7c1.1 0 2.1.5 2.8 1.4l1 1.4H5.2Z" fill={palette.body} opacity="0.95" />
+          </>
+        ) : (
+          <>
+            <path d="M3 8.5A2.5 2.5 0 0 1 5.5 6H14l2-2.5h6.8A2.5 2.5 0 0 1 25 5h6.5A2.5 2.5 0 0 1 34 7.5v12A2.5 2.5 0 0 1 31.5 22h-26A2.5 2.5 0 0 1 3 19.5v-11Z" fill={palette.body} stroke={palette.edge} strokeWidth="1.2" strokeLinejoin="round" />
+            <path d="M3.8 8.7h29.4v2.6H3.8z" fill={palette.tab} opacity="0.95" />
+          </>
+        )}
+      </svg>
+    </span>
+  )
 }
 
 function TreeBranchNode({
@@ -71,13 +167,13 @@ function TreeBranchNode({
   lineColor: string
 }) {
   return (
-    <div className="relative pl-7">
-      <div className="absolute left-0 top-0 bottom-0 w-5">
-        {!isLast ? <div className="absolute left-[7px] top-0 bottom-0 w-px" style={{ backgroundColor: lineColor }} /> : null}
-        <div className="absolute left-[7px] top-0 h-[15px] w-px" style={{ backgroundColor: lineColor }} />
-        <div className="absolute left-[7px] top-[15px] h-px w-[8px]" style={{ backgroundColor: lineColor }} />
+    <div className="relative pl-11">
+      <div className="absolute left-0 top-0 bottom-0 w-9">
+        {!isLast ? <div className="absolute left-[12px] top-0 bottom-0 w-px" style={{ backgroundColor: lineColor }} /> : null}
+        <div className="absolute left-[12px] top-0 h-[16px] w-px" style={{ backgroundColor: lineColor }} />
+        <div className="absolute left-[12px] top-[16px] h-px w-[16px]" style={{ backgroundColor: lineColor }} />
         <div
-          className="absolute left-[15px] top-[12px] h-[5px] w-[5px] rounded-full"
+          className="absolute left-[27px] top-[13px] h-[6px] w-[6px] rounded-full"
           style={{ backgroundColor: nodeColor }}
         />
       </div>
@@ -121,11 +217,13 @@ function TreeGroupContent({
   libraryId,
   isBranchExpanded,
   toggleBranch,
+  folderTone,
 }: {
   group: TreeGroup
   libraryId: string
   isBranchExpanded: (branchId: string) => boolean
   toggleBranch: (branchId: string) => void
+  folderTone: "global" | "local"
 }) {
   const directRows = [
     ...group.branches.map((branch) => ({ type: "branch" as const, branch })),
@@ -134,7 +232,7 @@ function TreeGroupContent({
 
   return (
     <div className="border-t border-[#E8EFF6] px-4 py-2">
-      <div className="ml-1">
+      <div className="ml-3">
         {directRows.map((row, index) => {
           const isLast = index === directRows.length - 1
 
@@ -153,9 +251,12 @@ function TreeGroupContent({
                   onClick={() => toggleBranch(branch.id)}
                   className="flex w-full items-center justify-between gap-3 py-1 text-left font-normal"
                 >
-                  <p className="text-[14px] font-normal text-[#10243E]">
-                    {branch.label}
-                  </p>
+                  <div className="flex items-center gap-2">
+                    <FolderBadge tone={folderTone} open={isBranchExpanded(branch.id)} size="md" />
+                    <p className="text-[14px] font-normal text-[#10243E]">
+                      {branch.label}
+                    </p>
+                  </div>
                   <ChevronDown
                     size={14}
                     className={`shrink-0 text-[#406175] transition-transform ${isBranchExpanded(branch.id) ? "rotate-180" : ""}`}
@@ -164,13 +265,14 @@ function TreeGroupContent({
 
                 {isBranchExpanded(branch.id) ? (
                   <TreeBranchContent
-                    branch={branch}
-                    libraryId={libraryId}
-                    isBranchExpanded={isBranchExpanded}
-                    toggleBranch={toggleBranch}
-                  />
-                ) : null}
-              </TreeBranchNode>
+                  branch={branch}
+                  libraryId={libraryId}
+                  isBranchExpanded={isBranchExpanded}
+                  toggleBranch={toggleBranch}
+                  folderTone={folderTone}
+                />
+              ) : null}
+            </TreeBranchNode>
             )
           }
 
@@ -196,11 +298,13 @@ function TreeBranchContent({
   libraryId,
   isBranchExpanded,
   toggleBranch,
+  folderTone,
 }: {
   branch: TreeBranch
   libraryId: string
   isBranchExpanded: (branchId: string) => boolean
   toggleBranch: (branchId: string) => void
+  folderTone: "global" | "local"
 }) {
   const directRows = [
     ...branch.branches.map((child) => ({ type: "branch" as const, branch: child })),
@@ -208,7 +312,7 @@ function TreeBranchContent({
   ]
 
   return (
-    <div className="ml-3">
+    <div className="ml-7">
       {directRows.map((row, index) => {
         const isLast = index === directRows.length - 1
 
@@ -224,13 +328,16 @@ function TreeBranchContent({
               nodeColor="#2FB8D6"
             >
               <button
-                type="button"
-                onClick={() => toggleBranch(child.id)}
-                className="flex w-full items-center justify-between gap-3 py-1 text-left font-normal"
-              >
-                <p className="text-[14px] font-normal text-[#10243E]">
-                  {child.label}
-                </p>
+              type="button"
+              onClick={() => toggleBranch(child.id)}
+              className="flex w-full items-center justify-between gap-3 py-1 text-left font-normal"
+            >
+                <div className="flex items-center gap-2">
+                  <FolderBadge tone={folderTone} open={expanded} size="md" />
+                  <p className="text-[14px] font-normal text-[#10243E]">
+                    {child.label}
+                  </p>
+                </div>
                 <ChevronDown
                   size={14}
                   className={`shrink-0 text-[#406175] transition-transform ${expanded ? "rotate-180" : ""}`}
@@ -243,6 +350,7 @@ function TreeBranchContent({
                   libraryId={libraryId}
                   isBranchExpanded={isBranchExpanded}
                   toggleBranch={toggleBranch}
+                  folderTone={folderTone}
                 />
               ) : null}
             </TreeBranchNode>
@@ -292,10 +400,11 @@ export default function LibraryPageClient({
   const ownerLabel = getLibraryOwnerLabel(library)
   const showOwnerName = Boolean(ownerLabel) && ownerLabel.trim().toLowerCase() !== "prepsight"
   const collapseHierarchyByDefault = library?.libraryType === "shared"
+  const folderTone = library?.libraryType === "local" ? "local" : "global"
 
   const tree = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase()
-    const groupMap = new Map<string, TreeGroupAccumulator>()
+    const groupMap = new Map<string, TreeAccumulator>()
 
     for (const card of cards) {
       if (
@@ -307,25 +416,20 @@ export default function LibraryPageClient({
       const specialty = getSpecialtyLabel(card)
       const subspecialty = getSubspecialtyLabel(card)
       const anatomyGroup = getAnatomyGroupLabel(card)
-      const current = groupMap.get(specialty) ?? { cards: [], branches: new Map<string, Procedure[] | Map<string, Procedure[]>>() as TreeBranchMap }
+      const current = groupMap.get(specialty) ?? createTreeAccumulator()
+      const path = [
+        ...(subspecialty && subspecialty !== specialty ? [subspecialty] : []),
+        ...(anatomyGroup && anatomyGroup !== subspecialty ? [anatomyGroup] : []),
+        ...getAdditionalBranchPath(card, anatomyGroup),
+      ]
 
-      if (subspecialty && subspecialty !== specialty) {
-        const existing = current.branches.get(subspecialty)
-
-        if (anatomyGroup && anatomyGroup !== subspecialty) {
-          const anatomyMap = existing instanceof Map ? existing : new Map<string, Procedure[]>()
-          const anatomyCards = anatomyMap.get(anatomyGroup) ?? []
-          anatomyCards.push(card)
-          anatomyMap.set(anatomyGroup, anatomyCards)
-          current.branches.set(subspecialty, anatomyMap)
-        } else {
-          const branchCards = Array.isArray(existing) ? existing : []
-          branchCards.push(card)
-          current.branches.set(subspecialty, branchCards)
-        }
-      } else {
-        current.cards.push(card)
+      let cursor = current
+      for (const segment of path) {
+        const next = cursor.branches.get(segment) ?? createTreeAccumulator()
+        cursor.branches.set(segment, next)
+        cursor = next
       }
+      cursor.cards.push(card)
 
       groupMap.set(specialty, current)
     }
@@ -336,25 +440,7 @@ export default function LibraryPageClient({
         id: `group:${label}`,
         label,
         cards: [...value.cards].sort((left, right) => left.name.localeCompare(right.name)),
-        branches: [...value.branches.entries()]
-          .sort((left, right) => left[0].localeCompare(right[0]))
-          .map(([branchLabel, branchValue]) => ({
-            id: `branch:${label}:${branchLabel}`,
-            label: branchLabel,
-            cards: Array.isArray(branchValue)
-              ? [...branchValue].sort((left, right) => left.name.localeCompare(right.name))
-              : [],
-            branches: branchValue instanceof Map
-              ? [...branchValue.entries()]
-                  .sort((left, right) => left[0].localeCompare(right[0]))
-                  .map(([childLabel, childCards]) => ({
-                    id: `branch:${label}:${branchLabel}:${childLabel}`,
-                    label: childLabel,
-                    cards: [...childCards].sort((left, right) => left.name.localeCompare(right.name)),
-                    branches: [],
-                  }))
-              : [],
-          })),
+        branches: buildBranchTree(`branch:${label}`, value),
       }))
   }, [cards, query])
 
@@ -402,7 +488,7 @@ export default function LibraryPageClient({
     return (
       <div className="app-shell-bg flex min-h-screen items-center justify-center px-6">
         <div className="w-full max-w-lg border border-[#D5DCE3] bg-white px-6 py-7 text-center">
-          <p className="text-[14px] text-[#10243E]">Repository not found.</p>
+          <p className="text-[14px] text-[#10243E]">Collection not found.</p>
           <Link href="/" className="mt-4 inline-flex border border-[#10243E] px-4 py-2 text-[13px] text-[#10243E]">
             Return to dashboard
           </Link>
@@ -419,15 +505,16 @@ export default function LibraryPageClient({
         searchValue={query}
         onSearchChange={setQuery}
         searchPlaceholder="Find a procedure, branch, or version..."
+        mobileMenuOnly
         menuContent={<AppMenuContent />}
       />
 
-      <main className="w-full px-4 py-6 lg:px-6 lg:py-6">
-        <div className="space-y-6 lg:hidden">
-          <section className="space-y-3 rounded-[3px] border border-[#7FD3E4] bg-[#2E9FBE] px-4 py-5 shadow-[0_14px_28px_-26px_rgba(16,36,62,0.22)]">
+      <main className="w-full px-4 pt-0 pb-4 lg:pl-0 lg:pr-4 lg:pt-4 lg:pb-4">
+        <div className="space-y-4 lg:hidden">
+          <section className="space-y-2 px-1">
             <div>
-              {showOwnerName ? <p className="text-[13px] text-[#D9F6FB]">{ownerLabel}</p> : null}
-              <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-white">{displayName}</h1>
+              {showOwnerName ? <p className="text-[13px] text-[#5B7A8A]">{ownerLabel}</p> : null}
+              <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-[#10243E]">{displayName}</h1>
             </div>
           </section>
 
@@ -447,7 +534,7 @@ export default function LibraryPageClient({
                     <p>Browse the PrepSight Library to find a procedure and adapt it for your team.</p>
                     <Link
                       href={`/libraries/${sharedLibraryId}`}
-                      className="inline-flex border border-[#0F4C5C] bg-[#0F4C5C] px-3 py-2 text-[13px] font-medium text-white"
+                      className="inline-flex rounded-[10px] border border-[#0F4C5C] bg-[#0F4C5C] px-3 py-2 text-[13px] font-medium text-white"
                     >
                       Browse PrepSight Library
                     </Link>
@@ -465,11 +552,7 @@ export default function LibraryPageClient({
                     className="flex w-full items-center justify-between gap-3 bg-[#F0FAFC] px-4 py-3 text-left font-normal text-[#10243E]"
                   >
                     <div className="flex min-w-0 items-center gap-2">
-                      {isGroupExpanded(group.id) ? (
-                        <FolderOpen size={16} className="shrink-0 text-[#0F9FC1]" />
-                      ) : (
-                        <Folder size={16} className="shrink-0 text-[#0F9FC1]" />
-                      )}
+                      <FolderBadge tone={folderTone} open={isGroupExpanded(group.id)} size="lg" />
                       <p className="truncate text-[14px] font-normal text-[#10243E]">{group.label}</p>
                       <span className="text-[14px] font-normal text-[#10243E]">{totalForGroup(group)}</span>
                     </div>
@@ -485,6 +568,7 @@ export default function LibraryPageClient({
                       libraryId={library.id}
                       isBranchExpanded={isBranchExpanded}
                       toggleBranch={toggleBranch}
+                      folderTone={folderTone}
                     />
                   ) : null}
                 </section>
@@ -493,44 +577,14 @@ export default function LibraryPageClient({
           </div>
         </div>
 
-        <div className={`hidden lg:grid lg:gap-8 ${desktopNavOpen ? "lg:grid-cols-[220px_minmax(0,1fr)_320px]" : "lg:grid-cols-[minmax(0,1fr)_320px]"}`}>
-          {desktopNavOpen ? (
-            <aside className="min-w-0 border-r border-[#D5EAF1] pr-4">
-              <div className="flex items-center justify-between gap-2">
-                <div className="text-[14px] text-[#10243E]">Navigation</div>
-              </div>
+        <div className={`hidden lg:grid lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)_300px]" : "lg:grid-cols-[minmax(0,1fr)_300px]"}`}>
+          {desktopNavOpen ? <WorkspaceNavRail currentNav="collections" /> : null}
 
-              <div className="mt-4 space-y-1">
-                <Link href="/" className="block py-2 text-[14px] text-[#10243E]">
-                  Dashboard
-                </Link>
-                <Link href="/" className="block py-2 text-[14px] text-[#10243E]">
-                  Repositories
-                </Link>
-                <Link href="/review" className="block py-2 text-[14px] text-[#10243E]">
-                  Review
-                </Link>
-                <Link href="/calendar" className="block py-2 text-[14px] text-[#10243E]">
-                  Calendar
-                </Link>
-                <Link href="/catalogue" className="block py-2 text-[14px] text-[#10243E]">
-                  Catalogue
-                </Link>
-                <Link href="/procedures/new" className="block py-2 text-[14px] text-[#10243E]">
-                  New card
-                </Link>
-                <Link href="/settings/profile" className="block py-2 text-[14px] text-[#10243E]">
-                  Profile
-                </Link>
-              </div>
-            </aside>
-          ) : null}
-
-          <div className="min-w-0 space-y-5">
-            <section className="space-y-3 rounded-[3px] border border-[#7FD3E4] bg-[#2E9FBE] px-6 py-6 shadow-[0_14px_28px_-26px_rgba(16,36,62,0.22)]">
+          <div className="min-w-0 space-y-2">
+            <section className="space-y-2 px-1">
               <div>
-                {showOwnerName ? <p className="text-[13px] text-[#D9F6FB]">{ownerLabel}</p> : null}
-                <h1 className="mt-1 text-[30px] tracking-[-0.04em] text-white">{displayName}</h1>
+                {showOwnerName ? <p className="text-[13px] text-[#5B7A8A]">{ownerLabel}</p> : null}
+                <h1 className="mt-1 text-[30px] tracking-[-0.04em] text-[#10243E]">{displayName}</h1>
               </div>
             </section>
 
@@ -541,7 +595,7 @@ export default function LibraryPageClient({
               </nav>
             </section>
 
-            <section className="overflow-hidden rounded-[3px] border border-[#C2DFE7] bg-white shadow-[0_14px_28px_-26px_rgba(16,36,62,0.18)]">
+            <section className="overflow-hidden rounded-[12px] border border-[#DCEAF0] bg-white shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
               <div className="border-b border-[#D7E9EE] bg-[#10243E] px-4 py-3 text-[14px] text-white">
                 Specialty hierarchy
               </div>
@@ -555,7 +609,7 @@ export default function LibraryPageClient({
                         <p>Browse the PrepSight Library to find a procedure and adapt it for your team.</p>
                         <Link
                           href={`/libraries/${sharedLibraryId}`}
-                          className="inline-flex border border-[#0F4C5C] bg-[#0F4C5C] px-3 py-2 text-[13px] font-medium text-white"
+                          className="inline-flex rounded-[10px] border border-[#0F4C5C] bg-[#0F4C5C] px-3 py-2 text-[13px] font-medium text-white"
                         >
                           Browse PrepSight Library
                         </Link>
@@ -573,11 +627,7 @@ export default function LibraryPageClient({
                         className="flex w-full items-center justify-between gap-3 bg-[#F8FBFD] px-4 py-2 text-left font-normal"
                       >
                         <div className="flex min-w-0 items-center gap-2">
-                          {isGroupExpanded(group.id) ? (
-                            <FolderOpen size={16} className="shrink-0 text-[#0F9FC1]" />
-                          ) : (
-                            <Folder size={16} className="shrink-0 text-[#0F9FC1]" />
-                          )}
+                          <FolderBadge tone={folderTone} open={isGroupExpanded(group.id)} size="lg" />
                           <p className="truncate text-[14px] font-normal text-[#10243E]">
                             {group.label}
                           </p>
@@ -595,6 +645,7 @@ export default function LibraryPageClient({
                           libraryId={library.id}
                           isBranchExpanded={isBranchExpanded}
                           toggleBranch={toggleBranch}
+                          folderTone={folderTone}
                         />
                       ) : null}
                     </div>
@@ -605,14 +656,14 @@ export default function LibraryPageClient({
           </div>
 
           <aside className="min-w-0">
-            <div className="overflow-hidden rounded-[3px] border border-[#C2DFE7] bg-white shadow-[0_14px_28px_-26px_rgba(16,36,62,0.18)]">
-              <div className="border-b border-[#E8EFF6] bg-[#10243E] px-4 py-3 text-[14px] text-white">PrepSight Library</div>
+            <div className="overflow-hidden rounded-[12px] border border-[#DCEAF0] bg-white shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+              <div className="border-b border-[#D7E9EE] bg-[#10243E] px-4 py-3 text-[14px] text-white">PrepSight Library</div>
               <div className="divide-y divide-[#E8EFF6]">
                 {sharedCards.slice(0, 8).map((card) => (
                   <Link
                     key={card.id}
                     href={`/libraries/${sharedLibraryId}/cards/${card.id}`}
-                    className="block px-4 py-2 text-left transition-colors hover:bg-[#F4FBFF]"
+                    className="block px-3 py-2 text-left transition-colors hover:bg-[#F4FBFF]"
                   >
                     <p className="truncate text-[15px] text-[#10243E]">{card.name}</p>
                   </Link>

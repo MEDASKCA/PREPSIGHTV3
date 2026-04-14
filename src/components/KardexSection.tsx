@@ -11,6 +11,7 @@ interface Props {
   section: Section
   defaultOpen?: boolean
   anchorId?: string
+  variant?: "default" | "community"
   showChecks?: boolean
   checkedItems?: Set<string>
   onItemCheck?: (itemId: string) => void
@@ -31,6 +32,7 @@ export default function KardexSection({
   section,
   defaultOpen = false,
   anchorId,
+  variant = "default",
   showChecks = false,
   checkedItems,
   onItemCheck,
@@ -148,6 +150,12 @@ export default function KardexSection({
   const isHandover      = section.sectionType === "handover_notes"
   const isImplants      = section.sectionType === "implants_prosthetics"
   const canEditSection  = section.contentMode !== "fixed"
+  const isCommunity = variant === "community"
+  const headerClass = isCommunity ? "bg-[#D9EFF7]" : "bg-[#00B4D8]"
+  const headerHoverClass = isCommunity ? "hover:bg-[#C8E7F3]" : "hover:bg-[#33C4E2]"
+  const headerTitleClass = isCommunity
+    ? "flex-1 flex items-center gap-3 px-4 py-3.5 text-left text-[17px] font-medium text-[#10243E] transition-colors lg:px-7 lg:py-4 lg:text-[22px]"
+    : "flex-1 flex items-center gap-3 px-4 py-3.5 text-left text-base font-semibold text-[#10243E] transition-colors lg:px-7 lg:py-5 lg:text-[24px]"
 
 
   function emitSectionChange(overrides?: Partial<Section>) {
@@ -165,10 +173,10 @@ export default function KardexSection({
 
   return (
     <div id={anchorId} className="kardex-section mb-1 scroll-mt-24">
-      <div className="kardex-section-header flex items-center bg-[#00B4D8] transition-colors">
+      <div className={`kardex-section-header flex items-center transition-colors ${headerClass}`}>
         <button
           onClick={() => setOpen(!open)}
-          className="flex-1 flex items-center gap-3 px-4 py-3.5 text-left text-base font-semibold text-[#10243E] transition-colors hover:bg-[#33C4E2] lg:px-7 lg:py-5 lg:text-[24px]"
+          className={`${headerTitleClass} ${headerHoverClass}`}
         >
           <span className="flex-1">{section.title}</span>
         </button>
@@ -198,7 +206,7 @@ export default function KardexSection({
 
         <button
           onClick={() => setOpen(!open)}
-          className="px-4 py-3.5 text-[#10243E] transition-colors hover:bg-[#33C4E2] lg:px-6"
+          className={`px-4 py-3.5 text-[#10243E] transition-colors lg:px-6 ${headerHoverClass}`}
         >
           {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
         </button>

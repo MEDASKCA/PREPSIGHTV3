@@ -2,6 +2,7 @@ import { auth } from "./firebase"
 import {
   GoogleAuthProvider,
   OAuthProvider,
+  deleteUser,
   signInWithPopup,
   signInWithRedirect,
   getRedirectResult,
@@ -136,6 +137,15 @@ export async function signOut() {
   }
   if (!auth) return
   return firebaseSignOut(auth)
+}
+
+export async function deleteAuthenticatedAccount() {
+  if (isLocalDevHost()) {
+    setLocalDevSignedIn(false)
+    return
+  }
+  if (!auth?.currentUser) throw new Error("No authenticated user")
+  await deleteUser(auth.currentUser)
 }
 
 export function onAuthChange(callback: (user: User | null) => void) {

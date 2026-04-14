@@ -55,11 +55,6 @@ function iconForProduct(p: CatalogueProduct): IconKey {
   return "package"
 }
 
-function seedQty(sku: string): number {
-  const n = sku.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0)
-  return (n % 9) + 1
-}
-
 // ── Data from shared catalogue ────────────────────────────────────────────────
 
 const NHS_STATUSES = ["All", "Contract", "Off-Contract"]
@@ -73,15 +68,6 @@ const ICON_MAP: Record<IconKey, React.ElementType> = {
   thermometer: Thermometer,
   layout:      LayoutGrid,
   wrench:      Wrench,
-}
-
-function statusColor(status: ProductStatus): string {
-  switch (status) {
-    case "In Stock":     return "text-emerald-600"
-    case "Low Stock":    return "text-amber-600"
-    case "Out of Stock": return "text-red-500"
-    case "Available":    return "text-[#4DA3FF]"
-  }
 }
 
 function sourceBadgeForProduct(product: CatalogueProduct): string {
@@ -433,4 +419,17 @@ export default function ProductSearchPage() {
       )}
     </div>
   )
+}
+function seedQty(sku: string): number {
+  const n = sku.split("").reduce((acc, c) => acc + c.charCodeAt(0), 0)
+  return (n % 9) + 1
+}
+
+function statusColor(status: ProductStatus): string {
+  switch (status) {
+    case "In Stock":     return "text-emerald-600"
+    case "Low Stock":    return "text-amber-600"
+    case "Out of Stock": return "text-red-500"
+    case "Available":    return "text-[#4DA3FF]"
+  }
 }

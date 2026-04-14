@@ -10,9 +10,41 @@ const STORAGE_KEY = "prepsight_profile"
 const FORCE_ONBOARDING_KEY = "prepsight_force_onboarding"
 export const PLATFORM_ROLE_COOKIE_KEY = "prepsight_platform_role"
 const ROLE_COOKIE_MAX_AGE = 60 * 60 * 24 * 30
+const LOCAL_DEV_PROFILE_HOSPITAL = "Basildon University Hospital"
 
 function slugify(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+}
+
+function isPrivateLanHost(host: string): boolean {
+  if (/^192\.168\.\d{1,3}\.\d{1,3}$/.test(host)) return true
+  if (/^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(host)) return true
+  const match172 = host.match(/^172\.(\d{1,3})\.\d{1,3}\.\d{1,3}$/)
+  if (!match172) return false
+  const secondOctet = Number(match172[1])
+  return secondOctet >= 16 && secondOctet <= 31
+}
+
+function isLocalDevHost(): boolean {
+  if (typeof window === "undefined") return false
+  const host = window.location.hostname.trim().toLowerCase()
+  return host === "localhost" || host === "127.0.0.1" || host === "::1" || isPrivateLanHost(host)
+}
+
+function buildLocalDevProfile(): PrepSightProfile {
+  const hospital = LOCAL_DEV_PROFILE_HOSPITAL
+  return ensureLocalOrganizationContext({
+    hospital,
+    departments: ["Endoscopy", "Theatres"],
+    role: "clinical_author",
+    specialtiesOfInterest: ["Endoscopy Suite", "Operating Theatre"],
+    completedAt: new Date().toISOString(),
+    name: "Local Dev",
+    jobTitle: "PrepSight Local Tester",
+    activeOrganizationId: slugify(hospital),
+    organizationIds: [slugify(hospital)],
+    platformRole: "admin",
+  })
 }
 
 function resolvePlatformRole(profile: PrepSightProfile): PlatformRole {
@@ -212,6 +244,11 @@ export async function resolveProfile(uid: string): Promise<PrepSightProfile | nu
   if (shouldForceOnboarding()) return null
   const local = getProfile()
   if (local) return local
+  if (isLocalDevHost()) {
+    const profile = buildLocalDevProfile()
+    saveProfileLocal(profile)
+    return profile
+  }
 
   const remote = await getUserProfile(uid)
   if (remote) {

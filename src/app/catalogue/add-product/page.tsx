@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
 import { useRouter, useSearchParams } from "next/navigation"
 import { ArrowLeft, MessageSquareText, PackagePlus, Save, ScanLine } from "lucide-react"
 import {
@@ -50,6 +50,7 @@ export default function AddProductPage() {
   const [draft, setDraft] = useState<CatalogueProductDraft>(DEFAULT_PRODUCT_DRAFT)
   const [error, setError] = useState("")
   const [saving, setSaving] = useState(false)
+  const imageInputRef = useRef<HTMLInputElement | null>(null)
 
   const isEditing = Boolean(productId)
   const backHref = source === "chat" ? "/" : "/catalogue"
@@ -82,7 +83,27 @@ export default function AddProductPage() {
       return
     }
 
-    router.push(`/catalogue/products?product=${encodeURIComponent(result.product.id)}`)
+    router.push(`/catalogue?product=${encodeURIComponent(result.product.id)}`)
+  }
+
+  function handleImageChange(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        updateDraft("imageUrl", reader.result)
+      }
+    }
+    reader.readAsDataURL(file)
+  }
+
+  function clearImage() {
+    updateDraft("imageUrl", "")
+    if (imageInputRef.current) {
+      imageInputRef.current.value = ""
+    }
   }
 
   return (
@@ -133,12 +154,52 @@ export default function AddProductPage() {
             </label>
 
             <label className="block">
-              <span className="text-sm font-semibold text-[#10243E]">Product code / SKU</span>
+              <span className="text-sm font-semibold text-[#10243E]">Image</span>
+              <div className="mt-2 rounded-2xl border border-[#D5E3EF] bg-[#F8FBFF] p-3">
+                <div className="flex items-start gap-3">
+                  <div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-2xl border border-[#D5E3EF] bg-white">
+                    {draft.imageUrl ? (
+                      <img src={draft.imageUrl} alt={draft.name || "Product image"} className="h-full w-full object-cover" />
+                    ) : (
+                      <PackagePlus size={26} className="text-[#9CB2C4]" />
+                    )}
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <input
+                      ref={imageInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleImageChange}
+                      className="block w-full text-sm text-[#526579] file:mr-3 file:rounded-xl file:border-0 file:bg-[#10243E] file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white"
+                    />
+                    <p className="mt-2 text-xs leading-5 text-[#5A7184]">
+                      Saved locally with the product so the catalogue can show an image immediately.
+                    </p>
+                    {draft.imageUrl ? (
+                      <button
+                        type="button"
+                        onClick={clearImage}
+                        className="mt-2 text-sm font-medium text-[#1D4ED8] hover:underline"
+                      >
+                        Remove image
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+              </div>
+            </label>
+
+            <label className="block">
+              <span className="text-sm font-semibold text-[#10243E]">Internal reference</span>
               <input
                 value={draft.sku ?? ""}
                 onChange={(event) => updateDraft("sku", event.target.value)}
+                placeholder="Optional. Leave blank to auto-generate."
                 className="mt-2 w-full rounded-2xl border border-[#D5E3EF] bg-[#F8FBFF] px-4 py-3 font-mono text-sm text-[#10243E] outline-none transition-colors focus:border-[#4DA3FF]"
               />
+              <p className="mt-2 text-xs leading-5 text-[#5A7184]">
+                This stays internal. The catalogue UI does not surface unverified SKU codes.
+              </p>
             </label>
 
             <label className="block">

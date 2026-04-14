@@ -70,6 +70,7 @@ export interface CatalogueProduct {
    * Shown as tappable link in the detail drawer.
    */
   supplierPhone?: string
+  imageUrl?: string
   /**
    * Where this record comes from in the library layer.
    * - seeded_product: hand-authored catalogue/product bank

@@ -12,6 +12,7 @@ import {
   Search,
   ScanSearch,
 } from "lucide-react"
+import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
 import liveMapping from "../../../data/systems/trauma_and_orthopaedics_full_live_mapping.json"
 import {
   buildSystemMappingId,
@@ -780,39 +781,10 @@ export default function ReviewPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F4F8FB] text-[#10243E]">
-      <header className="border-b border-white/10 bg-[#08131F]">
-        <div className="mx-auto flex max-w-7xl items-start gap-3 px-4 pb-4 pt-[calc(env(safe-area-inset-top,0px)+12px)] lg:px-8 lg:pb-6 lg:pt-6">
-          <Link
-            href="/"
-            className="app-header-muted mt-0.5 shrink-0 rounded-lg p-2 transition-colors hover:opacity-80 lg:flex lg:h-14 lg:w-14 lg:items-center lg:justify-center lg:rounded-[20px] lg:border lg:border-white/10 lg:bg-white/6 lg:hover:bg-white/10"
-            aria-label="Back"
-          >
-            <ArrowLeft size={18} />
-          </Link>
-
-          <div className="min-w-0 flex-1">
-            <h1 className="app-header-text text-[18px] font-medium leading-snug lg:text-[40px] lg:font-semibold lg:tracking-[-0.05em]">
-              Validate system records
-            </h1>
-            <p className="mt-1 text-sm text-white/72 lg:text-[15px]">
-              Help confirm supplier system data for theatre use
-            </p>
-          </div>
-
-          <div className="flex shrink-0 items-center gap-2">
-            <Link
-              href="/admin"
-              className="rounded-full bg-white/10 px-4 py-2 text-[11px] font-semibold uppercase tracking-[0.14em] text-white transition-colors hover:bg-white/16"
-              aria-label="Suppliers"
-            >
-              Suppliers
-            </Link>
-          </div>
-        </div>
-      </header>
-
-      <main className="mx-auto max-w-7xl px-4 pb-5 pt-5 text-[#10243E] lg:px-8 lg:pb-8 lg:pt-8">
+    <>
+      <div className="lg:hidden">
+        <div className="min-h-screen bg-[#F4F8FB] text-[#10243E]">
+      <main className="mx-auto max-w-7xl px-4 pb-5 pt-4 text-[#10243E] lg:px-8 lg:pb-8 lg:pt-8">
         <div className="flex gap-2 overflow-x-auto pb-1">
           {[
             { value: "all" as const, label: "Total", count: summary.total, activeClass: "border-[#10243E] bg-[#10243E] text-white", idleClass: "border-[#D8E3EE] bg-white text-[#334155]" },
@@ -939,6 +911,194 @@ export default function ReviewPage() {
           </div>
         </div>
       </main>
+        </div>
+      </div>
+
+      <WorkspaceDesktopShell
+        currentNav="review"
+        rightRail={
+          <div className="space-y-3">
+            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+              <p className="text-[15px] font-medium text-[#10243E]">Queue</p>
+              <div className="mt-3 space-y-3">
+                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
+                  <span>Total</span>
+                  <span className="text-[18px] text-[#10243E]">{summary.total}</span>
+                </div>
+                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
+                  <span>Awaiting</span>
+                  <span className="text-[18px] text-[#A16207]">{summary.awaiting}</span>
+                </div>
+                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
+                  <span>Validated</span>
+                  <span className="text-[18px] text-[#047857]">{summary.validated}</span>
+                </div>
+                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
+                  <span>Needs review</span>
+                  <span className="text-[18px] text-[#C2410C]">{summary.needsReview}</span>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+              <p className="text-[15px] font-medium text-[#10243E]">Reviewer</p>
+              <p className="mt-3 text-[17px] tracking-[-0.03em] text-[#10243E]">{reviewerName}</p>
+              <p className="mt-1 text-[12px] text-[#61758B]">
+                Status: {reviewerStatus.replaceAll("_", " ")}
+              </p>
+              <p className="mt-3 text-[12px] leading-5 text-[#61758B]">
+                {canModerate
+                  ? "You can moderate, validate, and revise shared records."
+                  : "You can validate records and submit improvement suggestions."}
+              </p>
+            </section>
+
+            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+              <p className="text-[15px] font-medium text-[#10243E]">Current view</p>
+              <p className="mt-3 text-[13px] text-[#5B7286]">
+                {filteredRows.length} records match the current filter and search.
+              </p>
+              <p className="mt-2 text-[12px] leading-5 text-[#61758B]">
+                Selecting a record opens the detail review flow without leaving the workspace shell.
+              </p>
+            </section>
+          </div>
+        }
+      >
+        <div className="space-y-4">
+          <section className="px-1">
+            <p className="text-[13px] text-[#5B7A8A]">Review</p>
+            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">Validate system records</h1>
+            <p className="mt-2 text-[14px] text-[#61758B]">
+              Help confirm supplier system data for theatre use.
+            </p>
+          </section>
+
+          <div className="flex gap-2 overflow-x-auto pb-1">
+            {[
+              { value: "all" as const, label: "Total", count: summary.total, activeClass: "border-[#10243E] bg-[#10243E] text-white", idleClass: "border-[#D8E3EE] bg-white text-[#334155]" },
+              { value: "validated" as const, label: "Validated", count: summary.validated, activeClass: "border-emerald-600 bg-emerald-600 text-white", idleClass: "border-emerald-200 bg-emerald-50 text-emerald-800" },
+              { value: "awaiting" as const, label: "Awaiting validation", count: summary.awaiting, activeClass: "border-amber-500 bg-amber-500 text-white", idleClass: "border-amber-200 bg-amber-50 text-amber-800" },
+              { value: "rejected" as const, label: "Rejected", count: summary.rejected, activeClass: "border-rose-600 bg-rose-600 text-white", idleClass: "border-rose-200 bg-rose-50 text-rose-800" },
+            ].map((item) => (
+              <button
+                key={item.value}
+                type="button"
+                onClick={() => setStatusFilter(item.value)}
+                className={`min-w-fit shrink-0 rounded-[18px] border px-4 py-2.5 text-left transition-colors ${statusFilter === item.value ? item.activeClass : item.idleClass}`}
+              >
+                <div className="flex items-center gap-3">
+                  <p className="text-[12px] font-semibold">{item.label}</p>
+                  <p className="text-[22px] font-semibold tracking-[-0.03em]">{item.count}</p>
+                </div>
+              </button>
+            ))}
+          </div>
+
+          <div className="rounded-[20px] border border-amber-200 bg-amber-50 px-4 py-3 text-[#7C2D12]">
+            <p className="text-[12px] font-semibold text-[#7C2D12]">Internal note</p>
+            <p className="mt-1 text-[14px] leading-6">
+              Fixed data assets such as systems, trays, SKUs, and core mappings should move toward researched and curated master data rather than crowdsourced validation. Keep this page for now, but plan to revise or revert this workflow later.
+            </p>
+          </div>
+
+          <section className="rounded-[18px] border border-[#D8E3EE] bg-white p-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+            <div>
+              <h2 className="text-[24px] tracking-[-0.04em] text-[#10243E]">Records awaiting validation</h2>
+              <p className="mt-1 text-[14px] text-[#64748B]">Select a system to confirm or flag its linked data.</p>
+            </div>
+
+            <div className="mt-3 flex flex-col gap-2">
+              <label className="relative w-full">
+                <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B]" />
+                <input
+                  value={query}
+                  onChange={(event) => setQuery(event.target.value)}
+                  placeholder="Search system, supplier, procedure..."
+                  className="w-full rounded-[16px] border border-[#D8E3EE] bg-[#F8FBFD] py-3 pl-10 pr-4 text-sm outline-none"
+                />
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {[
+                  { value: "awaiting" as const, label: "Awaiting validation" },
+                  { value: "validated" as const, label: "Validated" },
+                  { value: "needs_review" as const, label: "Needs review" },
+                  { value: "rejected" as const, label: "Rejected" },
+                ].map((item) => (
+                  <button
+                    key={item.value}
+                    type="button"
+                    onClick={() => setStatusFilter(item.value)}
+                    className={`rounded-full px-3 py-2 text-[12px] font-semibold ${
+                      statusFilter === item.value ? "bg-[#10243E] text-white" : "border border-[#D8E3EE] bg-white text-[#475569]"
+                    }`}
+                  >
+                    {item.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="mt-3 space-y-3">
+              {filteredRows.map((row) => {
+                const queueStatus = getQueueStatus(row)
+                const reviewLine = getReviewSummaryLine(row, queueStatus)
+                const ctaLabel =
+                  queueStatus === "awaiting"
+                    ? "Validate record"
+                    : queueStatus === "validated"
+                      ? "View record"
+                      : "Review record"
+
+                return (
+                  <button
+                    key={row.mappingId}
+                    type="button"
+                    onClick={() => setSelectedRow(row)}
+                    className={`w-full rounded-[22px] border px-4 py-3.5 text-left transition-colors ${queueCardClass(queueStatus)}`}
+                  >
+                    <div className="flex items-start justify-between gap-3">
+                      <div className="min-w-0">
+                        <p className="text-[18px] font-semibold tracking-[-0.03em] text-[#10243E]">{row.system}</p>
+                        <p className="mt-0.5 text-[15px] text-[#64748B]">{row.supplier}</p>
+                      </div>
+                      <span className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${queueStatusPillClass(queueStatus)}`}>
+                        {queueStatusLabel(queueStatus)}
+                      </span>
+                    </div>
+
+                    <div className="mt-3 space-y-0.5 text-[14px] text-[#475569]">
+                      <p>{reviewLine}</p>
+                      <p>{getSupportLine(row)}</p>
+                    </div>
+
+                    <div className="mt-3 flex justify-end">
+                      <span
+                        className={`inline-flex rounded-full px-4 py-2 text-[12px] font-semibold ${
+                          queueStatus === "validated"
+                            ? "bg-[#DFF7F1] text-[#0F766E]"
+                            : queueStatus === "rejected"
+                              ? "bg-[#FFE4E6] text-[#BE123C]"
+                              : "bg-[#CCFBF1] text-[#0F766E]"
+                        }`}
+                      >
+                        {ctaLabel}
+                      </span>
+                    </div>
+                  </button>
+                )
+              })}
+
+              {filteredRows.length === 0 ? (
+                <div className="rounded-[20px] border border-dashed border-[#D8E3EE] bg-[#F8FBFD] px-4 py-8 text-center">
+                  <p className="text-[16px] font-medium text-[#10243E]">No records match this view</p>
+                  <p className="mt-1 text-[14px] text-[#64748B]">Try another status filter or search term.</p>
+                </div>
+              ) : null}
+            </div>
+          </section>
+        </div>
+      </WorkspaceDesktopShell>
 
       {selectedRow ? (
         <div className="fixed inset-0 z-50 overflow-y-auto bg-[#F4F8FB] text-[#10243E]">
@@ -1446,6 +1606,6 @@ export default function ReviewPage() {
         </div>
         </div>
       ) : null}
-    </div>
+    </>
   )
 }

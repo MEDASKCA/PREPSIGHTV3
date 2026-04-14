@@ -255,6 +255,253 @@ export const theatreOrtho: Procedure[] = [
 
   // ── Total Shoulder Arthroplasty ───────────────────────────────────────────
   {
+    id: "PSH-000-UNL01",
+    familyId: "cemented-total-knee-replacement",
+    variantLabel: "PSH-000-UNL01",
+    name: "Cemented Total Knee Replacement",
+    cardScope: "shared",
+    publishState: "published",
+    setting: "Operating Theatre",
+    specialty: "Orthopaedics",
+    approach: "Medial parapatellar",
+    implantSystem: "Triathlon Knee System",
+    description:
+      "Triathlon cemented total knee replacement card for a medial parapatellar approach. This version is currently unlinked to a named consultant preference.",
+    createdAt: "2025-08-22T10:35:00.000Z",
+    updatedAt: "2025-08-22T10:35:00.000Z",
+    publishedAt: "2025-08-22T10:35:00.000Z",
+    sourceContributorName: "Local author",
+    sourceOrganizationName: "Basildon University Hospital · Mid and South Essex NHS Foundation Trust",
+    sections: [
+      {
+        id: "overview",
+        title: "Overview",
+        sectionType: "overview",
+        summary:
+          "Cemented total knee replacement using the Triathlon system through a medial parapatellar approach. Distal femur is cut first, followed by proximal tibia and extension-gap check before femoral preparation.",
+        duration: "90-120 minutes",
+        anaesthesiaType: "General or spinal with local infiltration analgesia",
+        primarySystem: "Triathlon Knee System",
+        alternatives: ["Size down femur if required", "Lateral release only if tracking demands it"],
+        items: [],
+      },
+      {
+        id: "ppe",
+        title: "PPE",
+        sectionType: "ppe",
+        items: [
+          { id: "campaner-xl-gown", name: "XL-L surgical gown", product: "Biogel", defaultQty: 1 },
+          { id: "campaner-size-8-gloves", name: "Size 8 gloves", product: "Biogel", defaultQty: 3 },
+          { id: "campaner-visor", name: "Eye and splash protection", defaultQty: 1 },
+        ],
+      },
+      {
+        id: "patient-preparation",
+        title: "Patient Preparation",
+        sectionType: "patient_preparation",
+        items: [
+          { id: "campaner-self-position", name: "Surgeon prefers to position the patient himself", defaultQty: 1 },
+          { id: "campaner-distal-femur-first", name: "Distal femur first workflow confirmed", defaultQty: 1 },
+          { id: "campaner-femoral-jig", name: "Femoral jig set to 5 degree valgus with 8 mm resection", defaultQty: 1 },
+          { id: "campaner-ffd-check", name: "Resection 10 mm if FFD", defaultQty: 1 },
+          { id: "campaner-tibial-jig", name: "Tibial jig with 3 degree posterior slope and 2/9 stylus", defaultQty: 1 },
+          { id: "campaner-xray-reference", name: "90 degree reference line on X-rays available in theatre", defaultQty: 1 },
+        ],
+      },
+      {
+        id: "anaesthesia",
+        title: "Anaesthesia",
+        sectionType: "anaesthesia",
+        items: [
+          { id: "campaner-lia-volume", name: "Local infiltration: 100 ml female / 120 ml male", defaultQty: 1 },
+          { id: "campaner-levobupi", name: "Levobupivacaine 1.25 mg/ml", defaultQty: 1 },
+          { id: "campaner-adrenaline", name: "Adrenaline 1:1000, 0.5 ml", defaultQty: 1 },
+          { id: "campaner-ketorolac", name: "Ketorolac 30 mg/ml, 1 ml if renal function is acceptable", defaultQty: 1 },
+          { id: "campaner-txa", name: "Tranexamic acid IV on tourniquet release", defaultQty: 1 },
+        ],
+      },
+      {
+        id: "patient-positioning",
+        title: "Patient Positioning",
+        sectionType: "patient_positioning",
+        patientPositionInstructions:
+          "Supine. Tourniquet applied after marking. Articulating side support runs parallel to the tourniquet. Foot bolster sits at 90 degrees and a small sandbag is used to help achieve full flexion.",
+        items: [
+          { id: "campaner-tourniquet", name: "Upper thigh tourniquet", defaultQty: 1 },
+          { id: "campaner-side-support", name: "Articulating side support", defaultQty: 1 },
+          { id: "campaner-foot-bolster", name: "Foot bolster at 90 degrees", defaultQty: 1 },
+          { id: "campaner-sandbag", name: "Small sandbag for full flexion", defaultQty: 1 },
+        ],
+      },
+      {
+        id: "sterile-field",
+        title: "Sterile Field & Draping",
+        sectionType: "sterile_field_draping",
+        items: [
+          { id: "campaner-marking", name: "Manav marks and positions the patient before scrub", defaultQty: 1 },
+          { id: "campaner-tourniquet-after-marking", name: "Circulating staff apply tourniquet after knee marking", defaultQty: 1 },
+          { id: "campaner-chloraprep-initial", name: "Initial Chloraprep paint from foot to ankle, then discard", defaultQty: 1 },
+          { id: "campaner-stockinette", name: "Assistant takes the leg with impervious stockinette", defaultQty: 1 },
+          { id: "campaner-chloraprep-main", name: "Prep leg with two further Chloraprep layers", defaultQty: 2 },
+          { id: "campaner-incopad", name: "Circulator removes incopad", defaultQty: 1 },
+          { id: "campaner-large-drape", name: "Large clean drape and U-drape", defaultQty: 1 },
+          { id: "campaner-crepe", name: "Crepe bandage from foot to four fingerbreadths from the joint line", defaultQty: 1 },
+          { id: "campaner-extremity-drape", name: "Extremity drape with large drape top", defaultQty: 1 },
+          { id: "campaner-ioban", name: "Peel Ioban superior to inferior", defaultQty: 1 },
+        ],
+      },
+      {
+        id: "operative-references",
+        title: "Operative References",
+        sectionType: "procedure_reference",
+        items: [],
+        externalLinks: [
+          { label: "Triathlon knee system guide", url: "https://www.stryker.com/us/en/joint-replacement/products/triathlon-knee-system.html" },
+        ],
+      },
+      {
+        id: "trays",
+        title: "Instrument Sets & Trays",
+        sectionType: "instrument_sets_trays",
+        items: [
+          { id: "campaner-femoral-distal-block", name: "Distal femoral cutting block with spring pins and locking pin", defaultQty: 1 },
+          { id: "campaner-extramed-jig", name: "Extramedullary tibial jig with 3 degree posterior slope block", defaultQty: 1 },
+          { id: "campaner-measuring-block", name: "Femoral measuring block and sized cutting blocks", defaultQty: 1 },
+          { id: "campaner-trial-set", name: "Triathlon trial femur, tibial tray, spacer and insert ladder", defaultQty: 1 },
+          { id: "campaner-keel-punch", name: "Tower and keel punch", defaultQty: 1 },
+          { id: "campaner-patella-guide", name: "Patella resection guide and drill", defaultQty: 1 },
+        ],
+      },
+      {
+        id: "equipment",
+        title: "Equipment & Devices",
+        sectionType: "equipment_devices",
+        items: [
+          { id: "campaner-op-table", name: "Operating table", defaultQty: 1 },
+          { id: "campaner-diathermy", name: "Diathermy", defaultQty: 1 },
+          { id: "campaner-pulse-lavage", name: "Pulse lavage / wash and dry setup", defaultQty: 1 },
+          { id: "campaner-angle-wing", name: "Angel wing resection guide", defaultQty: 1 },
+        ],
+      },
+      {
+        id: "implants",
+        title: "Implants & Prosthetics",
+        sectionType: "implants_prosthetics",
+        contentMode: "fixed",
+        items: [
+          { id: "campaner-tri-femur", name: "Triathlon femoral component", supplier: { name: "Stryker" }, defaultQty: 1 },
+          { id: "campaner-tri-tibia", name: "Triathlon tibial tray / baseplate", supplier: { name: "Stryker" }, defaultQty: 1 },
+          { id: "campaner-tri-insert", name: "Triathlon insert with 9 mm spacer available for trial", supplier: { name: "Stryker" }, defaultQty: 1 },
+          { id: "campaner-tri-patella", name: "Asymmetric patella component", supplier: { name: "Stryker" }, defaultQty: 1 },
+          { id: "campaner-cement", name: "Bone cement", supplier: { name: "Stryker" }, defaultQty: 2 },
+        ],
+      },
+      {
+        id: "consumables",
+        title: "Consumables & Supplies",
+        sectionType: "consumables_supplies",
+        items: [
+          { id: "campaner-chloraprep", name: "Chloraprep", defaultQty: 3 },
+          { id: "campaner-ioban-consumable", name: "Ioban", defaultQty: 1 },
+          { id: "campaner-stockinette-consumable", name: "Impervious stockinette", defaultQty: 1 },
+          { id: "campaner-aquacel", name: "Aquacel dressing and Aquacel pad", defaultQty: 1 },
+          { id: "campaner-velband", name: "Velband", defaultQty: 2 },
+          { id: "campaner-crepe-consumable", name: "Crepe bandage", defaultQty: 2 },
+          { id: "campaner-staples", name: "Staples", defaultQty: 1 },
+          { id: "campaner-betadine", name: "Betadine", defaultQty: 1 },
+        ],
+      },
+      {
+        id: "closure",
+        title: "Wound Closure",
+        sectionType: "wound_closure",
+        items: [
+          { id: "campaner-vicryl-superior-pole", name: "2 Vicryl from superior medial pole to tibial baseplate, then backtrack before final knot", defaultQty: 1 },
+          { id: "campaner-vicryl-overlap", name: "Second 2 Vicryl overlap layer towards quads with full-thickness bites", defaultQty: 1 },
+          { id: "campaner-deep-dermal", name: "Interrupted deep dermal Vicryl around the patella outline and wound gaps", defaultQty: 1 },
+          { id: "campaner-undyed-vicryl", name: "2/0 undyed Vicryl, then Betadine and staples", defaultQty: 1 },
+        ],
+      },
+      {
+        id: "dressings",
+        title: "Dressings",
+        sectionType: "dressings",
+        items: [
+          { id: "campaner-first-wrap", name: "First Velband and crepe wrap only on the visible area proximal to the tourniquet", defaultQty: 1 },
+          { id: "campaner-remove-tourniquet", name: "Once wound is sealed, remove tourniquet and U-drape", defaultQty: 1 },
+          { id: "campaner-second-wrap", name: "Apply second Velband and crepe set, with foot stockinette removed last", defaultQty: 1 },
+        ],
+      },
+      {
+        id: "handover",
+        title: "Handover Notes",
+        sectionType: "handover_notes",
+        nurseNotes:
+          "Check patella tracking after cementation. Lateral release is only rarely required. Do not unwrap the leg or cut the U-drape until the dressing sequence is complete.",
+        items: [],
+      },
+    ],
+    workflowSteps: [
+      {
+        id: "campaner-setup",
+        order: 1,
+        title: "Position, mark, and stage the room",
+        summary:
+          "Surgeon positions the patient, confirms distal femur first strategy, and stages the tourniquet, side support, foot bolster, sandbag, and radiographic reference line.",
+      },
+      {
+        id: "campaner-prep-drape",
+        order: 2,
+        title: "Prep and drape",
+        summary:
+          "Apply tourniquet after marking, complete the Chloraprep sequence, then drape with stockinette, clean drapes, crepe, extremity drape, and Ioban.",
+      },
+      {
+        id: "campaner-exposure",
+        order: 3,
+        title: "Exposure",
+        summary:
+          "Use a medial parapatellar approach, release medially with diathermy, separate the fat pad from the patella tendon, evert and denervate the patella, and expose the distal anterior femur.",
+      },
+      {
+        id: "campaner-distal-femur",
+        order: 4,
+        title: "Distal femoral resection",
+        summary:
+          "Drill intramedullary, set the femoral jig to 5 degrees valgus and 8 mm, pin the distal block, complete the distal cut, and leave the femoral pins in place.",
+      },
+      {
+        id: "campaner-proximal-tibia",
+        order: 5,
+        title: "Proximal tibial resection and extension-gap check",
+        summary:
+          "Use the extramedullary tibial jig at 3 degrees posterior slope with the 2/9 stylus, cut the proximal tibia, then check the extension gap before proceeding.",
+      },
+      {
+        id: "campaner-femur-prep",
+        order: 6,
+        title: "Femoral preparation",
+        summary:
+          "Recheck 3 degrees external rotation, size carefully before pinning the femoral block, then complete anterior, posterior, and chamfer cuts while protecting the collaterals.",
+      },
+      {
+        id: "campaner-trial-implant",
+        order: 7,
+        title: "Tibial prep, trial, patella, and implantation",
+        summary:
+          "Prepare the tibia, leave tray and pins for trial, trial with a 9 mm spacer, prepare the asymmetric patella, then cement tibia, real spacer, femur, and patella in sequence.",
+      },
+      {
+        id: "campaner-closure-dressing",
+        order: 8,
+        title: "Release tourniquet, close, and dress",
+        summary:
+          "Manage bleeders, check tracking, close in layered Vicryl with staples, then complete the staged Aquacel, Velband, and crepe dressing sequence.",
+      },
+    ],
+  },
+
+  {
     id: "tsa",
     familyId: "total-shoulder-arthroplasty",
     variantLabel: "Deltopectoral — Aequalis / Simpliciti",

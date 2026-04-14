@@ -9,6 +9,7 @@ import {
   ChevronRight, CalendarDays,
 } from "lucide-react"
 import Fuse from "fuse.js"
+import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
 import { procedures, SEED_SUPERSEDES } from "@/lib/data"
 import { hasVariantsForProcedure } from "@/lib/variants"
 import { db } from "@/lib/firebase"
@@ -477,30 +478,9 @@ export default function CalendarPageClient() {
 
   // ── Render ────────────────────────────────────────────────────────────────
   return (
-    <div className="app-shell-bg min-h-screen">
-
-      {/* Header */}
-      <header className="app-header-bg app-card-border sticky top-0 z-30 border-b">
-        <div className="max-w-2xl mx-auto flex items-center gap-3 px-4 pb-2.5 pt-[calc(env(safe-area-inset-top,0px)+8px)] lg:pt-3">
-          <button
-            onClick={() => router.back()}
-            className="app-header-muted shrink-0 transition-colors hover:opacity-80"
-          >
-            <ArrowLeft size={20} />
-          </button>
-          <h1 className="app-header-text flex-1 text-[18px] font-medium lg:text-base">Planner</h1>
-          <button
-            onClick={() => setShowAdd(true)}
-            className="flex items-center gap-1.5 rounded-xl bg-[#4DA3FF] px-3 py-2 text-[13px] font-semibold text-white transition-colors hover:bg-[#2F8EF7]"
-          >
-            <Plus size={14} /> Add case
-          </button>
-          <Link href="/" className="app-header-muted shrink-0 rounded-lg p-2 transition-colors hover:opacity-80" aria-label="Home">
-            <House size={18} />
-          </Link>
-        </div>
-      </header>
-
+    <>
+      <div className="lg:hidden">
+        <div className="app-shell-bg min-h-screen">
       {/* Date strip */}
       <div className="app-header-bg app-card-border border-b">
         <div
@@ -743,6 +723,300 @@ export default function CalendarPageClient() {
           </div>
         )}
       </main>
+        </div>
+      </div>
+
+      <WorkspaceDesktopShell
+        currentNav="calendar"
+        rightRail={
+          <div className="space-y-3">
+            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+              <p className="text-[15px] font-medium text-[#10243E]">Planner</p>
+              <div className="mt-3 space-y-3">
+                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
+                  <span>Upcoming</span>
+                  <span className="text-[18px] text-[#10243E]">{upcomingCases.length}</span>
+                </div>
+                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
+                  <span>Next 3 days</span>
+                  <span className="text-[18px] text-[#0F4C5C]">{imminentCount}</span>
+                </div>
+                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
+                  <span>No card</span>
+                  <span className="text-[18px] text-[#C2410C]">{noCardCount}</span>
+                </div>
+              </div>
+            </section>
+
+            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+              <p className="text-[15px] font-medium text-[#10243E]">Selected day</p>
+              <p className="mt-3 text-[17px] tracking-[-0.03em] text-[#10243E]">{friendlyDate(selectedDate)}</p>
+              <p className="mt-1 text-[12px] text-[#61758B]">
+                {selectedCases.length} planned case{selectedCases.length === 1 ? "" : "s"}.
+              </p>
+              <button
+                type="button"
+                onClick={() => setShowAdd(true)}
+                className="mt-3 inline-flex items-center gap-1.5 rounded-[10px] bg-[#4DA3FF] px-3 py-2 text-[13px] font-semibold text-white"
+              >
+                <Plus size={14} />
+                Add case
+              </button>
+            </section>
+
+            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+              <p className="text-[15px] font-medium text-[#10243E]">Readiness</p>
+              <p className="mt-3 text-[13px] leading-5 text-[#61758B]">
+                {prepCases.length} case{prepCases.length === 1 ? "" : "s"} fall inside the next 7 days preparation window.
+              </p>
+              {firestoreUnavailable ? (
+                <p className="mt-2 text-[12px] leading-5 text-amber-700">
+                  Planner sync is unavailable for this account, so local entries stay on this device.
+                </p>
+              ) : null}
+            </section>
+          </div>
+        }
+      >
+        <div className="space-y-4">
+          <section className="px-1">
+            <p className="text-[13px] text-[#5B7A8A]">Calendar</p>
+            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">Planner</h1>
+            <p className="mt-2 text-[14px] text-[#61758B]">
+              Plan upcoming cases, check readiness, and spot gaps before the list arrives.
+            </p>
+          </section>
+
+          <section className="rounded-[18px] border border-[#D8E3EE] bg-white p-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+            <div
+              ref={stripRef}
+              className="flex gap-1 overflow-x-auto pb-1 scrollbar-hide"
+              style={{ scrollbarWidth: "none" }}
+            >
+              {dateRange.map((dateStr) => {
+                const { dayNum, dayName, monthLabel } = getDayLabel(dateStr)
+                const isToday = dateStr === today()
+                const isSelected = dateStr === selectedDate
+                const count = casesByDate.get(dateStr)?.length ?? 0
+
+                return (
+                  <button
+                    key={dateStr}
+                    onClick={() => { setSelectedDate(dateStr); setTab("upcoming") }}
+                    className={`flex shrink-0 flex-col items-center rounded-2xl px-3 py-2 transition-all ${
+                      isSelected
+                        ? "bg-[#4DA3FF] text-white shadow-md"
+                        : isToday
+                          ? "bg-[#EFF8FF] text-[#4DA3FF]"
+                          : "text-[#475569] hover:bg-[#F4F7FA]"
+                    }`}
+                  >
+                    {monthLabel ? (
+                      <span className={`mb-0.5 text-[9px] font-bold tracking-widest ${isSelected ? "text-white/70" : "text-[#94a3b8]"}`}>
+                        {monthLabel}
+                      </span>
+                    ) : null}
+                    <span className={`text-[11px] font-medium ${isSelected ? "text-white/80" : isToday ? "text-[#4DA3FF]" : "text-[#94a3b8]"}`}>
+                      {dayName}
+                    </span>
+                    <span className="text-[17px] font-bold leading-tight">{dayNum}</span>
+                    <div className={`mt-1 h-1.5 w-1.5 rounded-full transition-all ${count > 0 ? (isSelected ? "bg-white" : "bg-[#4DA3FF]") : "opacity-0"}`} />
+                  </button>
+                )
+              })}
+            </div>
+
+            <div className="mt-3 flex gap-1">
+              {(["upcoming", "prepare", "insights"] as Tab[]).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => setTab(t)}
+                  className={`flex-1 rounded-lg py-1.5 text-[13px] font-semibold capitalize transition-all ${
+                    tab === t ? "bg-[#4DA3FF] text-white" : "text-[#64748b] hover:bg-[#F4F7FA]"
+                  }`}
+                >
+                  {t}
+                </button>
+              ))}
+            </div>
+          </section>
+
+          <section className="space-y-3">
+            {tab === "upcoming" && (
+              <div>
+                {firestoreUnavailable ? (
+                  <div className="mb-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-[13px] text-amber-800">
+                    Planner sync is unavailable for this account. Cases added here will remain local on this device until Firestore access is available.
+                  </div>
+                ) : null}
+
+                <div className="mb-3 flex items-center justify-between">
+                  <p className="app-text-strong text-[15px] font-semibold">{friendlyDate(selectedDate)}</p>
+                  <button
+                    onClick={() => setShowAdd(true)}
+                    className="flex items-center gap-1 text-[13px] font-semibold text-[#4DA3FF]"
+                  >
+                    <Plus size={13} /> Add
+                  </button>
+                </div>
+
+                {selectedCases.length === 0 ? (
+                  <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
+                    <CalendarDays size={28} className="mx-auto mb-3 text-[#CBD5E1]" />
+                    <p className="app-text-muted text-[14px]">No cases planned for this day</p>
+                    <button
+                      onClick={() => setShowAdd(true)}
+                      className="mt-3 text-[13px] font-semibold text-[#4DA3FF] hover:underline"
+                    >
+                      Add a case
+                    </button>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {selectedCases.map((c) => (
+                      <CaseCard key={c.id} planned={c} onDelete={handleDelete} />
+                    ))}
+                  </div>
+                )}
+
+                {upcomingCases.length > 0 ? (
+                  <div className="mt-8">
+                    <p className="app-text-muted mb-3 text-[11px] font-semibold uppercase tracking-wide">
+                      All upcoming ({upcomingCases.length})
+                    </p>
+                    <div className="space-y-3">
+                      {upcomingCases
+                        .filter((c) => c.date !== selectedDate)
+                        .map((c) => (
+                          <CaseCard key={c.id} planned={c} onDelete={handleDelete} showDate />
+                        ))}
+                    </div>
+                  </div>
+                ) : null}
+              </div>
+            )}
+
+            {tab === "prepare" && (
+              <div>
+                <p className="app-text-muted mb-4 text-[13px]">
+                  Next 7 days - readiness check for each planned case.
+                </p>
+
+                {prepCases.length === 0 ? (
+                  <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
+                    <p className="app-text-muted text-[14px]">No cases in the next 7 days</p>
+                  </div>
+                ) : (
+                  <div className="space-y-3">
+                    {prepCases.map((c) => (
+                      <div key={c.id} className="app-card-bg app-card-border rounded-2xl border px-4 py-3.5 shadow-sm">
+                        <div className="flex items-start gap-3">
+                          <div
+                            className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${
+                              c.readiness === "green" ? "bg-emerald-400" :
+                              c.readiness === "amber" ? "bg-amber-400" : "bg-red-400"
+                            }`}
+                          />
+                          <div className="flex-1 min-w-0">
+                            <p className="app-text-strong text-[14px] font-semibold">{c.procedureName}</p>
+                            <p className="mt-0.5 text-[11px] font-semibold text-[#4DA3FF]">{friendlyDate(c.date)}{c.time ? ` · ${c.time}` : ""}</p>
+                            <div className="mt-2 flex flex-wrap gap-2">
+                              <span className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${c.hasCard ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`}>
+                                {c.hasCard ? <CheckCircle2 size={11} /> : <Circle size={11} />}
+                                Kardex card
+                              </span>
+                              <span className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${c.hasSurgeon ? "bg-emerald-50 text-emerald-700" : "bg-[#F4F7FA] text-[#94a3b8]"}`}>
+                                {c.hasSurgeon ? <CheckCircle2 size={11} /> : <Circle size={11} />}
+                                Surgeon noted
+                              </span>
+                            </div>
+                          </div>
+                          <button onClick={() => handleDelete(c.id)} className="shrink-0 rounded-lg p-1.5 text-[#cbd5e1] hover:bg-red-50 hover:text-red-500">
+                            <Trash2 size={13} />
+                          </button>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            )}
+
+            {tab === "insights" && (
+              <div className="space-y-3">
+                {upcomingCases.length === 0 ? (
+                  <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
+                    <p className="app-text-muted text-[14px]">Add cases to your planner to see insights</p>
+                  </div>
+                ) : (
+                  <>
+                    <div className="app-card-bg app-card-border rounded-2xl border px-4 py-4 shadow-sm">
+                      <p className="mb-3 text-[14px] font-bold text-[#1E293B]">Overview</p>
+                      <div className="grid grid-cols-3 gap-3 text-center">
+                        <div>
+                          <p className="text-[22px] font-bold text-[#1E293B]">{upcomingCases.length}</p>
+                          <p className="text-[11px] text-[#94a3b8]">Upcoming</p>
+                        </div>
+                        <div>
+                          <p className="text-[22px] font-bold text-[#1E293B]">{imminentCount}</p>
+                          <p className="text-[11px] text-[#94a3b8]">Next 3 days</p>
+                        </div>
+                        <div>
+                          <p className={`text-[22px] font-bold ${noCardCount > 0 ? "text-amber-500" : "text-emerald-500"}`}>{noCardCount}</p>
+                          <p className="text-[11px] text-[#94a3b8]">No card</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    {noCardCount > 0 ? (
+                      <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3.5">
+                        <div className="flex items-start gap-2.5">
+                          <AlertTriangle size={15} className="mt-0.5 shrink-0 text-amber-500" />
+                          <div>
+                            <p className="text-[13px] font-semibold text-amber-800">
+                              {noCardCount} case{noCardCount !== 1 ? "s" : ""} without a Kardex card
+                            </p>
+                            <p className="mt-0.5 text-[12px] text-amber-700">
+                              No reference card or variant data available. Verify preparation manually.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {imminentCount > 0 ? (
+                      <div className="rounded-2xl border border-[#B8DBFF] bg-[#EFF8FF] px-4 py-3.5">
+                        <div className="flex items-start gap-2.5">
+                          <CalendarDays size={15} className="mt-0.5 shrink-0 text-[#4DA3FF]" />
+                          <div>
+                            <p className="text-[13px] font-semibold text-[#1E4E8C]">
+                              {imminentCount} case{imminentCount !== 1 ? "s" : ""} in the next 3 days
+                            </p>
+                            <p className="mt-0.5 text-[12px] text-[#2563EB]">
+                              Check the Prepare tab to confirm readiness.
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    ) : null}
+
+                    {noCardCount === 0 ? (
+                      <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3.5">
+                        <div className="flex items-center gap-2.5">
+                          <CheckCircle2 size={15} className="shrink-0 text-emerald-500" />
+                          <p className="text-[13px] font-semibold text-emerald-800">
+                            All planned cases have reference cards
+                          </p>
+                        </div>
+                      </div>
+                    ) : null}
+                  </>
+                )}
+              </div>
+            )}
+          </section>
+        </div>
+      </WorkspaceDesktopShell>
 
       {/* Add case sheet */}
       {showAdd && (
@@ -752,6 +1026,6 @@ export default function CalendarPageClient() {
           onSave={handleSave}
         />
       )}
-    </div>
+    </>
   )
 }

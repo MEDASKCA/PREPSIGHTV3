@@ -52,11 +52,19 @@ export default function LibraryCardRouteClient({
 
   const variantId = searchParams.get("variant") ?? undefined
   const systemId = searchParams.get("system") ?? undefined
-  const variants = library.libraryType === "shared"
-    ? getCuratedVariantsForProcedureWithSystems(card.id, card.name)
-    : []
+  const variants =
+    library.libraryType === "shared"
+      ? getCuratedVariantsForProcedureWithSystems(card.id, card.name)
+      : []
+  const isPublishedSharedVersion =
+    library.libraryType === "shared" && card.publishState === "published"
 
-  if (library.libraryType === "shared" && variants.length > 0 && !(variantId && systemId)) {
+  if (
+    library.libraryType === "shared" &&
+    !isPublishedSharedVersion &&
+    variants.length > 0 &&
+    !(variantId && systemId)
+  ) {
     return <SharedProcedureIndexView libraryId={libraryId} procedure={card} variants={variants} />
   }
 
@@ -64,7 +72,13 @@ export default function LibraryCardRouteClient({
   const selectedSystem = systemId ? getSystemById(systemId) : null
   const routeSections =
     selectedVariant && selectedSystem
-      ? buildSystemCardSections(card, selectedVariant.id, selectedVariant.name, selectedSystem.id, selectedSystem.name)
+      ? buildSystemCardSections(
+          card,
+          selectedVariant.id,
+          selectedVariant.name,
+          selectedSystem.id,
+          selectedSystem.name,
+        )
       : card.sections
 
   const decoratedSections = decorateCardSections(routeSections)
@@ -93,7 +107,11 @@ export default function LibraryCardRouteClient({
           cardSections={decoratedSections}
           cardKey={`${library.id}__${card.id}`}
           title={card.name}
-          subtitle={card.cardScope === "local" ? `${library.name} · Local card` : `${library.name} · Shared card`}
+          subtitle={
+            card.cardScope === "local"
+              ? `${library.name} - Local card`
+              : `${library.name} - Shared card`
+          }
           tertiaryLabel={card.implantSystem}
           implantSystem={card.implantSystem}
         />

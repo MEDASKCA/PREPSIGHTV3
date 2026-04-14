@@ -2,11 +2,14 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { Bell, Menu, Search, UserCircle2, X } from "lucide-react"
+import { Bell, LogOut, Menu, Search, Settings2, Trash2, UserCircle2, UserRound, X } from "lucide-react"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { getProcedureLibrarySnapshot, subscribeProcedureLibrary } from "@/lib/procedure-library"
+import { deleteAuthenticatedAccount, onAuthChange, signOut, type User } from "@/lib/auth"
+import { clearProfile, getProfile } from "@/lib/profile"
 import type { Procedure } from "@/lib/types"
+import type { PrepSightProfile } from "@/lib/types"
 import type { ReactNode } from "react"
 
 type SearchItem = {
@@ -20,6 +23,7 @@ type SearchItem = {
 
 const STATIC_SEARCH_ITEMS: SearchItem[] = [
   { id: "page:home", title: "Home", subtitle: "Dashboard", href: "/", keywords: ["home", "dashboard", "workspace"], kind: "page" },
+  { id: "page:bookmarks", title: "Bookmarks", subtitle: "Saved procedure shortcuts", href: "/bookmarks", keywords: ["bookmarks", "saved", "saved cards", "shortlist"], kind: "page" },
   { id: "page:review", title: "Review", subtitle: "Validation and moderation", href: "/review", keywords: ["review", "moderation", "validation"], kind: "page" },
   { id: "page:calendar", title: "Calendar", subtitle: "Schedule and case planning", href: "/calendar", keywords: ["calendar", "schedule", "cases"], kind: "page" },
   { id: "page:catalogue", title: "Catalogue", subtitle: "Products and stock", href: "/catalogue", keywords: ["catalogue", "catalog", "products", "stock", "stockroom"], kind: "page" },
@@ -72,6 +76,7 @@ export default function AppTopBar({
   menuOpen,
   onToggleMenu,
   menuContent,
+  mobileMenuOnly = false,
   searchValue,
   onSearchChange,
   searchPlaceholder = "Search",
@@ -79,6 +84,7 @@ export default function AppTopBar({
   menuOpen: boolean
   onToggleMenu: () => void
   menuContent?: ReactNode
+  mobileMenuOnly?: boolean
   searchValue?: string
   onSearchChange?: (value: string) => void
   searchPlaceholder?: string
@@ -94,6 +100,11 @@ export default function AppTopBar({
   const [query, setQuery] = useState("")
   const [highlightedIndex, setHighlightedIndex] = useState(0)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [accountMenuOpen, setAccountMenuOpen] = useState(false)
+  const [accountBusy, setAccountBusy] = useState(false)
+  const [accountError, setAccountError] = useState<string | null>(null)
+  const [user, setUser] = useState<User | null>(null)
+  const [profile, setProfile] = useState<PrepSightProfile | null>(() => getProfile())
   const rootRef = useRef<HTMLDivElement | null>(null)
 
   const searchItems = useMemo<SearchItem[]>(() => {
@@ -166,6 +177,8 @@ export default function AppTopBar({
     setQuery("")
     setSearchOpen(false)
     setHighlightedIndex(0)
+    setAccountMenuOpen(false)
+    setAccountError(null)
   }, [pathname])
 
   useEffect(() => {
@@ -173,14 +186,26 @@ export default function AppTopBar({
   }, [query])
 
   useEffect(() => {
+    const unsub = onAuthChange((nextUser) => {
+      setUser(nextUser)
+      setProfile(getProfile())
+    })
+    return unsub
+  }, [])
+
+  useEffect(() => {
     function handlePointerDown(event: MouseEvent) {
       if (!rootRef.current?.contains(event.target as Node)) {
         setSearchOpen(false)
+        setAccountMenuOpen(false)
       }
     }
 
     function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") setSearchOpen(false)
+      if (event.key === "Escape") {
+        setSearchOpen(false)
+        setAccountMenuOpen(false)
+      }
     }
 
     document.addEventListener("mousedown", handlePointerDown)
@@ -197,15 +222,69 @@ export default function AppTopBar({
     router.push(item.href)
   }
 
+  function openAccountPage(path: string) {
+    setAccountMenuOpen(false)
+    setAccountError(null)
+    router.push(path)
+  }
+
+  async function handleSignOut() {
+    setAccountBusy(true)
+    setAccountError(null)
+    try {
+      clearProfile()
+      await signOut()
+      setAccountMenuOpen(false)
+      router.push("/login")
+      router.refresh()
+    } catch {
+      setAccountError("Sign out failed. Try again.")
+    } finally {
+      setAccountBusy(false)
+    }
+  }
+
+  async function handleDeleteAccount() {
+    const confirmed = window.confirm("Delete your account? This removes your profile and signs you out.")
+    if (!confirmed) return
+
+    setAccountBusy(true)
+    setAccountError(null)
+    try {
+      const uid = user?.uid
+      if (uid) {
+        const { deleteUserAccountData } = await import("@/lib/firestore")
+        await deleteUserAccountData(uid)
+      }
+      clearProfile()
+      await deleteAuthenticatedAccount()
+      setAccountMenuOpen(false)
+      router.push("/login")
+      router.refresh()
+    } catch (error) {
+      const code = (error as { code?: string } | null)?.code
+      if (code === "auth/requires-recent-login") {
+        setAccountError("Delete account requires you to sign in again first.")
+      } else {
+        setAccountError("Delete account failed. Try again.")
+      }
+    } finally {
+      setAccountBusy(false)
+    }
+  }
+
+  const displayName = user?.displayName ?? user?.email ?? profile?.name ?? "Your account"
+  const displayEmail = user?.email ?? ""
+
   return (
     <div ref={rootRef} className="sticky top-0 z-30">
-      <header className="relative border-b border-[#4EA8B8] bg-[#2A96A8] px-3 pt-[calc(env(safe-area-inset-top,0px)+12px)] pb-3">
+      <header className="relative border-b border-[#00679D] bg-[#0077B6] px-3 pt-[calc(env(safe-area-inset-top,0px)+12px)] pb-3">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <button
               type="button"
               onClick={onToggleMenu}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#6FBECB] bg-white/78 text-[#10243E]"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#6FBECB] bg-white/88 text-[#22425C]"
               aria-label={menuOpen ? "Close navigation" : "Open navigation"}
             >
               {menuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -217,32 +296,148 @@ export default function AppTopBar({
             </Link>
           </div>
 
-          <div className="flex items-center gap-2">
+          <div className="ml-auto hidden lg:block">
+            <div className="relative w-[440px] xl:w-[520px]">
+            <label className="flex min-w-0 items-center gap-2 rounded-[12px] border border-[#5FB3DB] bg-white/96 px-3 py-2.5">
+              <Search size={16} className="shrink-0 text-[#61758B]" />
+              <input
+                value={query}
+                onChange={(event) => {
+                  setQuery(event.target.value)
+                  setSearchOpen(true)
+                }}
+                onFocus={() => setSearchOpen(true)}
+                onKeyDown={(event) => {
+                  if (!results.length) return
+                  if (event.key === "ArrowDown") {
+                    event.preventDefault()
+                    setHighlightedIndex((current) => (current + 1) % results.length)
+                  } else if (event.key === "ArrowUp") {
+                    event.preventDefault()
+                    setHighlightedIndex((current) => (current - 1 + results.length) % results.length)
+                  } else if (event.key === "Enter") {
+                    event.preventDefault()
+                    handleSelect(results[highlightedIndex] ?? results[0])
+                  }
+                }}
+                placeholder="Search anywhere..."
+                className="min-w-0 flex-1 bg-transparent text-[14px] text-[#10243E] outline-none placeholder:text-[#7A8DA3]"
+              />
+            </label>
+
+            {searchOpen && query.trim() ? (
+              <div className="absolute inset-x-0 top-[calc(100%+6px)] z-50 overflow-hidden rounded-[16px] border border-[#CFE3E8] bg-white shadow-[0_18px_40px_rgba(16,36,62,0.18)]">
+                {results.length > 0 ? (
+                  <div className="max-h-[min(60vh,28rem)] overflow-y-auto py-2">
+                    {results.map((item, index) => (
+                      <button
+                        key={item.id}
+                        type="button"
+                        onClick={() => handleSelect(item)}
+                        className={`flex w-full items-start justify-between gap-3 px-4 py-3 text-left ${index === highlightedIndex ? "bg-[#F0FAFC]" : "bg-white hover:bg-[#F8FBFD]"}`}
+                      >
+                        <span className="min-w-0">
+                          <span className="block truncate text-[14px] text-[#10243E]">{item.title}</span>
+                          <span className="mt-0.5 block truncate text-[12px] text-[#61758B]">{item.subtitle}</span>
+                        </span>
+                        <span className="shrink-0 rounded-full bg-[#F2FAFD] px-2 py-1 text-[11px] text-[#406175]">
+                          {item.kind === "page" ? "Page" : item.kind === "library" ? "Library" : "Guide"}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="px-4 py-4 text-[13px] text-[#61758B]">
+                    No matches for "{query}".
+                  </div>
+                )}
+              </div>
+            ) : null}
+            </div>
+          </div>
+
+          <div className="relative flex items-center gap-2">
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#6FBECB] bg-white/78 text-[#10243E]"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#5FB3DB] bg-white/88 text-[#22425C]"
               aria-label="Activity"
             >
               <Bell size={17} />
             </button>
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#6FBECB] bg-white/78 text-[#10243E]"
+              onClick={() => {
+                setProfile(getProfile())
+                setAccountError(null)
+                setAccountMenuOpen((current) => !current)
+              }}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#5FB3DB] bg-white/88 text-[#22425C]"
               aria-label="Profile"
+              aria-expanded={accountMenuOpen}
             >
               <UserCircle2 size={18} />
             </button>
+
+            {accountMenuOpen ? (
+              <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[19rem] overflow-hidden rounded-[16px] border border-[#B9D8E6] bg-white shadow-[0_18px_40px_rgba(16,36,62,0.18)]">
+                <div className="border-b border-[#D9E7EF] bg-[#F2FAFD] px-4 py-3">
+                  <div className="text-[14px] font-medium text-[#10243E]">{displayName}</div>
+                  {displayEmail ? <div className="mt-0.5 text-[12px] text-[#61758B]">{displayEmail}</div> : null}
+                </div>
+
+                <div className="p-2">
+                  <button
+                    type="button"
+                    onClick={() => openAccountPage("/settings/profile")}
+                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[#F4FBFF]"
+                  >
+                    <UserRound size={16} className="text-[#4B6478]" />
+                    <span>Profile</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => openAccountPage("/settings/access")}
+                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[#F4FBFF]"
+                  >
+                    <Settings2 size={16} className="text-[#4B6478]" />
+                    <span>Settings</span>
+                  </button>
+                  <div className="my-2 border-t border-[#D9E7EF]" />
+                  <button
+                    type="button"
+                    onClick={() => void handleSignOut()}
+                    disabled={accountBusy}
+                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[#F4FBFF] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    <LogOut size={16} className="text-[#4B6478]" />
+                    <span>Sign out</span>
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void handleDeleteAccount()}
+                    disabled={accountBusy}
+                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#C63C3C] hover:bg-[#FFF4F4] disabled:cursor-not-allowed disabled:opacity-60"
+                  >
+                    <Trash2 size={16} />
+                    <span>Delete account</span>
+                  </button>
+                  {accountError ? (
+                    <div className="px-3 pt-2 text-[12px] text-[#C63C3C]">{accountError}</div>
+                  ) : null}
+                </div>
+              </div>
+            ) : null}
           </div>
         </div>
 
         {menuOpen && menuContent ? (
-          <div className="absolute left-3 top-full z-40 mt-2 w-[calc(50vw-0.75rem)] min-w-[14rem] max-w-[18rem] rounded-[12px] border border-[#5FAFBE] bg-[#D9EEF2] p-2 shadow-[0_12px_32px_rgba(16,36,62,0.18)]">
+          <div className={`absolute left-3 top-full z-40 mt-2 w-[calc(34vw-0.75rem)] min-w-[9rem] max-w-[11.5rem] rounded-[14px] border border-[#0085B2] bg-[#0096C7] p-2.5 shadow-[0_18px_38px_rgba(16,36,62,0.22)]${mobileMenuOnly ? " lg:hidden" : ""}`}>
             {menuContent}
           </div>
         ) : null}
       </header>
 
-      <div className="relative border-b border-[#CFE3E8] bg-[#F4F7FA] px-3 py-3">
+      <div className="relative border-b border-[#CFE3E8] bg-[#F4F7FA] px-3 py-3 lg:hidden">
         <label className="flex min-w-0 items-center gap-2 rounded-[12px] border border-[#CFE3E8] bg-white px-3 py-2.5">
           <Search size={16} className="shrink-0 text-[#61758B]" />
           <input
