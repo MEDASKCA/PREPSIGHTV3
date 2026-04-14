@@ -12,6 +12,7 @@
   --app-card-bg: #FFFFFF;
   --app-card-bg-soft: #F8FAFC;
   --app-card-border: #D5DCE3;
+  --app-line: #0F4C5C;
   --app-text-strong: #3F4752;
   --app-text: #526579;
   --app-text-muted: #94A3B8;
@@ -159,6 +160,46 @@ html[data-theme="dark"] select {
 
 .app-card-border {
   border-color: var(--app-card-border);
+}
+
+html:not([data-theme="dark"]) [class*="border-[#D5DCE3]"],
+html:not([data-theme="dark"]) [class*="border-[#D5E3EF]"],
+html:not([data-theme="dark"]) [class*="border-[#D5EAF1]"],
+html:not([data-theme="dark"]) [class*="border-[#D8E3EE]"],
+html:not([data-theme="dark"]) [class*="border-[#D8E6F2]"],
+html:not([data-theme="dark"]) [class*="border-[#D9E7EF]"],
+html:not([data-theme="dark"]) [class*="border-[#D9EBF0]"],
+html:not([data-theme="dark"]) [class*="border-[#DCEAF0]"],
+html:not([data-theme="dark"]) [class*="border-[#DCEAF8]"],
+html:not([data-theme="dark"]) [class*="border-[#DCE8ED]"],
+html:not([data-theme="dark"]) [class*="border-[#E2E8F0]"],
+html:not([data-theme="dark"]) [class*="border-[#E2EDF2]"],
+html:not([data-theme="dark"]) [class*="border-[#E3EDF1]"],
+html:not([data-theme="dark"]) [class*="border-[#E6EEF7]"],
+html:not([data-theme="dark"]) [class*="border-[#E8EFF6]"],
+html:not([data-theme="dark"]) [class*="border-[#EEF2F6]"],
+html:not([data-theme="dark"]) [class*="border-[#EEF2F7]"],
+html:not([data-theme="dark"]) [class*="border-[#EEF4F8]"],
+html:not([data-theme="dark"]) [class*="border-[#F0F4F8]"],
+html:not([data-theme="dark"]) [class*="border-[#F4F7FA]"],
+html:not([data-theme="dark"]) [class*="border-[#BFEAF5]"],
+html:not([data-theme="dark"]) [class*="border-[#C2DFE7]"],
+html:not([data-theme="dark"]) [class*="border-[#C7DEE7]"],
+html:not([data-theme="dark"]) [class*="border-[#C9E3EE]"],
+html:not([data-theme="dark"]) [class*="border-[#CFE3E8]"],
+html:not([data-theme="dark"]) [class*="border-[#D3E5EB]"],
+html:not([data-theme="dark"]) [class*="border-[#D7E9EE]"],
+html:not([data-theme="dark"]) [class*="border-[#9FD6E2]"],
+html:not([data-theme="dark"]) .app-card-border {
+  border-color: var(--app-line) !important;
+}
+
+html:not([data-theme="dark"]) [class*="divide-[#E3EDF1]"] > :not([hidden]) ~ :not([hidden]),
+html:not([data-theme="dark"]) [class*="divide-[#EEF2F6]"] > :not([hidden]) ~ :not([hidden]),
+html:not([data-theme="dark"]) [class*="divide-[#E6EEF7]"] > :not([hidden]) ~ :not([hidden]),
+html:not([data-theme="dark"]) [class*="divide-[#DCEAF8]"] > :not([hidden]) ~ :not([hidden]),
+html:not([data-theme="dark"]) [class*="divide-[#F4F7FA]"] > :not([hidden]) ~ :not([hidden]) {
+  border-color: var(--app-line) !important;
 }
 
 .app-text-strong {

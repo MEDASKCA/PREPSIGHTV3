@@ -373,6 +373,7 @@ export default function LibrariesDashboard() {
     (library) => library.libraryType === "shared" && library.name === workspaceLabel,
   )
   const filteredLocalLibraries = filteredLibraries.filter((library) => library.libraryType === "local")
+  const localCollectionsTitle = filteredLocalLibraries.length === 1 ? "My Team" : "My Teams"
   const updates = buildUpdateRows({
     globalLibraries: filteredGlobalLibraries,
     localLibraries: filteredLocalLibraries,
@@ -424,9 +425,9 @@ export default function LibrariesDashboard() {
                 compact
               />
 
-              <div className="mt-3 border-t border-[#D9EBF0] pt-3">
+              <div className="mt-3 pt-3">
                 <LibraryTree
-                  title="My Team"
+                  title={localCollectionsTitle}
                   tone="local"
                   open={mobileLocalOpen}
                   onToggle={() => setMobileLocalOpen((value) => !value)}
@@ -479,7 +480,7 @@ export default function LibrariesDashboard() {
 
                 <div className="mt-3 pt-3">
                   <LibraryTree
-                    title="My Team"
+                    title={localCollectionsTitle}
                     tone="local"
                     open={localOpen}
                     onToggle={() => setLocalOpen((value) => !value)}
