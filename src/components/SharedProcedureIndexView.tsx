@@ -99,7 +99,7 @@ function buildBranchSummary(branch: BranchEntry) {
 }
 
 function buildVersionSummary(version: PublishedVersion) {
-  return [version.name, version.organization].filter(Boolean).join(" | ")
+  return `Version: ${version.name}`
 }
 
 function getClassificationLabel(branch: BranchEntry, procedureName: string) {
@@ -153,6 +153,26 @@ function getVersionLinkStatus(versionName: string) {
   return normalizeText(versionName).includes("unl") ? "Unlinked" : "Linked"
 }
 
+function cardMatchesBranch(card: Procedure, systemName: string, supplierName?: string, approach?: string) {
+  const normalizedSystem = normalizeText(systemName)
+  const normalizedSupplier = normalizeText(supplierName)
+  const normalizedApproach = normalizeText(approach)
+  const cardSystem = normalizeText(card.implantSystem)
+  const cardDescription = normalizeText(card.description)
+  const cardApproach = normalizeText(card.approach)
+  const haystack = normalizeText(`${card.name} ${card.implantSystem ?? ""} ${card.description ?? ""}`)
+
+  if (cardSystem) {
+    return cardSystem.includes(normalizedSystem)
+  }
+
+  if (normalizedSupplier && haystack.includes(normalizedSupplier)) {
+    return !normalizedApproach || cardApproach.includes(normalizedApproach) || cardDescription.includes(normalizedApproach)
+  }
+
+  return false
+}
+
 function buildBranchEntries(
   libraryId: string,
   procedure: Procedure,
@@ -163,17 +183,7 @@ function buildBranchEntries(
   return variants.flatMap((variant) =>
     variant.systems.map((system) => {
       const versions = publishedCards
-        .filter((card) => {
-          const haystack = normalizeText(
-            `${card.name} ${card.variantLabel ?? ""} ${card.implantSystem ?? ""} ${card.description ?? ""}`,
-          )
-          return (
-            haystack.includes(normalizeText(system.name)) ||
-            haystack.includes(normalizeText(system.supplier?.name)) ||
-            haystack.includes(normalizeText(variant.name)) ||
-            haystack.includes(normalizeText(variant.approach))
-          )
-        })
+        .filter((card) => cardMatchesBranch(card, system.name, system.supplier?.name, variant.approach))
         .map((card, index) => ({
           id: card.id,
           name: card.variantLabel?.trim() || card.implantSystem?.trim() || card.name,
@@ -228,13 +238,14 @@ function VersionDrawer({
 
   return (
     <div
-      className={`fixed inset-y-0 right-0 z-40 w-full max-w-[30rem] border-l border-[#D5EAF1] bg-white shadow-[-18px_0_40px_rgba(16,36,62,0.16)] transition-transform duration-200 ${open ? "translate-x-0" : "translate-x-full"}`}
+      className={`fixed inset-x-0 bottom-0 z-40 max-h-[72vh] w-full rounded-t-[20px] border border-[#0F4C5C] bg-[linear-gradient(180deg,rgba(232,248,252,0.94)_0%,rgba(244,251,255,0.9)_100%)] shadow-[0_-18px_40px_rgba(16,36,62,0.16)] backdrop-blur-xl transition-transform duration-200 ${open ? "translate-y-0 lg:translate-x-0" : "translate-y-full lg:translate-x-full"} lg:inset-y-auto lg:bottom-0 lg:right-0 lg:left-auto lg:top-[72px] lg:max-h-[calc(100vh-72px)] lg:w-full lg:max-w-[28rem] lg:rounded-t-none lg:rounded-l-[18px] lg:border-y lg:border-r-0 lg:border-l lg:shadow-[-18px_0_40px_rgba(16,36,62,0.16)] lg:translate-y-0`}
     >
       <div className="flex h-full flex-col">
-        <div className="flex items-center justify-between border-b border-[#D9EBF0] px-5 py-4">
+        <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-[#B9DCE4] lg:hidden" />
+        <div className="flex items-start justify-between border-b border-[#7CB9C7] px-3.5 py-2.5 lg:px-5 lg:py-4">
           <div>
             <div className="text-[13px] text-[#61758B]">Published version</div>
-            <div className="mt-1 text-[20px] tracking-[-0.03em] text-[#10243E]">
+            <div className="mt-0.5 text-[16px] tracking-[-0.03em] text-[#10243E] lg:mt-1 lg:text-[20px]">
               {version?.name ?? "Details"}
               {version ? <span className="ml-2 text-[14px] tracking-normal text-[#61758B]">| {getVersionLinkStatus(version.name)}</span> : null}
             </div>
@@ -244,95 +255,99 @@ function VersionDrawer({
           </button>
         </div>
 
-        <div className="flex-1 overflow-y-auto px-5 py-5">
+        <div className="flex-1 overflow-y-auto px-3.5 py-3 lg:px-5 lg:py-5">
           {branch && version ? (
-            <div className="space-y-6">
+            <div className="space-y-3 lg:space-y-5">
               <div>
                 <div className="text-[13px] text-[#61758B]">Branch</div>
-                <div className="mt-2 text-[15px] leading-7 text-[#10243E]">
+                <div className="mt-1 text-[13px] leading-5 text-[#10243E] lg:text-[15px] lg:leading-7">
                   {branch.systemName}
                   {branch.approach ? ` | ${branch.approach}` : ""}
                   {branch.supplierName ? ` | ${branch.supplierName}` : ""}
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-5 border-b border-[#E3EDF1] pb-4 text-[14px] text-[#61758B]">
-                <span className="inline-flex items-center gap-2">
-                  <Heart size={16} />
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-[#B9DCE4] pb-2.5 text-[13px] text-[#0F4C5C]">
+                <span className="inline-flex items-center gap-1">
+                  <Heart size={15} />
                   {version.likes}
                 </span>
-                <span className="inline-flex items-center gap-2">
-                  <Eye size={16} />
+                <span className="inline-flex items-center gap-1">
+                  <Eye size={15} />
                   {version.views}
                 </span>
-                <span className="inline-flex items-center gap-2">
-                  <Bookmark size={16} />
+                <span className="inline-flex items-center gap-1">
+                  <Bookmark size={15} />
                   {version.saves}
                 </span>
-                <span className="inline-flex items-center gap-2">
-                  <MessageCircle size={16} />
+                <span className="inline-flex items-center gap-1">
+                  <MessageCircle size={15} />
                   {comments.length}
                 </span>
               </div>
 
-              <div className="grid gap-4 border-b border-[#E3EDF1] pb-5 sm:grid-cols-3">
-                <div>
-                  <div className="text-[13px] text-[#61758B]">Contributor</div>
-                  <div className="mt-1 text-[15px] text-[#10243E]">{version.contributor}</div>
+              <div className="space-y-1.5 border-b border-[#B9DCE4] pb-3 lg:grid lg:gap-3 lg:space-y-0 lg:sm:grid-cols-3">
+                <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] leading-5 lg:block lg:text-[15px]">
+                  <span className="text-[#61758B]">Contributor</span>
+                  <span className="text-[#10243E] lg:mt-1 lg:block">{version.contributor}</span>
+                  <span className="text-[#61758B] lg:hidden">Organisation</span>
+                  <span className="text-[#10243E] lg:hidden">{version.organization}</span>
+                  <span className="text-[#61758B] lg:hidden">Published</span>
+                  <span className="text-[#10243E] lg:hidden">{formatDate(version.publishedAt)}</span>
                 </div>
-                <div>
+                <div className="hidden lg:block">
                   <div className="text-[13px] text-[#61758B]">Organisation</div>
                   <div className="mt-1 text-[15px] text-[#10243E]">{version.organization}</div>
                 </div>
-                <div>
+                <div className="hidden lg:block">
                   <div className="text-[13px] text-[#61758B]">Published</div>
                   <div className="mt-1 text-[15px] text-[#10243E]">{formatDate(version.publishedAt)}</div>
                 </div>
               </div>
 
-              <div className="flex flex-wrap gap-3 pt-2">
+              <div className="flex flex-wrap gap-2 pt-0.5">
                 <Link
                   href={version.href}
-                  className="inline-flex rounded-[10px] bg-[#0F4C5C] px-4 py-2 text-[14px] text-white hover:bg-[#123f4b]"
+                  className="inline-flex rounded-[10px] bg-[#0077B6] px-3.5 py-2 text-[13px] text-white hover:bg-[#00689f] lg:px-4 lg:text-[14px]"
                 >
                   Open version
                 </Link>
                 <button
                   type="button"
-                  className="inline-flex rounded-[10px] border border-[#C9E3EE] px-4 py-2 text-[14px] text-[#10243E] hover:bg-[#F4FBFF]"
+                  className="inline-flex rounded-[10px] bg-[#0077B6] px-3.5 py-2 text-[13px] text-white hover:bg-[#00689f] lg:px-4 lg:text-[14px]"
                 >
                   Create My Team version
                 </button>
               </div>
 
-              <div className="border-t border-[#E3EDF1] pt-5">
-                <div className="flex items-center gap-2 text-[15px] text-[#10243E]">
-                  <MessageCircle size={16} />
+              <div className="border-t border-[#B9DCE4] pt-3">
+                <div className="flex items-center gap-2 text-[14px] text-[#10243E] lg:text-[15px]">
+                  <MessageCircle size={15} />
                   Comments
                 </div>
 
-                <div className="mt-4 space-y-4">
+                <div className="mt-2.5 space-y-2.5">
                   {comments.map((comment) => (
-                    <div key={comment.id} className="rounded-[12px] bg-[#F4FBFF] px-4 py-3">
+                    <div key={comment.id} className="rounded-[12px] border border-[#B9DCE4] bg-[rgba(244,251,255,0.88)] px-3 py-2 backdrop-blur-sm">
                       <div className="flex items-center justify-between gap-3">
-                        <div className="text-[14px] text-[#10243E]">{comment.author}</div>
+                        <div className="text-[13px] text-[#10243E] lg:text-[14px]">{comment.author}</div>
                         <div className="text-[12px] text-[#61758B]">{comment.createdAt}</div>
                       </div>
-                      <div className="mt-2 text-[14px] leading-6 text-[#406175]">{comment.body}</div>
+                      <div className="mt-1.5 text-[13px] leading-5 text-[#406175] lg:text-[14px] lg:leading-6">{comment.body}</div>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-4 flex items-start gap-3">
+                <div className="mt-2.5 flex items-start gap-2">
                   <textarea
                     value={commentDraft}
                     onChange={(event) => setCommentDraft(event.target.value)}
                     placeholder="Add a comment"
-                    className="min-h-[92px] flex-1 resize-none rounded-[10px] border border-[#D5EAF1] bg-[#F8FBFD] px-3 py-2.5 text-[14px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
+                    className="min-h-[64px] flex-1 resize-none rounded-[10px] border border-[#7CB9C7] bg-[rgba(248,251,253,0.92)] px-3 py-2 text-[13px] text-[#10243E] outline-none placeholder:text-[#7B8EA3] backdrop-blur-sm lg:min-h-[76px] lg:py-2.5 lg:text-[14px]"
                   />
                   <button
                     type="button"
-                    className="inline-flex h-[42px] items-center gap-2 rounded-[10px] bg-[#0F4C5C] px-3 text-[14px] text-white hover:bg-[#123f4b]"
+                    className="inline-flex h-[36px] items-center gap-1.5 rounded-[10px] bg-[#0077B6] px-3 text-[13px] text-white hover:bg-[#00689f] lg:h-[40px] lg:gap-2 lg:text-[14px]"
                   >
                     <Send size={15} />
                     Send
@@ -532,7 +547,7 @@ export default function SharedProcedureIndexView({
               <p className="mt-2 text-[15px] leading-7 text-[#5B7A8A] lg:text-[16px]">{hierarchyLabel}</p>
             </section>
 
-            <section className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 border-b border-[#D5EAF1] pb-3 text-[14px] lg:text-[15px]">
+            <section className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 pb-3 text-[14px] lg:border-b lg:border-[#D5EAF1] lg:text-[15px]">
               <button
                 type="button"
                 onClick={() => {
@@ -577,8 +592,8 @@ export default function SharedProcedureIndexView({
               </span>
             </section>
 
-            <section className="mt-6">
-              <div className="flex items-center justify-between border-b border-[#D9EBF0] px-1 pb-3">
+            <section className="relative left-1/2 mt-6 w-screen -translate-x-1/2 px-0 lg:left-auto lg:w-auto lg:translate-x-0 lg:px-0">
+              <div className="flex items-center justify-between px-1 pb-3 lg:border-b lg:border-[#D9EBF0]">
                 <div className="flex flex-wrap items-center gap-2 text-[13px] lg:text-[14px]">
                   <div className="relative">
                     <button
@@ -673,7 +688,7 @@ export default function SharedProcedureIndexView({
               </div>
 
               {composerOpen ? (
-                <div className="border-b border-[#E3EDF1] px-1 py-4">
+                <div className="px-1 py-4 lg:border-b lg:border-[#E3EDF1]">
                   <div className="mb-3 text-[14px] text-[#61758B]">
                     {selectedBranch
                       ? <>Creating from <span className="text-[#10243E]">{selectedBranch.systemName}</span>.</>
@@ -707,51 +722,47 @@ export default function SharedProcedureIndexView({
                 </div>
               ) : null}
 
-              <div>
-                {orderedBranches.length > 0 ? orderedBranches.map((branch) => {
+              <div className="lg:border lg:border-[#0F4C5C] lg:bg-[#F4FBFF]">
+                {orderedBranches.length > 0 ? orderedBranches.map((branch, branchIndex) => {
                   const expanded = selectedBranchId === branch.id
 
                   return (
-                    <div key={branch.id} className="border-b border-[#E3EDF1] px-1 py-1.5 last:border-b-0">
+                    <div key={branch.id} className="px-0 py-1 lg:border-b lg:border-[#7CB9C7] lg:px-0 lg:py-0 last:lg:border-b-0">
                       <button
                         type="button"
                         onClick={() => handleSelectBranch(branch)}
-                        className="flex w-full items-center justify-between gap-4 rounded-[10px] bg-[#D9EFF7] px-3 py-3 text-left transition-colors hover:bg-[#C7EAF7]"
+                        className={`group flex w-full items-center justify-between gap-3 rounded-none border-t border-[#0F4C5C] bg-[#D9EFF7] px-4 py-2.5 text-left transition-colors hover:bg-[#C7EAF7] last:border-b last:border-b-[#0F4C5C] lg:border-0 lg:bg-[#D9EFF7] lg:px-3 lg:py-2.5 lg:hover:bg-[#CFEAF5] ${branchIndex === 0 ? "lg:border-t-0" : ""}`}
                       >
-                        <span className="min-w-0 text-[15px] leading-6 text-[#10243E] lg:text-[16px]">
+                        <span className="min-w-0 text-[15px] leading-6 text-[#10243E] transition-colors group-hover:lg:text-[#0096C7] lg:text-[16px]">
                           <span className="line-clamp-2">{buildBranchSummary(branch)}</span>
                         </span>
-                        <ChevronDown size={16} className={`shrink-0 text-[#61758B] transition-transform ${expanded ? "rotate-180" : ""}`} />
+                        <ChevronDown size={16} className={`shrink-0 text-[#61758B] transition-colors transition-transform group-hover:lg:text-[#0096C7] ${expanded ? "rotate-180" : ""}`} />
                       </button>
 
                       {expanded ? (
-                        <div className="pb-2 pl-6">
-                          <div className="ml-3 border-l border-[#D9EBF0] pl-5">
+                        <div className="pb-1.5 pl-0.5 lg:bg-[#F4FBFF] lg:px-3 lg:pb-2 lg:pl-0">
+                          <div className="space-y-1 pl-1 lg:space-y-0 lg:pl-0">
                             {branch.versions.length > 0 ? branch.versions.map((version) => (
                               <button
                                 key={version.id}
                                 type="button"
                                 onClick={() => handleSelectVersion(branch, version)}
-                                className="flex w-full items-center justify-between gap-4 rounded-[10px] bg-[#F4FBFF] px-3 py-2.5 text-left hover:bg-[#EAF7FD]"
+                                className="group flex w-full items-center justify-between gap-3 rounded-none border-t border-[#A9D3DC] bg-[#F4FBFF] px-4 py-2 text-left hover:bg-[#EAF7FD] last:border-b last:border-b-[#A9D3DC] lg:border-x-0 lg:border-t-0 lg:border-b lg:border-[#B9DCE4] lg:bg-[#F4FBFF] lg:px-0 lg:py-2 lg:hover:bg-[#EDF8FC] last:lg:border-b-0"
                               >
-                                <span className="min-w-0 text-[14px] text-[#10243E] lg:text-[15px]">
+                                <span className="min-w-0 flex-1 text-[14px] text-[#10243E] transition-colors group-hover:lg:text-[#0096C7] lg:text-[15px]">
                                   <span className="block truncate">{buildVersionSummary(version)}</span>
                                 </span>
-                                <span className="flex shrink-0 items-center gap-3 text-[#61758B]">
+                                <span className="flex shrink-0 items-center gap-2.5 text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7]">
                                   <span
-                                    role="button"
                                     aria-label={`${version.likes} likes`}
-                                    className="inline-flex items-center gap-1 text-[13px] hover:text-[#0F4C5C]"
-                                    onClick={(event) => event.stopPropagation()}
+                                    className="inline-flex items-center gap-1 text-[13px]"
                                   >
                                     <Heart size={14} />
                                     {version.likes}
                                   </span>
                                   <span
-                                    role="button"
                                     aria-label={`${version.views} views`}
-                                    className="inline-flex items-center gap-1 text-[13px] hover:text-[#0F4C5C]"
-                                    onClick={(event) => event.stopPropagation()}
+                                    className="inline-flex items-center gap-1 text-[13px]"
                                   >
                                     <Eye size={14} />
                                     {version.views}
@@ -783,7 +794,7 @@ export default function SharedProcedureIndexView({
         <button
           type="button"
           onClick={() => setSelectedVersionId("")}
-          className="fixed inset-0 z-30 bg-[#10243E]/18"
+          className="fixed inset-0 z-30 bg-[#10243E]/18 lg:top-[72px]"
           aria-label="Close version details"
         />
       ) : null}

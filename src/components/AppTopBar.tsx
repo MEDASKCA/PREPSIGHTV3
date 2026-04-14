@@ -222,6 +222,11 @@ export default function AppTopBar({
     router.push(item.href)
   }
 
+  function handleMenuToggle() {
+    setAccountMenuOpen(false)
+    onToggleMenu()
+  }
+
   function openAccountPage(path: string) {
     setAccountMenuOpen(false)
     setAccountError(null)
@@ -283,7 +288,7 @@ export default function AppTopBar({
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={onToggleMenu}
+              onClick={handleMenuToggle}
               className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#0F4C5C] bg-white/88 text-[#22425C]"
               aria-label={menuOpen ? "Close navigation" : "Open navigation"}
             >
@@ -367,6 +372,7 @@ export default function AppTopBar({
             <button
               type="button"
               onClick={() => {
+                if (menuOpen) onToggleMenu()
                 setProfile(getProfile())
                 setAccountError(null)
                 setAccountMenuOpen((current) => !current)
@@ -379,8 +385,8 @@ export default function AppTopBar({
             </button>
 
             {accountMenuOpen ? (
-              <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[19rem] overflow-hidden rounded-[16px] border border-[#0F4C5C] bg-white shadow-[0_18px_40px_rgba(16,36,62,0.18)]">
-                <div className="border-b border-[#D9E7EF] bg-[#F2FAFD] px-4 py-3">
+              <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[14.5rem] overflow-hidden rounded-[16px] border border-[#0F4C5C] bg-[linear-gradient(180deg,rgba(232,248,252,0.94)_0%,rgba(244,251,255,0.9)_100%)] shadow-[0_20px_42px_rgba(16,36,62,0.16)] backdrop-blur-xl">
+                <div className="border-b border-[#0F4C5C] px-4 py-3">
                   <div className="text-[14px] font-medium text-[#10243E]">{displayName}</div>
                   {displayEmail ? <div className="mt-0.5 text-[12px] text-[#61758B]">{displayEmail}</div> : null}
                 </div>
@@ -389,7 +395,7 @@ export default function AppTopBar({
                   <button
                     type="button"
                     onClick={() => openAccountPage("/settings/profile")}
-                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[#F4FBFF]"
+                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[rgba(244,251,255,0.72)]"
                   >
                     <UserRound size={16} className="text-[#4B6478]" />
                     <span>Profile</span>
@@ -397,17 +403,17 @@ export default function AppTopBar({
                   <button
                     type="button"
                     onClick={() => openAccountPage("/settings/access")}
-                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[#F4FBFF]"
+                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[rgba(244,251,255,0.72)]"
                   >
                     <Settings2 size={16} className="text-[#4B6478]" />
                     <span>Settings</span>
                   </button>
-                  <div className="my-2 border-t border-[#D9E7EF]" />
+                  <div className="my-2 border-t border-[#0F4C5C]" />
                   <button
                     type="button"
                     onClick={() => void handleSignOut()}
                     disabled={accountBusy}
-                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[#F4FBFF] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[rgba(244,251,255,0.72)] disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <LogOut size={16} className="text-[#4B6478]" />
                     <span>Sign out</span>
@@ -416,7 +422,7 @@ export default function AppTopBar({
                     type="button"
                     onClick={() => void handleDeleteAccount()}
                     disabled={accountBusy}
-                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#C63C3C] hover:bg-[#FFF4F4] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#C63C3C] hover:bg-[rgba(255,244,244,0.84)] disabled:cursor-not-allowed disabled:opacity-60"
                   >
                     <Trash2 size={16} />
                     <span>Delete account</span>
@@ -431,7 +437,7 @@ export default function AppTopBar({
         </div>
 
         {menuOpen && menuContent ? (
-          <div className={`absolute left-3 top-full z-40 mt-2 w-[calc(34vw-0.75rem)] min-w-[9rem] max-w-[11.5rem] rounded-[14px] border border-white/32 bg-[linear-gradient(180deg,rgba(0,150,199,0.78)_0%,rgba(0,119,182,0.72)_100%)] p-2.5 shadow-[0_20px_42px_rgba(16,36,62,0.24)] backdrop-blur-2xl${mobileMenuOnly ? " lg:hidden" : ""}`}>
+          <div className={`absolute left-3 top-full z-40 mt-2 w-[calc(34vw-0.75rem)] min-w-[9rem] max-w-[11.5rem] rounded-[14px] border border-[#0F4C5C] bg-[linear-gradient(180deg,rgba(232,248,252,0.94)_0%,rgba(244,251,255,0.9)_100%)] p-2.5 shadow-[0_20px_42px_rgba(16,36,62,0.16)] backdrop-blur-xl${mobileMenuOnly ? " lg:hidden" : ""}`}>
             {menuContent}
           </div>
         ) : null}
