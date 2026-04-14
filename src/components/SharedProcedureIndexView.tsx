@@ -3,9 +3,10 @@
 import Link from "next/link"
 import { useMemo, useState, useSyncExternalStore } from "react"
 import { useRouter } from "next/navigation"
-import { Bookmark, ChevronDown, Eye, GitBranch, Heart, MessageCircle, Plus, Send, X } from "lucide-react"
+import { Bookmark, Eye, GitBranch, Heart, MessageCircle, Plus, Send, X } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
+import TriangleIcon from "@/components/TriangleIcon"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import { getBookmarksSnapshot, removeBookmark, saveBookmark, subscribeBookmarks } from "@/lib/bookmarks"
 import {
@@ -736,7 +737,11 @@ export default function SharedProcedureIndexView({
                         <span className="min-w-0 text-[15px] leading-6 text-[#10243E] transition-colors group-hover:lg:text-[#0096C7] lg:text-[16px]">
                           <span className="line-clamp-2">{buildBranchSummary(branch)}</span>
                         </span>
-                        <ChevronDown size={16} className={`shrink-0 text-[#61758B] transition-colors transition-transform group-hover:lg:text-[#0096C7] ${expanded ? "rotate-180" : ""}`} />
+                        <TriangleIcon
+                          direction={expanded ? "up" : "down"}
+                          size={11}
+                          className="shrink-0 text-[#61758B] transition-colors group-hover:lg:text-[#0096C7]"
+                        />
                       </button>
 
                       {expanded ? (

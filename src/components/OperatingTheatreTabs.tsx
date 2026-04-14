@@ -3,7 +3,8 @@
 import { useMemo, useState } from "react"
 import Link from "next/link"
 import { useSearchParams } from "next/navigation"
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, FolderOpen } from "lucide-react"
+import { ChevronLeft, FolderOpen } from "lucide-react"
+import TriangleIcon from "@/components/TriangleIcon"
 import { getAnatomyForServiceLine, getChildAnatomy } from "@/lib/operating-theatre-taxonomy"
 
 interface SpecialtyTab {
@@ -348,9 +349,9 @@ export default function OperatingTheatreTabs({
                   {tab.name}
                 </span>
                 {isOpen ? (
-                  <ChevronUp size={16} className="shrink-0 text-white/80 lg:hidden" />
+                  <TriangleIcon direction="up" size={10} className="shrink-0 text-white/80 lg:hidden" />
                 ) : (
-                  <ChevronDown size={16} className="shrink-0 text-white/80 lg:hidden" />
+                  <TriangleIcon direction="down" size={10} className="shrink-0 text-white/80 lg:hidden" />
                 )}
               </button>
             )}
@@ -385,7 +386,7 @@ export default function OperatingTheatreTabs({
                         className="absolute right-6 top-1/2 z-30 flex h-14 w-14 -translate-y-1/2 items-center justify-center rounded-full bg-white text-[#274561] shadow-[0_14px_30px_rgba(15,23,42,0.22)] transition hover:scale-105"
                         aria-label="Next subspecialty"
                       >
-                        <ChevronRight size={24} />
+                        <TriangleIcon direction="right" size={14} />
                       </button>
 
                       <div className="relative flex h-[660px] items-center justify-center" style={{ perspective: "1800px" }}>
@@ -704,9 +705,9 @@ export default function OperatingTheatreTabs({
                           </span>
 
                           {mobileOpen ? (
-                            <ChevronDown size={14} className="shrink-0" style={{ color: palette.softText }} />
+                            <TriangleIcon direction="down" size={10} className="shrink-0" style={{ color: palette.softText }} />
                           ) : (
-                            <ChevronRight size={14} className="shrink-0" style={{ color: palette.softText }} />
+                            <TriangleIcon direction="right" size={10} className="shrink-0" style={{ color: palette.softText }} />
                           )}
                         </button>
                       </div>
@@ -751,8 +752,9 @@ export default function OperatingTheatreTabs({
                                         </div>
                                       )}
                                     </div>
-                                    <ChevronRight
-                                      size={12}
+                                    <TriangleIcon
+                                      direction="right"
+                                      size={9}
                                       className={`shrink-0 ${isActiveAnatomy ? "text-[#64748b]" : "text-[#94a3b8]"}`}
                                     />
                                   </Link>

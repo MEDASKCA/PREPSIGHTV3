@@ -3,10 +3,11 @@
 import { useEffect, useState, useRef, useMemo, useCallback } from "react"
 import { useRouter } from "next/navigation"
 import {
-  X, Save, LogOut, CheckCircle, AlertCircle, ChevronDown, ChevronRight,
+  X, Save, LogOut, CheckCircle, AlertCircle,
   Hospital, FileText, ImageIcon, BarChart2, Trash2, Plus, Check, RefreshCw,
   Upload, Database,
 } from "lucide-react"
+import TriangleIcon from "@/components/TriangleIcon"
 import { clearAdminSession, groupedContent, CONTENT_REGISTRY, type ContentEntry } from "@/lib/admin"
 import {
   getAllAdminContent, saveAdminContent, deleteAdminContent,
@@ -704,7 +705,9 @@ function ContentGroup({
             </span>
           )}
         </div>
-        {expanded ? <ChevronDown size={16} className="text-slate-500" /> : <ChevronRight size={16} className="text-slate-500" />}
+        {expanded
+          ? <TriangleIcon direction="down" size={10} className="text-slate-500" />
+          : <TriangleIcon direction="right" size={10} className="text-slate-500" />}
       </button>
 
       {expanded && (

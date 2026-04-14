@@ -5,7 +5,6 @@ import { useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import {
   Bookmark,
-  ChevronDown,
   GitBranch,
   Play,
   Plus,
@@ -14,6 +13,7 @@ import {
 } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
+import TriangleIcon from "@/components/TriangleIcon"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import CollectionPanel from "@/components/CollectionPanel"
 import ItemDetailPanel from "@/components/ItemDetailPanel"
@@ -345,9 +345,10 @@ export default function MobileProcedureRepositoryView({
                         Updated {formatUpdatedDate(version.updatedAt)}
                       </span>
                     </span>
-                    <ChevronDown
-                      size={15}
-                      className={`shrink-0 text-[#61758B] transition-transform ${openVersionId === version.id ? "rotate-180" : ""}`}
+                    <TriangleIcon
+                      direction={openVersionId === version.id ? "up" : "down"}
+                      size={10}
+                      className="shrink-0 text-[#61758B]"
                     />
                   </button>
                   {openVersionId === version.id ? (
@@ -548,9 +549,10 @@ export default function MobileProcedureRepositoryView({
                             Updated {formatUpdatedDate(version.updatedAt)}
                           </span>
                         </span>
-                        <ChevronDown
-                          size={15}
-                          className={`shrink-0 text-[#61758B] transition-transform ${openVersionId === version.id ? "rotate-180" : ""}`}
+                        <TriangleIcon
+                          direction={openVersionId === version.id ? "up" : "down"}
+                          size={10}
+                          className="shrink-0 text-[#61758B]"
                         />
                       </button>
                       {openVersionId === version.id ? (

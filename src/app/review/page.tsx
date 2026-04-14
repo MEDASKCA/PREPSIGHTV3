@@ -5,13 +5,12 @@ import Link from "next/link"
 import {
   ArrowLeft,
   Check,
-  ChevronDown,
-  ChevronUp,
   CircleAlert,
   Info,
   Search,
   ScanSearch,
 } from "lucide-react"
+import TriangleIcon from "@/components/TriangleIcon"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
 import liveMapping from "../../../data/systems/trauma_and_orthopaedics_full_live_mapping.json"
 import {
@@ -346,7 +345,7 @@ function ReviewSection({
           onClick={onToggle}
           className="px-4 py-3.5 text-white transition-colors hover:bg-[#2F8EF7] lg:px-6"
         >
-          {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+          {open ? <TriangleIcon direction="up" size={12} /> : <TriangleIcon direction="down" size={12} />}
         </button>
       </div>
       {open ? <div className="kardex-section-body px-4 py-2 lg:px-7 lg:py-6 lg:text-white/78">{children}</div> : null}

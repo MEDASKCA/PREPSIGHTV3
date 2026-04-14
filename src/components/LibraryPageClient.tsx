@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useMemo, useState, useSyncExternalStore, type ReactNode } from "react"
-import { ChevronDown } from "lucide-react"
+import TriangleIcon from "@/components/TriangleIcon"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
@@ -279,10 +279,7 @@ function TreeGroupContent({
                   <span className="lg:hidden">
                     <MobileTriangle open={isBranchExpanded(branch.id)} />
                   </span>
-                  <ChevronDown
-                    size={14}
-                    className={`hidden shrink-0 text-[#406175] transition-transform lg:block ${isBranchExpanded(branch.id) ? "rotate-180" : ""}`}
-                  />
+                  <TriangleIcon direction={isBranchExpanded(branch.id) ? "up" : "down"} size={10} className="hidden shrink-0 text-[#406175] lg:block" />
                 </button>
 
                 {isBranchExpanded(branch.id) ? (
@@ -368,10 +365,7 @@ function TreeBranchContent({
                 <span className="lg:hidden">
                   <MobileTriangle open={expanded} />
                 </span>
-                <ChevronDown
-                  size={14}
-                  className={`hidden shrink-0 text-[#406175] transition-transform lg:block ${expanded ? "rotate-180" : ""}`}
-                />
+                <TriangleIcon direction={expanded ? "up" : "down"} size={10} className="hidden shrink-0 text-[#406175] lg:block" />
               </button>
 
               {expanded ? (
@@ -692,9 +686,10 @@ export default function LibraryPageClient({
                           </p>
                       <span className="text-[14px] font-normal text-[#10243E]">{totalForGroup(group)}</span>
                         </div>
-                        <ChevronDown
-                          size={16}
-                          className={`shrink-0 text-[#406175] transition-transform ${isGroupExpanded(group.id) ? "rotate-180" : ""}`}
+                        <TriangleIcon
+                          direction={isGroupExpanded(group.id) ? "up" : "down"}
+                          size={10}
+                          className="shrink-0 text-[#406175]"
                         />
                       </button>
 

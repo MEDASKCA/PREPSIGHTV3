@@ -1,7 +1,8 @@
 "use client"
 
 import { useState, useMemo, useRef } from "react"
-import { Check, ChevronDown, ChevronRight, Minus, Plus, AlertTriangle, RotateCcw } from "lucide-react"
+import { Check, Minus, Plus, AlertTriangle, RotateCcw } from "lucide-react"
+import TriangleIcon from "@/components/TriangleIcon"
 import { getStockForSystem, getStockStatus, StockItem, StockStatus } from "@/lib/stockroom-data"
 import { db } from "@/lib/firebase"
 import { doc, setDoc, collection, addDoc, serverTimestamp } from "firebase/firestore"
@@ -289,7 +290,9 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
           className="flex-1 flex items-center justify-between gap-3 px-4 py-3 text-left min-w-0"
         >
           <div className="flex items-center gap-2 min-w-0">
-            {expanded ? <ChevronDown size={14} className="shrink-0 text-[#64748b]" /> : <ChevronRight size={14} className="shrink-0 text-[#64748b]" />}
+            {expanded
+              ? <TriangleIcon direction="down" size={10} className="shrink-0 text-[#64748b]" />
+              : <TriangleIcon direction="right" size={10} className="shrink-0 text-[#64748b]" />}
             <span className="text-sm font-semibold text-[#3F4752] lg:text-[20px]">Implant stock check</span>
             <span className="hidden lg:inline text-[16px] text-[#94a3b8] font-normal ml-0.5">— tick each item to verify · adjust qty if count differs</span>
             {hasIssues && !expanded && (

@@ -1,7 +1,8 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronDown, ChevronUp, ExternalLink, Save, Check, Clock, SquarePen, Plus, Trash2 } from "lucide-react"
+import { ExternalLink, Save, Check, Clock, SquarePen, Plus, Trash2 } from "lucide-react"
+import TriangleIcon from "@/components/TriangleIcon"
 import ItemRow from "./ItemRow"
 import CataloguePickerModal from "./CataloguePickerModal"
 import ImplantCheckPanel from "./ImplantCheckPanel"
@@ -208,7 +209,7 @@ export default function KardexSection({
           onClick={() => setOpen(!open)}
           className={`px-4 py-3.5 text-[#10243E] transition-colors lg:px-6 ${headerHoverClass}`}
         >
-          {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+          {open ? <TriangleIcon direction="up" size={12} /> : <TriangleIcon direction="down" size={12} />}
         </button>
       </div>
 

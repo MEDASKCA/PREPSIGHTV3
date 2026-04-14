@@ -2,7 +2,7 @@
 
 import { useState } from "react"
 import { PlayCircle, Clock3 } from "lucide-react"
-import { ChevronDown, ChevronUp } from "lucide-react"
+import TriangleIcon from "@/components/TriangleIcon"
 
 import type { MockWalkthrough } from "@/lib/video-mocks"
 
@@ -41,7 +41,7 @@ export default function RelatedWalkthroughs({ videos, defaultOpen = false }: Pro
           className="px-4 py-3.5 text-[#10243E] transition-colors hover:bg-[#33C4E2] lg:px-6"
           aria-label={open ? "Collapse walkthroughs" : "Expand walkthroughs"}
         >
-          {open ? <ChevronUp size={20} /> : <ChevronDown size={20} />}
+          {open ? <TriangleIcon direction="up" size={12} /> : <TriangleIcon direction="down" size={12} />}
         </button>
       </div>
 

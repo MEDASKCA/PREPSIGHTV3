@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-import { ChevronDown, ChevronUp } from "lucide-react"
+import TriangleIcon from "@/components/TriangleIcon"
 import ProcedureCard from "./ProcedureCard"
 import { getSurgeonsForProcedure } from "@/lib/surgeons"
 import { Procedure } from "@/lib/types"
@@ -25,10 +25,7 @@ export default function SpecialtySection({ specialty, procedures, defaultOpen = 
           {specialty}
         </h2>
         <div className="flex items-center gap-2 shrink-0">
-          {open
-            ? <ChevronUp size={15} className="text-white/60" />
-            : <ChevronDown size={15} className="text-white/60" />
-          }
+          {open ? <TriangleIcon direction="up" size={10} className="text-white/60" /> : <TriangleIcon direction="down" size={10} className="text-white/60" />}
           <span className="text-white/60 text-xs tabular-nums text-right min-w-[7.5rem]">
             {procedures.length} {procedures.length === 1 ? "procedure" : "procedures"}
           </span>

@@ -5,11 +5,10 @@ import { startTransition, useMemo, useState, useSyncExternalStore } from "react"
 import {
   ArrowRightLeft,
   Bookmark,
-  ChevronDown,
-  ChevronRight,
   LayoutGrid,
   RefreshCw,
 } from "lucide-react"
+import TriangleIcon from "@/components/TriangleIcon"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
@@ -210,11 +209,10 @@ function LibraryTree({
             <FolderBadge tone={tone} open={open} size="lg" />
             <span>{title}</span>
           </div>
-          <span className={`text-[12px] leading-none text-[#0077B6] transition-transform lg:hidden ${open ? "rotate-180" : ""}`}>▼</span>
-          <ChevronDown
-            size={16}
-            className={`hidden shrink-0 text-[#61758B] transition-transform lg:block ${open ? "rotate-180" : ""}`}
-          />
+          <span className="lg:hidden">
+            <TriangleIcon direction={open ? "up" : "down"} size={11} className="text-[#0077B6]" />
+          </span>
+          <TriangleIcon direction={open ? "up" : "down"} size={11} className="hidden shrink-0 text-[#61758B] lg:block" />
         </button>
         <div className="mt-1 text-[14px] text-[#61758B]">{description}</div>
       </div>
@@ -565,7 +563,7 @@ export default function LibrariesDashboard() {
                           <Icon size={15} style={{ color: action.tone }} />
                           <span className="text-[14px] text-[#10243E]">{action.label}</span>
                         </span>
-                        <ChevronRight size={14} className="text-[#7A92A4]" />
+                        <TriangleIcon direction="right" size={10} className="text-[#7A92A4]" />
                       </Link>
                     )
                   })}
