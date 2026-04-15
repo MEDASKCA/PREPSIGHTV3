@@ -31,17 +31,6 @@ for (const { r, n, lr } of RINGS) {
 
 const PENDING_PROVIDER_KEY = "prepsight_pending_auth"
 
-function isLocalOrLanHost(hostname: string) {
-  const host = hostname.trim().toLowerCase()
-  if (host === "localhost" || host === "127.0.0.1" || host === "::1") return true
-  if (/^192\.168\.\d{1,3}\.\d{1,3}$/.test(host)) return true
-  if (/^10\.\d{1,3}\.\d{1,3}\.\d{1,3}$/.test(host)) return true
-  const match172 = host.match(/^172\.(\d{1,3})\.\d{1,3}\.\d{1,3}$/)
-  if (!match172) return false
-  const secondOctet = Number(match172[1])
-  return secondOctet >= 16 && secondOctet <= 31
-}
-
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function LoginPage() {
   const router = useRouter()
@@ -74,11 +63,7 @@ export default function LoginPage() {
           window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
         }
         setLoading(null)
-        setError(
-          typeof window !== "undefined" && isLocalOrLanHost(window.location.hostname)
-            ? "Local sign-in did not complete. Use the deployed domain for auth testing, or use localhost on desktop."
-            : "Sign-in could not be completed. Please try again.",
-        )
+        setError(null)
       })
       .catch((e: unknown) => {
         if (typeof window !== "undefined") {

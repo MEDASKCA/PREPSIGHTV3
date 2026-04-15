@@ -53,6 +53,9 @@ function LoadingScreen({ message }: { message: string }) {
 export default function AppGate({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
+  const isPublic = PUBLIC_ROUTES.includes(pathname)
+  const isOnboarding = pathname === ONBOARDING_ROUTE
+  const isAdmin = pathname.startsWith(ADMIN_ROUTE)
 
   const [user, setUser] = useState<User | null | undefined>(undefined)
   const [profileReady, setProfileReady] = useState(false)
@@ -105,9 +108,6 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (user === undefined || !profileReady) return
 
-    const isPublic = PUBLIC_ROUTES.includes(pathname)
-    const isOnboarding = pathname === ONBOARDING_ROUTE
-    const isAdmin = pathname.startsWith(ADMIN_ROUTE)
     const forceOnboarding = shouldForceOnboarding()
 
     if (!user && !isPublic) { router.replace("/login"); return }
@@ -116,13 +116,14 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     if (user && (!profileComplete || forceOnboarding) && !isOnboarding && !isAdmin) { router.replace("/onboarding"); return }
   }, [user, profileReady, profileComplete, pathname, router])
 
+  if (isPublic) {
+    return <><AdminUnlocker />{children}</>
+  }
+
   if (user === undefined || !profileReady) {
     return <LoadingScreen message="Loading..." />
   }
 
-  const isPublic = PUBLIC_ROUTES.includes(pathname)
-  const isOnboarding = pathname === ONBOARDING_ROUTE
-  const isAdmin = pathname.startsWith(ADMIN_ROUTE)
   if (!user) {
     return isPublic
       ? <><AdminUnlocker />{children}</>

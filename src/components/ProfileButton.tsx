@@ -67,7 +67,7 @@ export default function ProfileButton({
     clearProfile()
     await signOut()
     setOpen(false)
-    router.push("/login")
+    router.replace("/login")
   }
 
   function handleResetOnboarding() {

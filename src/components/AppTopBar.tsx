@@ -240,8 +240,7 @@ export default function AppTopBar({
       clearProfile()
       await signOut()
       setAccountMenuOpen(false)
-      router.push("/login")
-      router.refresh()
+      router.replace("/login")
     } catch {
       setAccountError("Sign out failed. Try again.")
     } finally {
