@@ -727,7 +727,15 @@ export default function SharedProcedureIndexView({
                 </div>
               ) : null}
 
-              <div className="lg:space-y-2 lg:bg-[#F4FBFF]">
+              <div className="lg:bg-[#F4FBFF]">
+                <div className="hidden lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(88px,0.65fr)_minmax(132px,0.9fr)_20px] lg:items-center lg:gap-3 lg:border-b lg:border-[#0F4C5C] lg:px-0 lg:py-2">
+                  <span className="truncate text-[12px] text-[#0F4C5C]">System</span>
+                  <span className="truncate text-[12px] text-[#0F4C5C]">Approach</span>
+                  <span className="truncate text-[12px] text-[#0F4C5C]">Supplier</span>
+                  <span className="truncate text-[12px] text-[#0F4C5C]">Branch</span>
+                  <span className="truncate text-right text-[12px] text-[#0F4C5C]">Versions</span>
+                  <span aria-hidden="true" />
+                </div>
                 {orderedBranches.length > 0 ? orderedBranches.map((branch, branchIndex) => {
                   const expanded = selectedBranchId === branch.id
 
@@ -736,65 +744,42 @@ export default function SharedProcedureIndexView({
                       <button
                         type="button"
                         onClick={() => handleSelectBranch(branch)}
-                        className={`group flex w-full items-center justify-between gap-3 rounded-none border-t border-[#0F4C5C] bg-[#D9EFF7] px-4 py-2.5 text-left transition-colors hover:bg-[#C7EAF7] last:border-b last:border-b-[#0F4C5C] lg:border-0 lg:bg-[#D9EFF7] lg:px-3 lg:py-2.5 lg:hover:bg-[#CFEAF5] ${branchIndex === 0 ? "lg:border-t-0" : ""}`}
+                        className={`group flex w-full items-center justify-between gap-3 rounded-none border-t border-[#0F4C5C] bg-[#D9EFF7] px-4 py-2.5 text-left transition-colors hover:bg-[#C7EAF7] last:border-b last:border-b-[#0F4C5C] lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(88px,0.65fr)_minmax(132px,0.9fr)_20px] lg:items-center lg:gap-3 lg:border-b lg:border-[#0F4C5C] lg:px-0 lg:py-2.5 lg:hover:bg-[#CFEAF5] ${branchIndex === 0 ? "lg:border-t" : ""}`}
                       >
-                        <span className="min-w-0 flex-1 text-[15px] leading-6 text-[#10243E] transition-colors group-hover:lg:text-[#0096C7] lg:text-[16px]">
+                        <span className="min-w-0 flex-1 text-[15px] leading-6 text-[#10243E] transition-colors group-hover:lg:text-[#0096C7] lg:text-[15px]">
                           <span className="line-clamp-2 lg:hidden">{buildBranchSummary(branch)}</span>
-                          <span className="hidden min-w-0 items-center gap-3 lg:flex">
-                            <span className="min-w-0 flex-[1.5]">
-                              <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#406175]">
-                                System
-                              </span>
-                              <span className="block truncate text-[15px] text-[#10243E]">{branch.systemName}</span>
-                            </span>
-                            <span className="h-8 w-px shrink-0 bg-[#7CB9C7]" aria-hidden="true" />
-                            <span className="min-w-0 flex-[1.3]">
-                              <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#406175]">
-                                Approach
-                              </span>
-                              <span className="block truncate text-[15px] text-[#10243E]">
-                                {branch.approach?.trim() || "Not specified"}
-                              </span>
-                            </span>
-                            <span className="h-8 w-px shrink-0 bg-[#7CB9C7]" aria-hidden="true" />
-                            <span className="min-w-0 flex-[1.2]">
-                              <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#406175]">
-                                Supplier
-                              </span>
-                              <span className="block truncate text-[15px] text-[#10243E]">
-                                {branch.supplierName?.trim() || "Unknown supplier"}
-                              </span>
-                            </span>
-                            {branch.defaultBranch ? (
-                              <>
-                                <span className="h-8 w-px shrink-0 bg-[#7CB9C7]" aria-hidden="true" />
-                                <span className="shrink-0">
-                                  <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#406175]">
-                                    Branch
-                                  </span>
-                                  <span className="block whitespace-nowrap text-[15px] text-[#10243E]">Default</span>
-                                </span>
-                              </>
-                            ) : null}
-                            <span className="ml-auto shrink-0 text-right">
-                              <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#406175]">
-                                Versions
-                              </span>
-                              <span className="block whitespace-nowrap text-[15px] text-[#10243E]">
-                                {getPublishedVersionLabel(branch.versions.length)}
-                              </span>
-                            </span>
-                          </span>
+                          <span className="hidden min-w-0 lg:block lg:truncate">{branch.systemName}</span>
                         </span>
-                        <TriangleIcon
-                          direction={expanded ? "up" : "down"}
-                          size={11}
-                          className="shrink-0 text-[#61758B] transition-colors group-hover:lg:text-[#0096C7]"
-                        />
+                        <span className="hidden min-w-0 text-[15px] text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7] lg:block lg:truncate">
+                          {branch.approach?.trim() || "Not specified"}
+                        </span>
+                        <span className="hidden min-w-0 text-[15px] text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7] lg:block lg:truncate">
+                          {branch.supplierName?.trim() || "Unknown supplier"}
+                        </span>
+                        <span className="hidden text-[15px] text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7] lg:block lg:truncate">
+                          {branch.defaultBranch ? "Default" : ""}
+                        </span>
+                        <span className="hidden whitespace-nowrap text-right text-[15px] text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7] lg:block">
+                          {getPublishedVersionLabel(branch.versions.length)}
+                        </span>
+                        <span className="hidden lg:flex lg:justify-end">
+                          <TriangleIcon
+                            direction={expanded ? "up" : "down"}
+                            size={11}
+                            className="shrink-0 text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7]"
+                          />
+                        </span>
+                        <span className="lg:hidden">
+                          <TriangleIcon
+                            direction={expanded ? "up" : "down"}
+                            size={11}
+                            className="shrink-0 text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7]"
+                          />
+                        </span>
                       </button>
 
                       {expanded ? (
-                        <div className="pb-1.5 pl-0.5 lg:bg-[#F4FBFF] lg:px-3 lg:pb-2 lg:pl-0">
+                        <div className="pb-1.5 pl-0.5 lg:bg-[#F4FBFF] lg:px-0 lg:pb-2 lg:pl-0">
                           <div className="space-y-1 pl-1 lg:space-y-0 lg:pl-0">
                             {branch.versions.length > 0 ? branch.versions.map((version) => (
                               <button

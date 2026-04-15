@@ -21,10 +21,10 @@ function SettingsRow({
     <button
       type="button"
       onClick={onClick}
-      className="flex w-full items-center gap-3 border-b settings-border py-3 text-left transition-colors hover:opacity-80"
+      className="flex w-full items-center gap-3 border-b border-[#0085B2] py-3 text-left transition-colors hover:bg-white/6"
     >
-      <span className="settings-accent">{icon}</span>
-      <p className="settings-text text-sm font-medium">{title}</p>
+      <span className="text-white">{icon}</span>
+      <p className="text-sm font-medium text-[#D7E7F7]">{title}</p>
     </button>
   )
 }
@@ -92,10 +92,10 @@ export default function ProfileButton({
           onClick={() => setOpen(false)}
         >
           <div
-            className="settings-surface settings-overlay-panel w-full overflow-hidden rounded-t-[30px] sm:max-w-xl sm:rounded-[30px]"
+            className="settings-overlay-panel w-full overflow-hidden rounded-t-[30px] border border-[#0085B2] bg-[#0096C7] sm:max-w-xl sm:rounded-[30px]"
             onClick={(event) => event.stopPropagation()}
           >
-            <div className="flex items-start justify-between bg-[linear-gradient(135deg,#67E8F9_0%,#06B6D4_100%)] px-5 pb-5 pt-5">
+            <div className="flex items-start justify-between border-b border-[#0085B2] bg-[#0096C7] px-5 pb-5 pt-5">
               <div className="flex items-center gap-3">
                 <div className={`flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full ${!photoURL ? `${colour} text-white text-sm font-semibold` : ""}`}>
                   {photoURL ? (
@@ -110,8 +110,8 @@ export default function ProfileButton({
                   )}
                 </div>
                 <div>
-                  <p className="settings-header-text text-base font-medium">{displayName}</p>
-                  <p className="settings-header-muted mt-0.5 text-sm">{displayRole}</p>
+                  <p className="text-base font-medium text-white">{displayName}</p>
+                  <p className="mt-0.5 text-sm text-[#D7E7F7]">{displayRole}</p>
                 </div>
               </div>
               <button
@@ -122,7 +122,7 @@ export default function ProfileButton({
               </button>
             </div>
 
-            <div className="px-5 py-3 sm:px-6">
+            <div className="px-5 py-3 text-[#D7E7F7] sm:px-6">
               {modeSwitch ? (
                 <SettingsRow
                   icon={<ArrowRightLeft size={16} />}
@@ -141,7 +141,7 @@ export default function ProfileButton({
                 onClick={() => openSettingsPage("/settings/access")}
               />
 
-              <div className="mt-1 border-t settings-border pt-1">
+              <div className="mt-1 border-t border-[#0085B2] pt-1">
                 <SettingsRow
                   icon={<Bell size={16} />}
                   title="Notifications"
@@ -157,14 +157,14 @@ export default function ProfileButton({
               <div className="pt-2">
                 <button
                   onClick={handleSignOut}
-                  className="flex w-full items-center gap-3 py-3 text-left transition-colors hover:text-red-600"
+                  className="flex w-full items-center gap-3 py-3 text-left transition-colors hover:opacity-80"
                 >
-                  <span className="text-red-500">
+                  <span className="text-white">
                     <LogOut size={16} />
                   </span>
                   <div className="min-w-0">
-                    <p className="text-sm font-medium text-red-600">Sign out</p>
-                    <p className="settings-muted text-xs">{user?.email}</p>
+                    <p className="text-sm font-medium text-white">Sign out</p>
+                    <p className="text-xs text-[#D7E7F7]">{user?.email}</p>
                   </div>
                 </button>
               </div>

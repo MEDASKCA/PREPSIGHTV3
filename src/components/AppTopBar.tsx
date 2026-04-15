@@ -385,37 +385,37 @@ export default function AppTopBar({
             </button>
 
             {accountMenuOpen ? (
-              <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[14.5rem] overflow-hidden rounded-[16px] border border-[#0F4C5C] bg-[linear-gradient(180deg,rgba(232,248,252,0.94)_0%,rgba(244,251,255,0.9)_100%)] shadow-[0_20px_42px_rgba(16,36,62,0.16)] backdrop-blur-xl">
-                <div className="border-b border-[#0F4C5C] px-4 py-3">
-                  <div className="text-[14px] font-medium text-[#10243E]">{displayName}</div>
-                  {displayEmail ? <div className="mt-0.5 text-[12px] text-[#61758B]">{displayEmail}</div> : null}
+              <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[14.5rem] overflow-hidden rounded-[16px] border border-[#0085B2] bg-[#0096C7] shadow-[0_20px_42px_rgba(16,36,62,0.16)] lg:border-[#0F4C5C] lg:bg-[linear-gradient(180deg,rgba(232,248,252,0.94)_0%,rgba(244,251,255,0.9)_100%)] lg:backdrop-blur-xl">
+                <div className="border-b border-[#0085B2] px-4 py-3 lg:border-[#0F4C5C]">
+                  <div className="text-[14px] font-medium text-white lg:text-[#10243E]">{displayName}</div>
+                  {displayEmail ? <div className="mt-0.5 text-[12px] text-[#D7E7F7] lg:text-[#61758B]">{displayEmail}</div> : null}
                 </div>
 
                 <div className="p-2">
                   <button
                     type="button"
                     onClick={() => openAccountPage("/settings/profile")}
-                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[rgba(244,251,255,0.72)]"
+                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#D7E7F7] hover:bg-white/10 lg:text-[#10243E] lg:hover:bg-[rgba(244,251,255,0.72)]"
                   >
-                    <UserRound size={16} className="text-[#4B6478]" />
+                    <UserRound size={16} className="text-white lg:text-[#4B6478]" />
                     <span>Profile</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => openAccountPage("/settings/access")}
-                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[rgba(244,251,255,0.72)]"
+                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#D7E7F7] hover:bg-white/10 lg:text-[#10243E] lg:hover:bg-[rgba(244,251,255,0.72)]"
                   >
-                    <Settings2 size={16} className="text-[#4B6478]" />
+                    <Settings2 size={16} className="text-white lg:text-[#4B6478]" />
                     <span>Settings</span>
                   </button>
-                  <div className="my-2 border-t border-[#0F4C5C]" />
+                  <div className="my-2 border-t border-[#0085B2] lg:border-[#0F4C5C]" />
                   <button
                     type="button"
                     onClick={() => void handleSignOut()}
                     disabled={accountBusy}
-                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#10243E] hover:bg-[rgba(244,251,255,0.72)] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#D7E7F7] hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60 lg:text-[#10243E] lg:hover:bg-[rgba(244,251,255,0.72)]"
                   >
-                    <LogOut size={16} className="text-[#4B6478]" />
+                    <LogOut size={16} className="text-white lg:text-[#4B6478]" />
                     <span>Sign out</span>
                   </button>
                   <button
@@ -437,7 +437,7 @@ export default function AppTopBar({
         </div>
 
         {menuOpen && menuContent ? (
-          <div className={`absolute left-3 top-full z-40 mt-2 w-[calc(34vw-0.75rem)] min-w-[9rem] max-w-[11.5rem] rounded-[14px] border border-[#0F4C5C] bg-[linear-gradient(180deg,rgba(232,248,252,0.94)_0%,rgba(244,251,255,0.9)_100%)] p-2.5 shadow-[0_20px_42px_rgba(16,36,62,0.16)] backdrop-blur-xl${mobileMenuOnly ? " lg:hidden" : ""}`}>
+          <div className={`absolute left-3 top-full z-40 mt-2 w-[calc(34vw-0.75rem)] min-w-[9rem] max-w-[11.5rem] rounded-[14px] border border-[#0085B2] bg-[#0096C7] p-2.5 shadow-[0_20px_42px_rgba(16,36,62,0.16)] lg:border-[#0F4C5C] lg:bg-[linear-gradient(180deg,rgba(232,248,252,0.94)_0%,rgba(244,251,255,0.9)_100%)] lg:backdrop-blur-xl${mobileMenuOnly ? " lg:hidden" : ""}`}>
             {menuContent}
           </div>
         ) : null}
