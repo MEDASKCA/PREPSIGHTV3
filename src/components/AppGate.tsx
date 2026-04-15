@@ -6,9 +6,10 @@ import { onAuthChange, type User } from "@/lib/auth"
 import { hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import AdminUnlocker from "./AdminUnlocker"
 
-const PUBLIC_ROUTES    = ["/login"]
+const PUBLIC_ROUTES    = ["/login", "/privacy", "/terms"]
 const ONBOARDING_ROUTE = "/onboarding"
 const ADMIN_ROUTE      = "/admin"
+const PENDING_AUTH_KEY = "prepsight_pending_auth"
 
 const BRAND_LETTERS = "MEDASKCA".split("")
 
@@ -54,21 +55,34 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
   const isPublic = PUBLIC_ROUTES.includes(pathname)
+  const isLegalPage = pathname === "/privacy" || pathname === "/terms"
   const isOnboarding = pathname === ONBOARDING_ROUTE
   const isAdmin = pathname.startsWith(ADMIN_ROUTE)
 
   const [user, setUser] = useState<User | null | undefined>(undefined)
+  const [authReady, setAuthReady] = useState(false)
   const [profileReady, setProfileReady] = useState(false)
   const [profileComplete, setProfileComplete] = useState(false)
 
+  function hasPendingAuth() {
+    if (typeof window === "undefined") return false
+    const pending =
+      window.localStorage.getItem(PENDING_AUTH_KEY) ??
+      window.sessionStorage.getItem(PENDING_AUTH_KEY)
+    return pending === "google" || pending === "microsoft"
+  }
+
   useEffect(() => {
-    return onAuthChange((u) => setUser(u))
+    return onAuthChange((u) => {
+      setUser(u)
+      setAuthReady(true)
+    })
   }, [])
 
   useEffect(() => {
     let cancelled = false
 
-    if (user === undefined) {
+    if (!authReady || user === undefined) {
       setProfileReady(false)
       setProfileComplete(false)
       return
@@ -103,24 +117,39 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     return () => {
       cancelled = true
     }
-  }, [user])
+  }, [authReady, user])
 
   useEffect(() => {
-    if (user === undefined || !profileReady) return
+    if (!authReady || user === undefined || !profileReady) return
 
     const forceOnboarding = shouldForceOnboarding()
+    const pendingAuth = hasPendingAuth()
 
-    if (!user && !isPublic) { router.replace("/login"); return }
-    if (user && isPublic) { router.replace("/"); return }
+    if (!user && !isPublic && !pendingAuth) { router.replace("/login"); return }
+    if (user && pathname === "/login") { router.replace("/"); return }
     if (user && profileComplete && isOnboarding && !forceOnboarding) { router.replace("/"); return }
-    if (user && (!profileComplete || forceOnboarding) && !isOnboarding && !isAdmin) { router.replace("/onboarding"); return }
-  }, [user, profileReady, profileComplete, pathname, router])
+    if (user && (!profileComplete || forceOnboarding) && !isOnboarding && !isAdmin && !isLegalPage) {
+      router.replace("/onboarding")
+      return
+    }
+  }, [
+    authReady,
+    user,
+    profileReady,
+    profileComplete,
+    pathname,
+    router,
+    isPublic,
+    isOnboarding,
+    isAdmin,
+    isLegalPage,
+  ])
 
   if (isPublic) {
     return <><AdminUnlocker />{children}</>
   }
 
-  if (user === undefined || !profileReady) {
+  if (!authReady || user === undefined || !profileReady) {
     return <LoadingScreen message="Loading..." />
   }
 
@@ -130,7 +159,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       : <LoadingScreen message="Loading..." />
   }
 
-  if (isPublic) {
+  if (pathname === "/login") {
     return <LoadingScreen message="Loading..." />
   }
 
@@ -139,6 +168,8 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   if (!profileComplete || forceOnboarding) {
     return isOnboarding
       ? <><AdminUnlocker />{children}</>
+      : isLegalPage
+        ? <><AdminUnlocker />{children}</>
       : isAdmin
         ? <><AdminUnlocker />{children}</>
         : <LoadingScreen message="Loading..." />

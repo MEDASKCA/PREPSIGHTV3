@@ -1,10 +1,12 @@
 "use client"
 
+import Link from "next/link"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import {
   signInWithGoogle,
   signInWithMicrosoft,
+  signInLocally,
   getLoginRedirectResult,
   onAuthChange,
 } from "@/lib/auth"
@@ -41,49 +43,88 @@ for (const { r, n, lr } of RINGS) {
 
 const PENDING_PROVIDER_KEY = "prepsight_pending_auth"
 
+function readPendingProvider() {
+  if (typeof window === "undefined") return null
+  const value =
+    window.localStorage.getItem(PENDING_PROVIDER_KEY) ??
+    window.sessionStorage.getItem(PENDING_PROVIDER_KEY)
+  return value === "google" || value === "microsoft" ? value : null
+}
+
+function writePendingProvider(provider: "google" | "microsoft") {
+  if (typeof window === "undefined") return
+  window.localStorage.setItem(PENDING_PROVIDER_KEY, provider)
+  window.sessionStorage.setItem(PENDING_PROVIDER_KEY, provider)
+}
+
+function clearPendingProvider() {
+  if (typeof window === "undefined") return
+  window.localStorage.removeItem(PENDING_PROVIDER_KEY)
+  window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
+}
+
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function LoginPage() {
   const router = useRouter()
   const authConfigured = Boolean(auth)
-  const pendingProvider =
-    typeof window !== "undefined"
-      ? (window.sessionStorage.getItem(PENDING_PROVIDER_KEY) as "google" | "microsoft" | null)
-      : null
+  const pendingProvider = readPendingProvider()
 
   const [lit,           setLit]           = useState(() => pendingProvider !== null)
   const [loading,       setLoading]       = useState<"google" | "microsoft" | null>(() => pendingProvider)
   const [error,         setError]         = useState<string | null>(null)
   const [authenticated, setAuthenticated] = useState(false)
+  const [localEmail,    setLocalEmail]    = useState("")
+  const [debugLines,    setDebugLines]    = useState<string[]>([])
+  const [showDebug,     setShowDebug]     = useState(false)
+
+  function appendDebug(message: string) {
+    if (!showDebug) return
+    const timestamp = new Date().toISOString().slice(11, 19)
+    setDebugLines((current) => [`${timestamp} ${message}`, ...current].slice(0, 12))
+  }
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    setShowDebug(window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
+  }, [])
+
+  useEffect(() => {
+    if (!showDebug) return
+    appendDebug(`page loaded path=${window.location.pathname} search=${window.location.search || "(none)"}`)
+    appendDebug(`auth configured=${String(authConfigured)} pending=${pendingProvider ?? "(none)"} currentUser=${auth?.currentUser?.uid ?? "(none)"}`)
+  }, [showDebug, authConfigured, pendingProvider])
 
   // Handle redirect result (mobile sign-in returns here after redirect)
   useEffect(() => {
-    if (!pendingProvider) return
+    if (!authConfigured) return
+    appendDebug("checking redirect result")
 
     getLoginRedirectResult()
       .then((result) => {
         if (result?.user) {
-          if (typeof window !== "undefined") {
-            window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
-          }
+          appendDebug(`redirect result user uid=${result.user.uid}`)
+          clearPendingProvider()
           setAuthenticated(true)
           setLoading(null)
           router.replace("/")
           return
         }
-        if (typeof window !== "undefined") {
-          window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
+        if (pendingProvider) {
+          appendDebug("redirect result empty, clearing pending provider")
+          clearPendingProvider()
+          setLoading(null)
+          setError(null)
+        } else {
+          appendDebug("redirect result empty")
         }
-        setLoading(null)
-        setError(null)
       })
       .catch((e: unknown) => {
-        if (typeof window !== "undefined") {
-          window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
-        }
+        clearPendingProvider()
         const code =
           typeof e === "object" && e !== null && "code" in e
             ? String((e as { code?: string }).code ?? "")
             : ""
+        appendDebug(`redirect result error code=${code || "(none)"} message=${e instanceof Error ? e.message : "unknown"}`)
         if (code === "auth/missing-initial-state") {
           setError("Sign-in session expired. Open the site in your browser and try again.")
           setLoading(null)
@@ -93,14 +134,13 @@ export default function LoginPage() {
         setError(msg)
         setLoading(null)
       })
-  }, [pendingProvider, router])
+  }, [authConfigured, pendingProvider, router])
 
   useEffect(() => {
     return onAuthChange((user) => {
+      appendDebug(`auth state changed uid=${user?.uid ?? "(none)"}`)
       if (!user) return
-      if (typeof window !== "undefined") {
-        window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
-      }
+      clearPendingProvider()
       setLit(true)
       setAuthenticated(true)
       setLoading(null)
@@ -114,28 +154,26 @@ export default function LoginPage() {
 
   async function handleGoogle() {
     if (!authConfigured) {
-      setError("Firebase is not configured locally. Add a valid .env.local before testing sign-in on localhost.")
+      setError("Local Firebase auth is not configured. Add a real .env.local to test login on localhost.")
       return
     }
+    appendDebug("google sign-in clicked")
     setError(null); setLoading("google")
     try {
-      if (typeof window !== "undefined") {
-        window.sessionStorage.setItem(PENDING_PROVIDER_KEY, "google")
-      }
+      writePendingProvider("google")
+      appendDebug("pending provider set to google")
       const signIn = await signInWithGoogle()
+      appendDebug(`google sign-in method=${signIn.method}`)
       if (signIn.method === "redirect") {
         return
       }
-      if (typeof window !== "undefined") {
-        window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
-      }
+      clearPendingProvider()
       setLoading(null)
       setAuthenticated(true)
       router.replace("/")
     } catch (e: unknown) {
-      if (typeof window !== "undefined") {
-        window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
-      }
+      clearPendingProvider()
+      appendDebug(`google sign-in error message=${e instanceof Error ? e.message : "unknown"}`)
       const msg = e instanceof Error ? e.message : "Sign-in failed"
       if (!msg.includes("popup-closed")) setError(msg)
       setLoading(null)
@@ -144,31 +182,43 @@ export default function LoginPage() {
 
   async function handleMicrosoft() {
     if (!authConfigured) {
-      setError("Firebase is not configured locally. Add a valid .env.local before testing sign-in on localhost.")
+      setError("Local Firebase auth is not configured. Add a real .env.local to test login on localhost.")
       return
     }
+    appendDebug("microsoft sign-in clicked")
     setError(null); setLoading("microsoft")
     try {
-      if (typeof window !== "undefined") {
-        window.sessionStorage.setItem(PENDING_PROVIDER_KEY, "microsoft")
-      }
+      writePendingProvider("microsoft")
+      appendDebug("pending provider set to microsoft")
       const signIn = await signInWithMicrosoft()
+      appendDebug(`microsoft sign-in method=${signIn.method}`)
       if (signIn.method === "redirect") {
         return
       }
-      if (typeof window !== "undefined") {
-        window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
-      }
+      clearPendingProvider()
       setLoading(null)
       setAuthenticated(true)
       router.replace("/")
     } catch (e: unknown) {
-      if (typeof window !== "undefined") {
-        window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
-      }
+      clearPendingProvider()
+      appendDebug(`microsoft sign-in error message=${e instanceof Error ? e.message : "unknown"}`)
       const msg = e instanceof Error ? e.message : "Sign-in failed"
       if (!msg.includes("popup-closed")) setError(msg)
       setLoading(null)
+    }
+  }
+
+  async function handleLocalDevSignIn() {
+    setError(null)
+    try {
+      await signInLocally(localEmail)
+      clearPendingProvider()
+      setLit(true)
+      setAuthenticated(true)
+      router.replace("/")
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : "Local dev sign-in failed"
+      setError(msg)
     }
   }
 
@@ -366,7 +416,7 @@ export default function LoginPage() {
 
             <button
               onClick={handleGoogle}
-              disabled={!authConfigured || loading !== null || authenticated}
+              disabled={loading !== null || authenticated}
               className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40 mb-3"
             >
               {loading === "google" ? <BtnSpinner /> : <GoogleIcon />}
@@ -375,20 +425,53 @@ export default function LoginPage() {
 
             <button
               onClick={handleMicrosoft}
-              disabled={!authConfigured || loading !== null || authenticated}
+              disabled={loading !== null || authenticated}
               className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40"
             >
               {loading === "microsoft" ? <BtnSpinner /> : <MicrosoftIcon />}
               Continue with Microsoft
             </button>
 
-            {error && <p className="mt-4 text-xs text-red-400 text-center">{error}</p>}
+            {showDebug ? (
+              <div className="mt-4 rounded-xl border border-[#17313a] bg-[#09161a] p-3">
+                <p className="text-xs font-semibold text-[#7fc9d8] mb-2">
+                  Localhost dev sign-in
+                </p>
+                <input
+                  type="email"
+                  value={localEmail}
+                  onChange={(event) => setLocalEmail(event.target.value)}
+                  placeholder="name@gmail.com"
+                  className="w-full rounded-lg border border-[#21414b] bg-[#0d0d0d] px-3 py-2 text-sm text-[#d7edf1] focus:outline-none focus:ring-2 focus:ring-[#00B4D8]"
+                />
+                <button
+                  onClick={handleLocalDevSignIn}
+                  disabled={authenticated}
+                  className="mt-3 w-full rounded-lg border border-[#21414b] bg-[#10313a] px-4 py-2.5 text-sm font-semibold text-[#d7edf1] hover:bg-[#14424e] transition-colors disabled:opacity-40"
+                >
+                  Continue locally with Gmail
+                </button>
+                <p className="mt-2 text-[11px] leading-4 text-[#6ea4b0]">
+                  Localhost only. This bypasses real auth so you can keep working through onboarding and UI.
+                </p>
+              </div>
+            ) : null}
+
+            {error ? (
+              <p
+                className={`mt-4 text-xs text-center ${
+                  authConfigured ? "text-red-400" : "text-amber-400"
+                }`}
+              >
+                {error}
+              </p>
+            ) : null}
             {loading && !error ? (
               <p className="mt-4 text-xs text-[#7a7a7a] text-center">
                 Completing sign-in...
               </p>
             ) : null}
-            {!authConfigured ? (
+            {!authConfigured && !error ? (
               <p className="mt-4 text-xs text-amber-400 text-center leading-relaxed">
                 Local Firebase auth is not configured. Add a real `.env.local` to test login on localhost.
               </p>
@@ -397,6 +480,15 @@ export default function LoginPage() {
 
           <p className="mt-4 text-xs text-[#2a2a2a] text-center leading-relaxed">
             PrepSight is a product of MEDASKCA™
+          </p>
+          <p className="mt-2 text-xs text-[#4f6d78] text-center leading-relaxed">
+            <Link href="/privacy" className="underline underline-offset-2 hover:text-[#0F4C5C]">
+              Privacy
+            </Link>
+            {" · "}
+            <Link href="/terms" className="underline underline-offset-2 hover:text-[#0F4C5C]">
+              Terms
+            </Link>
           </p>
         </div>
       </div>

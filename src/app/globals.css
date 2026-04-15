@@ -860,6 +860,8 @@ html[data-theme="dark"] .item-row [class*="text-[#D5DCE3]"] {
 
 .onboarding-stage {
   position: relative;
+  width: 100%;
+  overflow-x: clip;
   background:
     radial-gradient(circle at top, rgba(77, 163, 255, 0.16), transparent 24%),
     linear-gradient(180deg, #f9fcff 0%, #f1f7fb 52%, #edf3f7 100%);
@@ -868,7 +870,7 @@ html[data-theme="dark"] .item-row [class*="text-[#D5DCE3]"] {
 .onboarding-ambient {
   position: absolute;
   inset: 0;
-  overflow: hidden;
+  overflow: clip;
   pointer-events: none;
 }
 
@@ -910,29 +912,6 @@ html[data-theme="dark"] .item-row [class*="text-[#D5DCE3]"] {
   animation: ambientSweep 16s ease-in-out infinite;
 }
 
-.onboarding-panel {
-  position: relative;
-  border: 1px solid rgba(255,255,255,0.76);
-  border-radius: 32px;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.96) 0%, rgba(255,255,255,0.9) 100%);
-  box-shadow:
-    0 28px 70px rgba(15, 23, 42, 0.12),
-    inset 0 1px 0 rgba(255,255,255,0.88);
-  padding: 1.5rem;
-  backdrop-filter: blur(20px);
-  animation: onboardingPanelIn 0.48s cubic-bezier(0.2, 0.8, 0.2, 1) both;
-}
-
-.onboarding-panel::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: linear-gradient(145deg, rgba(255,255,255,0.32), transparent 38%, rgba(77,163,255,0.08) 100%);
-  pointer-events: none;
-}
-
 .onboarding-progress-shell {
   position: relative;
   overflow: hidden;
@@ -944,10 +923,13 @@ html[data-theme="dark"] .item-row [class*="text-[#D5DCE3]"] {
   box-shadow: 0 0 24px rgba(77, 163, 255, 0.4);
 }
 
-@media (min-width: 768px) {
-  .onboarding-panel {
-    padding: 2rem;
-    border-radius: 36px;
+@media (max-width: 767px) {
+  .onboarding-stage {
+    min-width: 0;
+  }
+
+  .onboarding-stage * {
+    min-width: 0;
   }
 }
 
