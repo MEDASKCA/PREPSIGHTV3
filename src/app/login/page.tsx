@@ -20,12 +20,21 @@ const RINGS = [
   { r: 113, n: 24, lr: 8  },
 ]
 
-const LEDS: { x: number; y: number; r: number; idx: number }[] = []
+function formatSvgCoord(value: number) {
+  return value.toFixed(6)
+}
+
+const LEDS: { x: string; y: string; r: number; idx: number }[] = []
 let idx = 0
 for (const { r, n, lr } of RINGS) {
   for (let j = 0; j < n; j++) {
     const angle = n === 1 ? 0 : (2 * Math.PI * j) / n - Math.PI / 2
-    LEDS.push({ x: CX + r * Math.cos(angle), y: CY + r * Math.sin(angle), r: lr, idx: idx++ })
+    LEDS.push({
+      x: formatSvgCoord(CX + r * Math.cos(angle)),
+      y: formatSvgCoord(CY + r * Math.sin(angle)),
+      r: lr,
+      idx: idx++,
+    })
   }
 }
 
