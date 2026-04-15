@@ -8,6 +8,7 @@ import {
   getLoginRedirectResult,
   onAuthChange,
 } from "@/lib/auth"
+import { auth } from "@/lib/firebase"
 
 // ── Theatre light geometry ────────────────────────────────────────────────────
 // SVG viewBox="0 0 300 320"  CX=150, CY=190 (fixture centre)
@@ -43,6 +44,7 @@ const PENDING_PROVIDER_KEY = "prepsight_pending_auth"
 // ── Component ─────────────────────────────────────────────────────────────────
 export default function LoginPage() {
   const router = useRouter()
+  const authConfigured = Boolean(auth)
   const pendingProvider =
     typeof window !== "undefined"
       ? (window.sessionStorage.getItem(PENDING_PROVIDER_KEY) as "google" | "microsoft" | null)
@@ -111,6 +113,10 @@ export default function LoginPage() {
   }
 
   async function handleGoogle() {
+    if (!authConfigured) {
+      setError("Firebase is not configured locally. Add a valid .env.local before testing sign-in on localhost.")
+      return
+    }
     setError(null); setLoading("google")
     try {
       if (typeof window !== "undefined") {
@@ -137,6 +143,10 @@ export default function LoginPage() {
   }
 
   async function handleMicrosoft() {
+    if (!authConfigured) {
+      setError("Firebase is not configured locally. Add a valid .env.local before testing sign-in on localhost.")
+      return
+    }
     setError(null); setLoading("microsoft")
     try {
       if (typeof window !== "undefined") {
@@ -356,7 +366,7 @@ export default function LoginPage() {
 
             <button
               onClick={handleGoogle}
-              disabled={loading !== null || authenticated}
+              disabled={!authConfigured || loading !== null || authenticated}
               className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40 mb-3"
             >
               {loading === "google" ? <BtnSpinner /> : <GoogleIcon />}
@@ -365,7 +375,7 @@ export default function LoginPage() {
 
             <button
               onClick={handleMicrosoft}
-              disabled={loading !== null || authenticated}
+              disabled={!authConfigured || loading !== null || authenticated}
               className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40"
             >
               {loading === "microsoft" ? <BtnSpinner /> : <MicrosoftIcon />}
@@ -376,6 +386,11 @@ export default function LoginPage() {
             {loading && !error ? (
               <p className="mt-4 text-xs text-[#7a7a7a] text-center">
                 Completing sign-in...
+              </p>
+            ) : null}
+            {!authConfigured ? (
+              <p className="mt-4 text-xs text-amber-400 text-center leading-relaxed">
+                Local Firebase auth is not configured. Add a real `.env.local` to test login on localhost.
               </p>
             ) : null}
           </div>
