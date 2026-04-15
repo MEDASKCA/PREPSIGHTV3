@@ -41,6 +41,10 @@ function isLocalDevHost() {
   return host === "localhost" || host === "127.0.0.1" || host === "::1" || isPrivateLanHost(host)
 }
 
+function shouldUseLocalDevAuth() {
+  return isLocalDevHost() && !auth
+}
+
 function isLocalDevSignedIn() {
   if (!isLocalDevHost()) return false
   return window.localStorage.getItem(LOCAL_AUTH_ENABLED_KEY) === "true"
@@ -76,7 +80,7 @@ if (auth) {
 }
 
 export async function signInWithGoogle() {
-  if (isLocalDevHost()) {
+  if (shouldUseLocalDevAuth()) {
     setLocalDevSignedIn(true)
     return { method: "popup" as const, result: null }
   }
@@ -101,7 +105,7 @@ export async function signInWithGoogle() {
 }
 
 export async function signInWithMicrosoft() {
-  if (isLocalDevHost()) {
+  if (shouldUseLocalDevAuth()) {
     setLocalDevSignedIn(true)
     return { method: "popup" as const, result: null }
   }
@@ -126,13 +130,13 @@ export async function signInWithMicrosoft() {
 }
 
 export async function getLoginRedirectResult() {
-  if (isLocalDevHost()) return null
+  if (shouldUseLocalDevAuth()) return null
   if (!auth) return null
   return getRedirectResult(auth)
 }
 
 export async function signOut() {
-  if (isLocalDevHost()) {
+  if (shouldUseLocalDevAuth()) {
     setLocalDevSignedIn(false)
     return
   }
@@ -141,7 +145,7 @@ export async function signOut() {
 }
 
 export async function deleteAuthenticatedAccount() {
-  if (isLocalDevHost()) {
+  if (shouldUseLocalDevAuth()) {
     if (!isLocalDevSignedIn()) throw new Error("No authenticated user")
     setLocalDevSignedIn(false)
     return
@@ -151,12 +155,12 @@ export async function deleteAuthenticatedAccount() {
 }
 
 export async function getAuthenticatedUser() {
-  if (isLocalDevHost()) return isLocalDevSignedIn() ? LOCAL_DEV_USER : null
+  if (shouldUseLocalDevAuth()) return isLocalDevSignedIn() ? LOCAL_DEV_USER : null
   return auth?.currentUser ?? null
 }
 
 export async function reauthenticateAuthenticatedUser() {
-  if (isLocalDevHost()) {
+  if (shouldUseLocalDevAuth()) {
     if (!isLocalDevSignedIn()) throw new Error("No authenticated user")
     return LOCAL_DEV_USER
   }
@@ -179,7 +183,7 @@ export async function reauthenticateAuthenticatedUser() {
 }
 
 export function onAuthChange(callback: (user: User | null) => void) {
-  if (isLocalDevHost()) {
+  if (shouldUseLocalDevAuth()) {
     const notify = () => callback(isLocalDevSignedIn() ? LOCAL_DEV_USER : null)
     notify()
     window.addEventListener("storage", notify)
