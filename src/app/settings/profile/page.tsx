@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react"
+import { useEffect, useState, useSyncExternalStore } from "react"
 import { Check, Users, KeyRound } from "lucide-react"
 import { getProfile, saveProfile } from "@/lib/profile"
 import { onAuthChange } from "@/lib/auth"
@@ -10,6 +10,7 @@ import SettingsPageShell from "@/components/SettingsPageShell"
 import {
   createTeamWorkspace,
   getActiveTeamSnapshot,
+  getPendingTeamWorkspacesForProfile,
   getTeamMembersSnapshot,
   getTeamWorkspacesSnapshot,
   subscribeTeams,
@@ -17,7 +18,7 @@ import {
 } from "@/lib/team-workspaces"
 
 export default function ProfileSettingsPage() {
-  const profile = useMemo(() => getProfile(), [])
+  const profile = getProfile()
   const [uid, setUid] = useState<string | null>(null)
   const [teamName, setTeamName] = useState(profile?.hospital ? `${profile.hospital} Team` : "")
   const [inviteCode, setInviteCode] = useState("")
@@ -25,11 +26,12 @@ export default function ProfileSettingsPage() {
   useEffect(() => onAuthChange((user) => setUid(user?.uid ?? null)), [])
   useSyncExternalStore(subscribeTeams, getTeamWorkspacesSnapshot, getTeamWorkspacesSnapshot)
   const activeTeam = getActiveTeamSnapshot(profile)
+  const pendingTeams = getPendingTeamWorkspacesForProfile(profile)
   const teamMembers = getTeamMembersSnapshot(activeTeam?.id)
 
   async function handleCreateTeam() {
     if (!profile || !teamName.trim()) return
-    const team = createTeamWorkspace({
+    const team = await createTeamWorkspace({
       name: teamName.trim(),
       profile,
       uid,
@@ -47,24 +49,29 @@ export default function ProfileSettingsPage() {
 
   async function handleJoinTeam() {
     if (!profile || !inviteCode.trim()) return
-    const team = joinTeamWorkspace({
+    const result = await joinTeamWorkspace({
       inviteCode,
       profile,
       uid,
     })
-    if (!team) {
+    if (!result) {
       setMessage("Team code not found.")
       return
     }
-    await saveProfile(
-      {
-        ...profile,
-        activeOrganizationId: team.id,
-        organizationIds: Array.from(new Set([...(profile.organizationIds ?? []), team.id])),
-      },
-      uid ?? undefined,
-    )
-    setMessage(`Joined ${team.internalName}.`)
+    if (result.membership.status === "active") {
+      await saveProfile(
+        {
+          ...profile,
+          activeOrganizationId: result.team.id,
+          organizationIds: Array.from(new Set([...(profile.organizationIds ?? []), result.team.id])),
+        },
+        uid ?? undefined,
+      )
+      setMessage(`Joined ${result.team.internalName}.`)
+      return
+    }
+
+    setMessage(`Access request sent to ${result.team.internalName}. You’ll see the workspace once approved.`)
   }
 
   return (
@@ -185,6 +192,27 @@ export default function ProfileSettingsPage() {
                 )) : (
                   <p className="settings-muted text-sm">No members yet.</p>
                 )}
+              </div>
+            </div>
+          ) : null}
+
+          {pendingTeams.length > 0 ? (
+            <div className="settings-border settings-surface rounded-[14px] border p-4">
+              <p className="settings-text text-sm font-medium">Pending workspace approvals</p>
+              <div className="mt-3 space-y-2">
+                {pendingTeams.map((team) => (
+                  <div key={team.id} className="flex items-center justify-between gap-3 rounded-[12px] bg-[#FFF8E8] px-3 py-2.5">
+                    <div className="min-w-0">
+                      <p className="settings-text truncate text-sm font-medium">{team.internalName}</p>
+                      <p className="settings-muted truncate text-xs">
+                        {team.publicAlias} · waiting for team approval
+                      </p>
+                    </div>
+                    <span className="rounded-full bg-[#FDE7B2] px-2.5 py-1 text-[11px] font-medium text-[#92400E]">
+                      Pending
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
           ) : null}

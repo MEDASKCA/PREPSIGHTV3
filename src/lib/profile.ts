@@ -93,7 +93,6 @@ export function isCompleteProfile(profile: PrepSightProfile | null): boolean {
   if (!profile.hospital.trim()) return false
   if (!profile.departments.length) return false
   if (!profile.completedAt) return false
-  if (!profile.activeOrganizationId && !(profile.organizationIds?.length)) return false
   return true
 }
 
@@ -192,11 +191,12 @@ export async function saveProfile(profile: PrepSightProfile, uid?: string): Prom
 
   try {
     const membership = await upsertOrganizationMembership(uid, normalized)
+    const approvedOrganizationId = membership?.status === "active" ? membership.organizationId : undefined
     const profileForStorage: PrepSightProfile = {
       ...normalized,
-      activeOrganizationId: membership?.organizationId ?? normalized.activeOrganizationId,
-      organizationIds: membership?.organizationId
-        ? Array.from(new Set([...(normalized.organizationIds ?? []), membership.organizationId]))
+      activeOrganizationId: approvedOrganizationId ?? normalized.activeOrganizationId,
+      organizationIds: approvedOrganizationId
+        ? Array.from(new Set([...(normalized.organizationIds ?? []), approvedOrganizationId]))
         : normalized.organizationIds,
     }
 
@@ -225,7 +225,9 @@ export async function resolveProfile(uid: string): Promise<PrepSightProfile | nu
       organizationIds:
         normalized.organizationIds?.length
           ? normalized.organizationIds
-          : memberships.map((membership) => membership.organizationId),
+          : memberships
+              .filter((membership) => membership.status === "active")
+              .map((membership) => membership.organizationId),
     }
     saveProfileLocal(hydrated)
     return hydrated

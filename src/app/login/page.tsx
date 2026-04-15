@@ -6,7 +6,6 @@ import { useRouter } from "next/navigation"
 import {
   signInWithGoogle,
   signInWithMicrosoft,
-  signInLocally,
   getLoginRedirectResult,
   onAuthChange,
 } from "@/lib/auth"
@@ -73,7 +72,6 @@ export default function LoginPage() {
   const [loading,       setLoading]       = useState<"google" | "microsoft" | null>(() => pendingProvider)
   const [error,         setError]         = useState<string | null>(null)
   const [authenticated, setAuthenticated] = useState(false)
-  const [localEmail,    setLocalEmail]    = useState("")
   const [debugLines,    setDebugLines]    = useState<string[]>([])
   const [showDebug,     setShowDebug]     = useState(false)
 
@@ -205,20 +203,6 @@ export default function LoginPage() {
       const msg = e instanceof Error ? e.message : "Sign-in failed"
       if (!msg.includes("popup-closed")) setError(msg)
       setLoading(null)
-    }
-  }
-
-  async function handleLocalDevSignIn() {
-    setError(null)
-    try {
-      await signInLocally(localEmail)
-      clearPendingProvider()
-      setLit(true)
-      setAuthenticated(true)
-      router.replace("/")
-    } catch (e: unknown) {
-      const msg = e instanceof Error ? e.message : "Local dev sign-in failed"
-      setError(msg)
     }
   }
 
@@ -431,31 +415,6 @@ export default function LoginPage() {
               {loading === "microsoft" ? <BtnSpinner /> : <MicrosoftIcon />}
               Continue with Microsoft
             </button>
-
-            {showDebug ? (
-              <div className="mt-4 rounded-xl border border-[#17313a] bg-[#09161a] p-3">
-                <p className="text-xs font-semibold text-[#7fc9d8] mb-2">
-                  Localhost dev sign-in
-                </p>
-                <input
-                  type="email"
-                  value={localEmail}
-                  onChange={(event) => setLocalEmail(event.target.value)}
-                  placeholder="name@gmail.com"
-                  className="w-full rounded-lg border border-[#21414b] bg-[#0d0d0d] px-3 py-2 text-sm text-[#d7edf1] focus:outline-none focus:ring-2 focus:ring-[#00B4D8]"
-                />
-                <button
-                  onClick={handleLocalDevSignIn}
-                  disabled={authenticated}
-                  className="mt-3 w-full rounded-lg border border-[#21414b] bg-[#10313a] px-4 py-2.5 text-sm font-semibold text-[#d7edf1] hover:bg-[#14424e] transition-colors disabled:opacity-40"
-                >
-                  Continue locally with Gmail
-                </button>
-                <p className="mt-2 text-[11px] leading-4 text-[#6ea4b0]">
-                  Localhost only. This bypasses real auth so you can keep working through onboarding and UI.
-                </p>
-              </div>
-            ) : null}
 
             {error ? (
               <p

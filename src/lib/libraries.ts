@@ -1,7 +1,21 @@
 import { procedures } from "./data"
 import { getProfile } from "./profile"
 import { CLINICAL_SETTINGS } from "./settings"
-import { getActiveTeamSnapshot, getMemberPublicAlias } from "./team-workspaces"
+import { onAuthChange } from "./auth"
+import {
+  canUseCollaborationFirestore,
+  getFirestoreLibraries,
+  getFirestoreLibraryCards,
+  getFirestorePublishedCards,
+  saveFirestoreLibrary,
+  saveFirestoreLibraryCard,
+  saveFirestorePublishedCard,
+} from "./collaboration-firestore"
+import {
+  getAccessibleOrganizationIdsForProfile,
+  getActiveTeamSnapshot,
+  getMemberPublicAlias,
+} from "./team-workspaces"
 import type { LibraryRecord, Procedure } from "./types"
 
 const LIBRARIES_STORAGE_KEY = "prepsight_local_libraries"
@@ -21,6 +35,8 @@ let cachedPublishedRaw: string | null | undefined
 let cachedPublishedCards: Procedure[] = []
 let cachedSnapshotKey: string | null | undefined
 let cachedSnapshot: LibraryRecord[] = buildSharedLibraries()
+let authListening = false
+let activeUid: string | null = null
 
 function slugify(value: string): string {
   return value
@@ -58,7 +74,7 @@ function readLocalLibraries(): LibraryRecord[] {
       : []
     return cachedLocalLibraries
   } catch {
-    return []
+    return cachedLocalLibraries
   }
 }
 
@@ -79,7 +95,7 @@ function readLocalCards(): StoredCardsByLibrary {
     cachedLocalCards = parsed && typeof parsed === "object" ? (parsed as StoredCardsByLibrary) : {}
     return cachedLocalCards
   } catch {
-    return {}
+    return cachedLocalCards
   }
 }
 
@@ -102,7 +118,7 @@ function readPublishedCards(): Procedure[] {
       : []
     return cachedPublishedCards
   } catch {
-    return []
+    return cachedPublishedCards
   }
 }
 
@@ -136,6 +152,34 @@ function writePublishedCards(cards: Procedure[]): void {
 function emitLibrariesChanged(): void {
   if (typeof window === "undefined") return
   window.dispatchEvent(new Event(LIBRARIES_EVENT))
+}
+
+function mergeLibraries(primary: LibraryRecord[], secondary: LibraryRecord[]): LibraryRecord[] {
+  const byId = new Map<string, LibraryRecord>()
+  for (const library of secondary) byId.set(library.id, library)
+  for (const library of primary) byId.set(library.id, library)
+  return [...byId.values()].sort((left, right) => right.updatedAt.localeCompare(left.updatedAt))
+}
+
+function mergeCardMaps(primary: StoredCardsByLibrary, secondary: StoredCardsByLibrary): StoredCardsByLibrary {
+  const libraryIds = new Set([...Object.keys(primary), ...Object.keys(secondary)])
+  const merged: StoredCardsByLibrary = {}
+
+  libraryIds.forEach((libraryId) => {
+    const byId = new Map<string, Procedure>()
+    for (const card of secondary[libraryId] ?? []) byId.set(card.id, card)
+    for (const card of primary[libraryId] ?? []) byId.set(card.id, card)
+    merged[libraryId] = sortCards([...byId.values()])
+  })
+
+  return merged
+}
+
+function mergePublishedCards(primary: Procedure[], secondary: Procedure[]): Procedure[] {
+  const byId = new Map<string, Procedure>()
+  for (const card of secondary) byId.set(card.id, card)
+  for (const card of primary) byId.set(card.id, card)
+  return sortCards([...byId.values()])
 }
 
 function buildSharedCardsSnapshot(): Procedure[] {
@@ -189,7 +233,7 @@ function getActiveLocalLibraryIdentity() {
   const activeTeam = getActiveTeamSnapshot(profile)
   const ownerName = activeTeam?.internalName ?? profile.hospital.trim()
   const ownerPublicAlias = activeTeam?.publicAlias
-  const ownerId = profile.activeOrganizationId ?? (slugify(ownerName) || "organization")
+  const ownerId = activeTeam?.id ?? "me"
   const createdAt = profile.completedAt || SHARED_LIBRARY_CREATED_AT
 
   return { ownerName, ownerPublicAlias, ownerId, createdAt }
@@ -222,8 +266,8 @@ function ensureDefaultLocalLibrary(libraries: LibraryRecord[]): LibraryRecord[] 
       slug: `${slugify(identity.ownerName) || "hospital"}-local-cards`,
       description: `Local procedure cards for ${identity.ownerName}.`,
       libraryType: "local",
-      visibility: "organization",
-      ownerType: "organization",
+      visibility: identity.ownerId === "me" ? "private" : "organization",
+      ownerType: identity.ownerId === "me" ? "user" : "organization",
       ownerId: identity.ownerId,
       ownerName: identity.ownerName,
       ownerPublicAlias: identity.ownerPublicAlias,
@@ -233,6 +277,66 @@ function ensureDefaultLocalLibrary(libraries: LibraryRecord[]): LibraryRecord[] 
     },
     ...libraries,
   ]
+}
+
+async function hydrateRemoteLibraries(uid: string | null): Promise<void> {
+  if (typeof window === "undefined") return
+  if (!canUseCollaborationFirestore(uid)) {
+    writeLocalLibraries(ensureDefaultLocalLibrary(readLocalLibraries()))
+    writeLocalCards(readLocalCards())
+    writePublishedCards(readPublishedCards())
+    emitLibrariesChanged()
+    return
+  }
+
+  const remoteUid = uid as string
+  const profile = getProfile()
+  const allowedOwnerIds = getAccessibleOrganizationIdsForProfile(profile)
+  const localLibraries = ensureDefaultLocalLibrary(readLocalLibraries())
+  const [remoteLibraries, remotePublishedCards] = await Promise.all([
+    getFirestoreLibraries(allowedOwnerIds),
+    getFirestorePublishedCards(),
+  ])
+  const remoteCards = await getFirestoreLibraryCards([
+    ...new Set([...localLibraries.map((library) => library.id), ...remoteLibraries.map((library) => library.id)]),
+  ])
+
+  const mergedLibraries = ensureDefaultLocalLibrary(mergeLibraries(remoteLibraries, localLibraries))
+  const mergedCards = mergeCardMaps(remoteCards, readLocalCards())
+  const mergedPublishedCards = mergePublishedCards(remotePublishedCards, readPublishedCards())
+
+  writeLocalLibraries(mergedLibraries)
+  writeLocalCards(mergedCards)
+  writePublishedCards(mergedPublishedCards)
+  emitLibrariesChanged()
+
+  const remoteLibraryIds = new Set(remoteLibraries.map((library) => library.id))
+  const remotePublishedIds = new Set(remotePublishedCards.map((card) => card.id))
+
+  await Promise.all([
+    ...localLibraries
+      .filter((library) => !remoteLibraryIds.has(library.id))
+      .map((library) => saveFirestoreLibrary(remoteUid, library).catch(() => undefined)),
+    ...Object.entries(readLocalCards()).flatMap(([libraryId, cards]) =>
+      cards.map((card) => saveFirestoreLibraryCard(remoteUid, libraryId, card).catch(() => undefined)),
+    ),
+    ...readPublishedCards()
+      .filter((card) => !remotePublishedIds.has(card.id))
+      .map((card) => saveFirestorePublishedCard(remoteUid, card).catch(() => undefined)),
+  ])
+}
+
+function ensureRealtimeSync(): void {
+  if (authListening || typeof window === "undefined") return
+  authListening = true
+  readLocalLibraries()
+  readLocalCards()
+  readPublishedCards()
+
+  onAuthChange((user) => {
+    activeUid = user?.uid ?? null
+    void hydrateRemoteLibraries(activeUid)
+  })
 }
 
 function upsertLocalCards(libraryId: string, cards: Procedure[]): void {
@@ -254,6 +358,7 @@ function updateLibraryCardIds(libraryId: string, cardIds: string[]): void {
 
 export function subscribeLibraries(listener: () => void): () => void {
   if (typeof window === "undefined") return () => undefined
+  ensureRealtimeSync()
 
   const handler = () => listener()
   window.addEventListener(LIBRARIES_EVENT, handler)
@@ -266,6 +371,7 @@ export function subscribeLibraries(listener: () => void): () => void {
 }
 
 export function getLibrariesSnapshot(): LibraryRecord[] {
+  ensureRealtimeSync()
   const sharedLibraries = buildSharedLibraries()
   if (typeof window === "undefined") return sharedLibraries
 
@@ -319,8 +425,10 @@ export function createLocalLibrary(input: {
   description?: string
   visibility?: LibraryRecord["visibility"]
 }): LibraryRecord {
+  ensureRealtimeSync()
   const now = new Date().toISOString()
   const profile = getProfile()
+  const activeTeam = getActiveTeamSnapshot(profile)
   const localLibraries = ensureDefaultLocalLibrary(readLocalLibraries())
   const idBase = `library-${slugify(input.name) || "local-library"}`
   const existingIds = new Set(localLibraries.map((library) => library.id))
@@ -338,11 +446,11 @@ export function createLocalLibrary(input: {
     slug: slugify(input.name) || id,
     description: input.description?.trim() || undefined,
     libraryType: "local",
-    visibility: input.visibility ?? "organization",
-    ownerType: profile?.activeOrganizationId ? "organization" : "user",
-    ownerId: profile?.activeOrganizationId ?? "me",
-    ownerName: profile?.hospital?.trim() || profile?.name?.trim() || "My workspace",
-    ownerPublicAlias: getActiveTeamSnapshot(profile)?.publicAlias,
+    visibility: input.visibility ?? (activeTeam ? "organization" : "private"),
+    ownerType: activeTeam ? "organization" : "user",
+    ownerId: activeTeam?.id ?? "me",
+    ownerName: activeTeam?.internalName ?? profile?.hospital?.trim() ?? profile?.name?.trim() ?? "My workspace",
+    ownerPublicAlias: activeTeam?.publicAlias,
     cardIds: [],
     createdAt: now,
     updatedAt: now,
@@ -350,6 +458,14 @@ export function createLocalLibrary(input: {
 
   writeLocalLibraries([library, ...localLibraries])
   emitLibrariesChanged()
+
+  if (canUseCollaborationFirestore(activeUid)) {
+    const remoteUid = activeUid as string
+    void saveFirestoreLibrary(remoteUid, library).catch((error) => {
+      console.warn("[PrepSight] createLocalLibrary remote sync failed:", error)
+    })
+  }
+
   return library
 }
 
@@ -358,6 +474,7 @@ export function addCardToLocalLibrary(options: {
   sourceCard: Procedure
   mode?: "copy" | "linked"
 }): Procedure {
+  ensureRealtimeSync()
   const { libraryId, sourceCard } = options
   const library = getLibraryByIdSnapshot(libraryId)
   if (!library || library.libraryType !== "local") {
@@ -365,6 +482,7 @@ export function addCardToLocalLibrary(options: {
   }
 
   const profile = getProfile()
+  const activeTeam = getActiveTeamSnapshot(profile)
   const currentCards = getLibraryCardsSnapshot(libraryId)
   const sourceSlug = slugify(sourceCard.name) || sourceCard.id.toLowerCase()
   let cardId = `${sourceSlug}--${library.slug}`
@@ -392,26 +510,38 @@ export function addCardToLocalLibrary(options: {
     sourceOrganizationName: library.ownerName,
     sourceOrganizationPublicAlias: library.ownerPublicAlias,
     sourceContributorName: profile?.name?.trim() || "You",
-    sourceContributorPublicAlias: getMemberPublicAlias(profile?.activeOrganizationId, profile?.name),
+    sourceContributorPublicAlias: getMemberPublicAlias(activeTeam?.id, profile?.name),
   }
 
   const nextCards = [...currentCards, nextCard]
   upsertLocalCards(libraryId, nextCards)
   updateLibraryCardIds(libraryId, nextCards.map((card) => card.id))
   emitLibrariesChanged()
+
+  if (canUseCollaborationFirestore(activeUid)) {
+    const remoteUid = activeUid as string
+    void Promise.all([
+      saveFirestoreLibrary(remoteUid, getLibraryByIdSnapshot(libraryId)!),
+      saveFirestoreLibraryCard(remoteUid, libraryId, nextCard),
+    ]).catch((error) => {
+      console.warn("[PrepSight] addCardToLocalLibrary remote sync failed:", error)
+    })
+  }
+
   return nextCard
 }
 
 export function saveLocalLibraryCard(libraryId: string, card: Procedure): Procedure {
+  ensureRealtimeSync()
   const library = getLibraryByIdSnapshot(libraryId)
   if (!library || library.libraryType !== "local") {
     throw new Error("Local library not found")
   }
 
   const profile = getProfile()
+  const activeTeam = getActiveTeamSnapshot(profile)
   const currentCards = getLibraryCardsSnapshot(libraryId)
-  const nextCards = currentCards.filter((entry) => entry.id !== card.id)
-  nextCards.push({
+  const persistedCard: Procedure = {
     ...card,
     cardScope: "local",
     publishState: card.publishState ?? "draft",
@@ -420,18 +550,33 @@ export function saveLocalLibraryCard(libraryId: string, card: Procedure): Proced
     sourceOrganizationPublicAlias: card.sourceOrganizationPublicAlias ?? library.ownerPublicAlias,
     sourceContributorName: profile?.name?.trim() || card.sourceContributorName || "You",
     sourceContributorPublicAlias:
-      card.sourceContributorPublicAlias ?? getMemberPublicAlias(profile?.activeOrganizationId, profile?.name),
-  })
+      card.sourceContributorPublicAlias ?? getMemberPublicAlias(activeTeam?.id, profile?.name),
+  }
+
+  const nextCards = currentCards.filter((entry) => entry.id !== card.id)
+  nextCards.push(persistedCard)
   upsertLocalCards(libraryId, nextCards)
   updateLibraryCardIds(libraryId, nextCards.map((entry) => entry.id))
   emitLibrariesChanged()
-  return card
+
+  if (canUseCollaborationFirestore(activeUid)) {
+    const remoteUid = activeUid as string
+    void Promise.all([
+      saveFirestoreLibrary(remoteUid, getLibraryByIdSnapshot(libraryId)!),
+      saveFirestoreLibraryCard(remoteUid, libraryId, persistedCard),
+    ]).catch((error) => {
+      console.warn("[PrepSight] saveLocalLibraryCard remote sync failed:", error)
+    })
+  }
+
+  return persistedCard
 }
 
 export function publishLocalCardToGlobal(options: {
   libraryId: string
   cardId: string
 }): Procedure {
+  ensureRealtimeSync()
   const { libraryId, cardId } = options
   const library = getLibraryByIdSnapshot(libraryId)
   if (!library || library.libraryType !== "local") {
@@ -445,8 +590,9 @@ export function publishLocalCardToGlobal(options: {
 
   const now = new Date().toISOString()
   const profile = getProfile()
+  const activeTeam = getActiveTeamSnapshot(profile)
   const contributorName = profile?.name?.trim() || localCard.sourceContributorName || "You"
-  const contributorAlias = getMemberPublicAlias(profile?.activeOrganizationId, profile?.name)
+  const contributorAlias = getMemberPublicAlias(activeTeam?.id, profile?.name)
   const publishedCards = readPublishedCards()
   const existing = publishedCards.find((card) => card.sourceCardId === localCard.id)
   const publishedId = existing?.id ?? `published-${slugify(localCard.name) || localCard.id}-${slugify(localCard.variantLabel || localCard.implantSystem || "version")}`
@@ -480,6 +626,14 @@ export function publishLocalCardToGlobal(options: {
   })
 
   emitLibrariesChanged()
+
+  if (canUseCollaborationFirestore(activeUid)) {
+    const remoteUid = activeUid as string
+    void saveFirestorePublishedCard(remoteUid, publishedCard).catch((error) => {
+      console.warn("[PrepSight] publishLocalCardToGlobal remote sync failed:", error)
+    })
+  }
+
   return publishedCard
 }
 

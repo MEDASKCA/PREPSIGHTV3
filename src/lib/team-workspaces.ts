@@ -1,6 +1,19 @@
 "use client"
 
-import { OrganizationMembershipRecord, OrganizationRecord, PrepSightProfile, USER_ROLE_TO_PLATFORM_ROLE } from "./types"
+import { onAuthChange } from "./auth"
+import {
+  canUseCollaborationFirestore,
+  createFirestoreTeamWorkspace,
+  getFirestoreTeamsForProfile,
+  joinFirestoreTeamWorkspace,
+  type FirestoreTeamWorkspaceRecord,
+} from "./collaboration-firestore"
+import {
+  OrganizationMembershipRecord,
+  OrganizationRecord,
+  PrepSightProfile,
+  USER_ROLE_TO_PLATFORM_ROLE,
+} from "./types"
 import {
   buildMemberPublicAlias,
   buildOpaquePublicAlias,
@@ -8,20 +21,85 @@ import {
   formatMemberIdentity,
   formatOrganizationIdentity,
 } from "./identity"
+import { getProfile } from "./profile"
 
 const TEAMS_STORAGE_KEY = "prepsight_team_workspaces"
 const MEMBERSHIPS_STORAGE_KEY = "prepsight_team_memberships"
 const TEAMS_EVENT = "prepsight:teams"
+
 let cachedTeamsRaw: string | null | undefined
 let cachedTeams: TeamWorkspaceRecord[] = []
 let cachedMembershipsRaw: string | null | undefined
 let cachedMemberships: MembershipMap = {}
+let authListening = false
+let activeUid: string | null = null
 
 export interface TeamWorkspaceRecord extends OrganizationRecord {
   inviteCode: string
 }
 
 type MembershipMap = Record<string, OrganizationMembershipRecord[]>
+
+export interface TeamJoinResult {
+  team: TeamWorkspaceRecord
+  membership: OrganizationMembershipRecord
+}
+
+function normalizeTeamWorkspace(value: unknown): TeamWorkspaceRecord | null {
+  if (!value || typeof value !== "object") return null
+  const team = value as Partial<TeamWorkspaceRecord>
+  if (typeof team.id !== "string" || typeof team.internalName !== "string") return null
+  if (typeof team.publicAlias !== "string" || typeof team.visibility !== "string") return null
+  if (typeof team.createdAt !== "string" || typeof team.createdBy !== "string") return null
+
+  return {
+    id: team.id,
+    internalName: team.internalName,
+    publicAlias: team.publicAlias,
+    visibility: team.visibility as TeamWorkspaceRecord["visibility"],
+    createdAt: team.createdAt,
+    createdBy: team.createdBy,
+    aliasRotatesAfter: typeof team.aliasRotatesAfter === "string" ? team.aliasRotatesAfter : undefined,
+    inviteCode: typeof team.inviteCode === "string" ? team.inviteCode : "",
+  }
+}
+
+function normalizeMembership(value: unknown): OrganizationMembershipRecord | null {
+  if (!value || typeof value !== "object") return null
+  const membership = value as Partial<OrganizationMembershipRecord>
+  if (
+    typeof membership.id !== "string" ||
+    typeof membership.organizationId !== "string" ||
+    typeof membership.uid !== "string" ||
+    !Array.isArray(membership.departments) ||
+    !Array.isArray(membership.specialtiesOfInterest) ||
+    typeof membership.internalRole !== "string" ||
+    typeof membership.platformRole !== "string" ||
+    typeof membership.status !== "string" ||
+    typeof membership.publicAlias !== "string" ||
+    typeof membership.requestedAt !== "string"
+  ) {
+    return null
+  }
+
+  return {
+    id: membership.id,
+    organizationId: membership.organizationId,
+    uid: membership.uid,
+    displayName: typeof membership.displayName === "string" ? membership.displayName : undefined,
+    internalRole: membership.internalRole as OrganizationMembershipRecord["internalRole"],
+    platformRole: membership.platformRole as OrganizationMembershipRecord["platformRole"],
+    departments: membership.departments.filter((entry): entry is string => typeof entry === "string"),
+    specialtiesOfInterest: membership.specialtiesOfInterest.filter((entry): entry is string => typeof entry === "string"),
+    status: membership.status as OrganizationMembershipRecord["status"],
+    publicAlias: membership.publicAlias,
+    approvedBy: typeof membership.approvedBy === "string" ? membership.approvedBy : undefined,
+    requestedAt: membership.requestedAt,
+    approvedAt: typeof membership.approvedAt === "string" ? membership.approvedAt : undefined,
+    startsAt: typeof membership.startsAt === "string" ? membership.startsAt : undefined,
+    endsAt: typeof membership.endsAt === "string" ? membership.endsAt : undefined,
+  }
+}
 
 function slugify(value: string): string {
   return value.toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
@@ -39,7 +117,11 @@ function readTeams(): TeamWorkspaceRecord[] {
     }
     const parsed = JSON.parse(raw)
     cachedTeamsRaw = raw
-    cachedTeams = Array.isArray(parsed) ? parsed as TeamWorkspaceRecord[] : []
+    cachedTeams = Array.isArray(parsed)
+      ? parsed
+          .map((entry) => normalizeTeamWorkspace(entry))
+          .filter((entry): entry is TeamWorkspaceRecord => Boolean(entry))
+      : []
     return cachedTeams
   } catch {
     return cachedTeams
@@ -66,7 +148,18 @@ function readMemberships(): MembershipMap {
     }
     const parsed = JSON.parse(raw)
     cachedMembershipsRaw = raw
-    cachedMemberships = parsed && typeof parsed === "object" ? parsed as MembershipMap : {}
+    cachedMemberships = parsed && typeof parsed === "object"
+      ? Object.fromEntries(
+          Object.entries(parsed).map(([organizationId, memberships]) => [
+            organizationId,
+            Array.isArray(memberships)
+              ? memberships
+                  .map((entry) => normalizeMembership(entry))
+                  .filter((entry): entry is OrganizationMembershipRecord => Boolean(entry))
+              : [],
+          ]),
+        )
+      : {}
     return cachedMemberships
   } catch {
     return cachedMemberships
@@ -86,8 +179,111 @@ function emitChange(): void {
   window.dispatchEvent(new Event(TEAMS_EVENT))
 }
 
+function getCurrentUserMemberships(): OrganizationMembershipRecord[] {
+  if (!activeUid) return []
+  return Object.values(readMemberships())
+    .reduce<OrganizationMembershipRecord[]>((all, memberships) => {
+      all.push(...memberships)
+      return all
+    }, [])
+    .filter((membership) => membership.uid === activeUid)
+}
+
+export function getAccessibleOrganizationIdsForProfile(profile: PrepSightProfile | null): string[] {
+  if (!profile) return []
+  const currentMemberships = getCurrentUserMemberships()
+  if (currentMemberships.length === 0) {
+    return Array.from(
+      new Set([
+        ...(profile.organizationIds ?? []),
+        ...(profile.activeOrganizationId ? [profile.activeOrganizationId] : []),
+      ]),
+    )
+  }
+
+  return Array.from(
+    new Set(
+      currentMemberships
+        .filter((membership) => membership.status === "active")
+        .map((membership) => membership.organizationId),
+    ),
+  )
+}
+
+function getPendingOrganizationIds(profile: PrepSightProfile | null): string[] {
+  if (!profile) return []
+  return Array.from(
+    new Set(
+      getCurrentUserMemberships()
+        .filter((membership) => membership.status === "pending_approval")
+        .map((membership) => membership.organizationId),
+    ),
+  )
+}
+
+function mergeTeams(primary: TeamWorkspaceRecord[], secondary: TeamWorkspaceRecord[]): TeamWorkspaceRecord[] {
+  const byId = new Map<string, TeamWorkspaceRecord>()
+  for (const team of secondary) byId.set(team.id, team)
+  for (const team of primary) byId.set(team.id, team)
+  return [...byId.values()].sort((left, right) =>
+    (left.internalName ?? "").localeCompare(right.internalName ?? ""),
+  )
+}
+
+function mergeMembershipMaps(primary: MembershipMap, secondary: MembershipMap): MembershipMap {
+  const allOrganizationIds = new Set([...Object.keys(primary), ...Object.keys(secondary)])
+  const merged: MembershipMap = {}
+
+  allOrganizationIds.forEach((organizationId) => {
+    const entries = new Map<string, OrganizationMembershipRecord>()
+    for (const membership of secondary[organizationId] ?? []) entries.set(membership.id, membership)
+    for (const membership of primary[organizationId] ?? []) entries.set(membership.id, membership)
+    merged[organizationId] = [...entries.values()].sort((left, right) =>
+      (left.displayName ?? "").localeCompare(right.displayName ?? ""),
+    )
+  })
+
+  return merged
+}
+
+async function hydrateRemoteTeams(uid: string | null): Promise<void> {
+  if (typeof window === "undefined") return
+  if (!canUseCollaborationFirestore(uid)) {
+    writeTeams(readTeams())
+    writeMemberships(readMemberships())
+    emitChange()
+    return
+  }
+
+  const remoteUid = uid as string
+  const profile = getProfile()
+  const localTeams = readTeams()
+  const localMemberships = readMemberships()
+  const remote = await getFirestoreTeamsForProfile(remoteUid, profile)
+  const mergedTeams = mergeTeams(remote.teams, localTeams)
+  const mergedMemberships = mergeMembershipMaps(remote.membershipsByOrganizationId, localMemberships)
+
+  writeTeams(mergedTeams)
+  writeMemberships(mergedMemberships)
+  emitChange()
+}
+
+function ensureRealtimeSync(): void {
+  if (authListening || typeof window === "undefined") return
+  authListening = true
+  readTeams()
+  readMemberships()
+
+  onAuthChange((user) => {
+    activeUid = user?.uid ?? null
+    void hydrateRemoteTeams(activeUid)
+  })
+}
+
 export function subscribeTeams(listener: () => void): () => void {
   if (typeof window === "undefined") return () => undefined
+  ensureRealtimeSync()
+
   const handler = () => listener()
   window.addEventListener(TEAMS_EVENT, handler)
   window.addEventListener("storage", handler)
@@ -98,22 +294,35 @@ export function subscribeTeams(listener: () => void): () => void {
 }
 
 export function getTeamWorkspacesSnapshot(): TeamWorkspaceRecord[] {
+  ensureRealtimeSync()
   return readTeams()
 }
 
 export function getTeamWorkspacesForProfile(profile: PrepSightProfile | null): TeamWorkspaceRecord[] {
   if (!profile) return []
-  const allowed = new Set(profile.organizationIds ?? [])
-  if (profile.activeOrganizationId) allowed.add(profile.activeOrganizationId)
-  return readTeams().filter((team) => allowed.has(team.id))
+  const allowed = new Set(getAccessibleOrganizationIdsForProfile(profile))
+  return getTeamWorkspacesSnapshot().filter((team) => allowed.has(team.id))
 }
 
 export function getActiveTeamSnapshot(profile: PrepSightProfile | null): TeamWorkspaceRecord | null {
-  if (!profile?.activeOrganizationId) return null
-  return readTeams().find((team) => team.id === profile.activeOrganizationId) ?? null
+  if (!profile) return null
+  const accessibleOrganizationIds = getAccessibleOrganizationIdsForProfile(profile)
+  if (accessibleOrganizationIds.length === 0) return null
+  const requestedId = profile.activeOrganizationId?.trim()
+  const activeOrganizationId = requestedId && accessibleOrganizationIds.includes(requestedId)
+    ? requestedId
+    : accessibleOrganizationIds[0]
+  return getTeamWorkspacesSnapshot().find((team) => team.id === activeOrganizationId) ?? null
+}
+
+export function getPendingTeamWorkspacesForProfile(profile: PrepSightProfile | null): TeamWorkspaceRecord[] {
+  if (!profile) return []
+  const pending = new Set(getPendingOrganizationIds(profile))
+  return getTeamWorkspacesSnapshot().filter((team) => pending.has(team.id))
 }
 
 export function getTeamMembersSnapshot(organizationId?: string): OrganizationMembershipRecord[] {
+  ensureRealtimeSync()
   if (!organizationId) return []
   return readMemberships()[organizationId] ?? []
 }
@@ -153,7 +362,7 @@ export function getOrganizationIdentity(profile: PrepSightProfile | null, visibi
   )
 }
 
-export function createTeamWorkspace(input: {
+function buildLocalTeamWorkspace(input: {
   name: string
   profile: PrepSightProfile
   uid?: string | null
@@ -169,7 +378,7 @@ export function createTeamWorkspace(input: {
     suffix += 1
   }
 
-  const team: TeamWorkspaceRecord = {
+  return {
     id,
     internalName: input.name.trim(),
     publicAlias: buildOrganizationPublicAlias(),
@@ -179,67 +388,111 @@ export function createTeamWorkspace(input: {
     createdBy: input.uid ?? "local-user",
     aliasRotatesAfter: now,
   }
+}
 
-  const memberships = readMemberships()
-  const creator: OrganizationMembershipRecord = {
-    id: `${input.uid ?? "local-user"}__${id}`,
-    organizationId: id,
-    uid: input.uid ?? "local-user",
+function buildLocalMembership(team: TeamWorkspaceRecord, input: {
+  profile: PrepSightProfile
+  uid?: string | null
+  status?: OrganizationMembershipRecord["status"]
+}): OrganizationMembershipRecord {
+  const now = new Date().toISOString()
+  const uid = input.uid ?? "local-user"
+  const status = input.status ?? "active"
+  return {
+    id: `${uid}__${team.id}`,
+    organizationId: team.id,
+    uid,
     displayName: input.profile.name ?? "You",
     internalRole: input.profile.role,
     platformRole: input.profile.platformRole ?? USER_ROLE_TO_PLATFORM_ROLE[input.profile.role],
     departments: input.profile.departments,
     specialtiesOfInterest: input.profile.specialtiesOfInterest,
-    status: "active",
+    status,
     publicAlias: buildMemberPublicAlias(input.profile),
-    approvedBy: input.uid ?? "local-user",
+    approvedBy: status === "active" ? team.createdBy : undefined,
     requestedAt: now,
-    approvedAt: now,
+    approvedAt: status === "active" ? now : undefined,
   }
-
-  writeTeams([team, ...teams])
-  writeMemberships({
-    ...memberships,
-    [id]: [creator, ...(memberships[id] ?? [])],
-  })
-  emitChange()
-  return team
 }
 
-export function joinTeamWorkspace(input: {
+function upsertLocalTeam(team: TeamWorkspaceRecord, membership: OrganizationMembershipRecord): void {
+  writeTeams(mergeTeams([team], readTeams()))
+  writeMemberships(
+    mergeMembershipMaps(
+      { [team.id]: [membership] },
+      readMemberships(),
+    ),
+  )
+  emitChange()
+}
+
+export async function createTeamWorkspace(input: {
+  name: string
+  profile: PrepSightProfile
+  uid?: string | null
+  visibility?: TeamWorkspaceRecord["visibility"]
+}): Promise<TeamWorkspaceRecord> {
+  ensureRealtimeSync()
+
+  const fallbackTeam = buildLocalTeamWorkspace(input)
+  const fallbackMembership = buildLocalMembership(fallbackTeam, {
+    profile: input.profile,
+    uid: input.uid,
+  })
+  upsertLocalTeam(fallbackTeam, fallbackMembership)
+
+  if (!canUseCollaborationFirestore(activeUid ?? input.uid ?? null)) {
+    return fallbackTeam
+  }
+
+  try {
+    const remoteUid = (activeUid ?? input.uid) as string
+    const remoteTeam = await createFirestoreTeamWorkspace({
+      name: input.name,
+      profile: input.profile,
+      uid: remoteUid,
+      visibility: input.visibility,
+    })
+    upsertLocalTeam(remoteTeam, buildLocalMembership(remoteTeam, { profile: input.profile, uid: remoteUid }))
+    return remoteTeam
+  } catch (error) {
+    console.warn("[PrepSight] createTeamWorkspace remote sync failed:", error)
+    return fallbackTeam
+  }
+}
+
+export async function joinTeamWorkspace(input: {
   inviteCode: string
   profile: PrepSightProfile
   uid?: string | null
-}): TeamWorkspaceRecord | null {
+}): Promise<TeamJoinResult | null> {
+  ensureRealtimeSync()
+
+  if (canUseCollaborationFirestore(activeUid ?? input.uid ?? null)) {
+    try {
+      const remoteUid = (activeUid ?? input.uid) as string
+      const remoteResult = await joinFirestoreTeamWorkspace({
+        inviteCode: input.inviteCode,
+        profile: input.profile,
+        uid: remoteUid,
+      })
+      if (remoteResult) {
+        upsertLocalTeam(remoteResult.team, {
+          ...remoteResult.membership,
+          displayName: remoteResult.membership.displayName ?? input.profile.name ?? "You",
+        })
+        return { team: remoteResult.team, membership: remoteResult.membership }
+      }
+    } catch (error) {
+      console.warn("[PrepSight] joinTeamWorkspace remote sync failed:", error)
+    }
+  }
+
   const teams = readTeams()
   const team = teams.find((entry) => entry.inviteCode.toLowerCase() === input.inviteCode.trim().toLowerCase())
   if (!team) return null
 
-  const memberships = readMemberships()
-  const teamMemberships = memberships[team.id] ?? []
-  const uid = input.uid ?? "local-user"
-  if (!teamMemberships.some((member) => member.uid === uid)) {
-    teamMemberships.push({
-      id: `${uid}__${team.id}`,
-      organizationId: team.id,
-      uid,
-      displayName: input.profile.name ?? "You",
-      internalRole: input.profile.role,
-      platformRole: input.profile.platformRole ?? USER_ROLE_TO_PLATFORM_ROLE[input.profile.role],
-      departments: input.profile.departments,
-      specialtiesOfInterest: input.profile.specialtiesOfInterest,
-      status: "active",
-      publicAlias: buildMemberPublicAlias(input.profile),
-      approvedBy: team.createdBy,
-      requestedAt: new Date().toISOString(),
-      approvedAt: new Date().toISOString(),
-    })
-  }
-
-  writeMemberships({
-    ...memberships,
-    [team.id]: teamMemberships,
-  })
-  emitChange()
-  return team
+  const membership = buildLocalMembership(team, { profile: input.profile, uid: input.uid })
+  upsertLocalTeam(team, membership)
+  return { team, membership }
 }

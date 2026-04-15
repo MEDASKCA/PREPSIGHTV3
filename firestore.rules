@@ -18,6 +18,46 @@ service cloud.firestore {
         );
     }
 
+    function organizationCreatorId(organizationId) {
+      return get(/databases/$(database)/documents/organizations/$(organizationId)).data.createdBy;
+    }
+
+    function isMembershipOwnerCreate() {
+      return isSignedIn() &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.organizationId is string &&
+        request.resource.data.organizationId.size() > 0;
+    }
+
+    function isMembershipOwnerUpdate() {
+      return membershipDocBelongsToCaller() &&
+        request.resource.data.uid == resource.data.uid &&
+        request.resource.data.organizationId == resource.data.organizationId &&
+        request.resource.data.status == resource.data.status &&
+        request.resource.data.publicAlias == resource.data.publicAlias &&
+        request.resource.data.requestedAt == resource.data.requestedAt &&
+        request.resource.data.approvedBy == resource.data.approvedBy &&
+        request.resource.data.approvedAt == resource.data.approvedAt;
+    }
+
+    function isMembershipApprover() {
+      return isSignedIn() &&
+        resource.data.organizationId is string &&
+        organizationCreatorId(resource.data.organizationId) == request.auth.uid;
+    }
+
+    function isMembershipApprovalUpdate() {
+      return isMembershipApprover() &&
+        request.resource.data.uid == resource.data.uid &&
+        request.resource.data.organizationId == resource.data.organizationId &&
+        request.resource.data.publicAlias == resource.data.publicAlias &&
+        request.resource.data.requestedAt == resource.data.requestedAt &&
+        (
+          request.resource.data.status == "active" ||
+          request.resource.data.status == "suspended"
+        );
+    }
+
     match /users/{uid} {
       allow read, create, update: if isOwner(uid);
     }
@@ -33,9 +73,46 @@ service cloud.firestore {
     }
 
     match /organization_memberships/{membershipId} {
-      allow read: if isSignedIn() && resource.data.uid == request.auth.uid;
-      allow create, update: if membershipDocBelongsToCaller();
+      allow read: if isSignedIn();
+      allow create: if isMembershipOwnerCreate() &&
+        (
+          request.resource.data.status == "pending_approval" ||
+          (
+            request.resource.data.status == "active" &&
+            organizationCreatorId(request.resource.data.organizationId) == request.auth.uid
+          )
+        );
+      allow update: if isMembershipOwnerUpdate() || isMembershipApprovalUpdate();
       allow delete: if false;
+    }
+
+    match /libraries/{libraryId} {
+      allow read: if isSignedIn();
+      allow create, update: if isSignedIn() &&
+        request.resource.data.ownerId is string &&
+        request.resource.data.ownerId.size() > 0;
+      allow delete: if false;
+    }
+
+    match /library_cards/{cardId} {
+      allow read: if isSignedIn();
+      allow create, update: if isSignedIn() &&
+        request.resource.data.libraryId is string &&
+        request.resource.data.libraryId.size() > 0;
+      allow delete: if false;
+    }
+
+    match /published_cards/{cardId} {
+      allow read: if true;
+      allow create, update: if isSignedIn();
+      allow delete: if false;
+    }
+
+    match /bookmarks/{bookmarkId} {
+      allow read: if isSignedIn() && resource.data.uid == request.auth.uid;
+      allow create, update: if isSignedIn() &&
+        request.resource.data.uid == request.auth.uid;
+      allow delete: if isSignedIn() && resource.data.uid == request.auth.uid;
     }
 
     match /hospitals/{hospitalId} {

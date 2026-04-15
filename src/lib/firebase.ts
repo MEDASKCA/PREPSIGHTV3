@@ -14,8 +14,8 @@ const AUTH_PROXY_HOSTS = new Set([
   "prepsightv3.vercel.app",
   "ps.medaskca.com",
   "ps-two-dusky.vercel.app",
+  "prepsightv3-3l6x93pra-alex-monterubios-projects.vercel.app",
 ])
-
 let app: FirebaseApp | null = null
 let auth: Auth | null = null
 let db: Firestore | null = null

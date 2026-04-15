@@ -257,6 +257,36 @@ export async function upsertOrganizationMembership(
   return membership
 }
 
+export async function approveOrganizationMembership(
+  uid: string,
+  membershipId: string,
+): Promise<OrganizationMembershipRecord | null> {
+  if (!db) return null
+
+  try {
+    const membershipRef = doc(db, "organization_memberships", membershipId)
+    const membershipSnap = await getDoc(membershipRef)
+    if (!membershipSnap.exists()) return null
+
+    const current = { id: membershipSnap.id, ...membershipSnap.data() } as OrganizationMembershipRecord
+    const organization = await getOrganization(current.organizationId)
+    if (!organization || organization.createdBy !== uid) return null
+
+    const approved: OrganizationMembershipRecord = {
+      ...current,
+      status: "active",
+      approvedBy: uid,
+      approvedAt: new Date().toISOString(),
+    }
+
+    await setDoc(membershipRef, approved)
+    return approved
+  } catch (err) {
+    console.warn("[PrepSight] Firestore approveOrganizationMembership failed:", err)
+    return null
+  }
+}
+
 // ── Admin content ─────────────────────────────────────────────────────────────
 // Stored in admin_content/{key} — dots in key replaced with underscores as doc ID
 
