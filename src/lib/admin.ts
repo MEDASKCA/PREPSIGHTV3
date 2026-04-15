@@ -3,7 +3,7 @@
 const ADMIN_SESSION_KEY = "ps-admin-v1"
 
 // Set NEXT_PUBLIC_ADMIN_PASSWORD in .env.local to override the default
-const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? "prepsight-dev"
+const ADMIN_PASSWORD = process.env.NEXT_PUBLIC_ADMIN_PASSWORD ?? "password"
 
 export function checkAdminPassword(input: string): boolean {
   return input === ADMIN_PASSWORD

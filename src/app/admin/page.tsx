@@ -5,7 +5,7 @@ import { useRouter } from "next/navigation"
 import {
   X, Save, LogOut, CheckCircle, AlertCircle,
   Hospital, FileText, ImageIcon, BarChart2, Trash2, Plus, Check, RefreshCw,
-  Upload, Database,
+  Upload, Database, Users,
 } from "lucide-react"
 import TriangleIcon from "@/components/TriangleIcon"
 import { clearAdminSession, groupedContent, CONTENT_REGISTRY, type ContentEntry } from "@/lib/admin"
@@ -13,7 +13,8 @@ import {
   getAllAdminContent, saveAdminContent, deleteAdminContent,
   getFirestoreHospitals, addFirestoreHospital, approveFirestoreHospital, deleteFirestoreHospital,
   getFirestoreSurgeons, approveFirestoreSurgeon, deleteFirestoreSurgeon,
-  type FirestoreHospital, type FirestoreSurgeon,
+  getFirestoreRegistrations,
+  type FirestoreHospital, type FirestoreRegistration, type FirestoreSurgeon,
 } from "@/lib/firestore"
 import { auth, storage } from "@/lib/firebase"
 import { procedures } from "@/lib/data"
@@ -30,7 +31,7 @@ if (storage) {
   }
 }
 
-type Tab = "content" | "hospitals" | "surgeons" | "images" | "stats" | "csv"
+type Tab = "content" | "hospitals" | "surgeons" | "registrations" | "images" | "stats" | "csv"
 const HOMEPAGE_IMAGES_KEY = "prepsight_homepage_images"
 
 // ── Toast ─────────────────────────────────────────────────────────────────────
@@ -84,6 +85,8 @@ export default function AdminPage() {
   // Surgeons state
   const [fsSurgeons, setFsSurgeons]           = useState<FirestoreSurgeon[]>([])
   const [surgeonsLoading, setSurgeonsLoading] = useState(false)
+  const [registrations, setRegistrations] = useState<FirestoreRegistration[]>([])
+  const [registrationsLoading, setRegistrationsLoading] = useState(false)
 
   // Images state
   const [imageUploading, setImageUploading] = useState<Record<string, boolean>>({})
@@ -123,9 +126,17 @@ export default function AdminPage() {
       .finally(() => setSurgeonsLoading(false))
   }
 
+  function loadRegistrations() {
+    setRegistrationsLoading(true)
+    getFirestoreRegistrations()
+      .then(setRegistrations)
+      .finally(() => setRegistrationsLoading(false))
+  }
+
   useEffect(() => {
     if (tab === "hospitals") loadHospitals()
     if (tab === "surgeons")  loadSurgeons()
+    if (tab === "registrations") loadRegistrations()
   }, [tab])
 
   useEffect(() => {
@@ -302,6 +313,7 @@ export default function AdminPage() {
             { id: "content",   label: "Content",   icon: FileText   },
             { id: "hospitals", label: "Hospitals",  icon: Hospital   },
             { id: "surgeons",  label: "Surgeons",   icon: BarChart2  },
+            { id: "registrations", label: "Registrations", icon: Users },
             { id: "images",    label: "Images",     icon: ImageIcon  },
             { id: "stats",     label: "Data",       icon: BarChart2  },
             { id: "csv",       label: "CSV Editor",  icon: Database   },
@@ -525,6 +537,99 @@ export default function AdminPage() {
         )}
 
         {/* ── Images tab ──────────────────────────────────────────────────── */}
+        {tab === "registrations" && (
+          <div className="space-y-4">
+            <div>
+              <h2 className="text-base font-bold mb-1">Registrations</h2>
+              <p className="text-xs text-slate-500">
+                All registered users from Firestore, with onboarding data and organisation memberships.
+              </p>
+            </div>
+
+            <div className="flex items-center justify-between">
+              <p className="text-xs text-slate-500 uppercase tracking-widest">Users ({registrations.length})</p>
+              <button
+                onClick={loadRegistrations}
+                className="text-xs text-slate-500 hover:text-slate-900 transition-colors flex items-center gap-1"
+              >
+                <RefreshCw size={12} /> Refresh
+              </button>
+            </div>
+
+            {registrationsLoading ? (
+              <p className="text-sm text-slate-500">Loading...</p>
+            ) : registrations.length === 0 ? (
+              <div className="bg-white border border-slate-200 rounded-2xl p-8 text-center">
+                <p className="text-sm text-slate-500">No registrations found.</p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {registrations.map((entry) => (
+                  <div key={entry.uid} className="bg-white border border-slate-200 rounded-2xl p-4">
+                    <div className="flex items-start justify-between gap-4">
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-slate-900">
+                          {entry.profile?.name?.trim() || "Unnamed user"}
+                        </p>
+                        <p className="mt-1 text-xs text-slate-500 break-all">{entry.uid}</p>
+                        <p className="mt-1 text-xs text-slate-500">
+                          {entry.profile?.hospital || "No hospital"} · {entry.profile?.role || "No role"} · {entry.profile?.platformRole || "user"}
+                        </p>
+                        <p className="mt-1 text-[10px] text-slate-400">
+                          Completed {entry.profile?.completedAt
+                            ? new Date(entry.profile.completedAt).toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })
+                            : "Unknown"}
+                        </p>
+                      </div>
+                      <div className="shrink-0 rounded-full bg-[#EAF3FF] px-3 py-1 text-[11px] font-semibold text-[#4DA3FF]">
+                        {entry.memberships.length} membership{entry.memberships.length === 1 ? "" : "s"}
+                      </div>
+                    </div>
+
+                    <div className="mt-3 grid gap-3 lg:grid-cols-2">
+                      <div className="rounded-xl bg-slate-50 px-3 py-2.5">
+                        <p className="text-[10px] uppercase tracking-[0.18em] text-slate-400">Departments</p>
+                        <p className="mt-1 text-sm text-slate-700">
+                          {entry.profile?.departments?.length ? entry.profile.departments.join(", ") : "None recorded"}
+                        </p>
+                      </div>
+                      <div className="rounded-xl bg-slate-50 px-3 py-2.5">
+                        <p className="text-[10px] uppercase tracking-[0.18em] text-slate-400">Specialties</p>
+                        <p className="mt-1 text-sm text-slate-700">
+                          {entry.profile?.specialtiesOfInterest?.length ? entry.profile.specialtiesOfInterest.join(", ") : "None recorded"}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div className="mt-3">
+                      <p className="text-[10px] uppercase tracking-[0.18em] text-slate-400">Organisation memberships</p>
+                      {entry.memberships.length === 0 ? (
+                        <p className="mt-2 text-sm text-slate-500">No memberships found.</p>
+                      ) : (
+                        <div className="mt-2 space-y-2">
+                          {entry.memberships.map((membership) => (
+                            <div key={membership.id} className="rounded-xl border border-slate-200 px-3 py-2.5">
+                              <div className="flex items-center justify-between gap-3">
+                                <p className="text-sm font-medium text-slate-800">{membership.organizationId}</p>
+                                <span className="rounded-full bg-slate-100 px-2 py-0.5 text-[11px] text-slate-600">
+                                  {membership.status}
+                                </span>
+                              </div>
+                              <p className="mt-1 text-xs text-slate-500">
+                                {membership.displayName || "No display name"} · {membership.internalRole} · {membership.platformRole}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        )}
+
         {tab === "images" && (
           <div className="space-y-6">
             <div>

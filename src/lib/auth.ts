@@ -3,6 +3,7 @@ import {
   GoogleAuthProvider,
   OAuthProvider,
   deleteUser,
+  reauthenticateWithPopup,
   signInWithPopup,
   signInWithRedirect,
   getRedirectResult,
@@ -146,6 +147,31 @@ export async function deleteAuthenticatedAccount() {
   }
   if (!auth?.currentUser) throw new Error("No authenticated user")
   await deleteUser(auth.currentUser)
+}
+
+export async function getAuthenticatedUser() {
+  if (isLocalDevHost()) return LOCAL_DEV_USER
+  return auth?.currentUser ?? null
+}
+
+export async function reauthenticateAuthenticatedUser() {
+  if (isLocalDevHost()) return LOCAL_DEV_USER
+  if (!auth?.currentUser) throw new Error("No authenticated user")
+
+  const providerIds = auth.currentUser.providerData.map((provider) => provider.providerId)
+  const provider =
+    providerIds.includes("microsoft.com")
+      ? microsoftProvider
+      : providerIds.includes("google.com")
+        ? googleProvider
+        : null
+
+  if (!provider) {
+    throw new Error("Unsupported authentication provider for reauthentication")
+  }
+
+  await reauthenticateWithPopup(auth.currentUser, provider)
+  return auth.currentUser
 }
 
 export function onAuthChange(callback: (user: User | null) => void) {

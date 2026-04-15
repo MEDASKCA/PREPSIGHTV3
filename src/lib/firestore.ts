@@ -74,6 +74,47 @@ export async function deleteUserAccountData(uid: string): Promise<void> {
   }
 }
 
+export interface FirestoreRegistration {
+  uid: string
+  profile: PrepSightProfile | null
+  memberships: OrganizationMembershipRecord[]
+}
+
+export async function getFirestoreRegistrations(): Promise<FirestoreRegistration[]> {
+  if (!db) return []
+
+  try {
+    const [usersSnap, membershipsSnap] = await Promise.all([
+      getDocs(collection(db, "users")),
+      getDocs(collection(db, "organization_memberships")),
+    ])
+
+    const membershipsByUid = new Map<string, OrganizationMembershipRecord[]>()
+    membershipsSnap.docs.forEach((entry) => {
+      const membership = { id: entry.id, ...entry.data() } as OrganizationMembershipRecord
+      const current = membershipsByUid.get(membership.uid) ?? []
+      current.push(membership)
+      membershipsByUid.set(membership.uid, current)
+    })
+
+    const registrations = usersSnap.docs.map((entry) => {
+      const profile = entry.data() as PrepSightProfile
+      return {
+        uid: entry.id,
+        profile,
+        memberships: membershipsByUid.get(entry.id) ?? [],
+      }
+    })
+
+    return registrations.sort((left, right) =>
+      (right.profile?.completedAt ?? "").localeCompare(left.profile?.completedAt ?? ""),
+    )
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getFirestoreRegistrations failed:", err)
+    return []
+  }
+}
+
 export async function hasUserProfile(uid: string): Promise<boolean> {
   const p = await getUserProfile(uid)
   return p !== null

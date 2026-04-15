@@ -4,7 +4,11 @@ import { Globe, Moon, Sun, Trash2 } from "lucide-react"
 import { useState } from "react"
 import { useRouter } from "next/navigation"
 import SettingsPageShell from "@/components/SettingsPageShell"
-import { deleteAuthenticatedAccount, onAuthChange } from "@/lib/auth"
+import {
+  deleteAuthenticatedAccount,
+  getAuthenticatedUser,
+  reauthenticateAuthenticatedUser,
+} from "@/lib/auth"
 import { clearProfile } from "@/lib/profile"
 import {
   applyUserPreferences,
@@ -45,12 +49,25 @@ export default function AccessSettingsPage() {
     setDeleteError("")
 
     try {
-      const user = await new Promise<Parameters<Parameters<typeof onAuthChange>[0]>[0]>((resolve) => {
-        const unsubscribe = onAuthChange((nextUser) => {
-          unsubscribe()
-          resolve(nextUser)
-        })
-      })
+      let user = await getAuthenticatedUser()
+
+      if (!user) {
+        throw new Error("No authenticated user")
+      }
+
+      try {
+        await deleteAuthenticatedAccount()
+      } catch (error) {
+        const code = (error as { code?: string } | null)?.code
+        if (code === "auth/requires-recent-login") {
+          await reauthenticateAuthenticatedUser()
+          user = await getAuthenticatedUser()
+          if (!user) throw new Error("No authenticated user")
+          await deleteAuthenticatedAccount()
+        } else {
+          throw error
+        }
+      }
 
       if (user?.uid) {
         const { deleteUserAccountData } = await import("@/lib/firestore")
@@ -58,15 +75,18 @@ export default function AccessSettingsPage() {
       }
 
       clearProfile()
-      await deleteAuthenticatedAccount()
       router.push("/login")
       router.refresh()
     } catch (error) {
       const code = (error as { code?: string } | null)?.code
       if (code === "auth/requires-recent-login") {
         setDeleteError("Delete account requires you to sign in again first.")
+      } else if ((error as { message?: string } | null)?.message === "No authenticated user") {
+        setDeleteError("No signed-in user was available. Refresh the page and try again.")
+      } else if ((error as { message?: string } | null)?.message === "Unsupported authentication provider for reauthentication") {
+        setDeleteError("This sign-in method cannot be reauthenticated here yet. Sign in again, then retry account deletion.")
       } else {
-        setDeleteError("Delete account failed. Try again.")
+        setDeleteError(`Delete account failed. ${(error as { code?: string } | null)?.code ?? "Unknown error"}`)
       }
     } finally {
       setDeleteBusy(false)
