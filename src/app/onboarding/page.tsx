@@ -76,11 +76,6 @@ const CTA_LABELS = [
   "Enter PrepSight",
 ]
 
-const CHIP_BASE =
-  "border rounded-xl px-4 py-2 text-sm font-medium cursor-pointer select-none transition-all chip-reveal"
-const CHIP_ON = "bg-[#4DA3FF] border-[#4DA3FF] text-white shadow-sm"
-const CHIP_OFF = "bg-white border-[#E2E8F0] text-[#475569] hover:border-[#4DA3FF] hover:bg-[#F0F8FF]"
-
 function normalizeDisplayName(value: string): string {
   return value.replace(/\s+/g, " ").trim()
 }
@@ -99,7 +94,7 @@ function isProfessionalDisplayName(value: string): boolean {
   return parts.length >= 2
 }
 
-function Chip({
+function CompactSpecialtyToggle({
   label,
   selected,
   onToggle,
@@ -114,47 +109,23 @@ function Chip({
     <button
       type="button"
       onClick={onToggle}
-      className={`${CHIP_BASE} ${selected ? CHIP_ON : CHIP_OFF}`}
-      style={{ animationDelay: `${delay}ms` }}
-    >
-      {selected && <Check size={12} className="inline mr-1.5" />}
-      {label}
-    </button>
-  )
-}
-
-function MobileCheckboxRow({
-  label,
-  selected,
-  onToggle,
-  delay = 0,
-}: {
-  label: string
-  selected: boolean
-  onToggle: () => void
-  delay?: number
-}) {
-  return (
-    <button
-      type="button"
-      onClick={onToggle}
-      className={`chip-reveal flex w-full items-center gap-3 rounded-2xl border px-4 py-3 text-left text-sm transition-all ${
+      className={`chip-reveal flex min-h-0 items-start gap-2 rounded-lg border px-2.5 py-2 text-left text-[12px] font-medium leading-4 transition-all lg:px-3 lg:py-2.5 lg:text-[13px] ${
         selected
-          ? "border-[#4DA3FF] bg-[#EFF6FF] text-[#1D4ED8]"
+          ? "border-[#4DA3FF] bg-[#EFF6FF] text-[#1D4ED8] shadow-sm"
           : "border-[#E2E8F0] bg-white text-[#3F4752] hover:border-[#4DA3FF] hover:bg-[#F8FBFF]"
       }`}
       style={{ animationDelay: `${delay}ms` }}
     >
       <span
-        className={`flex h-5 w-5 shrink-0 items-center justify-center rounded-md border transition-colors ${
+        className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-[4px] border transition-colors ${
           selected
             ? "border-[#4DA3FF] bg-[#4DA3FF] text-white"
             : "border-[#CBD5E1] bg-white text-transparent"
         }`}
       >
-        <Check size={12} />
+        <Check size={10} />
       </span>
-      <span className="min-w-0">{label}</span>
+      <span className="min-w-0 text-balance">{label}</span>
     </button>
   )
 }
@@ -663,7 +634,7 @@ export default function OnboardingPage() {
                     />
                   </div>
 
-                  <div className="space-y-5">
+                  <div className="space-y-4">
                     {specialtyGroups.map((group, groupIndex) => (
                       <section key={group.department}>
                         <button
@@ -691,43 +662,23 @@ export default function OnboardingPage() {
                         </button>
 
                         {!collapsedDepartments.includes(group.department) && (
-                          <>
-                            <div className="space-y-2 sm:hidden">
-                              {group.specialties.map((specialty, specialtyIndex) => (
-                                <MobileCheckboxRow
-                                  key={`${group.department}-${specialty}`}
-                                  label={specialty}
-                                  selected={specialties.includes(specialty)}
-                                  onToggle={() =>
-                                    setSpecialties((current) =>
-                                      current.includes(specialty)
-                                        ? current.filter((value) => value !== specialty)
-                                        : [...current, specialty],
-                                    )
-                                  }
-                                  delay={(groupIndex * 120) + (specialtyIndex * 20)}
-                                />
-                              ))}
-                            </div>
-
-                            <div className="hidden flex-wrap gap-2 sm:flex">
-                              {group.specialties.map((specialty, specialtyIndex) => (
-                                <Chip
-                                  key={`${group.department}-${specialty}`}
-                                  label={specialty}
-                                  selected={specialties.includes(specialty)}
-                                  onToggle={() =>
-                                    setSpecialties((current) =>
-                                      current.includes(specialty)
-                                        ? current.filter((value) => value !== specialty)
-                                        : [...current, specialty],
-                                    )
-                                  }
-                                  delay={(groupIndex * 120) + (specialtyIndex * 20)}
-                                />
-                              ))}
-                            </div>
-                          </>
+                          <div className="grid grid-cols-2 gap-2 lg:grid-cols-3">
+                            {group.specialties.map((specialty, specialtyIndex) => (
+                              <CompactSpecialtyToggle
+                                key={`${group.department}-${specialty}`}
+                                label={specialty}
+                                selected={specialties.includes(specialty)}
+                                onToggle={() =>
+                                  setSpecialties((current) =>
+                                    current.includes(specialty)
+                                      ? current.filter((value) => value !== specialty)
+                                      : [...current, specialty],
+                                  )
+                                }
+                                delay={(groupIndex * 120) + (specialtyIndex * 20)}
+                              />
+                            ))}
+                          </div>
                         )}
                       </section>
                     ))}
