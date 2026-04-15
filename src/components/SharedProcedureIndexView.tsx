@@ -99,6 +99,10 @@ function buildBranchSummary(branch: BranchEntry) {
   return parts.join(" | ")
 }
 
+function getPublishedVersionLabel(count: number) {
+  return `${count} published version${count === 1 ? "" : "s"}`
+}
+
 function buildVersionSummary(version: PublishedVersion) {
   return `Version: ${version.name}`
 }
@@ -723,19 +727,64 @@ export default function SharedProcedureIndexView({
                 </div>
               ) : null}
 
-              <div className="lg:border lg:border-[#0F4C5C] lg:bg-[#F4FBFF]">
+              <div className="lg:space-y-2 lg:bg-[#F4FBFF]">
                 {orderedBranches.length > 0 ? orderedBranches.map((branch, branchIndex) => {
                   const expanded = selectedBranchId === branch.id
 
                   return (
-                    <div key={branch.id} className="px-0 py-1 lg:border-b lg:border-[#7CB9C7] lg:px-0 lg:py-0 last:lg:border-b-0">
+                    <div key={branch.id} className="px-0 py-1 lg:px-0 lg:py-0">
                       <button
                         type="button"
                         onClick={() => handleSelectBranch(branch)}
                         className={`group flex w-full items-center justify-between gap-3 rounded-none border-t border-[#0F4C5C] bg-[#D9EFF7] px-4 py-2.5 text-left transition-colors hover:bg-[#C7EAF7] last:border-b last:border-b-[#0F4C5C] lg:border-0 lg:bg-[#D9EFF7] lg:px-3 lg:py-2.5 lg:hover:bg-[#CFEAF5] ${branchIndex === 0 ? "lg:border-t-0" : ""}`}
                       >
-                        <span className="min-w-0 text-[15px] leading-6 text-[#10243E] transition-colors group-hover:lg:text-[#0096C7] lg:text-[16px]">
-                          <span className="line-clamp-2">{buildBranchSummary(branch)}</span>
+                        <span className="min-w-0 flex-1 text-[15px] leading-6 text-[#10243E] transition-colors group-hover:lg:text-[#0096C7] lg:text-[16px]">
+                          <span className="line-clamp-2 lg:hidden">{buildBranchSummary(branch)}</span>
+                          <span className="hidden min-w-0 items-center gap-3 lg:flex">
+                            <span className="min-w-0 flex-[1.5]">
+                              <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#406175]">
+                                System
+                              </span>
+                              <span className="block truncate text-[15px] text-[#10243E]">{branch.systemName}</span>
+                            </span>
+                            <span className="h-8 w-px shrink-0 bg-[#7CB9C7]" aria-hidden="true" />
+                            <span className="min-w-0 flex-[1.3]">
+                              <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#406175]">
+                                Approach
+                              </span>
+                              <span className="block truncate text-[15px] text-[#10243E]">
+                                {branch.approach?.trim() || "Not specified"}
+                              </span>
+                            </span>
+                            <span className="h-8 w-px shrink-0 bg-[#7CB9C7]" aria-hidden="true" />
+                            <span className="min-w-0 flex-[1.2]">
+                              <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#406175]">
+                                Supplier
+                              </span>
+                              <span className="block truncate text-[15px] text-[#10243E]">
+                                {branch.supplierName?.trim() || "Unknown supplier"}
+                              </span>
+                            </span>
+                            {branch.defaultBranch ? (
+                              <>
+                                <span className="h-8 w-px shrink-0 bg-[#7CB9C7]" aria-hidden="true" />
+                                <span className="shrink-0">
+                                  <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#406175]">
+                                    Branch
+                                  </span>
+                                  <span className="block whitespace-nowrap text-[15px] text-[#10243E]">Default</span>
+                                </span>
+                              </>
+                            ) : null}
+                            <span className="ml-auto shrink-0 text-right">
+                              <span className="block text-[11px] font-semibold uppercase tracking-[0.16em] text-[#406175]">
+                                Versions
+                              </span>
+                              <span className="block whitespace-nowrap text-[15px] text-[#10243E]">
+                                {getPublishedVersionLabel(branch.versions.length)}
+                              </span>
+                            </span>
+                          </span>
                         </span>
                         <TriangleIcon
                           direction={expanded ? "up" : "down"}
