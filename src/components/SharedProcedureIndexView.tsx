@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useMemo, useState, useSyncExternalStore } from "react"
 import { useRouter } from "next/navigation"
-import { Bookmark, Eye, GitBranch, Heart, MessageCircle, Plus, Send, X } from "lucide-react"
+import { ArrowDown, ArrowUp, Bookmark, Eye, GitBranch, Heart, MessageCircle, Plus, Send, X } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
 import TriangleIcon from "@/components/TriangleIcon"
@@ -25,6 +25,8 @@ import type { Procedure } from "@/lib/types"
 import type { VariantWithSystems } from "@/lib/variants"
 
 type BranchView = "approach" | "supplier" | "system" | "classification"
+type BranchSortKey = "system" | "approach" | "supplier" | "branch" | "versions"
+type SortDirection = "asc" | "desc"
 
 type PublishedVersion = {
   id: string
@@ -101,6 +103,14 @@ function buildBranchSummary(branch: BranchEntry) {
 
 function getPublishedVersionLabel(count: number) {
   return `${count} published version${count === 1 ? "" : "s"}`
+}
+
+function getSortableBranchValue(branch: BranchEntry, key: BranchSortKey) {
+  if (key === "system") return branch.systemName.trim().toLowerCase()
+  if (key === "approach") return (branch.approach?.trim() || "not specified").toLowerCase()
+  if (key === "supplier") return (branch.supplierName?.trim() || "unknown supplier").toLowerCase()
+  if (key === "branch") return branch.defaultBranch ? "default" : ""
+  return branch.versions.length
 }
 
 function buildVersionSummary(version: PublishedVersion) {
@@ -386,6 +396,8 @@ export default function SharedProcedureIndexView({
   const [filterOpen, setFilterOpen] = useState(false)
   const [valueFilterOpen, setValueFilterOpen] = useState(false)
   const [selectedViewValue, setSelectedViewValue] = useState("All")
+  const [branchSortKey, setBranchSortKey] = useState<BranchSortKey>("system")
+  const [branchSortDirection, setBranchSortDirection] = useState<SortDirection>("asc")
   const [variantName, setVariantName] = useState("")
   const [supplierName, setSupplierName] = useState("")
   const [message, setMessage] = useState("")
@@ -425,13 +437,27 @@ export default function SharedProcedureIndexView({
   }, [branchView, branches, procedure.name, selectedViewValue])
   const orderedBranches = useMemo(() => {
     return [...filteredBranches].sort((left, right) => {
+      const leftPrimary = getSortableBranchValue(left, branchSortKey)
+      const rightPrimary = getSortableBranchValue(right, branchSortKey)
+
+      if (typeof leftPrimary === "number" && typeof rightPrimary === "number") {
+        if (leftPrimary !== rightPrimary) {
+          return branchSortDirection === "asc" ? leftPrimary - rightPrimary : rightPrimary - leftPrimary
+        }
+      } else {
+        const compared = String(leftPrimary).localeCompare(String(rightPrimary))
+        if (compared !== 0) {
+          return branchSortDirection === "asc" ? compared : -compared
+        }
+      }
+
       const leftGroup = getGroupLabel(left, branchView, procedure.name)
       const rightGroup = getGroupLabel(right, branchView, procedure.name)
       const grouped = leftGroup.localeCompare(rightGroup)
       if (grouped !== 0) return grouped
       return left.systemName.localeCompare(right.systemName)
     })
-  }, [branchView, filteredBranches, procedure.name])
+  }, [branchSortDirection, branchSortKey, branchView, filteredBranches, procedure.name])
   const availableViewValues = useMemo(() => {
     if (branchView === "system") return []
     return [
@@ -527,6 +553,16 @@ export default function SharedProcedureIndexView({
     } finally {
       setIsCreating(false)
     }
+  }
+
+  function handleSortBranches(nextKey: BranchSortKey) {
+    if (branchSortKey === nextKey) {
+      setBranchSortDirection((current) => (current === "asc" ? "desc" : "asc"))
+      return
+    }
+
+    setBranchSortKey(nextKey)
+    setBranchSortDirection(nextKey === "versions" ? "desc" : "asc")
   }
 
   return (
@@ -728,12 +764,31 @@ export default function SharedProcedureIndexView({
               ) : null}
 
               <div className="lg:bg-[#F4FBFF]">
-                <div className="hidden lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(88px,0.65fr)_minmax(132px,0.9fr)_20px] lg:items-center lg:gap-3 lg:border-b lg:border-[#0F4C5C] lg:px-0 lg:py-2">
-                  <span className="truncate text-[12px] text-[#0F4C5C]">System</span>
-                  <span className="truncate text-[12px] text-[#0F4C5C]">Approach</span>
-                  <span className="truncate text-[12px] text-[#0F4C5C]">Supplier</span>
-                  <span className="truncate text-[12px] text-[#0F4C5C]">Branch</span>
-                  <span className="truncate text-right text-[12px] text-[#0F4C5C]">Versions</span>
+                <div className="hidden lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(88px,0.65fr)_minmax(132px,0.9fr)_20px] lg:items-center lg:gap-3 lg:px-0 lg:py-2">
+                  {([
+                    ["system", "System", "text-left"],
+                    ["approach", "Approach", "text-left"],
+                    ["supplier", "Supplier", "text-left"],
+                    ["branch", "Branch", "text-left"],
+                    ["versions", "Versions", "text-right"],
+                  ] as const).map(([key, label, alignClass]) => {
+                    const active = branchSortKey === key
+                    return (
+                      <button
+                        key={key}
+                        type="button"
+                        onClick={() => handleSortBranches(key)}
+                        className={`inline-flex min-w-0 items-center gap-1 text-[15px] text-[#0F4C5C] hover:text-[#0096C7] ${alignClass} ${key === "versions" ? "justify-end" : ""}`}
+                      >
+                        <span className="truncate">{label}</span>
+                        {active ? (
+                          branchSortDirection === "asc" ? <ArrowUp size={14} /> : <ArrowDown size={14} />
+                        ) : (
+                          <span className="text-[13px] text-[#406175]">↕</span>
+                        )}
+                      </button>
+                    )
+                  })}
                   <span aria-hidden="true" />
                 </div>
                 {orderedBranches.length > 0 ? orderedBranches.map((branch, branchIndex) => {
@@ -744,7 +799,7 @@ export default function SharedProcedureIndexView({
                       <button
                         type="button"
                         onClick={() => handleSelectBranch(branch)}
-                        className={`group flex w-full items-center justify-between gap-3 rounded-none border-t border-[#0F4C5C] bg-[#D9EFF7] px-4 py-2.5 text-left transition-colors hover:bg-[#C7EAF7] last:border-b last:border-b-[#0F4C5C] lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(88px,0.65fr)_minmax(132px,0.9fr)_20px] lg:items-center lg:gap-3 lg:border-b lg:border-[#0F4C5C] lg:px-0 lg:py-2.5 lg:hover:bg-[#CFEAF5] ${branchIndex === 0 ? "lg:border-t" : ""}`}
+                        className={`group flex w-full items-center justify-between gap-3 rounded-none border-t border-[#0F4C5C] bg-[#D9EFF7] px-4 py-2.5 text-left transition-colors hover:bg-[#C7EAF7] last:border-b last:border-b-[#0F4C5C] lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(88px,0.65fr)_minmax(132px,0.9fr)_20px] lg:items-center lg:gap-3 lg:border-b lg:border-[#0F4C5C] lg:px-0 lg:py-2.5 lg:hover:bg-[#CFEAF5] ${branchIndex === 0 ? "lg:border-t" : "lg:border-t-0"}`}
                       >
                         <span className="min-w-0 flex-1 text-[15px] leading-6 text-[#10243E] transition-colors group-hover:lg:text-[#0096C7] lg:text-[15px]">
                           <span className="line-clamp-2 lg:hidden">{buildBranchSummary(branch)}</span>
