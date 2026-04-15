@@ -17,7 +17,7 @@ import {
 const googleProvider    = new GoogleAuthProvider()
 const microsoftProvider = new OAuthProvider("microsoft.com")
 microsoftProvider.setCustomParameters({ prompt: "select_account" })
-const LOCAL_AUTH_DISABLED_KEY = "prepsight_local_auth_disabled"
+const LOCAL_AUTH_ENABLED_KEY = "prepsight_local_auth_enabled"
 const LOCAL_AUTH_EVENT = "prepsight-local-auth-change"
 const LOCAL_DEV_USER = {
   uid: "local-dev-user",
@@ -43,15 +43,15 @@ function isLocalDevHost() {
 
 function isLocalDevSignedIn() {
   if (!isLocalDevHost()) return false
-  return window.localStorage.getItem(LOCAL_AUTH_DISABLED_KEY) !== "true"
+  return window.localStorage.getItem(LOCAL_AUTH_ENABLED_KEY) === "true"
 }
 
 function setLocalDevSignedIn(nextSignedIn: boolean) {
   if (!isLocalDevHost()) return
   if (nextSignedIn) {
-    window.localStorage.removeItem(LOCAL_AUTH_DISABLED_KEY)
+    window.localStorage.setItem(LOCAL_AUTH_ENABLED_KEY, "true")
   } else {
-    window.localStorage.setItem(LOCAL_AUTH_DISABLED_KEY, "true")
+    window.localStorage.removeItem(LOCAL_AUTH_ENABLED_KEY)
   }
   window.dispatchEvent(new Event(LOCAL_AUTH_EVENT))
 }
@@ -142,6 +142,7 @@ export async function signOut() {
 
 export async function deleteAuthenticatedAccount() {
   if (isLocalDevHost()) {
+    if (!isLocalDevSignedIn()) throw new Error("No authenticated user")
     setLocalDevSignedIn(false)
     return
   }
@@ -150,12 +151,15 @@ export async function deleteAuthenticatedAccount() {
 }
 
 export async function getAuthenticatedUser() {
-  if (isLocalDevHost()) return LOCAL_DEV_USER
+  if (isLocalDevHost()) return isLocalDevSignedIn() ? LOCAL_DEV_USER : null
   return auth?.currentUser ?? null
 }
 
 export async function reauthenticateAuthenticatedUser() {
-  if (isLocalDevHost()) return LOCAL_DEV_USER
+  if (isLocalDevHost()) {
+    if (!isLocalDevSignedIn()) throw new Error("No authenticated user")
+    return LOCAL_DEV_USER
+  }
   if (!auth?.currentUser) throw new Error("No authenticated user")
 
   const providerIds = auth.currentUser.providerData.map((provider) => provider.providerId)

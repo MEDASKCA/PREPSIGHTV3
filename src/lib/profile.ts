@@ -244,7 +244,7 @@ export async function resolveProfile(uid: string): Promise<PrepSightProfile | nu
   if (shouldForceOnboarding()) return null
   const local = getProfile()
   if (local) return local
-  if (isLocalDevHost()) {
+  if (isLocalDevHost() && uid === "local-dev-user") {
     const profile = buildLocalDevProfile()
     saveProfileLocal(profile)
     return profile
