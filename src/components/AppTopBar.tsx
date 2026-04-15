@@ -2,11 +2,11 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { Bell, LogOut, Menu, Search, Settings2, Trash2, UserCircle2, UserRound, X } from "lucide-react"
+import { Bell, LogOut, Menu, Search, Settings2, UserCircle2, UserRound, X } from "lucide-react"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { getProcedureLibrarySnapshot, subscribeProcedureLibrary } from "@/lib/procedure-library"
-import { deleteAuthenticatedAccount, onAuthChange, signOut, type User } from "@/lib/auth"
+import { onAuthChange, signOut, type User } from "@/lib/auth"
 import { clearProfile, getProfile } from "@/lib/profile"
 import type { Procedure } from "@/lib/types"
 import type { PrepSightProfile } from "@/lib/types"
@@ -249,35 +249,6 @@ export default function AppTopBar({
     }
   }
 
-  async function handleDeleteAccount() {
-    const confirmed = window.confirm("Delete your account? This removes your profile and signs you out.")
-    if (!confirmed) return
-
-    setAccountBusy(true)
-    setAccountError(null)
-    try {
-      const uid = user?.uid
-      if (uid) {
-        const { deleteUserAccountData } = await import("@/lib/firestore")
-        await deleteUserAccountData(uid)
-      }
-      clearProfile()
-      await deleteAuthenticatedAccount()
-      setAccountMenuOpen(false)
-      router.push("/login")
-      router.refresh()
-    } catch (error) {
-      const code = (error as { code?: string } | null)?.code
-      if (code === "auth/requires-recent-login") {
-        setAccountError("Delete account requires you to sign in again first.")
-      } else {
-        setAccountError("Delete account failed. Try again.")
-      }
-    } finally {
-      setAccountBusy(false)
-    }
-  }
-
   const displayName = user?.displayName ?? user?.email ?? profile?.name ?? "Your account"
   const displayEmail = user?.email ?? ""
 
@@ -417,15 +388,6 @@ export default function AppTopBar({
                   >
                     <LogOut size={16} className="text-white lg:text-[#4B6478]" />
                     <span>Sign out</span>
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => void handleDeleteAccount()}
-                    disabled={accountBusy}
-                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#C63C3C] hover:bg-[rgba(255,244,244,0.84)] disabled:cursor-not-allowed disabled:opacity-60"
-                  >
-                    <Trash2 size={16} />
-                    <span>Delete account</span>
                   </button>
                   {accountError ? (
                     <div className="px-3 pt-2 text-[12px] text-[#C63C3C]">{accountError}</div>
