@@ -5,6 +5,7 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { Check, ChevronDown, ChevronRight } from "lucide-react"
 import {
+  clearProfile,
   hasCompleteProfile,
   resolveProfile,
   saveProfile,
@@ -13,8 +14,9 @@ import {
 import { getFirestoreHospitals } from "@/lib/firestore"
 import { PrepSightProfile } from "@/lib/types"
 import { ONBOARDING_SETTING_SPECIALTIES } from "@/lib/settings"
-import { onAuthChange, type User } from "@/lib/auth"
+import { onAuthChange, signOut, type User } from "@/lib/auth"
 import hospitalsData from "@/lib/hospitals.json"
+import AuthSessionControl from "@/components/AuthSessionControl"
 import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
 
 const SEEDED_HOSPITALS = hospitalsData
@@ -308,6 +310,16 @@ export default function OnboardingPage() {
     setAnimKey((current) => current + 1)
   }
 
+  async function handleSignOut() {
+    clearProfile()
+    await signOut().catch(() => undefined)
+    if (typeof window !== "undefined") {
+      window.location.replace("/login")
+      return
+    }
+    router.replace("/login")
+  }
+
   async function handleFinish() {
     if (saving || finishing) return
 
@@ -351,6 +363,11 @@ export default function OnboardingPage() {
 
   return (
     <div className="onboarding-stage min-h-screen flex flex-col overflow-x-clip">
+      {user ? (
+        <div className="absolute right-4 top-4 z-20 md:right-6 md:top-6">
+          <AuthSessionControl user={user} onSignOut={() => void handleSignOut()} />
+        </div>
+      ) : null}
       <div className="onboarding-ambient" aria-hidden="true">
         <div className="onboarding-ambient-glow onboarding-ambient-glow-a" />
         <div className="onboarding-ambient-glow onboarding-ambient-glow-b" />
@@ -367,7 +384,7 @@ export default function OnboardingPage() {
       <div className="relative z-10 flex-1 px-6 pb-8 pt-8 sm:pt-12 lg:px-12 lg:pt-16">
         <div className="mx-auto w-full max-w-3xl" key={animKey}>
           {activeAccountLabel ? (
-            <div className="mb-6 inline-flex max-w-full items-center rounded-full border border-[#B9D7E2] bg-white/85 px-4 py-2 text-xs font-medium text-[#0F4C5C] shadow-[0_8px_22px_rgba(15,76,92,0.08)] backdrop-blur">
+            <div className="mb-6 inline-flex max-w-full items-center rounded-full border border-[#B9D7E2] bg-white/85 px-4 py-2 pr-14 text-xs font-medium text-[#0F4C5C] shadow-[0_8px_22px_rgba(15,76,92,0.08)] backdrop-blur">
               Signed in as {activeAccountLabel}
             </div>
           ) : null}

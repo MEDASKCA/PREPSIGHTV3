@@ -13,6 +13,7 @@ import {
 } from "@/lib/auth"
 import { auth } from "@/lib/firebase"
 import { clearProfile, hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
+import AuthSessionControl from "@/components/AuthSessionControl"
 import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
 
 // ── Theatre light geometry ────────────────────────────────────────────────────
@@ -341,6 +342,11 @@ export default function LoginPage() {
       className="relative min-h-screen w-full flex flex-col items-center overflow-hidden select-none"
       style={{ backgroundColor: "#000" }}
     >
+      {sessionUser ? (
+        <div className="absolute right-4 top-4 z-20 md:right-6 md:top-6">
+          <AuthSessionControl user={sessionUser} onSignOut={() => void handleExistingSessionSignOut()} />
+        </div>
+      ) : null}
       {/* ── Auth success burst flash ───────────────────────────────────────── */}
       {authenticated && (
         <div
