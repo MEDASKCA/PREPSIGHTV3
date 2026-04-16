@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
+import { Power } from "lucide-react"
 import {
   signInWithGoogle,
   signInWithMicrosoft,
@@ -466,17 +467,20 @@ export default function LoginPage() {
       </div>
 
       {/* ── Pre-click hint ────────────────────────────────────────────────── */}
-      <p
-        className="mt-2 z-10 text-base font-semibold tracking-[0.08em] text-[#8ecae6] md:text-lg"
+      <button
+        type="button"
+        onClick={handleLight}
+        className="absolute left-1/2 top-1/2 z-10 flex h-20 w-20 -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full border border-[#7DD9EE]/70 bg-[#DDF7FC]/12 text-[#8ecae6] shadow-[0_0_40px_rgba(125,217,238,0.16)] backdrop-blur-sm transition-all duration-300 hover:bg-[#DDF7FC]/18 hover:text-white"
         style={{
           opacity: lit ? 0 : 1,
-          transition: "opacity 0.4s ease",
-          pointerEvents: "none",
+          pointerEvents: lit ? "none" : "auto",
           animation: !lit ? "pulse 2s ease-in-out infinite" : "none",
         }}
+        aria-label="Power on"
+        title="Power on"
       >
-        Turn me on!
-      </p>
+        <Power size={34} strokeWidth={2.2} />
+      </button>
 
       {/* ── Login content — slides in when lit ────────────────────────────── */}
       <div

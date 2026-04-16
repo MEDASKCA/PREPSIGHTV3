@@ -42,11 +42,11 @@ export default function MedaskcaLoadingScreen({
       </div>
 
       {title ? (
-        <p className="mb-2 text-base font-semibold tracking-[0.18em] text-white uppercase text-center">
+        <p className="mb-2 text-center text-base font-semibold tracking-[0.02em] text-white">
           {title}
         </p>
       ) : null}
-      <p className="text-xs tracking-widest text-[#555] uppercase">{message}</p>
+      <p className="text-center text-sm text-[#8aa7b2]">{message}</p>
     </div>
   )
 }
