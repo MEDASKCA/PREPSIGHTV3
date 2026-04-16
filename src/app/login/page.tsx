@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useState, useEffect } from "react"
+import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import {
   signInWithGoogle,
@@ -67,6 +67,8 @@ export default function LoginPage() {
   const router = useRouter()
   const authConfigured = Boolean(auth)
   const pendingProvider = readPendingProvider()
+  const redirectTimerRef = useRef<number | null>(null)
+  const hasQueuedNavigationRef = useRef(false)
 
   const [lit,           setLit]           = useState(() => pendingProvider !== null)
   const [loading,       setLoading]       = useState<"google" | "microsoft" | null>(() => pendingProvider)
@@ -81,6 +83,17 @@ export default function LoginPage() {
     setDebugLines((current) => [`${timestamp} ${message}`, ...current].slice(0, 12))
   }
 
+  function queuePostLoginNavigation() {
+    if (hasQueuedNavigationRef.current) return
+    hasQueuedNavigationRef.current = true
+    if (redirectTimerRef.current !== null) {
+      window.clearTimeout(redirectTimerRef.current)
+    }
+    redirectTimerRef.current = window.setTimeout(() => {
+      router.replace("/onboarding")
+    }, 3000)
+  }
+
   useEffect(() => {
     if (typeof window === "undefined") return
     setShowDebug(window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
@@ -91,6 +104,14 @@ export default function LoginPage() {
     appendDebug(`page loaded path=${window.location.pathname} search=${window.location.search || "(none)"}`)
     appendDebug(`auth configured=${String(authConfigured)} pending=${pendingProvider ?? "(none)"} currentUser=${auth?.currentUser?.uid ?? "(none)"}`)
   }, [showDebug, authConfigured, pendingProvider])
+
+  useEffect(() => {
+    return () => {
+      if (redirectTimerRef.current !== null) {
+        window.clearTimeout(redirectTimerRef.current)
+      }
+    }
+  }, [])
 
   // Handle redirect result (mobile sign-in returns here after redirect)
   useEffect(() => {
@@ -104,7 +125,7 @@ export default function LoginPage() {
           clearPendingProvider()
           setAuthenticated(true)
           setLoading(null)
-          router.replace("/")
+          queuePostLoginNavigation()
           return
         }
         if (pendingProvider) {
@@ -142,7 +163,7 @@ export default function LoginPage() {
       setLit(true)
       setAuthenticated(true)
       setLoading(null)
-      router.replace("/")
+      queuePostLoginNavigation()
     })
   }, [router])
 
@@ -168,7 +189,7 @@ export default function LoginPage() {
       clearPendingProvider()
       setLoading(null)
       setAuthenticated(true)
-      router.replace("/")
+      queuePostLoginNavigation()
     } catch (e: unknown) {
       clearPendingProvider()
       appendDebug(`google sign-in error message=${e instanceof Error ? e.message : "unknown"}`)
@@ -196,7 +217,7 @@ export default function LoginPage() {
       clearPendingProvider()
       setLoading(null)
       setAuthenticated(true)
-      router.replace("/")
+      queuePostLoginNavigation()
     } catch (e: unknown) {
       clearPendingProvider()
       appendDebug(`microsoft sign-in error message=${e instanceof Error ? e.message : "unknown"}`)
