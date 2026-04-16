@@ -18,6 +18,16 @@ const googleProvider = new GoogleAuthProvider()
 const microsoftProvider = new OAuthProvider("microsoft.com")
 microsoftProvider.setCustomParameters({ prompt: "select_account" })
 const LOCAL_DEV_AUTH_KEY = "prepsight_local_dev_auth"
+const REDIRECT_AUTH_HOSTS = new Set([
+  "localhost",
+  "127.0.0.1",
+  "prepsight.medaskca.com",
+  "prepsight.vercel.app",
+  "prepsightv3.vercel.app",
+  "ps.medaskca.com",
+  "ps-two-dusky.vercel.app",
+  "prepsightv3-3l6x93pra-alex-monterubios-projects.vercel.app",
+])
 
 type LocalDevSession = {
   email: string
@@ -121,7 +131,7 @@ function isMobile() {
 
 function shouldUseRedirect() {
   if (typeof window === "undefined") return false
-  return isMobile() || window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  return isMobile() || REDIRECT_AUTH_HOSTS.has(window.location.hostname)
 }
 
 async function prepareAuth() {

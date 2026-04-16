@@ -2,7 +2,13 @@
 
 const BRAND_LETTERS = "MEDASKCA".split("")
 
-export default function MedaskcaLoadingScreen({ message }: { message: string }) {
+export default function MedaskcaLoadingScreen({
+  title,
+  message,
+}: {
+  title?: string
+  message: string
+}) {
   return (
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black">
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -35,6 +41,11 @@ export default function MedaskcaLoadingScreen({ message }: { message: string }) 
         ))}
       </div>
 
+      {title ? (
+        <p className="mb-2 text-base font-semibold tracking-[0.18em] text-white uppercase text-center">
+          {title}
+        </p>
+      ) : null}
       <p className="text-xs tracking-widest text-[#555] uppercase">{message}</p>
     </div>
   )

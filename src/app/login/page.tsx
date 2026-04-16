@@ -8,6 +8,7 @@ import {
   signInWithMicrosoft,
   getLoginRedirectResult,
   onAuthChange,
+  getAuthenticatedUser,
 } from "@/lib/auth"
 import { auth } from "@/lib/firebase"
 import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
@@ -74,8 +75,17 @@ export default function LoginPage() {
   const [loading,       setLoading]       = useState<"google" | "microsoft" | null>(() => pendingProvider)
   const [error,         setError]         = useState<string | null>(null)
   const [authenticated, setAuthenticated] = useState(false)
+  const [authResolved,  setAuthResolved]  = useState(() => !authConfigured)
+  const [welcomeTitle,  setWelcomeTitle]  = useState<string | null>(null)
   const [debugLines,    setDebugLines]    = useState<string[]>([])
   const [showDebug,     setShowDebug]     = useState(false)
+
+  function resolveWelcomeTitle(name: string | null | undefined) {
+    const normalized = name?.trim()
+    if (!normalized) return "Welcome back"
+    const firstName = normalized.split(/\s+/)[0]
+    return firstName ? `Welcome back, ${firstName}` : "Welcome back"
+  }
 
   function appendDebug(message: string) {
     if (!showDebug) return
@@ -119,7 +129,9 @@ export default function LoginPage() {
         if (result?.user) {
           appendDebug(`redirect result user uid=${result.user.uid}`)
           clearPendingProvider()
+          setWelcomeTitle(resolveWelcomeTitle(result.user.displayName ?? result.user.email))
           setAuthenticated(true)
+          setAuthResolved(true)
           setLoading(null)
           showPostLoginLoadingScreen()
           return
@@ -132,6 +144,7 @@ export default function LoginPage() {
         } else {
           appendDebug("redirect result empty")
         }
+        setAuthResolved(true)
       })
       .catch((e: unknown) => {
         clearPendingProvider()
@@ -143,20 +156,52 @@ export default function LoginPage() {
         if (code === "auth/missing-initial-state") {
           setError("Sign-in session expired. Open the site in your browser and try again.")
           setLoading(null)
+          setAuthResolved(true)
           return
         }
         const msg = e instanceof Error ? e.message : "Sign-in failed"
         setError(msg)
         setLoading(null)
+        setAuthResolved(true)
       })
   }, [authConfigured, pendingProvider, router])
 
   useEffect(() => {
+    if (!authConfigured || pendingProvider) return
+    let cancelled = false
+    appendDebug("checking existing session")
+
+    getAuthenticatedUser()
+      .then((user) => {
+        if (cancelled || !user) return
+        appendDebug(`existing session user uid=${user.uid}`)
+        clearPendingProvider()
+        setLit(true)
+        setWelcomeTitle(resolveWelcomeTitle(user.displayName ?? user.email))
+        setAuthenticated(true)
+        setLoading(null)
+        setAuthResolved(true)
+        showPostLoginLoadingScreen()
+      })
+      .catch(() => {
+        if (!cancelled) {
+          setAuthResolved(true)
+        }
+      })
+
+    return () => {
+      cancelled = true
+    }
+  }, [authConfigured, pendingProvider])
+
+  useEffect(() => {
     return onAuthChange((user) => {
       appendDebug(`auth state changed uid=${user?.uid ?? "(none)"}`)
+      setAuthResolved(true)
       if (!user) return
       clearPendingProvider()
       setLit(true)
+      setWelcomeTitle(resolveWelcomeTitle(user.displayName ?? user.email))
       setAuthenticated(true)
       setLoading(null)
       showPostLoginLoadingScreen()
@@ -180,10 +225,12 @@ export default function LoginPage() {
       const signIn = await signInWithGoogle()
       appendDebug(`google sign-in method=${signIn.method}`)
       if (signIn.method === "redirect") {
+        setWelcomeTitle("Signing you in")
         return
       }
       clearPendingProvider()
       setLoading(null)
+      setWelcomeTitle("Signing you in")
       setAuthenticated(true)
       showPostLoginLoadingScreen()
     } catch (e: unknown) {
@@ -208,10 +255,12 @@ export default function LoginPage() {
       const signIn = await signInWithMicrosoft()
       appendDebug(`microsoft sign-in method=${signIn.method}`)
       if (signIn.method === "redirect") {
+        setWelcomeTitle("Signing you in")
         return
       }
       clearPendingProvider()
       setLoading(null)
+      setWelcomeTitle("Signing you in")
       setAuthenticated(true)
       showPostLoginLoadingScreen()
     } catch (e: unknown) {
@@ -231,7 +280,21 @@ export default function LoginPage() {
   }
 
   if (authenticated) {
-    return <MedaskcaLoadingScreen message="Preparing your workspace..." />
+    return (
+      <MedaskcaLoadingScreen
+        title={welcomeTitle ?? "Welcome back"}
+        message="Preparing your workspace..."
+      />
+    )
+  }
+
+  if ((authConfigured && !authResolved) || pendingProvider) {
+    return (
+      <MedaskcaLoadingScreen
+        title={pendingProvider ? "Signing you in" : "Checking your session"}
+        message={pendingProvider ? "Connecting your account..." : "Looking for your existing PrepSight session..."}
+      />
+    )
   }
 
   return (
