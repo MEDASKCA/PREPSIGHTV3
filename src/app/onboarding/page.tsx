@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Check, ChevronDown, ChevronRight } from "lucide-react"
+import { Check, ChevronDown, ChevronRight, X } from "lucide-react"
 import {
   clearProfile,
   hasCompleteProfile,
@@ -16,7 +16,6 @@ import { PrepSightProfile } from "@/lib/types"
 import { ONBOARDING_SETTING_SPECIALTIES } from "@/lib/settings"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
 import hospitalsData from "@/lib/hospitals.json"
-import AuthSessionControl from "@/components/AuthSessionControl"
 import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
 
 const SEEDED_HOSPITALS = hospitalsData
@@ -309,6 +308,8 @@ export default function OnboardingPage() {
   }
 
   async function handleSignOut() {
+    const confirmed = window.confirm("Cancel registration? You will be signed out and returned to the login page.")
+    if (!confirmed) return
     clearProfile()
     await signOut().catch(() => undefined)
     if (typeof window !== "undefined") {
@@ -363,7 +364,15 @@ export default function OnboardingPage() {
     <div className="onboarding-stage min-h-screen flex flex-col overflow-x-clip">
       {user ? (
         <div className="absolute right-4 top-4 z-20 md:right-6 md:top-6">
-          <AuthSessionControl user={user} onSignOut={() => void handleSignOut()} />
+          <button
+            type="button"
+            onClick={() => void handleSignOut()}
+            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#7DD9EE]/75 bg-[#DDF7FC]/92 text-[#0F4C5C] shadow-[0_10px_24px_rgba(15,76,92,0.14)] backdrop-blur transition-colors hover:bg-[#C7EEF8]"
+            aria-label="Cancel registration"
+            title="Cancel registration"
+          >
+            <X size={22} strokeWidth={2.2} />
+          </button>
         </div>
       ) : null}
       <div className="onboarding-ambient" aria-hidden="true">
