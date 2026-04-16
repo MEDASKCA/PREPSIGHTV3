@@ -9,6 +9,7 @@ import {
   getAuthenticatedUser,
   reauthenticateAuthenticatedUser,
 } from "@/lib/auth"
+
 import { clearProfile } from "@/lib/profile"
 import {
   applyUserPreferences,
@@ -31,6 +32,13 @@ export default function AccessSettingsPage() {
   const [preferences, setPreferences] = useState<UserPreferences>(() => readUserPreferences())
   const [deleteBusy, setDeleteBusy] = useState(false)
   const [deleteError, setDeleteError] = useState("")
+
+  function clearLoginState() {
+    if (typeof window === "undefined") return
+    window.localStorage.removeItem("prepsight_pending_auth")
+    window.sessionStorage.removeItem("prepsight_pending_auth")
+    window.localStorage.removeItem("prepsight_force_onboarding")
+  }
 
   function updatePreferences(updater: (current: UserPreferences) => UserPreferences) {
     setPreferences((current) => {
@@ -75,7 +83,8 @@ export default function AccessSettingsPage() {
       }
 
       clearProfile()
-      router.push("/login")
+      clearLoginState()
+      router.replace("/login")
       router.refresh()
     } catch (error) {
       const code = (error as { code?: string } | null)?.code

@@ -9,8 +9,10 @@ import {
   getLoginRedirectResult,
   onAuthChange,
   getAuthenticatedUser,
+  type User,
 } from "@/lib/auth"
 import { auth } from "@/lib/firebase"
+import { hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
 
 // ── Theatre light geometry ────────────────────────────────────────────────────
@@ -77,8 +79,22 @@ export default function LoginPage() {
   const [authenticated, setAuthenticated] = useState(false)
   const [authResolved,  setAuthResolved]  = useState(() => !authConfigured)
   const [welcomeTitle,  setWelcomeTitle]  = useState<string | null>(null)
+  const [postLoginMessage, setPostLoginMessage] = useState("Preparing your workspace...")
   const [debugLines,    setDebugLines]    = useState<string[]>([])
   const [showDebug,     setShowDebug]     = useState(false)
+
+  function appendDebug(message: string) {
+    if (!showDebug) return
+    const timestamp = new Date().toISOString().slice(11, 19)
+    setDebugLines((current) => [`${timestamp} ${message}`, ...current].slice(0, 12))
+  }
+
+  function showPostLoginLoadingScreen(target: "/" | "/onboarding") {
+    if (redirectTimerRef.current !== null) return
+    redirectTimerRef.current = window.setTimeout(() => {
+      router.replace(target)
+    }, 1200)
+  }
 
   function resolveWelcomeTitle(name: string | null | undefined) {
     const normalized = name?.trim()
@@ -87,17 +103,50 @@ export default function LoginPage() {
     return firstName ? `Welcome back, ${firstName}` : "Welcome back"
   }
 
-  function appendDebug(message: string) {
-    if (!showDebug) return
-    const timestamp = new Date().toISOString().slice(11, 19)
-    setDebugLines((current) => [`${timestamp} ${message}`, ...current].slice(0, 12))
-  }
+  async function finalizeAuthenticatedUser(user: User) {
+    clearPendingProvider()
+    setLit(true)
+    setAuthenticated(true)
+    setAuthResolved(true)
+    setLoading(null)
+    setError(null)
+    setWelcomeTitle(null)
+    setPostLoginMessage("Preparing your workspace...")
 
-  function showPostLoginLoadingScreen() {
-    if (redirectTimerRef.current !== null) return
-    redirectTimerRef.current = window.setTimeout(() => {
-      router.replace("/onboarding")
-    }, 1200)
+    if (shouldForceOnboarding()) {
+      appendDebug("force onboarding enabled")
+      setWelcomeTitle("Let’s set up your workspace")
+      setPostLoginMessage("Preparing onboarding...")
+      showPostLoginLoadingScreen("/onboarding")
+      return
+    }
+
+    try {
+      const profile = await resolveProfile(user.uid)
+      const profileComplete = isCompleteProfile(profile) || hasCompleteProfile()
+      appendDebug(`profile complete=${String(profileComplete)}`)
+
+      if (profileComplete) {
+        setWelcomeTitle(resolveWelcomeTitle(user.displayName ?? user.email))
+        setPostLoginMessage("Loading your PrepSight workspace...")
+        showPostLoginLoadingScreen("/")
+        return
+      }
+    } catch (profileError) {
+      appendDebug(
+        `profile resolution failed=${profileError instanceof Error ? profileError.message : "unknown"}`,
+      )
+      if (hasCompleteProfile()) {
+        setWelcomeTitle(resolveWelcomeTitle(user.displayName ?? user.email))
+        setPostLoginMessage("Loading your PrepSight workspace...")
+        showPostLoginLoadingScreen("/")
+        return
+      }
+    }
+
+    setWelcomeTitle("Let’s set up your workspace")
+    setPostLoginMessage("Preparing onboarding...")
+    showPostLoginLoadingScreen("/onboarding")
   }
 
   useEffect(() => {
@@ -128,12 +177,7 @@ export default function LoginPage() {
       .then((result) => {
         if (result?.user) {
           appendDebug(`redirect result user uid=${result.user.uid}`)
-          clearPendingProvider()
-          setWelcomeTitle(resolveWelcomeTitle(result.user.displayName ?? result.user.email))
-          setAuthenticated(true)
-          setAuthResolved(true)
-          setLoading(null)
-          showPostLoginLoadingScreen()
+          void finalizeAuthenticatedUser(result.user)
           return
         }
         if (pendingProvider) {
@@ -175,13 +219,7 @@ export default function LoginPage() {
       .then((user) => {
         if (cancelled || !user) return
         appendDebug(`existing session user uid=${user.uid}`)
-        clearPendingProvider()
-        setLit(true)
-        setWelcomeTitle(resolveWelcomeTitle(user.displayName ?? user.email))
-        setAuthenticated(true)
-        setLoading(null)
-        setAuthResolved(true)
-        showPostLoginLoadingScreen()
+        void finalizeAuthenticatedUser(user)
       })
       .catch(() => {
         if (!cancelled) {
@@ -199,12 +237,7 @@ export default function LoginPage() {
       appendDebug(`auth state changed uid=${user?.uid ?? "(none)"}`)
       setAuthResolved(true)
       if (!user) return
-      clearPendingProvider()
-      setLit(true)
-      setWelcomeTitle(resolveWelcomeTitle(user.displayName ?? user.email))
-      setAuthenticated(true)
-      setLoading(null)
-      showPostLoginLoadingScreen()
+      void finalizeAuthenticatedUser(user)
     })
   }, [router])
 
@@ -225,14 +258,11 @@ export default function LoginPage() {
       const signIn = await signInWithGoogle()
       appendDebug(`google sign-in method=${signIn.method}`)
       if (signIn.method === "redirect") {
-        setWelcomeTitle("Signing you in")
         return
       }
-      clearPendingProvider()
-      setLoading(null)
-      setWelcomeTitle("Signing you in")
-      setAuthenticated(true)
-      showPostLoginLoadingScreen()
+      if (signIn.result?.user) {
+        void finalizeAuthenticatedUser(signIn.result.user)
+      }
     } catch (e: unknown) {
       clearPendingProvider()
       appendDebug(`google sign-in error message=${e instanceof Error ? e.message : "unknown"}`)
@@ -255,14 +285,11 @@ export default function LoginPage() {
       const signIn = await signInWithMicrosoft()
       appendDebug(`microsoft sign-in method=${signIn.method}`)
       if (signIn.method === "redirect") {
-        setWelcomeTitle("Signing you in")
         return
       }
-      clearPendingProvider()
-      setLoading(null)
-      setWelcomeTitle("Signing you in")
-      setAuthenticated(true)
-      showPostLoginLoadingScreen()
+      if (signIn.result?.user) {
+        void finalizeAuthenticatedUser(signIn.result.user)
+      }
     } catch (e: unknown) {
       clearPendingProvider()
       appendDebug(`microsoft sign-in error message=${e instanceof Error ? e.message : "unknown"}`)
@@ -282,8 +309,8 @@ export default function LoginPage() {
   if (authenticated) {
     return (
       <MedaskcaLoadingScreen
-        title={welcomeTitle ?? "Welcome back"}
-        message="Preparing your workspace..."
+        title={welcomeTitle ?? "Signing you in"}
+        message={postLoginMessage}
       />
     )
   }
@@ -422,7 +449,7 @@ export default function LoginPage() {
 
       {/* ── Pre-click hint ────────────────────────────────────────────────── */}
       <p
-        className="text-[#333] text-xs font-semibold tracking-[0.25em] uppercase mt-1 z-10"
+        className="text-[#4f6d78] text-xs font-semibold tracking-[0.25em] uppercase mt-1 z-10"
         style={{
           opacity: lit ? 0 : 1,
           transition: "opacity 0.4s ease",
@@ -430,7 +457,7 @@ export default function LoginPage() {
           animation: !lit ? "pulse 2s ease-in-out infinite" : "none",
         }}
       >
-        Enter the theatre
+        Turn me on
       </p>
 
       {/* ── Login content — slides in when lit ────────────────────────────── */}
