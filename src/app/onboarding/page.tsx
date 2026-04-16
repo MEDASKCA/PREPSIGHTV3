@@ -367,7 +367,7 @@ export default function OnboardingPage() {
           <button
             type="button"
             onClick={() => void handleSignOut()}
-            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#163250] bg-[#10243E] text-white shadow-[0_10px_24px_rgba(16,36,62,0.22)] transition-colors hover:bg-[#163250]"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#0085B2] bg-[#0096C7] text-white shadow-[0_10px_24px_rgba(0,150,199,0.24)] transition-colors hover:bg-[#0085B2]"
             aria-label="Cancel registration"
             title="Cancel registration"
           >
@@ -524,43 +524,43 @@ export default function OnboardingPage() {
 
           {step === 4 && (
             <div className="animate-step-in">
-              <div className="mb-3 flex justify-center lg:mb-4">
-                <img src="/disclaimer.png" alt="" className="h-36 w-36 lg:h-40 lg:w-40" />
+              <div className="mb-2 flex justify-center lg:mb-3">
+                <img src="/disclaimer.png" alt="" className="h-28 w-28 lg:h-32 lg:w-32" />
               </div>
-              <h2 className="mb-3 text-3xl font-bold text-[#3F4752] lg:text-5xl">
+              <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
                 One thing before you continue.
               </h2>
-              <p className="mb-6 text-base leading-7 text-[#0F4C5C] lg:text-xl lg:leading-9">
+              <p className="mb-4 text-base leading-6 text-[#0F4C5C] lg:text-lg lg:leading-8">
                 Please take a moment to read this.
               </p>
 
-              <div className="space-y-3">
-                <p className="text-sm leading-6 text-[#0F4C5C] lg:text-lg lg:leading-8">
+              <div className="space-y-2.5">
+                <p className="text-sm leading-5 text-[#0F4C5C] lg:text-base lg:leading-7">
                   PrepSight is a preparation and reference aid.
                 </p>
-                <p className="text-sm leading-6 text-[#0F4C5C] lg:text-lg lg:leading-8">
+                <p className="text-sm leading-5 text-[#0F4C5C] lg:text-base lg:leading-7">
                   It reflects established practice, but it does not replace the policies, protocols, or clinical judgement of your trust.
                 </p>
-                <p className="text-sm leading-6 text-[#0F4C5C] lg:text-lg lg:leading-8">
+                <p className="text-sm leading-5 text-[#0F4C5C] lg:text-base lg:leading-7">
                   Shared cards may be visible across organisations in anonymised form, but internal hospital information and contributor identity should stay scoped to the correct membership context.
                 </p>
-                <ul className="space-y-1.5 list-disc list-inside">
+                <ul className="space-y-1 list-disc list-inside">
                   {[
                     "Always follow your local guidelines",
                     "Clinical judgement takes precedence",
                     "Cards are reviewed periodically but may not reflect the most recent local changes",
                   ].map((item) => (
-                    <li key={item} className="text-sm leading-6 text-[#0F4C5C] lg:text-lg lg:leading-8">
+                    <li key={item} className="text-sm leading-5 text-[#0F4C5C] lg:text-base lg:leading-7">
                       {item}
                     </li>
                   ))}
                 </ul>
-                <p className="pt-1 text-base font-semibold text-[#0F4C5C] lg:text-xl">
+                <p className="pt-0.5 text-base font-semibold text-[#0F4C5C] lg:text-lg">
                   PrepSight supports you. It does not override you.
                 </p>
               </div>
 
-              <p className="mt-4 text-sm leading-6 text-[#0F4C5C] lg:text-base lg:leading-7">
+              <p className="mt-3 text-sm leading-5 text-[#0F4C5C] lg:text-base lg:leading-7">
                 By continuing, you confirm you have read this notice.
               </p>
             </div>
