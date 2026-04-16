@@ -8,7 +8,6 @@ import {
   signInWithMicrosoft,
   getLoginRedirectResult,
   onAuthChange,
-  getAuthenticatedUser,
   type User,
 } from "@/lib/auth"
 import { auth } from "@/lib/firebase"
@@ -72,6 +71,8 @@ export default function LoginPage() {
   const authConfigured = Boolean(auth)
   const pendingProvider = readPendingProvider()
   const redirectTimerRef = useRef<number | null>(null)
+  const allowAutoResumeRef = useRef(pendingProvider !== null)
+  const handledInitialAuthRef = useRef(false)
 
   const [lit,           setLit]           = useState(() => pendingProvider !== null)
   const [loading,       setLoading]       = useState<"google" | "microsoft" | null>(() => pendingProvider)
@@ -177,6 +178,7 @@ export default function LoginPage() {
       .then((result) => {
         if (result?.user) {
           appendDebug(`redirect result user uid=${result.user.uid}`)
+          allowAutoResumeRef.current = true
           void finalizeAuthenticatedUser(result.user)
           return
         }
@@ -211,31 +213,16 @@ export default function LoginPage() {
   }, [authConfigured, pendingProvider, router])
 
   useEffect(() => {
-    if (!authConfigured || pendingProvider) return
-    let cancelled = false
-    appendDebug("checking existing session")
-
-    getAuthenticatedUser()
-      .then((user) => {
-        if (cancelled || !user) return
-        appendDebug(`existing session user uid=${user.uid}`)
-        void finalizeAuthenticatedUser(user)
-      })
-      .catch(() => {
-        if (!cancelled) {
-          setAuthResolved(true)
-        }
-      })
-
-    return () => {
-      cancelled = true
-    }
-  }, [authConfigured, pendingProvider])
-
-  useEffect(() => {
     return onAuthChange((user) => {
       appendDebug(`auth state changed uid=${user?.uid ?? "(none)"}`)
       setAuthResolved(true)
+      if (!handledInitialAuthRef.current) {
+        handledInitialAuthRef.current = true
+        if (user && !allowAutoResumeRef.current) {
+          appendDebug("existing session detected on login page; staying on login")
+          return
+        }
+      }
       if (!user) return
       void finalizeAuthenticatedUser(user)
     })
@@ -251,6 +238,7 @@ export default function LoginPage() {
       return
     }
     appendDebug("google sign-in clicked")
+    allowAutoResumeRef.current = true
     setError(null); setLoading("google")
     try {
       writePendingProvider("google")
@@ -278,6 +266,7 @@ export default function LoginPage() {
       return
     }
     appendDebug("microsoft sign-in clicked")
+    allowAutoResumeRef.current = true
     setError(null); setLoading("microsoft")
     try {
       writePendingProvider("microsoft")
@@ -449,7 +438,7 @@ export default function LoginPage() {
 
       {/* ── Pre-click hint ────────────────────────────────────────────────── */}
       <p
-        className="text-[#4f6d78] text-xs font-semibold tracking-[0.25em] uppercase mt-1 z-10"
+        className="mt-2 z-10 text-base font-semibold tracking-[0.08em] text-[#8ecae6] md:text-lg"
         style={{
           opacity: lit ? 0 : 1,
           transition: "opacity 0.4s ease",
@@ -457,7 +446,7 @@ export default function LoginPage() {
           animation: !lit ? "pulse 2s ease-in-out infinite" : "none",
         }}
       >
-        Turn me on
+        Turn me on!
       </p>
 
       {/* ── Login content — slides in when lit ────────────────────────────── */}

@@ -87,9 +87,8 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     const pendingAuth = hasPendingAuth()
 
     if (!user && !isPublic && !pendingAuth) { router.replace("/login"); return }
-    if (user && pathname === "/login") { router.replace("/"); return }
     if (user && profileComplete && isOnboarding && !forceOnboarding) { router.replace("/"); return }
-    if (user && (!profileComplete || forceOnboarding) && !isOnboarding && !isAdmin && !isLegalPage) {
+    if (user && (!profileComplete || forceOnboarding) && !isOnboarding && !isAdmin && !isLegalPage && !isPublic) {
       router.replace("/onboarding")
       return
     }
