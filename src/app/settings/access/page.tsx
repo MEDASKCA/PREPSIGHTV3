@@ -8,6 +8,7 @@ import {
   deleteAuthenticatedAccount,
   getAuthenticatedUser,
   reauthenticateAuthenticatedUser,
+  signOut,
 } from "@/lib/auth"
 
 import { clearProfile } from "@/lib/profile"
@@ -84,6 +85,11 @@ export default function AccessSettingsPage() {
 
       clearProfile()
       clearLoginState()
+      await signOut().catch(() => undefined)
+      if (typeof window !== "undefined") {
+        window.location.replace("/login")
+        return
+      }
       router.replace("/login")
       router.refresh()
     } catch (error) {
