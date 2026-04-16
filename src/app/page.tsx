@@ -1,8 +1,10 @@
 import { procedures, getProceduresBySpecialty, SEED_SUPERSEDES } from "@/lib/data"
 import { ClinicalSetting, Procedure } from "@/lib/types"
 import { SETTING_COLOUR, SETTING_SPECIALTIES } from "@/lib/settings"
+import { SPECIALTY_PREFERENCES_COOKIE_KEY } from "@/lib/profile"
 import { House } from "lucide-react"
 import Link from "next/link"
+import { cookies } from "next/headers"
 import HomeHero from "@/components/HomeHero"
 import OperatingTheatreTabs from "@/components/OperatingTheatreTabs"
 import ProcedureTabs from "@/components/ProcedureTabs"
@@ -44,6 +46,18 @@ function normalizeText(value?: string) {
   return (value ?? "").trim().toLowerCase()
 }
 
+function readPreferredSpecialties(cookieValue?: string): string[] {
+  if (!cookieValue) return []
+  try {
+    const parsed = JSON.parse(decodeURIComponent(cookieValue))
+    return Array.isArray(parsed)
+      ? parsed.filter((value): value is string => typeof value === "string")
+      : []
+  } catch {
+    return []
+  }
+}
+
 function dedupeProceduresForDisplay(list: Procedure[]): Procedure[] {
   const grouped = new Map<string, Procedure[]>()
 
@@ -67,6 +81,7 @@ function dedupeProceduresForDisplay(list: Procedure[]): Procedure[] {
 }
 
 export default async function HomePage({ searchParams }: Props) {
+  const cookieStore = await cookies()
   const { setting, specialty, service_line, anatomy, system, library } =
     await searchParams
 
@@ -90,15 +105,27 @@ export default async function HomePage({ searchParams }: Props) {
   const settingColour =
     SETTING_COLOUR[activeSetting] ?? "bg-gray-100 text-gray-700"
 
+  const preferredSpecialties = new Set(
+    readPreferredSpecialties(
+      cookieStore.get(SPECIALTY_PREFERENCES_COOKIE_KEY)?.value,
+    ),
+  )
+  const orderedOperatingTheatreSpecialties = [...SETTING_SPECIALTIES["Operating Theatre"]].sort((left, right) => {
+    const leftPreferred = preferredSpecialties.has(left) ? 1 : 0
+    const rightPreferred = preferredSpecialties.has(right) ? 1 : 0
+    if (leftPreferred !== rightPreferred) return rightPreferred - leftPreferred
+    return SETTING_SPECIALTIES["Operating Theatre"].indexOf(left) - SETTING_SPECIALTIES["Operating Theatre"].indexOf(right)
+  })
+
   const operatingTheatreTabs = isOperatingTheatre
-    ? SETTING_SPECIALTIES["Operating Theatre"]
+    ? orderedOperatingTheatreSpecialties
       .filter((spec) => !activeSpecialty || spec === activeSpecialty)
       .map((spec) => {
         const specId = getOperatingTheatreSpecialtyIdByLabel(spec)
         const serviceLines = specId ? getServiceLinesForSpecialty(specId) : []
         const palette =
           SPECIALTY_PAGE_COLOURS[
-            SETTING_SPECIALTIES["Operating Theatre"].indexOf(spec) % SPECIALTY_PAGE_COLOURS.length
+            orderedOperatingTheatreSpecialties.indexOf(spec) % SPECIALTY_PAGE_COLOURS.length
           ] ?? SPECIALTY_PAGE_COLOURS[0]
 
         return {
@@ -120,7 +147,7 @@ export default async function HomePage({ searchParams }: Props) {
 
   const activeSpecialtyPalette = activeSpecialty
     ? SPECIALTY_PAGE_COLOURS[
-        SETTING_SPECIALTIES["Operating Theatre"].indexOf(activeSpecialty) % SPECIALTY_PAGE_COLOURS.length
+        orderedOperatingTheatreSpecialties.indexOf(activeSpecialty) % SPECIALTY_PAGE_COLOURS.length
       ] ?? SPECIALTY_PAGE_COLOURS[0]
     : SPECIALTY_PAGE_COLOURS[0]
 

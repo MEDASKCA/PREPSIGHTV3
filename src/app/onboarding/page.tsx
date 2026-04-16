@@ -678,7 +678,7 @@ export default function OnboardingPage() {
                 You can later be added to other hospital workspaces if you bank or rotate elsewhere. Those memberships should be approved by the relevant team lead.
               </p>
 
-              <div className="bg-white border border-[#D5DCE3] rounded-xl divide-y divide-[#F4F7FA]">
+              <div className="rounded-xl border border-[#0F4C5C] bg-[#DDF7FC] divide-y divide-[#0F4C5C]/20">
                 {[
                   { label: "Name", value: normalizedDisplayName || "-" },
                   { label: "Areas", value: departments.join(", ") || "-" },
@@ -690,9 +690,9 @@ export default function OnboardingPage() {
                     className="flex items-start gap-3 px-4 py-3.5 line-reveal"
                     style={{ animationDelay: `${index * 120}ms` }}
                   >
-                    <Check size={14} className="text-[#4DA3FF] mt-0.5 shrink-0" />
+                    <Check size={14} className="mt-0.5 shrink-0 text-[#0F4C5C]" />
                     <div>
-                      <p className="text-xs uppercase tracking-wide text-[#0F4C5C] lg:text-sm">{label}</p>
+                      <p className="text-sm text-[#0F4C5C] lg:text-base">{label}</p>
                       <p className="mt-0.5 text-sm font-semibold text-[#3F4752] lg:text-lg">{value}</p>
                     </div>
                   </div>

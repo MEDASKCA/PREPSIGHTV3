@@ -9,6 +9,7 @@ import {
 const STORAGE_KEY = "prepsight_profile"
 const FORCE_ONBOARDING_KEY = "prepsight_force_onboarding"
 export const PLATFORM_ROLE_COOKIE_KEY = "prepsight_platform_role"
+export const SPECIALTY_PREFERENCES_COOKIE_KEY = "prepsight_specialties"
 const ROLE_COOKIE_MAX_AGE = 60 * 60 * 24 * 30
 function slugify(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
@@ -30,6 +31,19 @@ function setPlatformRoleCookie(role: PlatformRole): void {
 function clearPlatformRoleCookie(): void {
   if (typeof document === "undefined") return
   document.cookie = `${PLATFORM_ROLE_COOKIE_KEY}=; path=/; max-age=0; samesite=lax`
+}
+
+function setSpecialtyPreferencesCookie(specialties: string[]): void {
+  if (typeof document === "undefined") return
+  const normalized = specialties
+    .map((value) => value.trim())
+    .filter(Boolean)
+  document.cookie = `${SPECIALTY_PREFERENCES_COOKIE_KEY}=${encodeURIComponent(JSON.stringify(normalized))}; path=/; max-age=${ROLE_COOKIE_MAX_AGE}; samesite=lax`
+}
+
+function clearSpecialtyPreferencesCookie(): void {
+  if (typeof document === "undefined") return
+  document.cookie = `${SPECIALTY_PREFERENCES_COOKIE_KEY}=; path=/; max-age=0; samesite=lax`
 }
 
 function normalizeProfile(profile: unknown): PrepSightProfile | null {
@@ -104,6 +118,7 @@ export function getProfile(): PrepSightProfile | null {
     const profile = normalizeProfile(JSON.parse(raw))
     if (!profile) return null
     setPlatformRoleCookie(profile.platformRole!)
+    setSpecialtyPreferencesCookie(profile.specialtiesOfInterest)
     return profile
   } catch {
     return null
@@ -122,6 +137,7 @@ export function saveProfileLocal(profile: PrepSightProfile): void {
   localStorage.setItem(STORAGE_KEY, JSON.stringify(hydrated))
   window.localStorage.removeItem(FORCE_ONBOARDING_KEY)
   setPlatformRoleCookie(hydrated.platformRole!)
+  setSpecialtyPreferencesCookie(hydrated.specialtiesOfInterest)
 }
 
 export function syncProfileRoleCookie(): void {
@@ -134,6 +150,7 @@ export function clearProfile(): void {
   if (typeof window === "undefined") return
   localStorage.removeItem(STORAGE_KEY)
   clearPlatformRoleCookie()
+  clearSpecialtyPreferencesCookie()
 }
 
 export function hasProfile(): boolean {
