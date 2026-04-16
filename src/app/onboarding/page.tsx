@@ -367,7 +367,7 @@ export default function OnboardingPage() {
           <button
             type="button"
             onClick={() => void handleSignOut()}
-            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#7DD9EE]/75 bg-[#DDF7FC]/92 text-[#0F4C5C] shadow-[0_10px_24px_rgba(15,76,92,0.14)] backdrop-blur transition-colors hover:bg-[#C7EEF8]"
+            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#163250] bg-[#10243E] text-white shadow-[0_10px_24px_rgba(16,36,62,0.22)] transition-colors hover:bg-[#163250]"
             aria-label="Cancel registration"
             title="Cancel registration"
           >
@@ -388,7 +388,7 @@ export default function OnboardingPage() {
         />
       </div>
 
-      <div className="relative z-10 flex-1 px-6 pb-8 pt-8 sm:pt-12 lg:px-12 lg:pt-16">
+      <div className="relative z-10 flex-1 px-6 pb-8 pt-20 sm:pt-24 lg:px-12 lg:pt-16">
         <div className="mx-auto w-full max-w-3xl" key={animKey}>
           {step === 1 && (
             <div className="animate-step-in lg:pt-10">
@@ -524,8 +524,8 @@ export default function OnboardingPage() {
 
           {step === 4 && (
             <div className="animate-step-in">
-              <div className="flex justify-center mb-6">
-                <img src="/disclaimer.png" alt="" className="w-28 h-28" />
+              <div className="mb-3 flex justify-center lg:mb-4">
+                <img src="/disclaimer.png" alt="" className="h-36 w-36 lg:h-40 lg:w-40" />
               </div>
               <h2 className="mb-3 text-3xl font-bold text-[#3F4752] lg:text-5xl">
                 One thing before you continue.
