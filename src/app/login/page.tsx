@@ -91,7 +91,7 @@ export default function LoginPage() {
     }
     redirectTimerRef.current = window.setTimeout(() => {
       router.replace("/onboarding")
-    }, 3000)
+    }, 10000)
   }
 
   useEffect(() => {
