@@ -10,6 +10,7 @@ import {
   onAuthChange,
 } from "@/lib/auth"
 import { auth } from "@/lib/firebase"
+import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
 
 // ── Theatre light geometry ────────────────────────────────────────────────────
 // SVG viewBox="0 0 300 320"  CX=150, CY=190 (fixture centre)
@@ -68,7 +69,6 @@ export default function LoginPage() {
   const authConfigured = Boolean(auth)
   const pendingProvider = readPendingProvider()
   const redirectTimerRef = useRef<number | null>(null)
-  const hasQueuedNavigationRef = useRef(false)
 
   const [lit,           setLit]           = useState(() => pendingProvider !== null)
   const [loading,       setLoading]       = useState<"google" | "microsoft" | null>(() => pendingProvider)
@@ -83,15 +83,11 @@ export default function LoginPage() {
     setDebugLines((current) => [`${timestamp} ${message}`, ...current].slice(0, 12))
   }
 
-  function queuePostLoginNavigation() {
-    if (hasQueuedNavigationRef.current) return
-    hasQueuedNavigationRef.current = true
-    if (redirectTimerRef.current !== null) {
-      window.clearTimeout(redirectTimerRef.current)
-    }
+  function showPostLoginLoadingScreen() {
+    if (redirectTimerRef.current !== null) return
     redirectTimerRef.current = window.setTimeout(() => {
       router.replace("/onboarding")
-    }, 10000)
+    }, 1200)
   }
 
   useEffect(() => {
@@ -125,7 +121,7 @@ export default function LoginPage() {
           clearPendingProvider()
           setAuthenticated(true)
           setLoading(null)
-          queuePostLoginNavigation()
+          showPostLoginLoadingScreen()
           return
         }
         if (pendingProvider) {
@@ -163,7 +159,7 @@ export default function LoginPage() {
       setLit(true)
       setAuthenticated(true)
       setLoading(null)
-      queuePostLoginNavigation()
+      showPostLoginLoadingScreen()
     })
   }, [router])
 
@@ -189,7 +185,7 @@ export default function LoginPage() {
       clearPendingProvider()
       setLoading(null)
       setAuthenticated(true)
-      queuePostLoginNavigation()
+      showPostLoginLoadingScreen()
     } catch (e: unknown) {
       clearPendingProvider()
       appendDebug(`google sign-in error message=${e instanceof Error ? e.message : "unknown"}`)
@@ -217,7 +213,7 @@ export default function LoginPage() {
       clearPendingProvider()
       setLoading(null)
       setAuthenticated(true)
-      queuePostLoginNavigation()
+      showPostLoginLoadingScreen()
     } catch (e: unknown) {
       clearPendingProvider()
       appendDebug(`microsoft sign-in error message=${e instanceof Error ? e.message : "unknown"}`)
@@ -232,6 +228,10 @@ export default function LoginPage() {
     return authenticated
       ? "fill 0.05s ease"
       : `fill 0.08s ease ${i * 11}ms, filter 0.08s ease ${i * 11}ms`
+  }
+
+  if (authenticated) {
+    return <MedaskcaLoadingScreen message="Preparing your workspace..." />
   }
 
   return (

@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { Check, ChevronDown, ChevronRight, Search } from "lucide-react"
+import { Check, ChevronDown, ChevronRight } from "lucide-react"
 import {
   hasCompleteProfile,
   resolveProfile,
@@ -15,6 +15,7 @@ import { PrepSightProfile } from "@/lib/types"
 import { ONBOARDING_SETTING_SPECIALTIES } from "@/lib/settings"
 import { onAuthChange, type User } from "@/lib/auth"
 import hospitalsData from "@/lib/hospitals.json"
+import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
 
 const SEEDED_HOSPITALS = hospitalsData
 
@@ -135,7 +136,6 @@ export default function OnboardingPage() {
   const [displayName, setDisplayName] = useState("")
   const [departments, setDepartments] = useState<string[]>([])
   const [specialties, setSpecialties] = useState<string[]>([])
-  const [specialtySearch, setSpecialtySearch] = useState("")
   const [collapsedDepartments, setCollapsedDepartments] = useState<string[]>([])
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState("")
@@ -345,18 +345,7 @@ export default function OnboardingPage() {
   const progressPct = ((step - 1) / (TOTAL_STEPS - 1)) * 100
 
   if (finishing) {
-    return (
-      <div className="onboarding-stage min-h-screen flex items-center justify-center overflow-hidden">
-        <div className="onboarding-ambient" aria-hidden="true">
-          <div className="onboarding-ambient-glow onboarding-ambient-glow-a" />
-          <div className="onboarding-ambient-glow onboarding-ambient-glow-b" />
-          <div className="onboarding-ambient-grid" />
-        </div>
-        <div className="relative z-10 text-center">
-          <p className="text-sm text-[#475569]">Setting up your workspace...</p>
-        </div>
-      </div>
-    )
+    return <MedaskcaLoadingScreen message="Setting up your workspace..." />
   }
 
   return (
@@ -599,17 +588,6 @@ export default function OnboardingPage() {
 
               {availableSpecialties.length > 0 ? (
                 <>
-                  {false && <div className="relative mb-3">
-                    <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8]" />
-                    <input
-                      type="text"
-                      placeholder="Filter specialties…"
-                      value={specialtySearch}
-                      onChange={(event) => setSpecialtySearch(event.target.value)}
-                      className="w-full pl-9 pr-4 py-2.5 border border-[#D5DCE3] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#4DA3FF] transition-shadow lg:py-3.5 lg:text-base"
-                    />
-                  </div>}
-
                   <div className="space-y-3">
                     {specialtyGroups.map((group, groupIndex) => (
                       <section key={group.department}>
