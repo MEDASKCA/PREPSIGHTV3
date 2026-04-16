@@ -142,6 +142,7 @@ export default function OnboardingPage() {
   const [finishing, setFinishing] = useState(false)
 
   const hospitalWrapRef = useRef<HTMLDivElement>(null)
+  const activeAccountLabel = user?.displayName?.trim() || user?.email?.trim() || ""
 
   useEffect(() => {
     if (hasCompleteProfile() && !shouldForceOnboarding()) router.replace("/")
@@ -365,6 +366,11 @@ export default function OnboardingPage() {
 
       <div className="relative z-10 flex-1 px-6 pb-8 pt-8 sm:pt-12 lg:px-12 lg:pt-16">
         <div className="mx-auto w-full max-w-3xl" key={animKey}>
+          {activeAccountLabel ? (
+            <div className="mb-6 inline-flex max-w-full items-center rounded-full border border-[#B9D7E2] bg-white/85 px-4 py-2 text-xs font-medium text-[#0F4C5C] shadow-[0_8px_22px_rgba(15,76,92,0.08)] backdrop-blur">
+              Signed in as {activeAccountLabel}
+            </div>
+          ) : null}
           {step === 1 && (
             <div className="animate-step-in lg:pt-10">
               <img src="/ps-mark.png" alt="P.S." className="mb-4 h-12 w-auto lg:mb-6 lg:h-16" />

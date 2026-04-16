@@ -8,10 +8,11 @@ import {
   signInWithMicrosoft,
   getLoginRedirectResult,
   onAuthChange,
+  signOut,
   type User,
 } from "@/lib/auth"
 import { auth } from "@/lib/firebase"
-import { hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
+import { clearProfile, hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
 
 // ── Theatre light geometry ────────────────────────────────────────────────────
@@ -81,6 +82,7 @@ export default function LoginPage() {
   const [authResolved,  setAuthResolved]  = useState(() => !authConfigured)
   const [welcomeTitle,  setWelcomeTitle]  = useState<string | null>(null)
   const [postLoginMessage, setPostLoginMessage] = useState("Preparing your workspace...")
+  const [sessionUser, setSessionUser] = useState<User | null>(null)
   const [debugLines,    setDebugLines]    = useState<string[]>([])
   const [showDebug,     setShowDebug]     = useState(false)
 
@@ -106,6 +108,7 @@ export default function LoginPage() {
 
   async function finalizeAuthenticatedUser(user: User) {
     clearPendingProvider()
+    setSessionUser(null)
     setLit(true)
     setAuthenticated(true)
     setAuthResolved(true)
@@ -148,6 +151,19 @@ export default function LoginPage() {
     setWelcomeTitle("Let’s set up your workspace")
     setPostLoginMessage("Preparing onboarding...")
     showPostLoginLoadingScreen("/onboarding")
+  }
+
+  async function handleExistingSessionSignOut() {
+    clearPendingProvider()
+    clearProfile()
+    setSessionUser(null)
+    setLoading(null)
+    setError(null)
+    await signOut().catch(() => undefined)
+  }
+
+  function describeSessionUser(user: User) {
+    return user.displayName?.trim() || user.email?.trim() || "this account"
   }
 
   useEffect(() => {
@@ -220,10 +236,15 @@ export default function LoginPage() {
         handledInitialAuthRef.current = true
         if (user && !allowAutoResumeRef.current) {
           appendDebug("existing session detected on login page; staying on login")
+          setSessionUser(user)
+          setLit(true)
           return
         }
       }
-      if (!user) return
+      if (!user) {
+        setSessionUser(null)
+        return
+      }
       void finalizeAuthenticatedUser(user)
     })
   }, [router])
@@ -239,6 +260,7 @@ export default function LoginPage() {
     }
     appendDebug("google sign-in clicked")
     allowAutoResumeRef.current = true
+    setSessionUser(null)
     setError(null); setLoading("google")
     try {
       writePendingProvider("google")
@@ -267,6 +289,7 @@ export default function LoginPage() {
     }
     appendDebug("microsoft sign-in clicked")
     allowAutoResumeRef.current = true
+    setSessionUser(null)
     setError(null); setLoading("microsoft")
     try {
       writePendingProvider("microsoft")
@@ -494,27 +517,67 @@ export default function LoginPage() {
           }}
         >
           <div className="bg-[#0d0d0d] border border-[#1e1e1e] rounded-2xl p-5">
-            <p className="text-xs font-semibold text-[#555] uppercase tracking-widest text-center mb-4">
-              Sign in to continue
-            </p>
+            {sessionUser ? (
+              <>
+                <p className="text-xs font-semibold text-[#555] uppercase tracking-widest text-center mb-3">
+                  Already signed in
+                </p>
+                <p className="text-sm font-semibold text-white text-center">
+                  {describeSessionUser(sessionUser)}
+                </p>
+                <p className="mt-2 text-xs text-[#7a7a7a] text-center leading-relaxed">
+                  Continue with this account or sign out before using another one.
+                </p>
 
-            <button
-              onClick={handleGoogle}
-              disabled={loading !== null || authenticated}
-              className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40 mb-3"
-            >
-              {loading === "google" ? <BtnSpinner /> : <GoogleIcon />}
-              Continue with Google
-            </button>
+                <button
+                  onClick={() => void finalizeAuthenticatedUser(sessionUser)}
+                  disabled={loading !== null || authenticated}
+                  className="mt-4 w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-white bg-[#0096C7] hover:bg-[#0085B2] active:bg-[#0077B6] transition-colors disabled:opacity-40"
+                >
+                  Continue to PrepSight
+                </button>
 
-            <button
-              onClick={handleMicrosoft}
-              disabled={loading !== null || authenticated}
-              className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40"
-            >
-              {loading === "microsoft" ? <BtnSpinner /> : <MicrosoftIcon />}
-              Continue with Microsoft
-            </button>
+                <button
+                  onClick={() => void handleExistingSessionSignOut()}
+                  disabled={loading !== null}
+                  className="mt-3 w-full flex items-center justify-center px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40"
+                >
+                  Use another account
+                </button>
+
+                <button
+                  onClick={() => void handleExistingSessionSignOut()}
+                  disabled={loading !== null}
+                  className="mt-3 w-full text-xs font-semibold text-[#7a7a7a] hover:text-[#d1d5db] transition-colors disabled:opacity-40"
+                >
+                  Sign out
+                </button>
+              </>
+            ) : (
+              <>
+                <p className="text-xs font-semibold text-[#555] uppercase tracking-widest text-center mb-4">
+                  Sign in to continue
+                </p>
+
+                <button
+                  onClick={handleGoogle}
+                  disabled={loading !== null || authenticated}
+                  className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40 mb-3"
+                >
+                  {loading === "google" ? <BtnSpinner /> : <GoogleIcon />}
+                  Continue with Google
+                </button>
+
+                <button
+                  onClick={handleMicrosoft}
+                  disabled={loading !== null || authenticated}
+                  className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40"
+                >
+                  {loading === "microsoft" ? <BtnSpinner /> : <MicrosoftIcon />}
+                  Continue with Microsoft
+                </button>
+              </>
+            )}
 
             {error ? (
               <p
