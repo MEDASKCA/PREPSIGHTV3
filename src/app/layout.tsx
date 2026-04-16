@@ -1,14 +1,7 @@
 import type { Metadata, Viewport } from "next"
-import { Sora } from "next/font/google"
 import AppGate from "@/components/AppGate"
 import UserPreferencesBoot from "@/components/UserPreferencesBoot"
 import "./globals.css"
-
-const sora = Sora({
-  subsets: ["latin"],
-  display: "swap",
-  variable: "--font-body",
-})
 
 export const metadata: Metadata = {
   title: "PrepSight",
@@ -46,7 +39,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className={`${sora.variable} ${sora.className}`}>
+    <html lang="en">
       <body>
         <UserPreferencesBoot />
         <AppGate>{children}</AppGate>

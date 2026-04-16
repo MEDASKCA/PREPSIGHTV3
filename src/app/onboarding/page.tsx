@@ -109,23 +109,14 @@ function CompactSpecialtyToggle({
     <button
       type="button"
       onClick={onToggle}
-      className={`chip-reveal flex min-h-0 items-start gap-2 rounded-lg border px-2.5 py-2 text-left text-[12px] font-medium leading-4 transition-all lg:px-3 lg:py-2.5 lg:text-[13px] ${
+      className={`chip-reveal flex h-[50px] items-center justify-center rounded-2xl border px-3 py-1 text-center text-[12px] font-medium transition-all duration-200 ease-out active:scale-[0.98] lg:h-[82px] lg:px-5 lg:py-3 lg:text-lg ${
         selected
-          ? "border-[#4DA3FF] bg-[#EFF6FF] text-[#1D4ED8] shadow-sm"
-          : "border-[#E2E8F0] bg-white text-[#3F4752] hover:border-[#4DA3FF] hover:bg-[#F8FBFF]"
+          ? "border-[#0085B2] bg-[#0096C7] text-white shadow-[0_10px_22px_rgba(0,150,199,0.24)] ring-2 ring-[#7DD9EE]/60 scale-[1.01]"
+          : "border-[#4CBFD4] bg-[#7DD9EE] text-[#0F4C5C] hover:bg-[#0096C7] hover:text-white active:bg-[#0096C7] active:text-white"
       }`}
       style={{ animationDelay: `${delay}ms` }}
     >
-      <span
-        className={`mt-0.5 flex h-4 w-4 shrink-0 items-center justify-center rounded-[4px] border transition-colors ${
-          selected
-            ? "border-[#4DA3FF] bg-[#4DA3FF] text-white"
-            : "border-[#CBD5E1] bg-white text-transparent"
-        }`}
-      >
-        <Check size={10} />
-      </span>
-      <span className="min-w-0 text-balance">{label}</span>
+      <span className="max-w-[11ch] leading-[1.05] lg:max-w-[14ch] lg:leading-5">{label}</span>
     </button>
   )
 }
@@ -246,9 +237,7 @@ export default function OnboardingPage() {
     .map((department) => ({
       department,
       settingLabel: DEPT_TO_SETTING_LABEL[department] ?? department,
-      specialties: (DEPT_TO_SPECIALTY[department] ?? []).filter((specialty) =>
-        !specialtySearch || specialty.toLowerCase().includes(specialtySearch.toLowerCase()),
-      ),
+      specialties: DEPT_TO_SPECIALTY[department] ?? [],
     }))
     .filter((group) => group.specialties.length > 0)
 
@@ -263,6 +252,7 @@ export default function OnboardingPage() {
 
     setCollapsedDepartments((current) => {
       const next = current.filter((department) => specialtyGroupDepartments.includes(department))
+      if (next.length === 0) return [...specialtyGroupDepartments]
       if (next.length === current.length && next.every((department, index) => department === current[index])) {
         return current
       }
@@ -577,38 +567,24 @@ export default function OnboardingPage() {
                     key={department}
                     type="button"
                     onClick={() => {
-                      setSpecialtySearch("")
                       setDepartments((current) =>
                         current.includes(department)
                           ? current.filter((value) => value !== department)
                           : [...current, department],
                       )
                     }}
-                    className={`chip-reveal flex items-center justify-between px-4 py-3 rounded-2xl text-sm font-medium transition-all text-left lg:px-5 lg:py-4 lg:text-lg ${
+                    className={`chip-reveal flex h-[64px] items-center justify-center rounded-2xl border px-4 py-2 text-center text-sm font-medium transition-all duration-200 ease-out active:scale-[0.98] lg:h-[82px] lg:px-5 lg:py-3 lg:text-lg ${
                       departments.includes(department)
-                        ? "bg-[#4DA3FF] text-white shadow-md"
-                        : "bg-white border border-[#E2E8F0] text-[#3F4752] hover:border-[#4DA3FF] hover:bg-[#F0F8FF]"
+                        ? "border-[#0085B2] bg-[#0096C7] text-white shadow-[0_10px_22px_rgba(0,150,199,0.24)] ring-2 ring-[#7DD9EE]/60 scale-[1.01]"
+                        : "border-[#4CBFD4] bg-[#7DD9EE] text-[#0F4C5C] hover:bg-[#0096C7] hover:text-white active:bg-[#0096C7] active:text-white"
                     }`}
                     style={{ animationDelay: `${index * 25}ms` }}
                   >
-                    <span>{department}</span>
-                    {departments.includes(department) && <Check size={13} className="shrink-0 ml-1" />}
+                    <span className="max-w-[12ch] leading-[1.2] lg:max-w-[14ch] lg:leading-5">{department}</span>
                   </button>
                 ))}
               </div>
 
-              {departments.length > 0 && (
-                <div className="mt-5 space-y-3">
-                  {departments.map((department) => (
-                    <div key={department} className="rounded-2xl border border-[#E2E8F0] bg-white px-4 py-3 lg:px-5 lg:py-4">
-                      <p className="text-sm font-semibold text-[#3F4752] lg:text-lg">{department}</p>
-                      <p className="mt-1 text-sm leading-5 text-[#0F4C5C] lg:text-base lg:leading-7">
-                        {DEPARTMENT_PURPOSE[department]}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
           )}
 
@@ -617,13 +593,13 @@ export default function OnboardingPage() {
               <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
                 Which specialties matter most to you?
               </h2>
-              <p className="mb-6 max-w-2xl text-base leading-7 text-[#0F4C5C] lg:text-xl lg:leading-9">
+              <p className="mb-4 max-w-2xl text-sm leading-6 text-[#0F4C5C] lg:mb-6 lg:text-xl lg:leading-9">
                 Optional. You can always browse the full library. This helps PrepSight prioritise the specialties, cards, and assistant context you are most likely to open first.
               </p>
 
               {availableSpecialties.length > 0 ? (
                 <>
-                  <div className="relative mb-3">
+                  {false && <div className="relative mb-3">
                     <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8]" />
                     <input
                       type="text"
@@ -632,37 +608,33 @@ export default function OnboardingPage() {
                       onChange={(event) => setSpecialtySearch(event.target.value)}
                       className="w-full pl-9 pr-4 py-2.5 border border-[#D5DCE3] rounded-xl text-sm bg-white focus:outline-none focus:ring-2 focus:ring-[#4DA3FF] transition-shadow lg:py-3.5 lg:text-base"
                     />
-                  </div>
+                  </div>}
 
-                  <div className="space-y-4">
+                  <div className="space-y-3">
                     {specialtyGroups.map((group, groupIndex) => (
                       <section key={group.department}>
-                        <button
-                          type="button"
-                          onClick={() => toggleDepartmentCollapse(group.department)}
-                          className={`mb-2 flex w-full items-center justify-between rounded-2xl border bg-white px-4 py-3 text-left transition-all ${
-                            specialtyGroups.length > 1
-                              ? "border-[#E2E8F0] hover:border-[#4DA3FF] hover:bg-[#F8FBFF]"
-                              : "border-transparent px-0 py-0"
-                          }`}
-                        >
-                          <div>
-                            <p className="text-[15px] font-semibold text-[#243B53] lg:text-lg">
-                              {group.settingLabel}
-                            </p>
-                          </div>
-                          {specialtyGroups.length > 1 && (
+                        {specialtyGroups.length > 1 ? (
+                          <button
+                            type="button"
+                            onClick={() => toggleDepartmentCollapse(group.department)}
+                            className="mb-2 flex w-full items-center justify-between rounded-2xl border border-[#8ADFF0] bg-[#00B4D8] px-4 py-3 text-left text-[#10243E] transition-all hover:bg-[#33C4E2]"
+                          >
+                            <div>
+                              <p className="text-[15px] font-semibold lg:text-lg">
+                                {group.settingLabel}
+                              </p>
+                            </div>
                             <ChevronDown
                               size={16}
-                              className={`shrink-0 text-[#64748b] transition-transform ${
+                              className={`shrink-0 transition-transform ${
                                 collapsedDepartments.includes(group.department) ? "" : "rotate-180"
                               }`}
                             />
-                          )}
-                        </button>
+                          </button>
+                        ) : null}
 
                         {!collapsedDepartments.includes(group.department) && (
-                          <div className="grid grid-cols-2 gap-2 lg:grid-cols-3">
+                          <div className="grid grid-cols-2 gap-1.5 lg:grid-cols-3 lg:gap-2">
                             {group.specialties.map((specialty, specialtyIndex) => (
                               <CompactSpecialtyToggle
                                 key={`${group.department}-${specialty}`}
@@ -690,7 +662,7 @@ export default function OnboardingPage() {
                 </p>
               )}
 
-              <p className="mt-4 text-sm leading-6 text-[#0F4C5C] lg:text-base lg:leading-7">
+              <p className="mt-3 text-xs leading-5 text-[#0F4C5C] lg:mt-4 lg:text-base lg:leading-7">
                 These choices do not lock anything down. They simply give your account a more useful starting point while the wider library grows.
               </p>
             </div>
@@ -754,7 +726,7 @@ export default function OnboardingPage() {
               type="button"
               onClick={goNext}
               disabled={!canAdvance()}
-              className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-[#4DA3FF] px-4 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#2F8EF7] disabled:cursor-not-allowed disabled:opacity-30 lg:px-6 lg:py-4 lg:text-lg"
+              className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-[#0096C7] px-4 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#0085B2] disabled:cursor-not-allowed disabled:opacity-30 lg:px-6 lg:py-4 lg:text-lg"
             >
               {CTA_LABELS[step - 1]} <ChevronRight size={15} />
             </button>
@@ -763,7 +735,7 @@ export default function OnboardingPage() {
               type="button"
               onClick={handleFinish}
               disabled={saving}
-              className="pulse-once flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-[#4DA3FF] px-4 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#2F8EF7] disabled:opacity-60 lg:px-6 lg:py-4 lg:text-lg"
+              className="pulse-once flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-[#0096C7] px-4 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#0085B2] disabled:opacity-60 lg:px-6 lg:py-4 lg:text-lg"
             >
               {saving ? (
                 <span className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
