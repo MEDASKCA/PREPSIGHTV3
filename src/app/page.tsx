@@ -10,6 +10,7 @@ import OperatingTheatreTabs from "@/components/OperatingTheatreTabs"
 import ProcedureTabs from "@/components/ProcedureTabs"
 import HistoryBackButton from "@/components/HistoryBackButton"
 import LibrariesDashboard from "@/components/LibrariesDashboard"
+import RootEntry from "@/components/RootEntry"
 import {
   getOperatingTheatreSpecialtyIdByLabel,
   getServiceLinesForSpecialty,
@@ -86,7 +87,7 @@ export default async function HomePage({ searchParams }: Props) {
     await searchParams
 
   if (!setting) {
-    return <LibrariesDashboard />
+    return <RootEntry />
   }
 
   const activeSetting = setting as ClinicalSetting

@@ -8,7 +8,7 @@ import { hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboa
 import AdminUnlocker from "./AdminUnlocker"
 import MedaskcaLoadingScreen from "./MedaskcaLoadingScreen"
 
-const PUBLIC_ROUTES    = ["/login", "/privacy", "/terms"]
+const PUBLIC_ROUTES    = ["/", "/login", "/privacy", "/terms"]
 const ONBOARDING_ROUTE = "/onboarding"
 const ADMIN_ROUTE      = "/admin"
 const PENDING_AUTH_KEY = "prepsight_pending_auth"
@@ -17,6 +17,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   const router = useRouter()
   const pathname = usePathname()
   const isPublic = PUBLIC_ROUTES.includes(pathname)
+  const isLandingPage = pathname === "/"
   const isLegalPage = pathname === "/privacy" || pathname === "/terms"
   const isOnboarding = pathname === ONBOARDING_ROUTE
   const isAdmin = pathname.startsWith(ADMIN_ROUTE)
@@ -95,12 +96,19 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     if (!user && isAdmin && !pendingAuth) { router.replace("/login"); return }
     if (!user && demoSessionActive && (pathname === "/" || pathname === "/login")) { router.replace("/onboarding"); return }
     if (!user && !demoSessionActive && !isPublic && !pendingAuth) { router.replace("/login"); return }
-    if (user && isPublic && !isLegalPage) {
+    if (user && isPublic && !isLegalPage && !isLandingPage) {
       router.replace((!profileComplete || forceOnboarding) ? "/onboarding" : "/")
       return
     }
     if (user && profileComplete && isOnboarding && !forceOnboarding) { router.replace("/"); return }
-    if (user && (!profileComplete || forceOnboarding) && !isOnboarding && !isAdmin && !isLegalPage && !isPublic) {
+    if (
+      user &&
+      (!profileComplete || forceOnboarding) &&
+      !isOnboarding &&
+      !isAdmin &&
+      !isLegalPage &&
+      (!isPublic || isLandingPage)
+    ) {
       router.replace("/onboarding")
       return
     }
@@ -112,6 +120,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     pathname,
     router,
     isPublic,
+    isLandingPage,
     isOnboarding,
     isAdmin,
     isLegalPage,
@@ -139,7 +148,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       : <MedaskcaLoadingScreen message="Loading..." />
   }
 
-  if (isPublic && !isLegalPage) {
+  if (isPublic && !isLegalPage && !isLandingPage) {
     return <MedaskcaLoadingScreen message="Loading..." />
   }
 
