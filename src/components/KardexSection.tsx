@@ -1,7 +1,8 @@
 "use client"
 
+import type { PointerEvent as ReactPointerEvent } from "react"
 import { useState } from "react"
-import { ExternalLink, Save, Check, Clock, SquarePen, Plus, Trash2 } from "lucide-react"
+import { ExternalLink, Save, Check, Clock, SquarePen, Plus, Trash2, GripVertical } from "lucide-react"
 import TriangleIcon from "@/components/TriangleIcon"
 import ItemRow from "./ItemRow"
 import CataloguePickerModal from "./CataloguePickerModal"
@@ -23,6 +24,9 @@ interface Props {
   onSave?: () => void
   onSectionChange?: (section: Section) => void
   onItemSelect?: (info: ItemDisplayInfo) => void
+  editHighlight?: boolean
+  reorderActive?: boolean
+  onReorderPointerDown?: (event: ReactPointerEvent<HTMLButtonElement>) => void
 }
 
 function today() {
@@ -44,6 +48,9 @@ export default function KardexSection({
   onSave,
   onSectionChange,
   onItemSelect,
+  editHighlight = false,
+  reorderActive = false,
+  onReorderPointerDown,
 }: Props) {
   const [open, setOpen]             = useState(defaultOpen)
   const [editMode, setEditMode]     = useState(false)
@@ -152,8 +159,8 @@ export default function KardexSection({
   const isImplants      = section.sectionType === "implants_prosthetics"
   const canEditSection  = section.contentMode !== "fixed"
   const isCommunity = variant === "community"
-  const headerClass = isCommunity ? "bg-[#D9EFF7]" : "bg-[#00B4D8]"
-  const headerHoverClass = isCommunity ? "hover:bg-[#C8E7F3]" : "hover:bg-[#33C4E2]"
+  const headerClass = editHighlight ? "bg-[#F2B6BF]" : isCommunity ? "bg-[#D9EFF7]" : "bg-[#00B4D8]"
+  const headerHoverClass = editHighlight ? "hover:bg-[#EBA5B1]" : isCommunity ? "hover:bg-[#C8E7F3]" : "hover:bg-[#33C4E2]"
   const headerTitleClass = isCommunity
     ? "flex-1 flex items-center gap-3 px-4 py-3.5 text-left text-[17px] font-medium text-[#10243E] transition-colors lg:px-7 lg:py-4 lg:text-[22px]"
     : "flex-1 flex items-center gap-3 px-4 py-3.5 text-left text-base font-semibold text-[#10243E] transition-colors lg:px-7 lg:py-5 lg:text-[24px]"
@@ -179,6 +186,17 @@ export default function KardexSection({
           onClick={() => setOpen(!open)}
           className={`${headerTitleClass} ${headerHoverClass}`}
         >
+          {reorderActive ? (
+            <span
+              onPointerDown={onReorderPointerDown}
+              onClick={(event) => event.stopPropagation()}
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/70 text-[#0F4C5C] touch-none cursor-grab active:cursor-grabbing"
+              aria-label="Drag to rearrange"
+              role="button"
+            >
+              <GripVertical size={18} />
+            </span>
+          ) : null}
           <span className="flex-1">{section.title}</span>
         </button>
 

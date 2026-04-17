@@ -52,9 +52,18 @@ export default function LibraryCardRouteClient({
 
   const variantId = searchParams.get("variant") ?? undefined
   const systemId = searchParams.get("system") ?? undefined
+  const sourceLibrary = card.sourceLibraryId ? getLibraryByIdSnapshot(card.sourceLibraryId) : null
+  const sourceCard =
+    card.sourceLibraryId && card.sourceCardId
+      ? getLibraryCardByIdSnapshot(card.sourceLibraryId, card.sourceCardId)
+      : null
   const variants =
     library.libraryType === "shared"
       ? getCuratedVariantsForProcedureWithSystems(card.id, card.name)
+      : []
+  const sourceVariants =
+    library.libraryType === "local" && sourceCard
+      ? getCuratedVariantsForProcedureWithSystems(sourceCard.id, sourceCard.name)
       : []
   const isPublishedSharedVersion =
     library.libraryType === "shared" && card.publishState === "published"
@@ -70,6 +79,25 @@ export default function LibraryCardRouteClient({
 
   const selectedVariant = variantId ? getProcedureVariantById(variantId) : null
   const selectedSystem = systemId ? getSystemById(systemId) : null
+  const matchedLocalVariant =
+    library.libraryType === "local"
+      ? sourceVariants.find(
+          (variant) =>
+            variant.name === card.variantLabel ||
+            variant.approach === card.approach,
+        ) ?? null
+      : null
+  const matchedLocalSystem =
+    library.libraryType === "local" && matchedLocalVariant
+      ? matchedLocalVariant.systems.find((system) => system.name === card.implantSystem) ?? null
+      : null
+  const shouldRenderLocalRepositoryView =
+    library.libraryType === "local" &&
+    (
+      sourceLibrary?.libraryType === "shared" ||
+      card.sourceLibraryId?.startsWith("shared-") ||
+      Boolean(card.sourceCardId && card.familyId)
+    )
   const routeSections =
     selectedVariant && selectedSystem
       ? buildSystemCardSections(
@@ -100,6 +128,16 @@ export default function LibraryCardRouteClient({
           selectedVariantName={selectedVariant?.name}
           selectedSystemId={selectedSystem?.id}
           selectedSystemName={selectedSystem?.name}
+        />
+      ) : shouldRenderLocalRepositoryView ? (
+        <MobileProcedureRepositoryView
+          procedure={card}
+          sections={decoratedSections}
+          sourceProcedure={sourceCard ?? card}
+          selectedVariantId={matchedLocalVariant?.id}
+          selectedVariantName={matchedLocalVariant?.name}
+          selectedSystemId={matchedLocalSystem?.id}
+          selectedSystemName={undefined}
         />
       ) : (
         <ProcedurePageClient

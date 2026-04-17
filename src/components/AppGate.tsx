@@ -11,6 +11,7 @@ const PUBLIC_ROUTES    = ["/login", "/privacy", "/terms"]
 const ONBOARDING_ROUTE = "/onboarding"
 const ADMIN_ROUTE      = "/admin"
 const PENDING_AUTH_KEY = "prepsight_pending_auth"
+const ALLOW_GUEST_BROWSING = true
 
 export default function AppGate({ children }: { children: React.ReactNode }) {
   const router = useRouter()
@@ -86,7 +87,13 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     const forceOnboarding = shouldForceOnboarding()
     const pendingAuth = hasPendingAuth()
 
-    if (!user && !isPublic && !pendingAuth) { router.replace("/login"); return }
+    if (!user && isAdmin && !pendingAuth) { router.replace("/login"); return }
+    if (ALLOW_GUEST_BROWSING && !user && pathname === "/login") { router.replace("/"); return }
+    if (!ALLOW_GUEST_BROWSING && !user && !isPublic && !pendingAuth) { router.replace("/login"); return }
+    if (user && isPublic && !isLegalPage) {
+      router.replace((!profileComplete || forceOnboarding) ? "/onboarding" : "/")
+      return
+    }
     if (user && profileComplete && isOnboarding && !forceOnboarding) { router.replace("/"); return }
     if (user && (!profileComplete || forceOnboarding) && !isOnboarding && !isAdmin && !isLegalPage && !isPublic) {
       router.replace("/onboarding")
@@ -105,21 +112,28 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     isLegalPage,
   ])
 
-  if (isPublic) {
-    return <><AdminUnlocker />{children}</>
-  }
-
   if (!authReady || user === undefined || !profileReady) {
     return <MedaskcaLoadingScreen message="Loading..." />
   }
 
   if (!user) {
+    if (ALLOW_GUEST_BROWSING && !isAdmin && !isOnboarding) {
+      return (
+        <div className="min-h-screen bg-[#F4F7FA]">
+          <div className="min-w-0 flex min-h-screen flex-col">
+            <main className="flex-1">{children}</main>
+          </div>
+          <AdminUnlocker />
+        </div>
+      )
+    }
+
     return isPublic
       ? <><AdminUnlocker />{children}</>
       : <MedaskcaLoadingScreen message="Loading..." />
   }
 
-  if (pathname === "/login") {
+  if (isPublic && !isLegalPage) {
     return <MedaskcaLoadingScreen message="Loading..." />
   }
 

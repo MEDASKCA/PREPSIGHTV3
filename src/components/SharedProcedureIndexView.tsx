@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useMemo, useState, useSyncExternalStore } from "react"
 import { useRouter } from "next/navigation"
-import { ArrowDown, ArrowUp, Bookmark, Eye, GitBranch, Heart, MessageCircle, Plus, Send, X } from "lucide-react"
+import { ArrowDown, ArrowUp, Bookmark, Download, Eye, GitBranch, Heart, MessageCircle, Plus, Send, X } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
 import TriangleIcon from "@/components/TriangleIcon"
@@ -68,6 +68,35 @@ function slugify(value: string) {
     .replace(/^-|-$/g, "")
 }
 
+function getCompactBranchPrefix(value?: string) {
+  if (!value) return ""
+
+  return value
+    .replace(/\bknee system\b/gi, "")
+    .replace(/\bhip system\b/gi, "")
+    .replace(/\bshoulder system\b/gi, "")
+    .replace(/\bankle system\b/gi, "")
+    .replace(/\bsystem\b/gi, "")
+    .replace(/\bapproach\b/gi, "")
+    .replace(/\bknee\b/gi, "")
+    .replace(/\bhip\b/gi, "")
+    .replace(/\bshoulder\b/gi, "")
+    .replace(/\bankle\b/gi, "")
+    .replace(/\s{2,}/g, " ")
+    .trim()
+}
+
+function buildBranchCardTitle(procedureName: string, branch: BranchEntry) {
+  const prefix =
+    getCompactBranchPrefix(branch.systemName) ||
+    getCompactBranchPrefix(branch.variantName) ||
+    getCompactBranchPrefix(branch.approach)
+
+  if (!prefix) return procedureName
+  if (procedureName.toLowerCase().startsWith(prefix.toLowerCase())) return procedureName
+  return `${prefix} ${procedureName}`.replace(/\s{2,}/g, " ").trim()
+}
+
 function formatDate(value?: string) {
   if (!value) return "Recently updated"
   return new Date(value).toLocaleDateString("en-GB", {
@@ -85,7 +114,7 @@ function getOverviewText(procedure: Procedure) {
   return (
     procedure.description ||
     procedure.sections.find((section) => section.summary?.trim())?.summary ||
-    "Choose a branch below, then inspect a published version or create a My Team version from it."
+    "Choose a branch below, then inspect a published version or adapt it."
   )
 }
 
@@ -331,7 +360,7 @@ function VersionDrawer({
                   type="button"
                   className="inline-flex rounded-[10px] bg-[#0077B6] px-3.5 py-2 text-[13px] text-white hover:bg-[#00689f] lg:px-4 lg:text-[14px]"
                 >
-                  Create My Team version
+                  Adapt
                 </button>
               </div>
 
@@ -406,11 +435,8 @@ export default function SharedProcedureIndexView({
   const profile = getProfile()
   const activeTeam = getActiveTeamSnapshot(profile)
   const localOrganization = activeTeam?.internalName ?? profile?.hospital
-  const bookmarkId = `shared-index:${libraryId}:${procedure.id}`
-
   useSyncExternalStore(subscribeLibraries, getLibrariesSnapshot, getLibrariesSnapshot)
   const bookmarks = useSyncExternalStore(subscribeBookmarks, getBookmarksSnapshot, getBookmarksSnapshot)
-  const saved = useMemo(() => bookmarks.some((bookmark) => bookmark.id === bookmarkId), [bookmarkId, bookmarks])
 
   const publishedCards = useMemo(
     () => getPublishedCardsByFamilySnapshot(procedure.familyId),
@@ -427,6 +453,11 @@ export default function SharedProcedureIndexView({
   const selectedVersion = useMemo(
     () => selectedBranch?.versions.find((version) => version.id === selectedVersionId) ?? null,
     [selectedBranch, selectedVersionId],
+  )
+  const bookmarkId = selectedVersion ? `shared-index:${libraryId}:${selectedVersion.id}` : ""
+  const saved = useMemo(
+    () => (selectedVersion ? bookmarks.some((bookmark) => bookmark.id === bookmarkId) : false),
+    [bookmarkId, bookmarks, selectedVersion],
   )
   const filteredBranches = useMemo(() => {
     return branches.filter((branch) =>
@@ -486,7 +517,7 @@ export default function SharedProcedureIndexView({
 
   function handleStartCreate(branch: BranchEntry) {
     setSelectedBranchId(branch.id)
-    setVariantName(`${branch.systemName} - My Team`)
+    setVariantName(buildBranchCardTitle(procedure.name, branch))
     setSupplierName(branch.supplierName ?? branch.systemName)
     setComposerOpen(true)
     setMessage("")
@@ -549,7 +580,45 @@ export default function SharedProcedureIndexView({
       setSupplierName("")
       router.push(`/libraries/${nextLibraryId}/cards/${created.id}`)
     } catch {
-      setMessage("Unable to create version right now.")
+      setMessage("Unable to adapt right now.")
+    } finally {
+      setIsCreating(false)
+    }
+  }
+
+  function handleAddTeamVersion(branch: BranchEntry) {
+    setSelectedBranchId(branch.id)
+    setIsCreating(true)
+    setMessage("")
+
+    try {
+      const nextLibraryId =
+        getDefaultLocalLibraryId()
+        ?? createLocalLibrary({
+          name: "My Local Cards",
+          description: "Local procedure cards created from the global repository.",
+          visibility: "organization",
+        }).id
+
+      const createdName = buildBranchCardTitle(procedure.name, branch)
+      const created = addCardToLocalLibrary({
+        libraryId: nextLibraryId,
+        sourceCard: {
+          ...procedure,
+          name: createdName,
+          variantLabel: branch.variantName,
+          approach: branch.approach,
+          description: `Local ${procedure.name} version based on ${branch.systemName}.`,
+          implantSystem: branch.systemName,
+          sections: [],
+          status: "draft",
+          cardScope: "local",
+        },
+      })
+
+      router.push(`/libraries/${nextLibraryId}/cards/${created.id}`)
+    } catch {
+      setMessage("Unable to create your team version right now.")
     } finally {
       setIsCreating(false)
     }
@@ -598,28 +667,43 @@ export default function SharedProcedureIndexView({
                 className="inline-flex items-center gap-1.5 text-[#0F4C5C] hover:text-[#10243E]"
               >
                 <Plus size={14} />
-                Create My Team version
+                Create
               </button>
-              <button
-                type="button"
-                onClick={() => {
-                  if (saved) {
-                    removeBookmark(bookmarkId)
-                    return
-                  }
+              {selectedVersion ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setComposerOpen((value) => !value)
+                    setMessage("")
+                  }}
+                  className="inline-flex items-center gap-1.5 text-[#0F4C5C] hover:text-[#10243E]"
+                >
+                  <Download size={14} />
+                  Adapt
+                </button>
+              ) : null}
+              {selectedVersion ? (
+                <button
+                  type="button"
+                  onClick={() => {
+                    if (saved) {
+                      removeBookmark(bookmarkId)
+                      return
+                    }
 
-                  saveBookmark({
-                    id: bookmarkId,
-                    title: procedure.name,
-                    subtitle: `Community | ${hierarchyLabel}`,
-                    href: `/libraries/${libraryId}/cards/${procedure.id}`,
-                  })
-                }}
-                className="inline-flex items-center gap-1.5 text-[#0F4C5C] hover:text-[#10243E]"
-              >
-                <Bookmark size={14} />
-                {saved ? "Bookmarked" : "Bookmark"}
-              </button>
+                    saveBookmark({
+                      id: bookmarkId,
+                      title: selectedVersion.name,
+                      subtitle: `Community | ${hierarchyLabel}`,
+                      href: selectedVersion.href,
+                    })
+                  }}
+                  className="inline-flex items-center gap-1.5 text-[#0F4C5C] hover:text-[#10243E]"
+                >
+                  <Bookmark size={14} />
+                  {saved ? "Bookmarked" : "Bookmark"}
+                </button>
+              ) : null}
             </section>
 
             <section className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[14px] text-[#61758B] lg:text-[15px]">
@@ -721,7 +805,7 @@ export default function SharedProcedureIndexView({
                     type="button"
                     onClick={() => setComposerOpen(false)}
                     className="text-[16px] text-[#61758B]"
-                    aria-label="Close create version"
+                    aria-label="Close adapt panel"
                   >
                     <X size={16} />
                   </button>
@@ -732,14 +816,14 @@ export default function SharedProcedureIndexView({
                 <div className="px-1 py-4 lg:border-b lg:border-[#E3EDF1]">
                   <div className="mb-3 text-[14px] text-[#61758B]">
                     {selectedBranch
-                      ? <>Creating from <span className="text-[#10243E]">{selectedBranch.systemName}</span>.</>
-                      : <>Select a branch below first, then create a My Team version from that branch.</>}
+                      ? <>Adapting from <span className="text-[#10243E]">{selectedBranch.systemName}</span>.</>
+                      : <>Select a branch below first, then adapt from that branch.</>}
                   </div>
                   <div className="space-y-3">
                     <input
                       value={variantName}
                       onChange={(event) => setVariantName(event.target.value)}
-                      placeholder="My Team version name"
+                      placeholder="Version name"
                       className="w-full rounded-[6px] border border-[#D5EAF1] bg-[#F8FBFD] px-3 py-2.5 text-[15px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
                     />
                     <input
@@ -756,7 +840,7 @@ export default function SharedProcedureIndexView({
                         onClick={handleCreateVariant}
                         className="rounded-[6px] bg-[#2A96A8] px-3 py-2 text-[14px] text-white disabled:opacity-60"
                       >
-                        {isCreating ? "Creating..." : "Create My Team version"}
+                        {isCreating ? "Adapting..." : "Adapt"}
                       </button>
                     </div>
                   </div>
@@ -864,8 +948,18 @@ export default function SharedProcedureIndexView({
                                 </span>
                               </button>
                             )) : (
-                              <div className="px-2 py-3 text-[14px] text-[#61758B]">
-                                No published versions yet for this branch.
+                              <div className="px-2 py-3">
+                                <div className="text-[14px] text-[#61758B]">
+                                  No published versions yet for this branch.
+                                </div>
+                                <button
+                                  type="button"
+                                  onClick={() => handleAddTeamVersion(branch)}
+                                  disabled={isCreating}
+                                  className="mt-2 inline-flex items-center rounded-[10px] bg-[#0077B6] px-3.5 py-2 text-[13px] text-white transition-colors hover:bg-[#00689f] disabled:cursor-not-allowed disabled:bg-[#9CC9DB]"
+                                >
+                                  Add your team version
+                                </button>
                               </div>
                             )}
                           </div>
