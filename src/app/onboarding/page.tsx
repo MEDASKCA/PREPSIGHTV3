@@ -11,6 +11,7 @@ import {
   saveProfile,
   shouldForceOnboarding,
 } from "@/lib/profile"
+import { clearDemoSession, isDemoSessionActive } from "@/lib/demo-access"
 import { getFirestoreHospitals } from "@/lib/firestore"
 import { PrepSightProfile } from "@/lib/types"
 import { ONBOARDING_SETTING_SPECIALTIES } from "@/lib/settings"
@@ -126,6 +127,7 @@ function CompactSpecialtyToggle({
 export default function OnboardingPage() {
   const router = useRouter()
   const [user, setUser] = useState<User | null | undefined>(undefined)
+  const [demoSessionActive, setDemoSessionActive] = useState(() => isDemoSessionActive())
   const [step, setStep] = useState(1)
   const [animKey, setAnimKey] = useState(0)
   const [hasStartedOnboarding, setHasStartedOnboarding] = useState(false)
@@ -148,6 +150,10 @@ export default function OnboardingPage() {
   }, [router])
 
   useEffect(() => onAuthChange((u) => setUser(u ?? null)), [])
+
+  useEffect(() => {
+    setDemoSessionActive(isDemoSessionActive())
+  }, [])
 
   useEffect(() => {
     let cancelled = false
@@ -311,6 +317,7 @@ export default function OnboardingPage() {
     const confirmed = window.confirm("Cancel registration? You will be signed out and returned to the login page.")
     if (!confirmed) return
     clearProfile()
+    clearDemoSession()
     await signOut().catch(() => undefined)
     if (typeof window !== "undefined") {
       window.location.replace("/login")
@@ -362,7 +369,7 @@ export default function OnboardingPage() {
 
   return (
     <div className="onboarding-stage min-h-screen flex flex-col overflow-x-clip">
-      {user ? (
+      {user || demoSessionActive ? (
         <div className="absolute right-4 top-4 z-20 md:right-6 md:top-6">
           <button
             type="button"

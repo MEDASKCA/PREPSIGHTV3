@@ -55,6 +55,19 @@ function sortCards(cards: Procedure[]): Procedure[] {
   })
 }
 
+function dedupeLibraries(libraries: LibraryRecord[]): LibraryRecord[] {
+  const byId = new Map<string, LibraryRecord>()
+
+  for (const library of libraries) {
+    const current = byId.get(library.id)
+    if (!current || library.updatedAt.localeCompare(current.updatedAt) >= 0) {
+      byId.set(library.id, library)
+    }
+  }
+
+  return [...byId.values()].sort((left, right) => right.updatedAt.localeCompare(left.updatedAt))
+}
+
 function readLocalLibraries(): LibraryRecord[] {
   if (typeof window === "undefined") return []
 
@@ -70,7 +83,9 @@ function readLocalLibraries(): LibraryRecord[] {
     const parsed = JSON.parse(raw)
     cachedLibrariesRaw = raw
     cachedLocalLibraries = Array.isArray(parsed)
-      ? parsed.filter((entry): entry is LibraryRecord => Boolean(entry) && typeof entry.id === "string")
+      ? dedupeLibraries(
+          parsed.filter((entry): entry is LibraryRecord => Boolean(entry) && typeof entry.id === "string"),
+        )
       : []
     return cachedLocalLibraries
   } catch {
@@ -124,9 +139,10 @@ function readPublishedCards(): Procedure[] {
 
 function writeLocalLibraries(libraries: LibraryRecord[]): void {
   if (typeof window === "undefined") return
-  const raw = JSON.stringify(libraries)
+  const nextLibraries = dedupeLibraries(libraries)
+  const raw = JSON.stringify(nextLibraries)
   cachedLibrariesRaw = raw
-  cachedLocalLibraries = libraries
+  cachedLocalLibraries = nextLibraries
   cachedSnapshotKey = undefined
   window.localStorage.setItem(LIBRARIES_STORAGE_KEY, raw)
 }
@@ -158,7 +174,7 @@ function mergeLibraries(primary: LibraryRecord[], secondary: LibraryRecord[]): L
   const byId = new Map<string, LibraryRecord>()
   for (const library of secondary) byId.set(library.id, library)
   for (const library of primary) byId.set(library.id, library)
-  return [...byId.values()].sort((left, right) => right.updatedAt.localeCompare(left.updatedAt))
+  return dedupeLibraries([...byId.values()])
 }
 
 function mergeCardMaps(primary: StoredCardsByLibrary, secondary: StoredCardsByLibrary): StoredCardsByLibrary {
@@ -248,7 +264,7 @@ function ensureDefaultLocalLibrary(libraries: LibraryRecord[]): LibraryRecord[] 
     (library) => library.libraryType === "local" && library.ownerId === identity.ownerId,
   )
   if (matchingLibrary) {
-    return libraries.map((library) =>
+    return dedupeLibraries(libraries.map((library) =>
       library.id === matchingLibrary.id
         ? {
             ...library,
@@ -256,10 +272,10 @@ function ensureDefaultLocalLibrary(libraries: LibraryRecord[]): LibraryRecord[] 
             ownerPublicAlias: identity.ownerPublicAlias,
           }
         : library,
-    )
+    ))
   }
 
-  return [
+  return dedupeLibraries([
     {
       id: `local-${slugify(identity.ownerName) || "hospital"}-library`,
       name: `${identity.ownerName} Local Cards`,
@@ -276,7 +292,7 @@ function ensureDefaultLocalLibrary(libraries: LibraryRecord[]): LibraryRecord[] 
       updatedAt: identity.createdAt,
     },
     ...libraries,
-  ]
+  ])
 }
 
 async function hydrateRemoteLibraries(uid: string | null): Promise<void> {
@@ -385,7 +401,7 @@ export function getLibrariesSnapshot(): LibraryRecord[] {
   if (snapshotKey === cachedSnapshotKey) return cachedSnapshot
 
   cachedSnapshotKey = snapshotKey
-  cachedSnapshot = [...sharedLibraries, ...localLibraries]
+  cachedSnapshot = dedupeLibraries([...sharedLibraries, ...localLibraries])
   return cachedSnapshot
 }
 

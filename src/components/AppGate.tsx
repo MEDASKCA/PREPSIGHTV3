@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { onAuthChange, type User } from "@/lib/auth"
+import { isDemoSessionActive } from "@/lib/demo-access"
 import { hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import AdminUnlocker from "./AdminUnlocker"
 import MedaskcaLoadingScreen from "./MedaskcaLoadingScreen"
@@ -11,7 +12,6 @@ const PUBLIC_ROUTES    = ["/login", "/privacy", "/terms"]
 const ONBOARDING_ROUTE = "/onboarding"
 const ADMIN_ROUTE      = "/admin"
 const PENDING_AUTH_KEY = "prepsight_pending_auth"
-const ALLOW_GUEST_BROWSING = true
 
 export default function AppGate({ children }: { children: React.ReactNode }) {
   const router = useRouter()
@@ -25,6 +25,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   const [authReady, setAuthReady] = useState(false)
   const [profileReady, setProfileReady] = useState(false)
   const [profileComplete, setProfileComplete] = useState(false)
+  const [demoSessionActive, setDemoSessionActive] = useState(() => isDemoSessionActive())
 
   function hasPendingAuth() {
     if (typeof window === "undefined") return false
@@ -40,6 +41,10 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       setAuthReady(true)
     })
   }, [])
+
+  useEffect(() => {
+    setDemoSessionActive(isDemoSessionActive())
+  }, [pathname])
 
   useEffect(() => {
     let cancelled = false
@@ -88,8 +93,8 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     const pendingAuth = hasPendingAuth()
 
     if (!user && isAdmin && !pendingAuth) { router.replace("/login"); return }
-    if (ALLOW_GUEST_BROWSING && !user && pathname === "/login") { router.replace("/"); return }
-    if (!ALLOW_GUEST_BROWSING && !user && !isPublic && !pendingAuth) { router.replace("/login"); return }
+    if (!user && demoSessionActive && (pathname === "/" || pathname === "/login")) { router.replace("/onboarding"); return }
+    if (!user && !demoSessionActive && !isPublic && !pendingAuth) { router.replace("/login"); return }
     if (user && isPublic && !isLegalPage) {
       router.replace((!profileComplete || forceOnboarding) ? "/onboarding" : "/")
       return
@@ -110,6 +115,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     isOnboarding,
     isAdmin,
     isLegalPage,
+    demoSessionActive,
   ])
 
   if (!authReady || user === undefined || !profileReady) {
@@ -117,7 +123,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   }
 
   if (!user) {
-    if (ALLOW_GUEST_BROWSING && !isAdmin && !isOnboarding) {
+    if (demoSessionActive && !isAdmin) {
       return (
         <div className="min-h-screen bg-[#F4F7FA]">
           <div className="min-w-0 flex min-h-screen flex-col">

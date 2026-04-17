@@ -16,7 +16,19 @@ import {
 import { getProfile, getRelevantSettings } from "@/lib/profile"
 import { getAnatomyNameById, getServiceLineNameById } from "@/lib/operating-theatre-taxonomy"
 import { CLINICAL_SETTINGS } from "@/lib/settings"
+import { getActiveTeamSnapshot } from "@/lib/team-workspaces"
 import type { ClinicalSetting, Procedure } from "@/lib/types"
+
+type LibraryTab = "procedures" | "updates"
+
+type LibraryUpdateItem = {
+  id: string
+  title: string
+  detail: string
+  kindLabel: string
+  timestamp: string
+  href: string
+}
 
 function getSpecialtyLabel(card: Procedure) {
   return card.specialty || card.setting || "General"
@@ -64,6 +76,107 @@ function getLibraryOwnerLabel(library?: { libraryType: "shared" | "local"; owner
   if (!library) return ""
   if (library.libraryType === "shared") return library.ownerPublicAlias?.trim() || library.ownerName
   return library.ownerName
+}
+
+function formatUpdateDate(value?: string) {
+  if (!value) return "Recently"
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return "Recently"
+
+  const diffMs = Date.now() - date.getTime()
+  const diffMinutes = Math.max(1, Math.floor(diffMs / 60000))
+  if (diffMinutes < 60) return `${diffMinutes}min ago`
+
+  const diffHours = Math.floor(diffMinutes / 60)
+  if (diffHours < 24) return `${diffHours}h ago`
+  return date.toLocaleDateString("en-GB", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "2-digit",
+  })
+}
+
+function getUpdateContextLabel(card: Procedure) {
+  const specialty = getSpecialtyLabel(card)
+  const subspecialty = getSubspecialtyLabel(card)
+  const anatomyGroup = getAnatomyGroupLabel(card)
+
+  return [specialty, subspecialty, anatomyGroup].filter(Boolean).join(" · ")
+}
+
+function normalizeOrganizationName(value?: string) {
+  return (value ?? "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+}
+
+function isSameOrganization(cardOrganization: string | undefined, localOrganization: string | undefined) {
+  const left = normalizeOrganizationName(cardOrganization)
+  const right = normalizeOrganizationName(localOrganization)
+  if (!left || !right) return false
+  return left.includes(right) || right.includes(left)
+}
+
+function getSharedUpdateDetail(card: Procedure, contextLabel: string, localOrganization?: string) {
+  if (isSameOrganization(card.sourceOrganizationName, localOrganization)) {
+    return `${contextLabel} Â· By ${card.sourceContributorName ?? card.sourceContributorPublicAlias ?? "your team"}`
+  }
+
+  return `${contextLabel} Â· ${card.sourceOrganizationPublicAlias ?? "PSH-000"}`
+}
+
+function buildLibraryUpdates(
+  cards: Procedure[],
+  libraryType: "shared" | "local",
+  libraryId: string,
+  localOrganization?: string,
+): LibraryUpdateItem[] {
+  const updates = cards.map((card) => {
+    const createdAt = card.createdAt ?? card.updatedAt ?? card.publishedAt
+    const updatedAt = card.updatedAt ?? card.publishedAt ?? card.createdAt
+    const publishedAt = card.publishedAt
+    const contextLabel = getUpdateContextLabel(card)
+    const href = `/libraries/${libraryId}/cards/${card.id}`
+
+    if (libraryType === "shared") {
+      const isNewPublication = Boolean(publishedAt) && publishedAt === updatedAt
+      return {
+        id: `update:${card.id}:${publishedAt ?? updatedAt ?? createdAt ?? "unknown"}`,
+        title: card.name,
+        detail: getSharedUpdateDetail(card, contextLabel, localOrganization),
+        kindLabel: isNewPublication ? "New" : "Revised",
+        timestamp: publishedAt ?? updatedAt ?? createdAt ?? "",
+        href,
+      }
+    }
+
+    const isPublished = card.publishState === "published"
+    const isNewDraft = Boolean(createdAt) && createdAt === updatedAt
+
+    return {
+      id: `update:${card.id}:${updatedAt ?? createdAt ?? publishedAt ?? "unknown"}`,
+      title: card.name,
+      detail: isPublished
+        ? `${contextLabel} · Shared from ${card.sourceOrganizationName ?? "your workspace"}`
+        : isNewDraft
+          ? `${contextLabel} · Added to My Team by ${card.sourceContributorName ?? "your team"}`
+          : `${contextLabel} · Updated by ${card.sourceContributorName ?? "your team"}`,
+      kindLabel: isPublished ? "Published" : isNewDraft ? "New" : "Revised",
+      timestamp: updatedAt ?? createdAt ?? publishedAt ?? "",
+      href,
+    }
+  })
+
+  return updates
+    .filter((item) => item.timestamp)
+    .sort((left, right) => right.timestamp.localeCompare(left.timestamp))
+}
+
+function renderCompactUpdateMeta(update: LibraryUpdateItem) {
+  return [update.kindLabel, update.detail, formatUpdateDate(update.timestamp)]
+    .filter(Boolean)
+    .join(" · ")
 }
 
 function getProcedureClassBucket(card: Procedure): string | null {
@@ -403,6 +516,8 @@ export default function LibraryPageClient({
     getLibrariesSnapshot,
   )
   const profile = getProfile()
+  const activeTeam = getActiveTeamSnapshot(profile)
+  const localOrganization = activeTeam?.internalName ?? profile?.hospital
   const library = getLibraryByIdSnapshot(libraryId)
   const cards = useMemo(() => getLibraryCardsSnapshot(libraryId), [libraryId, libraries])
   const activeSetting = useMemo<ClinicalSetting>(() => {
@@ -417,11 +532,12 @@ export default function LibraryPageClient({
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [desktopNavOpen, setDesktopNavOpen] = useState(true)
   const [query, setQuery] = useState("")
+  const [activeTab, setActiveTab] = useState<LibraryTab>("procedures")
   const [expandedGroups, setExpandedGroups] = useState<Record<string, boolean>>({})
   const [expandedBranches, setExpandedBranches] = useState<Record<string, boolean>>({})
   const [mobileExpandedGroups, setMobileExpandedGroups] = useState<Record<string, boolean>>({})
   const [mobileExpandedBranches, setMobileExpandedBranches] = useState<Record<string, boolean>>({})
-  const contributorCount = library?.libraryType === "shared" ? 3 : 1
+  const [mobileExpandedUpdates, setMobileExpandedUpdates] = useState<Record<string, boolean>>({})
   const displayName = library ? getLibraryDisplayName(library.name) : ""
   const ownerLabel = getLibraryOwnerLabel(library)
   const showOwnerName = Boolean(ownerLabel) && ownerLabel.trim().toLowerCase() !== "prepsight"
@@ -469,6 +585,13 @@ export default function LibraryPageClient({
         branches: buildBranchTree(`branch:${label}`, value),
       }))
   }, [cards, query])
+  const updates = useMemo(() => {
+    if (!library) return []
+    return buildLibraryUpdates(cards, library.libraryType, library.id, localOrganization)
+  }, [cards, library])
+  const updateEmptyMessage = library?.libraryType === "shared"
+    ? "No community updates have been recorded for this collection yet."
+    : "No My Team updates have been recorded for this collection yet."
 
   function totalForBranch(branch: TreeBranch): number {
     return branch.cards.length + branch.branches.reduce((sum, child) => sum + totalForBranch(child), 0)
@@ -534,6 +657,18 @@ export default function LibraryPageClient({
     }))
   }
 
+  function isMobileUpdateExpanded(updateId: string) {
+    if (mobileExpandedUpdates[updateId] !== undefined) return mobileExpandedUpdates[updateId]
+    return false
+  }
+
+  function toggleMobileUpdate(updateId: string) {
+    setMobileExpandedUpdates((current) => ({
+      ...current,
+      [updateId]: !isMobileUpdateExpanded(updateId),
+    }))
+  }
+
   if (!library) {
     return (
       <div className="app-shell-bg flex min-h-screen items-center justify-center px-6">
@@ -559,75 +694,138 @@ export default function LibraryPageClient({
         menuContent={<AppMenuContent />}
       />
 
-      <main className="w-full px-4 pt-0 pb-4 lg:pl-0 lg:pr-4 lg:pt-4 lg:pb-4">
-        <div className="space-y-4 lg:hidden">
-          <section className="space-y-2 px-1">
+      <main className="w-full px-0 pt-0 pb-0 lg:pl-0 lg:pr-4 lg:pt-4 lg:pb-4">
+        <div className="space-y-0 lg:hidden">
+          <section className="space-y-2 px-4 pt-3 pb-2">
             <div>
               {showOwnerName ? <p className="text-[13px] text-[#5B7A8A]">{ownerLabel}</p> : null}
               <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-[#10243E]">{displayName}</h1>
             </div>
           </section>
 
-          <section className="overflow-x-auto border-b border-[#BFEAF5]">
-            <nav className="flex min-w-max items-center gap-6 text-[14px] text-[#406175]">
-              <div className="border-b-2 border-[#0F4C5C] px-1 py-3 text-[#10243E]">Procedures {cards.length}</div>
-              <div className="px-1 py-3">Contributors {contributorCount}</div>
+          <section className="overflow-x-auto px-4 py-2">
+            <nav className="flex min-w-max items-center gap-2 text-[14px]">
+              <button
+                type="button"
+                onClick={() => setActiveTab("procedures")}
+                className={`rounded-[10px] border px-3 py-2 font-medium transition-colors ${
+                  activeTab === "procedures"
+                    ? "border-[#4FAFCD] bg-[#EAF7FD] text-[#10243E]"
+                    : "border-[#BFEAF5] bg-white text-[#406175]"
+                }`}
+              >
+                Procedures {cards.length}
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("updates")}
+                className={`rounded-[10px] border px-3 py-2 font-medium transition-colors ${
+                  activeTab === "updates"
+                    ? "border-[#4FAFCD] bg-[#EAF7FD] text-[#10243E]"
+                    : "border-[#BFEAF5] bg-white text-[#406175]"
+                }`}
+              >
+                Updates {updates.length}
+              </button>
             </nav>
           </section>
 
-          <section className="-mx-1 overflow-hidden rounded-[12px] border border-[#DCEAF0] bg-white shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-            <div className="border-b border-[#D7E9EE] bg-[#10243E] px-4 py-3 text-[14px] text-white">
-              Specialty hierarchy
-            </div>
-            {tree.length === 0 ? (
-              <div className="px-4 py-5 text-[14px] text-[#61758B]">
-                {library.libraryType === "local" ? (
-                  <div className="space-y-3">
-                    <p>Your hospital hasn&apos;t added any procedures yet.</p>
-                    <p>Browse the PrepSight Library to find a procedure and adapt it for your team.</p>
-                    <Link
-                      href={`/libraries/${sharedLibraryId}`}
-                      className="inline-flex rounded-[10px] border border-[#0F4C5C] bg-[#0F4C5C] px-3 py-2 text-[13px] font-medium text-white"
-                    >
-                      Browse PrepSight Library
-                    </Link>
-                  </div>
-                ) : (
-                  <p>No procedures are available here yet.</p>
-                )}
+          {activeTab === "procedures" ? (
+            <section className="space-y-0">
+              <div className="bg-[#10243E] px-4 py-3 text-[14px] font-medium text-white">
+                Specialty hierarchy
               </div>
-            ) : (
-              tree.map((group) => (
-                <section key={group.id} className="border-b border-[#E8EFF6] last:border-b-0">
-                  <button
-                    type="button"
-                    onClick={() => toggleMobileGroup(group.id)}
-                    className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px_18px] items-center gap-x-2 bg-[#EAF7FD] px-4 py-3 text-left font-normal text-[#10243E]"
-                  >
-                    <div className="flex items-center justify-center">
-                      <FolderBadge tone={folderTone} open={isMobileGroupExpanded(group.id)} size="lg" />
+              {tree.length === 0 ? (
+                <div className="px-4 py-3 text-[14px] text-[#61758B]">
+                  {library.libraryType === "local" ? (
+                    <div className="space-y-3">
+                      <p>Your hospital hasn&apos;t added any procedures yet.</p>
+                      <p>Browse the PrepSight Library to find a procedure and adapt it for your team.</p>
+                      <Link
+                        href={`/libraries/${sharedLibraryId}`}
+                        className="inline-flex rounded-[10px] border border-[#0F4C5C] bg-[#0F4C5C] px-3 py-2 text-[13px] font-medium text-white"
+                      >
+                        Browse PrepSight Library
+                      </Link>
                     </div>
-                    <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#10243E]">{group.label}</p>
-                    <span className="text-right text-[15px] font-normal text-[#10243E]">{totalForGroup(group)}</span>
-                    <span className="flex justify-end">
-                      <MobileTriangle open={isMobileGroupExpanded(group.id)} />
-                    </span>
-                  </button>
+                  ) : (
+                    <p>No procedures are available here yet.</p>
+                  )}
+                </div>
+              ) : (
+                <div className="border-y border-[#D7E9EE] bg-white">
+                  {tree.map((group) => (
+                    <section key={group.id} className="border-b border-[#E8EFF6] last:border-b-0">
+                      <button
+                        type="button"
+                        onClick={() => toggleMobileGroup(group.id)}
+                        className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px_18px] items-center gap-x-2 bg-[#EAF7FD] px-3 py-2 text-left font-normal text-[#10243E]"
+                      >
+                        <div className="flex items-center justify-center">
+                          <FolderBadge tone={folderTone} open={isMobileGroupExpanded(group.id)} size="lg" />
+                        </div>
+                        <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#10243E]">{group.label}</p>
+                        <span className="text-right text-[15px] font-normal text-[#10243E]">{totalForGroup(group)}</span>
+                        <span className="flex justify-end">
+                          <MobileTriangle open={isMobileGroupExpanded(group.id)} />
+                        </span>
+                      </button>
 
-                  {isMobileGroupExpanded(group.id) ? (
-                    <TreeGroupContent
-                      group={group}
-                      libraryId={library.id}
-                      isBranchExpanded={isMobileBranchExpanded}
-                      toggleBranch={toggleMobileBranch}
-                      folderTone={folderTone}
-                      compact
-                    />
-                  ) : null}
-                </section>
-              ))
-            )}
-          </section>
+                      {isMobileGroupExpanded(group.id) ? (
+                        <TreeGroupContent
+                          group={group}
+                          libraryId={library.id}
+                          isBranchExpanded={isMobileBranchExpanded}
+                          toggleBranch={toggleMobileBranch}
+                          folderTone={folderTone}
+                          compact
+                        />
+                      ) : null}
+                    </section>
+                  ))}
+                </div>
+              )}
+            </section>
+          ) : (
+            <section className="space-y-0">
+              <div className="bg-[#10243E] px-4 py-3 text-[14px] font-medium text-white">
+                Recent updates
+              </div>
+              {updates.length > 0 ? (
+                <div className="border-y border-[#D7E9EE] bg-white">
+                  {updates.map((update) => (
+                    <section key={update.id} className="border-b border-[#E8EFF6] last:border-b-0">
+                      <button
+                        type="button"
+                        onClick={() => toggleMobileUpdate(update.id)}
+                        className="grid w-full grid-cols-[minmax(0,1fr)_auto_18px] items-center gap-x-2 bg-[#EAF7FD] px-3 py-2 text-left transition-colors hover:bg-[#DDF2F8]"
+                      >
+                        <p className="truncate text-[14px] font-medium text-[#10243E]">{update.title}</p>
+                        <p className="text-[12px] text-[#0F4C5C]">{formatUpdateDate(update.timestamp)}</p>
+                        <span className="flex justify-end">
+                          <MobileTriangle open={isMobileUpdateExpanded(update.id)} />
+                        </span>
+                      </button>
+
+                      {isMobileUpdateExpanded(update.id) ? (
+                        <div className="border-t border-[#EEF4F7] px-3 py-2">
+                          <p className="text-[14px] leading-5 text-[#0F4C5C]">{renderCompactUpdateMeta(update)}</p>
+                          <Link
+                            href={update.href}
+                            className="mt-2 inline-flex items-center justify-center rounded-xl bg-[#0096C7] px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-[#0085B2] active:bg-[#0077B6]"
+                          >
+                            Open procedure
+                          </Link>
+                        </div>
+                      ) : null}
+                    </section>
+                  ))}
+                </div>
+              ) : (
+                <div className="px-4 py-3 text-[14px] text-[#61758B]">{updateEmptyMessage}</div>
+              )}
+            </section>
+          )}
         </div>
 
         <div className={`hidden lg:grid lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)]"}`}>
@@ -643,11 +841,24 @@ export default function LibraryPageClient({
 
             <section className="overflow-x-auto border-b border-[#BFEAF5]">
               <nav className="flex min-w-max items-center gap-6 text-[14px] text-[#406175]">
-                <div className="border-b-2 border-[#0F4C5C] px-1 py-3 text-[#10243E]">Procedures {cards.length}</div>
-                <div className="px-1 py-3">Contributors {contributorCount}</div>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("procedures")}
+                  className={`px-1 py-3 ${activeTab === "procedures" ? "border-b-2 border-[#0F4C5C] text-[#10243E]" : ""}`}
+                >
+                  Procedures {cards.length}
+                </button>
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("updates")}
+                  className={`px-1 py-3 ${activeTab === "updates" ? "border-b-2 border-[#0F4C5C] text-[#10243E]" : ""}`}
+                >
+                  Updates {updates.length}
+                </button>
               </nav>
             </section>
 
+            {activeTab === "procedures" ? (
             <section className="overflow-hidden rounded-[12px] border border-[#DCEAF0] bg-white shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
               <div className="border-b border-[#D7E9EE] bg-[#10243E] px-4 py-3 text-[14px] text-white">
                 Specialty hierarchy
@@ -707,6 +918,31 @@ export default function LibraryPageClient({
                 )}
               </div>
             </section>
+            ) : (
+              <section className="overflow-hidden rounded-[12px] border border-[#DCEAF0] bg-white shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+                <div className="border-b border-[#D7E9EE] bg-[#10243E] px-4 py-3 text-[14px] text-white">
+                  Recent updates
+                </div>
+                {updates.length > 0 ? (
+                  <div className="divide-y divide-[#E8EFF6]">
+                    {updates.map((update) => (
+                      <Link
+                        key={update.id}
+                        href={update.href}
+                        className="block px-4 py-3 transition-colors hover:bg-[#F8FBFD]"
+                      >
+                        <div className="min-w-0">
+                          <p className="text-[14px] font-medium text-[#10243E]">{update.title}</p>
+                          <p className="mt-1 text-[12px] leading-5 text-[#61758B]">{renderCompactUpdateMeta(update)}</p>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="px-4 py-5 text-[14px] text-[#61758B]">{updateEmptyMessage}</div>
+                )}
+              </section>
+            )}
           </div>
 
         </div>
@@ -714,3 +950,5 @@ export default function LibraryPageClient({
     </div>
   )
 }
+
+

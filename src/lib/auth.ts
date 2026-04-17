@@ -19,8 +19,6 @@ const microsoftProvider = new OAuthProvider("microsoft.com")
 microsoftProvider.setCustomParameters({ prompt: "select_account" })
 const LOCAL_DEV_AUTH_KEY = "prepsight_local_dev_auth"
 const REDIRECT_AUTH_HOSTS = new Set([
-  "localhost",
-  "127.0.0.1",
   "prepsight.medaskca.com",
   "prepsight.vercel.app",
   "prepsightv3.vercel.app",
