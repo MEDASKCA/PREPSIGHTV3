@@ -43,9 +43,9 @@ export default function LibraryAppShell({
         menuContent={<AppMenuContent />}
       />
 
-      <main className="w-full px-4 pt-0 pb-4 lg:pl-0 lg:pr-4 lg:pt-4 lg:pb-4">
+      <main className="w-full px-4 pt-0 pb-4 lg:px-0 lg:pt-0 lg:pb-0">
         <div
-          className={`lg:grid lg:gap-4 ${
+          className={`lg:grid lg:gap-y-4 lg:gap-x-0 ${
             desktopNavOpen
               ? rightRail
                 ? "lg:grid-cols-[210px_minmax(0,1fr)_300px]"

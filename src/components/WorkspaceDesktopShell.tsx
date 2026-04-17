@@ -23,8 +23,8 @@ export default function WorkspaceDesktopShell({
         searchPlaceholder="Search anywhere..."
       />
 
-      <main className="w-full px-4 pt-4 pb-4 lg:pl-0 lg:pr-4">
-        <div className={`grid gap-4 ${desktopNavOpen ? "grid-cols-[210px_minmax(0,1fr)_300px]" : rightRail ? "grid-cols-[minmax(0,1fr)_300px]" : "grid-cols-[minmax(0,1fr)]"}`}>
+      <main className="w-full px-4 pt-0 pb-4 lg:px-0 lg:pb-0">
+        <div className={`grid gap-y-4 gap-x-0 ${desktopNavOpen ? (rightRail ? "grid-cols-[210px_minmax(0,1fr)_300px]" : "grid-cols-[210px_minmax(0,1fr)]") : (rightRail ? "grid-cols-[minmax(0,1fr)_300px]" : "grid-cols-[minmax(0,1fr)]")}`}>
           {desktopNavOpen ? <WorkspaceNavRail currentNav={currentNav} /> : null}
 
           <div className="min-w-0">{children}</div>

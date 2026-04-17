@@ -22,6 +22,16 @@ service cloud.firestore {
       return get(/databases/$(database)/documents/organizations/$(organizationId)).data.createdBy;
     }
 
+    function membershipDocId(organizationId) {
+      return request.auth.uid + "__" + organizationId;
+    }
+
+    function isActiveOrganizationMember(organizationId) {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/organization_memberships/$(membershipDocId(organizationId))) &&
+        get(/databases/$(database)/documents/organization_memberships/$(membershipDocId(organizationId))).data.status == "active";
+    }
+
     function isMembershipOwnerCreate() {
       return isSignedIn() &&
         request.resource.data.uid == request.auth.uid &&

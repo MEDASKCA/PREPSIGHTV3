@@ -1,25 +1,14 @@
 "use client"
 
 import Link from "next/link"
-import { startTransition, useMemo, useState, useSyncExternalStore } from "react"
-import {
-  ArrowRightLeft,
-  Bookmark,
-  LayoutGrid,
-  RefreshCw,
-} from "lucide-react"
+import { useMemo, useState, useSyncExternalStore } from "react"
 import TriangleIcon from "@/components/TriangleIcon"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
-import { getProfile, getRelevantSettings, setActiveOrganizationId } from "@/lib/profile"
-import {
-  getActiveTeamSnapshot,
-  getTeamWorkspacesForProfile,
-  subscribeTeams,
-  type TeamWorkspaceRecord,
-} from "@/lib/team-workspaces"
+import { getProfile, getRelevantSettings } from "@/lib/profile"
+import { subscribeTeams } from "@/lib/team-workspaces"
 import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
 
 function formatMeta(cardCount: number, typeLabel: string) {
@@ -34,60 +23,6 @@ function getLibraryOwnerLabel(library: { libraryType: "shared" | "local"; ownerN
   return library.libraryType === "shared"
     ? library.ownerPublicAlias?.trim() || library.ownerName
     : library.ownerName
-}
-
-function buildUpdateRows(input: {
-  globalLibraries: ReturnType<typeof getLibrariesSnapshot>
-  localLibraries: ReturnType<typeof getLibrariesSnapshot>
-  workspaceName: string
-}) {
-  const globalUpdates = input.globalLibraries.slice(0, 4).map((library, index) => ({
-    id: `global-${library.id}`,
-    title: `${library.name} has shared procedures ready`,
-    detail: `${getLibraryCardsSnapshot(library.id).length} cards are available in the community collection.`,
-    href: `/libraries/${library.id}`,
-    emphasis: index === 0,
-  }))
-
-  const localUpdates = input.localLibraries.slice(0, 4).map((library, index) => ({
-    id: `local-${library.id}`,
-    title: `${library.ownerName} has My Team work in progress`,
-    detail: `${getLibraryCardsSnapshot(library.id).length} My Team cards belong to this workspace collection.`,
-    href: `/libraries/${library.id}`,
-    emphasis: index === 0,
-  }))
-
-  if (localUpdates.length === 0) {
-    localUpdates.push({
-      id: "local-empty",
-      title: `No My Team collections yet for ${input.workspaceName}`,
-      detail: "Create My Team cards or join another workspace to see operational collections here.",
-      href: "/",
-      emphasis: true,
-    })
-  }
-
-  return { globalUpdates, localUpdates }
-}
-
-function RightRailSection({
-  title,
-  subtitle,
-  children,
-}: {
-  title: string
-  subtitle?: string
-  children: React.ReactNode
-}) {
-  return (
-    <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-4 py-4 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-      <div>
-        <p className="text-[15px] font-medium text-[#10243E]">{title}</p>
-        {subtitle ? <p className="mt-1 text-[13px] leading-6 text-[#6B7F90]">{subtitle}</p> : null}
-      </div>
-      <div className="mt-4">{children}</div>
-    </section>
-  )
 }
 
 function FolderBadge({
@@ -192,7 +127,6 @@ function LibraryTree({
   emptyMessage: string
   compact?: boolean
 }) {
-  const borderColor = tone === "global" ? "border-[#9FD6E2]" : "border-[#D3E5EB]"
   const textColor = tone === "global" ? "text-[#0F4C5C]" : "text-[#10243E]"
   const nodeColor = tone === "global" ? "#0F9FC1" : "#16989A"
   const lineColor = tone === "global" ? "#6FD3EA" : "#8ED9D6"
@@ -321,8 +255,6 @@ export default function LibrariesDashboard() {
   const [mobileGlobalOpen, setMobileGlobalOpen] = useState(false)
   const [mobileLocalOpen, setMobileLocalOpen] = useState(false)
   const profile = getProfile()
-  const activeTeam = getActiveTeamSnapshot(profile)
-  const userTeams = getTeamWorkspacesForProfile(profile)
   const workspaceLabel = useMemo(() => {
     const settings = profile ? getRelevantSettings(profile) : []
     return settings[0] ?? "Operating Theatre"
@@ -334,15 +266,6 @@ export default function LibrariesDashboard() {
       return
     }
     setMobileMenuOpen((value) => !value)
-  }
-
-  function handleSwitchWorkspace(team: TeamWorkspaceRecord) {
-    startTransition(() => {
-      setActiveOrganizationId(team.id)
-      if (typeof window !== "undefined") {
-        window.location.reload()
-      }
-    })
   }
 
   const { filteredLibraries, totalCards } = useMemo(() => {
@@ -371,18 +294,7 @@ export default function LibrariesDashboard() {
     (library) => library.libraryType === "shared" && library.name === workspaceLabel,
   )
   const filteredLocalLibraries = filteredLibraries.filter((library) => library.libraryType === "local")
-  const localCollectionsTitle = filteredLocalLibraries.length === 1 ? "My Team" : "My Teams"
-  const updates = buildUpdateRows({
-    globalLibraries: filteredGlobalLibraries,
-    localLibraries: filteredLocalLibraries,
-    workspaceName: activeTeam?.internalName ?? profile?.hospital ?? "your workspace",
-  })
-
-  const quickActions = [
-    { label: "Browse workspace", href: "/", icon: LayoutGrid, tone: "#14B8A6" },
-    { label: "Open review", href: "/review", icon: RefreshCw, tone: "#F59E0B" },
-    { label: "Switch workspace", href: "/settings/profile", icon: ArrowRightLeft, tone: "#7C5CFC" },
-  ]
+  const localCollectionsTitle = filteredLocalLibraries.length === 1 ? "My Group" : "My Groups"
 
   return (
     <div className="app-shell-bg min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#E5F5F8_0%,#F3F9FB_42%,#F4F7FA_100%)]">
@@ -391,12 +303,12 @@ export default function LibrariesDashboard() {
         onToggleMenu={handleToggleNavigation}
         searchValue={query}
         onSearchChange={setQuery}
-        searchPlaceholder="Find a specialty, collection, or team..."
+        searchPlaceholder="Find a specialty, collection, or group..."
         mobileMenuOnly
         menuContent={<AppMenuContent />}
       />
 
-      <main className="w-full px-4 pt-0 pb-4 lg:pl-0 lg:pr-4 lg:pt-4 lg:pb-4">
+      <main className="w-full px-4 pt-0 pb-4 lg:px-0 lg:pb-0">
         <div className="space-y-4 lg:hidden">
           <section className="px-1">
             <p className="text-[14px] text-[#5B7A8A]">Workspace</p>
@@ -431,7 +343,7 @@ export default function LibrariesDashboard() {
                   onToggle={() => setMobileLocalOpen((value) => !value)}
                   description="Collections specific to your organisation or access scope."
                   libraries={filteredLocalLibraries}
-                  emptyMessage="No My Team collections are available yet."
+                  emptyMessage="No My Group collections are available yet."
                   compact
                 />
                 {mobileLocalOpen ? (
@@ -450,14 +362,14 @@ export default function LibrariesDashboard() {
           </section>
         </div>
 
-        <div className={`hidden lg:grid lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)_470px]" : "lg:grid-cols-[minmax(0,1fr)_470px]"}`}>
+        <div className={`hidden lg:grid lg:gap-y-4 lg:gap-x-0 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)]"}`}>
           {desktopNavOpen ? <WorkspaceNavRail currentNav="collections" /> : null}
 
           <div className="min-w-0 space-y-2">
             <section className="px-1">
               <p className="text-[14px] text-[#5B7A8A]">Workspace</p>
               <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">{workspaceLabel}</h1>
-              <p className="mt-2 text-[15px] text-[#E7FAFD]">{libraries.length} collections · {totalCards} procedure cards</p>
+              <p className="mt-2 text-[15px] text-[#61758B]">{libraries.length} collections · {totalCards} procedure cards</p>
             </section>
 
             <section>
@@ -484,7 +396,7 @@ export default function LibrariesDashboard() {
                     onToggle={() => setLocalOpen((value) => !value)}
                     description="Collections specific to your organisation or access scope."
                     libraries={filteredLocalLibraries.slice(0, 8)}
-                    emptyMessage="No My Team collections are available yet."
+                    emptyMessage="No My Group collections are available yet."
                   />
                   {localOpen ? (
                     <div className="pt-2">
@@ -501,119 +413,6 @@ export default function LibrariesDashboard() {
               <BookmarkList bookmarks={bookmarks} />
             </section>
           </div>
-
-          <aside className="min-w-0">
-            <div className="space-y-3">
-              <RightRailSection
-                title="Active workspace"
-                subtitle="Switch context without leaving this page."
-              >
-                <div className="pb-3">
-                  <p className="text-[18px] tracking-[-0.03em] text-[#10243E]">
-                    {activeTeam?.internalName ?? profile?.hospital ?? "No active workspace"}
-                  </p>
-                  <p className="mt-1 text-[13px] leading-6 text-[#5B7286]">
-                    {activeTeam?.publicAlias ?? "PSH-000"} · {profile?.platformRole ?? "user"} · {userTeams.length || 1} workspace membership{userTeams.length === 1 ? "" : "s"}
-                  </p>
-                </div>
-
-                <div className="space-y-1">
-                  {userTeams.length > 0 ? userTeams.map((team) => {
-                    const isActive = team.id === activeTeam?.id
-                    return (
-                  <button
-                        key={team.id}
-                        type="button"
-                        onClick={() => handleSwitchWorkspace(team)}
-                        className={`flex w-full items-center justify-between rounded-[10px] px-2.5 py-2 text-left transition-colors ${
-                          isActive ? "bg-[#F2F8FC]" : "hover:bg-[#F7FBFD]"
-                        }`}
-                      >
-                        <span className="min-w-0">
-                          <span className="block truncate text-[14px] text-[#10243E]">{team.internalName}</span>
-                          <span className="mt-0.5 block text-[13px] text-[#61758B]">{team.publicAlias} · {team.visibility}</span>
-                        </span>
-                        <span className={`text-[13px] ${isActive ? "text-[#2563EB]" : "text-[#406175]"}`}>
-                          {isActive ? "Active" : "Switch"}
-                        </span>
-                      </button>
-                    )
-                  }) : (
-                    <p className="text-[14px] leading-6 text-[#61758B]">
-                      Additional workspaces will appear here as the user joins more hospital or team memberships.
-                    </p>
-                  )}
-                </div>
-              </RightRailSection>
-
-              <RightRailSection
-                title="Quick links"
-                subtitle="Fast entry points without repeating the main view."
-              >
-                <div className="space-y-1">
-                  {quickActions.map((action) => {
-                    const Icon = action.icon
-                    return (
-                      <Link
-                        key={action.label}
-                        href={action.href}
-                        className="group flex items-center justify-between rounded-[10px] px-2.5 py-2 transition-colors hover:bg-[#F7FBFD]"
-                      >
-                        <span className="flex items-center gap-3">
-                          <Icon size={15} style={{ color: action.tone }} />
-                          <span className="text-[14px] text-[#10243E]">{action.label}</span>
-                        </span>
-                        <TriangleIcon direction="right" size={10} className="text-[#7A92A4]" />
-                      </Link>
-                    )
-                  })}
-                </div>
-              </RightRailSection>
-
-              <RightRailSection
-                title="Updates"
-                subtitle="What has moved in community and My Team collections."
-              >
-                <div className="space-y-3">
-                  <div>
-                    <p className="text-[14px] text-[#5B7A8A]">Community</p>
-                    <div className="mt-2 space-y-1">
-                      {updates.globalUpdates.map((update) => (
-                        <Link
-                          key={update.id}
-                          href={update.href}
-                          className="block rounded-[10px] px-2.5 py-2 transition-colors hover:bg-[#F7FBFD]"
-                        >
-                          <div className="min-w-0">
-                            <p className={`text-[14px] text-[#10243E] ${update.emphasis ? "font-medium" : ""}`}>{update.title}</p>
-                            <p className="mt-0.5 text-[13px] leading-6 text-[#61758B]">{update.detail}</p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <p className="text-[14px] text-[#5B7A8A]">My Team</p>
-                    <div className="mt-2 space-y-1">
-                      {updates.localUpdates.map((update) => (
-                        <Link
-                          key={update.id}
-                          href={update.href}
-                          className="block rounded-[10px] px-2.5 py-2 transition-colors hover:bg-[#FFF8F1]"
-                        >
-                          <div className="min-w-0">
-                            <p className={`text-[14px] text-[#10243E] ${update.emphasis ? "font-medium" : ""}`}>{update.title}</p>
-                            <p className="mt-0.5 text-[13px] leading-6 text-[#61758B]">{update.detail}</p>
-                          </div>
-                        </Link>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </RightRailSection>
-            </div>
-          </aside>
         </div>
       </main>
     </div>

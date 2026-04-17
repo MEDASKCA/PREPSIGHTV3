@@ -5,12 +5,13 @@ import { SPECIALTY_PREFERENCES_COOKIE_KEY } from "@/lib/profile"
 import { House } from "lucide-react"
 import Link from "next/link"
 import { cookies } from "next/headers"
-import HomeHero from "@/components/HomeHero"
 import OperatingTheatreTabs from "@/components/OperatingTheatreTabs"
 import ProcedureTabs from "@/components/ProcedureTabs"
 import HistoryBackButton from "@/components/HistoryBackButton"
 import LibrariesDashboard from "@/components/LibrariesDashboard"
 import RootEntry from "@/components/RootEntry"
+import LibraryAppShell from "@/components/LibraryAppShell"
+import WorkspaceDisplay from "@/components/WorkspaceDisplay"
 import {
   getOperatingTheatreSpecialtyIdByLabel,
   getServiceLinesForSpecialty,
@@ -98,10 +99,6 @@ export default async function HomePage({ searchParams }: Props) {
   const isOperatingTheatreOverviewPage = isOperatingTheatre && !activeSpecialty
   const isOperatingTheatreSpecialtyPage = isOperatingTheatre && !!activeSpecialty && !anatomy
   const isAnatomyPage = isOperatingTheatre && !!activeSpecialty && !!anatomy
-
-  if (isSettingOverview) {
-    return <HomeHero initialWorkspace={activeSetting} />
-  }
 
   const settingColour =
     SETTING_COLOUR[activeSetting] ?? "bg-gray-100 text-gray-700"
@@ -205,65 +202,58 @@ export default async function HomePage({ searchParams }: Props) {
       : activeSpecialty ?? activeSetting
 
   return (
-    <div className="app-shell-bg min-h-screen">
-      <header data-dev-trigger className="app-header-bg sticky top-0 z-30 border-b app-card-border lg:backdrop-blur-2xl">
-        <div className="mx-auto flex max-w-4xl items-center gap-3 px-4 pb-2.5 pt-[calc(env(safe-area-inset-top,0px)+8px)] lg:max-w-none lg:px-12 lg:py-5">
-          <HistoryBackButton
-            fallbackHref={backHref}
-            className="app-header-muted transition-colors hover:opacity-80 lg:flex lg:h-14 lg:w-14 lg:items-center lg:justify-center lg:rounded-[20px] lg:border lg:border-white/10 lg:bg-white/6"
-          />
+    <LibraryAppShell currentNav="collections" searchPlaceholder="Search procedures, specialties, settings...">
+      <div className="space-y-4 lg:space-y-6">
+        <section className="app-header-bg rounded-[26px] border app-card-border px-4 py-4 shadow-[0_24px_60px_-36px_rgba(16,36,62,0.38)] lg:px-6 lg:py-5">
+          <div className="flex items-start gap-3">
+            <HistoryBackButton
+              fallbackHref={backHref}
+              className="app-header-muted mt-0.5 transition-colors hover:opacity-80 lg:flex lg:h-12 lg:w-12 lg:items-center lg:justify-center lg:rounded-[18px] lg:border lg:border-white/10 lg:bg-white/6"
+            />
 
-          <div className="min-w-0 flex-1">
-            <h1 className="app-header-text text-[18px] font-normal leading-snug lg:text-[40px] lg:font-normal lg:tracking-[-0.05em]">
-              {pageTitle}
-            </h1>
+            <div className="min-w-0 flex-1">
+              <h1 className="app-header-text text-[22px] font-normal leading-snug lg:text-[38px] lg:tracking-[-0.05em]">
+                {pageTitle}
+              </h1>
 
-            {isOperatingTheatreOverviewPage ? (
-              <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
-                <span className="app-header-muted rounded-full px-2 py-0.5 text-xs lg:border lg:border-white/10 lg:bg-white/8 lg:px-4 lg:py-1.5 lg:text-[20px] lg:font-normal lg:uppercase lg:tracking-[0.16em]">
-                  Specialties
-                </span>
-              </div>
-            ) : (
-              <div className="mt-0.5 flex flex-wrap items-center gap-1.5">
+              <div className="mt-2 flex flex-wrap items-center gap-1.5">
                 <span
-                  className={`rounded-full px-2 py-0.5 text-xs font-normal ${settingColour} lg:px-4 lg:py-1.5 lg:text-[20px] lg:uppercase lg:tracking-[0.16em]`}
+                  className={`rounded-full px-2 py-0.5 text-xs font-normal ${settingColour} lg:px-4 lg:py-1.5 lg:text-[16px] lg:uppercase lg:tracking-[0.16em]`}
                 >
                   {activeSetting}
                 </span>
 
+                {isSettingOverview ? (
+                  <span className="app-header-muted rounded-full px-2 py-0.5 text-xs lg:border lg:border-white/10 lg:bg-white/8 lg:px-4 lg:py-1.5 lg:text-[16px] lg:uppercase lg:tracking-[0.16em]">
+                    Specialties
+                  </span>
+                ) : null}
+
                 {activeSpecialty && (
-                  <span className="app-header-muted rounded-full px-2 py-0.5 text-xs lg:border lg:border-white/10 lg:bg-white/8 lg:px-4 lg:py-1.5 lg:text-[20px] lg:uppercase lg:tracking-[0.16em]">
+                  <span className="app-header-muted rounded-full px-2 py-0.5 text-xs lg:border lg:border-white/10 lg:bg-white/8 lg:px-4 lg:py-1.5 lg:text-[16px] lg:uppercase lg:tracking-[0.16em]">
                     {activeSpecialty}
                   </span>
                 )}
 
                 {isAnatomyPage && anatomyLabel && (
-                  <span className="app-header-muted rounded-full px-2 py-0.5 text-xs lg:border lg:border-white/10 lg:bg-white/8 lg:px-4 lg:py-1.5 lg:text-[20px] lg:uppercase lg:tracking-[0.16em]">
+                  <span className="app-header-muted rounded-full px-2 py-0.5 text-xs lg:border lg:border-white/10 lg:bg-white/8 lg:px-4 lg:py-1.5 lg:text-[16px] lg:uppercase lg:tracking-[0.16em]">
                     {anatomyLabel}
                   </span>
                 )}
               </div>
-            )}
+            </div>
+
+            <Link
+              href="/"
+              className="app-header-muted shrink-0 rounded-lg p-2 transition-colors hover:opacity-80 lg:flex lg:h-12 lg:w-12 lg:items-center lg:justify-center lg:rounded-[18px] lg:border lg:border-white/10 lg:bg-white/6 lg:hover:bg-white/10"
+              aria-label="Home"
+            >
+              <House size={18} />
+            </Link>
           </div>
+        </section>
 
-          <Link
-            href="/"
-            className="app-header-muted shrink-0 rounded-lg p-2 transition-colors hover:opacity-80 lg:flex lg:h-14 lg:w-14 lg:items-center lg:justify-center lg:rounded-[20px] lg:border lg:border-white/10 lg:bg-white/6 lg:hover:bg-white/10"
-            aria-label="Home"
-          >
-            <House size={18} />
-          </Link>
-        </div>
-      </header>
-
-      <main className="relative mx-auto max-w-4xl space-y-4 pb-28 pt-3 lg:max-w-none lg:space-y-8 lg:px-12 lg:pb-10 lg:pt-10">
-        {isOperatingTheatreOverviewPage && (
-          <OperatingTheatreTabs
-            tabs={operatingTheatreTabs}
-            selectedServiceLineId={service_line}
-          />
-        )}
+        {isSettingOverview && <WorkspaceDisplay setting={activeSetting} />}
 
         {isOperatingTheatreSpecialtyPage && (
           <OperatingTheatreTabs
@@ -274,18 +264,16 @@ export default async function HomePage({ searchParams }: Props) {
         )}
 
         {isAnatomyPage && (
-          <>
-            <ProcedureTabs
-              procedures={theatreProcedures}
-              specialty={activeSpecialty}
-              serviceLine={serviceLineLabel}
-              anatomy={anatomyLabel}
-              selectedSystemId={system}
-              palette={activeSpecialtyPalette}
-            />
-          </>
+          <ProcedureTabs
+            procedures={theatreProcedures}
+            specialty={activeSpecialty}
+            serviceLine={serviceLineLabel}
+            anatomy={anatomyLabel}
+            selectedSystemId={system}
+            palette={activeSpecialtyPalette}
+          />
         )}
-      </main>
-    </div>
+      </div>
+    </LibraryAppShell>
   )
 }
