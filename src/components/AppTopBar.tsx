@@ -252,8 +252,8 @@ export default function AppTopBar({
   const displayEmail = user?.email ?? ""
 
   return (
-    <div ref={rootRef} className="sticky top-0 z-30">
-      <header className="relative border-b border-[#0F4C5C] bg-[#0077B6] px-3 pt-[calc(env(safe-area-inset-top,0px)+12px)] pb-3">
+    <div ref={rootRef} className="prepsight-app-topbar sticky top-0 z-30">
+      <header className="relative border-b border-[#0085B2] bg-[#0096C7] px-3 pt-[calc(env(safe-area-inset-top,0px)+12px)] pb-3">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
             <button
@@ -274,7 +274,7 @@ export default function AppTopBar({
           <div className="ml-auto hidden lg:block">
             <div className="relative w-[440px] xl:w-[520px]">
             <label className="flex min-w-0 items-center gap-2 rounded-[12px] border border-[#0F4C5C] bg-white/96 px-3 py-2.5">
-              <Search size={16} className="shrink-0 text-[#61758B]" />
+              <Search size={16} className="shrink-0 text-[#0F4C5C]" />
               <input
                 value={query}
                 onChange={(event) => {
@@ -296,7 +296,7 @@ export default function AppTopBar({
                   }
                 }}
                 placeholder="Search anywhere..."
-                className="min-w-0 flex-1 bg-transparent text-[14px] text-[#10243E] outline-none placeholder:text-[#7A8DA3]"
+                className="min-w-0 flex-1 bg-transparent text-[14px] text-[#10243E] outline-none placeholder:text-[#0F4C5C]"
               />
             </label>
 
@@ -313,16 +313,16 @@ export default function AppTopBar({
                       >
                         <span className="min-w-0">
                           <span className="block truncate text-[14px] text-[#10243E]">{item.title}</span>
-                          <span className="mt-0.5 block truncate text-[12px] text-[#61758B]">{item.subtitle}</span>
+                          <span className="mt-0.5 block truncate text-[12px] text-[#0F4C5C]">{item.subtitle}</span>
                         </span>
-                        <span className="shrink-0 rounded-full bg-[#F2FAFD] px-2 py-1 text-[11px] text-[#406175]">
+                        <span className="shrink-0 rounded-full bg-[#F2FAFD] px-2 py-1 text-[11px] text-[#0F4C5C]">
                           {item.kind === "page" ? "Page" : item.kind === "library" ? "Library" : "Guide"}
                         </span>
                       </button>
                     ))}
                   </div>
                 ) : (
-                  <div className="px-4 py-4 text-[13px] text-[#61758B]">
+                  <div className="px-4 py-4 text-[13px] text-[#0F4C5C]">
                     No matches for "{query}".
                   </div>
                 )}
@@ -406,7 +406,7 @@ export default function AppTopBar({
 
       <div className="relative bg-[#F4F7FA] px-3 py-3 lg:hidden">
         <label className="flex min-w-0 items-center gap-2 rounded-[12px] border border-[#0F4C5C] bg-white px-3 py-2.5">
-          <Search size={16} className="shrink-0 text-[#61758B]" />
+          <Search size={16} className="shrink-0 text-[#0F4C5C]" />
           <input
             value={query}
             onChange={(event) => {
@@ -428,7 +428,7 @@ export default function AppTopBar({
               }
             }}
             placeholder="Search anywhere..."
-            className="min-w-0 flex-1 bg-transparent text-[14px] text-[#10243E] outline-none placeholder:text-[#7A8DA3]"
+            className="min-w-0 flex-1 bg-transparent text-[14px] text-[#10243E] outline-none placeholder:text-[#0F4C5C]"
           />
         </label>
 
@@ -445,16 +445,16 @@ export default function AppTopBar({
                   >
                     <span className="min-w-0">
                       <span className="block truncate text-[14px] text-[#10243E]">{item.title}</span>
-                      <span className="mt-0.5 block truncate text-[12px] text-[#61758B]">{item.subtitle}</span>
+                      <span className="mt-0.5 block truncate text-[12px] text-[#0F4C5C]">{item.subtitle}</span>
                     </span>
-                    <span className="shrink-0 rounded-full bg-[#F2FAFD] px-2 py-1 text-[11px] text-[#406175]">
+                    <span className="shrink-0 rounded-full bg-[#F2FAFD] px-2 py-1 text-[11px] text-[#0F4C5C]">
                       {item.kind === "page" ? "Page" : item.kind === "library" ? "Library" : "Guide"}
                     </span>
                   </button>
                 ))}
               </div>
             ) : (
-              <div className="px-4 py-4 text-[13px] text-[#61758B]">
+              <div className="px-4 py-4 text-[13px] text-[#0F4C5C]">
                 No matches for "{query}".
               </div>
             )}

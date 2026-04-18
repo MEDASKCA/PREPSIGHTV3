@@ -11,7 +11,7 @@ export default function WorkspaceNavRail({
   currentNav: WorkspaceNavKey
 }) {
   return (
-    <aside className="-mt-4 hidden min-w-0 self-stretch border-r border-[#0085B2] bg-[#0096C7] px-3 pb-4 pt-7 lg:block lg:min-h-[calc(100vh-5.5rem)]">
+    <aside className="-mt-4 hidden min-w-0 self-stretch border-r border-[#0F4C5C] bg-[#0077B6] px-3 pb-4 pt-7 lg:block lg:min-h-[calc(100vh-5.5rem)]">
       <div className="space-y-1">
         {WORKSPACE_NAV_ITEMS.map((item) => {
           const active = item.key === currentNav

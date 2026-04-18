@@ -507,8 +507,10 @@ function TreeBranchContent({
 
 export default function LibraryPageClient({
   libraryId,
+  embedded = false,
 }: {
   libraryId: string
+  embedded?: boolean
 }) {
   const libraries = useSyncExternalStore(
     subscribeLibraries,
@@ -589,6 +591,9 @@ export default function LibraryPageClient({
     if (!library) return []
     return buildLibraryUpdates(cards, library.libraryType, library.id, localOrganization)
   }, [cards, library])
+  const emptyProcedureMessage = library?.libraryType === "local"
+    ? "Your hospital hasn't added any procedures yet."
+    : "No procedures are available here yet."
   const updateEmptyMessage = library?.libraryType === "shared"
     ? "No community updates have been recorded for this collection yet."
     : "No My Team updates have been recorded for this collection yet."
@@ -678,6 +683,113 @@ export default function LibraryPageClient({
             Return to dashboard
           </Link>
         </div>
+      </div>
+    )
+  }
+
+  if (embedded) {
+    return (
+      <div className="space-y-0 pb-[calc(env(safe-area-inset-bottom,0px)+168px)]">
+        <section className="space-y-2 px-4 pt-3 pb-2">
+          <div>
+            {showOwnerName ? <p className="text-[13px] text-[#0F4C5C]">{ownerLabel}</p> : null}
+            <h1 className="mt-1 text-[26px] tracking-[-0.04em] text-[#10243E]">{displayName}</h1>
+          </div>
+
+          <nav className="flex items-center gap-6 overflow-x-auto border-b border-[#BFEAF5] text-[14px] text-[#0F4C5C]">
+            <button
+              type="button"
+              onClick={() => setActiveTab("procedures")}
+              className={`px-1 py-3 ${activeTab === "procedures" ? "border-b-2 border-[#0F4C5C] text-[#10243E]" : ""}`}
+            >
+              Procedures {cards.length}
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab("updates")}
+              className={`px-1 py-3 ${activeTab === "updates" ? "border-b-2 border-[#0F4C5C] text-[#10243E]" : ""}`}
+            >
+              Updates {updates.length}
+            </button>
+          </nav>
+        </section>
+
+        {activeTab === "procedures" ? (
+          <section className="space-y-0">
+            <div className="bg-[#10243E] px-4 py-3 text-[14px] font-medium text-white">Specialty hierarchy</div>
+            {tree.length === 0 ? (
+              <div className="px-4 py-5 text-[14px] text-[#0F4C5C]">{emptyProcedureMessage}</div>
+            ) : (
+              <div className="border-y border-[#D7E9EE] bg-white">
+                {tree.map((group) => (
+                  <section key={group.id} className="border-b border-[#E8EFF6] last:border-b-0">
+                    <button
+                      type="button"
+                      onClick={() => toggleMobileGroup(group.id)}
+                      className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px_18px] items-center gap-x-2 bg-[#EAF7FD] px-3 py-2 text-left font-normal text-[#10243E]"
+                    >
+                      <div className="flex items-center justify-center">
+                        <FolderBadge tone={folderTone} open={isMobileGroupExpanded(group.id)} size="lg" />
+                      </div>
+                      <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#10243E]">{group.label}</p>
+                      <span className="text-right text-[15px] font-normal text-[#10243E]">{totalForGroup(group)}</span>
+                      <span className="flex justify-end">
+                        <MobileTriangle open={isMobileGroupExpanded(group.id)} />
+                      </span>
+                    </button>
+
+                    {isMobileGroupExpanded(group.id) ? (
+                      <TreeGroupContent
+                        group={group}
+                        libraryId={library.id}
+                        isBranchExpanded={isMobileBranchExpanded}
+                        toggleBranch={toggleMobileBranch}
+                        folderTone={folderTone}
+                        compact
+                      />
+                    ) : null}
+                  </section>
+                ))}
+              </div>
+            )}
+          </section>
+        ) : (
+          <section className="space-y-0">
+            <div className="bg-[#10243E] px-4 py-3 text-[14px] font-medium text-white">Recent updates</div>
+            {updates.length > 0 ? (
+              <div className="border-y border-[#D7E9EE] bg-white">
+                {updates.map((update) => (
+                  <section key={update.id} className="border-b border-[#E8EFF6] last:border-b-0">
+                    <button
+                      type="button"
+                      onClick={() => toggleMobileUpdate(update.id)}
+                      className="grid w-full grid-cols-[minmax(0,1fr)_auto_18px] items-center gap-x-2 bg-[#EAF7FD] px-3 py-2 text-left transition-colors hover:bg-[#DDF2F8]"
+                    >
+                      <p className="truncate text-[14px] font-medium text-[#10243E]">{update.title}</p>
+                      <p className="text-[12px] text-[#0F4C5C]">{formatUpdateDate(update.timestamp)}</p>
+                      <span className="flex justify-end">
+                        <MobileTriangle open={isMobileUpdateExpanded(update.id)} />
+                      </span>
+                    </button>
+                    {isMobileUpdateExpanded(update.id) ? (
+                      <div className="border-t border-[#EEF4F7] px-3 py-2">
+                        <p className="text-[14px] leading-5 text-[#0F4C5C]">{renderCompactUpdateMeta(update)}</p>
+                        <Link
+                          href={update.href}
+                          className="mt-2 inline-flex items-center justify-center rounded-xl bg-[#0096C7] px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-[#0085B2] active:bg-[#0077B6]"
+                        >
+                          Open procedure
+                        </Link>
+                      </div>
+                    ) : null}
+                  </section>
+                ))}
+              </div>
+            ) : (
+              <div className="px-4 py-3 text-[14px] text-[#0F4C5C]">{updateEmptyMessage}</div>
+            )}
+          </section>
+        )}
       </div>
     )
   }

@@ -85,6 +85,13 @@ function slugify(value: string) {
     .replace(/^-|-$/g, "")
 }
 
+function normalizeComparableText(value?: string) {
+  return (value ?? "")
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, " ")
+    .trim()
+}
+
 function cloneSections(currentSections: Section[]): Section[] {
   return currentSections.map((section) => ({
     ...section,
@@ -242,6 +249,28 @@ function buildProcedureDisplayTitle({
   return `${prefix} ${procedureName}`.replace(/\s{2,}/g, " ").trim()
 }
 
+function cardMatchesVersionContext(
+  card: Procedure,
+  options: {
+    procedureName: string
+    systemName?: string
+    approachName?: string
+  },
+) {
+  const targetProcedure = normalizeComparableText(options.procedureName)
+  const targetSystem = normalizeComparableText(options.systemName)
+  const targetApproach = normalizeComparableText(options.approachName)
+  const cardProcedure = normalizeComparableText(card.name)
+  const cardSystem = normalizeComparableText(card.implantSystem)
+  const cardApproach = normalizeComparableText(card.approach)
+
+  if (targetProcedure && cardProcedure && targetProcedure !== cardProcedure) return false
+  if (targetSystem && cardSystem && !cardSystem.includes(targetSystem) && !targetSystem.includes(cardSystem)) return false
+  if (targetApproach && cardApproach && !cardApproach.includes(targetApproach) && !targetApproach.includes(cardApproach)) return false
+
+  return true
+}
+
 export default function MobileProcedureRepositoryView({
   procedure,
   sections,
@@ -317,10 +346,39 @@ export default function MobileProcedureRepositoryView({
     () => getPublishedCardsByFamilySnapshot(currentFamilyId),
     [currentFamilyId],
   )
+  const relevantPublishedCards = useMemo(() => {
+    const filtered = publishedCards.filter((card) =>
+      cardMatchesVersionContext(card, {
+        procedureName: sourceProcedure?.name ?? procedure.name,
+        systemName: selectedSystemName ?? procedure.implantSystem,
+        approachName: procedure.approach,
+      }),
+    )
+
+    const deduped = new Map<string, Procedure>()
+
+    for (const card of filtered) {
+      const displayName = card.variantLabel?.trim() || card.implantSystem?.trim() || card.name
+      const dedupeKey = [
+        normalizeComparableText(displayName),
+        normalizeComparableText(card.sourceOrganizationPublicAlias ?? card.sourceOrganizationName),
+        normalizeComparableText(card.sourceContributorPublicAlias ?? card.sourceContributorName),
+      ].join("|")
+      const current = deduped.get(dedupeKey)
+      const currentTimestamp = current?.publishedAt ?? current?.updatedAt ?? current?.createdAt ?? ""
+      const nextTimestamp = card.publishedAt ?? card.updatedAt ?? card.createdAt ?? ""
+
+      if (!current || nextTimestamp.localeCompare(currentTimestamp) >= 0) {
+        deduped.set(dedupeKey, card)
+      }
+    }
+
+    return Array.from(deduped.values())
+  }, [procedure.approach, procedure.implantSystem, procedure.name, publishedCards, selectedSystemName, sourceProcedure?.name])
 
   const versionEntries = useMemo(() => {
-    if (publishedCards.length > 0) {
-      return publishedCards.map((card, index) => ({
+    if (relevantPublishedCards.length > 0) {
+      return relevantPublishedCards.map((card, index) => ({
         id: card.id,
         name: card.variantLabel?.trim() || card.implantSystem?.trim() || card.name,
         detail: `${card.sourceOrganizationPublicAlias ?? "PSH-000"} · ${card.sourceContributorPublicAlias ?? "TO-CONS-000"} · Shared ${formatUpdatedDate(card.publishedAt)}`,
@@ -330,11 +388,11 @@ export default function MobileProcedureRepositoryView({
       }))
     }
     return []
-  }, [publishedCards])
-  const hasPublishedVersions = publishedCards.length > 0
+  }, [procedure.id, relevantPublishedCards, sourceProcedure?.id])
+  const hasPublishedVersions = relevantPublishedCards.length > 0
   const selectedPublishedCard = useMemo(
-    () => publishedCards.find((card) => card.id === openVersionId) ?? null,
-    [openVersionId, publishedCards],
+    () => relevantPublishedCards.find((card) => card.id === openVersionId) ?? null,
+    [openVersionId, relevantPublishedCards],
   )
   const showVersionActions = Boolean(selectedPublishedCard)
   const selectedVersionName = selectedPublishedCard?.variantLabel?.trim() || selectedPublishedCard?.implantSystem?.trim() || selectedPublishedCard?.name || procedure.name
@@ -353,13 +411,13 @@ export default function MobileProcedureRepositoryView({
   const contributorCount = useMemo(
     () =>
       new Set(
-        publishedCards
+        relevantPublishedCards
           .map((card) => card.sourceContributorPublicAlias ?? card.sourceContributorName ?? "")
           .filter(Boolean),
       ).size,
-    [publishedCards],
+    [relevantPublishedCards],
   )
-  const showStatsRow = bookmarkCount > 0 || publishedCards.length > 0 || contributorCount > 0
+  const showStatsRow = bookmarkCount > 0 || relevantPublishedCards.length > 0 || contributorCount > 0
 
   const localVersionLinks = useMemo(() => {
     const localLibraryId = getDefaultLocalLibraryId()
@@ -909,7 +967,7 @@ export default function MobileProcedureRepositoryView({
 
           {mobileMetaOpen ? (
           <>
-          <section className="mt-3 border-b border-[#C7DEE7] px-4 pb-3">
+          <section className="mt-3 border-b border-[#E3F1F5] px-4 pb-3">
             <div className="flex items-start gap-3 text-[14px] leading-6 text-[#35546D]">
               <ShieldAlert size={16} className="mt-0.5 shrink-0 text-[#2A96A8]" />
               <p>
@@ -956,7 +1014,7 @@ export default function MobileProcedureRepositoryView({
           </section>
 
           {showStatsRow ? (
-            <section className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-b border-[#C7DEE7] px-4 pb-3 text-[14px] text-[#4C647A]">
+            <section className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-b border-[#E3F1F5] px-4 pb-3 text-[14px] text-[#4C647A]">
               {bookmarkCount > 0 ? (
                 <button type="button" onClick={handleToggleBookmark} className="inline-flex items-center gap-1.5 transition-colors hover:text-[#10243E]">
                   <Bookmark size={13} />
@@ -979,14 +1037,14 @@ export default function MobileProcedureRepositoryView({
           ) : null}
 
           {createOpen ? (
-              <section className="mt-4 border-b border-[#D5EAF1] px-4 pb-4">
+              <section className="mt-4 border-b border-[#E3F1F5] px-4 pb-4">
                 <div className="space-y-3">
                 {authoringMode === "adapt" ? (
                   <input
                     value={cardName}
                     onChange={(event) => setCardName(event.target.value)}
                     placeholder="Version name"
-                    className="w-full rounded-[6px] border border-[#D5EAF1] bg-[#F8FBFD] px-3 py-2.5 text-[14px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
+                    className="w-full rounded-[6px] border border-[#E3F1F5] bg-[#F8FBFD] px-3 py-2.5 text-[14px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
                   />
                 ) : (
                   <div className="space-y-3">
@@ -1008,13 +1066,13 @@ export default function MobileProcedureRepositoryView({
                               setCreateMessage("")
                             }}
                             placeholder="Section name"
-                            className="w-full rounded-[8px] border border-[#D5EAF1] bg-white px-3 py-2 text-[13px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
+                            className="w-full rounded-[8px] border border-[#E3F1F5] bg-white px-3 py-2 text-[13px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
                           />
                           <div className="flex items-center gap-2">
                             <select
                               value={newSectionLayout}
                               onChange={(event) => setNewSectionLayout(event.target.value as NewSectionLayout | "")}
-                              className="min-w-0 flex-1 rounded-[8px] border border-[#D5EAF1] bg-white px-3 py-2 text-[13px] text-[#10243E] outline-none"
+                              className="min-w-0 flex-1 rounded-[8px] border border-[#E3F1F5] bg-white px-3 py-2 text-[13px] text-[#10243E] outline-none"
                             >
                               <option value="">Select Type</option>
                               <option value="item_list">Item list</option>
@@ -1070,7 +1128,7 @@ export default function MobileProcedureRepositoryView({
                                 }}
                                 className={`mx-1 my-0.5 block w-[calc(100%-0.5rem)] rounded-[8px] border px-2 py-1.5 text-center text-[12px] leading-4 transition-colors ${
                                   disabled
-                                    ? "cursor-not-allowed border-[#D5EAF1] bg-[#E6EDF2] text-[#0F4C5C]"
+                                    ? "cursor-not-allowed border-[#E3F1F5] bg-[#E6EDF2] text-[#0F4C5C]"
                                     : selected
                                       ? "border-[#0096C7] bg-[#0096C7] text-white"
                                       : "border-[#0096C7] bg-[#0096C7] text-white hover:bg-[#0085B2]"
@@ -1163,14 +1221,14 @@ export default function MobileProcedureRepositoryView({
           ) : null}
 
           {hasPublishedVersions ? (
-            <section className="mt-5 border-t border-[#C7DEE7]">
-              <div className="flex items-center justify-between border-b border-[#D9EBF0] px-4 py-3 text-[14px] text-[#10243E]">
+            <section className="mt-5 border-t border-[#E3F1F5]">
+              <div className="flex items-center justify-between border-b border-[#E3F1F5] px-4 py-3 text-[14px] text-[#10243E]">
                 <span className="font-semibold">Published versions</span>
                 <span className="font-medium text-[#35546D]">{versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}</span>
               </div>
               <div>
                 {versionEntries.map((version) => (
-                  <div key={version.id} className="border-b border-[#DCE8ED] px-4 py-3 text-[14px]">
+                  <div key={version.id} className="border-b border-[#E3F1F5] px-4 py-3 text-[14px]">
                     <button
                       type="button"
                       onClick={() => setOpenVersionId((current) => (current === version.id ? "" : version.id))}
@@ -1209,15 +1267,15 @@ export default function MobileProcedureRepositoryView({
           ) : null}
 
           {localVersionLinks.length > 0 ? (
-            <section className={`mt-5 ${mobileMetaOpen ? "border-t border-[#C7DEE7]" : ""}`}>
-              <div className="border-b border-[#D9EBF0] px-4 py-3 text-[14px] font-semibold text-[#10243E]">Versions</div>
+            <section className={`mt-5 ${mobileMetaOpen ? "border-t border-[#E3F1F5]" : ""}`}>
+              <div className="border-b border-[#E3F1F5] px-4 py-3 text-[14px] font-semibold text-[#10243E]">Versions</div>
               <div>
                 {localVersionLinks.map((version) => (
                   <button
                     key={version.id}
                     type="button"
                     onClick={() => router.push(version.href)}
-                    className="flex w-full items-center justify-between border-b border-[#DCE8ED] px-4 py-3 text-left text-[14px] hover:bg-[#F8FBFD]"
+                    className="flex w-full items-center justify-between border-b border-[#E3F1F5] px-4 py-3 text-left text-[14px] hover:bg-[#F8FBFD]"
                   >
                     <span className="truncate font-medium text-[#10243E]">{version.name}</span>
                     <span className="font-medium text-[#35546D]">Open</span>
@@ -1227,7 +1285,7 @@ export default function MobileProcedureRepositoryView({
             </section>
           ) : null}
 
-          <section className="mx-4 mt-5">
+          <section className="mt-5">
             {sectionsState.length > 0 ? (
               <>
                 {createOpen && authoringMode === "edit" ? (
@@ -1294,7 +1352,7 @@ export default function MobileProcedureRepositoryView({
                 ) : null}
               </>
             ) : (
-              <div className="border-t border-[#D5EAF1] px-1 py-8 text-center text-[14px] text-[#61758B]">
+              <div className="border-t border-[#E3F1F5] px-1 py-8 text-center text-[14px] text-[#61758B]">
                 No sections match the current search.
               </div>
             )}

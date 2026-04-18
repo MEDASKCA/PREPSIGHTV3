@@ -108,7 +108,7 @@ function TreeBranchNode({
   )
 }
 
-function LibraryTree({
+export function LibraryTree({
   title,
   tone,
   open,
@@ -117,6 +117,7 @@ function LibraryTree({
   libraries,
   emptyMessage,
   compact = false,
+  onLibrarySelect,
 }: {
   title: string
   tone: "global" | "local"
@@ -126,6 +127,7 @@ function LibraryTree({
   libraries: ReturnType<typeof getLibrariesSnapshot>
   emptyMessage: string
   compact?: boolean
+  onLibrarySelect?: (libraryId: string) => void
 }) {
   const textColor = tone === "global" ? "text-[#0F4C5C]" : "text-[#10243E]"
   const nodeColor = tone === "global" ? "#0F9FC1" : "#16989A"
@@ -165,6 +167,27 @@ function LibraryTree({
                   nodeColor={nodeColor}
                   compact={compact}
                 >
+                  {onLibrarySelect ? (
+                    <button
+                      type="button"
+                      onClick={() => onLibrarySelect(library.id)}
+                      className="block w-full py-1 text-left transition-colors"
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className="mt-0.5">
+                          <FolderBadge tone={tone} open size="md" />
+                        </div>
+                        <div className="min-w-0">
+                          <p className="break-words text-[14px] leading-5 font-normal text-[#10243E] hover:text-[#0F4C5C] lg:truncate lg:text-[15px]">
+                            {getLibraryOwnerLabel(library)}/{library.name}
+                          </p>
+                          <p className="mt-0.5 break-words text-[13px] leading-5 text-[#61758B] lg:truncate lg:text-[14px]">
+                            {formatMeta(cardCount, getLibraryTypeLabel(library))}
+                          </p>
+                        </div>
+                      </div>
+                    </button>
+                  ) : (
                   <Link
                     href={`/libraries/${library.id}`}
                     className="block py-1 text-left transition-colors"
@@ -183,6 +206,7 @@ function LibraryTree({
                       </div>
                     </div>
                   </Link>
+                  )}
                 </TreeBranchNode>
               )
             })
@@ -195,7 +219,7 @@ function LibraryTree({
   )
 }
 
-function BookmarkList({
+export function BookmarkList({
   bookmarks,
 }: {
   bookmarks: ReturnType<typeof getBookmarksSnapshot>
@@ -231,6 +255,118 @@ function BookmarkList({
           <p className="py-2 text-[14px] text-[#61758B]">No bookmarks yet.</p>
         )}
       </div>
+    </div>
+  )
+}
+
+export function EmbeddedLibrariesDashboardMobile({
+  query = "",
+  onSelectLibrary,
+}: {
+  query?: string
+  onSelectLibrary?: (libraryId: string) => void
+}) {
+  const libraries = useSyncExternalStore(
+    subscribeLibraries,
+    getLibrariesSnapshot,
+    getLibrariesSnapshot,
+  )
+  const bookmarks = useSyncExternalStore(
+    subscribeBookmarks,
+    getBookmarksSnapshot,
+    getBookmarksSnapshot,
+  )
+  useSyncExternalStore(subscribeTeams, () => 0, () => 0)
+  const [mobileGlobalOpen, setMobileGlobalOpen] = useState(false)
+  const [mobileLocalOpen, setMobileLocalOpen] = useState(false)
+  const profile = getProfile()
+  const workspaceLabel = useMemo(() => {
+    const settings = profile ? getRelevantSettings(profile) : []
+    return settings[0] ?? "Operating Theatre"
+  }, [profile])
+
+  const { filteredLibraries, totalCards } = useMemo(() => {
+    const normalizedQuery = query.trim().toLowerCase()
+    const orderedLibraries = [...libraries].sort((left, right) => {
+      if (left.libraryType !== right.libraryType) {
+        return left.libraryType === "shared" ? -1 : 1
+      }
+
+      return left.name.localeCompare(right.name)
+    })
+
+    const filtered = normalizedQuery
+      ? orderedLibraries.filter((library) =>
+          `${library.name} ${getLibraryOwnerLabel(library)} ${library.description ?? ""}`.toLowerCase().includes(normalizedQuery),
+        )
+      : orderedLibraries
+
+    return {
+      filteredLibraries: filtered,
+      totalCards: libraries.reduce((sum, library) => sum + getLibraryCardsSnapshot(library.id).length, 0),
+    }
+  }, [libraries, query])
+
+  const filteredGlobalLibraries = filteredLibraries.filter(
+    (library) => library.libraryType === "shared" && library.name === workspaceLabel,
+  )
+  const filteredLocalLibraries = filteredLibraries.filter((library) => library.libraryType === "local")
+  const localCollectionsTitle = filteredLocalLibraries.length === 1 ? "My Group" : "My Groups"
+
+  return (
+    <div className="space-y-4">
+      <section className="px-1">
+        <p className="text-[14px] text-[#5B7A8A]">Workspace</p>
+        <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">{workspaceLabel}</h1>
+        <p className="mt-2 text-[15px] text-[#61758B]">
+          {libraries.length} collections · {totalCards} procedure cards
+        </p>
+      </section>
+
+      <section>
+        <div className="px-1">
+          <h2 className="whitespace-nowrap text-[24px] font-medium tracking-[-0.03em] text-[#10243E]">Collections</h2>
+        </div>
+
+        <div className="mt-3 px-1">
+          <LibraryTree
+            title="Community"
+            tone="global"
+            open={mobileGlobalOpen}
+            onToggle={() => setMobileGlobalOpen((value) => !value)}
+            description="Shared collections for this workspace."
+            libraries={filteredGlobalLibraries}
+            emptyMessage={`No shared collections are available yet for ${workspaceLabel}.`}
+            compact
+            onLibrarySelect={onSelectLibrary}
+          />
+
+          <div className="mt-3 pt-3">
+            <LibraryTree
+              title={localCollectionsTitle}
+              tone="local"
+              open={mobileLocalOpen}
+              onToggle={() => setMobileLocalOpen((value) => !value)}
+              description="Collections specific to your organisation or access scope."
+              libraries={filteredLocalLibraries}
+              emptyMessage="No My Group collections are available yet."
+              compact
+              onLibrarySelect={onSelectLibrary}
+            />
+            {mobileLocalOpen ? (
+              <div className="px-3 pt-2">
+                <Link href="/" className="inline-block text-[14px] text-[#0F4C5C]">
+                  Request access to other collections
+                </Link>
+              </div>
+            ) : null}
+          </div>
+        </div>
+      </section>
+
+      <section className="px-1">
+        <BookmarkList bookmarks={bookmarks} />
+      </section>
     </div>
   )
 }

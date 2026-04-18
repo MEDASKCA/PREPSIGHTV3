@@ -1,4 +1,5 @@
 import LibraryPageClient from "@/components/LibraryPageClient"
+import V4LibraryRouteShell from "@/components/V4LibraryRouteShell"
 
 interface Props {
   params: Promise<{ id: string }>
@@ -6,5 +7,9 @@ interface Props {
 
 export default async function LibraryPage({ params }: Props) {
   const { id } = await params
-  return <LibraryPageClient libraryId={id} />
+  return (
+    <V4LibraryRouteShell>
+      <LibraryPageClient libraryId={id} />
+    </V4LibraryRouteShell>
+  )
 }

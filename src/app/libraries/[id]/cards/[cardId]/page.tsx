@@ -1,4 +1,5 @@
 import LibraryCardRouteClient from "@/components/LibraryCardRouteClient"
+import V4LibraryRouteShell from "@/components/V4LibraryRouteShell"
 
 interface Props {
   params: Promise<{ id: string; cardId: string }>
@@ -6,5 +7,9 @@ interface Props {
 
 export default async function LibraryCardPage({ params }: Props) {
   const { id, cardId } = await params
-  return <LibraryCardRouteClient libraryId={id} cardId={cardId} />
+  return (
+    <V4LibraryRouteShell>
+      <LibraryCardRouteClient libraryId={id} cardId={cardId} />
+    </V4LibraryRouteShell>
+  )
 }
