@@ -11,6 +11,9 @@ export type ChatMessage = {
   author: string
   body: string
   time: string
+  imageUrl?: string
+  imageName?: string
+  createdAt?: string
 }
 
 export type ChatThread = {
@@ -25,6 +28,9 @@ export type ChatThread = {
   accent: string
   members?: string[]
   messages: ChatMessage[]
+  organizationId?: string
+  memberUids?: string[]
+  updatedAt?: string
 }
 
 export type AssistantMessage = {

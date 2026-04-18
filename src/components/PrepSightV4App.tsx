@@ -1,7 +1,18 @@
 "use client"
 
-import { useEffect, useMemo, useState, useSyncExternalStore } from "react"
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { useRouter } from "next/navigation"
+import {
+  addDoc,
+  collection,
+  doc,
+  onSnapshot,
+  query,
+  setDoc,
+  updateDoc,
+  where,
+} from "firebase/firestore"
+import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage"
 import {
   ArrowLeft,
   Bell,
@@ -26,6 +37,7 @@ import {
   UserRound,
   Users,
 } from "lucide-react"
+import { onAuthChange } from "@/lib/auth"
 import {
   applyUserPreferences,
   readUserPreferences,
@@ -37,6 +49,7 @@ import BookmarksPageClient from "@/components/BookmarksPageClient"
 import CalendarPageClient from "@/components/CalendarPageClient"
 import { EmbeddedLibrariesDashboardMobile } from "@/components/LibrariesDashboard"
 import LibraryPageClient from "@/components/LibraryPageClient"
+import { db, storage } from "@/lib/firebase"
 import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { getProfile, getRelevantSettings } from "@/lib/profile"
@@ -361,11 +374,65 @@ function DesktopRailMessage({
                 : "rounded-bl-[8px] bg-[#D7F2FB] text-[#10243E]"
           }`}
         >
-          {message.body}
+          {message.imageUrl ? (
+            <div className={message.body ? "space-y-3" : ""}>
+              <img src={message.imageUrl} alt={message.imageName ?? "Shared image"} className="max-h-64 w-full rounded-[14px] object-cover" />
+              {message.body ? <p>{message.body}</p> : null}
+            </div>
+          ) : (
+            message.body
+          )}
         </div>
       </div>
     </div>
   )
+}
+
+type CommsThreadRecord = {
+  id: string
+  organizationId: string
+  type: "group" | "direct"
+  title: string
+  subtitle: string
+  accent: string
+  memberUids: string[]
+  memberNames: string[]
+  createdBy: string
+  createdAt: string
+  updatedAt: string
+  lastMessageBody?: string
+  lastMessageImageUrl?: string
+}
+
+type CommsMessageRecord = {
+  id: string
+  threadId: string
+  organizationId: string
+  senderUid?: string
+  senderKind: "user" | "tom"
+  author: string
+  body: string
+  imageUrl?: string
+  imageName?: string
+  createdAt: string
+}
+
+function formatThreadTime(value?: string) {
+  if (!value) return "Now"
+  const date = new Date(value)
+  if (Number.isNaN(date.getTime())) return "Now"
+
+  return new Intl.DateTimeFormat("en-GB", {
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(date)
+}
+
+function buildThreadPreview(input: { body?: string; imageUrl?: string }) {
+  const trimmedBody = input.body?.trim()
+  if (trimmedBody) return trimmedBody
+  if (input.imageUrl) return "Photo"
+  return "No messages yet"
 }
 
 function ThemeButton({
@@ -398,8 +465,14 @@ export default function PrepSightV4App() {
   const [activeTab, setActiveTab] = useState<TabKey>("chat")
   const [chatFilter, setChatFilter] = useState<ChatFilter>("all")
   const [threads, setThreads] = useState<ChatThread[]>(SEED_THREADS)
+  const [remoteThreads, setRemoteThreads] = useState<CommsThreadRecord[]>([])
+  const [remoteMessages, setRemoteMessages] = useState<CommsMessageRecord[]>([])
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>("group-ortho")
   const [threadDraft, setThreadDraft] = useState("")
+  const [pendingImage, setPendingImage] = useState<File | null>(null)
+  const [pendingImagePreview, setPendingImagePreview] = useState<string | null>(null)
+  const [uid, setUid] = useState<string | null>(null)
+  const [commsUsingRemote, setCommsUsingRemote] = useState(false)
   const [tomOpen, setTomOpen] = useState(false)
   const [tomMessages, setTomMessages] = useState<AssistantMessage[]>(SEED_TOM)
   const [tomDraft, setTomDraft] = useState("")
@@ -417,6 +490,8 @@ export default function PrepSightV4App() {
   const [activeLogistics, setActiveLogistics] = useState<LogisticsKey | null>(null)
   const [activeLogisticsPanel, setActiveLogisticsPanel] = useState<LogisticsKey>("members")
   const [activeUpdate, setActiveUpdate] = useState<UpdateKey | null>(null)
+  const mobileFileInputRef = useRef<HTMLInputElement | null>(null)
+  const desktopFileInputRef = useRef<HTMLInputElement | null>(null)
   const isDark = preferences.access.appearance === "dark"
   const libraries = useSyncExternalStore(subscribeLibraries, getLibrariesSnapshot, getLibrariesSnapshot)
   const bookmarks = useSyncExternalStore(subscribeBookmarks, getBookmarksSnapshot, getBookmarksSnapshot)
@@ -427,6 +502,16 @@ export default function PrepSightV4App() {
     setThreads(loadStoredState(CHAT_STORAGE_KEY, SEED_THREADS))
     setTomMessages(loadStoredState(TOM_STORAGE_KEY, SEED_TOM))
   }, [])
+
+  useEffect(() => onAuthChange((user) => setUid(user?.uid ?? null)), [])
+
+  useEffect(() => {
+    return () => {
+      if (pendingImagePreview?.startsWith("blob:")) {
+        URL.revokeObjectURL(pendingImagePreview)
+      }
+    }
+  }, [pendingImagePreview])
 
   useEffect(() => {
     function syncPreferences() {
@@ -450,20 +535,6 @@ export default function PrepSightV4App() {
     }
   }, [tomMessages])
 
-  const filteredThreads = useMemo(() => {
-    switch (chatFilter) {
-      case "unread":
-        return threads.filter((thread) => thread.unread > 0)
-      case "groups":
-        return threads.filter((thread) => thread.type === "group")
-      case "direct":
-        return threads.filter((thread) => thread.type === "direct")
-      default:
-        return threads
-    }
-  }, [chatFilter, threads])
-
-  const selectedThread = threads.find((thread) => thread.id === selectedThreadId) ?? null
   const baseWorkspaceLabel = useMemo(() => {
     const settings = profile ? getRelevantSettings(profile) : []
     return settings[0] ?? "Operating Theatre"
@@ -686,21 +757,206 @@ export default function PrepSightV4App() {
   const activeLogisticsDetail = activeLogistics ? logisticsDetails[activeLogistics] : null
   const activeUpdateDetail = activeUpdate ? updateDetails[activeUpdate] : null
 
+  useEffect(() => {
+    if (!db || !uid || !activeTeam?.id) {
+      setCommsUsingRemote(false)
+      setRemoteThreads([])
+      setRemoteMessages([])
+      return
+    }
+
+    setCommsUsingRemote(true)
+    const threadQuery = query(collection(db, "comms_threads"), where("organizationId", "==", activeTeam.id))
+    const messageQuery = query(collection(db, "comms_messages"), where("organizationId", "==", activeTeam.id))
+
+    const unsubscribeThreads = onSnapshot(
+      threadQuery,
+      (snapshot) => {
+        const next = snapshot.docs.map((entry) => ({ id: entry.id, ...entry.data() } as CommsThreadRecord))
+        setRemoteThreads(next)
+      },
+      (error) => {
+        console.warn("[PrepSight] comms_threads listener failed", error)
+        setCommsUsingRemote(false)
+      },
+    )
+
+    const unsubscribeMessages = onSnapshot(
+      messageQuery,
+      (snapshot) => {
+        const next = snapshot.docs.map((entry) => ({ id: entry.id, ...entry.data() } as CommsMessageRecord))
+        setRemoteMessages(next)
+      },
+      (error) => {
+        console.warn("[PrepSight] comms_messages listener failed", error)
+        setCommsUsingRemote(false)
+      },
+    )
+
+    return () => {
+      unsubscribeThreads()
+      unsubscribeMessages()
+    }
+  }, [activeTeam?.id, uid])
+
+  useEffect(() => {
+    if (!commsUsingRemote || !db || !uid || !activeTeam?.id || remoteThreads.length > 0) return
+
+    const threadId = `group-${activeTeam.id}`
+    void setDoc(doc(db, "comms_threads", threadId), {
+      organizationId: activeTeam.id,
+      type: "group",
+      title: activeTeam.internalName || workspaceLabel,
+      subtitle: `${Math.max(activeTeamMembers.length, 1)} member${Math.max(activeTeamMembers.length, 1) === 1 ? "" : "s"}`,
+      accent: "#0EA5E9",
+      memberUids: [uid],
+      memberNames: [profile?.name?.trim() || "You"],
+      createdBy: uid,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+      lastMessageBody: "Group created",
+    }).catch((error) => {
+      console.warn("[PrepSight] default comms thread creation failed", error)
+    })
+  }, [activeTeam?.id, activeTeam?.internalName, activeTeamMembers.length, commsUsingRemote, db, profile?.name, remoteThreads.length, uid, workspaceLabel])
+
+  const chatThreads = useMemo(() => {
+    if (!commsUsingRemote || !activeTeam?.id) return threads
+
+    const messagesByThread = remoteMessages.reduce<Record<string, ChatMessage[]>>((accumulator, message) => {
+      const nextMessage: ChatMessage = {
+        id: message.id,
+        sender: message.senderKind === "tom" ? "tom" : message.senderUid === uid ? "self" : "other",
+        author: message.author,
+        body: message.body,
+        time: formatThreadTime(message.createdAt),
+        imageUrl: message.imageUrl,
+        imageName: message.imageName,
+        createdAt: message.createdAt,
+      }
+
+      accumulator[message.threadId] = [...(accumulator[message.threadId] ?? []), nextMessage].sort(
+        (left, right) => (left.createdAt ?? "").localeCompare(right.createdAt ?? ""),
+      )
+      return accumulator
+    }, {})
+
+    const mappedThreads = remoteThreads
+      .map<ChatThread>((thread) => {
+        const threadMessages = messagesByThread[thread.id] ?? []
+        const lastMessage = threadMessages[threadMessages.length - 1]
+        return {
+          id: thread.id,
+          type: thread.type,
+          title: thread.title,
+          subtitle: thread.subtitle,
+          preview: buildThreadPreview({
+            body: lastMessage?.body ?? thread.lastMessageBody,
+            imageUrl: lastMessage?.imageUrl ?? thread.lastMessageImageUrl,
+          }),
+          time: formatThreadTime(lastMessage?.createdAt ?? thread.updatedAt),
+          unread: 0,
+          accent: thread.accent,
+          members: thread.memberNames,
+          memberUids: thread.memberUids,
+          messages: threadMessages,
+          organizationId: thread.organizationId,
+          updatedAt: thread.updatedAt,
+        }
+      })
+      .sort((left, right) => (right.updatedAt ?? "").localeCompare(left.updatedAt ?? ""))
+
+    return [
+      {
+        ...SEED_THREADS[0],
+        messages: tomMessages.map((message) => ({
+          id: message.id,
+          sender: message.sender,
+          author: message.sender === "tom" ? "TOM" : "You",
+          body: message.body,
+          time: message.time,
+          imageUrl: undefined,
+          imageName: undefined,
+          createdAt: undefined,
+        })),
+      },
+      ...mappedThreads,
+    ]
+  }, [activeTeam?.id, commsUsingRemote, remoteMessages, remoteThreads, threads, tomMessages, uid])
+
+  const filteredThreads = useMemo(() => {
+    switch (chatFilter) {
+      case "unread":
+        return chatThreads.filter((thread) => thread.unread > 0)
+      case "groups":
+        return chatThreads.filter((thread) => thread.type === "group")
+      case "direct":
+        return chatThreads.filter((thread) => thread.type === "direct")
+      default:
+        return chatThreads
+    }
+  }, [chatFilter, chatThreads])
+
+  const selectedThread = chatThreads.find((thread) => thread.id === selectedThreadId) ?? null
+
+  useEffect(() => {
+    if (!chatThreads.length) {
+      setSelectedThreadId(null)
+      return
+    }
+
+    setSelectedThreadId((current) => (current && chatThreads.some((thread) => thread.id === current) ? current : chatThreads[0].id))
+  }, [chatThreads])
+
+  function clearPendingImage() {
+    if (pendingImagePreview?.startsWith("blob:")) {
+      URL.revokeObjectURL(pendingImagePreview)
+    }
+    setPendingImage(null)
+    setPendingImagePreview(null)
+  }
+
+  function handlePickImage(file: File | null) {
+    if (!file) return
+    if (pendingImagePreview?.startsWith("blob:")) {
+      URL.revokeObjectURL(pendingImagePreview)
+    }
+    setPendingImage(file)
+    setPendingImagePreview(URL.createObjectURL(file))
+  }
+
+  async function uploadCommsImage(threadId: string, organizationId: string, file: File) {
+    if (!storage) {
+      return {
+        imageUrl: pendingImagePreview ?? "",
+        imageName: file.name,
+      }
+    }
+
+    const safeName = file.name.replace(/[^a-zA-Z0-9._-]+/g, "-")
+    const assetRef = storageRef(storage, `comms-media/${organizationId}/${threadId}/${Date.now()}-${safeName}`)
+    await uploadBytes(assetRef, file)
+    const imageUrl = await getDownloadURL(assetRef)
+    return { imageUrl, imageName: file.name }
+  }
+
   function openThread(threadId: string) {
     setWorkspacePickerOpen(false)
     setSelectedThreadId(threadId)
-    setThreads((current) =>
-      current.map((thread) => (thread.id === threadId ? { ...thread, unread: 0 } : thread)),
-    )
+    if (!commsUsingRemote) {
+      setThreads((current) =>
+        current.map((thread) => (thread.id === threadId ? { ...thread, unread: 0 } : thread)),
+      )
+    }
   }
 
   function closeThread() {
     setSelectedThreadId(null)
   }
 
-  function sendThreadMessage() {
+  async function sendThreadMessage() {
     const value = threadDraft.trim()
-    if (!value || !selectedThread) return
+    if ((!value && !pendingImage) || !selectedThread) return
 
     const nextMessage: ChatMessage = {
       id: `self-${Date.now()}`,
@@ -708,36 +964,80 @@ export default function PrepSightV4App() {
       author: "You",
       body: value,
       time: formatNow(),
+      imageUrl: pendingImagePreview ?? undefined,
+      imageName: pendingImage?.name,
+      createdAt: new Date().toISOString(),
     }
 
-    const tomReply: ChatMessage | null =
-      selectedThread.id === "direct-tom"
-        ? {
-            id: `tom-reply-${Date.now() + 1}`,
-            sender: "tom",
-            author: "TOM",
-            body: "I can help with that. I would pull the relevant card, highlight any logistics impact, and give you something you can forward into the group.",
-            time: formatNow(),
-          }
-        : null
+    if (selectedThread.id === "direct-tom") {
+      const outgoing: AssistantMessage = {
+        id: nextMessage.id,
+        sender: "self",
+        body: value || (pendingImage ? "Photo shared" : ""),
+        time: nextMessage.time,
+      }
+      const reply: AssistantMessage = {
+        id: `tom-reply-${Date.now() + 1}`,
+        sender: "tom",
+        body: "I can help with that. I would pull the relevant card, highlight any logistics impact, and give you something you can forward into the group.",
+        time: formatNow(),
+      }
+      setTomMessages((current) => [...current, outgoing, reply])
+      setThreadDraft("")
+      clearPendingImage()
+      return
+    }
+
+    if (commsUsingRemote && db && uid && selectedThread.organizationId) {
+      try {
+        const uploadedImage = pendingImage
+          ? await uploadCommsImage(selectedThread.id, selectedThread.organizationId, pendingImage)
+          : null
+        const createdAt = new Date().toISOString()
+        await addDoc(collection(db, "comms_messages"), {
+          threadId: selectedThread.id,
+          organizationId: selectedThread.organizationId,
+          senderUid: uid,
+          senderKind: "user",
+          author: profile?.name?.trim() || "You",
+          body: value,
+          imageUrl: uploadedImage?.imageUrl,
+          imageName: uploadedImage?.imageName,
+          createdAt,
+        } satisfies Omit<CommsMessageRecord, "id">)
+        await updateDoc(doc(db, "comms_threads", selectedThread.id), {
+          updatedAt: createdAt,
+          lastMessageBody: value,
+          lastMessageImageUrl: uploadedImage?.imageUrl ?? null,
+        })
+      } catch (error) {
+        console.warn("[PrepSight] comms message send failed", error)
+      }
+      setThreadDraft("")
+      clearPendingImage()
+      return
+    }
+
+    const tomReply: ChatMessage | null = null
 
     setThreads((current) =>
       current.map((thread) =>
         thread.id === selectedThread.id
           ? {
               ...thread,
-              preview: tomReply?.body ?? value,
+              preview: buildThreadPreview({ body: value, imageUrl: nextMessage.imageUrl }),
               time: "Now",
-              messages: tomReply ? [...thread.messages, nextMessage, tomReply] : [...thread.messages, nextMessage],
+              messages: [...thread.messages, nextMessage],
             }
           : thread,
       ),
     )
     setThreadDraft("")
+    clearPendingImage()
   }
 
-  function forwardTomMessage(body: string) {
-    const targetGroup = threads.find((thread) => thread.type === "group")
+  async function forwardTomMessage(body: string) {
+    const targetGroup = chatThreads.find((thread) => thread.type === "group")
     if (!targetGroup) return
 
     const forwardedMessage: ChatMessage = {
@@ -746,6 +1046,28 @@ export default function PrepSightV4App() {
       author: "You",
       body: `Forwarded from TOM:\n${body}`,
       time: formatNow(),
+    }
+
+    if (commsUsingRemote && db && uid && targetGroup.organizationId) {
+      try {
+        const createdAt = new Date().toISOString()
+        await addDoc(collection(db, "comms_messages"), {
+          threadId: targetGroup.id,
+          organizationId: targetGroup.organizationId,
+          senderUid: uid,
+          senderKind: "user",
+          author: profile?.name?.trim() || "You",
+          body: forwardedMessage.body,
+          createdAt,
+        } satisfies Omit<CommsMessageRecord, "id">)
+        await updateDoc(doc(db, "comms_threads", targetGroup.id), {
+          updatedAt: createdAt,
+          lastMessageBody: forwardedMessage.body,
+        })
+      } catch (error) {
+        console.warn("[PrepSight] comms TOM forward failed", error)
+      }
+      return
     }
 
     setThreads((current) =>
@@ -785,8 +1107,34 @@ export default function PrepSightV4App() {
     setTomDraft("")
   }
 
-  function addNewChat() {
+  async function addNewChat() {
     setWorkspacePickerOpen(false)
+    if (commsUsingRemote && db && uid && activeTeam?.id) {
+      const id = `group-${activeTeam.id}-${Date.now()}`
+      const createdAt = new Date().toISOString()
+      try {
+        await setDoc(doc(db, "comms_threads", id), {
+          id,
+          organizationId: activeTeam.id,
+          type: "group",
+          title: "New PrepSight Group",
+          subtitle: "1 member",
+          accent: "#0EA5E9",
+          memberUids: [uid],
+          memberNames: [profile?.name?.trim() || "You"],
+          createdBy: uid,
+          createdAt,
+          updatedAt: createdAt,
+          lastMessageBody: "Group created",
+        } satisfies CommsThreadRecord)
+        setActiveTab("chat")
+        setSelectedThreadId(id)
+      } catch (error) {
+        console.warn("[PrepSight] comms thread creation failed", error)
+      }
+      return
+    }
+
     const newThread: ChatThread = {
       id: `group-new-${Date.now()}`,
       type: "group",
@@ -1104,7 +1452,7 @@ export default function PrepSightV4App() {
   function renderThreadMobile() {
     if (!selectedThread) return null
 
-    const canSendThreadMessage = threadDraft.trim().length > 0
+    const canSendThreadMessage = threadDraft.trim().length > 0 || Boolean(pendingImage)
 
     return (
       <div className={`flex min-h-[calc(100vh-80px)] flex-col ${isDark ? "bg-[#0A1524]" : "bg-[#EEF2F5]"}`}>
@@ -1136,7 +1484,14 @@ export default function PrepSightV4App() {
                         : "rounded-bl-[10px] bg-[#D7F2FB] text-[#10243E]"
                   }`}
                 >
-                  {message.body}
+                  {message.imageUrl ? (
+                    <div className={message.body ? "space-y-3" : ""}>
+                      <img src={message.imageUrl} alt={message.imageName ?? "Shared image"} className="max-h-72 w-full rounded-[16px] object-cover" />
+                      {message.body ? <p>{message.body}</p> : null}
+                    </div>
+                  ) : (
+                    message.body
+                  )}
                 </div>
                 {selectedThread.id === "direct-tom" && message.sender === "tom" ? (
                   <button
@@ -1154,16 +1509,35 @@ export default function PrepSightV4App() {
         </div>
 
         <div className={`fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom,0px)+92px)] z-10 mx-auto max-w-[460px] border-t px-3 pt-2 pb-3 ${isDark ? "border-white/6 bg-[#091321]/96 backdrop-blur-xl" : "border-[#D6E7EE] bg-[#E9EEF2]/96 backdrop-blur-xl"}`}>
+          {pendingImagePreview ? (
+            <div className={`mb-2 flex items-center gap-3 rounded-[18px] px-3 py-2 ${isDark ? "bg-white/8" : "border border-[#D6E7EE] bg-white"}`}>
+              <img src={pendingImagePreview} alt="Pending attachment" className="h-12 w-12 rounded-[12px] object-cover" />
+              <div className="min-w-0 flex-1">
+                <p className={`truncate text-[13px] font-medium ${isDark ? "text-white" : "text-[#10243E]"}`}>{pendingImage?.name ?? "Photo attachment"}</p>
+                <p className={`text-[12px] ${isDark ? "text-[#8EA5BA]" : "text-[#61758B]"}`}>Will send with your next message</p>
+              </div>
+              <button type="button" onClick={clearPendingImage} className={`rounded-full px-3 py-1 text-[12px] ${isDark ? "bg-white/8 text-white" : "bg-[#EEF5F8] text-[#5F788C]"}`}>
+                Clear
+              </button>
+            </div>
+          ) : null}
           <div className="flex items-end gap-2">
             <div className={`flex min-h-12 flex-1 items-center gap-3 rounded-[26px] px-3 ${isDark ? "bg-white/8" : "border border-[#D6E7EE] bg-white shadow-[0_10px_24px_rgba(16,36,62,0.08)]"}`}>
-              <button type="button" className={`flex h-9 w-9 items-center justify-center rounded-full ${isDark ? "bg-white/8 text-white" : "bg-[#EEF5F8] text-[#5F788C]"}`}>
+              <input
+                ref={mobileFileInputRef}
+                type="file"
+                accept="image/*"
+                onChange={(event) => handlePickImage(event.target.files?.[0] ?? null)}
+                className="hidden"
+              />
+              <button type="button" onClick={() => mobileFileInputRef.current?.click()} className={`flex h-9 w-9 items-center justify-center rounded-full ${isDark ? "bg-white/8 text-white" : "bg-[#EEF5F8] text-[#5F788C]"}`}>
                 <Plus size={18} />
               </button>
               <input
                 value={threadDraft}
                 onChange={(event) => setThreadDraft(event.target.value)}
                 onKeyDown={(event) => {
-                  if (event.key === "Enter") sendThreadMessage()
+                  if (event.key === "Enter") void sendThreadMessage()
                 }}
                 placeholder="Message"
                 className={`w-full bg-transparent text-[15px] outline-none ${isDark ? "text-white placeholder:text-[#8EA5BA]" : "text-[#10243E] placeholder:text-[#7C93A7]"}`}
@@ -1174,7 +1548,7 @@ export default function PrepSightV4App() {
             </div>
             <button
               type="button"
-              onClick={sendThreadMessage}
+              onClick={() => void sendThreadMessage()}
               disabled={!canSendThreadMessage}
               className={`flex h-12 w-12 items-center justify-center rounded-full text-white transition-opacity ${
                 canSendThreadMessage ? "bg-[#0D8CCB]" : "bg-[#9DCBDE]"
@@ -1720,7 +2094,7 @@ export default function PrepSightV4App() {
             </p>
           </div>
           <div className="grid gap-4 xl:grid-cols-2">
-            {threads.filter((thread) => thread.type === "group").map((thread) => (
+            {chatThreads.filter((thread) => thread.type === "group").map((thread) => (
               <button
                 key={thread.id}
                 type="button"
@@ -2010,7 +2384,7 @@ export default function PrepSightV4App() {
 
               <div className={`${isDark ? "border-b border-[#20344C]" : "border-b border-[#D8E8EE]"} px-4 py-3`}>
                 <div className="space-y-2">
-                  {threads.map((thread) => (
+                  {chatThreads.map((thread) => (
                     <button
                       key={thread.id}
                       type="button"
@@ -2051,19 +2425,41 @@ export default function PrepSightV4App() {
               </div>
 
               <div className={`${isDark ? "border-t border-[#20344C] bg-[#0F1B2D]" : "border-t border-[#D8E8EE] bg-white"} px-4 py-3`}>
+                {pendingImagePreview ? (
+                  <div className={`mb-3 flex items-center gap-3 rounded-[18px] px-3 py-2 ${isDark ? "bg-[#132238]" : "border border-[#D8E8EE] bg-[#F8FBFD]"}`}>
+                    <img src={pendingImagePreview} alt="Pending attachment" className="h-12 w-12 rounded-[12px] object-cover" />
+                    <div className="min-w-0 flex-1">
+                      <p className={`truncate text-[13px] font-medium ${isDark ? "text-white" : "text-[#10243E]"}`}>{pendingImage?.name ?? "Photo attachment"}</p>
+                      <p className={`text-[12px] ${isDark ? "text-[#8EA5BA]" : "text-[#61758B]"}`}>Will send with your next message</p>
+                    </div>
+                    <button type="button" onClick={clearPendingImage} className={`rounded-full px-3 py-1 text-[12px] ${isDark ? "bg-white/8 text-white" : "bg-white text-[#5F788C]"}`}>
+                      Clear
+                    </button>
+                  </div>
+                ) : null}
                 <div className="flex items-center gap-2">
-                  <div className={`flex min-h-12 flex-1 items-center rounded-full px-4 ${isDark ? "bg-[#132238]" : "bg-[#F3F8FB]"}`}>
+                  <div className={`flex min-h-12 flex-1 items-center gap-2 rounded-full px-4 ${isDark ? "bg-[#132238]" : "bg-[#F3F8FB]"}`}>
+                    <input
+                      ref={desktopFileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={(event) => handlePickImage(event.target.files?.[0] ?? null)}
+                      className="hidden"
+                    />
+                    <button type="button" onClick={() => desktopFileInputRef.current?.click()} className={`flex h-8 w-8 items-center justify-center rounded-full ${isDark ? "bg-white/8 text-white" : "bg-white text-[#5F788C]"}`}>
+                      <Plus size={16} />
+                    </button>
                     <input
                       value={threadDraft}
                       onChange={(event) => setThreadDraft(event.target.value)}
                       onKeyDown={(event) => {
-                        if (event.key === "Enter") sendThreadMessage()
+                        if (event.key === "Enter") void sendThreadMessage()
                       }}
                       placeholder="Message"
                       className={`w-full bg-transparent text-[14px] outline-none ${isDark ? "text-white placeholder:text-[#8EA5BA]" : "text-[#10243E] placeholder:text-[#7E93A6]"}`}
                     />
                   </div>
-                  <button type="button" onClick={sendThreadMessage} className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0D8CCB] text-white">
+                  <button type="button" onClick={() => void sendThreadMessage()} className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0D8CCB] text-white">
                     <SendHorizontal size={18} />
                   </button>
                 </div>
