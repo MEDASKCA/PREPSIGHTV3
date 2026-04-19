@@ -28,6 +28,7 @@ import {
   Menu,
   MessageCircle,
   Plus,
+  Phone,
   Search,
   SendHorizontal,
   Settings2,
@@ -2100,10 +2101,10 @@ export default function PrepSightV4App() {
             </div>
             <button
               type="button"
-              onClick={() => (selectedThread.type === "group" ? setThreadManagerOpen(true) : setDrawerOpen(true))}
+              onClick={() => (selectedThread.type === "group" ? setThreadManagerOpen(true) : null)}
               className={`flex h-11 w-11 items-center justify-center rounded-full ${isDark ? "bg-white/6 text-white" : "border border-white/35 bg-white/12 text-white"}`}
             >
-              <Settings2 size={18} />
+              {selectedThread.type === "group" ? <Settings2 size={18} /> : <Phone size={18} />}
             </button>
           </div>
         </div>
@@ -2181,13 +2182,14 @@ export default function PrepSightV4App() {
             <button
               type="button"
               onClick={() => setContactsDrawerOpen(true)}
-              className={`shrink-0 rounded-full px-4 py-2 text-[13px] font-medium ${
+              aria-label="Open contacts"
+              className={`shrink-0 rounded-full px-3 py-2 ${
                 isDark
                   ? "border border-[#2A6272] bg-[#103546] text-[#B9EAF4]"
                   : "border border-[#58C6D7] bg-[#E4FAFD] text-[#0F4C5C]"
               }`}
             >
-              Contacts
+              <Users size={16} />
             </button>
             {CHAT_FILTERS.map((filter) => (
               <button
