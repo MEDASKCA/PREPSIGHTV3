@@ -906,25 +906,61 @@ export default function PrepSightV4App() {
   }, [activeTeam?.id, uid])
 
   useEffect(() => {
-    if (!commsUsingRemote || !db || !uid || !activeTeam?.id || remoteThreads.length > 0) return
+    if (!commsUsingRemote || !db || !uid || !activeTeam?.id) return
+
+    const activeMembers = activeTeamMembers.filter((member) => member.status === "active" && member.uid)
+    const nextMemberUids = Array.from(new Set([uid, ...activeMembers.map((member) => member.uid)]))
+    const nextMemberNames = Array.from(
+      new Set([
+        profile?.name?.trim() || "You",
+        ...activeMembers.map((member) => member.displayName?.trim() || member.publicAlias),
+      ]),
+    )
 
     const threadId = `group-${activeTeam.id}`
-    void setDoc(doc(db, "comms_threads", threadId), {
-      organizationId: activeTeam.id,
-      type: "group",
-      title: activeTeam.internalName || workspaceLabel,
-      subtitle: `${Math.max(activeTeamMembers.length, 1)} member${Math.max(activeTeamMembers.length, 1) === 1 ? "" : "s"}`,
-      accent: "#0EA5E9",
-      memberUids: [uid],
-      memberNames: [profile?.name?.trim() || "You"],
-      createdBy: uid,
-      createdAt: new Date().toISOString(),
+    const existingThread = remoteThreads.find((thread) => thread.id === threadId)
+    const nextSubtitle = `${Math.max(nextMemberUids.length, 1)} member${Math.max(nextMemberUids.length, 1) === 1 ? "" : "s"}`
+
+    if (!existingThread) {
+      void setDoc(doc(db, "comms_threads", threadId), {
+        organizationId: activeTeam.id,
+        type: "group",
+        title: activeTeam.internalName || workspaceLabel,
+        subtitle: nextSubtitle,
+        accent: "#0EA5E9",
+        memberUids: nextMemberUids,
+        memberNames: nextMemberNames,
+        createdBy: uid,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        lastMessageBody: "Group created",
+      }).catch((error) => {
+        console.warn("[PrepSight] default comms thread creation failed", error)
+      })
+      return
+    }
+
+    const existingMemberUids = [...(existingThread.memberUids ?? [])].sort()
+    const normalizedNextMemberUids = [...nextMemberUids].sort()
+    const existingMemberNames = [...(existingThread.memberNames ?? [])].sort()
+    const normalizedNextMemberNames = [...nextMemberNames].sort()
+
+    const membershipChanged =
+      existingMemberUids.join("__") !== normalizedNextMemberUids.join("__") ||
+      existingMemberNames.join("__") !== normalizedNextMemberNames.join("__") ||
+      existingThread.subtitle !== nextSubtitle
+
+    if (!membershipChanged) return
+
+    void updateDoc(doc(db, "comms_threads", threadId), {
+      memberUids: nextMemberUids,
+      memberNames: nextMemberNames,
+      subtitle: nextSubtitle,
       updatedAt: new Date().toISOString(),
-      lastMessageBody: "Group created",
     }).catch((error) => {
-      console.warn("[PrepSight] default comms thread creation failed", error)
+      console.warn("[PrepSight] default comms thread sync failed", error)
     })
-  }, [activeTeam?.id, activeTeam?.internalName, activeTeamMembers.length, commsUsingRemote, db, profile?.name, remoteThreads.length, uid, workspaceLabel])
+  }, [activeTeam?.id, activeTeam?.internalName, activeTeamMembers, commsUsingRemote, db, profile?.name, remoteThreads, uid, workspaceLabel])
 
   const chatThreads = useMemo(() => {
     if (!commsUsingRemote || !activeTeam?.id) return threads
