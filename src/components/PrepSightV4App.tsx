@@ -38,6 +38,7 @@ import {
   Users,
 } from "lucide-react"
 import { onAuthChange } from "@/lib/auth"
+import type { User } from "firebase/auth"
 import {
   applyUserPreferences,
   readUserPreferences,
@@ -510,6 +511,7 @@ export default function PrepSightV4App() {
   const [threadManagerOpen, setThreadManagerOpen] = useState(false)
   const [threadManagerTitle, setThreadManagerTitle] = useState("")
   const [threadManagerMemberIds, setThreadManagerMemberIds] = useState<string[]>([])
+  const [currentUser, setCurrentUser] = useState<User | null>(null)
   const [uid, setUid] = useState<string | null>(null)
   const [commsUsingRemote, setCommsUsingRemote] = useState(false)
   const [tomOpen, setTomOpen] = useState(false)
@@ -541,7 +543,14 @@ export default function PrepSightV4App() {
     setTomMessages(loadStoredState(TOM_STORAGE_KEY, SEED_TOM))
   }, [])
 
-  useEffect(() => onAuthChange((user) => setUid(user?.uid ?? null)), [])
+  useEffect(
+    () =>
+      onAuthChange((user) => {
+        setCurrentUser(user)
+        setUid(user?.uid ?? null)
+      }),
+    [],
+  )
 
   useEffect(() => {
     return () => {
@@ -1729,6 +1738,7 @@ export default function PrepSightV4App() {
     const topLevelSectionLabel =
       activeTab === "chat" ? "Comms" : activeTab === "library" ? "Library" : activeTab === "logistics" ? "Resources" : "Updates"
     const organizationLabel = profile?.hospital?.trim() || activeTeam?.publicAlias?.trim() || activeTeam?.internalName?.trim() || "Your organisation"
+    const userLabel = currentUser?.displayName?.trim() || currentUser?.email?.trim() || profile?.name?.trim() || "You"
 
     return (
       <div className={`fixed inset-x-0 top-0 z-20 mx-auto max-w-[460px] px-4 pt-[calc(env(safe-area-inset-top,0px)+10px)] pb-2 ${isDark ? "bg-[#091321]/96 backdrop-blur-xl" : "border-b border-[#0085B2] bg-[#0096C7]"}`}>
@@ -1768,9 +1778,13 @@ export default function PrepSightV4App() {
             type="button"
             onClick={() => setDrawerOpen(true)}
             aria-label="Open quick links"
-            className={`flex h-11 w-11 items-center justify-center rounded-full ${isDark ? "bg-white/6 text-white" : "border border-white/35 bg-white/12 text-white"}`}
+            className={`flex h-11 w-11 items-center justify-center overflow-hidden rounded-full ${isDark ? "bg-white/6" : "border border-white/35 bg-white/12"}`}
           >
-            <Settings2 size={18} />
+            {currentUser?.photoURL ? (
+              <img src={currentUser.photoURL} alt={userLabel} className="h-full w-full object-cover" />
+            ) : (
+              <Avatar label={userLabel} accent="#4DA3FF" sizeClass="h-11 w-11" />
+            )}
           </button>
         </div>
       </div>
