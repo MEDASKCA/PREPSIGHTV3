@@ -417,6 +417,14 @@ type CommsMessageRecord = {
   createdAt: string
 }
 
+type CommsReadRecord = {
+  id: string
+  organizationId: string
+  threadId: string
+  uid: string
+  readAt: string
+}
+
 function formatThreadTime(value?: string) {
   if (!value) return "Now"
   const date = new Date(value)
@@ -433,6 +441,10 @@ function buildThreadPreview(input: { body?: string; imageUrl?: string }) {
   if (trimmedBody) return trimmedBody
   if (input.imageUrl) return "Photo"
   return "No messages yet"
+}
+
+function buildCommsReadDocId(uid: string, threadId: string) {
+  return `${uid}__${threadId}`.replace(/[^a-zA-Z0-9:_-]+/g, "-")
 }
 
 function buildCommsReadStorageKey(uid?: string | null, organizationId?: string) {
@@ -492,6 +504,7 @@ export default function PrepSightV4App() {
   const [pendingImage, setPendingImage] = useState<File | null>(null)
   const [pendingImagePreview, setPendingImagePreview] = useState<string | null>(null)
   const [threadReadState, setThreadReadState] = useState<Record<string, string>>({})
+  const [remoteThreadReadState, setRemoteThreadReadState] = useState<Record<string, string>>({})
   const [newChatOpen, setNewChatOpen] = useState(false)
   const [newChatMode, setNewChatMode] = useState<"direct" | "group">("direct")
   const [newChatTitle, setNewChatTitle] = useState("")
@@ -790,17 +803,50 @@ export default function PrepSightV4App() {
     saveCommsReadState(threadReadState, uid, activeTeam?.id)
   }, [activeTeam?.id, threadReadState, uid])
 
+  async function markThreadRead(threadId: string, readAt?: string) {
+    const nextReadAt = readAt ?? new Date().toISOString()
+    const existingReadAt = (commsUsingRemote ? remoteThreadReadState : threadReadState)[threadId]
+
+    if (existingReadAt && existingReadAt >= nextReadAt) {
+      return
+    }
+
+    if (commsUsingRemote && db && uid && activeTeam?.id) {
+      try {
+        await setDoc(doc(db, "comms_reads", buildCommsReadDocId(uid, threadId)), {
+          id: buildCommsReadDocId(uid, threadId),
+          organizationId: activeTeam.id,
+          threadId,
+          uid,
+          readAt: nextReadAt,
+        } satisfies CommsReadRecord)
+      } catch (error) {
+        console.warn("[PrepSight] comms read sync failed", error)
+      }
+      setRemoteThreadReadState((current) => (
+        current[threadId] === nextReadAt ? current : { ...current, [threadId]: nextReadAt }
+      ))
+      return
+    }
+
+    setThreadReadState((current) => (
+      current[threadId] === nextReadAt ? current : { ...current, [threadId]: nextReadAt }
+    ))
+  }
+
   useEffect(() => {
     if (!db || !uid || !activeTeam?.id) {
       setCommsUsingRemote(false)
       setRemoteThreads([])
       setRemoteMessages([])
+      setRemoteThreadReadState({})
       return
     }
 
     setCommsUsingRemote(true)
     const threadQuery = query(collection(db, "comms_threads"), where("organizationId", "==", activeTeam.id))
     const messageQuery = query(collection(db, "comms_messages"), where("organizationId", "==", activeTeam.id))
+    const readQuery = query(collection(db, "comms_reads"), where("organizationId", "==", activeTeam.id), where("uid", "==", uid))
 
     const unsubscribeThreads = onSnapshot(
       threadQuery,
@@ -826,9 +872,26 @@ export default function PrepSightV4App() {
       },
     )
 
+    const unsubscribeReads = onSnapshot(
+      readQuery,
+      (snapshot) => {
+        const next = snapshot.docs.map((entry) => ({ id: entry.id, ...entry.data() } as CommsReadRecord))
+        setRemoteThreadReadState(
+          next.reduce<Record<string, string>>((accumulator, record) => {
+            accumulator[record.threadId] = record.readAt
+            return accumulator
+          }, {}),
+        )
+      },
+      (error) => {
+        console.warn("[PrepSight] comms_reads listener failed", error)
+      },
+    )
+
     return () => {
       unsubscribeThreads()
       unsubscribeMessages()
+      unsubscribeReads()
     }
   }, [activeTeam?.id, uid])
 
@@ -878,7 +941,7 @@ export default function PrepSightV4App() {
       .map<ChatThread>((thread) => {
         const threadMessages = messagesByThread[thread.id] ?? []
         const lastMessage = threadMessages[threadMessages.length - 1]
-        const lastReadAt = threadReadState[thread.id] ?? ""
+        const lastReadAt = remoteThreadReadState[thread.id] ?? ""
         const lastMessageFromCurrentUser = lastMessage?.sender === "self"
         const unread =
           lastMessage && !lastMessageFromCurrentUser && (lastMessage.createdAt ?? thread.updatedAt ?? "") > lastReadAt ? 1 : 0
@@ -919,7 +982,7 @@ export default function PrepSightV4App() {
       },
       ...mappedThreads,
     ]
-  }, [activeTeam?.id, commsUsingRemote, remoteMessages, remoteThreads, threadReadState, threads, tomMessages, uid])
+  }, [activeTeam?.id, commsUsingRemote, remoteMessages, remoteThreadReadState, remoteThreads, threads, tomMessages, uid])
 
   const filteredThreads = useMemo(() => {
     switch (chatFilter) {
@@ -949,10 +1012,7 @@ export default function PrepSightV4App() {
     if (!selectedThreadId) return
     const selected = chatThreads.find((thread) => thread.id === selectedThreadId)
     if (!selected?.updatedAt) return
-    setThreadReadState((current) => ({
-      ...current,
-      [selectedThreadId]: selected.updatedAt!,
-    }))
+    void markThreadRead(selectedThreadId, selected.updatedAt)
   }, [chatThreads, selectedThreadId])
 
   function clearPendingImage() {
@@ -991,10 +1051,7 @@ export default function PrepSightV4App() {
     setWorkspacePickerOpen(false)
     setSelectedThreadId(threadId)
     const openedThread = chatThreads.find((thread) => thread.id === threadId)
-    setThreadReadState((current) => ({
-      ...current,
-      [threadId]: openedThread?.updatedAt ?? new Date().toISOString(),
-    }))
+    void markThreadRead(threadId, openedThread?.updatedAt ?? new Date().toISOString())
     if (!commsUsingRemote) {
       setThreads((current) =>
         current.map((thread) => (thread.id === threadId ? { ...thread, unread: 0 } : thread)),
