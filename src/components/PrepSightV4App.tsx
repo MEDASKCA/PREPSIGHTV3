@@ -1012,10 +1012,45 @@ export default function PrepSightV4App() {
       })
       .sort((left, right) => (right.updatedAt ?? "").localeCompare(left.updatedAt ?? ""))
 
+    const directThreadPairs = new Set(
+      mappedThreads
+        .filter((thread) => thread.type === "direct")
+        .map((thread) => [...(thread.memberUids ?? [])].sort().join("__")),
+    )
+    const selfUid = uid
+
+    const starterDirectThreads = activeTeamMembers
+      .filter((member) => member.status === "active" && member.uid && member.uid !== uid)
+      .map<ChatThread | null>((member) => {
+        const memberUid = member.uid
+        if (!selfUid || !memberUid) return null
+        const directPair = [selfUid, memberUid].sort().join("__")
+        if (directThreadPairs.has(directPair)) return null
+
+        return {
+          id: `direct-${activeTeam.id}-${directPair}`,
+          type: "direct",
+          title: member.displayName?.trim() || member.publicAlias,
+          subtitle: member.departments?.[0] || "Same organisation",
+          preview: "Start a conversation",
+          time: "",
+          unread: 0,
+          online: true,
+          accent: "#4DA3FF",
+          members: [profile?.name?.trim() || "You", member.displayName?.trim() || member.publicAlias],
+          memberUids: [selfUid, memberUid],
+          messages: [],
+          organizationId: activeTeam.id,
+          updatedAt: "",
+        }
+      })
+      .filter((thread): thread is ChatThread => Boolean(thread))
+
     return [
       ...mappedThreads,
+      ...starterDirectThreads,
     ]
-  }, [activeTeam?.id, commsUsingRemote, remoteMessages, remoteThreadReadState, remoteThreads, threads, tomMessages, uid])
+  }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, profile?.name, remoteMessages, remoteThreadReadState, remoteThreads, threads, uid])
 
   const filteredThreads = useMemo(() => {
     switch (chatFilter) {
@@ -1084,6 +1119,30 @@ export default function PrepSightV4App() {
     setWorkspacePickerOpen(false)
     setSelectedThreadId(threadId)
     const openedThread = chatThreads.find((thread) => thread.id === threadId)
+    if (
+      commsUsingRemote &&
+      db &&
+      uid &&
+      openedThread?.type === "direct" &&
+      openedThread.organizationId &&
+      !remoteThreads.some((thread) => thread.id === threadId)
+    ) {
+      void setDoc(doc(db, "comms_threads", threadId), {
+        organizationId: openedThread.organizationId,
+        type: "direct",
+        title: openedThread.title,
+        subtitle: openedThread.subtitle,
+        accent: openedThread.accent,
+        memberUids: openedThread.memberUids ?? [uid],
+        memberNames: openedThread.members ?? [profile?.name?.trim() || "You", openedThread.title],
+        createdBy: uid,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+        lastMessageBody: "",
+      } satisfies Omit<CommsThreadRecord, "id">).catch((error) => {
+        console.warn("[PrepSight] direct comms thread creation failed", error)
+      })
+    }
     void markThreadRead(threadId, openedThread?.updatedAt ?? new Date().toISOString())
     if (!commsUsingRemote) {
       setThreads((current) =>
@@ -2016,12 +2075,7 @@ export default function PrepSightV4App() {
               aria-label="Open quick links"
               className="flex h-12 w-12 items-center justify-center"
             >
-              <span
-                className={`text-[28px] leading-none tracking-[0.06em] ${isDark ? "text-white/82" : "text-white/84"}`}
-                style={{ fontFamily: '"Segoe Print", "Comic Sans MS", cursive' }}
-              >
-                P.S.
-              </span>
+              <img src="/ps-mark.png" alt="PrepSight" className="h-10 w-auto object-contain opacity-80 brightness-[1.38] contrast-[0.82]" />
             </button>
           )}
 
@@ -2998,12 +3052,7 @@ export default function PrepSightV4App() {
         <header className={`flex h-[72px] items-center justify-between px-6 text-white ${isDark ? "border-b border-[#20344C] bg-[#0F1B2D]" : "border-b border-[#0F4C5C] bg-[#0077B6]"}`}>
           <div className="flex items-center gap-4">
             <div className="flex h-12 w-12 items-center justify-center overflow-hidden">
-              <span
-                className={`text-[28px] leading-none tracking-[0.06em] ${isDark ? "text-white/82" : "text-white/84"}`}
-                style={{ fontFamily: '"Segoe Print", "Comic Sans MS", cursive' }}
-              >
-                P.S.
-              </span>
+              <img src="/ps-mark.png" alt="PrepSight" className="h-10 w-auto object-contain opacity-80 brightness-[1.38] contrast-[0.82]" />
             </div>
             <p className="text-[28px] tracking-[-0.05em]">PrepSight</p>
           </div>
