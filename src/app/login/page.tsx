@@ -263,12 +263,6 @@ export default function LoginPage() {
       setAuthResolved(true)
       if (!handledInitialAuthRef.current) {
         handledInitialAuthRef.current = true
-        if (user && !allowAutoResumeRef.current) {
-          appendDebug("existing session detected on login page; staying on login")
-          setSessionUser(user)
-          setLit(true)
-          return
-        }
       }
       if (!user) {
         setSessionUser(null)

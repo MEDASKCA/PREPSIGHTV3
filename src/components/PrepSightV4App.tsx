@@ -32,12 +32,14 @@ import {
   SendHorizontal,
   Settings2,
   Sparkles,
+  LogOut,
+  PlugZap,
   Sun,
   Moon,
   UserRound,
   Users,
 } from "lucide-react"
-import { onAuthChange } from "@/lib/auth"
+import { onAuthChange, signOut as signOutUser } from "@/lib/auth"
 import type { User } from "firebase/auth"
 import {
   applyUserPreferences,
@@ -518,6 +520,7 @@ export default function PrepSightV4App() {
   const [tomMessages, setTomMessages] = useState<AssistantMessage[]>(SEED_TOM)
   const [tomDraft, setTomDraft] = useState("")
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [drawerView, setDrawerView] = useState<"home" | "profile" | "settings" | "connectors">("home")
   const [workspacePickerOpen, setWorkspacePickerOpen] = useState(false)
   const [activeCollection, setActiveCollection] = useState<CollectionKey | null>(null)
   const [activeEmbeddedLibraryId, setActiveEmbeddedLibraryId] = useState<string | null>(null)
@@ -559,6 +562,10 @@ export default function PrepSightV4App() {
       }
     }
   }, [pendingImagePreview])
+
+  useEffect(() => {
+    if (!drawerOpen) setDrawerView("home")
+  }, [drawerOpen])
 
   useEffect(() => {
     function syncPreferences() {
@@ -1691,6 +1698,217 @@ export default function PrepSightV4App() {
     if (key === "bookmarks") {
       router.push("/bookmarks")
     }
+  }
+
+  async function handleDrawerSignOut() {
+    try {
+      await signOutUser()
+      setDrawerOpen(false)
+      setDrawerView("home")
+      router.push("/login")
+    } catch (error) {
+      console.warn("[PrepSight] sign out failed", error)
+    }
+  }
+
+  function renderDrawerPanelButton({
+    icon,
+    title,
+    detail,
+    onClick,
+  }: {
+    icon: React.ReactNode
+    title: string
+    detail: string
+    onClick: () => void
+  }) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        className="flex w-full items-center gap-3 rounded-[18px] border border-white/8 bg-white/4 px-3 py-3 text-left hover:bg-white/8"
+      >
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] bg-white/8 text-white">{icon}</div>
+        <div className="min-w-0 flex-1">
+          <p className="text-[15px] font-medium text-white">{title}</p>
+          <p className="mt-1 text-[12px] text-[#9DB0C4]">{detail}</p>
+        </div>
+        <ChevronRight size={18} className="shrink-0 text-[#9DB0C4]" />
+      </button>
+    )
+  }
+
+  function renderMobileDrawer() {
+    const userLabel = currentUser?.displayName?.trim() || profile?.name?.trim() || "You"
+    const userEmail = currentUser?.email?.trim() || "Signed in"
+    const organizationLabel = profile?.hospital?.trim() || activeTeam?.publicAlias?.trim() || activeTeam?.internalName?.trim() || "Your organisation"
+    const primarySetting = baseWorkspaceLabel || "Operating Theatre"
+
+    const drawerTitle =
+      drawerView === "profile"
+        ? "Profile customisation"
+        : drawerView === "settings"
+          ? "Settings"
+          : drawerView === "connectors"
+            ? "Connectors"
+            : "Account"
+
+    const drawerSubtitle =
+      drawerView === "profile"
+        ? "Your identity and workplace context"
+        : drawerView === "settings"
+          ? "Theme, notifications, and app preferences"
+          : drawerView === "connectors"
+            ? "Connected areas inside PrepSight"
+            : "Manage your account and app controls"
+
+    return (
+      <div className="fixed inset-0 z-50 mx-auto max-w-[460px] bg-[rgba(4,18,26,0.42)] backdrop-blur-[2px]">
+        <div className="h-full w-[84%] max-w-[320px] rounded-r-[32px] border-r border-[#7CCCDC]/18 bg-[linear-gradient(180deg,rgba(8,53,66,0.82)_0%,rgba(7,32,45,0.88)_52%,rgba(6,21,34,0.92)_100%)] px-4 pt-[calc(env(safe-area-inset-top,0px)+18px)] pb-8 shadow-[24px_0_60px_rgba(0,24,36,0.36)] backdrop-blur-2xl">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[24px] font-semibold tracking-[-0.05em] text-white">{drawerTitle}</p>
+              <p className="mt-1 text-[13px] text-[#9DB0C4]">{drawerSubtitle}</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => {
+                if (drawerView === "home") {
+                  setDrawerOpen(false)
+                } else {
+                  setDrawerView("home")
+                }
+              }}
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white/6 text-white"
+            >
+              <ArrowLeft size={20} />
+            </button>
+          </div>
+
+          {drawerView === "home" ? (
+            <>
+              <div className="mt-6 flex items-center gap-3 rounded-[22px] border border-white/8 bg-white/4 px-3 py-3">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#133A56]">
+                  {currentUser?.photoURL ? (
+                    <img src={currentUser.photoURL} alt={userLabel} className="h-full w-full object-cover" />
+                  ) : (
+                    <Avatar label={userLabel} accent="#4DA3FF" sizeClass="h-14 w-14" />
+                  )}
+                </div>
+                <div className="min-w-0">
+                  <p className="truncate text-[16px] font-medium text-white">{userLabel}</p>
+                  <p className="truncate text-[12px] text-[#9DB0C4]">{userEmail}</p>
+                  <p className="mt-1 truncate text-[12px] text-[#7FCFE3]">{organizationLabel}</p>
+                </div>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                {renderDrawerPanelButton({
+                  icon: <UserRound size={18} />,
+                  title: "Profile customisation",
+                  detail: "Identity, organisation, and workspace context",
+                  onClick: () => setDrawerView("profile"),
+                })}
+                {renderDrawerPanelButton({
+                  icon: <Settings2 size={18} />,
+                  title: "Settings",
+                  detail: "Appearance, notifications, and shell behaviour",
+                  onClick: () => setDrawerView("settings"),
+                })}
+                {renderDrawerPanelButton({
+                  icon: <PlugZap size={18} />,
+                  title: "Connectors",
+                  detail: "Connected areas and app surfaces inside PrepSight",
+                  onClick: () => setDrawerView("connectors"),
+                })}
+                <button
+                  type="button"
+                  onClick={handleDrawerSignOut}
+                  className="flex w-full items-center gap-3 rounded-[18px] border border-[#2B4F69] bg-[#10243A] px-3 py-3 text-left hover:bg-[#132B44]"
+                >
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] bg-[#17324B] text-white">
+                    <LogOut size={18} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[15px] font-medium text-white">Sign out</p>
+                    <p className="mt-1 text-[12px] text-[#9DB0C4]">Leave this session and return to login</p>
+                  </div>
+                </button>
+              </div>
+            </>
+          ) : null}
+
+          {drawerView === "profile" ? (
+            <div className="mt-6 space-y-3">
+              <div className="rounded-[22px] border border-white/8 bg-white/4 p-4">
+                <p className="text-[12px] uppercase tracking-[0.16em] text-[#7FCFE3]">User</p>
+                <p className="mt-2 text-[17px] font-medium text-white">{userLabel}</p>
+                <p className="mt-1 text-[13px] text-[#9DB0C4]">{userEmail}</p>
+              </div>
+              <div className="rounded-[22px] border border-white/8 bg-white/4 p-4">
+                <p className="text-[12px] uppercase tracking-[0.16em] text-[#7FCFE3]">Organisation</p>
+                <p className="mt-2 text-[16px] text-white">{organizationLabel}</p>
+                <p className="mt-1 text-[13px] text-[#9DB0C4]">Current workspace: {primarySetting}</p>
+              </div>
+              <div className="rounded-[22px] border border-white/8 bg-white/4 p-4">
+                <p className="text-[12px] uppercase tracking-[0.16em] text-[#7FCFE3]">Role</p>
+                <p className="mt-2 text-[16px] text-white">{profile?.role ?? "PrepSight member"}</p>
+                <p className="mt-1 text-[13px] text-[#9DB0C4]">Profile editing can stay inside this drawer later.</p>
+              </div>
+            </div>
+          ) : null}
+
+          {drawerView === "settings" ? (
+            <div className="mt-6 space-y-3">
+              <button
+                type="button"
+                onClick={toggleAppearance}
+                className="flex w-full items-center gap-3 rounded-[18px] border border-white/8 bg-white/4 px-3 py-3 text-left hover:bg-white/8"
+              >
+                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] bg-white/8 text-white">
+                  {isDark ? <Moon size={18} /> : <Sun size={18} />}
+                </div>
+                <div className="min-w-0 flex-1">
+                  <p className="text-[15px] font-medium text-white">Appearance</p>
+                  <p className="mt-1 text-[12px] text-[#9DB0C4]">{isDark ? "Dark mode is active" : "Light mode is active"}</p>
+                </div>
+              </button>
+              <div className="rounded-[18px] border border-white/8 bg-white/4 px-4 py-4">
+                <div className="flex items-center gap-3">
+                  <Bell size={18} className="text-white" />
+                  <div>
+                    <p className="text-[15px] font-medium text-white">Notifications</p>
+                    <p className="mt-1 text-[12px] text-[#9DB0C4]">Notification controls can stay inside this drawer instead of opening a separate screen.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          {drawerView === "connectors" ? (
+            <div className="mt-6 space-y-3">
+              {[
+                { title: "Comms", detail: "Live threads, unread state, and media attachments", active: activeTab === "chat" },
+                { title: "Library", detail: "Embedded V3 library views inside the V4 shell", active: activeTab === "library" },
+                { title: "Resources", detail: "Workforce, equipment, and supplies surfaces", active: activeTab === "logistics" },
+                { title: "Updates", detail: "Organisation and workspace update streams", active: activeTab === "updates" },
+              ].map((connector) => (
+                <div key={connector.title} className={`rounded-[18px] border px-4 py-4 ${connector.active ? "border-[#58C6D7] bg-[#102B3B]" : "border-white/8 bg-white/4"}`}>
+                  <div className="flex items-center justify-between gap-3">
+                    <p className="text-[15px] font-medium text-white">{connector.title}</p>
+                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${connector.active ? "bg-[#58C6D7] text-[#10243E]" : "bg-white/8 text-[#C5D4E1]"}`}>
+                      {connector.active ? "Open" : "Available"}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-[12px] text-[#9DB0C4]">{connector.detail}</p>
+                </div>
+              ))}
+            </div>
+          ) : null}
+        </div>
+        <button type="button" onClick={() => setDrawerOpen(false)} className="absolute inset-0 -z-10 w-full" aria-label="Close drawer" />
+      </div>
+    )
   }
 
   function renderMobileTopBar() {
@@ -3117,43 +3335,7 @@ export default function PrepSightV4App() {
           </div>
         ) : null}
 
-        {drawerOpen ? (
-          <div className="fixed inset-0 z-50 mx-auto max-w-[460px] bg-black/52">
-            <div className="h-full w-[84%] max-w-[320px] rounded-r-[32px] bg-[linear-gradient(180deg,#101B2A_0%,#0A1524_100%)] px-4 pt-[calc(env(safe-area-inset-top,0px)+18px)] pb-8 shadow-[24px_0_60px_rgba(0,0,0,0.35)]">
-              <div className="flex items-center justify-between">
-              <div>
-                <p className="text-[28px] font-semibold tracking-[-0.05em] text-white">PrepSight</p>
-                  <p className="mt-1 text-[13px] text-[#9DB0C4]">Messaging, library, logistics, and updates</p>
-              </div>
-                <button type="button" onClick={() => setDrawerOpen(false)} className="flex h-11 w-11 items-center justify-center rounded-full bg-white/6 text-white">
-                  <ArrowLeft size={20} />
-                </button>
-              </div>
-
-              <div className="mt-6 space-y-3">
-                <DrawerCard title="Chat" description="Group threads, direct messages, and TOM now sit in the same conversation list." />
-                <DrawerCard title="Library" description="Collections, bookmarks, review, calendar, and catalogue stay inside one app shell." />
-                <DrawerCard title="Logistics" description="Members, approvals, staffing, access, and equipment continue growing in one operational tab." />
-              </div>
-
-              <div className="mt-8 space-y-2 text-[#A6B8C9]">
-                <button type="button" onClick={() => { openTab("chat"); setDrawerOpen(false) }} className="flex w-full items-center gap-3 rounded-[16px] px-3 py-3 text-left hover:bg-white/6">
-                  <Clock3 size={18} />
-                  <span>Recent threads</span>
-                </button>
-                <button type="button" onClick={() => { openTab("library"); setDrawerOpen(false) }} className="flex w-full items-center gap-3 rounded-[16px] px-3 py-3 text-left hover:bg-white/6">
-                  <UserRound size={18} />
-                  <span>Library workspace</span>
-                </button>
-                <button type="button" onClick={() => { openTab("chat"); closeThread(); setDrawerOpen(false) }} className="flex w-full items-center gap-3 rounded-[16px] px-3 py-3 text-left hover:bg-white/6">
-                  <Sparkles size={18} />
-                  <span>TOM in chat</span>
-                </button>
-              </div>
-            </div>
-            <button type="button" onClick={() => setDrawerOpen(false)} className="absolute inset-0 -z-10 w-full" aria-label="Close drawer" />
-          </div>
-        ) : null}
+        {drawerOpen ? renderMobileDrawer() : null}
       </MobileFrame>
 
       {renderDesktopShell()}
