@@ -509,6 +509,9 @@ export default function PrepSightV4App() {
   const [newChatMode, setNewChatMode] = useState<"direct" | "group">("direct")
   const [newChatTitle, setNewChatTitle] = useState("")
   const [newChatMemberIds, setNewChatMemberIds] = useState<string[]>([])
+  const [threadManagerOpen, setThreadManagerOpen] = useState(false)
+  const [threadManagerTitle, setThreadManagerTitle] = useState("")
+  const [threadManagerMemberIds, setThreadManagerMemberIds] = useState<string[]>([])
   const [uid, setUid] = useState<string | null>(null)
   const [commsUsingRemote, setCommsUsingRemote] = useState(false)
   const [tomOpen, setTomOpen] = useState(false)
@@ -1222,6 +1225,17 @@ export default function PrepSightV4App() {
     [activeTeamMembers, uid],
   )
 
+  useEffect(() => {
+    if (!selectedThread || selectedThread.type !== "group") {
+      setThreadManagerTitle("")
+      setThreadManagerMemberIds([])
+      return
+    }
+
+    setThreadManagerTitle(selectedThread.title)
+    setThreadManagerMemberIds(selectedThread.memberUids?.filter(Boolean) ?? [])
+  }, [selectedThread])
+
   function openNewChatComposer(defaultMode: "direct" | "group" = "direct") {
     setWorkspacePickerOpen(false)
     setNewChatMode(defaultMode)
@@ -1237,6 +1251,53 @@ export default function PrepSightV4App() {
       }
       return current.includes(memberUid) ? current.filter((value) => value !== memberUid) : [...current, memberUid]
     })
+  }
+
+  function toggleThreadManagerMember(memberUid: string) {
+    setThreadManagerMemberIds((current) =>
+      current.includes(memberUid) ? current.filter((value) => value !== memberUid) : [...current, memberUid],
+    )
+  }
+
+  async function saveThreadManager() {
+    if (!selectedThread || selectedThread.type !== "group") return
+
+    const nextMemberIds = Array.from(new Set([uid, ...threadManagerMemberIds].filter(Boolean) as string[]))
+    const nextMembers = activeTeamMembers
+      .filter((member) => nextMemberIds.includes(member.uid))
+      .map((member) => member.displayName ?? member.publicAlias)
+
+    if (commsUsingRemote && db && selectedThread.organizationId) {
+      try {
+        await updateDoc(doc(db, "comms_threads", selectedThread.id), {
+          title: threadManagerTitle.trim() || selectedThread.title,
+          subtitle: `${nextMemberIds.length} members`,
+          memberUids: nextMemberIds,
+          memberNames: nextMembers.length ? nextMembers : selectedThread.members,
+          updatedAt: new Date().toISOString(),
+        })
+        setThreadManagerOpen(false)
+      } catch (error) {
+        console.warn("[PrepSight] comms thread update failed", error)
+      }
+      return
+    }
+
+    setThreads((current) =>
+      current.map((thread) =>
+        thread.id === selectedThread.id
+          ? {
+              ...thread,
+              title: threadManagerTitle.trim() || selectedThread.title,
+              subtitle: `${nextMemberIds.length} members`,
+              memberUids: nextMemberIds,
+              members: nextMembers.length ? nextMembers : thread.members,
+              updatedAt: new Date().toISOString(),
+            }
+          : thread,
+      ),
+    )
+    setThreadManagerOpen(false)
   }
 
   async function createSelectedChat() {
@@ -1432,6 +1493,80 @@ export default function PrepSightV4App() {
     )
   }
 
+  function renderThreadManager() {
+    if (!threadManagerOpen || !selectedThread || selectedThread.type !== "group") return null
+
+    const managedMembers = availableCommsMembers.filter((member) => threadManagerMemberIds.includes(member.uid))
+
+    return (
+      <div className="fixed inset-0 z-50 flex items-end justify-center bg-[rgba(16,36,62,0.34)] px-4 py-6">
+        <div className={`w-full max-w-[460px] rounded-[28px] p-4 shadow-[0_24px_60px_rgba(16,36,62,0.22)] ${isDark ? "bg-[#102137] text-white" : "bg-white text-[#10243E]"}`}>
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-[20px] font-semibold tracking-[-0.03em]">Manage group</p>
+              <p className={`mt-1 text-[13px] ${isDark ? "text-[#A0B7CB]" : "text-[#61758B]"}`}>Rename this group and update members from the same organisation.</p>
+            </div>
+            <button type="button" onClick={() => setThreadManagerOpen(false)} className={`rounded-full px-3 py-1.5 text-[12px] ${isDark ? "bg-white/8 text-white" : "bg-[#EEF5F8] text-[#5F788C]"}`}>
+              Close
+            </button>
+          </div>
+
+          <div className="mt-4">
+            <input
+              value={threadManagerTitle}
+              onChange={(event) => setThreadManagerTitle(event.target.value)}
+              placeholder="Group name"
+              className={`w-full rounded-[18px] px-4 py-3 text-[14px] outline-none ${isDark ? "border border-[#27415D] bg-[#132238] text-white placeholder:text-[#8EA5BA]" : "border border-[#D7E9EE] bg-[#F8FBFD] text-[#10243E] placeholder:text-[#7C93A7]"}`}
+            />
+          </div>
+
+          <div className="mt-4 max-h-72 space-y-2 overflow-y-auto">
+            {availableCommsMembers.map((member) => {
+              const selected = threadManagerMemberIds.includes(member.uid)
+              return (
+                <button
+                  key={member.id}
+                  type="button"
+                  onClick={() => toggleThreadManagerMember(member.uid)}
+                  className={`flex w-full items-center gap-3 rounded-[18px] px-3 py-3 text-left ${
+                    selected
+                      ? isDark
+                        ? "bg-[#17314B]"
+                        : "bg-[#E8F6FB]"
+                      : isDark
+                        ? "bg-[#132238]"
+                        : "bg-[#F8FBFD]"
+                  }`}
+                >
+                  <Avatar label={member.displayName ?? member.publicAlias} accent="#0EA5E9" sizeClass="h-10 w-10" />
+                  <div className="min-w-0 flex-1">
+                    <p className={`truncate text-[15px] font-medium ${isDark ? "text-white" : "text-[#10243E]"}`}>{member.displayName ?? member.publicAlias}</p>
+                    <p className={`truncate text-[13px] ${isDark ? "text-[#A0B7CB]" : "text-[#61758B]"}`}>{member.internalRole}</p>
+                  </div>
+                  {selected ? <span className="text-[12px] font-semibold text-[#0D8CCB]">Included</span> : null}
+                </button>
+              )
+            })}
+          </div>
+
+          <div className={`mt-4 rounded-[18px] px-3 py-3 text-[13px] ${isDark ? "bg-[#132238] text-[#A0B7CB]" : "bg-[#F8FBFD] text-[#61758B]"}`}>
+            {managedMembers.length > 0 ? `Members: ${managedMembers.map((member) => member.displayName ?? member.publicAlias).join(", ")}` : "No additional members selected yet."}
+          </div>
+
+          <div className="mt-4 flex justify-end">
+            <button
+              type="button"
+              onClick={() => void saveThreadManager()}
+              className="rounded-full bg-[#0D8CCB] px-5 py-2.5 text-[14px] font-medium text-white"
+            >
+              Save group
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   async function addNewChat() {
     setWorkspacePickerOpen(false)
     openNewChatComposer("direct")
@@ -1602,7 +1737,7 @@ export default function PrepSightV4App() {
             </div>
             <button
               type="button"
-              onClick={() => setDrawerOpen(true)}
+              onClick={() => (selectedThread.type === "group" ? setThreadManagerOpen(true) : setDrawerOpen(true))}
               className={`flex h-11 w-11 items-center justify-center rounded-full ${isDark ? "bg-white/6 text-white" : "border border-white/35 bg-white/12 text-white"}`}
             >
               <Settings2 size={18} />
@@ -3020,6 +3155,7 @@ export default function PrepSightV4App() {
 
       {renderDesktopShell()}
       {renderNewChatComposer()}
+      {renderThreadManager()}
     </>
   )
 }
