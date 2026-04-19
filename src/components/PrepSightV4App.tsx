@@ -56,7 +56,7 @@ import LibraryPageClient from "@/components/LibraryPageClient"
 import { db, storage } from "@/lib/firebase"
 import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
-import { getProfile, getRelevantSettings } from "@/lib/profile"
+import { getProfile, getRelevantSettings, syncMembershipsIntoProfile } from "@/lib/profile"
 import { getActiveTeamSnapshot, getPendingTeamWorkspacesForProfile, getTeamMembersSnapshot, getTeamWorkspacesForProfile, subscribeTeams } from "@/lib/team-workspaces"
 import {
   CHAT_FILTERS,
@@ -523,6 +523,7 @@ export default function PrepSightV4App() {
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [contactsDrawerOpen, setContactsDrawerOpen] = useState(false)
   const [drawerView, setDrawerView] = useState<"home" | "profile" | "settings" | "connectors">("home")
+  const [profileSyncTick, setProfileSyncTick] = useState(0)
   const [workspacePickerOpen, setWorkspacePickerOpen] = useState(false)
   const [activeCollection, setActiveCollection] = useState<CollectionKey | null>(null)
   const [activeEmbeddedLibraryId, setActiveEmbeddedLibraryId] = useState<string | null>(null)
@@ -542,7 +543,7 @@ export default function PrepSightV4App() {
   const libraries = useSyncExternalStore(subscribeLibraries, getLibrariesSnapshot, getLibrariesSnapshot)
   const bookmarks = useSyncExternalStore(subscribeBookmarks, getBookmarksSnapshot, getBookmarksSnapshot)
   useSyncExternalStore(subscribeTeams, () => 0, () => 0)
-  const profile = getProfile()
+  const profile = useMemo(() => getProfile(), [profileSyncTick])
 
   useEffect(() => {
     setTomMessages(loadStoredState(TOM_STORAGE_KEY, SEED_TOM))
@@ -553,6 +554,13 @@ export default function PrepSightV4App() {
       onAuthChange((user) => {
         setCurrentUser(user)
         setUid(user?.uid ?? null)
+        if (user?.uid) {
+          void syncMembershipsIntoProfile(user.uid).finally(() => {
+            setProfileSyncTick((current) => current + 1)
+          })
+        } else {
+          setProfileSyncTick((current) => current + 1)
+        }
       }),
     [],
   )
@@ -2223,25 +2231,25 @@ export default function PrepSightV4App() {
             <span className={`text-[15px] ${isDark ? "text-[#8EA5BA]" : "text-[#0F4C5C]"}`}>Search chats</span>
           </div>
 
-          <div className="mt-3 grid grid-cols-5 gap-2">
+          <div className="mt-3 flex items-center gap-2">
             <button
               type="button"
               onClick={() => setContactsDrawerOpen(true)}
               aria-label="Open contacts"
-              className={`flex h-10 items-center justify-center rounded-full ${
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
                 isDark
                   ? "border border-[#295B67] bg-[#0F4C5C] text-white"
                   : "border border-[#0F4C5C] bg-[#0F4C5C] text-white"
               }`}
             >
-              <Users size={16} />
+              <UserRound size={16} className="fill-current stroke-current" />
             </button>
             {CHAT_FILTERS.map((filter) => (
               <button
                 key={filter.key}
                 type="button"
                 onClick={() => setChatFilter(filter.key)}
-                className={`min-w-0 rounded-full px-2 py-2 text-[12px] font-medium ${
+                className={`min-w-0 flex-1 rounded-full px-3 py-2 text-[13px] font-medium ${
                   chatFilter === filter.key
                     ? "bg-[#5CC7C4] text-white"
                     : isDark
