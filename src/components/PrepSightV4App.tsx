@@ -520,6 +520,7 @@ export default function PrepSightV4App() {
   const [tomMessages, setTomMessages] = useState<AssistantMessage[]>(SEED_TOM)
   const [tomDraft, setTomDraft] = useState("")
   const [drawerOpen, setDrawerOpen] = useState(false)
+  const [contactsDrawerOpen, setContactsDrawerOpen] = useState(false)
   const [drawerView, setDrawerView] = useState<"home" | "profile" | "settings" | "connectors">("home")
   const [workspacePickerOpen, setWorkspacePickerOpen] = useState(false)
   const [activeCollection, setActiveCollection] = useState<CollectionKey | null>(null)
@@ -566,6 +567,10 @@ export default function PrepSightV4App() {
   useEffect(() => {
     if (!drawerOpen) setDrawerView("home")
   }, [drawerOpen])
+
+  useEffect(() => {
+    if (contactsDrawerOpen) setDrawerOpen(false)
+  }, [contactsDrawerOpen])
 
   useEffect(() => {
     function syncPreferences() {
@@ -1859,7 +1864,7 @@ export default function PrepSightV4App() {
 
     return (
       <div className="fixed inset-0 z-50 mx-auto max-w-[460px] bg-[rgba(4,18,26,0.42)] backdrop-blur-[2px]">
-        <div className="h-full w-[84%] max-w-[320px] rounded-r-[32px] border-r border-[#7CCCDC]/18 bg-[linear-gradient(180deg,rgba(8,53,66,0.82)_0%,rgba(7,32,45,0.88)_52%,rgba(6,21,34,0.92)_100%)] px-4 pt-[calc(env(safe-area-inset-top,0px)+18px)] pb-8 shadow-[24px_0_60px_rgba(0,24,36,0.36)] backdrop-blur-2xl">
+        <div className="ml-auto h-full w-[84%] max-w-[320px] rounded-l-[32px] border-l border-[#7CCCDC]/18 bg-[linear-gradient(180deg,rgba(8,53,66,0.82)_0%,rgba(7,32,45,0.88)_52%,rgba(6,21,34,0.92)_100%)] px-4 pt-[calc(env(safe-area-inset-top,0px)+18px)] pb-8 shadow-[-24px_0_60px_rgba(0,24,36,0.36)] backdrop-blur-2xl">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-[24px] font-semibold tracking-[-0.05em] text-white">{drawerTitle}</p>
@@ -2006,6 +2011,64 @@ export default function PrepSightV4App() {
     )
   }
 
+  function renderContactsDrawer() {
+    const organizationLabel = profile?.hospital?.trim() || activeTeam?.publicAlias?.trim() || activeTeam?.internalName?.trim() || "Your organisation"
+
+    return (
+      <div className="fixed inset-0 z-50 mx-auto max-w-[460px] bg-[rgba(4,18,26,0.42)] backdrop-blur-[2px]">
+        <div className="h-full w-[84%] max-w-[320px] rounded-r-[32px] border-r border-[#7CCCDC]/18 bg-[linear-gradient(180deg,rgba(8,53,66,0.82)_0%,rgba(7,32,45,0.88)_52%,rgba(6,21,34,0.92)_100%)] px-4 pt-[calc(env(safe-area-inset-top,0px)+18px)] pb-8 shadow-[24px_0_60px_rgba(0,24,36,0.36)] backdrop-blur-2xl">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[24px] font-semibold tracking-[-0.05em] text-white">Contacts</p>
+              <p className="mt-1 text-[13px] text-[#9DB0C4]">{organizationLabel}</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setContactsDrawerOpen(false)}
+              className="flex h-11 w-11 items-center justify-center rounded-full bg-white/6 text-white"
+            >
+              <ArrowLeft size={20} />
+            </button>
+          </div>
+
+          <div className="mt-6 space-y-3">
+            {availableCommsMembers.length ? (
+              availableCommsMembers.map((member) => {
+                if (!uid) return null
+                const directPair = [uid, member.uid].sort().join("__")
+                const threadId = `direct-${activeTeam?.id}-${directPair}`
+                return (
+                  <button
+                    key={member.id}
+                    type="button"
+                    onClick={() => {
+                      setContactsDrawerOpen(false)
+                      openThread(threadId)
+                    }}
+                    className="flex w-full items-center gap-3 rounded-[18px] border border-white/8 bg-white/4 px-3 py-3 text-left hover:bg-white/8"
+                  >
+                    <Avatar label={member.displayName ?? member.publicAlias} accent="#4DA3FF" sizeClass="h-11 w-11" />
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[15px] font-medium text-white">{member.displayName ?? member.publicAlias}</p>
+                      <p className="mt-1 truncate text-[12px] text-[#9DB0C4]">{member.departments?.[0] || "Same organisation"}</p>
+                    </div>
+                    <span className="rounded-full bg-white/8 px-2 py-0.5 text-[11px] text-[#C5D4E1]">Member</span>
+                  </button>
+                )
+              })
+            ) : (
+              <div className="rounded-[18px] border border-white/8 bg-white/4 px-4 py-4">
+                <p className="text-[15px] font-medium text-white">No contacts available yet</p>
+                <p className="mt-1 text-[12px] text-[#9DB0C4]">Active members in this organisation will appear here.</p>
+              </div>
+            )}
+          </div>
+        </div>
+        <button type="button" onClick={() => setContactsDrawerOpen(false)} className="absolute inset-0 -z-10 w-full" aria-label="Close contacts drawer" />
+      </div>
+    )
+  }
+
   function renderMobileTopBar() {
     if (selectedThread) {
       const threadMeta =
@@ -2088,18 +2151,30 @@ export default function PrepSightV4App() {
               {organizationLabel}
             </span>
           </div>
-          <button
-            type="button"
-            onClick={() => setDrawerOpen(true)}
-            aria-label="Open quick links"
-            className={`flex h-11 w-11 items-center justify-center overflow-hidden rounded-full ${isDark ? "bg-white/6" : "border border-white/35 bg-white/12"}`}
-          >
-            {currentUser?.photoURL ? (
-              <img src={currentUser.photoURL} alt={userLabel} className="h-full w-full object-cover" />
-            ) : (
-              <Avatar label={userLabel} accent="#4DA3FF" sizeClass="h-11 w-11" />
-            )}
-          </button>
+          <div className="flex items-center gap-2">
+            {activeTab === "chat" && !canGoBack ? (
+              <button
+                type="button"
+                onClick={() => setContactsDrawerOpen(true)}
+                aria-label="Open contacts"
+                className={`flex h-11 w-11 items-center justify-center rounded-full ${isDark ? "bg-white/6 text-white" : "border border-white/35 bg-white/12 text-white"}`}
+              >
+                <Users size={18} />
+              </button>
+            ) : null}
+            <button
+              type="button"
+              onClick={() => setDrawerOpen(true)}
+              aria-label="Open quick links"
+              className={`flex h-11 w-11 items-center justify-center overflow-hidden rounded-full ${isDark ? "bg-white/6" : "border border-white/35 bg-white/12"}`}
+            >
+              {currentUser?.photoURL ? (
+                <img src={currentUser.photoURL} alt={userLabel} className="h-full w-full object-cover" />
+              ) : (
+                <Avatar label={userLabel} accent="#4DA3FF" sizeClass="h-11 w-11" />
+              )}
+            </button>
+          </div>
         </div>
       </div>
     )
@@ -3420,6 +3495,7 @@ export default function PrepSightV4App() {
           </div>
         ) : null}
 
+        {contactsDrawerOpen ? renderContactsDrawer() : null}
         {drawerOpen ? renderMobileDrawer() : null}
       </MobileFrame>
 
