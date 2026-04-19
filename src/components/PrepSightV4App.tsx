@@ -435,6 +435,26 @@ function buildThreadPreview(input: { body?: string; imageUrl?: string }) {
   return "No messages yet"
 }
 
+function buildCommsReadStorageKey(uid?: string | null, organizationId?: string) {
+  if (!uid || !organizationId) return "prepsight_comms_reads_local"
+  return `prepsight_comms_reads_${uid}_${organizationId}`
+}
+
+function readCommsReadState(uid?: string | null, organizationId?: string) {
+  if (typeof window === "undefined") return {} as Record<string, string>
+  try {
+    const raw = window.localStorage.getItem(buildCommsReadStorageKey(uid, organizationId))
+    return raw ? (JSON.parse(raw) as Record<string, string>) : {}
+  } catch {
+    return {}
+  }
+}
+
+function saveCommsReadState(state: Record<string, string>, uid?: string | null, organizationId?: string) {
+  if (typeof window === "undefined") return
+  window.localStorage.setItem(buildCommsReadStorageKey(uid, organizationId), JSON.stringify(state))
+}
+
 function ThemeButton({
   isDark,
   onToggle,
@@ -471,6 +491,11 @@ export default function PrepSightV4App() {
   const [threadDraft, setThreadDraft] = useState("")
   const [pendingImage, setPendingImage] = useState<File | null>(null)
   const [pendingImagePreview, setPendingImagePreview] = useState<string | null>(null)
+  const [threadReadState, setThreadReadState] = useState<Record<string, string>>({})
+  const [newChatOpen, setNewChatOpen] = useState(false)
+  const [newChatMode, setNewChatMode] = useState<"direct" | "group">("direct")
+  const [newChatTitle, setNewChatTitle] = useState("")
+  const [newChatMemberIds, setNewChatMemberIds] = useState<string[]>([])
   const [uid, setUid] = useState<string | null>(null)
   const [commsUsingRemote, setCommsUsingRemote] = useState(false)
   const [tomOpen, setTomOpen] = useState(false)
@@ -758,6 +783,14 @@ export default function PrepSightV4App() {
   const activeUpdateDetail = activeUpdate ? updateDetails[activeUpdate] : null
 
   useEffect(() => {
+    setThreadReadState(readCommsReadState(uid, activeTeam?.id))
+  }, [activeTeam?.id, uid])
+
+  useEffect(() => {
+    saveCommsReadState(threadReadState, uid, activeTeam?.id)
+  }, [activeTeam?.id, threadReadState, uid])
+
+  useEffect(() => {
     if (!db || !uid || !activeTeam?.id) {
       setCommsUsingRemote(false)
       setRemoteThreads([])
@@ -845,6 +878,10 @@ export default function PrepSightV4App() {
       .map<ChatThread>((thread) => {
         const threadMessages = messagesByThread[thread.id] ?? []
         const lastMessage = threadMessages[threadMessages.length - 1]
+        const lastReadAt = threadReadState[thread.id] ?? ""
+        const lastMessageFromCurrentUser = lastMessage?.sender === "self"
+        const unread =
+          lastMessage && !lastMessageFromCurrentUser && (lastMessage.createdAt ?? thread.updatedAt ?? "") > lastReadAt ? 1 : 0
         return {
           id: thread.id,
           type: thread.type,
@@ -855,7 +892,7 @@ export default function PrepSightV4App() {
             imageUrl: lastMessage?.imageUrl ?? thread.lastMessageImageUrl,
           }),
           time: formatThreadTime(lastMessage?.createdAt ?? thread.updatedAt),
-          unread: 0,
+          unread,
           accent: thread.accent,
           members: thread.memberNames,
           memberUids: thread.memberUids,
@@ -882,7 +919,7 @@ export default function PrepSightV4App() {
       },
       ...mappedThreads,
     ]
-  }, [activeTeam?.id, commsUsingRemote, remoteMessages, remoteThreads, threads, tomMessages, uid])
+  }, [activeTeam?.id, commsUsingRemote, remoteMessages, remoteThreads, threadReadState, threads, tomMessages, uid])
 
   const filteredThreads = useMemo(() => {
     switch (chatFilter) {
@@ -907,6 +944,16 @@ export default function PrepSightV4App() {
 
     setSelectedThreadId((current) => (current && chatThreads.some((thread) => thread.id === current) ? current : chatThreads[0].id))
   }, [chatThreads])
+
+  useEffect(() => {
+    if (!selectedThreadId) return
+    const selected = chatThreads.find((thread) => thread.id === selectedThreadId)
+    if (!selected?.updatedAt) return
+    setThreadReadState((current) => ({
+      ...current,
+      [selectedThreadId]: selected.updatedAt!,
+    }))
+  }, [chatThreads, selectedThreadId])
 
   function clearPendingImage() {
     if (pendingImagePreview?.startsWith("blob:")) {
@@ -943,6 +990,11 @@ export default function PrepSightV4App() {
   function openThread(threadId: string) {
     setWorkspacePickerOpen(false)
     setSelectedThreadId(threadId)
+    const openedThread = chatThreads.find((thread) => thread.id === threadId)
+    setThreadReadState((current) => ({
+      ...current,
+      [threadId]: openedThread?.updatedAt ?? new Date().toISOString(),
+    }))
     if (!commsUsingRemote) {
       setThreads((current) =>
         current.map((thread) => (thread.id === threadId ? { ...thread, unread: 0 } : thread)),
@@ -1107,52 +1159,225 @@ export default function PrepSightV4App() {
     setTomDraft("")
   }
 
-  async function addNewChat() {
+  const availableCommsMembers = useMemo(
+    () =>
+      activeTeamMembers.filter((member) => member.status === "active" && member.uid && member.uid !== uid),
+    [activeTeamMembers, uid],
+  )
+
+  function openNewChatComposer(defaultMode: "direct" | "group" = "direct") {
     setWorkspacePickerOpen(false)
-    if (commsUsingRemote && db && uid && activeTeam?.id) {
-      const id = `group-${activeTeam.id}-${Date.now()}`
+    setNewChatMode(defaultMode)
+    setNewChatTitle("")
+    setNewChatMemberIds([])
+    setNewChatOpen(true)
+  }
+
+  function toggleNewChatMember(memberUid: string) {
+    setNewChatMemberIds((current) => {
+      if (newChatMode === "direct") {
+        return current[0] === memberUid ? [] : [memberUid]
+      }
+      return current.includes(memberUid) ? current.filter((value) => value !== memberUid) : [...current, memberUid]
+    })
+  }
+
+  async function createSelectedChat() {
+    if (!uid) return
+    const selectedMembers = availableCommsMembers.filter((member) => newChatMemberIds.includes(member.uid))
+    if (selectedMembers.length === 0) return
+
+    if (commsUsingRemote && db && activeTeam?.id) {
+      if (newChatMode === "direct" && selectedMembers.length === 1) {
+        const directMember = selectedMembers[0]
+        const directPair = [uid, directMember.uid].sort().join("__")
+        const existingDirect = remoteThreads.find(
+          (thread) => thread.type === "direct" && [...thread.memberUids].sort().join("__") === directPair,
+        )
+        if (existingDirect) {
+          setNewChatOpen(false)
+          openThread(existingDirect.id)
+          return
+        }
+      }
+
+      const id =
+        newChatMode === "direct" && selectedMembers.length === 1
+          ? `direct-${[uid, selectedMembers[0].uid].sort().join("-")}`
+          : `group-${activeTeam.id}-${Date.now()}`
       const createdAt = new Date().toISOString()
+      const memberUids = [uid, ...selectedMembers.map((member) => member.uid)]
+      const memberNames = [profile?.name?.trim() || "You", ...selectedMembers.map((member) => member.displayName ?? member.publicAlias)]
+      const title =
+        newChatMode === "direct" && selectedMembers.length === 1
+          ? selectedMembers[0].displayName ?? selectedMembers[0].publicAlias
+          : newChatTitle.trim() || selectedMembers.map((member) => member.displayName ?? member.publicAlias).join(", ")
+      const subtitle =
+        newChatMode === "direct" && selectedMembers.length === 1
+          ? selectedMembers[0].internalRole
+          : `${memberUids.length} members`
+
       try {
         await setDoc(doc(db, "comms_threads", id), {
           id,
           organizationId: activeTeam.id,
-          type: "group",
-          title: "New PrepSight Group",
-          subtitle: "1 member",
-          accent: "#0EA5E9",
-          memberUids: [uid],
-          memberNames: [profile?.name?.trim() || "You"],
+          type: newChatMode,
+          title,
+          subtitle,
+          accent: newChatMode === "direct" ? "#4DA3FF" : "#0EA5E9",
+          memberUids,
+          memberNames,
           createdBy: uid,
           createdAt,
           updatedAt: createdAt,
-          lastMessageBody: "Group created",
+          lastMessageBody: "Thread created",
         } satisfies CommsThreadRecord)
+        setNewChatOpen(false)
         setActiveTab("chat")
         setSelectedThreadId(id)
+        setThreadReadState((current) => ({ ...current, [id]: createdAt }))
       } catch (error) {
         console.warn("[PrepSight] comms thread creation failed", error)
       }
       return
     }
 
+    const memberNames = selectedMembers.map((member) => member.displayName ?? member.publicAlias)
     const newThread: ChatThread = {
-      id: `group-new-${Date.now()}`,
-      type: "group",
-      title: "New PrepSight Group",
-      subtitle: "1 member",
-      preview: "Group created",
+      id: `${newChatMode}-${Date.now()}`,
+      type: newChatMode,
+      title:
+        newChatMode === "direct" && memberNames[0]
+          ? memberNames[0]
+          : newChatTitle.trim() || memberNames.join(", "),
+      subtitle:
+        newChatMode === "direct" && selectedMembers[0]
+          ? selectedMembers[0].internalRole
+          : `${memberNames.length + 1} members`,
+      preview: "Thread created",
       time: "Now",
       unread: 0,
-      accent: "#0EA5E9",
-      members: ["You"],
-      messages: [
-        { id: `welcome-${Date.now()}`, sender: "tom", author: "TOM", body: "New thread ready. Add people, ask TOM, or share a library card.", time: "Now" },
-      ],
+      accent: newChatMode === "direct" ? "#4DA3FF" : "#0EA5E9",
+      members: ["You", ...memberNames],
+      memberUids: [uid, ...selectedMembers.map((member) => member.uid)],
+      messages: [],
+      organizationId: activeTeam?.id,
+      updatedAt: new Date().toISOString(),
     }
 
     setThreads((current) => [newThread, ...current])
+    setNewChatOpen(false)
     setActiveTab("chat")
     setSelectedThreadId(newThread.id)
+  }
+
+  function renderNewChatComposer() {
+    if (!newChatOpen) return null
+
+    const canCreate =
+      newChatMode === "direct"
+        ? newChatMemberIds.length === 1
+        : newChatMemberIds.length > 0 && newChatTitle.trim().length > 0
+    const composerOrganizationLabel =
+      profile?.hospital?.trim() || activeTeam?.publicAlias?.trim() || activeTeam?.internalName?.trim() || "Your organisation"
+
+    return (
+      <div className="fixed inset-0 z-50 flex items-end justify-center bg-[rgba(16,36,62,0.34)] px-4 py-6">
+        <div className={`w-full max-w-[460px] rounded-[28px] p-4 shadow-[0_24px_60px_rgba(16,36,62,0.22)] ${isDark ? "bg-[#102137] text-white" : "bg-white text-[#10243E]"}`}>
+          <div className="flex items-center justify-between gap-3">
+            <div>
+              <p className="text-[20px] font-semibold tracking-[-0.03em]">New conversation</p>
+              <p className={`mt-1 text-[13px] ${isDark ? "text-[#A0B7CB]" : "text-[#61758B]"}`}>Choose people from {composerOrganizationLabel}.</p>
+            </div>
+            <button type="button" onClick={() => setNewChatOpen(false)} className={`rounded-full px-3 py-1.5 text-[12px] ${isDark ? "bg-white/8 text-white" : "bg-[#EEF5F8] text-[#5F788C]"}`}>
+              Close
+            </button>
+          </div>
+
+          <div className="mt-4 flex gap-2">
+            {([
+              { key: "direct", label: "Direct" },
+              { key: "group", label: "Group" },
+            ] as const).map((option) => (
+              <button
+                key={option.key}
+                type="button"
+                onClick={() => {
+                  setNewChatMode(option.key)
+                  setNewChatMemberIds([])
+                  if (option.key === "direct") setNewChatTitle("")
+                }}
+                className={`rounded-full px-4 py-2 text-[13px] font-medium ${
+                  newChatMode === option.key
+                    ? "bg-[#5CC7C4] text-white"
+                    : isDark
+                      ? "border border-[#27415D] bg-[#132238] text-[#A0B7CB]"
+                      : "border border-[#D7E9EE] bg-white text-[#0F4C5C]"
+                }`}
+              >
+                {option.label}
+              </button>
+            ))}
+          </div>
+
+          {newChatMode === "group" ? (
+            <div className="mt-4">
+              <input
+                value={newChatTitle}
+                onChange={(event) => setNewChatTitle(event.target.value)}
+                placeholder="Group name"
+                className={`w-full rounded-[18px] px-4 py-3 text-[14px] outline-none ${isDark ? "border border-[#27415D] bg-[#132238] text-white placeholder:text-[#8EA5BA]" : "border border-[#D7E9EE] bg-[#F8FBFD] text-[#10243E] placeholder:text-[#7C93A7]"}`}
+              />
+            </div>
+          ) : null}
+
+          <div className="mt-4 max-h-72 space-y-2 overflow-y-auto">
+            {availableCommsMembers.map((member) => {
+              const selected = newChatMemberIds.includes(member.uid)
+              return (
+                <button
+                  key={member.id}
+                  type="button"
+                  onClick={() => toggleNewChatMember(member.uid)}
+                  className={`flex w-full items-center gap-3 rounded-[18px] px-3 py-3 text-left ${
+                    selected
+                      ? isDark
+                        ? "bg-[#17314B]"
+                        : "bg-[#E8F6FB]"
+                      : isDark
+                        ? "bg-[#132238]"
+                        : "bg-[#F8FBFD]"
+                  }`}
+                >
+                  <Avatar label={member.displayName ?? member.publicAlias} accent={newChatMode === "direct" ? "#4DA3FF" : "#0EA5E9"} sizeClass="h-10 w-10" />
+                  <div className="min-w-0 flex-1">
+                    <p className={`truncate text-[15px] font-medium ${isDark ? "text-white" : "text-[#10243E]"}`}>{member.displayName ?? member.publicAlias}</p>
+                    <p className={`truncate text-[13px] ${isDark ? "text-[#A0B7CB]" : "text-[#61758B]"}`}>{member.internalRole}</p>
+                  </div>
+                  {selected ? <span className="text-[12px] font-semibold text-[#0D8CCB]">Selected</span> : null}
+                </button>
+              )
+            })}
+          </div>
+
+          <div className="mt-4 flex justify-end">
+            <button
+              type="button"
+              disabled={!canCreate}
+              onClick={() => void createSelectedChat()}
+              className={`rounded-full px-5 py-2.5 text-[14px] font-medium text-white ${canCreate ? "bg-[#0D8CCB]" : "bg-[#9DCBDE]"}`}
+            >
+              Create chat
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  async function addNewChat() {
+    setWorkspacePickerOpen(false)
+    openNewChatComposer("direct")
   }
 
   function openTab(tab: TabKey) {
@@ -2737,6 +2962,7 @@ export default function PrepSightV4App() {
       </MobileFrame>
 
       {renderDesktopShell()}
+      {renderNewChatComposer()}
     </>
   )
 }
