@@ -1759,9 +1759,15 @@ export default function PrepSightV4App() {
             <button
               type="button"
               onClick={() => setDrawerOpen(true)}
-              className={`flex h-11 w-11 items-center justify-center rounded-full ${isDark ? "bg-white/6 text-white" : "border border-white/35 bg-white/12 text-white"}`}
+              aria-label="Open quick links"
+              className="flex h-12 w-12 items-center justify-center"
             >
-              <Menu size={20} />
+              <span
+                className={`text-[28px] leading-none tracking-[0.06em] ${isDark ? "text-white/82" : "text-white/84"}`}
+                style={{ fontFamily: '"Segoe Print", "Comic Sans MS", cursive' }}
+              >
+                P.S.
+              </span>
             </button>
           )}
 
@@ -2737,9 +2743,14 @@ export default function PrepSightV4App() {
       <div className={`hidden min-h-screen overflow-hidden lg:block ${isDark ? "bg-[linear-gradient(180deg,#0B1422_0%,#0F1B2D_100%)]" : "bg-[linear-gradient(180deg,#E5F5F8_0%,#F4F8FB_100%)]"}`}>
         <header className={`flex h-[72px] items-center justify-between px-6 text-white ${isDark ? "border-b border-[#20344C] bg-[#0F1B2D]" : "border-b border-[#0F4C5C] bg-[#0077B6]"}`}>
           <div className="flex items-center gap-4">
-            <button type="button" className={`flex h-10 w-10 items-center justify-center rounded-[12px] ${isDark ? "border border-[#20344C] bg-white/10 text-white" : "border border-[#0F4C5C] bg-white/88 text-[#22425C]"}`}>
-              <Menu size={18} />
-            </button>
+            <div className="flex h-12 w-12 items-center justify-center overflow-hidden">
+              <span
+                className={`text-[28px] leading-none tracking-[0.06em] ${isDark ? "text-white/82" : "text-white/84"}`}
+                style={{ fontFamily: '"Segoe Print", "Comic Sans MS", cursive' }}
+              >
+                P.S.
+              </span>
+            </div>
             <p className="text-[28px] tracking-[-0.05em]">PrepSight</p>
           </div>
           <div className="flex items-center gap-3">
