@@ -1052,11 +1052,30 @@ export default function PrepSightV4App() {
       })
       .filter((thread): thread is ChatThread => Boolean(thread))
 
+    const lastTomMessage = tomMessages[tomMessages.length - 1]
+    const tomThread: ChatThread = {
+      id: "direct-tom",
+      type: "direct",
+      title: "TOM",
+      subtitle: "Online now",
+      preview: lastTomMessage?.body || "Ask about cards, updates, logistics...",
+      time: lastTomMessage?.time || "",
+      unread: 0,
+      online: true,
+      accent: "#0F7DBA",
+      members: ["TOM"],
+      memberUids: [],
+      messages: [],
+      organizationId: activeTeam.id,
+      updatedAt: lastTomMessage?.time || "",
+    }
+
     return [
+      tomThread,
       ...mappedThreads,
       ...starterDirectThreads,
     ]
-  }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, profile?.name, remoteMessages, remoteThreadReadState, remoteThreads, threads, uid])
+  }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, profile?.name, remoteMessages, remoteThreadReadState, remoteThreads, threads, tomMessages, uid])
 
   const filteredThreads = useMemo(() => {
     switch (chatFilter) {
@@ -1072,7 +1091,6 @@ export default function PrepSightV4App() {
   }, [chatFilter, chatThreads])
 
   const selectedThread = chatThreads.find((thread) => thread.id === selectedThreadId) ?? null
-
   useEffect(() => {
     if (!chatThreads.length) {
       setSelectedThreadId(null)
@@ -1121,9 +1139,8 @@ export default function PrepSightV4App() {
     return { imageUrl, imageName: file.name }
   }
 
-  function openThread(threadId: string) {
+  async function openThread(threadId: string) {
     setWorkspacePickerOpen(false)
-    setSelectedThreadId(threadId)
     const openedThread = chatThreads.find((thread) => thread.id === threadId)
     if (
       commsUsingRemote &&
@@ -1133,7 +1150,7 @@ export default function PrepSightV4App() {
       openedThread.organizationId &&
       !remoteThreads.some((thread) => thread.id === threadId)
     ) {
-      void setDoc(doc(db, "comms_threads", threadId), {
+      await setDoc(doc(db, "comms_threads", threadId), {
         organizationId: openedThread.organizationId,
         type: "direct",
         title: openedThread.title,
@@ -1149,6 +1166,7 @@ export default function PrepSightV4App() {
         console.warn("[PrepSight] direct comms thread creation failed", error)
       })
     }
+    setSelectedThreadId(threadId)
     void markThreadRead(threadId, openedThread?.updatedAt ?? new Date().toISOString())
     if (!commsUsingRemote) {
       setThreads((current) =>
@@ -1319,6 +1337,31 @@ export default function PrepSightV4App() {
       activeTeamMembers.filter((member) => member.status === "active" && member.uid && member.uid !== uid),
     [activeTeamMembers, uid],
   )
+  const contactEntries = useMemo(() => {
+    if (availableCommsMembers.length) {
+      return availableCommsMembers.map((member) => ({
+        id: member.id,
+        uid: member.uid,
+        label: member.displayName ?? member.publicAlias,
+        detail: member.departments?.[0] || "Same organisation",
+      }))
+    }
+
+    const orgGroupThread = remoteThreads.find((thread) => thread.id === `group-${activeTeam?.id}`)
+    if (!orgGroupThread) return []
+
+    return (orgGroupThread.memberUids ?? [])
+      .map((memberUid, index) => {
+        if (!memberUid || memberUid === uid) return null
+        return {
+          id: `${orgGroupThread.id}-${memberUid}`,
+          uid: memberUid,
+          label: orgGroupThread.memberNames?.[index] ?? "Organisation member",
+          detail: "Same organisation",
+        }
+      })
+      .filter((member): member is { id: string; uid: string; label: string; detail: string } => Boolean(member))
+  }, [activeTeam?.id, availableCommsMembers, remoteThreads, uid])
 
   useEffect(() => {
     if (!selectedThread || selectedThread.type !== "group") {
@@ -2033,8 +2076,8 @@ export default function PrepSightV4App() {
           </div>
 
           <div className="mt-6 space-y-3">
-            {availableCommsMembers.length ? (
-              availableCommsMembers.map((member) => {
+            {contactEntries.length ? (
+              contactEntries.map((member) => {
                 if (!uid) return null
                 const directPair = [uid, member.uid].sort().join("__")
                 const threadId = `direct-${activeTeam?.id}-${directPair}`
@@ -2048,10 +2091,10 @@ export default function PrepSightV4App() {
                     }}
                     className="flex w-full items-center gap-3 rounded-[18px] border border-white/8 bg-white/4 px-3 py-3 text-left hover:bg-white/8"
                   >
-                    <Avatar label={member.displayName ?? member.publicAlias} accent="#4DA3FF" sizeClass="h-11 w-11" />
+                    <Avatar label={member.label} accent="#4DA3FF" sizeClass="h-11 w-11" />
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-[15px] font-medium text-white">{member.displayName ?? member.publicAlias}</p>
-                      <p className="mt-1 truncate text-[12px] text-[#9DB0C4]">{member.departments?.[0] || "Same organisation"}</p>
+                      <p className="truncate text-[15px] font-medium text-white">{member.label}</p>
+                      <p className="mt-1 truncate text-[12px] text-[#9DB0C4]">{member.detail}</p>
                     </div>
                     <span className="rounded-full bg-white/8 px-2 py-0.5 text-[11px] text-[#C5D4E1]">Member</span>
                   </button>
