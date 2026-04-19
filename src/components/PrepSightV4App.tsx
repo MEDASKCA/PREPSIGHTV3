@@ -2151,30 +2151,18 @@ export default function PrepSightV4App() {
               {organizationLabel}
             </span>
           </div>
-          <div className="flex items-center gap-2">
-            {activeTab === "chat" && !canGoBack ? (
-              <button
-                type="button"
-                onClick={() => setContactsDrawerOpen(true)}
-                aria-label="Open contacts"
-                className={`flex h-11 w-11 items-center justify-center rounded-full ${isDark ? "bg-white/6 text-white" : "border border-white/35 bg-white/12 text-white"}`}
-              >
-                <Users size={18} />
-              </button>
-            ) : null}
-            <button
-              type="button"
-              onClick={() => setDrawerOpen(true)}
-              aria-label="Open quick links"
-              className={`flex h-11 w-11 items-center justify-center overflow-hidden rounded-full ${isDark ? "bg-white/6" : "border border-white/35 bg-white/12"}`}
-            >
-              {currentUser?.photoURL ? (
-                <img src={currentUser.photoURL} alt={userLabel} className="h-full w-full object-cover" />
-              ) : (
-                <Avatar label={userLabel} accent="#4DA3FF" sizeClass="h-11 w-11" />
-              )}
-            </button>
-          </div>
+          <button
+            type="button"
+            onClick={() => setDrawerOpen(true)}
+            aria-label="Open quick links"
+            className={`flex h-11 w-11 items-center justify-center overflow-hidden rounded-full ${isDark ? "bg-white/6" : "border border-white/35 bg-white/12"}`}
+          >
+            {currentUser?.photoURL ? (
+              <img src={currentUser.photoURL} alt={userLabel} className="h-full w-full object-cover" />
+            ) : (
+              <Avatar label={userLabel} accent="#4DA3FF" sizeClass="h-11 w-11" />
+            )}
+          </button>
         </div>
       </div>
     )
@@ -2190,6 +2178,17 @@ export default function PrepSightV4App() {
           </div>
 
           <div className="mt-3 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            <button
+              type="button"
+              onClick={() => setContactsDrawerOpen(true)}
+              className={`shrink-0 rounded-full px-4 py-2 text-[13px] font-medium ${
+                isDark
+                  ? "border border-[#2A6272] bg-[#103546] text-[#B9EAF4]"
+                  : "border border-[#58C6D7] bg-[#E4FAFD] text-[#0F4C5C]"
+              }`}
+            >
+              Contacts
+            </button>
             {CHAT_FILTERS.map((filter) => (
               <button
                 key={filter.key}
