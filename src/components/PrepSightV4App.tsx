@@ -56,10 +56,8 @@ import { getProfile, getRelevantSettings } from "@/lib/profile"
 import { getActiveTeamSnapshot, getPendingTeamWorkspacesForProfile, getTeamMembersSnapshot, getTeamWorkspacesForProfile, subscribeTeams } from "@/lib/team-workspaces"
 import {
   CHAT_FILTERS,
-  CHAT_STORAGE_KEY,
   COLLECTIONS,
   LOGISTICS_SECTIONS,
-  SEED_THREADS,
   SEED_TOM,
   TAB_ITEMS,
   TOM_STORAGE_KEY,
@@ -496,10 +494,10 @@ export default function PrepSightV4App() {
   const [preferences, setPreferences] = useState<UserPreferences>(() => readUserPreferences())
   const [activeTab, setActiveTab] = useState<TabKey>("chat")
   const [chatFilter, setChatFilter] = useState<ChatFilter>("all")
-  const [threads, setThreads] = useState<ChatThread[]>(SEED_THREADS)
+  const [threads, setThreads] = useState<ChatThread[]>([])
   const [remoteThreads, setRemoteThreads] = useState<CommsThreadRecord[]>([])
   const [remoteMessages, setRemoteMessages] = useState<CommsMessageRecord[]>([])
-  const [selectedThreadId, setSelectedThreadId] = useState<string | null>("group-ortho")
+  const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null)
   const [threadDraft, setThreadDraft] = useState("")
   const [pendingImage, setPendingImage] = useState<File | null>(null)
   const [pendingImagePreview, setPendingImagePreview] = useState<string | null>(null)
@@ -540,7 +538,6 @@ export default function PrepSightV4App() {
   const profile = getProfile()
 
   useEffect(() => {
-    setThreads(loadStoredState(CHAT_STORAGE_KEY, SEED_THREADS))
     setTomMessages(loadStoredState(TOM_STORAGE_KEY, SEED_TOM))
   }, [])
 
@@ -563,12 +560,6 @@ export default function PrepSightV4App() {
     window.addEventListener("prepsight:preferences-changed", syncPreferences)
     return () => window.removeEventListener("prepsight:preferences-changed", syncPreferences)
   }, [])
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.localStorage.setItem(CHAT_STORAGE_KEY, JSON.stringify(threads))
-    }
-  }, [threads])
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -970,19 +961,6 @@ export default function PrepSightV4App() {
       .sort((left, right) => (right.updatedAt ?? "").localeCompare(left.updatedAt ?? ""))
 
     return [
-      {
-        ...SEED_THREADS[0],
-        messages: tomMessages.map((message) => ({
-          id: message.id,
-          sender: message.sender,
-          author: message.sender === "tom" ? "TOM" : "You",
-          body: message.body,
-          time: message.time,
-          imageUrl: undefined,
-          imageName: undefined,
-          createdAt: undefined,
-        })),
-      },
       ...mappedThreads,
     ]
   }, [activeTeam?.id, commsUsingRemote, remoteMessages, remoteThreadReadState, remoteThreads, threads, tomMessages, uid])
@@ -3029,7 +3007,7 @@ export default function PrepSightV4App() {
           renderUpdatesHomeMobile()
         )}
 
-        <div className={`fixed inset-x-0 bottom-0 mx-auto max-w-[460px] ${selectedThread ? "opacity-84" : ""}`}>
+        <div className="fixed inset-x-0 bottom-0 mx-auto max-w-[460px]">
           <div className={`border-t px-2 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)] shadow-[0_-10px_36px_rgba(4,10,20,0.22)] ${
             selectedThread
               ? "border-white/6 bg-[rgba(27,39,58,0.9)] backdrop-blur-xl"
