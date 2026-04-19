@@ -969,7 +969,27 @@ export default function PrepSightV4App() {
   }, [activeTeam?.id, activeTeam?.internalName, activeTeamMembers, commsUsingRemote, db, profile?.name, remoteThreads, uid, workspaceLabel])
 
   const chatThreads = useMemo(() => {
-    if (!commsUsingRemote || !activeTeam?.id) return threads
+    const lastTomMessage = tomMessages[tomMessages.length - 1]
+    const tomThread: ChatThread = {
+      id: "direct-tom",
+      type: "direct",
+      title: "TOM",
+      subtitle: "Online now",
+      preview: lastTomMessage?.body || "Ask about cards, updates, logistics...",
+      time: lastTomMessage?.time || "",
+      unread: 0,
+      online: true,
+      accent: "#0F7DBA",
+      members: ["TOM"],
+      memberUids: [],
+      messages: [],
+      organizationId: activeTeam?.id,
+      updatedAt: lastTomMessage?.time || "",
+    }
+
+    if (!commsUsingRemote || !activeTeam?.id) {
+      return [tomThread, ...threads.filter((thread) => thread.id !== "direct-tom")]
+    }
 
     const messagesByThread = remoteMessages.reduce<Record<string, ChatMessage[]>>((accumulator, message) => {
       const nextMessage: ChatMessage = {
@@ -1051,24 +1071,6 @@ export default function PrepSightV4App() {
         }
       })
       .filter((thread): thread is ChatThread => Boolean(thread))
-
-    const lastTomMessage = tomMessages[tomMessages.length - 1]
-    const tomThread: ChatThread = {
-      id: "direct-tom",
-      type: "direct",
-      title: "TOM",
-      subtitle: "Online now",
-      preview: lastTomMessage?.body || "Ask about cards, updates, logistics...",
-      time: lastTomMessage?.time || "",
-      unread: 0,
-      online: true,
-      accent: "#0F7DBA",
-      members: ["TOM"],
-      memberUids: [],
-      messages: [],
-      organizationId: activeTeam.id,
-      updatedAt: lastTomMessage?.time || "",
-    }
 
     return [
       tomThread,
@@ -2221,15 +2223,15 @@ export default function PrepSightV4App() {
             <span className={`text-[15px] ${isDark ? "text-[#8EA5BA]" : "text-[#0F4C5C]"}`}>Search chats</span>
           </div>
 
-          <div className="mt-3 flex gap-2 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="mt-3 grid grid-cols-5 gap-2">
             <button
               type="button"
               onClick={() => setContactsDrawerOpen(true)}
               aria-label="Open contacts"
-              className={`shrink-0 rounded-full px-3 py-2 ${
+              className={`flex h-10 items-center justify-center rounded-full ${
                 isDark
-                  ? "border border-[#2A6272] bg-[#103546] text-[#B9EAF4]"
-                  : "border border-[#58C6D7] bg-[#E4FAFD] text-[#0F4C5C]"
+                  ? "border border-[#295B67] bg-[#0F4C5C] text-white"
+                  : "border border-[#0F4C5C] bg-[#0F4C5C] text-white"
               }`}
             >
               <Users size={16} />
@@ -2239,7 +2241,7 @@ export default function PrepSightV4App() {
                 key={filter.key}
                 type="button"
                 onClick={() => setChatFilter(filter.key)}
-                className={`shrink-0 rounded-full px-4 py-2 text-[13px] font-medium ${
+                className={`min-w-0 rounded-full px-2 py-2 text-[12px] font-medium ${
                   chatFilter === filter.key
                     ? "bg-[#5CC7C4] text-white"
                     : isDark
@@ -2247,7 +2249,7 @@ export default function PrepSightV4App() {
                       : "border border-[#D7E9EE] bg-white text-[#0F4C5C]"
                 }`}
               >
-                {filter.label}
+                <span className="block truncate">{filter.label}</span>
               </button>
             ))}
           </div>
