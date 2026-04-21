@@ -37,9 +37,6 @@ export default function PublicLanding() {
             <Link className="landing-cta landing-primary" href="/login">
               Sign in to continue
             </Link>
-            <Link className="landing-cta landing-secondary" href="/login?demo=1">
-              Continue without signing in
-            </Link>
           </div>
 
           <div className="landing-note">
@@ -174,14 +171,9 @@ export default function PublicLanding() {
         }
 
         .landing-primary {
-          background: var(--blue);
+          background: linear-gradient(180deg, #0b1422 0%, #0f1b2d 100%);
           color: white;
-        }
-
-        .landing-secondary {
-          background: #bdeff4;
-          color: #0f4c5c;
-          border-color: #7ecddb;
+          box-shadow: 0 2px 12px rgba(11, 20, 34, 0.35);
         }
 
         .landing-note {
