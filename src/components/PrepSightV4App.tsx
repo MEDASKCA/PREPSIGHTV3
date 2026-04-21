@@ -1715,7 +1715,8 @@ export default function PrepSightV4App() {
 
     setThreadManagerTitle(selectedThread.title)
     setThreadManagerMemberIds(selectedThread.memberUids?.filter(Boolean) ?? [])
-  }, [selectedThread])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedThread?.id])
 
   function openNewChatComposer(defaultMode: "direct" | "group" = "direct") {
     setWorkspacePickerOpen(false)
