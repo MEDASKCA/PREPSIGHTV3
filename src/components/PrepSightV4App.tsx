@@ -1525,13 +1525,23 @@ export default function PrepSightV4App() {
       return
     }
 
+    // Always show message immediately (optimistic update)
+    setThreads((current) =>
+      current.map((thread) =>
+        thread.id === selectedThread.id
+          ? { ...thread, preview: buildThreadPreview({ body: value }), time: "Now", messages: [...thread.messages, nextMessage] }
+          : thread,
+      ),
+    )
+    setThreadDraft("")
+    clearPendingImage()
+
     if (commsUsingRemote && db && uid && selectedThread.organizationId) {
       try {
         const uploadedImage = pendingImage
           ? await uploadCommsImage(selectedThread.id, selectedThread.organizationId, pendingImage)
           : null
-        const createdAt = new Date().toISOString()
-        // Build message without undefined fields — Firestore throws on undefined values
+        const createdAt = nextMessage.createdAt ?? new Date().toISOString()
         const msgData: Record<string, unknown> = {
           threadId: selectedThread.id,
           organizationId: selectedThread.organizationId,
@@ -1543,7 +1553,6 @@ export default function PrepSightV4App() {
         }
         if (uploadedImage?.imageUrl) msgData.imageUrl = uploadedImage.imageUrl
         if (uploadedImage?.imageName) msgData.imageName = uploadedImage.imageName
-        // memberUids on DM messages enables array-contains query without get() calls in rules
         if (selectedThread.type === "direct" && selectedThread.memberUids?.length) {
           msgData.memberUids = selectedThread.memberUids
         }
@@ -1554,29 +1563,27 @@ export default function PrepSightV4App() {
           lastMessageImageUrl: uploadedImage?.imageUrl ?? null,
         })
       } catch (error) {
-        console.warn("[PrepSight] comms message send failed", error)
+        const msg = error instanceof Error ? error.message : String(error)
+        console.error("[PrepSight] comms message send failed", error)
+        // Show the real error so it's visible — not just a silent vanish
+        setThreads((current) =>
+          current.map((thread) =>
+            thread.id === selectedThread.id
+              ? {
+                  ...thread,
+                  messages: thread.messages.map((m) =>
+                    m.id === nextMessage.id
+                      ? { ...m, body: `${m.body}\n\n⚠ Not synced: ${msg}` }
+                      : m,
+                  ),
+                }
+              : thread,
+          ),
+        )
       }
-      setThreadDraft("")
-      clearPendingImage()
       return
     }
 
-    const tomReply: ChatMessage | null = null
-
-    setThreads((current) =>
-      current.map((thread) =>
-        thread.id === selectedThread.id
-          ? {
-              ...thread,
-              preview: buildThreadPreview({ body: value, imageUrl: nextMessage.imageUrl }),
-              time: "Now",
-              messages: [...thread.messages, nextMessage],
-            }
-          : thread,
-      ),
-    )
-    setThreadDraft("")
-    clearPendingImage()
   }
 
   async function forwardTomMessage(body: string) {
