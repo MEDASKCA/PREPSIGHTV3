@@ -2330,8 +2330,9 @@ export default function PrepSightV4App() {
 
     const contactsWithStatus = contactEntries.map((member) => {
       if (!uid) return { ...member, threadId: null as string | null, hasThread: false, isOnline: false }
+      const orgId = activeTeam?.id ?? "direct"
       const directPair = [uid, member.uid].sort().join("__")
-      const threadId = `direct-${activeTeam?.id}-${directPair}`
+      const threadId = `direct-${orgId}-${directPair}`
       const hasThread = chatThreads.some((t) => t.id === threadId)
       const lastSeenAt = remotePresence[member.uid]?.updatedAt
       const isOnline =
@@ -2350,8 +2351,9 @@ export default function PrepSightV4App() {
           type="button"
         onClick={() => {
   setDrawerOpen(false)
+  const orgId = activeTeam?.id ?? "direct"
   void setDoc(doc(db!, "comms_threads", threadId), {
-    organizationId: activeTeam?.id ?? "direct",
+    organizationId: orgId,
     type: "direct",
     title: member.label,
     subtitle: "Same organisation",
@@ -2625,8 +2627,9 @@ export default function PrepSightV4App() {
             {contactEntries.length ? (
               contactEntries.map((member) => {
                 if (!uid) return null
+                const orgId = activeTeam?.id ?? "direct"
                 const directPair = [uid, member.uid].sort().join("__")
-                const threadId = `direct-${activeTeam?.id}-${directPair}`
+                const threadId = `direct-${orgId}-${directPair}`
                 return (
                   <button
                     key={member.id}
