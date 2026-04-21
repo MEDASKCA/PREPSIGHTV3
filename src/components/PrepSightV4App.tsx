@@ -1325,6 +1325,16 @@ export default function PrepSightV4App() {
       })
       .sort((left, right) => (right.updatedAt ?? "").localeCompare(left.updatedAt ?? ""))
 
+    // Deduplicate direct threads by member pair — keep the most-recently-updated one
+    const seenDirectPairs = new Set<string>()
+    const dedupedMappedThreads = mappedThreads.filter((thread) => {
+      if (thread.type !== "direct") return true
+      const pair = [...(thread.memberUids ?? [])].sort().join("__")
+      if (seenDirectPairs.has(pair)) return false
+      seenDirectPairs.add(pair)
+      return true
+    })
+
     const directThreadPairs = new Set(
       mappedThreads
         .filter((thread) => thread.type === "direct")
@@ -1367,8 +1377,7 @@ export default function PrepSightV4App() {
 
     return [
       tomThread,
-      ...mappedThreads,
-     
+      ...dedupedMappedThreads,
     ]
   }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, profile?.name, remoteMessages, remotePresence, remoteThreadReadState, threads, tomMessages, uid])
 
