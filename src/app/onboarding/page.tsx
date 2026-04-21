@@ -6,14 +6,12 @@ import { useRouter } from "next/navigation"
 import { Check, ChevronDown, ChevronRight, X } from "lucide-react"
 import {
   clearProfile,
-  hasCompleteProfile,
   resolveProfile,
   saveProfile,
-  shouldForceOnboarding,
 } from "@/lib/profile"
 import { clearDemoSession, isDemoSessionActive } from "@/lib/demo-access"
 import { getFirestoreHospitals } from "@/lib/firestore"
-import { PrepSightProfile } from "@/lib/types"
+import { PrepSightProfile, USER_ROLE_LABEL, type UserRole } from "@/lib/types"
 import { ONBOARDING_SETTING_SPECIALTIES } from "@/lib/settings"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
 import hospitalsData from "@/lib/hospitals.json"
@@ -68,15 +66,34 @@ const DEPARTMENT_PURPOSE: Record<string, string> = {
   "Other": "Keeps your account flexible while the wider hospital library is still being built out.",
 }
 
-const TOTAL_STEPS = 7
+const TOTAL_STEPS = 8
 const CTA_LABELS = [
   "Continue",
   "Confirm my hospital",
   "Continue",
+  "Confirm my role",
   "Understood, continue",
   "Confirm my area",
   "Continue",
   "Enter PrepSight",
+]
+
+const ROLE_OPTIONS: Array<{ role: UserRole; label: string; description: string }> = [
+  {
+    role: "viewer",
+    label: USER_ROLE_LABEL.viewer,
+    description: "I use PrepSight to look up and reference procedure cards.",
+  },
+  {
+    role: "editor",
+    label: USER_ROLE_LABEL.editor,
+    description: "I help create and maintain card content for my team.",
+  },
+  {
+    role: "clinical_author",
+    label: "Clinical Author / Admin",
+    description: "I author content and manage team access. Up to 2 admins per workspace.",
+  },
 ]
 
 function normalizeDisplayName(value: string): string {
@@ -137,6 +154,7 @@ export default function OnboardingPage() {
   const [hospitalSuggestions, setHospitalSuggestions] = useState<typeof SEEDED_HOSPITALS>([])
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [displayName, setDisplayName] = useState("")
+  const [role, setRole] = useState<UserRole>("viewer")
   const [departments, setDepartments] = useState<string[]>([])
   const [specialties, setSpecialties] = useState<string[]>([])
   const [collapsedDepartments, setCollapsedDepartments] = useState<string[]>([])
@@ -145,9 +163,6 @@ export default function OnboardingPage() {
   const [finishing, setFinishing] = useState(false)
 
   const hospitalWrapRef = useRef<HTMLDivElement>(null)
-  useEffect(() => {
-    if (hasCompleteProfile() && !shouldForceOnboarding()) router.replace("/")
-  }, [router])
 
   useEffect(() => onAuthChange((u) => setUser(u ?? null)), [])
 
@@ -206,14 +221,9 @@ export default function OnboardingPage() {
         setDisplayName((current) =>
           current || normalizeDisplayName(profile.name ?? user.displayName ?? ""),
         )
-
-        // Only auto-leave onboarding if the user has not already started working through it.
-        if (!hasStartedOnboarding && !shouldForceOnboarding() && hasCompleteProfile()) {
-          router.replace("/")
-        }
       })
       .catch(() => null)
-  }, [user, router, hasStartedOnboarding])
+  }, [user])
 
   useEffect(() => {
     function handler(event: MouseEvent) {
@@ -288,7 +298,7 @@ export default function OnboardingPage() {
   function canAdvance() {
     if (step === 2) return hospital.trim().length > 0
     if (step === 3) return displayNameLooksValid
-    if (step === 5) return departments.length > 0
+    if (step === 6) return departments.length > 0
     return true
   }
 
@@ -337,7 +347,7 @@ export default function OnboardingPage() {
     const profile: PrepSightProfile = {
       hospital: hospital.trim(),
       departments,
-      role: "viewer",
+      role,
       name: normalizedDisplayName,
       specialtiesOfInterest: specialties,
       completedAt: new Date().toISOString(),
@@ -531,6 +541,39 @@ export default function OnboardingPage() {
 
           {step === 4 && (
             <div className="animate-step-in">
+              <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
+                How will you use PrepSight?
+              </h2>
+              <p className="mb-6 max-w-2xl text-base leading-7 text-[#0F4C5C] lg:text-xl lg:leading-9">
+                Choose the role that best fits how you work. You can update this later.
+              </p>
+              <div className="grid gap-3">
+                {ROLE_OPTIONS.map((option) => (
+                  <button
+                    key={option.role}
+                    type="button"
+                    onClick={() => setRole(option.role)}
+                    className={`flex items-start gap-4 rounded-2xl border px-5 py-4 text-left transition-all duration-200 ${
+                      role === option.role
+                        ? "border-[#0085B2] bg-[#0096C7] text-white shadow-[0_10px_22px_rgba(0,150,199,0.24)] ring-2 ring-[#7DD9EE]/60"
+                        : "border-[#4CBFD4] bg-[#7DD9EE] text-[#0F4C5C] hover:bg-[#0096C7] hover:text-white"
+                    }`}
+                  >
+                    <div className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${role === option.role ? "border-white bg-white" : "border-[#0F4C5C]"}`}>
+                      {role === option.role && <span className="h-2.5 w-2.5 rounded-full bg-[#0096C7]" />}
+                    </div>
+                    <div>
+                      <p className="text-base font-semibold lg:text-lg">{option.label}</p>
+                      <p className={`mt-1 text-sm leading-5 lg:text-base lg:leading-6 ${role === option.role ? "text-white/90" : "text-[#0F4C5C]"}`}>{option.description}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {step === 5 && (
+            <div className="animate-step-in">
               <div className="mb-2 flex justify-center lg:mb-3">
                 <img src="/disclaimer.png" alt="" className="h-28 w-28 lg:h-32 lg:w-32" />
               </div>
@@ -573,7 +616,7 @@ export default function OnboardingPage() {
             </div>
           )}
 
-          {step === 5 && (
+          {step === 6 && (
             <div className="animate-step-in">
               <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
                 Which areas do you work in?
@@ -609,7 +652,7 @@ export default function OnboardingPage() {
             </div>
           )}
 
-          {step === 6 && (
+          {step === 7 && (
             <div className="animate-step-in">
               <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
                 Which specialties matter most to you?
@@ -678,7 +721,7 @@ export default function OnboardingPage() {
             </div>
           )}
 
-          {step === 7 && (
+          {step === 8 && (
             <div className="animate-step-in">
               <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">You&apos;re set up.</h2>
               <p className="mb-6 max-w-2xl text-base leading-7 text-[#0F4C5C] lg:text-xl lg:leading-9">
@@ -691,6 +734,7 @@ export default function OnboardingPage() {
               <div className="rounded-xl border border-[#0F4C5C] bg-[#DDF7FC] divide-y divide-[#0F4C5C]/20">
                 {[
                   { label: "Name", value: normalizedDisplayName || "-" },
+                  { label: "Role", value: ROLE_OPTIONS.find((o) => o.role === role)?.label ?? role },
                   { label: "Areas", value: departments.join(", ") || "-" },
                   { label: "Hospital", value: hospital || "-" },
                   ...(specialties.length > 0 ? [{ label: "Specialties", value: specialties.join(", ") }] : []),

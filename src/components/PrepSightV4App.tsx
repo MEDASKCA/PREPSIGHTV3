@@ -64,6 +64,7 @@ import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { clearProfile, getProfile, getRelevantSettings, syncMembershipsIntoProfile } from "@/lib/profile"
 import {
+  approveTeamMember,
   getActiveTeamSnapshot,
   getPendingTeamWorkspacesForProfile,
   getTeamMembersSnapshot,
@@ -72,6 +73,10 @@ import {
   refreshTeamWorkspaceData,
   subscribeTeams,
 } from "@/lib/team-workspaces"
+import {
+  getAllFirestoreUserProfiles,
+  type UserContactRecord,
+} from "@/lib/collaboration-firestore"
 import {
   CHAT_FILTERS,
   COLLECTIONS,
@@ -96,6 +101,7 @@ import type {
 } from "@/v4/types"
 import { formatNow, getInitials, loadStoredState } from "@/v4/utils"
 import { useCall } from "@/v4/useCall"
+import { USER_ROLE_LABEL } from "@/lib/types"
 
 /*
 const UNUSED_COLLECTIONS: CollectionSummary[] = [
@@ -455,13 +461,21 @@ type CommsMessageRecord = {
   id: string
   threadId: string
   organizationId: string
-  senderUid?: string
+  uid: string
   senderKind: "user" | "tom"
   author: string
   body: string
   imageUrl?: string
   imageName?: string
   createdAt: string
+}
+
+type CommsPresenceRecord = {
+  id: string
+  organizationId: string
+  uid: string
+  displayName: string
+  updatedAt: string
 }
 
 type CommsReadRecord = {
@@ -492,6 +506,10 @@ function buildThreadPreview(input: { body?: string; imageUrl?: string }) {
 
 function buildCommsReadDocId(uid: string, threadId: string) {
   return `${uid}__${threadId}`.replace(/[^a-zA-Z0-9:_-]+/g, "-")
+}
+
+function buildCommsPresenceDocId(uid: string, organizationId: string) {
+  return `${uid}__${organizationId}`.replace(/[^a-zA-Z0-9:_-]+/g, "-")
 }
 
 function buildCommsReadStorageKey(uid?: string | null, organizationId?: string) {
@@ -546,6 +564,7 @@ export default function PrepSightV4App() {
   const [threads, setThreads] = useState<ChatThread[]>([])
   const [remoteThreads, setRemoteThreads] = useState<CommsThreadRecord[]>([])
   const [remoteMessages, setRemoteMessages] = useState<CommsMessageRecord[]>([])
+  const [remotePresence, setRemotePresence] = useState<Record<string, CommsPresenceRecord>>({})
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null)
   const [threadDraft, setThreadDraft] = useState("")
   const [emojiPickerOpen, setEmojiPickerOpen] = useState(false)
@@ -720,6 +739,16 @@ export default function PrepSightV4App() {
     () => getTeamMembersSnapshot(activeTeam?.id),
     () => getTeamMembersSnapshot(activeTeam?.id),
   )
+  const isTeamAdmin = Boolean(activeTeam && uid && activeTeam.createdBy === uid)
+  const pendingMemberApprovals = useMemo(
+    () => isTeamAdmin ? activeTeamMembers.filter((m) => m.status === "pending_approval") : [],
+    [isTeamAdmin, activeTeamMembers],
+  )
+  const [allUsers, setAllUsers] = useState<UserContactRecord[]>([])
+  useEffect(() => {
+    if (!uid) return
+    void getAllFirestoreUserProfiles().then(setAllUsers)
+  }, [uid])
   const isCurrentUserActiveInTeam = useMemo(
     () => uid ? activeTeamMembers.some((m) => m.uid === uid && m.status === "active") : false,
     [activeTeamMembers, uid],
@@ -825,34 +854,49 @@ export default function PrepSightV4App() {
     }),
     [activeTeam?.internalName, bookmarks, globalLibraries, libraries, localLibraries, profile?.hospital, workspaceLabel],
   )
+  const activeMembersList = useMemo(
+    () => activeTeamMembers.filter((m) => m.status === "active"),
+    [activeTeamMembers],
+  )
   const logisticsDetails = useMemo<Record<LogisticsKey, LogisticsSummary>>(
     () => ({
       members: {
         key: "members",
-        title: "Members",
-        detail: `${activeTeamMembers.length || teamWorkspaces.length || 0} active across ${teamWorkspaces.length || 1} groups`,
+        title: "Workforce",
+        detail: activeMembersList.length > 0
+          ? `${activeMembersList.length} active member${activeMembersList.length === 1 ? "" : "s"}`
+          : teamWorkspaces.length > 0 ? `${teamWorkspaces.length} workspace${teamWorkspaces.length === 1 ? "" : "s"}` : "No team yet",
         tone: "#D7F2FB",
-        rows: (activeTeamMembers.length
-          ? activeTeamMembers.slice(0, 8).map((member) => ({
+        rows: activeMembersList.length > 0
+          ? activeMembersList.slice(0, 8).map((member) => ({
               title: member.displayName ?? member.publicAlias,
-              meta: `${member.internalRole} Â· ${member.platformRole}`,
+              meta: USER_ROLE_LABEL[member.internalRole] ?? member.internalRole,
             }))
           : teamWorkspaces.slice(0, 8).map((team) => ({
               title: team.internalName,
-              meta: `${team.publicAlias} Â· ${team.visibility}`,
-            }))),
+              meta: team.publicAlias,
+            })),
       },
       access: {
         key: "access",
         title: "Access requests",
-        detail: `${pendingTeamWorkspaces.length} pending approval`,
+        detail: pendingMemberApprovals.length > 0
+          ? `${pendingMemberApprovals.length} pending approval`
+          : pendingTeamWorkspaces.length > 0
+            ? `You are awaiting approval for ${pendingTeamWorkspaces.length} workspace${pendingTeamWorkspaces.length === 1 ? "" : "s"}`
+            : "No pending requests",
         tone: "#E5F7ED",
-        rows: (pendingTeamWorkspaces.length
-          ? pendingTeamWorkspaces.map((team) => ({
-              title: team.internalName,
-              meta: `${team.publicAlias} awaiting approval`,
+        rows: pendingMemberApprovals.length > 0
+          ? pendingMemberApprovals.map((member) => ({
+              title: member.displayName ?? member.publicAlias,
+              meta: `${USER_ROLE_LABEL[member.internalRole] ?? member.internalRole} · requesting access`,
             }))
-          : [{ title: "No pending requests", meta: "Nothing is waiting for approval right now." }]),
+          : pendingTeamWorkspaces.length > 0
+            ? pendingTeamWorkspaces.map((team) => ({
+                title: team.internalName,
+                meta: `${team.publicAlias} · awaiting your approval`,
+              }))
+            : [{ title: "No pending requests", meta: "Nothing is waiting for approval right now." }],
       },
       equipment: {
         key: "equipment",
@@ -865,7 +909,7 @@ export default function PrepSightV4App() {
         ],
       },
     }),
-    [activeTeamMembers, pendingTeamWorkspaces, teamWorkspaces],
+    [activeMembersList, pendingMemberApprovals, pendingTeamWorkspaces, teamWorkspaces],
   )
   const updateDetails = useMemo<Record<UpdateKey, UpdateSummary>>(
     () => ({
@@ -882,12 +926,18 @@ export default function PrepSightV4App() {
       },
       logistics: {
         key: "logistics",
-        title: "Logistics",
-        detail: pendingTeamWorkspaces.length
-          ? `${pendingTeamWorkspaces.length} access approvals are waiting.`
-          : "No access approvals are waiting right now.",
+        title: pendingMemberApprovals.length > 0 ? "Action needed" : "Access requests",
+        detail: pendingMemberApprovals.length > 0
+          ? `${pendingMemberApprovals.length} member${pendingMemberApprovals.length === 1 ? "" : "s"} waiting for your approval.`
+          : pendingTeamWorkspaces.length > 0
+            ? `You are awaiting approval for ${pendingTeamWorkspaces.length} workspace${pendingTeamWorkspaces.length === 1 ? "" : "s"}.`
+            : "No access approvals are waiting right now.",
         time: "Now",
-        body: "This section will eventually unify members, approvals, staffing, and equipment signals into one operational feed.",
+        body: pendingMemberApprovals.length > 0
+          ? `${pendingMemberApprovals.map((m) => m.displayName ?? "A member").join(", ")} ${pendingMemberApprovals.length === 1 ? "has" : "have"} requested to join. Go to Resources → Access requests to approve.`
+          : pendingTeamWorkspaces.length > 0
+            ? "Your join request is pending approval from the team admin. You will gain full access once approved."
+            : "Once members join your team with the invite code, their requests appear here.",
       },
       bookmarks: {
         key: "bookmarks",
@@ -950,6 +1000,7 @@ export default function PrepSightV4App() {
       setRemoteThreads([])
       setRemoteMessages([])
       setRemoteThreadReadState({})
+      setRemotePresence({})
       return
     }
 
@@ -957,6 +1008,7 @@ export default function PrepSightV4App() {
     const threadQuery = query(collection(db, "comms_threads"), where("organizationId", "==", activeTeam.id))
     const messageQuery = query(collection(db, "comms_messages"), where("organizationId", "==", activeTeam.id))
     const readQuery = query(collection(db, "comms_reads"), where("uid", "==", uid))
+    const presenceQuery = query(collection(db, "comms_presence"), where("organizationId", "==", activeTeam.id))
 
     const unsubscribeThreads = onSnapshot(
       threadQuery,
@@ -998,12 +1050,68 @@ export default function PrepSightV4App() {
       },
     )
 
+    const unsubscribePresence = onSnapshot(
+      presenceQuery,
+      (snapshot) => {
+        const next = snapshot.docs.map((entry) => ({ id: entry.id, ...entry.data() } as CommsPresenceRecord))
+        setRemotePresence(
+          next.reduce<Record<string, CommsPresenceRecord>>((accumulator, record) => {
+            accumulator[record.uid] = record
+            return accumulator
+          }, {}),
+        )
+      },
+      (error) => {
+        console.warn("[PrepSight] comms_presence listener failed", error)
+      },
+    )
+
     return () => {
       unsubscribeThreads()
       unsubscribeMessages()
       unsubscribeReads()
+      unsubscribePresence()
     }
   }, [activeTeam?.id, uid, isCurrentUserActiveInTeam])
+
+  useEffect(() => {
+    if (!commsUsingRemote || !db || !uid || !activeTeam?.id || !profile?.name?.trim()) return
+
+    const presenceId = buildCommsPresenceDocId(uid, activeTeam.id)
+    const presenceRef = doc(db, "comms_presence", presenceId)
+    let intervalId: ReturnType<typeof setInterval> | null = null
+
+    const writePresence = async () => {
+      try {
+        await setDoc(presenceRef, {
+          id: presenceId,
+          organizationId: activeTeam.id,
+          uid,
+          displayName: profile.name?.trim() || "You",
+          updatedAt: new Date().toISOString(),
+        } satisfies CommsPresenceRecord)
+      } catch (error) {
+        console.warn("[PrepSight] comms presence heartbeat failed", error)
+      }
+    }
+
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        void writePresence()
+      }
+    }
+
+    void writePresence()
+    intervalId = setInterval(() => {
+      void writePresence()
+    }, 30000)
+    document.addEventListener("visibilitychange", handleVisibilityChange)
+
+    return () => {
+      if (intervalId) clearInterval(intervalId)
+      document.removeEventListener("visibilitychange", handleVisibilityChange)
+    }
+  }, [activeTeam?.id, commsUsingRemote, db, profile?.name, uid])
 
   useEffect(() => {
     if (!commsUsingRemote || !db || !uid || !activeTeam?.id) return
@@ -1088,7 +1196,7 @@ export default function PrepSightV4App() {
     const messagesByThread = remoteMessages.reduce<Record<string, ChatMessage[]>>((accumulator, message) => {
       const nextMessage: ChatMessage = {
         id: message.id,
-        sender: message.senderKind === "tom" ? "tom" : message.senderUid === uid ? "self" : "other",
+        sender: message.senderKind === "tom" ? "tom" : message.uid === uid ? "self" : "other",
         author: message.author,
         body: message.body,
         time: formatThreadTime(message.createdAt),
@@ -1109,6 +1217,11 @@ export default function PrepSightV4App() {
         const lastMessage = threadMessages[threadMessages.length - 1]
         const lastReadAt = remoteThreadReadState[thread.id] ?? ""
         const lastMessageFromCurrentUser = lastMessage?.sender === "self"
+        const peerUid =
+          thread.type === "direct"
+            ? thread.memberUids?.find((memberUid) => memberUid && memberUid !== uid)
+            : undefined
+        const lastSeenAt = peerUid ? remotePresence[peerUid]?.updatedAt : undefined
         const unread =
           lastMessage && !lastMessageFromCurrentUser && (lastMessage.createdAt ?? thread.updatedAt ?? "") > lastReadAt ? 1 : 0
         return {
@@ -1122,6 +1235,8 @@ export default function PrepSightV4App() {
           }),
           time: formatThreadTime(lastMessage?.createdAt ?? thread.updatedAt),
           unread,
+          online:
+            !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 45000,
           accent: thread.accent,
           members: thread.memberNames,
           memberUids: thread.memberUids,
@@ -1147,6 +1262,10 @@ export default function PrepSightV4App() {
         const directPair = [selfUid, memberUid].sort().join("__")
         if (directThreadPairs.has(directPair)) return null
 
+        const lastSeenAt = remotePresence[memberUid]?.updatedAt
+        const isOnline =
+          !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 45000
+
         return {
           id: `direct-${activeTeam.id}-${directPair}`,
           type: "direct",
@@ -1155,7 +1274,7 @@ export default function PrepSightV4App() {
           preview: "Start a conversation",
           time: "",
           unread: 0,
-          online: true,
+          online: isOnline,
           accent: "#4DA3FF",
           members: [profile?.name?.trim() || "You", member.displayName?.trim() || member.publicAlias],
           memberUids: [selfUid, memberUid],
@@ -1171,7 +1290,7 @@ export default function PrepSightV4App() {
       ...mappedThreads,
       ...starterDirectThreads,
     ]
-  }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, profile?.name, remoteMessages, remoteThreadReadState, remoteThreads, threads, tomMessages, uid])
+  }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, profile?.name, remoteMessages, remotePresence, remoteThreadReadState, remoteThreads, threads, tomMessages, uid])
 
   const filteredThreads = useMemo(() => {
     let threads = chatThreads
@@ -1246,6 +1365,7 @@ export default function PrepSightV4App() {
 
   async function openThread(threadId: string) {
     setWorkspacePickerOpen(false)
+    setActiveTab("chat")
     const openedThread = chatThreads.find((thread) => thread.id === threadId)
     if (
       commsUsingRemote &&
@@ -1335,7 +1455,7 @@ export default function PrepSightV4App() {
         await addDoc(collection(db, "comms_messages"), {
           threadId: selectedThread.id,
           organizationId: selectedThread.organizationId,
-          senderUid: uid,
+          uid,
           senderKind: "user",
           author: profile?.name?.trim() || "You",
           body: value,
@@ -1392,7 +1512,7 @@ export default function PrepSightV4App() {
         await addDoc(collection(db, "comms_messages"), {
           threadId: targetGroup.id,
           organizationId: targetGroup.organizationId,
-          senderUid: uid,
+          uid,
           senderKind: "user",
           author: profile?.name?.trim() || "You",
           body: forwardedMessage.body,
@@ -2084,14 +2204,17 @@ export default function PrepSightV4App() {
     const organizationLabel = profile?.hospital?.trim() || activeTeam?.publicAlias?.trim() || activeTeam?.internalName?.trim() || "Your organisation"
 
     const contactsWithStatus = contactEntries.map((member) => {
-      if (!uid) return { ...member, threadId: null as string | null, hasThread: false }
+      if (!uid) return { ...member, threadId: null as string | null, hasThread: false, isOnline: false }
       const directPair = [uid, member.uid].sort().join("__")
       const threadId = `direct-${activeTeam?.id}-${directPair}`
-      const hasThread = threads.some((t) => t.id === threadId)
-      return { ...member, threadId, hasThread }
+      const hasThread = chatThreads.some((t) => t.id === threadId)
+      const lastSeenAt = remotePresence[member.uid]?.updatedAt
+      const isOnline =
+        !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 45000
+      return { ...member, threadId, hasThread, isOnline }
     })
-    const onlineContacts = contactsWithStatus.filter((m) => m.hasThread)
-    const offlineContacts = contactsWithStatus.filter((m) => !m.hasThread)
+    const onlineContacts = contactsWithStatus.filter((m) => m.isOnline)
+    const offlineContacts = contactsWithStatus.filter((m) => !m.isOnline)
 
     function renderContactRow(member: (typeof contactsWithStatus)[0], isActive: boolean) {
       if (!uid || !member.threadId) return null
@@ -2605,6 +2728,59 @@ export default function PrepSightV4App() {
             </button>
           ))}
         </div>
+
+        {allUsers.length > 0 && (
+          <div className="mt-4 px-2">
+            <p className={`px-2 pb-2 text-[11px] font-semibold uppercase tracking-[0.16em] ${isDark ? "text-[#6A7F93]" : "text-[#9AB5C2]"}`}>
+              Contacts
+            </p>
+            {allUsers
+              .filter((contact) => contact.uid !== uid)
+              .filter((contact) =>
+                !chatSearch ||
+                (contact.name ?? "").toLowerCase().includes(chatSearch.toLowerCase()) ||
+                contact.hospital.toLowerCase().includes(chatSearch.toLowerCase()),
+              )
+              .map((contact) => {
+                const threadId = `dm-${[uid, contact.uid].sort().join("-")}`
+                const initials = (contact.name ?? contact.hospital)
+                  .split(" ")
+                  .map((p) => p[0])
+                  .join("")
+                  .slice(0, 2)
+                  .toUpperCase()
+                const ACCENT_COLORS = ["#4DA3FF", "#7C5CFC", "#0EA5E9", "#14B8A6", "#F59E0B", "#EF4444", "#10B981"]
+                const accentIndex = contact.uid.charCodeAt(0) % ACCENT_COLORS.length
+                const accent = ACCENT_COLORS[accentIndex] ?? "#4DA3FF"
+                return (
+                  <button
+                    key={contact.uid}
+                    type="button"
+                    onClick={() => openThread(threadId)}
+                    className={`flex w-full items-center gap-3 px-4 py-2 text-left transition-colors ${isDark ? "border-b border-white/[0.04] hover:bg-white/4" : "border-b border-[#EAF3F7] hover:bg-[#F7FBFD]"}`}
+                  >
+                    <div className="relative shrink-0">
+                      <div
+                        className="flex h-12 w-12 items-center justify-center rounded-full text-[15px] font-semibold text-white shadow-[0_10px_24px_rgba(16,36,62,0.16)]"
+                        style={{ background: `linear-gradient(180deg, ${accent} 0%, ${accent}CC 100%)` }}
+                      >
+                        {initials}
+                      </div>
+                      <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-[#07111D] bg-[#2DD4BF]" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className={`truncate text-[15px] font-semibold leading-snug ${isDark ? "text-white" : "text-[#10243E]"}`}>
+                        {contact.name ?? contact.hospital}
+                      </p>
+                      <p className={`truncate text-[13px] leading-snug ${isDark ? "text-[#7F93A9]" : "text-[#6A8A99]"}`}>
+                        {contact.hospital} · {USER_ROLE_LABEL[contact.role as keyof typeof USER_ROLE_LABEL] ?? contact.role}
+                      </p>
+                    </div>
+                  </button>
+                )
+              })}
+          </div>
+        )}
       </div>
     )
   }
@@ -3170,7 +3346,7 @@ export default function PrepSightV4App() {
           {[
             { label: "Workforce", key: "members" as LogisticsKey },
             { label: "Equipment", key: "equipment" as LogisticsKey },
-            { label: "Supplies", key: "access" as LogisticsKey },
+            { label: pendingMemberApprovals.length > 0 ? `Requests (${pendingMemberApprovals.length})` : "Requests", key: "access" as LogisticsKey },
           ].map((item) => (
             <button
               key={item.label}
@@ -3195,23 +3371,36 @@ export default function PrepSightV4App() {
             <p className={`mt-2 text-[14px] leading-6 ${isDark ? "text-[#D6E4EF]" : "text-[#35516A]"}`}>{activePanelDetail.detail}</p>
           </div>
 
-          {activePanelDetail.rows.map((row, index) => (
-            <button
-              key={`${activePanelDetail.key}-${index}-${row.title}`}
-              type="button"
-              onClick={() => openLogisticsItem(activePanelDetail.key, index)}
-              className="block w-full rounded-[24px] p-4 text-left text-[#10243E]"
-              style={{ backgroundColor: activePanelDetail.tone }}
-            >
-              <div className="flex items-center justify-between gap-3">
-                <div>
-                  <p className="text-[17px] font-semibold">{row.title}</p>
+          {activePanelDetail.rows.map((row, index) => {
+            const pendingMember = activePanelDetail.key === "access" && isTeamAdmin
+              ? pendingMemberApprovals[index]
+              : undefined
+            return (
+              <div
+                key={`${activePanelDetail.key}-${index}-${row.title}`}
+                className="flex items-center gap-3 rounded-[24px] p-4 text-[#10243E]"
+                style={{ backgroundColor: activePanelDetail.tone }}
+              >
+                <div className="flex-1 min-w-0">
+                  <p className="text-[17px] font-semibold truncate">{row.title}</p>
                   <p className="mt-1 text-[14px] text-[#35516A]">{row.meta}</p>
                 </div>
-                <ChevronRight size={18} className="shrink-0 text-[#35516A]" />
+                {pendingMember ? (
+                  <button
+                    type="button"
+                    onClick={() => void approveTeamMember(pendingMember.id, uid).then(() => refreshTeamWorkspaceData(uid))}
+                    className="shrink-0 rounded-[10px] bg-[#06B6D4] px-3 py-1.5 text-[13px] font-semibold text-white"
+                  >
+                    Approve
+                  </button>
+                ) : (
+                  <button type="button" onClick={() => openLogisticsItem(activePanelDetail.key, index)}>
+                    <ChevronRight size={18} className="shrink-0 text-[#35516A]" />
+                  </button>
+                )}
               </div>
-            </button>
-          ))}
+            )
+          })}
         </div>
       </div>
     )
@@ -3228,17 +3417,31 @@ export default function PrepSightV4App() {
         </div>
 
         <div className="mt-4 space-y-3">
-          {activeLogisticsDetail.rows.map((row, index) => (
-            <button
-              key={row.title}
-              type="button"
-              onClick={() => openLogisticsItem(activeLogisticsDetail.key, index)}
-              className="block w-full rounded-[22px] bg-white/8 px-4 py-4 text-left"
-            >
-              <p className="text-[16px] font-medium text-white">{row.title}</p>
-              <p className="mt-1 text-[13px] text-[#A0B7CB]">{row.meta}</p>
-            </button>
-          ))}
+          {activeLogisticsDetail.rows.map((row, index) => {
+            const pendingMember = activeLogisticsDetail.key === "access" && isTeamAdmin
+              ? pendingMemberApprovals[index]
+              : undefined
+            return (
+              <div
+                key={row.title}
+                className="flex items-center gap-3 rounded-[22px] bg-white/8 px-4 py-4"
+              >
+                <div className="flex-1 min-w-0">
+                  <p className="text-[16px] font-medium text-white truncate">{row.title}</p>
+                  <p className="mt-1 text-[13px] text-[#A0B7CB]">{row.meta}</p>
+                </div>
+                {pendingMember ? (
+                  <button
+                    type="button"
+                    onClick={() => void approveTeamMember(pendingMember.id, uid).then(() => refreshTeamWorkspaceData(uid))}
+                    className="shrink-0 rounded-[10px] bg-[#06B6D4] px-3 py-1.5 text-[13px] font-semibold text-white"
+                  >
+                    Approve
+                  </button>
+                ) : null}
+              </div>
+            )
+          })}
         </div>
       </div>
     )
@@ -3457,17 +3660,35 @@ export default function PrepSightV4App() {
               <p className="text-[34px] tracking-[-0.05em] text-[#10243E]">{activeLogisticsDetail.title}</p>
               <p className="mt-2 text-[15px] leading-7 text-[#61758B]">{activeLogisticsDetail.detail}</p>
               <div className="mt-5 space-y-3">
-                {activeLogisticsDetail.rows.map((row, index) => (
-                  <button
-                    key={row.title}
-                    type="button"
-                    onClick={() => openLogisticsItem(activeLogisticsDetail.key, index)}
-                    className="block w-full rounded-[18px] border border-[#DCEAF0] bg-[#F8FBFD] px-4 py-4 text-left"
-                  >
-                    <p className="text-[16px] font-medium text-[#10243E]">{row.title}</p>
-                    <p className="mt-1 text-[14px] text-[#61758B]">{row.meta}</p>
-                  </button>
-                ))}
+                {activeLogisticsDetail.rows.map((row, index) => {
+                  const pendingMember = activeLogisticsDetail.key === "access" && isTeamAdmin
+                    ? pendingMemberApprovals[index]
+                    : undefined
+                  return (
+                    <div
+                      key={row.title}
+                      className="flex items-center gap-4 rounded-[18px] border border-[#DCEAF0] bg-[#F8FBFD] px-4 py-4"
+                    >
+                      <div className="flex-1 min-w-0">
+                        <p className="text-[16px] font-medium text-[#10243E] truncate">{row.title}</p>
+                        <p className="mt-1 text-[14px] text-[#61758B]">{row.meta}</p>
+                      </div>
+                      {pendingMember ? (
+                        <button
+                          type="button"
+                          onClick={() => void approveTeamMember(pendingMember.id, uid).then(() => refreshTeamWorkspaceData(uid))}
+                          className="shrink-0 rounded-[10px] bg-[#06B6D4] px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#0891B2]"
+                        >
+                          Approve
+                        </button>
+                      ) : (
+                        <button type="button" onClick={() => openLogisticsItem(activeLogisticsDetail.key, index)}>
+                          <ChevronRight size={16} className="text-[#61758B]" />
+                        </button>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
             </div>
           </div>
@@ -3961,4 +4182,3 @@ export default function PrepSightV4App() {
     </>
   )
 }
-

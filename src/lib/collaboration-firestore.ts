@@ -369,3 +369,37 @@ export async function approveFirestoreMembership(
     approvedAt: new Date().toISOString(),
   })
 }
+
+export interface UserContactRecord {
+  uid: string
+  name?: string
+  hospital: string
+  departments: string[]
+  role: string
+  platformRole?: string
+}
+
+export async function getAllFirestoreUserProfiles(): Promise<UserContactRecord[]> {
+  if (!db) return []
+  try {
+    const snap = await getDocs(collection(db, "users"))
+    return snap.docs
+      .map((entry) => {
+        const data = entry.data() as Partial<PrepSightProfile>
+        if (!data.hospital || !data.completedAt) return null
+        return {
+          uid: entry.id,
+          name: data.name,
+          hospital: data.hospital,
+          departments: data.departments ?? [],
+          role: data.role ?? "viewer",
+          platformRole: data.platformRole,
+        } as UserContactRecord
+      })
+      .filter((entry): entry is UserContactRecord => entry !== null)
+      .sort((left, right) => (left.name ?? "").localeCompare(right.name ?? ""))
+  } catch (error) {
+    console.warn("[PrepSight] getAllFirestoreUserProfiles failed:", error)
+    return []
+  }
+}
