@@ -285,7 +285,7 @@ function Avatar({
       >
         {imageSrc ? <img src={imageSrc} alt={label} className="h-full w-full object-cover" /> : getInitials(label)}
       </div>
-      {online ? <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-[#07111D] bg-[#2DD4BF]" /> : null}
+      {online ? <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-[#0F766E] bg-[#2DD4BF]" /> : null}
     </div>
   )
 }
@@ -2361,7 +2361,7 @@ export default function PrepSightV4App() {
         >
           <div className="relative shrink-0">
             <Avatar label={member.label} accent="#4DA3FF" sizeClass="h-8 w-8" />
-            <span className={`absolute right-0 bottom-0 h-2 w-2 rounded-full border-[1.5px] border-[#07111D] ${isActive ? "bg-[#2DD4BF]" : "bg-[#3A546A]"}`} />
+            <span className={`absolute right-0 bottom-0 h-2 w-2 rounded-full border-[1.5px] border-[#0F766E] ${isActive ? "bg-[#2DD4BF]" : "bg-[#3A546A]"}`} />
           </div>
           <p className="min-w-0 flex-1 truncate text-[13px] font-medium leading-none text-white">{member.label}</p>
           <span className={`shrink-0 text-[11px] font-medium ${isActive ? "text-[#2DD4BF]" : "text-[#4A6A7E]"}`}>
