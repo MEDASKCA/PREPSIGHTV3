@@ -16,17 +16,8 @@ import {
 
 const googleProvider = new GoogleAuthProvider()
 const microsoftProvider = new OAuthProvider("microsoft.com")
-microsoftProvider.setCustomParameters({ prompt: "select_account" })
+microsoftProvider.setCustomParameters({ prompt: "select_account", tenant: "organizations" })
 const LOCAL_DEV_AUTH_KEY = "prepsight_local_dev_auth"
-const REDIRECT_AUTH_HOSTS = new Set([
-  "prepsight.medaskca.com",
-  "prepsight.vercel.app",
-  "prepsightv3.vercel.app",
-  "ps.medaskca.com",
-  "ps-two-dusky.vercel.app",
-  "prepsightv3-3l6x93pra-alex-monterubios-projects.vercel.app",
-])
-
 type LocalDevSession = {
   email: string
   uid: string
@@ -127,9 +118,29 @@ function isMobile() {
   return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 }
 
-function shouldUseRedirect() {
+function isEmbeddedBrowser() {
+  if (typeof navigator === "undefined") return false
+  const ua = navigator.userAgent || ""
+  return /FBAN|FBAV|Instagram|Messenger/i.test(ua) || (/\bwv\b/i.test(ua) && /Android/i.test(ua))
+}
+
+function canUseSessionStorage() {
   if (typeof window === "undefined") return false
-  return isMobile() || REDIRECT_AUTH_HOSTS.has(window.location.hostname)
+  try {
+    const key = "__prepsight_auth_probe__"
+    window.sessionStorage.setItem(key, "1")
+    window.sessionStorage.removeItem(key)
+    return true
+  } catch {
+    return false
+  }
+}
+
+function shouldPreferRedirect() {
+  if (typeof window === "undefined") return false
+  if (isLocalDevHost()) return false
+  if (isEmbeddedBrowser()) return false
+  return isMobile() && canUseSessionStorage()
 }
 
 async function prepareAuth() {
@@ -144,7 +155,7 @@ if (auth) {
 
 export async function signInWithGoogle() {
   const authInstance = await prepareAuth()
-  if (shouldUseRedirect()) {
+  if (shouldPreferRedirect()) {
     await signInWithRedirect(authInstance, googleProvider)
     return { method: "redirect" as const }
   }
@@ -153,6 +164,15 @@ export async function signInWithGoogle() {
     return { method: "popup" as const, result }
   } catch (e: unknown) {
     const code = (e as { code?: string }).code ?? ""
+    if (
+      (code === "auth/popup-blocked" ||
+        code === "auth/operation-not-supported-in-this-environment" ||
+        code === "auth/cancelled-popup-request") &&
+      shouldPreferRedirect()
+    ) {
+      await signInWithRedirect(authInstance, googleProvider)
+      return { method: "redirect" as const }
+    }
     if (code === "auth/popup-blocked") {
       throw new Error("Google sign-in popup was blocked. Allow popups for localhost and try again.")
     }
@@ -171,7 +191,7 @@ export async function signInLocally(email: string) {
 
 export async function signInWithMicrosoft() {
   const authInstance = await prepareAuth()
-  if (shouldUseRedirect()) {
+  if (shouldPreferRedirect()) {
     await signInWithRedirect(authInstance, microsoftProvider)
     return { method: "redirect" as const }
   }
@@ -180,6 +200,15 @@ export async function signInWithMicrosoft() {
     return { method: "popup" as const, result }
   } catch (e: unknown) {
     const code = (e as { code?: string }).code ?? ""
+    if (
+      (code === "auth/popup-blocked" ||
+        code === "auth/operation-not-supported-in-this-environment" ||
+        code === "auth/cancelled-popup-request") &&
+      shouldPreferRedirect()
+    ) {
+      await signInWithRedirect(authInstance, microsoftProvider)
+      return { method: "redirect" as const }
+    }
     if (code === "auth/popup-blocked") {
       throw new Error("Microsoft sign-in popup was blocked. Allow popups for localhost and try again.")
     }

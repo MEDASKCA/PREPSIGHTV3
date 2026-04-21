@@ -8,30 +8,15 @@ const projectId = process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID
 const storageBucket = process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET
 const messagingSenderId = process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID
 const appId = process.env.NEXT_PUBLIC_FIREBASE_APP_ID
-const AUTH_PROXY_HOSTS = new Set([
-  "prepsight.medaskca.com",
-  "prepsight.vercel.app",
-  "prepsightv3.vercel.app",
-  "ps.medaskca.com",
-  "ps-two-dusky.vercel.app",
-  "prepsightv3-3l6x93pra-alex-monterubios-projects.vercel.app",
-])
 let app: FirebaseApp | null = null
 let auth: Auth | null = null
 let db: Firestore | null = null
 let storage: FirebaseStorage | null = null
 
 if (apiKey && projectId && storageBucket && messagingSenderId && appId) {
-  const runtimeHostname =
-    typeof window !== "undefined" ? window.location.hostname : null
-  const authDomain =
-    runtimeHostname && AUTH_PROXY_HOSTS.has(runtimeHostname)
-      ? runtimeHostname
-      : process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN
-
   const firebaseConfig = {
     apiKey,
-    authDomain,
+    authDomain: `${projectId}.firebaseapp.com`,
     projectId,
     storageBucket,
     messagingSenderId,

@@ -6,18 +6,6 @@ const nextConfig: NextConfig = {
   turbopack: {
     root: path.join(__dirname),
   },
-  async rewrites() {
-    return [
-      {
-        source: "/__/auth/:path*",
-        destination: "https://prepsight-43e96.firebaseapp.com/__/auth/:path*",
-      },
-      {
-        source: "/__/firebase/init.json",
-        destination: "https://prepsight-43e96.firebaseapp.com/__/firebase/init.json",
-      },
-    ]
-  },
   async headers() {
     return [
       {
