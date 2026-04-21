@@ -50,6 +50,16 @@ body * {
   letter-spacing: -0.03em;
 }
 
+@keyframes soundbar {
+  0%, 100% { transform: scaleY(0.25); }
+  50% { transform: scaleY(1); }
+}
+
+@keyframes soundbar-idle {
+  0%, 100% { transform: scaleY(0.45); }
+  50% { transform: scaleY(0.65); }
+}
+
 html[data-theme="dark"] {
   color-scheme: dark;
   --app-shell-bg: #0B1422;

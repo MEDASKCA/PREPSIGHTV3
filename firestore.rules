@@ -169,6 +169,59 @@ service cloud.firestore {
       allow write: if false;
     }
 
+    match /comms_threads/{threadId} {
+      allow read: if isSignedIn() && isActiveOrganizationMember(resource.data.organizationId);
+      allow create: if isSignedIn() &&
+        request.resource.data.organizationId is string &&
+        request.resource.data.organizationId.size() > 0 &&
+        isActiveOrganizationMember(request.resource.data.organizationId);
+      allow update: if isSignedIn() && isActiveOrganizationMember(resource.data.organizationId);
+      allow delete: if false;
+    }
+
+    match /comms_messages/{messageId} {
+      allow read: if isSignedIn() && isActiveOrganizationMember(resource.data.organizationId);
+      allow create: if isSignedIn() &&
+        request.resource.data.organizationId is string &&
+        request.resource.data.organizationId.size() > 0 &&
+        isActiveOrganizationMember(request.resource.data.organizationId) &&
+        request.resource.data.uid == request.auth.uid;
+      allow update, delete: if false;
+    }
+
+    match /comms_calls/{callId} {
+      allow read: if isSignedIn() && (
+        resource.data.callerUid == request.auth.uid ||
+        resource.data.calleeUid == request.auth.uid
+      );
+      allow create: if isSignedIn() &&
+        request.resource.data.callerUid == request.auth.uid &&
+        request.resource.data.organizationId is string;
+      allow update: if isSignedIn() && (
+        resource.data.callerUid == request.auth.uid ||
+        resource.data.calleeUid == request.auth.uid
+      );
+      allow delete: if false;
+
+      match /caller_candidates/{candidateId} {
+        allow read, create: if isSignedIn();
+        allow update, delete: if false;
+      }
+      match /callee_candidates/{candidateId} {
+        allow read, create: if isSignedIn();
+        allow update, delete: if false;
+      }
+    }
+
+    match /comms_reads/{readId} {
+      allow read: if isSignedIn() && resource.data.uid == request.auth.uid;
+      allow create, update: if isSignedIn() &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.organizationId is string &&
+        request.resource.data.organizationId.size() > 0;
+      allow delete: if false;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }

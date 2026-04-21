@@ -6,6 +6,7 @@ import {
   addDoc,
   collection,
   doc,
+  getDoc,
   onSnapshot,
   query,
   setDoc,
@@ -20,7 +21,7 @@ import {
   BriefcaseMedical,
   ChevronsUpDown,
   ChevronRight,
-  CircleDot,
+  Smile,
   Clock3,
   FolderClosed,
   Info,
@@ -29,10 +30,15 @@ import {
   MessageCircle,
   Plus,
   Phone,
+  PhoneCall,
+  PhoneOff,
+  MicOff,
+  Mic,
   Search,
   SendHorizontal,
   Settings2,
   Sparkles,
+  Square,
   LogOut,
   PlugZap,
   Sun,
@@ -56,8 +62,16 @@ import LibraryPageClient from "@/components/LibraryPageClient"
 import { db, storage } from "@/lib/firebase"
 import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
-import { getProfile, getRelevantSettings, syncMembershipsIntoProfile } from "@/lib/profile"
-import { getActiveTeamSnapshot, getPendingTeamWorkspacesForProfile, getTeamMembersSnapshot, getTeamWorkspacesForProfile, subscribeTeams } from "@/lib/team-workspaces"
+import { clearProfile, getProfile, getRelevantSettings, syncMembershipsIntoProfile } from "@/lib/profile"
+import {
+  getActiveTeamSnapshot,
+  getPendingTeamWorkspacesForProfile,
+  getTeamMembersSnapshot,
+  getTeamWorkspacesForProfile,
+  getTeamWorkspacesSnapshot,
+  refreshTeamWorkspaceData,
+  subscribeTeams,
+} from "@/lib/team-workspaces"
 import {
   CHAT_FILTERS,
   COLLECTIONS,
@@ -81,6 +95,7 @@ import type {
   UpdateSummary,
 } from "@/v4/types"
 import { formatNow, getInitials, loadStoredState } from "@/v4/utils"
+import { useCall } from "@/v4/useCall"
 
 /*
 const UNUSED_COLLECTIONS: CollectionSummary[] = [
@@ -279,6 +294,36 @@ function MobileFrame({ children, isDark }: { children: React.ReactNode; isDark: 
       <div className={`mx-auto min-h-screen max-w-[460px] shadow-[0_0_0_1px_rgba(145,190,210,0.08)] ${isDark ? "bg-[linear-gradient(180deg,#07111D_0%,#0A1524_100%)]" : "bg-[linear-gradient(180deg,#F7FCFD_0%,#EEF5F8_100%)]"}`}>
         {children}
       </div>
+    </div>
+  )
+}
+
+const BAR_DELAYS = ["0ms", "140ms", "70ms", "210ms", "105ms"]
+const BAR_MAX_HEIGHTS = [10, 15, 20, 15, 10]
+
+function TomVoiceIcon({ active, hovering }: { active: boolean; hovering: boolean }) {
+  const animating = active || hovering
+  const dur = active ? "0.65s" : "1s"
+  const name = animating ? "soundbar" : "soundbar-idle"
+  const idleDur = "2.4s"
+  return (
+    <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "center", gap: 3, height: 22, width: 28 }}>
+      {BAR_MAX_HEIGHTS.map((maxH, i) => (
+        <div
+          key={i}
+          style={{
+            width: 3,
+            height: maxH,
+            borderRadius: 2,
+            flexShrink: 0,
+            background: active ? "#5CC7C4" : "rgba(255,255,255,0.92)",
+            transformOrigin: "bottom center",
+            animation: `${name} ${animating ? dur : idleDur} ease-in-out ${BAR_DELAYS[i]} infinite`,
+            boxShadow: active ? "0 0 5px rgba(92,199,196,0.75)" : "none",
+            transition: "background 0.25s, box-shadow 0.25s",
+          }}
+        />
+      ))}
     </div>
   )
 }
@@ -503,10 +548,13 @@ export default function PrepSightV4App() {
   const [remoteMessages, setRemoteMessages] = useState<CommsMessageRecord[]>([])
   const [selectedThreadId, setSelectedThreadId] = useState<string | null>(null)
   const [threadDraft, setThreadDraft] = useState("")
+  const [emojiPickerOpen, setEmojiPickerOpen] = useState(false)
+  const [emojiCategory, setEmojiCategory] = useState(0)
   const [pendingImage, setPendingImage] = useState<File | null>(null)
   const [pendingImagePreview, setPendingImagePreview] = useState<string | null>(null)
   const [threadReadState, setThreadReadState] = useState<Record<string, string>>({})
   const [remoteThreadReadState, setRemoteThreadReadState] = useState<Record<string, string>>({})
+  const [chatSearch, setChatSearch] = useState("")
   const [newChatOpen, setNewChatOpen] = useState(false)
   const [newChatMode, setNewChatMode] = useState<"direct" | "group">("direct")
   const [newChatTitle, setNewChatTitle] = useState("")
@@ -520,10 +568,13 @@ export default function PrepSightV4App() {
   const [tomOpen, setTomOpen] = useState(false)
   const [tomMessages, setTomMessages] = useState<AssistantMessage[]>(SEED_TOM)
   const [tomDraft, setTomDraft] = useState("")
+  const [tomIsTyping, setTomIsTyping] = useState(false)
+  const [tomHeaderHover, setTomHeaderHover] = useState(false)
   const [drawerOpen, setDrawerOpen] = useState(false)
   const [contactsDrawerOpen, setContactsDrawerOpen] = useState(false)
   const [drawerView, setDrawerView] = useState<"home" | "profile" | "settings" | "connectors">("home")
-  const [profileSyncTick, setProfileSyncTick] = useState(0)
+  const [profileDrawerOpen, setProfileDrawerOpen] = useState(false)
+  const [profileDrawerView, setProfileDrawerView] = useState<"home" | "profile" | "settings" | "connectors">("home")
   const [workspacePickerOpen, setWorkspacePickerOpen] = useState(false)
   const [activeCollection, setActiveCollection] = useState<CollectionKey | null>(null)
   const [activeEmbeddedLibraryId, setActiveEmbeddedLibraryId] = useState<string | null>(null)
@@ -537,31 +588,54 @@ export default function PrepSightV4App() {
   const [activeLogistics, setActiveLogistics] = useState<LogisticsKey | null>(null)
   const [activeLogisticsPanel, setActiveLogisticsPanel] = useState<LogisticsKey>("members")
   const [activeUpdate, setActiveUpdate] = useState<UpdateKey | null>(null)
+  const [callMuted, setCallMuted] = useState(false)
   const mobileFileInputRef = useRef<HTMLInputElement | null>(null)
   const desktopFileInputRef = useRef<HTMLInputElement | null>(null)
+  const tomTypingTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const isDark = preferences.access.appearance === "dark"
   const libraries = useSyncExternalStore(subscribeLibraries, getLibrariesSnapshot, getLibrariesSnapshot)
   const bookmarks = useSyncExternalStore(subscribeBookmarks, getBookmarksSnapshot, getBookmarksSnapshot)
-  useSyncExternalStore(subscribeTeams, () => 0, () => 0)
-  const profile = useMemo(() => getProfile(), [profileSyncTick])
+  const [profile, setProfile] = useState(() => getProfile())
+  const teamSnapshot = useSyncExternalStore(subscribeTeams, getTeamWorkspacesSnapshot, getTeamWorkspacesSnapshot)
+  const callerName = profile?.name?.trim() || "You"
+  const { activeCall, incomingCall, startCall, answerCall, declineCall, endCall, remoteAudioRef } = useCall({
+    db,
+    uid,
+    callerName,
+  })
 
   useEffect(() => {
     setTomMessages(loadStoredState(TOM_STORAGE_KEY, SEED_TOM))
   }, [])
 
   useEffect(
-    () =>
-      onAuthChange((user) => {
+    () => {
+      let cancelled = false
+      const unsubscribe = onAuthChange((user) => {
         setCurrentUser(user)
         setUid(user?.uid ?? null)
-        if (user?.uid) {
-          void syncMembershipsIntoProfile(user.uid).finally(() => {
-            setProfileSyncTick((current) => current + 1)
-          })
-        } else {
-          setProfileSyncTick((current) => current + 1)
+
+        if (!user?.uid) {
+          if (!cancelled) {
+            setProfile(null)
+          }
+          return
         }
-      }),
+
+        void (async () => {
+          const nextProfile = await syncMembershipsIntoProfile(user.uid)
+          await refreshTeamWorkspaceData(user.uid)
+          if (!cancelled) {
+            setProfile(nextProfile ?? getProfile())
+          }
+        })()
+      })
+
+      return () => {
+        cancelled = true
+        unsubscribe()
+      }
+    },
     [],
   )
 
@@ -576,6 +650,10 @@ export default function PrepSightV4App() {
   useEffect(() => {
     if (!drawerOpen) setDrawerView("home")
   }, [drawerOpen])
+
+  useEffect(() => {
+    if (!profileDrawerOpen) setProfileDrawerView("home")
+  }, [profileDrawerOpen])
 
   useEffect(() => {
     if (contactsDrawerOpen) setDrawerOpen(false)
@@ -601,9 +679,9 @@ export default function PrepSightV4App() {
     const settings = profile ? getRelevantSettings(profile) : []
     return settings[0] ?? "Operating Theatre"
   }, [profile])
-  const activeTeam = getActiveTeamSnapshot(profile)
-  const teamWorkspaces = getTeamWorkspacesForProfile(profile)
-  const pendingTeamWorkspaces = getPendingTeamWorkspacesForProfile(profile)
+  const activeTeam = useMemo(() => getActiveTeamSnapshot(profile), [profile, teamSnapshot])
+  const teamWorkspaces = useMemo(() => getTeamWorkspacesForProfile(profile), [profile, teamSnapshot])
+  const pendingTeamWorkspaces = useMemo(() => getPendingTeamWorkspacesForProfile(profile), [profile, teamSnapshot])
   const workspaceOptions = useMemo(() => {
     if (!teamWorkspaces.length) {
       return [
@@ -637,7 +715,15 @@ export default function PrepSightV4App() {
       workspaceOptions.some((option) => option.label === current) ? current : workspaceOptions[0]?.label ?? baseWorkspaceLabel,
     )
   }, [baseWorkspaceLabel, workspaceOptions])
-  const activeTeamMembers = getTeamMembersSnapshot(activeTeam?.id)
+  const activeTeamMembers = useSyncExternalStore(
+    subscribeTeams,
+    () => getTeamMembersSnapshot(activeTeam?.id),
+    () => getTeamMembersSnapshot(activeTeam?.id),
+  )
+  const isCurrentUserActiveInTeam = useMemo(
+    () => uid ? activeTeamMembers.some((m) => m.uid === uid && m.status === "active") : false,
+    [activeTeamMembers, uid],
+  )
   const totalCards = useMemo(
     () => libraries.reduce((sum, library) => sum + getLibraryCardsSnapshot(library.id).length, 0),
     [libraries],
@@ -859,7 +945,7 @@ export default function PrepSightV4App() {
   }
 
   useEffect(() => {
-    if (!db || !uid || !activeTeam?.id) {
+    if (!db || !uid || !activeTeam?.id || !isCurrentUserActiveInTeam) {
       setCommsUsingRemote(false)
       setRemoteThreads([])
       setRemoteMessages([])
@@ -870,7 +956,7 @@ export default function PrepSightV4App() {
     setCommsUsingRemote(true)
     const threadQuery = query(collection(db, "comms_threads"), where("organizationId", "==", activeTeam.id))
     const messageQuery = query(collection(db, "comms_messages"), where("organizationId", "==", activeTeam.id))
-    const readQuery = query(collection(db, "comms_reads"), where("organizationId", "==", activeTeam.id), where("uid", "==", uid))
+    const readQuery = query(collection(db, "comms_reads"), where("uid", "==", uid))
 
     const unsubscribeThreads = onSnapshot(
       threadQuery,
@@ -917,7 +1003,7 @@ export default function PrepSightV4App() {
       unsubscribeMessages()
       unsubscribeReads()
     }
-  }, [activeTeam?.id, uid])
+  }, [activeTeam?.id, uid, isCurrentUserActiveInTeam])
 
   useEffect(() => {
     if (!commsUsingRemote || !db || !uid || !activeTeam?.id) return
@@ -1088,17 +1174,26 @@ export default function PrepSightV4App() {
   }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, profile?.name, remoteMessages, remoteThreadReadState, remoteThreads, threads, tomMessages, uid])
 
   const filteredThreads = useMemo(() => {
+    let threads = chatThreads
     switch (chatFilter) {
       case "unread":
-        return chatThreads.filter((thread) => thread.unread > 0)
+        threads = threads.filter((thread) => thread.unread > 0)
+        break
       case "groups":
-        return chatThreads.filter((thread) => thread.type === "group")
-      case "direct":
-        return chatThreads.filter((thread) => thread.type === "direct")
-      default:
-        return chatThreads
+        threads = threads.filter((thread) => thread.type === "group")
+        break
     }
-  }, [chatFilter, chatThreads])
+    const q = chatSearch.trim().toLowerCase()
+    if (q) {
+      threads = threads.filter(
+        (thread) =>
+          thread.title.toLowerCase().includes(q) ||
+          thread.preview.toLowerCase().includes(q) ||
+          thread.subtitle.toLowerCase().includes(q),
+      )
+    }
+    return threads
+  }, [chatFilter, chatSearch, chatThreads])
 
   const selectedThread = chatThreads.find((thread) => thread.id === selectedThreadId) ?? null
   useEffect(() => {
@@ -1107,7 +1202,7 @@ export default function PrepSightV4App() {
       return
     }
 
-    setSelectedThreadId((current) => (current && chatThreads.some((thread) => thread.id === current) ? current : chatThreads[0].id))
+    setSelectedThreadId((current) => (current && chatThreads.some((thread) => thread.id === current) ? current : null))
   }, [chatThreads])
 
   useEffect(() => {
@@ -1211,15 +1306,23 @@ export default function PrepSightV4App() {
         body: value || (pendingImage ? "Photo shared" : ""),
         time: nextMessage.time,
       }
-      const reply: AssistantMessage = {
-        id: `tom-reply-${Date.now() + 1}`,
-        sender: "tom",
-        body: "I can help with that. I would pull the relevant card, highlight any logistics impact, and give you something you can forward into the group.",
-        time: formatNow(),
-      }
-      setTomMessages((current) => [...current, outgoing, reply])
+      setTomMessages((current) => [...current, outgoing])
       setThreadDraft("")
       clearPendingImage()
+      setTomIsTyping(true)
+      tomTypingTimerRef.current = setTimeout(() => {
+        tomTypingTimerRef.current = null
+        setTomIsTyping(false)
+        setTomMessages((current) => [
+          ...current,
+          {
+            id: `tom-reply-${Date.now()}`,
+            sender: "tom",
+            body: "I can help with that. I would pull the relevant card, highlight any logistics impact, and give you something you can forward into the group.",
+            time: formatNow(),
+          },
+        ])
+      }, 1200)
       return
     }
 
@@ -1331,47 +1434,42 @@ export default function PrepSightV4App() {
       time: formatNow(),
     }
 
-    const reply: AssistantMessage = {
-      id: `tom-reply-${Date.now() + 1}`,
-      sender: "tom",
-      body: "I can help with that. I would surface the relevant library card, flag any logistics impact, and draft something shareable back into the group thread.",
-      time: formatNow(),
-    }
-
-    setTomMessages((current) => [...current, outgoing, reply])
+    setTomMessages((current) => [...current, outgoing])
     setTomDraft("")
+    setTomIsTyping(true)
+    tomTypingTimerRef.current = setTimeout(() => {
+      tomTypingTimerRef.current = null
+      setTomIsTyping(false)
+      setTomMessages((current) => [
+        ...current,
+        {
+          id: `tom-reply-${Date.now()}`,
+          sender: "tom",
+          body: "I can help with that. I would surface the relevant library card, flag any logistics impact, and draft something shareable back into the group thread.",
+          time: formatNow(),
+        },
+      ])
+    }, 1200)
   }
 
   const availableCommsMembers = useMemo(
     () =>
-      activeTeamMembers.filter((member) => member.status === "active" && member.uid && member.uid !== uid),
+      activeTeamMembers
+        .filter((member) => member.status === "active" && member.uid && member.uid !== uid)
+        .filter(
+          (member, index, allMembers) =>
+            allMembers.findIndex((entry) => entry.uid === member.uid) === index,
+        ),
     [activeTeamMembers, uid],
   )
   const contactEntries = useMemo(() => {
-    if (availableCommsMembers.length) {
-      return availableCommsMembers.map((member) => ({
-        id: member.id,
-        uid: member.uid,
-        label: member.displayName ?? member.publicAlias,
-        detail: member.departments?.[0] || "Same organisation",
-      }))
-    }
-
-    const orgGroupThread = remoteThreads.find((thread) => thread.id === `group-${activeTeam?.id}`)
-    if (!orgGroupThread) return []
-
-    return (orgGroupThread.memberUids ?? [])
-      .map((memberUid, index) => {
-        if (!memberUid || memberUid === uid) return null
-        return {
-          id: `${orgGroupThread.id}-${memberUid}`,
-          uid: memberUid,
-          label: orgGroupThread.memberNames?.[index] ?? "Organisation member",
-          detail: "Same organisation",
-        }
-      })
-      .filter((member): member is { id: string; uid: string; label: string; detail: string } => Boolean(member))
-  }, [activeTeam?.id, availableCommsMembers, remoteThreads, uid])
+    return availableCommsMembers.map((member) => ({
+      id: member.id,
+      uid: member.uid,
+      label: member.displayName ?? member.publicAlias,
+      detail: member.departments?.[0] || "Same organisation",
+    }))
+  }, [availableCommsMembers])
 
   useEffect(() => {
     if (!selectedThread || selectedThread.type !== "group") {
@@ -1469,7 +1567,7 @@ export default function PrepSightV4App() {
 
       const id =
         newChatMode === "direct" && selectedMembers.length === 1
-          ? `direct-${[uid, selectedMembers[0].uid].sort().join("-")}`
+          ? `direct-${activeTeam.id}-${[uid, selectedMembers[0].uid].sort().join("__")}`
           : `group-${activeTeam.id}-${Date.now()}`
       const createdAt = new Date().toISOString()
       const memberUids = [uid, ...selectedMembers.map((member) => member.uid)]
@@ -1496,7 +1594,7 @@ export default function PrepSightV4App() {
           createdBy: uid,
           createdAt,
           updatedAt: createdAt,
-          lastMessageBody: "Thread created",
+          lastMessageBody: "",
         } satisfies CommsThreadRecord)
         setNewChatOpen(false)
         setActiveTab("chat")
@@ -1856,13 +1954,103 @@ export default function PrepSightV4App() {
 
   async function handleDrawerSignOut() {
     try {
+      clearProfile()
       await signOutUser()
-      setDrawerOpen(false)
-      setDrawerView("home")
-      router.push("/login")
+      setProfileDrawerOpen(false)
+      setProfileDrawerView("home")
+      router.replace("/login")
     } catch (error) {
       console.warn("[PrepSight] sign out failed", error)
     }
+  }
+
+  function toggleMute() {
+    setCallMuted((m) => {
+      const next = !m
+      if (remoteAudioRef.current?.srcObject instanceof MediaStream) {
+        // mute our own mic tracks on the peer connection (local stream)
+      }
+      // mute local mic by disabling tracks
+      const pc = (window as unknown as Record<string, unknown>).__prepsight_pc as RTCPeerConnection | undefined
+      if (pc) {
+        pc.getSenders().forEach((sender) => {
+          if (sender.track?.kind === "audio") sender.track.enabled = !next
+        })
+      }
+      return next
+    })
+  }
+
+  function formatCallDuration(seconds: number) {
+    const m = Math.floor(seconds / 60).toString().padStart(2, "0")
+    const s = (seconds % 60).toString().padStart(2, "0")
+    return `${m}:${s}`
+  }
+
+  function renderIncomingCallBanner() {
+    if (!incomingCall) return null
+    return (
+      <div className="fixed inset-x-0 top-[calc(env(safe-area-inset-top,0px)+8px)] z-[60] mx-auto flex max-w-[440px] items-center gap-3 rounded-[22px] border border-[#1E3349] bg-[#0A1524]/96 px-4 py-3 shadow-[0_16px_48px_rgba(4,10,20,0.42)] backdrop-blur-2xl">
+        <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#5CC7C4]/16">
+          <PhoneCall size={20} className="text-[#5CC7C4]" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <p className="truncate text-[14px] font-semibold text-white">{incomingCall.callerName}</p>
+          <p className="text-[12px] text-[#9DB0C4]">Incoming call</p>
+        </div>
+        <button
+          type="button"
+          onClick={() => void declineCall()}
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#E05252]/20 text-[#E05252]"
+        >
+          <PhoneOff size={18} />
+        </button>
+        <button
+          type="button"
+          onClick={() => void answerCall()}
+          className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#5CC7C4]/20 text-[#5CC7C4]"
+        >
+          <Phone size={18} />
+        </button>
+      </div>
+    )
+  }
+
+  function renderCallOverlay() {
+    if (!activeCall) return null
+    return (
+      <div className={`fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom,0px)+92px)] z-[55] mx-auto max-w-[460px] px-3`}>
+        <div className="flex items-center gap-3 rounded-[22px] border border-[#1E3349] bg-[#0A1524]/96 px-4 py-3 shadow-[0_-8px_32px_rgba(4,10,20,0.32)] backdrop-blur-2xl">
+          <div className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${activeCall.status === "connected" ? "bg-[#5CC7C4]/16" : "bg-[#E0A800]/16"}`}>
+            <PhoneCall size={18} className={activeCall.status === "connected" ? "text-[#5CC7C4]" : "text-[#E0A800]"} />
+          </div>
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[14px] font-semibold text-white">{activeCall.peerName}</p>
+            <p className="text-[12px] text-[#9DB0C4]">
+              {activeCall.status === "connected"
+                ? formatCallDuration(activeCall.durationSeconds)
+                : activeCall.isOutgoing
+                  ? "Calling…"
+                  : "Connecting…"}
+            </p>
+          </div>
+          <button
+            type="button"
+            onClick={toggleMute}
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors ${callMuted ? "bg-white/12 text-white" : "bg-white/6 text-[#9DB0C4]"}`}
+          >
+            {callMuted ? <MicOff size={16} /> : <Mic size={16} />}
+          </button>
+          <button
+            type="button"
+            onClick={() => void endCall()}
+            className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#E05252]/20 text-[#E05252]"
+          >
+            <PhoneOff size={16} />
+          </button>
+        </div>
+      </div>
+    )
   }
 
   function renderDrawerPanelButton({
@@ -1893,174 +2081,259 @@ export default function PrepSightV4App() {
   }
 
   function renderMobileDrawer() {
+    const organizationLabel = profile?.hospital?.trim() || activeTeam?.publicAlias?.trim() || activeTeam?.internalName?.trim() || "Your organisation"
+
+    const contactsWithStatus = contactEntries.map((member) => {
+      if (!uid) return { ...member, threadId: null as string | null, hasThread: false }
+      const directPair = [uid, member.uid].sort().join("__")
+      const threadId = `direct-${activeTeam?.id}-${directPair}`
+      const hasThread = threads.some((t) => t.id === threadId)
+      return { ...member, threadId, hasThread }
+    })
+    const onlineContacts = contactsWithStatus.filter((m) => m.hasThread)
+    const offlineContacts = contactsWithStatus.filter((m) => !m.hasThread)
+
+    function renderContactRow(member: (typeof contactsWithStatus)[0], isActive: boolean) {
+      if (!uid || !member.threadId) return null
+      const threadId = member.threadId
+      return (
+        <button
+          key={member.id}
+          type="button"
+          onClick={() => {
+            setDrawerOpen(false)
+            openThread(threadId)
+          }}
+          className="flex w-full items-center gap-2.5 rounded-[12px] px-2 py-1.5 text-left transition-colors hover:bg-white/6"
+        >
+          <div className="relative shrink-0">
+            <Avatar label={member.label} accent="#4DA3FF" sizeClass="h-8 w-8" />
+            <span className={`absolute right-0 bottom-0 h-2 w-2 rounded-full border-[1.5px] border-[#07111D] ${isActive ? "bg-[#2DD4BF]" : "bg-[#3A546A]"}`} />
+          </div>
+          <p className="min-w-0 flex-1 truncate text-[13px] font-medium leading-none text-white">{member.label}</p>
+          <span className={`shrink-0 text-[11px] font-medium ${isActive ? "text-[#2DD4BF]" : "text-[#4A6A7E]"}`}>
+            {isActive ? "Online" : "Offline"}
+          </span>
+        </button>
+      )
+    }
+
+    return (
+      <div className="fixed inset-0 z-50 mx-auto max-w-[460px] bg-[rgba(4,18,26,0.42)] backdrop-blur-[2px]">
+        <div className="flex h-full w-[84%] max-w-[300px] flex-col rounded-r-[32px] border-r border-[#7CCCDC]/18 bg-[linear-gradient(180deg,rgba(8,53,66,0.82)_0%,rgba(7,32,45,0.88)_52%,rgba(6,21,34,0.92)_100%)] px-4 pt-[calc(env(safe-area-inset-top,0px)+18px)] pb-8 shadow-[24px_0_60px_rgba(0,24,36,0.36)] backdrop-blur-2xl">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[22px] font-semibold tracking-[-0.05em] text-white">Contacts</p>
+              <p className="mt-0.5 text-[12px] text-[#9DB0C4]">{organizationLabel}</p>
+            </div>
+            <button
+              type="button"
+              onClick={() => setDrawerOpen(false)}
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/6 text-white"
+            >
+              <ArrowLeft size={18} />
+            </button>
+          </div>
+
+          <div className="mt-4 flex-1 overflow-y-auto">
+            {contactEntries.length === 0 ? (
+              <div className="mt-2 rounded-[18px] border border-white/8 bg-white/4 px-4 py-4">
+                <p className="text-[14px] font-medium text-white">No contacts yet</p>
+                <p className="mt-1 text-[12px] text-[#9DB0C4]">Active members in this organisation will appear here.</p>
+              </div>
+            ) : (
+              <div className="space-y-0.5">
+                {onlineContacts.length > 0 && (
+                  <>
+                    <p className="px-3 pb-1 pt-2 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#5ABFCE]">Active</p>
+                    {onlineContacts.map((m) => renderContactRow(m, true))}
+                  </>
+                )}
+                {offlineContacts.length > 0 && (
+                  <>
+                    <p className="px-3 pb-1 pt-3 text-[10px] font-semibold uppercase tracking-[0.14em] text-[#5A7A8E]">Available</p>
+                    {offlineContacts.map((m) => renderContactRow(m, false))}
+                  </>
+                )}
+              </div>
+            )}
+          </div>
+        </div>
+        <button type="button" onClick={() => setDrawerOpen(false)} className="absolute inset-0 -z-10 w-full" aria-label="Close contacts" />
+      </div>
+    )
+  }
+
+  function renderProfileDrawer() {
     const userLabel = currentUser?.displayName?.trim() || profile?.name?.trim() || "You"
     const userEmail = currentUser?.email?.trim() || "Signed in"
     const organizationLabel = profile?.hospital?.trim() || activeTeam?.publicAlias?.trim() || activeTeam?.internalName?.trim() || "Your organisation"
     const primarySetting = baseWorkspaceLabel || "Operating Theatre"
 
     const drawerTitle =
-      drawerView === "profile"
-        ? "Profile customisation"
-        : drawerView === "settings"
+      profileDrawerView === "profile"
+        ? "Profile"
+        : profileDrawerView === "settings"
           ? "Settings"
-          : drawerView === "connectors"
+          : profileDrawerView === "connectors"
             ? "Connectors"
             : "Account"
 
     const drawerSubtitle =
-      drawerView === "profile"
+      profileDrawerView === "profile"
         ? "Your identity and workplace context"
-        : drawerView === "settings"
+        : profileDrawerView === "settings"
           ? "Theme, notifications, and app preferences"
-          : drawerView === "connectors"
+          : profileDrawerView === "connectors"
             ? "Connected areas inside PrepSight"
             : "Manage your account and app controls"
 
     return (
       <div className="fixed inset-0 z-50 mx-auto max-w-[460px] bg-[rgba(4,18,26,0.42)] backdrop-blur-[2px]">
-        <div className="ml-auto h-full w-[84%] max-w-[320px] rounded-l-[32px] border-l border-[#7CCCDC]/18 bg-[linear-gradient(180deg,rgba(8,53,66,0.82)_0%,rgba(7,32,45,0.88)_52%,rgba(6,21,34,0.92)_100%)] px-4 pt-[calc(env(safe-area-inset-top,0px)+18px)] pb-8 shadow-[-24px_0_60px_rgba(0,24,36,0.36)] backdrop-blur-2xl">
+        <div className="ml-auto flex h-full w-[84%] max-w-[300px] flex-col rounded-l-[32px] border-l border-[#7CCCDC]/18 bg-[linear-gradient(180deg,rgba(8,53,66,0.82)_0%,rgba(7,32,45,0.88)_52%,rgba(6,21,34,0.92)_100%)] px-4 pt-[calc(env(safe-area-inset-top,0px)+18px)] pb-8 shadow-[-24px_0_60px_rgba(0,24,36,0.36)] backdrop-blur-2xl">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[24px] font-semibold tracking-[-0.05em] text-white">{drawerTitle}</p>
-              <p className="mt-1 text-[13px] text-[#9DB0C4]">{drawerSubtitle}</p>
+              <p className="text-[22px] font-semibold tracking-[-0.05em] text-white">{drawerTitle}</p>
+              <p className="mt-0.5 text-[13px] text-[#9DB0C4]">{drawerSubtitle}</p>
             </div>
             <button
               type="button"
               onClick={() => {
-                if (drawerView === "home") {
-                  setDrawerOpen(false)
+                if (profileDrawerView === "home") {
+                  setProfileDrawerOpen(false)
                 } else {
-                  setDrawerView("home")
+                  setProfileDrawerView("home")
                 }
               }}
-              className="flex h-11 w-11 items-center justify-center rounded-full bg-white/6 text-white"
+              className="flex h-10 w-10 items-center justify-center rounded-full bg-white/6 text-white"
             >
-              <ArrowLeft size={20} />
+              <ArrowLeft size={18} />
             </button>
           </div>
 
-          {drawerView === "home" ? (
-            <>
-              <div className="mt-6 flex items-center gap-3 rounded-[22px] border border-white/8 bg-white/4 px-3 py-3">
-                <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#133A56]">
-                  {currentUser?.photoURL ? (
-                    <img src={currentUser.photoURL} alt={userLabel} className="h-full w-full object-cover" />
-                  ) : (
-                    <Avatar label={userLabel} accent="#4DA3FF" sizeClass="h-14 w-14" />
-                  )}
+          <div className="mt-4 flex-1 overflow-y-auto">
+            {profileDrawerView === "home" ? (
+              <>
+                <div className="flex items-center gap-3 rounded-[20px] border border-white/8 bg-white/4 px-3 py-3">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-full bg-[#133A56]">
+                    {currentUser?.photoURL ? (
+                      <img src={currentUser.photoURL} alt={userLabel} className="h-full w-full object-cover" />
+                    ) : (
+                      <Avatar label={userLabel} accent="#4DA3FF" sizeClass="h-12 w-12" />
+                    )}
+                  </div>
+                  <div className="min-w-0">
+                    <p className="truncate text-[15px] font-medium text-white">{userLabel}</p>
+                    <p className="truncate text-[12px] text-[#9DB0C4]">{userEmail}</p>
+                    <p className="mt-0.5 truncate text-[11px] text-[#7FCFE3]">{organizationLabel}</p>
+                  </div>
                 </div>
-                <div className="min-w-0">
-                  <p className="truncate text-[16px] font-medium text-white">{userLabel}</p>
-                  <p className="truncate text-[12px] text-[#9DB0C4]">{userEmail}</p>
-                  <p className="mt-1 truncate text-[12px] text-[#7FCFE3]">{organizationLabel}</p>
+
+                <div className="mt-4 space-y-2.5">
+                  {renderDrawerPanelButton({
+                    icon: <UserRound size={18} />,
+                    title: "Profile",
+                    detail: "Identity, organisation, and workspace",
+                    onClick: () => setProfileDrawerView("profile"),
+                  })}
+                  {renderDrawerPanelButton({
+                    icon: <Settings2 size={18} />,
+                    title: "Settings",
+                    detail: "Appearance, notifications, and preferences",
+                    onClick: () => setProfileDrawerView("settings"),
+                  })}
+                  {renderDrawerPanelButton({
+                    icon: <PlugZap size={18} />,
+                    title: "Connectors",
+                    detail: "Connected areas inside PrepSight",
+                    onClick: () => setProfileDrawerView("connectors"),
+                  })}
+                  <button
+                    type="button"
+                    onClick={handleDrawerSignOut}
+                    className="flex w-full items-center gap-3 rounded-[18px] border border-[#2B4F69] bg-[#10243A] px-3 py-3 text-left hover:bg-[#132B44]"
+                  >
+                    <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] bg-[#17324B] text-white">
+                      <LogOut size={18} />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[15px] font-medium text-white">Sign out</p>
+                      <p className="mt-1 text-[12px] text-[#9DB0C4]">Leave this session</p>
+                    </div>
+                  </button>
+                </div>
+              </>
+            ) : null}
+
+            {profileDrawerView === "profile" ? (
+              <div className="space-y-2.5">
+                <div className="rounded-[20px] border border-white/8 bg-white/4 p-4">
+                  <p className="text-[10px] uppercase tracking-[0.16em] text-[#7FCFE3]">User</p>
+                  <p className="mt-2 text-[16px] font-medium text-white">{userLabel}</p>
+                  <p className="mt-1 text-[13px] text-[#9DB0C4]">{userEmail}</p>
+                </div>
+                <div className="rounded-[20px] border border-white/8 bg-white/4 p-4">
+                  <p className="text-[10px] uppercase tracking-[0.16em] text-[#7FCFE3]">Organisation</p>
+                  <p className="mt-2 text-[15px] text-white">{organizationLabel}</p>
+                  <p className="mt-1 text-[12px] text-[#9DB0C4]">Workspace: {primarySetting}</p>
+                </div>
+                <div className="rounded-[20px] border border-white/8 bg-white/4 p-4">
+                  <p className="text-[10px] uppercase tracking-[0.16em] text-[#7FCFE3]">Role</p>
+                  <p className="mt-2 text-[15px] text-white">{profile?.role ?? "PrepSight member"}</p>
                 </div>
               </div>
+            ) : null}
 
-              <div className="mt-6 space-y-3">
-                {renderDrawerPanelButton({
-                  icon: <UserRound size={18} />,
-                  title: "Profile customisation",
-                  detail: "Identity, organisation, and workspace context",
-                  onClick: () => setDrawerView("profile"),
-                })}
-                {renderDrawerPanelButton({
-                  icon: <Settings2 size={18} />,
-                  title: "Settings",
-                  detail: "Appearance, notifications, and shell behaviour",
-                  onClick: () => setDrawerView("settings"),
-                })}
-                {renderDrawerPanelButton({
-                  icon: <PlugZap size={18} />,
-                  title: "Connectors",
-                  detail: "Connected areas and app surfaces inside PrepSight",
-                  onClick: () => setDrawerView("connectors"),
-                })}
+            {profileDrawerView === "settings" ? (
+              <div className="space-y-2.5">
                 <button
                   type="button"
-                  onClick={handleDrawerSignOut}
-                  className="flex w-full items-center gap-3 rounded-[18px] border border-[#2B4F69] bg-[#10243A] px-3 py-3 text-left hover:bg-[#132B44]"
+                  onClick={toggleAppearance}
+                  className="flex w-full items-center gap-3 rounded-[18px] border border-white/8 bg-white/4 px-3 py-3 text-left hover:bg-white/8"
                 >
-                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] bg-[#17324B] text-white">
-                    <LogOut size={18} />
+                  <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] bg-white/8 text-white">
+                    {isDark ? <Moon size={18} /> : <Sun size={18} />}
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-[15px] font-medium text-white">Sign out</p>
-                    <p className="mt-1 text-[12px] text-[#9DB0C4]">Leave this session and return to login</p>
+                    <p className="text-[15px] font-medium text-white">Appearance</p>
+                    <p className="mt-1 text-[12px] text-[#9DB0C4]">{isDark ? "Dark mode" : "Light mode"}</p>
                   </div>
                 </button>
-              </div>
-            </>
-          ) : null}
-
-          {drawerView === "profile" ? (
-            <div className="mt-6 space-y-3">
-              <div className="rounded-[22px] border border-white/8 bg-white/4 p-4">
-                <p className="text-[12px] uppercase tracking-[0.16em] text-[#7FCFE3]">User</p>
-                <p className="mt-2 text-[17px] font-medium text-white">{userLabel}</p>
-                <p className="mt-1 text-[13px] text-[#9DB0C4]">{userEmail}</p>
-              </div>
-              <div className="rounded-[22px] border border-white/8 bg-white/4 p-4">
-                <p className="text-[12px] uppercase tracking-[0.16em] text-[#7FCFE3]">Organisation</p>
-                <p className="mt-2 text-[16px] text-white">{organizationLabel}</p>
-                <p className="mt-1 text-[13px] text-[#9DB0C4]">Current workspace: {primarySetting}</p>
-              </div>
-              <div className="rounded-[22px] border border-white/8 bg-white/4 p-4">
-                <p className="text-[12px] uppercase tracking-[0.16em] text-[#7FCFE3]">Role</p>
-                <p className="mt-2 text-[16px] text-white">{profile?.role ?? "PrepSight member"}</p>
-                <p className="mt-1 text-[13px] text-[#9DB0C4]">Profile editing can stay inside this drawer later.</p>
-              </div>
-            </div>
-          ) : null}
-
-          {drawerView === "settings" ? (
-            <div className="mt-6 space-y-3">
-              <button
-                type="button"
-                onClick={toggleAppearance}
-                className="flex w-full items-center gap-3 rounded-[18px] border border-white/8 bg-white/4 px-3 py-3 text-left hover:bg-white/8"
-              >
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-[14px] bg-white/8 text-white">
-                  {isDark ? <Moon size={18} /> : <Sun size={18} />}
-                </div>
-                <div className="min-w-0 flex-1">
-                  <p className="text-[15px] font-medium text-white">Appearance</p>
-                  <p className="mt-1 text-[12px] text-[#9DB0C4]">{isDark ? "Dark mode is active" : "Light mode is active"}</p>
-                </div>
-              </button>
-              <div className="rounded-[18px] border border-white/8 bg-white/4 px-4 py-4">
-                <div className="flex items-center gap-3">
-                  <Bell size={18} className="text-white" />
-                  <div>
-                    <p className="text-[15px] font-medium text-white">Notifications</p>
-                    <p className="mt-1 text-[12px] text-[#9DB0C4]">Notification controls can stay inside this drawer instead of opening a separate screen.</p>
+                <div className="rounded-[18px] border border-white/8 bg-white/4 px-4 py-4">
+                  <div className="flex items-center gap-3">
+                    <Bell size={18} className="shrink-0 text-white" />
+                    <div>
+                      <p className="text-[15px] font-medium text-white">Notifications</p>
+                      <p className="mt-1 text-[12px] text-[#9DB0C4]">Controls coming soon.</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ) : null}
+            ) : null}
 
-          {drawerView === "connectors" ? (
-            <div className="mt-6 space-y-3">
-              {[
-                { title: "Comms", detail: "Live threads, unread state, and media attachments", active: activeTab === "chat" },
-                { title: "Library", detail: "Embedded V3 library views inside the V4 shell", active: activeTab === "library" },
-                { title: "Resources", detail: "Workforce, equipment, and supplies surfaces", active: activeTab === "logistics" },
-                { title: "Updates", detail: "Organisation and workspace update streams", active: activeTab === "updates" },
-              ].map((connector) => (
-                <div key={connector.title} className={`rounded-[18px] border px-4 py-4 ${connector.active ? "border-[#58C6D7] bg-[#102B3B]" : "border-white/8 bg-white/4"}`}>
-                  <div className="flex items-center justify-between gap-3">
-                    <p className="text-[15px] font-medium text-white">{connector.title}</p>
-                    <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${connector.active ? "bg-[#58C6D7] text-[#10243E]" : "bg-white/8 text-[#C5D4E1]"}`}>
-                      {connector.active ? "Open" : "Available"}
-                    </span>
+            {profileDrawerView === "connectors" ? (
+              <div className="space-y-2.5">
+                {[
+                  { title: "Comms", detail: "Live threads and media", active: activeTab === "chat" },
+                  { title: "Library", detail: "Procedure cards and collections", active: activeTab === "library" },
+                  { title: "Resources", detail: "Workforce and equipment", active: activeTab === "logistics" },
+                  { title: "Updates", detail: "Organisation update streams", active: activeTab === "updates" },
+                ].map((connector) => (
+                  <div key={connector.title} className={`rounded-[18px] border px-4 py-3 ${connector.active ? "border-[#58C6D7] bg-[#102B3B]" : "border-white/8 bg-white/4"}`}>
+                    <div className="flex items-center justify-between gap-3">
+                      <p className="text-[14px] font-medium text-white">{connector.title}</p>
+                      <span className={`rounded-full px-2 py-0.5 text-[11px] font-medium ${connector.active ? "bg-[#58C6D7] text-[#10243E]" : "bg-white/8 text-[#C5D4E1]"}`}>
+                        {connector.active ? "Open" : "Available"}
+                      </span>
+                    </div>
+                    <p className="mt-1 text-[12px] text-[#9DB0C4]">{connector.detail}</p>
                   </div>
-                  <p className="mt-2 text-[12px] text-[#9DB0C4]">{connector.detail}</p>
-                </div>
-              ))}
-            </div>
-          ) : null}
+                ))}
+              </div>
+            ) : null}
+          </div>
         </div>
-        <button type="button" onClick={() => setDrawerOpen(false)} className="absolute inset-0 -z-10 w-full" aria-label="Close drawer" />
+        <button type="button" onClick={() => setProfileDrawerOpen(false)} className="absolute inset-0 -z-10 w-full" aria-label="Close account" />
       </div>
     )
   }
@@ -2154,10 +2427,44 @@ export default function PrepSightV4App() {
             </div>
             <button
               type="button"
-              onClick={() => (selectedThread.type === "group" ? setThreadManagerOpen(true) : null)}
-              className={`flex h-11 w-11 items-center justify-center rounded-full ${isDark ? "bg-white/6 text-white" : "border border-white/35 bg-white/12 text-white"}`}
+              onClick={() => {
+                if (selectedThread.type === "group") {
+                  setThreadManagerOpen(true)
+                } else if (selectedThread.id === "direct-tom") {
+                  if (tomIsTyping && tomTypingTimerRef.current) {
+                    clearTimeout(tomTypingTimerRef.current)
+                    tomTypingTimerRef.current = null
+                    setTomIsTyping(false)
+                  }
+                } else {
+                  const calleeUid = selectedThread.memberUids?.find((m) => m !== uid) ?? ""
+                  if (calleeUid && selectedThread.organizationId) {
+                    void startCall({
+                      threadId: selectedThread.id,
+                      calleeUid,
+                      calleeName: selectedThread.title,
+                      organizationId: selectedThread.organizationId,
+                    })
+                  }
+                }
+              }}
+              onMouseEnter={() => { if (selectedThread.id === "direct-tom") setTomHeaderHover(true) }}
+              onMouseLeave={() => setTomHeaderHover(false)}
+              className={`flex h-11 w-11 items-center justify-center overflow-hidden rounded-full transition-colors ${isDark ? "bg-white/6 text-white" : "border border-white/35 bg-white/12 text-white"} ${selectedThread.id === "direct-tom" && tomIsTyping ? "!bg-[#5CC7C4]/25 !border-[#5CC7C4]/60" : ""}`}
             >
-              {selectedThread.type === "group" ? <Settings2 size={18} /> : <Phone size={18} />}
+              {selectedThread.type === "group" ? (
+                <Settings2 size={18} />
+              ) : selectedThread.id === "direct-tom" ? (
+                tomIsTyping ? (
+                  <div className="flex h-full w-full items-center justify-center">
+                    <Square size={14} className="fill-[#5CC7C4] text-[#5CC7C4]" />
+                  </div>
+                ) : (
+                  <TomVoiceIcon active={false} hovering={tomHeaderHover} />
+                )
+              ) : (
+                <Phone size={18} />
+              )}
             </button>
           </div>
         </div>
@@ -2181,23 +2488,14 @@ export default function PrepSightV4App() {
                 setActiveLogistics(null)
                 setActiveUpdate(null)
               }}
-              className={`flex h-11 w-11 items-center justify-center rounded-full ${isDark ? "bg-white/6 text-white" : "border border-white/35 bg-white/12 text-white"}`}
+              className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full ${isDark ? "bg-white/6 text-white" : "border border-white/35 bg-white/12 text-white"}`}
             >
               <ArrowLeft size={20} />
             </button>
-          ) : (
-            <button
-              type="button"
-              onClick={() => setDrawerOpen(true)}
-              aria-label="Open quick links"
-              className="flex h-12 w-12 items-center justify-center"
-            >
-              <img src="/ps-mark.png" alt="PrepSight" className="h-10 w-auto object-contain opacity-80 brightness-[1.38] contrast-[0.82]" />
-            </button>
-          )}
+          ) : null}
 
           <div className="min-w-0 flex-1">
-            <span className={`block truncate text-[18px] font-semibold leading-5 ${isDark ? "text-white" : "text-white"}`}>
+            <span className={`block truncate text-[21px] font-semibold leading-tight ${isDark ? "text-white" : "text-white"}`}>
               <span>PrepSight </span>
               <span className={`${isDark ? "text-[#8FD3FF]" : "text-white/88"} font-serif italic font-medium`}>{topLevelSectionLabel}</span>
             </span>
@@ -2207,8 +2505,8 @@ export default function PrepSightV4App() {
           </div>
           <button
             type="button"
-            onClick={() => setDrawerOpen(true)}
-            aria-label="Open quick links"
+            onClick={() => setProfileDrawerOpen(true)}
+            aria-label="Open account"
             className={`flex h-11 w-11 items-center justify-center overflow-hidden rounded-full ${isDark ? "bg-white/6" : "border border-white/35 bg-white/12"}`}
           >
             {currentUser?.photoURL ? (
@@ -2226,50 +2524,63 @@ export default function PrepSightV4App() {
     return (
       <div className="px-2 pt-[calc(env(safe-area-inset-top,0px)+84px)] pb-[calc(env(safe-area-inset-bottom,0px)+168px)]">
         <div className="px-2">
-          <div className={`flex w-full items-center gap-3 rounded-[18px] px-4 py-3 text-left shadow-[0_10px_24px_rgba(16,36,62,0.06)] ${isDark ? "border border-[#27415D] bg-[#132238]" : "border border-[#D7E9EE] bg-white"}`}>
+          <div className={`flex w-full items-center gap-3 rounded-[18px] px-4 py-3 shadow-[0_10px_24px_rgba(16,36,62,0.04)] ${isDark ? "border border-[#1E3349] bg-[#0D1B2A]" : "border border-[#E0EEF3] bg-white"}`}>
             <Search size={18} className={isDark ? "text-[#8EA5BA]" : "text-[#0F4C5C]"} />
-            <span className={`text-[15px] ${isDark ? "text-[#8EA5BA]" : "text-[#0F4C5C]"}`}>Search chats</span>
+            <input
+              type="text"
+              value={chatSearch}
+              onChange={(e) => setChatSearch(e.target.value)}
+              placeholder="Search chats"
+              className={`min-w-0 flex-1 bg-transparent text-[15px] outline-none ${isDark ? "text-white placeholder:text-[#8EA5BA]" : "text-[#10243E] placeholder:text-[#0F4C5C]"}`}
+            />
+            {chatSearch && (
+              <button type="button" onClick={() => setChatSearch("")} className={`shrink-0 text-[12px] ${isDark ? "text-[#8EA5BA]" : "text-[#0F4C5C]"}`}>✕</button>
+            )}
           </div>
 
           <div className="mt-3 flex items-center gap-2">
             <button
               type="button"
-              onClick={() => setContactsDrawerOpen(true)}
-              aria-label="Open contacts"
-              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${
+              onClick={() => setDrawerOpen(true)}
+              aria-label="Contacts"
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border transition-colors ${
                 isDark
-                  ? "border border-[#295B67] bg-[#0F4C5C] text-white"
-                  : "border border-[#0F4C5C] bg-[#0F4C5C] text-white"
+                  ? "border-[#1E3349] bg-[#0D1B2A] hover:bg-[#132238]"
+                  : "border-[#E0EEF3] bg-white hover:bg-[#EBF5F9]"
               }`}
             >
-              <UserRound size={16} className="fill-current stroke-current" />
+              <img src="/9783998.png" alt="Contacts" className="h-5 w-5 object-contain" />
             </button>
-            {CHAT_FILTERS.map((filter) => (
-              <button
-                key={filter.key}
-                type="button"
-                onClick={() => setChatFilter(filter.key)}
-                className={`min-w-0 flex-1 rounded-full px-3 py-2 text-[13px] font-medium ${
-                  chatFilter === filter.key
-                    ? "bg-[#5CC7C4] text-white"
-                    : isDark
-                      ? "border border-[#27415D] bg-[#132238] text-[#A0B7CB]"
-                      : "border border-[#D7E9EE] bg-white text-[#0F4C5C]"
-                }`}
-              >
-                <span className="block truncate">{filter.label}</span>
-              </button>
-            ))}
+            <div className={`flex flex-1 items-center gap-1.5 rounded-[14px] p-1 ${isDark ? "bg-[#132238]" : "bg-[#EEF5F8]"}`}>
+              {CHAT_FILTERS.map((filter) => (
+                <button
+                  key={filter.key}
+                  type="button"
+                  onClick={() => setChatFilter(filter.key)}
+                  className={`flex-1 rounded-[10px] py-1.5 text-[13px] font-medium transition-colors ${
+                    chatFilter === filter.key
+                      ? isDark
+                        ? "bg-[#5CC7C4] text-white shadow-[0_2px_8px_rgba(92,199,196,0.35)]"
+                        : "bg-[#5CC7C4] text-white shadow-[0_2px_8px_rgba(92,199,196,0.25)]"
+                      : isDark
+                        ? "text-[#7F93A9] hover:text-[#A0B7CB]"
+                        : "text-[#5F788C] hover:text-[#10243E]"
+                  }`}
+                >
+                  {filter.label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
-        <div className="mt-4 border-t border-[#D7E9EE]">
+        <div className="mt-3 border-t border-[#EAF3F7]">
           {filteredThreads.map((thread) => (
             <button
               key={thread.id}
               type="button"
               onClick={() => openThread(thread.id)}
-              className={`flex w-full items-start gap-3 px-4 py-3 text-left transition-colors ${isDark ? "border-b border-white/6 hover:bg-white/4" : "border-b border-[#D7E9EE] hover:bg-[#F7FBFD]"}`}
+              className={`flex w-full items-center gap-3 px-4 py-2 text-left transition-colors ${isDark ? "border-b border-white/[0.04] hover:bg-white/4" : "border-b border-[#EAF3F7] hover:bg-[#F7FBFD]"}`}
             >
               <Avatar
                 label={thread.title}
@@ -2278,17 +2589,14 @@ export default function PrepSightV4App() {
                 imageSrc={thread.id === "direct-tom" ? "/logo-medaskca.png" : undefined}
               />
               <div className="min-w-0 flex-1">
-                <div className="flex items-start justify-between gap-3">
-                  <p className={`truncate text-[16px] font-semibold ${isDark ? "text-white" : "text-[#10243E]"}`}>{thread.title}</p>
-                  <span className={`shrink-0 pt-0.5 text-[12px] ${thread.unread > 0 ? (isDark ? "text-[#68E1FF]" : "text-[#0D8CCB]") : (isDark ? "text-[#7F93A9]" : "text-[#0F4C5C]")}`}>{thread.time}</span>
+                <div className="flex items-baseline justify-between gap-2">
+                  <p className={`truncate text-[15px] font-semibold leading-snug ${isDark ? "text-white" : "text-[#10243E]"}`}>{thread.title}</p>
+                  <span className={`shrink-0 text-[11px] ${thread.unread > 0 ? (isDark ? "text-[#68E1FF]" : "text-[#0D8CCB]") : (isDark ? "text-[#6A7F93]" : "text-[#9AB5C2]")}`}>{thread.time}</span>
                 </div>
-                <p className={`mt-0.5 text-[12px] ${isDark ? "text-[#7F93A9]" : "text-[#0F4C5C]"}`}>
-                  {thread.type === "group" ? thread.subtitle : thread.online ? "Online now" : thread.subtitle}
-                </p>
-                <div className="mt-1 flex items-center justify-between gap-3">
-                  <p className={`truncate text-[14px] ${isDark ? "text-[#91A6BA]" : "text-[#0F4C5C]"}`}>{thread.preview}</p>
+                <div className="flex items-center justify-between gap-2">
+                  <p className={`truncate text-[13px] leading-snug ${isDark ? "text-[#7F93A9]" : "text-[#6A8A99]"}`}>{thread.preview}</p>
                   {thread.unread > 0 ? (
-                    <span className="flex h-6 min-w-6 items-center justify-center rounded-full bg-[#18A9D8] px-2 text-[12px] font-semibold text-white">
+                    <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#18A9D8] px-1.5 text-[11px] font-semibold text-white">
                       {thread.unread}
                     </span>
                   ) : null}
@@ -2314,7 +2622,16 @@ export default function PrepSightV4App() {
               Today
             </span>
           </div>
-          {selectedThread.messages.map((message) => (
+          {(selectedThread.id === "direct-tom"
+            ? tomMessages.map((m): ChatMessage => ({
+                id: m.id,
+                sender: m.sender as "self" | "other" | "tom",
+                author: m.sender === "tom" ? "TOM" : "You",
+                body: m.body,
+                time: m.time,
+              }))
+            : selectedThread.messages
+          ).map((message) => (
             <div key={message.id} className={`flex ${message.sender === "self" ? "justify-end" : "justify-start"}`}>
               <div className={`max-w-[82%] ${message.sender === "self" ? "pr-0.5" : "pr-8"}`}>
                 {!["self"].includes(message.sender) ? (
@@ -2358,6 +2675,20 @@ export default function PrepSightV4App() {
               </div>
             </div>
           ))}
+          {selectedThread.id === "direct-tom" && tomIsTyping ? (
+            <div className="flex justify-start pt-1">
+              <div className={`flex items-center gap-2 px-1 mb-0.5`}>
+                <Avatar label="TOM" accent="#0F7DBA" imageSrc="/logo-medaskca.png" sizeClass="h-8 w-8" />
+                <div className={`rounded-[24px] rounded-bl-[10px] px-4 py-3 ${isDark ? "bg-[#1A3354]" : "bg-[#D7F2FB]"}`}>
+                  <div className="flex items-center gap-1">
+                    <span className={`inline-block h-2 w-2 animate-bounce rounded-full [animation-delay:0ms] ${isDark ? "bg-[#8EA5BA]" : "bg-[#5F9BBF]"}`} />
+                    <span className={`inline-block h-2 w-2 animate-bounce rounded-full [animation-delay:150ms] ${isDark ? "bg-[#8EA5BA]" : "bg-[#5F9BBF]"}`} />
+                    <span className={`inline-block h-2 w-2 animate-bounce rounded-full [animation-delay:300ms] ${isDark ? "bg-[#8EA5BA]" : "bg-[#5F9BBF]"}`} />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
 
         <div className={`fixed inset-x-0 bottom-[calc(env(safe-area-inset-bottom,0px)+92px)] z-10 mx-auto max-w-[460px] border-t px-3 pt-2 pb-3 ${isDark ? "border-white/6 bg-[#091321]/96 backdrop-blur-xl" : "border-[#D6E7EE] bg-[#E9EEF2]/96 backdrop-blur-xl"}`}>
@@ -2373,40 +2704,85 @@ export default function PrepSightV4App() {
               </button>
             </div>
           ) : null}
-          <div className="flex items-end gap-2">
-            <div className={`flex min-h-12 flex-1 items-center gap-3 rounded-[26px] px-3 ${isDark ? "bg-white/8" : "border border-[#D6E7EE] bg-white shadow-[0_10px_24px_rgba(16,36,62,0.08)]"}`}>
-              <input
-                ref={mobileFileInputRef}
-                type="file"
-                accept="image/*"
-                onChange={(event) => handlePickImage(event.target.files?.[0] ?? null)}
-                className="hidden"
-              />
-              <button type="button" onClick={() => mobileFileInputRef.current?.click()} className={`flex h-9 w-9 items-center justify-center rounded-full ${isDark ? "bg-white/8 text-white" : "bg-[#EEF5F8] text-[#5F788C]"}`}>
-                <Plus size={18} />
-              </button>
-              <input
-                value={threadDraft}
-                onChange={(event) => setThreadDraft(event.target.value)}
-                onKeyDown={(event) => {
-                  if (event.key === "Enter") void sendThreadMessage()
-                }}
-                placeholder="Message"
-                className={`w-full bg-transparent text-[15px] outline-none ${isDark ? "text-white placeholder:text-[#8EA5BA]" : "text-[#10243E] placeholder:text-[#7C93A7]"}`}
-              />
-              <button type="button" className={`flex h-9 w-9 items-center justify-center rounded-full ${isDark ? "bg-white/8 text-white" : "bg-[#EEF5F8] text-[#5F788C]"}`}>
-                <CircleDot size={18} />
-              </button>
-            </div>
+          {emojiPickerOpen && (() => {
+            const EMOJI_CATS = [
+              { label: "😊", emojis: ["😀","😁","😂","🤣","😃","😄","😅","😆","😉","😊","😋","😎","😍","🥰","😘","😗","😙","🥲","😐","😑","😶","🙄","😏","😣","😥","😮","🤐","😯","😪","😫","🥱","😴","😌","😛","😜","😝","🤤","😒","😓","😔","😕","🫤","🤑","😲","🙁","😖","😞","😟","😤","😢","😭","😦","😧","😨","😩","🤯","😬","😰","😱","🥵","🥶","😳","🤪","😵","🤩","😡","🥳","🤠","😷","🤒","🤕","🤧","🥴","🫠","🤥","🧐","🤓","😈","👿","👻","💀","👽","🤖","💩","😸","😹","😺","😻","😼","😽","🙀","😿","😾"] },
+              { label: "👋", emojis: ["👋","🤚","🖐","✋","🖖","🫱","🫲","👌","🤌","🤏","✌","🤞","🫰","🤟","🤘","🤙","👈","👉","👆","👇","☝","🫵","👍","👎","✊","👊","🤛","🤜","👏","🙌","🫶","🤲","🤝","🙏","💅","🤳","💪","🦾","🦶","👂","🦻","👃","👀","👅","👄","🫀","🫁","🧠","🦷","🦴","👶","🧒","👦","👧","🧑","👱","👨","🧔","👩","🧓","👴","👵","🙍","🙎","🙅","🙆","💁","🙋","🧏","🙇","🤦","🤷","👮","🕵","💂","🥷","👷","🫅","🤴","👸","👳","👲","🧕","🤵","👰","🤰","🤱","👼","🎅","🤶","🦸","🦹","🧙","🧝","🧛","🧟","🧌","🧞","🧜","🧚","🧑‍🤝‍🧑","👫","👬","👭","💏","💑","👨‍👩‍👦","👨‍👩‍👧"] },
+              { label: "❤️", emojis: ["❤️","🧡","💛","💚","💙","💜","🖤","🤍","🤎","💔","❤️‍🔥","❤️‍🩹","❣️","💕","💞","💓","💗","💖","💘","💝","💟","♾️","💯","✅","❌","⚠️","❓","❗","💬","💭","🗯️","💤","🔔","🔕","✨","⭐","🌟","💫","🌈","🔥","⚡","💧","🌊","🍀","🌿","🌸","🌺","🌻","🌹","🌷","🌞","🌝","🌛","🌜","🌚","🌕","🌖","🌗","🌘","🌑","🌒","🌓","🌔","🌙","🌍","🌎","🌏","🪐","⭐","🌠","☄","🌌","🌤","⛅","🌥","☁","🌦","🌧","⛈","🌩","🌨","❄","☃","⛄","🌬","💨","🌪","🌫","🌈","☔","⚡","⛱","⛄","🌡"] },
+              { label: "🏥", emojis: ["🏥","💊","🩺","🩹","🧬","🔬","💉","🩻","🩸","🧪","🧫","🔭","📋","📝","🗂","📁","📌","📎","🔑","🔒","✅","📊","📈","📉","🗓","⏰","⏱","📱","💻","🖥","⌨","🖱","📡","🔭","📡","🛡","🩼","🦽","🦼","🛁","🚑","🚒","🚓","🏨","🏪","🏫","🏬","🏭","🏗","🧱","🏠","🏡","🏢","🏣","🏤","🏦","⛪","🕌","🕍","🛕","⛩","🗼","🗽","🗾","🌁","🌉","🌃","🏙","🌆","🌇","🌄","🌅","🎑","🌠","🎆","🎇","🎃","🎄","🎋","🎍","🎎","🎐","🎏","🎑","🎀","🎗","🎟","🎫","🎖","🏆","🥇","🥈","🥉","🏅"] },
+              { label: "🍕", emojis: ["🍕","🍔","🌮","🌯","🥗","🍜","🍛","🍣","🍱","🍩","🍰","🎂","🍫","🍬","🍭","🍦","🧁","🍺","🍻","🥂","🍷","🍸","🥃","☕","🍵","🧋","🥤","🧃","🍼","🫖","🫗","🥣","🥧","🧆","🥞","🧇","🥓","🥩","🍗","🍖","🍤","🍳","🥚","🧀","🥪","🥙","🧆","🌽","🥕","🧅","🥔","🍠","🥐","🥖","🫓","🥨","🥯","🧈","🥞","🥣","🥗","🫕","🍝","🍲","🥘","🍲","🥣","🫙","🍱","🍘","🍙","🍚","🍛","🍜","🍝","🍞","🥖","🫓"] },
+              { label: "⚽", emojis: ["⚽","🏀","🏈","⚾","🥎","🎾","🏐","🏉","🥏","🎱","🏓","🏸","🏒","🥍","🏑","🏏","🪃","🥅","⛳","🪁","🎣","🤿","🎽","🎿","🛷","🥌","🎯","🎱","🎮","🕹","🎲","♟","🧩","🪀","🪁","🎭","🎨","🖼","🎪","🤹","🎬","🎤","🎧","🎼","🎹","🎸","🎺","🎻","🥁","🪘","🎷","🎵","🎶","🎙","📻","🎚","🎛","📺","📷","📸","📹","🎥","📽","🎞","📞","☎","📟","📠","📺","📻","🔋","🔌","💡","🔦","🕯","🪔","🧱","🔑","🗝","🔐","🔏","🔓","🔒","🔨","🪓","⛏","⚒","🛠","🗡","⚔","🛡","🪚","🔧","🪛","🔩","⚙","🗜","⚖","🦯","🔗","⛓","🪝","🧲","🪜","🧰","🧲"] },
+            ]
+            const cat = EMOJI_CATS[emojiCategory]
+            return (
+              <div className={`absolute bottom-full left-0 right-0 mb-2 mx-1 rounded-[20px] border shadow-[0_-8px_32px_rgba(4,10,20,0.28)] ${isDark ? "border-[#1E3349] bg-[#0D1B2A]" : "border-[#E0EEF3] bg-white"}`}>
+                <div className={`flex gap-1 border-b px-3 pt-2 pb-1 ${isDark ? "border-[#1E3349]" : "border-[#EAF3F7]"}`}>
+                  {EMOJI_CATS.map((c, i) => (
+                    <button
+                      key={i}
+                      type="button"
+                      onClick={() => setEmojiCategory(i)}
+                      className={`flex-1 rounded-[10px] py-1.5 text-[16px] transition-colors ${emojiCategory === i ? (isDark ? "bg-white/10" : "bg-[#EEF5F8]") : ""}`}
+                    >
+                      {c.label}
+                    </button>
+                  ))}
+                </div>
+                <div className="grid grid-cols-8 gap-0.5 overflow-y-auto p-2" style={{ maxHeight: "180px" }}>
+                  {cat.emojis.map((emoji) => (
+                    <button
+                      key={emoji}
+                      type="button"
+                      onClick={() => { setThreadDraft((d) => d + emoji); setEmojiPickerOpen(false) }}
+                      className="flex items-center justify-center rounded-[8px] p-1.5 text-[20px] leading-none hover:bg-white/10 transition-colors"
+                    >
+                      {emoji}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )
+          })()}
+          <div className={`flex min-h-12 items-center gap-2 rounded-[26px] px-3 pr-2 ${isDark ? "bg-white/8" : "border border-[#E0EEF3] bg-white shadow-[0_10px_24px_rgba(16,36,62,0.06)]"}`}>
+            <input
+              ref={mobileFileInputRef}
+              type="file"
+              accept="image/*"
+              onChange={(event) => handlePickImage(event.target.files?.[0] ?? null)}
+              className="hidden"
+            />
             <button
               type="button"
-              onClick={() => void sendThreadMessage()}
+              onClick={() => mobileFileInputRef.current?.click()}
+              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${isDark ? "bg-white/8 text-white" : "bg-[#EEF5F8] text-[#5F788C]"}`}
+            >
+              <Plus size={16} />
+            </button>
+            <input
+              value={threadDraft}
+              onChange={(event) => setThreadDraft(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key === "Enter") void sendThreadMessage()
+              }}
+              placeholder="Message"
+              className={`min-w-0 flex-1 bg-transparent text-[15px] outline-none ${isDark ? "text-white placeholder:text-[#8EA5BA]" : "text-[#10243E] placeholder:text-[#7C93A7]"}`}
+            />
+            <button
+              type="button"
+              onClick={() => setEmojiPickerOpen((o) => !o)}
+              className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full transition-colors ${emojiPickerOpen ? "bg-[#5CC7C4] text-white" : isDark ? "bg-white/8 text-white" : "bg-[#EEF5F8] text-[#5F788C]"}`}
+            >
+              <Smile size={16} />
+            </button>
+            <button
+              type="button"
+              onClick={() => { void sendThreadMessage(); setEmojiPickerOpen(false) }}
               disabled={!canSendThreadMessage}
-              className={`flex h-12 w-12 items-center justify-center rounded-full text-white transition-opacity ${
-                canSendThreadMessage ? "bg-[#0D8CCB]" : "bg-[#9DCBDE]"
+              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-white transition-all ${
+                canSendThreadMessage ? "bg-[#0D8CCB] scale-100" : "bg-[#9DCBDE] scale-90 opacity-60"
               }`}
             >
-              <SendHorizontal size={18} />
+              <SendHorizontal size={16} />
             </button>
           </div>
         </div>
@@ -2682,36 +3058,32 @@ export default function PrepSightV4App() {
           <span className={`text-[15px] ${isDark ? "text-[#8EA5BA]" : "text-[#7C93A7]"}`}>Search library...</span>
         </button>
 
-        <div className="mt-3 flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className={`mt-3 flex items-center gap-1 overflow-x-auto rounded-[14px] p-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden ${isDark ? "bg-[#0D1B2A]" : "bg-[#EEF5F8]"}`}>
           {([
             { key: "collections" as const, label: "Collections" },
             { key: "review" as const, label: "Review" },
             { key: "calendar" as const, label: "Calendar" },
             { key: "catalogue" as const, label: "Catalogue" },
             { key: "directory" as const, label: "Directory" },
-          ]).map((item) => {
-            return (
-              <button
-                key={item.key}
-                type="button"
-                onClick={() => {
-                  setActiveLibraryPanel(item.key)
-                  setActiveEmbeddedLibraryId(null)
-                }}
-                className={`shrink-0 rounded-full px-4 py-2 text-[13px] shadow-[0_6px_14px_rgba(16,36,62,0.05)] ${
-                  activeLibraryPanel === item.key
-                    ? isDark
-                      ? "border border-[#5CC7C4] bg-[#1A3B3F] text-white"
-                      : "border border-[#5CC7C4] bg-[#5CC7C4] text-white"
-                    : isDark
-                      ? "border border-[#27415D] bg-[#132238] text-[#A0B7CB]"
-                      : "border border-[#D6E7EE] bg-white text-[#4E657A]"
-                }`}
-              >
-                {item.label}
-              </button>
-            )
-          })}
+          ]).map((item) => (
+            <button
+              key={item.key}
+              type="button"
+              onClick={() => {
+                setActiveLibraryPanel(item.key)
+                setActiveEmbeddedLibraryId(null)
+              }}
+              className={`shrink-0 rounded-[10px] px-3 py-1.5 text-[13px] font-medium transition-colors ${
+                activeLibraryPanel === item.key
+                  ? "bg-[#5CC7C4] text-white shadow-[0_2px_8px_rgba(92,199,196,0.30)]"
+                  : isDark
+                    ? "text-[#7F93A9] hover:text-[#A0B7CB]"
+                    : "text-[#5F788C] hover:text-[#10243E]"
+              }`}
+            >
+              {item.label}
+            </button>
+          ))}
         </div>
 
         <div className="mt-6">
@@ -2794,7 +3166,7 @@ export default function PrepSightV4App() {
           <span className={`text-[15px] ${isDark ? "text-[#8EA5BA]" : "text-[#7C93A7]"}`}>Search logistics...</span>
         </button>
 
-        <div className="mt-3 flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <div className={`mt-3 flex items-center gap-1 rounded-[14px] p-1 ${isDark ? "bg-[#0D1B2A]" : "bg-[#EEF5F8]"}`}>
           {[
             { label: "Workforce", key: "members" as LogisticsKey },
             { label: "Equipment", key: "equipment" as LogisticsKey },
@@ -2804,14 +3176,12 @@ export default function PrepSightV4App() {
               key={item.label}
               type="button"
               onClick={() => setActiveLogisticsPanel(item.key)}
-              className={`shrink-0 rounded-full px-4 py-2 text-[13px] shadow-[0_6px_14px_rgba(16,36,62,0.05)] ${
+              className={`flex-1 rounded-[10px] py-1.5 text-[13px] font-medium transition-colors ${
                 activeLogisticsPanel === item.key
-                  ? isDark
-                    ? "border border-[#5CC7C4] bg-[#1A3B3F] text-white"
-                    : "border border-[#5CC7C4] bg-[#5CC7C4] text-white"
+                  ? "bg-[#5CC7C4] text-white shadow-[0_2px_8px_rgba(92,199,196,0.30)]"
                   : isDark
-                    ? "border border-[#27415D] bg-[#132238] text-[#A0B7CB]"
-                    : "border border-[#D6E7EE] bg-white text-[#4E657A]"
+                    ? "text-[#7F93A9] hover:text-[#A0B7CB]"
+                    : "text-[#5F788C] hover:text-[#10243E]"
               }`}
             >
               {item.label}
@@ -3364,6 +3734,25 @@ export default function PrepSightV4App() {
               </div>
             </div>
           ))}
+          {tomIsTyping ? (
+            <div className="flex justify-start">
+              <div className="max-w-[84%]">
+                <div className="mb-1 flex items-center gap-2 px-1">
+                  <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#0F7DBA] text-white">
+                    <Sparkles size={14} />
+                  </div>
+                  <span className="text-[12px] font-medium text-[#88A0B4]">TOM</span>
+                </div>
+                <div className="rounded-[24px] rounded-bl-[8px] bg-[#E2F4FF] px-4 py-3 text-[#10243E]">
+                  <div className="flex items-center gap-1">
+                    <span className="inline-block h-2 w-2 animate-bounce rounded-full bg-[#5F9BBF] [animation-delay:0ms]" />
+                    <span className="inline-block h-2 w-2 animate-bounce rounded-full bg-[#5F9BBF] [animation-delay:150ms]" />
+                    <span className="inline-block h-2 w-2 animate-bounce rounded-full bg-[#5F9BBF] [animation-delay:300ms]" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          ) : null}
         </div>
 
         <div className="fixed inset-x-0 bottom-0 z-10 mx-auto max-w-[460px] border-t border-white/6 bg-[#091321] px-3 pt-3 pb-[calc(env(safe-area-inset-bottom,0px)+12px)]">
@@ -3465,10 +3854,10 @@ export default function PrepSightV4App() {
         )}
 
         <div className="fixed inset-x-0 bottom-0 mx-auto max-w-[460px]">
-          <div className={`border-t px-2 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)] shadow-[0_-10px_36px_rgba(4,10,20,0.22)] ${
-            selectedThread
-              ? "border-white/6 bg-[rgba(27,39,58,0.9)] backdrop-blur-xl"
-              : "border-[#D7E9EE] bg-[#0077B6]"
+          <div className={`border-t px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)] shadow-[0_-10px_36px_rgba(4,10,20,0.22)] ${
+            isDark
+              ? "border-[#1B2E42] bg-[#0A1524]"
+              : "border-[#005F8F] bg-[#0077B6]"
           }`}>
             <div className="grid grid-cols-4 gap-1">
               {TAB_ITEMS.map((item) => {
@@ -3485,10 +3874,18 @@ export default function PrepSightV4App() {
                       }
                       openTab(item.key)
                     }}
-                    className={`flex flex-col items-center justify-center rounded-[14px] px-2 py-2.5 ${active ? "bg-white/12 text-white" : "text-[#D7E7F7]"}`}
+                    className={`flex flex-col items-center justify-center rounded-[16px] px-2 py-2.5 transition-all ${
+                      active
+                        ? "bg-white/16 text-white"
+                        : "text-white/55 hover:text-white/80"
+                    }`}
                   >
-                    <Icon size={19} />
-                    <span className="mt-1 text-[11px] font-medium">{item.label}</span>
+                    <div className="relative flex h-7 w-7 items-center justify-center">
+                      <Icon size={23} strokeWidth={active ? 2.2 : 1.7} />
+                    </div>
+                    <span className={`mt-1 text-[11px] font-medium tracking-wide ${active ? "text-white" : "text-white/55"}`}>
+                      {item.label}
+                    </span>
                   </button>
                 )
               })}
@@ -3551,11 +3948,16 @@ export default function PrepSightV4App() {
 
         {contactsDrawerOpen ? renderContactsDrawer() : null}
         {drawerOpen ? renderMobileDrawer() : null}
+        {profileDrawerOpen ? renderProfileDrawer() : null}
       </MobileFrame>
 
       {renderDesktopShell()}
       {renderNewChatComposer()}
       {renderThreadManager()}
+      {renderIncomingCallBanner()}
+      {renderCallOverlay()}
+      {/* Hidden audio element for remote call audio */}
+      <audio ref={remoteAudioRef} autoPlay playsInline className="hidden" />
     </>
   )
 }

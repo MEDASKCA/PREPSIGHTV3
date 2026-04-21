@@ -104,7 +104,6 @@ export const CHAT_FILTERS: Array<{ key: ChatFilter; label: string }> = [
   { key: "all", label: "All" },
   { key: "unread", label: "Unread" },
   { key: "groups", label: "Groups" },
-  { key: "direct", label: "Direct" },
 ]
 
 export const TAB_ITEMS: Array<{ key: TabKey; label: string; icon: LucideIcon }> = [
