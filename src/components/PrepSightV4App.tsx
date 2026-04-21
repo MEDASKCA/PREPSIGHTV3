@@ -995,7 +995,7 @@ export default function PrepSightV4App() {
   }
 
   useEffect(() => {
-    if (!db || !uid || !activeTeam?.id || !isCurrentUserActiveInTeam) {
+    if (!db || !uid) {
       setCommsUsingRemote(false)
       setRemoteThreads([])
       setRemoteMessages([])
@@ -1005,79 +1005,90 @@ export default function PrepSightV4App() {
     }
 
     setCommsUsingRemote(true)
-    const threadQuery = query(collection(db, "comms_threads"), where("organizationId", "==", activeTeam.id))
-    const messageQuery = query(collection(db, "comms_messages"), where("organizationId", "==", activeTeam.id))
-    const readQuery = query(collection(db, "comms_reads"), where("uid", "==", uid))
-    const presenceQuery = query(collection(db, "comms_presence"), where("organizationId", "==", activeTeam.id))
+    const orgId = activeTeam?.id
+    const unsubscribers: (() => void)[] = []
 
-    const unsubscribeThreads = onSnapshot(
-      threadQuery,
-      (snapshot) => {
-        const next = snapshot.docs.map((entry) => ({ id: entry.id, ...entry.data() } as CommsThreadRecord))
-        setRemoteThreads(next)
-      },
-      (error) => {
-        console.warn("[PrepSight] comms_threads listener failed", error)
-        setCommsUsingRemote(false)
-      },
-    )
+    // Thread state: merged from org threads + DM threads the user is in
+    const orgThreads: { current: CommsThreadRecord[] } = { current: [] }
+    const dmThreads: { current: CommsThreadRecord[] } = { current: [] }
 
-    const unsubscribeMessages = onSnapshot(
-      messageQuery,
-      (snapshot) => {
-        const next = snapshot.docs.map((entry) => ({ id: entry.id, ...entry.data() } as CommsMessageRecord))
-        setRemoteMessages(next)
-      },
-      (error) => {
-        console.warn("[PrepSight] comms_messages listener failed", error)
-        setCommsUsingRemote(false)
-      },
-    )
-
-    const unsubscribeReads = onSnapshot(
-      readQuery,
-      (snapshot) => {
-        const next = snapshot.docs.map((entry) => ({ id: entry.id, ...entry.data() } as CommsReadRecord))
-        setRemoteThreadReadState(
-          next.reduce<Record<string, string>>((accumulator, record) => {
-            accumulator[record.threadId] = record.readAt
-            return accumulator
-          }, {}),
-        )
-      },
-      (error) => {
-        console.warn("[PrepSight] comms_reads listener failed", error)
-      },
-    )
-
-    const unsubscribePresence = onSnapshot(
-      presenceQuery,
-      (snapshot) => {
-        const next = snapshot.docs.map((entry) => ({ id: entry.id, ...entry.data() } as CommsPresenceRecord))
-        setRemotePresence(
-          next.reduce<Record<string, CommsPresenceRecord>>((accumulator, record) => {
-            accumulator[record.uid] = record
-            return accumulator
-          }, {}),
-        )
-      },
-      (error) => {
-        console.warn("[PrepSight] comms_presence listener failed", error)
-      },
-    )
-
-    return () => {
-      unsubscribeThreads()
-      unsubscribeMessages()
-      unsubscribeReads()
-      unsubscribePresence()
+    function mergeAndSetThreads() {
+      const byId = new Map<string, CommsThreadRecord>()
+      for (const t of orgThreads.current) byId.set(t.id, t)
+      for (const t of dmThreads.current) {
+        if (uid && t.memberUids?.includes(uid)) byId.set(t.id, t)
+      }
+      setRemoteThreads([...byId.values()])
     }
-  }, [activeTeam?.id, uid, isCurrentUserActiveInTeam])
+
+    // Message state: merged from org + DM messages
+    const orgMessages: { current: CommsMessageRecord[] } = { current: [] }
+    const dmMessages: { current: CommsMessageRecord[] } = { current: [] }
+
+    function mergeAndSetMessages() {
+      const byId = new Map<string, CommsMessageRecord>()
+      for (const m of orgMessages.current) byId.set(m.id, m)
+      for (const m of dmMessages.current) byId.set(m.id, m)
+      setRemoteMessages([...byId.values()])
+    }
+
+    // Org-scoped listeners (only if user has an active team)
+    if (orgId) {
+      const orgThreadQuery = query(collection(db, "comms_threads"), where("organizationId", "==", orgId))
+      unsubscribers.push(onSnapshot(orgThreadQuery, (snap) => {
+        orgThreads.current = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsThreadRecord))
+        mergeAndSetThreads()
+      }, (err) => console.warn("[PrepSight] comms_threads org listener failed", err)))
+
+      const orgMessageQuery = query(collection(db, "comms_messages"), where("organizationId", "==", orgId))
+      unsubscribers.push(onSnapshot(orgMessageQuery, (snap) => {
+        orgMessages.current = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsMessageRecord))
+        mergeAndSetMessages()
+      }, (err) => console.warn("[PrepSight] comms_messages org listener failed", err)))
+    }
+
+    // DM listener — threads where this user is a member (no org required)
+    const dmThreadQuery = query(collection(db, "comms_threads"), where("memberUids", "array-contains", uid))
+    unsubscribers.push(onSnapshot(dmThreadQuery, (snap) => {
+      dmThreads.current = snap.docs
+        .map((d) => ({ id: d.id, ...d.data() } as CommsThreadRecord))
+        .filter((t) => !orgId || t.organizationId !== orgId) // don't double-count org threads
+      mergeAndSetThreads()
+    }, (err) => console.warn("[PrepSight] comms_threads dm listener failed", err)))
+
+    // DM messages — for threads the user is in (organizationId = thread.id for DMs)
+    const dmMessageQuery = query(collection(db, "comms_messages"), where("organizationId", "==", "direct"))
+    unsubscribers.push(onSnapshot(dmMessageQuery, (snap) => {
+      dmMessages.current = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsMessageRecord))
+      mergeAndSetMessages()
+    }, (err) => console.warn("[PrepSight] comms_messages dm listener failed", err)))
+
+    // Read state
+    const readQuery = query(collection(db, "comms_reads"), where("uid", "==", uid))
+    unsubscribers.push(onSnapshot(readQuery, (snap) => {
+      const next = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsReadRecord))
+      setRemoteThreadReadState(
+        next.reduce<Record<string, string>>((acc, r) => { acc[r.threadId] = r.readAt; return acc }, {}),
+      )
+    }, (err) => console.warn("[PrepSight] comms_reads listener failed", err)))
+
+    // Presence
+    const presenceQuery = query(collection(db, "comms_presence"), where("uid", "==", uid))
+    unsubscribers.push(onSnapshot(presenceQuery, (snap) => {
+      const next = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsPresenceRecord))
+      setRemotePresence(
+        next.reduce<Record<string, CommsPresenceRecord>>((acc, r) => { acc[r.uid] = r; return acc }, {}),
+      )
+    }, (err) => console.warn("[PrepSight] comms_presence listener failed", err)))
+
+    return () => { for (const unsub of unsubscribers) unsub() }
+  }, [activeTeam?.id, uid])
 
   useEffect(() => {
-    if (!commsUsingRemote || !db || !uid || !activeTeam?.id || !profile?.name?.trim()) return
+    if (!commsUsingRemote || !db || !uid || !profile?.name?.trim()) return
 
-    const presenceId = buildCommsPresenceDocId(uid, activeTeam.id)
+    const orgId = activeTeam?.id ?? "direct"
+    const presenceId = buildCommsPresenceDocId(uid, orgId)
     const presenceRef = doc(db, "comms_presence", presenceId)
     let intervalId: ReturnType<typeof setInterval> | null = null
 
@@ -1085,7 +1096,7 @@ export default function PrepSightV4App() {
       try {
         await setDoc(presenceRef, {
           id: presenceId,
-          organizationId: activeTeam.id,
+          organizationId: orgId,
           uid,
           displayName: profile.name?.trim() || "You",
           updatedAt: new Date().toISOString(),
@@ -2756,7 +2767,30 @@ export default function PrepSightV4App() {
                   <button
                     key={contact.uid}
                     type="button"
-                    onClick={() => openThread(threadId)}
+                    onClick={() => {
+                      // Ensure the DM thread exists in local state with proper fields for Firestore
+                      const existingThread = chatThreads.find((t) => t.id === threadId)
+                      if (!existingThread) {
+                        const dmThread: ChatThread = {
+                          id: threadId,
+                          type: "direct",
+                          title: contact.name ?? contact.hospital,
+                          subtitle: contact.hospital,
+                          preview: "Start a conversation",
+                          time: "",
+                          unread: 0,
+                          online: true,
+                          accent,
+                          members: [profile?.name?.trim() || "You", contact.name ?? contact.hospital],
+                          memberUids: uid ? [uid, contact.uid] : [contact.uid],
+                          messages: [],
+                          organizationId: "direct",
+                          updatedAt: "",
+                        }
+                        setThreads((current) => [dmThread, ...current])
+                      }
+                      void openThread(threadId)
+                    }}
                     className={`flex w-full items-center gap-3 px-4 py-2 text-left transition-colors ${isDark ? "border-b border-white/[0.04] hover:bg-white/4" : "border-b border-[#EAF3F7] hover:bg-[#F7FBFD]"}`}
                   >
                     <div className="relative shrink-0">

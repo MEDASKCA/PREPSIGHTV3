@@ -26,7 +26,31 @@ type LocalDevSession = {
 
 function isLocalDevHost() {
   if (typeof window === "undefined") return false
-  return window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1"
+  const hostname = window.location.hostname.toLowerCase()
+
+  if (hostname === "localhost" || hostname === "127.0.0.1" || hostname === "::1") {
+    return true
+  }
+
+  if (hostname.endsWith(".local")) {
+    return true
+  }
+
+  const ipv4Match = hostname.match(/^(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})$/)
+  if (!ipv4Match) return false
+
+  const octets = ipv4Match.slice(1).map((value) => Number(value))
+  if (octets.some((value) => Number.isNaN(value) || value < 0 || value > 255)) {
+    return false
+  }
+
+  const [first, second] = octets
+  return (
+    first === 10 ||
+    first === 127 ||
+    (first === 172 && second >= 16 && second <= 31) ||
+    (first === 192 && second === 168)
+  )
 }
 
 function createLocalDevUid(email: string) {
@@ -137,8 +161,14 @@ function canUseSessionStorage() {
 }
 
 function shouldPreferRedirect() {
-  // Always use popup — redirect triggers Android's app-chooser (Gmail WebView)
-  // which blocks OAuth completion and gets stuck at loading.
+  // WebView/embedded browsers (Gmail, Instagram, Outlook): popup only.
+  // Redirect in these contexts is intercepted by Android and gets stuck.
+  if (isEmbeddedBrowser()) return false
+  // Regular mobile browsers (Android Chrome, iOS Safari): use redirect.
+  // signInWithPopup on Android Chrome opens accounts.google.com, which then
+  // triggers Android's native app intent chooser ("Open with Gmail / Outlook"),
+  // blocking OAuth completion entirely.
+  if (isMobile()) return true
   return false
 }
 
