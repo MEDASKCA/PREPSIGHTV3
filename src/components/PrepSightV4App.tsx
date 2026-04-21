@@ -468,6 +468,7 @@ type CommsMessageRecord = {
   imageUrl?: string
   imageName?: string
   createdAt: string
+  memberUids?: string[]
 }
 
 type CommsPresenceRecord = {
@@ -510,6 +511,59 @@ function buildCommsReadDocId(uid: string, threadId: string) {
 
 function buildCommsPresenceDocId(uid: string, organizationId: string) {
   return `${uid}__${organizationId}`.replace(/[^a-zA-Z0-9:_-]+/g, "-")
+}
+
+// ── Audio helpers ─────────────────────────────────────────────────────────────
+
+function playMessagePing() {
+  try {
+    const ctx = new AudioContext()
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.connect(gain)
+    gain.connect(ctx.destination)
+    osc.type = "sine"
+    osc.frequency.value = 1046 // C6 — bright, friendly ping
+    gain.gain.value = 0.18
+    osc.start()
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.35)
+    osc.stop(ctx.currentTime + 0.35)
+    setTimeout(() => ctx.close().catch(() => {}), 600)
+  } catch { /* audio blocked by browser policy — silent fallback */ }
+}
+
+function createRingtone(): { stop: () => void } | null {
+  try {
+    const ctx = new AudioContext()
+    let stopped = false
+
+    async function ring() {
+      if (stopped) return
+      // Two short pulses (UK-style double ring)
+      for (let i = 0; i < 2 && !stopped; i++) {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+        osc.type = "sine"
+        osc.frequency.value = 800
+        gain.gain.value = 0.22
+        osc.start()
+        await new Promise<void>((r) => setTimeout(r, 400))
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12)
+        osc.stop(ctx.currentTime + 0.12)
+        await new Promise<void>((r) => setTimeout(r, 220))
+      }
+      if (!stopped) {
+        await new Promise<void>((r) => setTimeout(r, 2200)) // pause between rings
+        void ring()
+      }
+    }
+    void ring()
+    return { stop: () => { stopped = true; ctx.close().catch(() => {}) } }
+  } catch {
+    return null
+  }
 }
 
 function buildCommsReadStorageKey(uid?: string | null, organizationId?: string) {
@@ -1056,8 +1110,8 @@ export default function PrepSightV4App() {
       mergeAndSetThreads()
     }, (err) => console.warn("[PrepSight] comms_threads dm listener failed", err)))
 
-    // DM messages — for threads the user is in (organizationId = thread.id for DMs)
-    const dmMessageQuery = query(collection(db, "comms_messages"), where("organizationId", "==", "direct"))
+    // DM messages — query by memberUids so Firestore rules don't need get() calls per doc
+    const dmMessageQuery = query(collection(db, "comms_messages"), where("memberUids", "array-contains", uid))
     unsubscribers.push(onSnapshot(dmMessageQuery, (snap) => {
       dmMessages.current = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsMessageRecord))
       mergeAndSetMessages()
@@ -1072,9 +1126,9 @@ export default function PrepSightV4App() {
       )
     }, (err) => console.warn("[PrepSight] comms_reads listener failed", err)))
 
-    // Presence
-    const presenceQuery = query(collection(db, "comms_presence"), where("uid", "==", uid))
-    unsubscribers.push(onSnapshot(presenceQuery, (snap) => {
+    // Presence — listen to ALL presence records so we can show who is online
+    // (Firestore rule: allow read if isSignedIn(), so no filter needed)
+    unsubscribers.push(onSnapshot(collection(db, "comms_presence"), (snap) => {
       const next = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsPresenceRecord))
       setRemotePresence(
         next.reduce<Record<string, CommsPresenceRecord>>((acc, r) => { acc[r.uid] = r; return acc }, {}),
@@ -1083,6 +1137,20 @@ export default function PrepSightV4App() {
 
     return () => { for (const unsub of unsubscribers) unsub() }
   }, [activeTeam?.id, uid])
+
+  // Message notification ping — plays when a new inbound message arrives
+  const prevMessageIdsRef = useRef(new Set<string>())
+  useEffect(() => {
+    if (remoteMessages.length === 0) return
+    const currentIds = new Set(remoteMessages.map((m) => m.id))
+    const newFromOthers = remoteMessages.filter(
+      (m) => !prevMessageIdsRef.current.has(m.id) && m.uid !== uid,
+    )
+    if (prevMessageIdsRef.current.size > 0 && newFromOthers.length > 0) {
+      playMessagePing()
+    }
+    prevMessageIdsRef.current = currentIds
+  }, [remoteMessages, uid])
 
   useEffect(() => {
     if (!commsUsingRemote || !db || !uid || !profile?.name?.trim()) return
@@ -1247,7 +1315,7 @@ export default function PrepSightV4App() {
           time: formatThreadTime(lastMessage?.createdAt ?? thread.updatedAt),
           unread,
           online:
-            !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 45000,
+            !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000,
           accent: thread.accent,
           members: thread.memberNames,
           memberUids: thread.memberUids,
@@ -1275,7 +1343,7 @@ export default function PrepSightV4App() {
 
         const lastSeenAt = remotePresence[memberUid]?.updatedAt
         const isOnline =
-          !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 45000
+          !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000
 
         return {
           id: `direct-${activeTeam.id}-${directPair}`,
@@ -1473,6 +1541,10 @@ export default function PrepSightV4App() {
           imageUrl: uploadedImage?.imageUrl,
           imageName: uploadedImage?.imageName,
           createdAt,
+          // memberUids enables array-contains queries for DM messages without get() in rules
+          memberUids: selectedThread.type === "direct"
+            ? (selectedThread.memberUids ?? [])
+            : undefined,
         } satisfies Omit<CommsMessageRecord, "id">)
         await updateDoc(doc(db, "comms_threads", selectedThread.id), {
           updatedAt: createdAt,
@@ -2221,7 +2293,7 @@ export default function PrepSightV4App() {
       const hasThread = chatThreads.some((t) => t.id === threadId)
       const lastSeenAt = remotePresence[member.uid]?.updatedAt
       const isOnline =
-        !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 45000
+        !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000
       return { ...member, threadId, hasThread, isOnline }
     })
     const onlineContacts = contactsWithStatus.filter((m) => m.isOnline)

@@ -19,6 +19,55 @@ const STUN: RTCIceServer[] = [
   { urls: "stun:stun1.l.google.com:19302" },
 ]
 
+function createRingtone(): { stop: () => void } | null {
+  try {
+    const ctx = new AudioContext()
+    let stopped = false
+    async function ring() {
+      if (stopped) return
+      for (let i = 0; i < 2 && !stopped; i++) {
+        const osc = ctx.createOscillator()
+        const gain = ctx.createGain()
+        osc.connect(gain)
+        gain.connect(ctx.destination)
+        osc.type = "sine"
+        osc.frequency.value = 800
+        gain.gain.value = 0.25
+        osc.start()
+        await new Promise<void>((r) => setTimeout(r, 400))
+        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12)
+        osc.stop(ctx.currentTime + 0.12)
+        await new Promise<void>((r) => setTimeout(r, 220))
+      }
+      if (!stopped) {
+        await new Promise<void>((r) => setTimeout(r, 2200))
+        void ring()
+      }
+    }
+    void ring()
+    return { stop: () => { stopped = true; ctx.close().catch(() => {}) } }
+  } catch {
+    return null
+  }
+}
+
+function playDialTone() {
+  try {
+    const ctx = new AudioContext()
+    const osc = ctx.createOscillator()
+    const gain = ctx.createGain()
+    osc.connect(gain)
+    gain.connect(ctx.destination)
+    osc.type = "sine"
+    osc.frequency.value = 440
+    gain.gain.value = 0.12
+    osc.start()
+    gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.4)
+    osc.stop(ctx.currentTime + 0.4)
+    setTimeout(() => ctx.close().catch(() => {}), 700)
+  } catch {}
+}
+
 export type CallStatus = "calling" | "connected" | "declined" | "ended"
 
 export type IncomingCallInfo = {
@@ -71,6 +120,7 @@ export function useCall({
   const callIdRef = useRef<string | null>(null)
   const listenersRef = useRef<Array<() => void>>([])
   const durationTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const ringtoneRef = useRef<{ stop: () => void } | null>(null)
 
   function buildPeerConnection(): RTCPeerConnection {
     const pc = new RTCPeerConnection({ iceServers: STUN })
@@ -329,6 +379,28 @@ export function useCall({
     )
     return unsub
   }, [db, uid])
+
+  // Ringtone — plays when there is an incoming call, stops when answered/declined
+  useEffect(() => {
+    if (incomingCall) {
+      ringtoneRef.current?.stop()
+      ringtoneRef.current = createRingtone()
+    } else {
+      ringtoneRef.current?.stop()
+      ringtoneRef.current = null
+    }
+    return () => {
+      ringtoneRef.current?.stop()
+      ringtoneRef.current = null
+    }
+  }, [incomingCall !== null]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Dial tone — plays once when an outgoing call starts
+  useEffect(() => {
+    if (activeCall?.isOutgoing && activeCall.status === "calling") {
+      playDialTone()
+    }
+  }, [activeCall?.isOutgoing, activeCall?.status])
 
   // Cleanup on unmount
   useEffect(() => cleanup, [])// eslint-disable-line
