@@ -1059,10 +1059,7 @@ export default function PrepSightV4App() {
 
     function mergeAndSetThreads() {
       const byId = new Map<string, CommsThreadRecord>()
-      for (const t of orgThreads.current) {
-        // Only show org threads where the current user is a member
-        if (t.type === "group" || (uid && t.memberUids?.includes(uid))) byId.set(t.id, t)
-      }
+      for (const t of orgThreads.current) byId.set(t.id, t)
       for (const t of dmThreads.current) {
         if (uid && t.memberUids?.includes(uid)) byId.set(t.id, t)
       }
