@@ -404,7 +404,7 @@ function DesktopRailMessage({
   threadAccent: string
 }) {
   const isSelf = message.sender === "self"
-  const isTom = message.sender === "tom"
+  const isTom = message.sender === "tom" || message.sender === "them"
 
   return (
     <div className={`flex ${isSelf ? "justify-end" : "justify-start"}`}>
@@ -1083,7 +1083,11 @@ export default function PrepSightV4App() {
       const byId = new Map<string, CommsMessageRecord>()
       for (const m of orgMessages.current) byId.set(m.id, m)
       for (const m of dmMessages.current) byId.set(m.id, m)
-      setRemoteMessages([...byId.values()])
+      setRemoteMessages(
+  [...byId.values()].sort(
+    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+  )
+)
     }
 
     // Org-scoped listeners (only if user has an active team)
@@ -1110,7 +1114,7 @@ export default function PrepSightV4App() {
       mergeAndSetThreads()
     }, (err) => console.warn("[PrepSight] comms_threads dm listener failed", err)))
 
-    // DM messages — query by memberUids so Firestore rules don't need get() calls per doc
+    // DM messages — query by memberUids array-contains
     const dmMessageQuery = query(collection(db, "comms_messages"), where("memberUids", "array-contains", uid))
     unsubscribers.push(onSnapshot(dmMessageQuery, (snap) => {
       dmMessages.current = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsMessageRecord))
@@ -1131,7 +1135,11 @@ export default function PrepSightV4App() {
     unsubscribers.push(onSnapshot(collection(db, "comms_presence"), (snap) => {
       const next = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsPresenceRecord))
       setRemotePresence(
-        next.reduce<Record<string, CommsPresenceRecord>>((acc, r) => { acc[r.uid] = r; return acc }, {}),
+        next.reduce<Record<string, CommsPresenceRecord>>((acc, r) => {
+          const existing = acc[r.uid]
+          if (!existing || r.updatedAt > existing.updatedAt) acc[r.uid] = r
+          return acc
+        }, {}),
       )
     }, (err) => console.warn("[PrepSight] comms_presence listener failed", err)))
 
@@ -1153,7 +1161,7 @@ export default function PrepSightV4App() {
   }, [remoteMessages, uid])
 
   useEffect(() => {
-    if (!commsUsingRemote || !db || !uid || !profile?.name?.trim()) return
+    if (!commsUsingRemote || !db || !uid) return
 
     const orgId = activeTeam?.id ?? "direct"
     const presenceId = buildCommsPresenceDocId(uid, orgId)
@@ -1166,7 +1174,7 @@ export default function PrepSightV4App() {
           id: presenceId,
           organizationId: orgId,
           uid,
-          displayName: profile.name?.trim() || "You",
+          displayName: profile?.name?.trim() || callerName || uid,
           updatedAt: new Date().toISOString(),
         } satisfies CommsPresenceRecord)
       } catch (error) {
@@ -1190,7 +1198,7 @@ export default function PrepSightV4App() {
       if (intervalId) clearInterval(intervalId)
       document.removeEventListener("visibilitychange", handleVisibilityChange)
     }
-  }, [activeTeam?.id, commsUsingRemote, db, profile?.name, uid])
+  }, [activeTeam?.id, callerName, commsUsingRemote, db, profile?.name, uid])
 
   useEffect(() => {
     if (!commsUsingRemote || !db || !uid || !activeTeam?.id) return
@@ -1268,7 +1276,7 @@ export default function PrepSightV4App() {
       updatedAt: lastTomMessage?.time || "",
     }
 
-    if (!commsUsingRemote || !activeTeam?.id) {
+    if (!commsUsingRemote) {
       return [tomThread, ...threads.filter((thread) => thread.id !== "direct-tom")]
     }
 
@@ -1276,8 +1284,8 @@ export default function PrepSightV4App() {
       const nextMessage: ChatMessage = {
         id: message.id,
         sender: message.senderKind === "tom" ? "tom" : message.uid === uid ? "self" : "other",
-        author: message.author,
-        body: message.body,
+        author: message.author || "User",
+        body: message.body || "",
         time: formatThreadTime(message.createdAt),
         imageUrl: message.imageUrl,
         imageName: message.imageName,
@@ -1333,43 +1341,45 @@ export default function PrepSightV4App() {
     )
     const selfUid = uid
 
-    const starterDirectThreads = activeTeamMembers
-      .filter((member) => member.status === "active" && member.uid && member.uid !== uid)
-      .map<ChatThread | null>((member) => {
-        const memberUid = member.uid
-        if (!selfUid || !memberUid) return null
-        const directPair = [selfUid, memberUid].sort().join("__")
-        if (directThreadPairs.has(directPair)) return null
+    const starterDirectThreads = activeTeam?.id
+      ? activeTeamMembers
+          .filter((member) => member.status === "active" && member.uid && member.uid !== uid)
+          .map<ChatThread | null>((member) => {
+            const memberUid = member.uid
+            if (!selfUid || !memberUid) return null
+            const directPair = [selfUid, memberUid].sort().join("__")
+            if (directThreadPairs.has(directPair)) return null
 
-        const lastSeenAt = remotePresence[memberUid]?.updatedAt
-        const isOnline =
-          !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000
+            const lastSeenAt = remotePresence[memberUid]?.updatedAt
+            const isOnline =
+              !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000
 
-        return {
-          id: `direct-${activeTeam.id}-${directPair}`,
-          type: "direct",
-          title: member.displayName?.trim() || member.publicAlias,
-          subtitle: member.departments?.[0] || "Same organisation",
-          preview: "Start a conversation",
-          time: "",
-          unread: 0,
-          online: isOnline,
-          accent: "#4DA3FF",
-          members: [profile?.name?.trim() || "You", member.displayName?.trim() || member.publicAlias],
-          memberUids: [selfUid, memberUid],
-          messages: [],
-          organizationId: activeTeam.id,
-          updatedAt: "",
-        }
-      })
-      .filter((thread): thread is ChatThread => Boolean(thread))
+            return {
+              id: `direct-${activeTeam.id}-${directPair}`,
+              type: "direct",
+              title: member.displayName?.trim() || member.publicAlias,
+              subtitle: member.departments?.[0] || "Same organisation",
+              preview: "Start a conversation",
+              time: "",
+              unread: 0,
+              online: isOnline,
+              accent: "#4DA3FF",
+              members: [profile?.name?.trim() || "You", member.displayName?.trim() || member.publicAlias],
+              memberUids: [selfUid, memberUid],
+              messages: [],
+              organizationId: activeTeam.id,
+              updatedAt: "",
+            }
+          })
+          .filter((thread): thread is ChatThread => Boolean(thread))
+      : []
 
     return [
       tomThread,
       ...mappedThreads,
-      ...starterDirectThreads,
+     
     ]
-  }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, profile?.name, remoteMessages, remotePresence, remoteThreadReadState, remoteThreads, threads, tomMessages, uid])
+  }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, profile?.name, remoteMessages, remotePresence, remoteThreadReadState, threads, tomMessages, uid])
 
   const filteredThreads = useMemo(() => {
     let threads = chatThreads
@@ -1393,7 +1403,26 @@ export default function PrepSightV4App() {
     return threads
   }, [chatFilter, chatSearch, chatThreads])
 
-  const selectedThread = chatThreads.find((thread) => thread.id === selectedThreadId) ?? null
+  const selectedThread =
+  chatThreads.find((thread) => thread.id === selectedThreadId) ||
+  (selectedThreadId
+    ? {
+        id: selectedThreadId,
+        type: "direct",
+        title: "New chat",
+        subtitle: "",
+        preview: "",
+        time: "",
+        unread: 0,
+        online: false,
+        accent: "#4DA3FF",
+        members: [],
+        memberUids: [],
+        messages: [],
+        organizationId: activeTeam?.id ?? "direct",
+        updatedAt: "",
+      }
+    : null)
   useEffect(() => {
     if (!chatThreads.length) {
       setSelectedThreadId(null)
@@ -1526,13 +1555,15 @@ export default function PrepSightV4App() {
     }
 
     // Always show message immediately (optimistic update)
-    setThreads((current) =>
-      current.map((thread) =>
-        thread.id === selectedThread.id
-          ? { ...thread, preview: buildThreadPreview({ body: value }), time: "Now", messages: [...thread.messages, nextMessage] }
-          : thread,
-      ),
-    )
+    if (!commsUsingRemote) {
+  setThreads((current) =>
+    current.map((thread) =>
+      thread.id === selectedThread.id
+        ? { ...thread, preview: buildThreadPreview({ body: value }), time: "Now", messages: [...thread.messages, nextMessage] }
+        : thread,
+    ),
+  )
+}
     setThreadDraft("")
     clearPendingImage()
 
@@ -1550,6 +1581,7 @@ export default function PrepSightV4App() {
           author: profile?.name?.trim() || "You",
           body: value,
           createdAt,
+          memberUids: selectedThread.memberUids,
         }
         if (uploadedImage?.imageUrl) msgData.imageUrl = uploadedImage.imageUrl
         if (uploadedImage?.imageName) msgData.imageName = uploadedImage.imageName
@@ -2315,11 +2347,26 @@ export default function PrepSightV4App() {
         <button
           key={member.id}
           type="button"
-          onClick={() => {
-            setDrawerOpen(false)
-            openThread(threadId)
-          }}
-          className="flex w-full items-center gap-2.5 rounded-[12px] px-2 py-1.5 text-left transition-colors hover:bg-white/6"
+        onClick={() => {
+  setDrawerOpen(false)
+  void setDoc(doc(db!, "comms_threads", threadId), {
+    organizationId: activeTeam?.id ?? "direct",
+    type: "direct",
+    title: member.label,
+    subtitle: "Same organisation",
+    accent: "#4DA3FF",
+    memberUids: [uid!, member.uid],
+    memberNames: [profile?.name?.trim() || "You", member.label],
+    createdBy: uid!,
+    createdAt: new Date().toISOString(),
+    updatedAt: new Date().toISOString(),
+    lastMessageBody: "",
+  }).then(() => {
+    setSelectedThreadId(threadId)
+  })
+}}
+    
+           className="flex w-full items-center gap-2.5 rounded-[12px] px-2 py-1.5 text-left transition-colors hover:bg-white/6"
         >
           <div className="relative shrink-0">
             <Avatar label={member.label} accent="#4DA3FF" sizeClass="h-8 w-8" />
@@ -2828,13 +2875,17 @@ export default function PrepSightV4App() {
             </p>
             {allUsers
               .filter((contact) => contact.uid !== uid)
+              .filter((contact) => {
+                const threadId = `direct-${activeTeam?.id}-${[uid, contact.uid].sort().join("__")}`
+                return !chatThreads.some((t) => t.id === threadId)
+              })
               .filter((contact) =>
                 !chatSearch ||
                 (contact.name ?? "").toLowerCase().includes(chatSearch.toLowerCase()) ||
                 contact.hospital.toLowerCase().includes(chatSearch.toLowerCase()),
               )
               .map((contact) => {
-                const threadId = `dm-${[uid, contact.uid].sort().join("-")}`
+                const threadId = `direct-${activeTeam?.id}-${[uid, contact.uid].sort().join("__")}`
                 const initials = (contact.name ?? contact.hospital)
                   .split(" ")
                   .map((p) => p[0])
@@ -2844,34 +2895,13 @@ export default function PrepSightV4App() {
                 const ACCENT_COLORS = ["#4DA3FF", "#7C5CFC", "#0EA5E9", "#14B8A6", "#F59E0B", "#EF4444", "#10B981"]
                 const accentIndex = contact.uid.charCodeAt(0) % ACCENT_COLORS.length
                 const accent = ACCENT_COLORS[accentIndex] ?? "#4DA3FF"
+                const contactLastSeen = remotePresence[contact.uid]?.updatedAt
+                const contactOnline = !!contactLastSeen && Date.now() - new Date(contactLastSeen).getTime() <= 120000
                 return (
                   <button
                     key={contact.uid}
                     type="button"
-                    onClick={() => {
-                      // Ensure the DM thread exists in local state with proper fields for Firestore
-                      const existingThread = chatThreads.find((t) => t.id === threadId)
-                      if (!existingThread) {
-                        const dmThread: ChatThread = {
-                          id: threadId,
-                          type: "direct",
-                          title: contact.name ?? contact.hospital,
-                          subtitle: contact.hospital,
-                          preview: "Start a conversation",
-                          time: "",
-                          unread: 0,
-                          online: true,
-                          accent,
-                          members: [profile?.name?.trim() || "You", contact.name ?? contact.hospital],
-                          memberUids: uid ? [uid, contact.uid] : [contact.uid],
-                          messages: [],
-                          organizationId: "direct",
-                          updatedAt: "",
-                        }
-                        setThreads((current) => [dmThread, ...current])
-                      }
-                      void openThread(threadId)
-                    }}
+                    onClick={() => void openThread(threadId)}
                     className={`flex w-full items-center gap-3 px-4 py-2 text-left transition-colors ${isDark ? "border-b border-white/[0.04] hover:bg-white/4" : "border-b border-[#EAF3F7] hover:bg-[#F7FBFD]"}`}
                   >
                     <div className="relative shrink-0">
@@ -2881,7 +2911,7 @@ export default function PrepSightV4App() {
                       >
                         {initials}
                       </div>
-                      <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-[#07111D] bg-[#2DD4BF]" />
+                      {contactOnline && <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-[#07111D] bg-[#2DD4BF]" />}
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className={`truncate text-[15px] font-semibold leading-snug ${isDark ? "text-white" : "text-[#10243E]"}`}>
@@ -2921,7 +2951,17 @@ export default function PrepSightV4App() {
                 body: m.body,
                 time: m.time,
               }))
-            : selectedThread.messages
+            : remoteMessages
+    .filter((message) => message.threadId === selectedThread.id)
+    .map((message): ChatMessage => ({
+      id: message.id,
+      sender: message.senderKind === "tom" ? "tom" : message.uid === uid ? "self" : "other",
+      author: message.author || "User",
+      body: message.body || "",
+      imageUrl: message.imageUrl,
+      imageName: message.imageName,
+      time: formatThreadTime(message.createdAt),
+    }))
           ).map((message) => (
             <div key={message.id} className={`flex ${message.sender === "self" ? "justify-end" : "justify-start"}`}>
               <div className={`max-w-[82%] ${message.sender === "self" ? "pr-0.5" : "pr-8"}`}>
@@ -3972,8 +4012,28 @@ export default function PrepSightV4App() {
 
               <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
                 {selectedThread ? (
-                  selectedThread.messages.map((message) => (
-                    <DesktopRailMessage key={message.id} message={message} threadAccent={selectedThread.accent} />
+                 
+                  remoteMessages
+  .filter((message) => message.threadId === selectedThread.id)
+.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+  .map((message) => (
+                   <DesktopRailMessage
+  key={message.id}
+  message={{
+    id: message.id,
+    sender: message.senderKind === "tom"
+  ? "tom"
+  : message.uid === uid
+    ? "self"
+    : "other",
+    author: message.author,
+    body: message.body,
+    imageUrl: message.imageUrl,
+    imageName: message.imageName,
+  }}
+  threadAccent={selectedThread.accent}
+/>
                   ))
                 ) : (
                   <div className={`rounded-[20px] p-4 text-[14px] leading-6 ${isDark ? "border border-[#20344C] bg-[#132238] text-[#A0B7CB]" : "border border-[#D8E8EE] bg-white text-[#61758B]"}`}>
