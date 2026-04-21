@@ -73,10 +73,7 @@ import {
   refreshTeamWorkspaceData,
   subscribeTeams,
 } from "@/lib/team-workspaces"
-import {
-  getAllFirestoreUserProfiles,
-  type UserContactRecord,
-} from "@/lib/collaboration-firestore"
+
 import {
   CHAT_FILTERS,
   COLLECTIONS,
@@ -798,11 +795,6 @@ export default function PrepSightV4App() {
     () => isTeamAdmin ? activeTeamMembers.filter((m) => m.status === "pending_approval") : [],
     [isTeamAdmin, activeTeamMembers],
   )
-  const [allUsers, setAllUsers] = useState<UserContactRecord[]>([])
-  useEffect(() => {
-    if (!uid) return
-    void getAllFirestoreUserProfiles().then(setAllUsers)
-  }, [uid])
   const isCurrentUserActiveInTeam = useMemo(
     () => uid ? activeTeamMembers.some((m) => m.uid === uid && m.status === "active") : false,
     [activeTeamMembers, uid],
@@ -2868,25 +2860,27 @@ export default function PrepSightV4App() {
           ))}
         </div>
 
-        {allUsers.length > 0 && (
+        {contactEntries.some((contact) => {
+          const threadId = `direct-${activeTeam?.id}-${[uid, contact.uid].sort().join("__")}`
+          return !chatThreads.some((t) => t.id === threadId)
+        }) && (
           <div className="mt-4 px-2">
             <p className={`px-2 pb-2 text-[11px] font-semibold uppercase tracking-[0.16em] ${isDark ? "text-[#6A7F93]" : "text-[#9AB5C2]"}`}>
               Contacts
             </p>
-            {allUsers
-              .filter((contact) => contact.uid !== uid)
+            {contactEntries
               .filter((contact) => {
                 const threadId = `direct-${activeTeam?.id}-${[uid, contact.uid].sort().join("__")}`
                 return !chatThreads.some((t) => t.id === threadId)
               })
               .filter((contact) =>
                 !chatSearch ||
-                (contact.name ?? "").toLowerCase().includes(chatSearch.toLowerCase()) ||
-                contact.hospital.toLowerCase().includes(chatSearch.toLowerCase()),
+                contact.label.toLowerCase().includes(chatSearch.toLowerCase()) ||
+                contact.detail.toLowerCase().includes(chatSearch.toLowerCase()),
               )
               .map((contact) => {
                 const threadId = `direct-${activeTeam?.id}-${[uid, contact.uid].sort().join("__")}`
-                const initials = (contact.name ?? contact.hospital)
+                const initials = contact.label
                   .split(" ")
                   .map((p) => p[0])
                   .join("")
@@ -2915,10 +2909,10 @@ export default function PrepSightV4App() {
                     </div>
                     <div className="min-w-0 flex-1">
                       <p className={`truncate text-[15px] font-semibold leading-snug ${isDark ? "text-white" : "text-[#10243E]"}`}>
-                        {contact.name ?? contact.hospital}
+                        {contact.label}
                       </p>
                       <p className={`truncate text-[13px] leading-snug ${isDark ? "text-[#7F93A9]" : "text-[#6A8A99]"}`}>
-                        {contact.hospital} · {USER_ROLE_LABEL[contact.role as keyof typeof USER_ROLE_LABEL] ?? contact.role}
+                        {contact.detail}
                       </p>
                     </div>
                   </button>
