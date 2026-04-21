@@ -190,10 +190,11 @@ service cloud.firestore {
     }
 
     match /comms_calls/{callId} {
-      allow read: if isSignedIn() && (
+      allow get: if isSignedIn() && (
         resource.data.callerUid == request.auth.uid ||
         resource.data.calleeUid == request.auth.uid
       );
+      allow list: if isSignedIn();
       allow create: if isSignedIn() &&
         request.resource.data.callerUid == request.auth.uid &&
         request.resource.data.organizationId is string;
@@ -214,7 +215,8 @@ service cloud.firestore {
     }
 
     match /comms_reads/{readId} {
-      allow read: if isSignedIn() && resource.data.uid == request.auth.uid;
+      allow get: if isSignedIn() && resource.data.uid == request.auth.uid;
+      allow list: if isSignedIn();
       allow create, update: if isSignedIn() &&
         request.resource.data.uid == request.auth.uid &&
         request.resource.data.organizationId is string &&

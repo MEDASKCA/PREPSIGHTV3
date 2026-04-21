@@ -303,26 +303,30 @@ export function useCall({
       where("calleeUid", "==", uid),
       where("status", "==", "calling"),
     )
-    const unsub = onSnapshot(q, (snap) => {
-      snap.docChanges().forEach((change) => {
-        const data = change.doc.data()
-        if (change.type === "added") {
-          setIncomingCall({
-            callId: change.doc.id,
-            organizationId: data.organizationId as string,
-            callerUid: data.callerUid as string,
-            callerName: data.callerName as string,
-            threadId: data.threadId as string,
-          })
-        }
-        if (change.type === "modified" && data.status !== "calling") {
-          setIncomingCall(null)
-        }
-        if (change.type === "removed") {
-          setIncomingCall(null)
-        }
-      })
-    })
+    const unsub = onSnapshot(
+      q,
+      (snap) => {
+        snap.docChanges().forEach((change) => {
+          const data = change.doc.data()
+          if (change.type === "added") {
+            setIncomingCall({
+              callId: change.doc.id,
+              organizationId: data.organizationId as string,
+              callerUid: data.callerUid as string,
+              callerName: data.callerName as string,
+              threadId: data.threadId as string,
+            })
+          }
+          if (change.type === "modified" && data.status !== "calling") {
+            setIncomingCall(null)
+          }
+          if (change.type === "removed") {
+            setIncomingCall(null)
+          }
+        })
+      },
+      () => { /* permission errors silenced — listener resumes when rules allow */ },
+    )
     return unsub
   }, [db, uid])
 
