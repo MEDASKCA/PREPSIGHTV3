@@ -1,5 +1,12 @@
 import { initializeApp, getApps, type FirebaseApp } from "firebase/app"
-import { getAuth, type Auth } from "firebase/auth"
+import {
+  initializeAuth,
+  getAuth,
+  indexedDBLocalPersistence,
+  browserLocalPersistence,
+  browserPopupRedirectResolver,
+  type Auth,
+} from "firebase/auth"
 import { getFirestore, type Firestore } from "firebase/firestore"
 import { getStorage, type FirebaseStorage } from "firebase/storage"
 
@@ -38,8 +45,19 @@ if (apiKey && projectId && storageBucket && messagingSenderId && appId) {
     appId,
   }
   try {
-    app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
-    auth = getAuth(app)
+    // Use initializeAuth with IndexedDB as primary persistence so that
+    // redirect OAuth state survives page reloads (fixes auth/missing-initial-state
+    // on Chrome for Android which partitions sessionStorage across navigations).
+    if (getApps().length === 0) {
+      app = initializeApp(firebaseConfig)
+      auth = initializeAuth(app, {
+        persistence: [indexedDBLocalPersistence, browserLocalPersistence],
+        popupRedirectResolver: browserPopupRedirectResolver,
+      })
+    } else {
+      app = getApps()[0]
+      auth = getAuth(app)
+    }
     db = getFirestore(app)
     storage = getStorage(app)
   } catch {

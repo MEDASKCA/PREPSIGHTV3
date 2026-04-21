@@ -7,8 +7,6 @@ import {
   signInWithPopup,
   signInWithRedirect,
   getRedirectResult,
-  browserLocalPersistence,
-  setPersistence,
   signOut as firebaseSignOut,
   onAuthStateChanged,
   type User,
@@ -172,18 +170,14 @@ function shouldPreferRedirect() {
   return false
 }
 
-async function prepareAuth() {
+function prepareAuth() {
   if (!auth) throw new Error("Firebase not configured")
-  await setPersistence(auth, browserLocalPersistence)
+  // Persistence is configured in firebase.ts via initializeAuth — no need to set it again.
   return auth
 }
 
-if (auth) {
-  void setPersistence(auth, browserLocalPersistence).catch(() => {})
-}
-
 export async function signInWithGoogle() {
-  const authInstance = await prepareAuth()
+  const authInstance = prepareAuth()
   if (shouldPreferRedirect()) {
     await signInWithRedirect(authInstance, googleProvider)
     return { method: "redirect" as const }
@@ -219,7 +213,7 @@ export async function signInLocally(email: string) {
 }
 
 export async function signInWithMicrosoft() {
-  const authInstance = await prepareAuth()
+  const authInstance = prepareAuth()
   if (shouldPreferRedirect()) {
     await signInWithRedirect(authInstance, microsoftProvider)
     return { method: "redirect" as const }
