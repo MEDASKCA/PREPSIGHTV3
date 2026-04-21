@@ -37,10 +37,25 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   }
 
   useEffect(() => {
-    return onAuthChange((u) => {
+    const unsub = onAuthChange((u) => {
       setUser(u)
       setAuthReady(true)
     })
+    // Safety timeout: if Firebase auth hasn't resolved in 8s, unblock the gate
+    // so the user isn't stuck on the loading screen forever (e.g. slow mobile IndexedDB).
+    const timeout = setTimeout(() => {
+      setAuthReady((prev) => {
+        if (!prev) {
+          setUser(null)
+          return true
+        }
+        return prev
+      })
+    }, 8000)
+    return () => {
+      unsub()
+      clearTimeout(timeout)
+    }
   }, [])
 
   useEffect(() => {
@@ -96,7 +111,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     if (!user && isAdmin && !pendingAuth) { router.replace("/login"); return }
     if (!user && demoSessionActive && (pathname === "/" || pathname === "/login")) { router.replace("/onboarding"); return }
     if (!user && !demoSessionActive && !isPublic && !pendingAuth) { router.replace("/login"); return }
-    if (user && isPublic && !isLegalPage && !isLandingPage) {
+    if (user && isPublic && !isLegalPage && !isLandingPage && pathname !== "/login") {
       router.replace((!profileComplete || forceOnboarding) ? "/onboarding" : "/")
       return
     }
@@ -148,7 +163,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       : <MedaskcaLoadingScreen message="Loading..." />
   }
 
-  if (isPublic && !isLegalPage && !isLandingPage) {
+  if (isPublic && !isLegalPage && !isLandingPage && pathname !== "/login") {
     return <MedaskcaLoadingScreen message="Loading..." />
   }
 

@@ -159,14 +159,10 @@ function canUseSessionStorage() {
 }
 
 function shouldPreferRedirect() {
-  // WebView/embedded browsers (Gmail, Instagram, Outlook): popup only.
-  // Redirect in these contexts is intercepted by Android and gets stuck.
-  if (isEmbeddedBrowser()) return false
-  // Regular mobile browsers (Android Chrome, iOS Safari): use redirect.
-  // signInWithPopup on Android Chrome opens accounts.google.com, which then
-  // triggers Android's native app intent chooser ("Open with Gmail / Outlook"),
-  // blocking OAuth completion entirely.
-  if (isMobile()) return true
+  // Redirect is unreliable: Chrome for Android partitions sessionStorage/IndexedDB
+  // across navigations, causing auth/missing-initial-state and infinite loading screens.
+  // Always use popup — if Android shows the account chooser, the user picks Chrome/browser
+  // and the OAuth completes normally.
   return false
 }
 
