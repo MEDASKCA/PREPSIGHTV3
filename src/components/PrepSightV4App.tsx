@@ -74,10 +74,6 @@ import {
   subscribeTeams,
 } from "@/lib/team-workspaces"
 import {
-  getAllFirestoreUserProfiles,
-  type UserContactRecord,
-} from "@/lib/collaboration-firestore"
-import {
   CHAT_FILTERS,
   COLLECTIONS,
   LOGISTICS_SECTIONS,
@@ -798,11 +794,6 @@ export default function PrepSightV4App() {
     () => isTeamAdmin ? activeTeamMembers.filter((m) => m.status === "pending_approval") : [],
     [isTeamAdmin, activeTeamMembers],
   )
-  const [allUsers, setAllUsers] = useState<UserContactRecord[]>([])
-  useEffect(() => {
-    if (!uid) return
-    void getAllFirestoreUserProfiles().then(setAllUsers)
-  }, [uid])
   const isCurrentUserActiveInTeam = useMemo(
     () => uid ? activeTeamMembers.some((m) => m.uid === uid && m.status === "active") : false,
     [activeTeamMembers, uid],
@@ -2868,64 +2859,6 @@ export default function PrepSightV4App() {
           ))}
         </div>
 
-        {allUsers.length > 0 && (
-          <div className="mt-4 px-2">
-            <p className={`px-2 pb-2 text-[11px] font-semibold uppercase tracking-[0.16em] ${isDark ? "text-[#6A7F93]" : "text-[#9AB5C2]"}`}>
-              Contacts
-            </p>
-            {allUsers
-              .filter((contact) => contact.uid !== uid)
-              .filter((contact) => {
-                const threadId = `direct-${activeTeam?.id}-${[uid, contact.uid].sort().join("__")}`
-                return !chatThreads.some((t) => t.id === threadId)
-              })
-              .filter((contact) =>
-                !chatSearch ||
-                (contact.name ?? "").toLowerCase().includes(chatSearch.toLowerCase()) ||
-                contact.hospital.toLowerCase().includes(chatSearch.toLowerCase()),
-              )
-              .map((contact) => {
-                const threadId = `direct-${activeTeam?.id}-${[uid, contact.uid].sort().join("__")}`
-                const initials = (contact.name ?? contact.hospital)
-                  .split(" ")
-                  .map((p) => p[0])
-                  .join("")
-                  .slice(0, 2)
-                  .toUpperCase()
-                const ACCENT_COLORS = ["#4DA3FF", "#7C5CFC", "#0EA5E9", "#14B8A6", "#F59E0B", "#EF4444", "#10B981"]
-                const accentIndex = contact.uid.charCodeAt(0) % ACCENT_COLORS.length
-                const accent = ACCENT_COLORS[accentIndex] ?? "#4DA3FF"
-                const contactLastSeen = remotePresence[contact.uid]?.updatedAt
-                const contactOnline = !!contactLastSeen && Date.now() - new Date(contactLastSeen).getTime() <= 120000
-                return (
-                  <button
-                    key={contact.uid}
-                    type="button"
-                    onClick={() => void openThread(threadId)}
-                    className={`flex w-full items-center gap-3 px-4 py-2 text-left transition-colors ${isDark ? "border-b border-white/[0.04] hover:bg-white/4" : "border-b border-[#EAF3F7] hover:bg-[#F7FBFD]"}`}
-                  >
-                    <div className="relative shrink-0">
-                      <div
-                        className="flex h-12 w-12 items-center justify-center rounded-full text-[15px] font-semibold text-white shadow-[0_10px_24px_rgba(16,36,62,0.16)]"
-                        style={{ background: `linear-gradient(180deg, ${accent} 0%, ${accent}CC 100%)` }}
-                      >
-                        {initials}
-                      </div>
-                      {contactOnline && <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-[#07111D] bg-[#2DD4BF]" />}
-                    </div>
-                    <div className="min-w-0 flex-1">
-                      <p className={`truncate text-[15px] font-semibold leading-snug ${isDark ? "text-white" : "text-[#10243E]"}`}>
-                        {contact.name ?? contact.hospital}
-                      </p>
-                      <p className={`truncate text-[13px] leading-snug ${isDark ? "text-[#7F93A9]" : "text-[#6A8A99]"}`}>
-                        {contact.hospital} · {USER_ROLE_LABEL[contact.role as keyof typeof USER_ROLE_LABEL] ?? contact.role}
-                      </p>
-                    </div>
-                  </button>
-                )
-              })}
-          </div>
-        )}
       </div>
     )
   }
