@@ -16,7 +16,7 @@ import {
 
 const googleProvider = new GoogleAuthProvider()
 const microsoftProvider = new OAuthProvider("microsoft.com")
-microsoftProvider.setCustomParameters({ prompt: "select_account", tenant: "organizations" })
+microsoftProvider.setCustomParameters({ prompt: "select_account", tenant: "common" })
 const LOCAL_DEV_AUTH_KEY = "prepsight_local_dev_auth"
 type LocalDevSession = {
   email: string
@@ -137,10 +137,9 @@ function canUseSessionStorage() {
 }
 
 function shouldPreferRedirect() {
-  if (typeof window === "undefined") return false
-  if (isLocalDevHost()) return false
-  if (isEmbeddedBrowser()) return false
-  return isMobile() && canUseSessionStorage()
+  // Always use popup — redirect triggers Android's app-chooser (Gmail WebView)
+  // which blocks OAuth completion and gets stuck at loading.
+  return false
 }
 
 async function prepareAuth() {
