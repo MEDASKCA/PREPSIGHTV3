@@ -2,6 +2,7 @@
 
 import { onAuthChange } from "./auth"
 import {
+  approveFirestoreMembership,
   canUseCollaborationFirestore,
   createFirestoreTeamWorkspace,
   getFirestoreTeamsForProfile,
@@ -33,6 +34,7 @@ let cachedMembershipsRaw: string | null | undefined
 let cachedMemberships: MembershipMap = {}
 let authListening = false
 let activeUid: string | null = null
+const EMPTY_TEAM_MEMBERS: OrganizationMembershipRecord[] = []
 
 export interface TeamWorkspaceRecord extends OrganizationRecord {
   inviteCode: string
@@ -268,6 +270,10 @@ async function hydrateRemoteTeams(uid: string | null): Promise<void> {
   emitChange()
 }
 
+export async function refreshTeamWorkspaceData(uid?: string | null): Promise<void> {
+  await hydrateRemoteTeams(uid ?? activeUid)
+}
+
 function ensureRealtimeSync(): void {
   if (authListening || typeof window === "undefined") return
   authListening = true
@@ -323,8 +329,8 @@ export function getPendingTeamWorkspacesForProfile(profile: PrepSightProfile | n
 
 export function getTeamMembersSnapshot(organizationId?: string): OrganizationMembershipRecord[] {
   ensureRealtimeSync()
-  if (!organizationId) return []
-  return readMemberships()[organizationId] ?? []
+  if (!organizationId) return EMPTY_TEAM_MEMBERS
+  return readMemberships()[organizationId] ?? EMPTY_TEAM_MEMBERS
 }
 
 export function getMemberPublicAlias(
@@ -459,6 +465,15 @@ export async function createTeamWorkspace(input: {
     console.warn("[PrepSight] createTeamWorkspace remote sync failed:", error)
     return fallbackTeam
   }
+}
+
+export async function approveTeamMember(
+  membershipId: string,
+  uid: string | null,
+): Promise<void> {
+  if (!canUseCollaborationFirestore(uid)) return
+  await approveFirestoreMembership(membershipId, uid as string)
+  await hydrateRemoteTeams(uid)
 }
 
 export async function joinTeamWorkspace(input: {

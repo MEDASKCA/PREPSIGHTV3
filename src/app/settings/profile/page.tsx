@@ -8,6 +8,7 @@ import { onAuthChange } from "@/lib/auth"
 import { USER_ROLE_LABEL } from "@/lib/types"
 import SettingsPageShell from "@/components/SettingsPageShell"
 import {
+  approveTeamMember,
   createTeamWorkspace,
   getActiveTeamSnapshot,
   getPendingTeamWorkspacesForProfile,
@@ -28,6 +29,11 @@ export default function ProfileSettingsPage() {
   const activeTeam = getActiveTeamSnapshot(profile)
   const pendingTeams = getPendingTeamWorkspacesForProfile(profile)
   const teamMembers = getTeamMembersSnapshot(activeTeam?.id)
+  const isTeamAdmin = Boolean(activeTeam && uid && activeTeam.createdBy === uid)
+  const pendingMembers = isTeamAdmin
+    ? teamMembers.filter((m) => m.status === "pending_approval")
+    : []
+  const activeMembers = teamMembers.filter((m) => m.status === "active")
 
   async function handleCreateTeam() {
     if (!profile || !teamName.trim()) return
@@ -175,13 +181,38 @@ export default function ProfileSettingsPage() {
                 </span>
               </div>
 
+              {pendingMembers.length > 0 && (
+                <div className="mt-4">
+                  <p className="settings-text mb-2 text-xs font-semibold uppercase tracking-[0.14em] text-[#92400E]">
+                    Awaiting approval — {pendingMembers.length}
+                  </p>
+                  <div className="space-y-2">
+                    {pendingMembers.map((member) => (
+                      <div key={member.id} className="flex items-center justify-between gap-3 rounded-[12px] border border-[#FDE7B2] bg-[#FFF8E8] px-3 py-2.5">
+                        <div className="min-w-0">
+                          <p className="settings-text truncate text-sm font-medium">{member.displayName || "Unknown"}</p>
+                          <p className="settings-muted truncate text-xs">{USER_ROLE_LABEL[member.internalRole] ?? member.internalRole}</p>
+                        </div>
+                        <button
+                          type="button"
+                          onClick={() => void approveTeamMember(member.id, uid).then(() => setMessage(`${member.displayName || "Member"} approved.`))}
+                          className="shrink-0 rounded-[9px] bg-[#06B6D4] px-3 py-1.5 text-xs font-medium text-white transition-colors hover:bg-[#0891B2]"
+                        >
+                          Approve
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
               <div className="mt-4 space-y-2">
-                {teamMembers.length > 0 ? teamMembers.map((member) => (
+                {activeMembers.length > 0 ? activeMembers.map((member) => (
                   <div key={member.id} className="flex items-center justify-between gap-3 rounded-[12px] bg-[#F8FBFD] px-3 py-2.5">
                     <div className="min-w-0">
                       <p className="settings-text truncate text-sm font-medium">{member.displayName || "Unknown member"}</p>
                       <p className="settings-muted truncate text-xs">
-                        Internal role {USER_ROLE_LABEL[member.internalRole] ?? member.internalRole}
+                        {USER_ROLE_LABEL[member.internalRole] ?? member.internalRole}
                       </p>
                     </div>
                     <div className="text-right">
@@ -190,7 +221,7 @@ export default function ProfileSettingsPage() {
                     </div>
                   </div>
                 )) : (
-                  <p className="settings-muted text-sm">No members yet.</p>
+                  <p className="settings-muted text-sm">No active members yet.</p>
                 )}
               </div>
             </div>

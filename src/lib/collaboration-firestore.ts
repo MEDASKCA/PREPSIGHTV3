@@ -8,6 +8,7 @@ import {
   getDocs,
   query,
   setDoc,
+  updateDoc,
   where,
 } from "firebase/firestore"
 import { db } from "./firebase"
@@ -354,4 +355,17 @@ export async function joinFirestoreTeamWorkspace(input: {
     console.warn("[PrepSight] joinFirestoreTeamWorkspace failed:", error)
     return null
   }
+}
+
+export async function approveFirestoreMembership(
+  membershipId: string,
+  approverUid: string,
+): Promise<void> {
+  if (!isRemoteReady(approverUid)) return
+  const membershipRef = doc(db!, "organization_memberships", membershipId)
+  await updateDoc(membershipRef, {
+    status: "active",
+    approvedBy: approverUid,
+    approvedAt: new Date().toISOString(),
+  })
 }
