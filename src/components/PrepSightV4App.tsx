@@ -1531,21 +1531,23 @@ export default function PrepSightV4App() {
           ? await uploadCommsImage(selectedThread.id, selectedThread.organizationId, pendingImage)
           : null
         const createdAt = new Date().toISOString()
-        await addDoc(collection(db, "comms_messages"), {
+        // Build message without undefined fields — Firestore throws on undefined values
+        const msgData: Record<string, unknown> = {
           threadId: selectedThread.id,
           organizationId: selectedThread.organizationId,
           uid,
           senderKind: "user",
           author: profile?.name?.trim() || "You",
           body: value,
-          imageUrl: uploadedImage?.imageUrl,
-          imageName: uploadedImage?.imageName,
           createdAt,
-          // memberUids enables array-contains queries for DM messages without get() in rules
-          memberUids: selectedThread.type === "direct"
-            ? (selectedThread.memberUids ?? [])
-            : undefined,
-        } satisfies Omit<CommsMessageRecord, "id">)
+        }
+        if (uploadedImage?.imageUrl) msgData.imageUrl = uploadedImage.imageUrl
+        if (uploadedImage?.imageName) msgData.imageName = uploadedImage.imageName
+        // memberUids on DM messages enables array-contains query without get() calls in rules
+        if (selectedThread.type === "direct" && selectedThread.memberUids?.length) {
+          msgData.memberUids = selectedThread.memberUids
+        }
+        await addDoc(collection(db, "comms_messages"), msgData)
         await updateDoc(doc(db, "comms_threads", selectedThread.id), {
           updatedAt: createdAt,
           lastMessageBody: value,
