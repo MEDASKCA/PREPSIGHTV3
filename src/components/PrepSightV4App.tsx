@@ -285,7 +285,7 @@ function Avatar({
       >
         {imageSrc ? <img src={imageSrc} alt={label} className="h-full w-full object-cover" /> : getInitials(label)}
       </div>
-      {online ? <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-[#0F766E] bg-[#2DD4BF]" /> : null}
+      {online ? <span className="absolute right-0 bottom-0 h-3.5 w-3.5 rounded-full border-2 border-white/80 bg-[#2DD4BF]" /> : null}
     </div>
   )
 }
@@ -505,8 +505,11 @@ function buildCommsReadDocId(uid: string, threadId: string) {
   return `${uid}__${threadId}`.replace(/[^a-zA-Z0-9:_-]+/g, "-")
 }
 
-function buildCommsPresenceDocId(uid: string, organizationId: string) {
-  return `${uid}__${organizationId}`.replace(/[^a-zA-Z0-9:_-]+/g, "-")
+function buildCommsPresenceDocId(uid: string, _organizationId?: string) {
+  // Keyed by uid only — one stable doc per user, regardless of team membership.
+  // The old uid__orgId scheme created multiple stale docs per user which broke
+  // online detection (collection scan order is unordered, last-write-wins).
+  return uid.replace(/[^a-zA-Z0-9:_-]+/g, "-")
 }
 
 // ── Audio helpers ─────────────────────────────────────────────────────────────
@@ -533,28 +536,44 @@ function createRingtone(): { stop: () => void } | null {
     const ctx = new AudioContext()
     let stopped = false
 
+    // UK standard telephone ring: 400 Hz + 450 Hz mixed, 0.4s on / 0.2s on / 2s silence
     async function ring() {
       if (stopped) return
-      // Two short pulses (UK-style double ring)
+
+      // Two short bursts (the classic "brr-brr" double ring)
       for (let i = 0; i < 2 && !stopped; i++) {
-        const osc = ctx.createOscillator()
+        const osc1 = ctx.createOscillator()
+        const osc2 = ctx.createOscillator()
         const gain = ctx.createGain()
-        osc.connect(gain)
+        osc1.connect(gain)
+        osc2.connect(gain)
         gain.connect(ctx.destination)
-        osc.type = "sine"
-        osc.frequency.value = 800
-        gain.gain.value = 0.22
-        osc.start()
-        await new Promise<void>((r) => setTimeout(r, 400))
-        gain.gain.exponentialRampToValueAtTime(0.0001, ctx.currentTime + 0.12)
-        osc.stop(ctx.currentTime + 0.12)
-        await new Promise<void>((r) => setTimeout(r, 220))
+
+        osc1.type = "sine"
+        osc1.frequency.value = 400
+        osc2.type = "sine"
+        osc2.frequency.value = 450
+        gain.gain.value = 0.14
+
+        const startAt = ctx.currentTime
+        const endAt = startAt + 0.4
+
+        osc1.start(startAt)
+        osc2.start(startAt)
+        gain.gain.setValueAtTime(0.14, startAt)
+        gain.gain.exponentialRampToValueAtTime(0.0001, endAt)
+        osc1.stop(endAt)
+        osc2.stop(endAt)
+
+        await new Promise<void>((r) => setTimeout(r, 500)) // burst + gap
       }
+
       if (!stopped) {
-        await new Promise<void>((r) => setTimeout(r, 2200)) // pause between rings
+        await new Promise<void>((r) => setTimeout(r, 2000)) // pause between double-rings
         void ring()
       }
     }
+
     void ring()
     return { stop: () => { stopped = true; ctx.close().catch(() => {}) } }
   } catch {
@@ -672,6 +691,21 @@ export default function PrepSightV4App() {
     uid,
     callerName,
   })
+  // Tracks the previous activeCall so we can detect when a call ends and post a summary message
+  const prevActiveCallRef = useRef<typeof activeCall | null>(null)
+
+  const [presenceTick, setPresenceTick] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setPresenceTick((n) => n + 1), 30000)
+    return () => clearInterval(id)
+  }, [])
+
+  // Single source of truth for online check — presenceTick ensures it re-evaluates every 30s
+  const isPresenceOnline = (memberUid: string) => {
+    void presenceTick // reactive dependency
+    const updatedAt = remotePresence[memberUid]?.updatedAt
+    return !!updatedAt && Date.now() - new Date(updatedAt).getTime() <= 600000
+  }
 
   useEffect(() => {
     setTomMessages(loadStoredState(TOM_STORAGE_KEY, SEED_TOM))
@@ -1121,17 +1155,17 @@ export default function PrepSightV4App() {
       )
     }, (err) => console.warn("[PrepSight] comms_reads listener failed", err)))
 
-    // Presence — listen to ALL presence records so we can show who is online
-    // (Firestore rule: allow read if isSignedIn(), so no filter needed)
     unsubscribers.push(onSnapshot(collection(db, "comms_presence"), (snap) => {
-      console.log("PRESENCE SNAP:", snap.docs.map(d => ({ id: d.id, uid: d.data().uid, displayName: d.data().displayName, organizationId: d.data().organizationId, updatedAt: d.data().updatedAt })))
-      const next = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsPresenceRecord))
-      setRemotePresence(
-  next.reduce<Record<string, CommsPresenceRecord>>((acc, r) => {
-    if (r.uid) acc[r.uid] = r
-    return acc
-  }, {}),
-)
+      const next = snap.docs.map((d) => {
+        const data = d.data()
+        const resolvedUid: string = data.uid || (!d.id.includes("__") ? d.id : "")
+        return { ...data, id: d.id, uid: resolvedUid } as CommsPresenceRecord
+      })
+      const presenceMap = next.reduce<Record<string, CommsPresenceRecord>>((acc, r) => {
+        if (r.uid) acc[r.uid] = r
+        return acc
+      }, {})
+      setRemotePresence(presenceMap)
     }, (err) => console.warn("[PrepSight] comms_presence listener failed", err)))
 
     return () => { for (const unsub of unsubscribers) unsub() }
@@ -1151,11 +1185,88 @@ export default function PrepSightV4App() {
     prevMessageIdsRef.current = currentIds
   }, [remoteMessages, uid])
 
+  // Call summary — post a system message when a call ends
+  useEffect(() => {
+    const prev = prevActiveCallRef.current
+    prevActiveCallRef.current = activeCall
+
+    // A call just ended: prev existed, activeCall is now null
+    if (!prev || activeCall) return
+
+    const threadId = prev.threadId
+    if (!threadId) return
+
+    const wasConnected = prev.status === "connected"
+    const durationSeconds = prev.durationSeconds ?? 0
+    const peerName = prev.peerName ?? "Unknown"
+    const isOutgoing = prev.isOutgoing
+
+    let summaryBody: string
+    if (!wasConnected) {
+      summaryBody = isOutgoing ? `📵 Missed call to ${peerName}` : `📵 Missed call from ${peerName}`
+    } else {
+      const m = Math.floor(durationSeconds / 60)
+      const s = durationSeconds % 60
+      const duration = m > 0 ? `${m}m ${s}s` : `${s}s`
+      summaryBody = isOutgoing
+        ? `📞 Call with ${peerName} · ${duration}`
+        : `📞 Call from ${peerName} · ${duration}`
+    }
+
+    const createdAt = new Date().toISOString()
+
+    if (commsUsingRemote && db && uid) {
+      const orgThread = remoteThreads.find((t) => t.id === threadId)
+      const orgId = orgThread?.organizationId
+      if (orgId) {
+        void addDoc(collection(db, "comms_messages"), {
+          threadId,
+          organizationId: orgId,
+          uid,
+          senderKind: "user",
+          author: profile?.name?.trim() || "You",
+          body: summaryBody,
+          createdAt,
+          memberUids: orgThread?.memberUids ?? [],
+        }).catch((err) => console.warn("[PrepSight] call summary write failed", err))
+        void updateDoc(doc(db, "comms_threads", threadId), {
+          updatedAt: createdAt,
+          lastMessageBody: summaryBody,
+        }).catch(() => {})
+      }
+    } else {
+      // Local-only fallback
+      setThreads((current) =>
+        current.map((thread) =>
+          thread.id === threadId
+            ? {
+                ...thread,
+                preview: summaryBody,
+                time: "Now",
+                messages: [
+                  ...thread.messages,
+                  {
+                    id: `call-summary-${Date.now()}`,
+                    sender: "self" as const,
+                    author: "You",
+                    body: summaryBody,
+                    time: formatNow(),
+                    createdAt,
+                  },
+                ],
+              }
+            : thread,
+        ),
+      )
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeCall])
+
   useEffect(() => {
     if (!commsUsingRemote || !db || !uid) return
 
     const orgId = activeTeam?.id ?? "direct"
-    const presenceId = buildCommsPresenceDocId(uid, orgId)
+    const presenceId = buildCommsPresenceDocId(uid)
     const presenceRef = doc(db, "comms_presence", presenceId)
     let intervalId: ReturnType<typeof setInterval> | null = null
 
@@ -1289,7 +1400,26 @@ export default function PrepSightV4App() {
       return accumulator
     }, {})
 
-    const mappedThreads = remoteThreads
+    // Only show threads that belong to the current org, and for direct threads,
+    // verify all members are known active members of this org. This prevents
+    // ghost threads from old test accounts or wrong-org users bleeding in.
+    const activeMemberUidSet = new Set([
+      uid,
+      ...activeTeamMembers
+        .filter((m) => m.status === "active" && m.uid)
+        .map((m) => m.uid),
+    ])
+
+    const validatedRemoteThreads = remoteThreads.filter((thread) => {
+      // Group threads are org-scoped — trust the organizationId
+      if (thread.type === "group") return true
+      // For direct threads, every member must be a known active org member
+      // (or the current user). This blocks threads with unknown/test accounts.
+      if (!thread.memberUids?.length) return false
+      return thread.memberUids.every((memberUid) => activeMemberUidSet.has(memberUid))
+    })
+
+    const mappedThreads = validatedRemoteThreads
       .map<ChatThread>((thread) => {
         const threadMessages = messagesByThread[thread.id] ?? []
         const lastMessage = threadMessages[threadMessages.length - 1]
@@ -1314,7 +1444,7 @@ export default function PrepSightV4App() {
           time: formatThreadTime(lastMessage?.createdAt ?? thread.updatedAt),
           unread,
           online:
-            !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 300000,
+            !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 600000,
           accent: thread.accent,
           members: thread.memberNames,
           memberUids: thread.memberUids,
@@ -1335,49 +1465,11 @@ export default function PrepSightV4App() {
       return true
     })
 
-    const directThreadPairs = new Set(
-      mappedThreads
-        .filter((thread) => thread.type === "direct")
-        .map((thread) => [...(thread.memberUids ?? [])].sort().join("__")),
-    )
-    const selfUid = uid
-
-    const starterDirectThreads = activeTeam?.id
-      ? activeTeamMembers
-          .filter((member) => member.status === "active" && member.uid && member.uid !== uid)
-          .map<ChatThread | null>((member) => {
-            const memberUid = member.uid
-            if (!selfUid || !memberUid) return null
-            const directPair = [selfUid, memberUid].sort().join("__")
-            if (directThreadPairs.has(directPair)) return null
-
-            const lastSeenAt = remotePresence[memberUid]?.updatedAt
-            const isOnline = !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 300000
-            return {
-              id: `direct-${activeTeam.id}-${directPair}`,
-              type: "direct",
-              title: member.displayName?.trim() || member.publicAlias,
-              subtitle: member.departments?.[0] || "Same organisation",
-              preview: "Start a conversation",
-              time: "",
-              unread: 0,
-              online: isOnline,
-              accent: "#4DA3FF",
-              members: [profile?.name?.trim() || "You", member.displayName?.trim() || member.publicAlias],
-              memberUids: [selfUid, memberUid],
-              messages: [],
-              organizationId: activeTeam.id,
-              updatedAt: "",
-            }
-          })
-          .filter((thread): thread is ChatThread => Boolean(thread))
-      : []
-
     return [
       tomThread,
       ...dedupedMappedThreads.filter((t) => t.id !== "direct-tom"),
     ]
-  }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, profile?.name, remoteMessages, remotePresence, remoteThreadReadState, threads, tomMessages, uid])
+  }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, presenceTick, profile?.name, remoteMessages, remotePresence, remoteThreadReadState, threads, tomMessages, uid])
 
   const filteredThreads = useMemo(() => {
     let threads = chatThreads
@@ -1450,20 +1542,39 @@ export default function PrepSightV4App() {
     return { imageUrl, imageName: file.name }
   }
 
-  async function openThread(threadId: string) {
+  async function openThread(requestedThreadId: string) {
     setWorkspacePickerOpen(false)
     setActiveTab("chat")
-    const openedThread = chatThreads.find((thread) => thread.id === threadId)
+
+    const openedThread = chatThreads.find((t) => t.id === requestedThreadId)
+    const realOrgId = activeTeam?.id
+
+    // For direct threads, always check if a thread already exists for this
+    // member pair in Firestore — regardless of what ID it was given.
+    // This prevents creating duplicates when old threads have different IDs.
+    let resolvedThreadId = requestedThreadId
+    if (openedThread?.type === "direct" && openedThread.memberUids?.length) {
+      const sortedPair = [...openedThread.memberUids].sort().join("__")
+      const existingRemote = remoteThreads.find(
+        (t) => t.type === "direct" && [...(t.memberUids ?? [])].sort().join("__") === sortedPair
+      )
+      if (existingRemote) {
+        resolvedThreadId = existingRemote.id
+      }
+    }
+
+    // Only create a new Firestore doc if no existing thread was found
     if (
       commsUsingRemote &&
       db &&
       uid &&
+      realOrgId &&
       openedThread?.type === "direct" &&
-      openedThread.organizationId &&
-      !remoteThreads.some((thread) => thread.id === threadId)
+      resolvedThreadId === requestedThreadId && // still the formula ID — nothing found in Firestore
+      !remoteThreads.some((t) => t.id === resolvedThreadId)
     ) {
-      await setDoc(doc(db, "comms_threads", threadId), {
-        organizationId: openedThread.organizationId,
+      await setDoc(doc(db, "comms_threads", resolvedThreadId), {
+        organizationId: realOrgId,
         type: "direct",
         title: openedThread.title,
         subtitle: openedThread.subtitle,
@@ -1478,11 +1589,13 @@ export default function PrepSightV4App() {
         console.warn("[PrepSight] direct comms thread creation failed", error)
       })
     }
-    setSelectedThreadId(threadId)
-    void markThreadRead(threadId, openedThread?.updatedAt ?? new Date().toISOString())
+
+    setSelectedThreadId(resolvedThreadId)
+    const resolvedThread = chatThreads.find((t) => t.id === resolvedThreadId) ?? openedThread
+    void markThreadRead(resolvedThreadId, resolvedThread?.updatedAt ?? new Date().toISOString())
     if (!commsUsingRemote) {
       setThreads((current) =>
-        current.map((thread) => (thread.id === threadId ? { ...thread, unread: 0 } : thread)),
+        current.map((thread) => (thread.id === resolvedThreadId ? { ...thread, unread: 0 } : thread)),
       )
     }
   }
@@ -2308,26 +2421,21 @@ export default function PrepSightV4App() {
     const organizationLabel = profile?.hospital?.trim() || activeTeam?.publicAlias?.trim() || activeTeam?.internalName?.trim() || "Your organisation"
 
     const contactsWithStatus = contactEntries.map((member) => {
-      if (!uid) return { ...member, threadId: null as string | null, hasThread: false, isOnline: false }
-      const orgId = activeTeam?.id ?? "direct"
+      if (!uid || !activeTeam?.id) return { ...member, threadId: null as string | null, hasThread: false, isOnline: false }
       const directPair = [uid, member.uid].sort().join("__")
-      const threadId = `direct-${orgId}-${directPair}`
-      const hasThread = chatThreads.some((t) => t.id === threadId)
-      const presenceRecord = Object.values(remotePresence).find((record) => record.uid === member.uid)
-const lastSeenAt = presenceRecord?.updatedAt
-      console.log("DRAWER PRESENCE", {
-  memberUid: member.uid,
-  remotePresenceKeys: Object.keys(remotePresence),
-  remotePresenceValue: remotePresence[member.uid],
-  lastSeenAt,
-})
-      const isOnline =
-  !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 300000
+      // Find existing thread by matching both member UIDs — regardless of what ID it was given
+      const existingThread = remoteThreads.find(
+        (t) => t.type === "direct" && [...(t.memberUids ?? [])].sort().join("__") === directPair
+      )
+      const threadId = existingThread?.id ?? `direct-${activeTeam.id}-${directPair}`
+      const hasThread = !!existingThread
+      const presenceRecord = remotePresence[member.uid]
+      const lastSeenAt = presenceRecord?.updatedAt
+      const isOnline = !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 600000
       return { ...member, threadId, hasThread, isOnline }
     })
     const onlineContacts = contactsWithStatus.filter((m) => m.isOnline)
     const offlineContacts = contactsWithStatus.filter((m) => !m.isOnline)
-    console.log("CONTACTS WITH STATUS", contactsWithStatus.map(m => ({ label: m.label, uid: m.uid, isOnline: m.isOnline, threadId: m.threadId })))
 
     function renderContactRow(member: (typeof contactsWithStatus)[0], isActive: boolean) {
       if (!uid || !member.threadId) return null
@@ -2337,30 +2445,15 @@ const lastSeenAt = presenceRecord?.updatedAt
           key={member.id}
           type="button"
         onClick={() => {
-  setDrawerOpen(false)
-  const orgId = activeTeam?.id ?? "direct"
-  void setDoc(doc(db!, "comms_threads", threadId), {
-    organizationId: orgId,
-    type: "direct",
-    title: member.label,
-    subtitle: "Same organisation",
-    accent: "#4DA3FF",
-    memberUids: [uid!, member.uid],
-    memberNames: [profile?.name?.trim() || "You", member.label],
-    createdBy: uid!,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    lastMessageBody: "",
-  }).then(() => {
-    setSelectedThreadId(threadId)
-  })
-}}
+          setDrawerOpen(false)
+          void openThread(threadId)
+        }}
     
            className="flex w-full items-center gap-2.5 rounded-[12px] px-2 py-1.5 text-left transition-colors hover:bg-white/6"
         >
           <div className="relative shrink-0">
             <Avatar label={member.label} accent="#4DA3FF" sizeClass="h-8 w-8" />
-            <span className={`absolute right-0 bottom-0 h-2 w-2 rounded-full border-[1.5px] border-[#0F766E] ${isActive ? "bg-[#2DD4BF]" : "bg-[#3A546A]"}`} />
+            <span className={`absolute right-0 bottom-0 h-2 w-2 rounded-full border-[1.5px] border-white/80 ${isActive ? "bg-[#2DD4BF]" : "bg-[#3A546A]"}`} />
           </div>
           <p className="min-w-0 flex-1 truncate text-[13px] font-medium leading-none text-white">{member.label}</p>
           <span className={`shrink-0 text-[11px] font-medium ${isActive ? "text-[#2DD4BF]" : "text-[#4A6A7E]"}`}>
@@ -2613,10 +2706,10 @@ const lastSeenAt = presenceRecord?.updatedAt
           <div className="mt-6 space-y-3">
             {contactEntries.length ? (
               contactEntries.map((member) => {
-                if (!uid) return null
-                const orgId = activeTeam?.id ?? "direct"
+                if (!uid || !activeTeam?.id) return null
                 const directPair = [uid, member.uid].sort().join("__")
-                const threadId = `direct-${orgId}-${directPair}`
+                const threadId = `direct-${activeTeam.id}-${directPair}`
+                const isOnline = isPresenceOnline(member.uid)
                 return (
                   <button
                     key={member.id}
@@ -2627,12 +2720,14 @@ const lastSeenAt = presenceRecord?.updatedAt
                     }}
                     className="flex w-full items-center gap-3 rounded-[18px] border border-white/8 bg-white/4 px-3 py-3 text-left hover:bg-white/8"
                   >
-                    <Avatar label={member.label} accent="#4DA3FF" sizeClass="h-11 w-11" />
+                    <Avatar label={member.label} accent="#4DA3FF" online={isOnline} sizeClass="h-11 w-11" />
                     <div className="min-w-0 flex-1">
                       <p className="truncate text-[15px] font-medium text-white">{member.label}</p>
                       <p className="mt-1 truncate text-[12px] text-[#9DB0C4]">{member.detail}</p>
                     </div>
-                    <span className="rounded-full bg-white/8 px-2 py-0.5 text-[11px] text-[#C5D4E1]">Member</span>
+                    <span className={`rounded-full px-2 py-0.5 text-[11px] ${isOnline ? "bg-[#5CC7C4]/20 text-[#5CC7C4]" : "bg-white/8 text-[#C5D4E1]"}`}>
+                      {isOnline ? "Online" : "Offline"}
+                    </span>
                   </button>
                 )
               })
