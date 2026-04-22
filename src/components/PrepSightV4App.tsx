@@ -1163,7 +1163,11 @@ export default function PrepSightV4App() {
         return { ...data, id: d.id, uid: resolvedUid } as CommsPresenceRecord
       })
       const presenceMap = next.reduce<Record<string, CommsPresenceRecord>>((acc, r) => {
-        if (r.uid) acc[r.uid] = r
+        if (!r.uid) return acc
+        const existing = acc[r.uid]
+        if (!existing || new Date(r.updatedAt).getTime() > new Date(existing.updatedAt).getTime()) {
+          acc[r.uid] = r
+        }
         return acc
       }, {})
       setRemotePresence(presenceMap)
@@ -2430,9 +2434,7 @@ export default function PrepSightV4App() {
       )
       const threadId = existingThread?.id ?? `direct-${activeTeam.id}-${directPair}`
       const hasThread = !!existingThread
-      const presenceRecord = remotePresence[member.uid]
-      const lastSeenAt = presenceRecord?.updatedAt
-      const isOnline = !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 600000
+      const isOnline = isPresenceOnline(member.uid)
       return { ...member, threadId, hasThread, isOnline }
     })
     const onlineContacts = contactsWithStatus.filter((m) => m.isOnline)
