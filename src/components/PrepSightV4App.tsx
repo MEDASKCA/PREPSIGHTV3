@@ -1002,7 +1002,7 @@ export default function PrepSightV4App() {
 
   useEffect(() => {
     setThreadReadState(readCommsReadState(uid, activeTeam?.id))
-  }, [activeTeam?.id, uid])
+  }, [activeTeam?.id, commsUsingRemote, db, uid])
 
   useEffect(() => {
     saveCommsReadState(threadReadState, uid, activeTeam?.id)
@@ -1124,14 +1124,14 @@ export default function PrepSightV4App() {
     // Presence — listen to ALL presence records so we can show who is online
     // (Firestore rule: allow read if isSignedIn(), so no filter needed)
     unsubscribers.push(onSnapshot(collection(db, "comms_presence"), (snap) => {
+      console.log("PRESENCE SNAP:", snap.docs.map(d => ({ id: d.id, uid: d.data().uid, displayName: d.data().displayName, organizationId: d.data().organizationId, updatedAt: d.data().updatedAt })))
       const next = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsPresenceRecord))
       setRemotePresence(
-        next.reduce<Record<string, CommsPresenceRecord>>((acc, r) => {
-          const existing = acc[r.uid]
-          if (!existing || r.updatedAt > existing.updatedAt) acc[r.uid] = r
-          return acc
-        }, {}),
-      )
+  next.reduce<Record<string, CommsPresenceRecord>>((acc, r) => {
+    if (r.uid) acc[r.uid] = r
+    return acc
+  }, {}),
+)
     }, (err) => console.warn("[PrepSight] comms_presence listener failed", err)))
 
     return () => { for (const unsub of unsubscribers) unsub() }
@@ -1352,9 +1352,7 @@ export default function PrepSightV4App() {
             if (directThreadPairs.has(directPair)) return null
 
             const lastSeenAt = remotePresence[memberUid]?.updatedAt
-            const isOnline =
-              !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000
-
+            const isOnline = !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000
             return {
               id: `direct-${activeTeam.id}-${directPair}`,
               type: "direct",
@@ -1377,7 +1375,7 @@ export default function PrepSightV4App() {
 
     return [
       tomThread,
-      ...dedupedMappedThreads,
+      ...dedupedMappedThreads.filter((t) => t.id !== "direct-tom"),
     ]
   }, [activeTeam?.id, activeTeamMembers, commsUsingRemote, profile?.name, remoteMessages, remotePresence, remoteThreadReadState, threads, tomMessages, uid])
 
@@ -1403,26 +1401,7 @@ export default function PrepSightV4App() {
     return threads
   }, [chatFilter, chatSearch, chatThreads])
 
-  const selectedThread =
-  chatThreads.find((thread) => thread.id === selectedThreadId) ||
-  (selectedThreadId
-    ? {
-        id: selectedThreadId,
-        type: "direct",
-        title: "New chat",
-        subtitle: "",
-        preview: "",
-        time: "",
-        unread: 0,
-        online: false,
-        accent: "#4DA3FF",
-        members: [],
-        memberUids: [],
-        messages: [],
-        organizationId: activeTeam?.id ?? "direct",
-        updatedAt: "",
-      }
-    : null)
+  const selectedThread = chatThreads.find((thread) => thread.id === selectedThreadId) ?? null
   useEffect(() => {
     if (!chatThreads.length) {
       setSelectedThreadId(null)
@@ -2334,13 +2313,21 @@ export default function PrepSightV4App() {
       const directPair = [uid, member.uid].sort().join("__")
       const threadId = `direct-${orgId}-${directPair}`
       const hasThread = chatThreads.some((t) => t.id === threadId)
-      const lastSeenAt = remotePresence[member.uid]?.updatedAt
+      const presenceRecord = Object.values(remotePresence).find((record) => record.uid === member.uid)
+const lastSeenAt = presenceRecord?.updatedAt
+      console.log("DRAWER PRESENCE", {
+  memberUid: member.uid,
+  remotePresenceKeys: Object.keys(remotePresence),
+  remotePresenceValue: remotePresence[member.uid],
+  lastSeenAt,
+})
       const isOnline =
-        !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000
+  !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000
       return { ...member, threadId, hasThread, isOnline }
     })
     const onlineContacts = contactsWithStatus.filter((m) => m.isOnline)
     const offlineContacts = contactsWithStatus.filter((m) => !m.isOnline)
+    console.log("CONTACTS WITH STATUS", contactsWithStatus.map(m => ({ label: m.label, uid: m.uid, isOnline: m.isOnline, threadId: m.threadId })))
 
     function renderContactRow(member: (typeof contactsWithStatus)[0], isActive: boolean) {
       if (!uid || !member.threadId) return null
