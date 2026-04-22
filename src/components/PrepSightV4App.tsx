@@ -4122,8 +4122,8 @@ export default function PrepSightV4App() {
               <span className="text-[14px]">Search anywhere...</span>
             </div>
             <ThemeButton isDark={isDark} onToggle={toggleAppearance} />
-            <button type="button" className={`flex h-10 w-10 items-center justify-center rounded-[12px] ${isDark ? "border border-[#20344C] bg-white/10 text-white" : "border border-[#0F4C5C] bg-white/88 text-[#22425C]"}`}>
-              <UserRound size={18} />
+            <button type="button" onClick={() => setProfileDrawerOpen(true)} className="flex h-10 w-10 items-center justify-center overflow-hidden rounded-[12px]">
+              <Avatar label={callerName} imageSrc={currentUser?.photoURL ?? undefined} accent="#0D8CCB" sizeClass="h-10 w-10" />
             </button>
           </div>
         </header>
