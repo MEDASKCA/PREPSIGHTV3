@@ -4254,7 +4254,7 @@ export default function PrepSightV4App() {
                   <div className="flex items-center justify-between gap-3">
                     <div>
                       <p className={`text-[22px] tracking-[-0.04em] ${isDark ? "text-white" : "text-[#10243E]"}`}>Comms</p>
-                      <p className={`mt-1 text-[13px] ${isDark ? "text-[#A0B7CB]" : "text-[#61758B]"}`}>Select a thread</p>
+                      <p className={`mt-1 text-[13px] ${isDark ? "text-[#A0B7CB]" : "text-[#61758B]"}`}>{profile?.hospital?.trim() || activeTeam?.publicAlias?.trim() || activeTeam?.internalName?.trim() || "Your organisation"}</p>
                     </div>
                     <button type="button" onClick={() => setContactsDrawerOpen(true)} aria-label="Contacts" className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border transition-colors ${isDark ? "border-[#1E3349] bg-[#0D1B2A] hover:bg-[#132238]" : "border-[#D8E8EE] bg-white hover:bg-[#EBF5F9]"}`}>
                       <img src="/9783998.png" alt="Contacts" className="h-5 w-5 object-contain" />
