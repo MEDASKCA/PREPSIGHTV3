@@ -4152,55 +4152,137 @@ export default function PrepSightV4App() {
           <section className="overflow-y-auto px-6 py-6">{renderDesktopMain()}</section>
 
           <aside className={`${isDark ? "border-l border-[#20344C] bg-[#0F1B2D]" : "border-l border-[#D8E8EE] bg-[#F8FBFD]"}`}>
-            <div className="flex h-full flex-col">
-              <div className={`${isDark ? "border-b border-[#20344C]" : "border-b border-[#D8E8EE]"} px-5 py-4`}>
-                <div className="flex items-center justify-between gap-3">
-                  <div>
-                    <p className={`text-[22px] tracking-[-0.04em] ${isDark ? "text-white" : "text-[#10243E]"}`}>Comms</p>
-                    <p className={`mt-1 text-[13px] ${isDark ? "text-[#A0B7CB]" : "text-[#61758B]"}`}>{selectedThread ? selectedThread.title : "Select a thread"}</p>
+            {selectedThread ? (
+              /* ── Active thread view ── */
+              <div className="flex h-full flex-col">
+                {/* Thread header */}
+                <div className={`flex items-center gap-3 px-4 py-4 ${isDark ? "border-b border-[#20344C] bg-[#091321]" : "border-b border-[#0085B2] bg-[#0096C7]"}`}>
+                  <Avatar label={selectedThread.title} accent={selectedThread.accent} online={selectedThread.online} imageSrc={selectedThread.id === "direct-tom" ? "/logo-medaskca.png" : undefined} sizeClass="h-10 w-10" />
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate text-[16px] font-semibold text-white">{selectedThread.title}</p>
+                    <p className="truncate text-[12px] text-white/75">{selectedThread.online ? "Online now" : selectedThread.subtitle}</p>
                   </div>
-                  <button
-                    type="button"
-                    onClick={() => setContactsDrawerOpen(true)}
-                    aria-label="Contacts"
-                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border transition-colors ${isDark ? "border-[#1E3349] bg-[#0D1B2A] hover:bg-[#132238]" : "border-[#D8E8EE] bg-white hover:bg-[#EBF5F9]"}`}
-                  >
-                    <img src="/9783998.png" alt="Contacts" className="h-5 w-5 object-contain" />
+                  {selectedThread.id !== "direct-tom" && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (selectedThread.type === "group") setThreadManagerOpen(true)
+                        else {
+                          const calleeUid = selectedThread.memberUids?.find((m) => m !== uid) ?? ""
+                          if (calleeUid && selectedThread.organizationId) void startCall({ threadId: selectedThread.id, calleeUid, calleeName: selectedThread.title, organizationId: selectedThread.organizationId })
+                        }
+                      }}
+                      className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white"
+                    >
+                      {selectedThread.type === "group" ? <Settings2 size={16} /> : <Phone size={16} />}
+                    </button>
+                  )}
+                  <button type="button" onClick={closeThread} className="flex h-9 w-9 items-center justify-center rounded-full border border-white/30 bg-white/10 text-white">
+                    <X size={18} />
                   </button>
                 </div>
-              </div>
-
-              <div className="flex-1 overflow-y-auto px-4 py-3">
-                <div className="space-y-2">
-                  {chatThreads.map((thread) => (
-                    <button
-                      key={thread.id}
-                      type="button"
-                      onClick={() => openThread(thread.id)}
-                      className={`flex w-full items-start gap-3 rounded-[18px] px-3 py-3 text-left ${
-                        selectedThreadId === thread.id
-                          ? isDark ? "bg-[#132238]" : "bg-[#E8F6FB]"
-                          : isDark ? "bg-[#16283F] hover:bg-[#1B304A]" : "bg-white hover:bg-[#F3F9FB]"
-                      }`}
-                    >
-                      <Avatar label={thread.title} accent={thread.accent} online={thread.online} />
-                      <div className="min-w-0 flex-1">
-                        <div className="flex items-start justify-between gap-3">
-                          <p className={`truncate text-[15px] font-medium ${isDark ? "text-white" : "text-[#10243E]"}`}>{thread.title}</p>
-                          <span className={`text-[11px] ${isDark ? "text-[#8EA5BA]" : "text-[#7A90A4]"}`}>{thread.time}</span>
+                {/* Messages */}
+                <div className={`flex-1 space-y-2 overflow-y-auto px-4 py-3 ${isDark ? "" : "bg-[radial-gradient(circle_at_top,_rgba(13,140,203,0.06),_transparent_40%)]"}`}>
+                  {(selectedThread.id === "direct-tom"
+                    ? tomMessages.map((m): ChatMessage => ({ id: m.id, sender: m.sender as "self"|"other"|"tom", author: m.sender === "tom" ? "TOM" : "You", body: m.body, time: m.time }))
+                    : remoteMessages.filter((msg) => msg.threadId === selectedThread.id).map((msg): ChatMessage => ({
+                        id: msg.id, sender: msg.senderKind === "tom" ? "tom" : msg.uid === uid ? "self" : "other",
+                        author: msg.author || "User", body: msg.body || "", imageUrl: msg.imageUrl, imageName: msg.imageName, time: formatThreadTime(msg.createdAt),
+                      }))
+                  ).map((message) => (
+                    <div key={message.id} className={`flex ${message.sender === "self" ? "justify-end" : "justify-start"}`}>
+                      <div className="max-w-[88%]">
+                        {message.sender !== "self" && (
+                          <div className="mb-0.5 flex items-center gap-2 px-1">
+                            {message.sender === "tom" ? <Avatar label="TOM" accent="#0F7DBA" imageSrc="/logo-medaskca.png" sizeClass="h-7 w-7" /> : <Avatar label={message.author} accent={selectedThread.accent} sizeClass="h-7 w-7" />}
+                            <span className={`text-[11px] font-medium ${isDark ? "text-[#8EA5BA]" : "text-[#6B7280]"}`}>{message.author}</span>
+                          </div>
+                        )}
+                        <div className={`rounded-[20px] px-3 py-2.5 text-[14px] leading-[1.5] ${message.sender === "self" ? "rounded-br-[6px] bg-[#0096C7] text-white" : "rounded-bl-[6px] bg-[#D7F2FB] text-[#10243E]"}`}>
+                          {message.imageUrl ? (
+                            <div className={message.body ? "space-y-2" : ""}><img src={message.imageUrl} alt={message.imageName ?? "image"} className="max-h-48 w-full rounded-[12px] object-cover" />{message.body ? <p>{message.body}</p> : null}</div>
+                          ) : message.body}
                         </div>
-                        <p className={`mt-1 truncate text-[13px] ${isDark ? "text-[#A0B7CB]" : "text-[#61758B]"}`}>{thread.preview}</p>
+                        <p className={`mt-0.5 px-1 text-[10px] ${isDark ? "text-[#7F93A9]" : "text-[#6B7280]"} ${message.sender === "self" ? "text-right" : "text-left"}`}>{message.time}</p>
                       </div>
-                    </button>
+                    </div>
                   ))}
+                  {selectedThread.id === "direct-tom" && tomIsTyping && (
+                    <div className="flex justify-start">
+                      <div className={`rounded-[20px] rounded-bl-[6px] px-3 py-2.5 ${isDark ? "bg-[#1A3354]" : "bg-[#D7F2FB]"}`}>
+                        <div className="flex items-center gap-1">
+                          <span className={`inline-block h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:0ms] ${isDark ? "bg-[#8EA5BA]" : "bg-[#5F9BBF]"}`} />
+                          <span className={`inline-block h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:150ms] ${isDark ? "bg-[#8EA5BA]" : "bg-[#5F9BBF]"}`} />
+                          <span className={`inline-block h-1.5 w-1.5 animate-bounce rounded-full [animation-delay:300ms] ${isDark ? "bg-[#8EA5BA]" : "bg-[#5F9BBF]"}`} />
+                        </div>
+                      </div>
+                    </div>
+                  )}
+                </div>
+                {/* Input */}
+                <div className={`border-t px-3 py-3 ${isDark ? "border-[#20344C] bg-[#0F1B2D]" : "border-[#D6E7EE] bg-white"}`}>
+                  {pendingImagePreview && (
+                    <div className={`mb-2 flex items-center gap-2 rounded-[14px] px-2 py-1.5 ${isDark ? "bg-white/8" : "border border-[#D6E7EE] bg-[#F8FBFD]"}`}>
+                      <img src={pendingImagePreview} alt="attachment" className="h-10 w-10 rounded-[10px] object-cover" />
+                      <p className={`min-w-0 flex-1 truncate text-[12px] ${isDark ? "text-white" : "text-[#10243E]"}`}>{pendingImage?.name ?? "Photo"}</p>
+                      <button type="button" onClick={clearPendingImage} className={`text-[11px] ${isDark ? "text-[#8EA5BA]" : "text-[#5F788C]"}`}>✕</button>
+                    </div>
+                  )}
+                  <div className={`flex min-h-11 items-center gap-2 rounded-[22px] px-3 pr-1.5 ${isDark ? "bg-white/8" : "border border-[#E0EEF3] bg-[#F3F8FB]"}`}>
+                    <input ref={desktopFileInputRef} type="file" accept="image/*" onChange={(e) => handlePickImage(e.target.files?.[0] ?? null)} className="hidden" />
+                    <button type="button" onClick={() => desktopFileInputRef.current?.click()} className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${isDark ? "bg-white/8 text-white" : "bg-white text-[#5F788C]"}`}><Plus size={14} /></button>
+                    <input
+                      value={threadDraft}
+                      onChange={(e) => setThreadDraft(e.target.value)}
+                      onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) void sendThreadMessage() }}
+                      placeholder={selectedThread.id === "direct-tom" ? "Ask TOM..." : "Message"}
+                      className={`w-full bg-transparent text-[13px] outline-none ${isDark ? "text-white placeholder:text-[#8EA5BA]" : "text-[#10243E] placeholder:text-[#7E93A6]"}`}
+                    />
+                    <button
+                      type="button"
+                      onClick={() => void sendThreadMessage()}
+                      disabled={!(threadDraft.trim().length > 0 || Boolean(pendingImage))}
+                      className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full transition-colors ${threadDraft.trim().length > 0 || pendingImage ? "bg-[#0D8CCB] text-white" : isDark ? "bg-white/8 text-[#8EA5BA]" : "bg-[#EEF5F8] text-[#B5C8D5]"}`}
+                    ><SendHorizontal size={14} /></button>
+                  </div>
                 </div>
               </div>
-            </div>
+            ) : (
+              /* ── Thread list ── */
+              <div className="flex h-full flex-col">
+                <div className={`${isDark ? "border-b border-[#20344C]" : "border-b border-[#D8E8EE]"} px-5 py-4`}>
+                  <div className="flex items-center justify-between gap-3">
+                    <div>
+                      <p className={`text-[22px] tracking-[-0.04em] ${isDark ? "text-white" : "text-[#10243E]"}`}>Comms</p>
+                      <p className={`mt-1 text-[13px] ${isDark ? "text-[#A0B7CB]" : "text-[#61758B]"}`}>Select a thread</p>
+                    </div>
+                    <button type="button" onClick={() => setContactsDrawerOpen(true)} aria-label="Contacts" className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border transition-colors ${isDark ? "border-[#1E3349] bg-[#0D1B2A] hover:bg-[#132238]" : "border-[#D8E8EE] bg-white hover:bg-[#EBF5F9]"}`}>
+                      <img src="/9783998.png" alt="Contacts" className="h-5 w-5 object-contain" />
+                    </button>
+                  </div>
+                </div>
+                <div className="flex-1 overflow-y-auto px-4 py-3">
+                  <div className="space-y-2">
+                    {chatThreads.map((thread) => (
+                      <button key={thread.id} type="button" onClick={() => openThread(thread.id)} className={`flex w-full items-start gap-3 rounded-[18px] px-3 py-3 text-left ${isDark ? "bg-[#16283F] hover:bg-[#1B304A]" : "bg-white hover:bg-[#F3F9FB]"}`}>
+                        <Avatar label={thread.title} accent={thread.accent} online={thread.online} />
+                        <div className="min-w-0 flex-1">
+                          <div className="flex items-start justify-between gap-3">
+                            <p className={`truncate text-[15px] font-medium ${isDark ? "text-white" : "text-[#10243E]"}`}>{thread.title}</p>
+                            <span className={`text-[11px] ${isDark ? "text-[#8EA5BA]" : "text-[#7A90A4]"}`}>{thread.time}</span>
+                          </div>
+                          <p className={`mt-1 truncate text-[13px] ${isDark ? "text-[#A0B7CB]" : "text-[#61758B]"}`}>{thread.preview}</p>
+                        </div>
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            )}
           </aside>
         </main>
 
         {renderTomOverlayDesktop()}
-        {renderThreadDesktop()}
       </div>
     )
   }
