@@ -49,24 +49,51 @@ for (const { r, n, lr } of RINGS) {
 
 const PENDING_PROVIDER_KEY = "prepsight_pending_auth"
 
+function readStorageValue(storage: Storage | undefined, key: string) {
+  if (!storage) return null
+  try {
+    return storage.getItem(key)
+  } catch {
+    return null
+  }
+}
+
+function writeStorageValue(storage: Storage | undefined, key: string, value: string) {
+  if (!storage) return
+  try {
+    storage.setItem(key, value)
+  } catch {
+    // Ignore storage access failures in partitioned or locked-down browsers.
+  }
+}
+
+function removeStorageValue(storage: Storage | undefined, key: string) {
+  if (!storage) return
+  try {
+    storage.removeItem(key)
+  } catch {
+    // Ignore storage access failures in partitioned or locked-down browsers.
+  }
+}
+
 function readPendingProvider() {
   if (typeof window === "undefined") return null
   const value =
-    window.localStorage.getItem(PENDING_PROVIDER_KEY) ??
-    window.sessionStorage.getItem(PENDING_PROVIDER_KEY)
+    readStorageValue(window.localStorage, PENDING_PROVIDER_KEY) ??
+    readStorageValue(window.sessionStorage, PENDING_PROVIDER_KEY)
   return value === "google" || value === "microsoft" ? value : null
 }
 
 function writePendingProvider(provider: "google" | "microsoft") {
   if (typeof window === "undefined") return
-  window.localStorage.setItem(PENDING_PROVIDER_KEY, provider)
-  window.sessionStorage.setItem(PENDING_PROVIDER_KEY, provider)
+  writeStorageValue(window.localStorage, PENDING_PROVIDER_KEY, provider)
+  writeStorageValue(window.sessionStorage, PENDING_PROVIDER_KEY, provider)
 }
 
 function clearPendingProvider() {
   if (typeof window === "undefined") return
-  window.localStorage.removeItem(PENDING_PROVIDER_KEY)
-  window.sessionStorage.removeItem(PENDING_PROVIDER_KEY)
+  removeStorageValue(window.localStorage, PENDING_PROVIDER_KEY)
+  removeStorageValue(window.sessionStorage, PENDING_PROVIDER_KEY)
 }
 
 function isEmbeddedBrowser() {
@@ -245,7 +272,7 @@ export default function LoginPage() {
             : ""
         appendDebug(`redirect result error code=${code || "(none)"} message=${e instanceof Error ? e.message : "unknown"}`)
         if (code === "auth/missing-initial-state") {
-          setError("Sign-in session expired. Open the site in your browser and try again.")
+          setError("Sign-in could not be resumed. Open PrepSight in Safari, Chrome, or Edge and try again.")
           setLoading(null)
           setAuthResolved(true)
           return

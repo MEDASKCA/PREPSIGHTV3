@@ -1,5 +1,5 @@
-import PrepSightV4App from "@/v4/PrepSightV4App"
+import RootEntry from "@/components/RootEntry"
 
 export default function HomePage() {
-  return <PrepSightV4App />
+  return <RootEntry />
 }

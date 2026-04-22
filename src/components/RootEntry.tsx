@@ -1,13 +1,13 @@
 "use client"
 
 import { useEffect, useState } from "react"
-import LibrariesDashboard from "./LibrariesDashboard"
+import PrepSightV4App from "./PrepSightV4App"
 import PublicLanding from "./PublicLanding"
+import MedaskcaLoadingScreen from "./MedaskcaLoadingScreen"
 import { onAuthChange, type User } from "@/lib/auth"
-import { auth } from "@/lib/firebase"
 
 export default function RootEntry() {
-  const [user, setUser] = useState<User | null>(() => auth?.currentUser ?? null)
+  const [user, setUser] = useState<User | null | undefined>(undefined)
 
   useEffect(() => {
     return onAuthChange((nextUser) => {
@@ -15,5 +15,6 @@ export default function RootEntry() {
     })
   }, [])
 
-  return user ? <LibrariesDashboard /> : <PublicLanding />
+  if (user === undefined) return <MedaskcaLoadingScreen message="Loading..." />
+  return user ? <PrepSightV4App /> : <PublicLanding />
 }

@@ -1182,7 +1182,7 @@ export default function PrepSightV4App() {
     void writePresence()
     intervalId = setInterval(() => {
       void writePresence()
-    }, 30000)
+    }, 15000)
     document.addEventListener("visibilitychange", handleVisibilityChange)
 
     return () => {
@@ -1314,7 +1314,7 @@ export default function PrepSightV4App() {
           time: formatThreadTime(lastMessage?.createdAt ?? thread.updatedAt),
           unread,
           online:
-            !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000,
+            !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 300000,
           accent: thread.accent,
           members: thread.memberNames,
           memberUids: thread.memberUids,
@@ -1352,7 +1352,7 @@ export default function PrepSightV4App() {
             if (directThreadPairs.has(directPair)) return null
 
             const lastSeenAt = remotePresence[memberUid]?.updatedAt
-            const isOnline = !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000
+            const isOnline = !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 300000
             return {
               id: `direct-${activeTeam.id}-${directPair}`,
               type: "direct",
@@ -2322,7 +2322,7 @@ const lastSeenAt = presenceRecord?.updatedAt
   lastSeenAt,
 })
       const isOnline =
-  !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 120000
+  !!lastSeenAt && Date.now() - new Date(lastSeenAt).getTime() <= 300000
       return { ...member, threadId, hasThread, isOnline }
     })
     const onlineContacts = contactsWithStatus.filter((m) => m.isOnline)
