@@ -16,6 +16,7 @@ import {
 import { getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage"
 import {
   ArrowLeft,
+  ArrowRight,
   Bell,
   Bot,
   BriefcaseMedical,
@@ -2687,8 +2688,8 @@ export default function PrepSightV4App() {
     const organizationLabel = profile?.hospital?.trim() || activeTeam?.publicAlias?.trim() || activeTeam?.internalName?.trim() || "Your organisation"
 
     return (
-      <div className="fixed inset-0 z-50 mx-auto max-w-[460px] bg-[rgba(4,18,26,0.42)] backdrop-blur-[2px]">
-        <div className="h-full w-[84%] max-w-[320px] rounded-r-[32px] border-r border-[#7CCCDC]/18 bg-[linear-gradient(180deg,rgba(8,53,66,0.82)_0%,rgba(7,32,45,0.88)_52%,rgba(6,21,34,0.92)_100%)] px-4 pt-[calc(env(safe-area-inset-top,0px)+18px)] pb-8 shadow-[24px_0_60px_rgba(0,24,36,0.36)] backdrop-blur-2xl">
+      <div className="fixed inset-0 z-50 mx-auto max-w-[460px] bg-[rgba(4,18,26,0.42)] backdrop-blur-[2px] lg:mx-0 lg:max-w-none">
+        <div className="h-full w-[84%] max-w-[320px] rounded-r-[32px] border-r border-[#7CCCDC]/18 bg-[linear-gradient(180deg,rgba(8,53,66,0.82)_0%,rgba(7,32,45,0.88)_52%,rgba(6,21,34,0.92)_100%)] px-4 pt-[calc(env(safe-area-inset-top,0px)+18px)] pb-8 shadow-[24px_0_60px_rgba(0,24,36,0.36)] backdrop-blur-2xl lg:ml-auto lg:w-[340px] lg:max-w-none lg:rounded-l-[32px] lg:rounded-r-none lg:border-r-0 lg:border-l lg:shadow-[-24px_0_60px_rgba(0,24,36,0.36)]">
           <div className="flex items-center justify-between">
             <div>
               <p className="text-[24px] font-semibold tracking-[-0.05em] text-white">Contacts</p>
@@ -2699,7 +2700,8 @@ export default function PrepSightV4App() {
               onClick={() => setContactsDrawerOpen(false)}
               className="flex h-11 w-11 items-center justify-center rounded-full bg-white/6 text-white"
             >
-              <ArrowLeft size={20} />
+              <span className="lg:hidden"><ArrowLeft size={20} /></span>
+              <span className="hidden lg:block"><ArrowRight size={20} /></span>
             </button>
           </div>
 
@@ -3999,11 +4001,16 @@ export default function PrepSightV4App() {
               <div className={`${isDark ? "border-b border-[#20344C]" : "border-b border-[#D8E8EE]"} px-5 py-4`}>
                 <div className="flex items-center justify-between gap-3">
                   <div>
-                    <p className={`text-[22px] tracking-[-0.04em] ${isDark ? "text-white" : "text-[#10243E]"}`}>Chat</p>
+                    <p className={`text-[22px] tracking-[-0.04em] ${isDark ? "text-white" : "text-[#10243E]"}`}>Comms</p>
                     <p className={`mt-1 text-[13px] ${isDark ? "text-[#A0B7CB]" : "text-[#61758B]"}`}>{selectedThread ? selectedThread.title : "Select a thread"}</p>
                   </div>
-                  <button type="button" onClick={addNewChat} className="flex h-10 w-10 items-center justify-center rounded-full bg-[#0D8CCB] text-white">
-                    <Plus size={18} />
+                  <button
+                    type="button"
+                    onClick={() => setContactsDrawerOpen(true)}
+                    aria-label="Contacts"
+                    className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border transition-colors ${isDark ? "border-[#1E3349] bg-[#0D1B2A] hover:bg-[#132238]" : "border-[#D8E8EE] bg-white hover:bg-[#EBF5F9]"}`}
+                  >
+                    <img src="/9783998.png" alt="Contacts" className="h-5 w-5 object-contain" />
                   </button>
                 </div>
               </div>
