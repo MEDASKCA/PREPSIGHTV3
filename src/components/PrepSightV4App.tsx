@@ -46,6 +46,7 @@ import {
   Moon,
   UserRound,
   Users,
+  X,
 } from "lucide-react"
 import { onAuthChange, signOut as signOutUser } from "@/lib/auth"
 import type { User } from "firebase/auth"
@@ -3953,6 +3954,158 @@ export default function PrepSightV4App() {
     )
   }
 
+  function renderThreadDesktop() {
+    if (!selectedThread) return null
+    const canSend = threadDraft.trim().length > 0 || Boolean(pendingImage)
+    const threadMeta =
+      selectedThread.type === "group"
+        ? `${selectedThread.members?.slice(0, 2).join(", ")}${selectedThread.members && selectedThread.members.length > 2 ? ` +${selectedThread.members.length - 2}` : ""}`
+        : selectedThread.online ? "Online now" : selectedThread.subtitle
+
+    const messages = selectedThread.id === "direct-tom"
+      ? tomMessages.map((m): ChatMessage => ({ id: m.id, sender: m.sender as "self" | "other" | "tom", author: m.sender === "tom" ? "TOM" : "You", body: m.body, time: m.time }))
+      : remoteMessages
+          .filter((msg) => msg.threadId === selectedThread.id)
+          .map((msg): ChatMessage => ({
+            id: msg.id,
+            sender: msg.senderKind === "tom" ? "tom" : msg.uid === uid ? "self" : "other",
+            author: msg.author || "User",
+            body: msg.body || "",
+            imageUrl: msg.imageUrl,
+            imageName: msg.imageName,
+            time: formatThreadTime(msg.createdAt),
+          }))
+
+    return (
+      <div className={`fixed inset-0 z-[60] hidden flex-col lg:flex ${isDark ? "bg-[#0A1524]" : "bg-[#EEF2F5]"}`}>
+        {/* Header */}
+        <div className={`flex items-center gap-3 px-6 py-4 ${isDark ? "border-b border-white/6 bg-[#091321]/96 backdrop-blur-xl" : "border-b border-[#0085B2] bg-[#0096C7]"}`}>
+          <Avatar
+            label={selectedThread.title}
+            accent={selectedThread.accent}
+            online={selectedThread.online}
+            imageSrc={selectedThread.id === "direct-tom" ? "/logo-medaskca.png" : undefined}
+          />
+          <div className="min-w-0 flex-1">
+            <p className="truncate text-[18px] font-semibold text-white">{selectedThread.title}</p>
+            <p className="truncate text-[12px] text-white/78">{threadMeta}</p>
+          </div>
+          {selectedThread.id !== "direct-tom" && (
+            <button
+              type="button"
+              onClick={() => {
+                if (selectedThread.type === "group") {
+                  setThreadManagerOpen(true)
+                } else {
+                  const calleeUid = selectedThread.memberUids?.find((m) => m !== uid) ?? ""
+                  if (calleeUid && selectedThread.organizationId) {
+                    void startCall({ threadId: selectedThread.id, calleeUid, calleeName: selectedThread.title, organizationId: selectedThread.organizationId })
+                  }
+                }
+              }}
+              className="flex h-11 w-11 items-center justify-center rounded-full border border-white/35 bg-white/12 text-white"
+            >
+              {selectedThread.type === "group" ? <Settings2 size={18} /> : <Phone size={18} />}
+            </button>
+          )}
+          <button
+            type="button"
+            onClick={closeThread}
+            className="flex h-11 w-11 items-center justify-center rounded-full border border-white/35 bg-white/12 text-white"
+          >
+            <X size={20} />
+          </button>
+        </div>
+
+        {/* Messages */}
+        <div className={`flex-1 space-y-2 overflow-y-auto px-6 py-4 ${isDark ? "" : "bg-[radial-gradient(circle_at_top,_rgba(13,140,203,0.08),_transparent_42%)]"}`}>
+          <div className="flex justify-center">
+            <span className={`rounded-full px-3 py-1 text-[11px] font-medium ${isDark ? "bg-white/8 text-[#A8B8C8]" : "bg-white/80 text-[#5F788C] shadow-[0_8px_18px_rgba(16,36,62,0.06)]"}`}>Today</span>
+          </div>
+          {messages.map((message) => (
+            <div key={message.id} className={`flex ${message.sender === "self" ? "justify-end" : "justify-start"}`}>
+              <div className={`max-w-[60%] ${message.sender === "self" ? "pr-0.5" : "pr-8"}`}>
+                {message.sender !== "self" && (
+                  <div className="mb-0.5 flex items-center gap-2 px-1">
+                    {message.sender === "tom"
+                      ? <Avatar label="TOM" accent="#0F7DBA" imageSrc="/logo-medaskca.png" sizeClass="h-8 w-8" />
+                      : <Avatar label={message.author} accent={selectedThread.accent} sizeClass="h-8 w-8" />}
+                    <span className={`text-[12px] font-medium ${isDark ? "text-[#8EA5BA]" : "text-[#6B7280]"}`}>{message.author}</span>
+                  </div>
+                )}
+                <div className={`rounded-[24px] px-4 py-3 text-[15px] leading-6 ${
+                  message.sender === "self" ? "rounded-br-[10px] bg-[#0096C7] text-white" : "rounded-bl-[10px] bg-[#D7F2FB] text-[#10243E]"
+                }`}>
+                  {message.imageUrl ? (
+                    <div className={message.body ? "space-y-3" : ""}>
+                      <img src={message.imageUrl} alt={message.imageName ?? "Shared image"} className="max-h-72 w-full rounded-[16px] object-cover" />
+                      {message.body ? <p>{message.body}</p> : null}
+                    </div>
+                  ) : message.body}
+                </div>
+                {selectedThread.id === "direct-tom" && message.sender === "tom" && (
+                  <button type="button" onClick={() => forwardTomMessage(message.body)} className={`mt-2 ml-2 inline-flex rounded-full px-3 py-1.5 text-[11px] font-medium ${isDark ? "bg-white/8 text-[#A8B8C8]" : "bg-white/80 text-[#5F788C]"}`}>
+                    Forward to group
+                  </button>
+                )}
+                <p className={`mt-0.5 px-2 text-[11px] ${isDark ? "text-[#7F93A9]" : "text-[#6B7280]"} ${message.sender === "self" ? "text-right" : "text-left"}`}>{message.time}</p>
+              </div>
+            </div>
+          ))}
+          {selectedThread.id === "direct-tom" && tomIsTyping && (
+            <div className="flex justify-start pt-1">
+              <div className="flex items-center gap-2 px-1 mb-0.5">
+                <Avatar label="TOM" accent="#0F7DBA" imageSrc="/logo-medaskca.png" sizeClass="h-8 w-8" />
+              </div>
+              <div className={`rounded-[24px] rounded-bl-[10px] px-4 py-3 ${isDark ? "bg-[#1A3354]" : "bg-[#D7F2FB]"}`}>
+                <div className="flex items-center gap-1">
+                  <span className={`inline-block h-2 w-2 animate-bounce rounded-full [animation-delay:0ms] ${isDark ? "bg-[#8EA5BA]" : "bg-[#5F9BBF]"}`} />
+                  <span className={`inline-block h-2 w-2 animate-bounce rounded-full [animation-delay:150ms] ${isDark ? "bg-[#8EA5BA]" : "bg-[#5F9BBF]"}`} />
+                  <span className={`inline-block h-2 w-2 animate-bounce rounded-full [animation-delay:300ms] ${isDark ? "bg-[#8EA5BA]" : "bg-[#5F9BBF]"}`} />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+
+        {/* Input */}
+        <div className={`border-t px-6 py-4 ${isDark ? "border-white/6 bg-[#091321]/96 backdrop-blur-xl" : "border-[#D6E7EE] bg-[#E9EEF2]/96 backdrop-blur-xl"}`}>
+          {pendingImagePreview && (
+            <div className={`mb-3 flex items-center gap-3 rounded-[18px] px-3 py-2 ${isDark ? "bg-white/8" : "border border-[#D6E7EE] bg-white"}`}>
+              <img src={pendingImagePreview} alt="Pending attachment" className="h-12 w-12 rounded-[12px] object-cover" />
+              <div className="min-w-0 flex-1">
+                <p className={`truncate text-[13px] font-medium ${isDark ? "text-white" : "text-[#10243E]"}`}>{pendingImage?.name ?? "Photo attachment"}</p>
+                <p className={`text-[12px] ${isDark ? "text-[#8EA5BA]" : "text-[#61758B]"}`}>Will send with your next message</p>
+              </div>
+              <button type="button" onClick={clearPendingImage} className={`rounded-full px-3 py-1 text-[12px] ${isDark ? "bg-white/8 text-white" : "bg-[#EEF5F8] text-[#5F788C]"}`}>Clear</button>
+            </div>
+          )}
+          <div className={`flex min-h-12 items-center gap-2 rounded-[26px] px-3 pr-2 ${isDark ? "bg-white/8" : "border border-[#E0EEF3] bg-white shadow-[0_10px_24px_rgba(16,36,62,0.06)]"}`}>
+            <input ref={desktopFileInputRef} type="file" accept="image/*" onChange={(e) => handlePickImage(e.target.files?.[0] ?? null)} className="hidden" />
+            <button type="button" onClick={() => desktopFileInputRef.current?.click()} className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${isDark ? "bg-white/8 text-white" : "bg-[#EEF5F8] text-[#5F788C]"}`}>
+              <Plus size={16} />
+            </button>
+            <input
+              value={threadDraft}
+              onChange={(e) => setThreadDraft(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) void sendThreadMessage() }}
+              placeholder={selectedThread.id === "direct-tom" ? "Ask TOM anything..." : "Message"}
+              className={`w-full bg-transparent text-[14px] outline-none ${isDark ? "text-white placeholder:text-[#8EA5BA]" : "text-[#10243E] placeholder:text-[#7E93A6]"}`}
+            />
+            <button
+              type="button"
+              onClick={() => void sendThreadMessage()}
+              disabled={!canSend}
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors ${canSend ? "bg-[#0D8CCB] text-white" : isDark ? "bg-white/8 text-[#8EA5BA]" : "bg-[#EEF5F8] text-[#B5C8D5]"}`}
+            >
+              <SendHorizontal size={16} />
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   function renderDesktopShell() {
     return (
       <div className={`hidden min-h-screen overflow-hidden lg:block ${isDark ? "bg-[linear-gradient(180deg,#0B1422_0%,#0F1B2D_100%)]" : "bg-[linear-gradient(180deg,#E5F5F8_0%,#F4F8FB_100%)]"}`}>
@@ -4017,7 +4170,7 @@ export default function PrepSightV4App() {
                 </div>
               </div>
 
-              <div className={`${isDark ? "border-b border-[#20344C]" : "border-b border-[#D8E8EE]"} px-4 py-3`}>
+              <div className="flex-1 overflow-y-auto px-4 py-3">
                 <div className="space-y-2">
                   {chatThreads.map((thread) => (
                     <button
@@ -4026,12 +4179,8 @@ export default function PrepSightV4App() {
                       onClick={() => openThread(thread.id)}
                       className={`flex w-full items-start gap-3 rounded-[18px] px-3 py-3 text-left ${
                         selectedThreadId === thread.id
-                          ? isDark
-                            ? "bg-[#132238]"
-                            : "bg-[#E8F6FB]"
-                          : isDark
-                            ? "bg-[#16283F] hover:bg-[#1B304A]"
-                            : "bg-white hover:bg-[#F3F9FB]"
+                          ? isDark ? "bg-[#132238]" : "bg-[#E8F6FB]"
+                          : isDark ? "bg-[#16283F] hover:bg-[#1B304A]" : "bg-white hover:bg-[#F3F9FB]"
                       }`}
                     >
                       <Avatar label={thread.title} accent={thread.accent} online={thread.online} />
@@ -4046,85 +4195,12 @@ export default function PrepSightV4App() {
                   ))}
                 </div>
               </div>
-
-              <div className="flex-1 space-y-3 overflow-y-auto px-4 py-4">
-                {selectedThread ? (
-                 
-                  remoteMessages
-  .filter((message) => message.threadId === selectedThread.id)
-.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-.sort((a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
-  .map((message) => (
-                   <DesktopRailMessage
-  key={message.id}
-  message={{
-    id: message.id,
-    sender: message.senderKind === "tom"
-  ? "tom"
-  : message.uid === uid
-    ? "self"
-    : "other",
-    author: message.author,
-    body: message.body,
-    time: message.createdAt ?? "",
-    imageUrl: message.imageUrl,
-    imageName: message.imageName,
-  }}
-  threadAccent={selectedThread.accent}
-/>
-                  ))
-                ) : (
-                  <div className={`rounded-[20px] p-4 text-[14px] leading-6 ${isDark ? "border border-[#20344C] bg-[#132238] text-[#A0B7CB]" : "border border-[#D8E8EE] bg-white text-[#61758B]"}`}>
-                    Open a thread on the left. TOM is now treated like a normal chat contact.
-                  </div>
-                )}
-              </div>
-
-              <div className={`${isDark ? "border-t border-[#20344C] bg-[#0F1B2D]" : "border-t border-[#D8E8EE] bg-white"} px-4 py-3`}>
-                {pendingImagePreview ? (
-                  <div className={`mb-3 flex items-center gap-3 rounded-[18px] px-3 py-2 ${isDark ? "bg-[#132238]" : "border border-[#D8E8EE] bg-[#F8FBFD]"}`}>
-                    <img src={pendingImagePreview} alt="Pending attachment" className="h-12 w-12 rounded-[12px] object-cover" />
-                    <div className="min-w-0 flex-1">
-                      <p className={`truncate text-[13px] font-medium ${isDark ? "text-white" : "text-[#10243E]"}`}>{pendingImage?.name ?? "Photo attachment"}</p>
-                      <p className={`text-[12px] ${isDark ? "text-[#8EA5BA]" : "text-[#61758B]"}`}>Will send with your next message</p>
-                    </div>
-                    <button type="button" onClick={clearPendingImage} className={`rounded-full px-3 py-1 text-[12px] ${isDark ? "bg-white/8 text-white" : "bg-white text-[#5F788C]"}`}>
-                      Clear
-                    </button>
-                  </div>
-                ) : null}
-                <div className="flex items-center gap-2">
-                  <div className={`flex min-h-12 flex-1 items-center gap-2 rounded-full px-4 ${isDark ? "bg-[#132238]" : "bg-[#F3F8FB]"}`}>
-                    <input
-                      ref={desktopFileInputRef}
-                      type="file"
-                      accept="image/*"
-                      onChange={(event) => handlePickImage(event.target.files?.[0] ?? null)}
-                      className="hidden"
-                    />
-                    <button type="button" onClick={() => desktopFileInputRef.current?.click()} className={`flex h-8 w-8 items-center justify-center rounded-full ${isDark ? "bg-white/8 text-white" : "bg-white text-[#5F788C]"}`}>
-                      <Plus size={16} />
-                    </button>
-                    <input
-                      value={threadDraft}
-                      onChange={(event) => setThreadDraft(event.target.value)}
-                      onKeyDown={(event) => {
-                        if (event.key === "Enter") void sendThreadMessage()
-                      }}
-                      placeholder="Message"
-                      className={`w-full bg-transparent text-[14px] outline-none ${isDark ? "text-white placeholder:text-[#8EA5BA]" : "text-[#10243E] placeholder:text-[#7E93A6]"}`}
-                    />
-                  </div>
-                  <button type="button" onClick={() => void sendThreadMessage()} className="flex h-12 w-12 items-center justify-center rounded-full bg-[#0D8CCB] text-white">
-                    <SendHorizontal size={18} />
-                  </button>
-                </div>
-              </div>
             </div>
           </aside>
         </main>
 
         {renderTomOverlayDesktop()}
+        {renderThreadDesktop()}
       </div>
     )
   }
