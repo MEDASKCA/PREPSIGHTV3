@@ -4378,12 +4378,12 @@ export default function PrepSightV4App() {
           </div>
         ) : null}
 
-        {contactsDrawerOpen ? renderContactsDrawer() : null}
         {drawerOpen ? renderMobileDrawer() : null}
         {profileDrawerOpen ? renderProfileDrawer() : null}
       </MobileFrame>
 
       {renderDesktopShell()}
+      {contactsDrawerOpen ? renderContactsDrawer() : null}
       {renderNewChatComposer()}
       {renderThreadManager()}
       {renderIncomingCallBanner()}
