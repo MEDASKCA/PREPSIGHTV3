@@ -72,9 +72,11 @@ import {
   getTeamMembersSnapshot,
   getTeamWorkspacesForProfile,
   getTeamWorkspacesSnapshot,
+  injectRemoteMemberships,
   refreshTeamWorkspaceData,
   subscribeTeams,
 } from "@/lib/team-workspaces"
+import type { OrganizationMembershipRecord } from "@/lib/types"
 import {
   CHAT_FILTERS,
   COLLECTIONS,
@@ -702,11 +704,19 @@ export default function PrepSightV4App() {
     return () => clearInterval(id)
   }, [])
 
-  // Single source of truth for online check — presenceTick ensures it re-evaluates every 30s
   const isPresenceOnline = (memberUid: string) => {
-    void presenceTick // reactive dependency
+    void presenceTick
     const updatedAt = remotePresence[memberUid]?.updatedAt
     return !!updatedAt && Date.now() - new Date(updatedAt).getTime() <= 600000
+  }
+
+  const resolveDirectThreadId = (memberUid: string) => {
+    if (!uid || !activeTeam?.id) return null
+    const directPair = [uid, memberUid].sort().join("__")
+    const existingThread = remoteThreads.find(
+      (thread) => thread.type === "direct" && [...(thread.memberUids ?? [])].sort().join("__") === directPair,
+    )
+    return existingThread?.id ?? `direct-${activeTeam.id}-${directPair}`
   }
 
   useEffect(() => {
@@ -1089,59 +1099,67 @@ export default function PrepSightV4App() {
     const orgId = activeTeam?.id
     const unsubscribers: (() => void)[] = []
 
-    // Thread state: merged from org threads + DM threads the user is in
+    // Thread state: merged from org threads + DM threads — Map deduplicates by id
     const orgThreads: { current: CommsThreadRecord[] } = { current: [] }
     const dmThreads: { current: CommsThreadRecord[] } = { current: [] }
 
     function mergeAndSetThreads() {
       const byId = new Map<string, CommsThreadRecord>()
+      // Org listener takes precedence (more authoritative), DM listener fills gaps
+      for (const t of dmThreads.current) byId.set(t.id, t)
       for (const t of orgThreads.current) byId.set(t.id, t)
-      for (const t of dmThreads.current) {
-        if (uid && t.memberUids?.includes(uid)) byId.set(t.id, t)
-      }
       setRemoteThreads([...byId.values()])
     }
 
-    // Message state: merged from org + DM messages
+    // Message state: merged from org + DM messages — Map deduplicates by id
     const orgMessages: { current: CommsMessageRecord[] } = { current: [] }
     const dmMessages: { current: CommsMessageRecord[] } = { current: [] }
 
     function mergeAndSetMessages() {
       const byId = new Map<string, CommsMessageRecord>()
-      for (const m of orgMessages.current) byId.set(m.id, m)
       for (const m of dmMessages.current) byId.set(m.id, m)
+      for (const m of orgMessages.current) byId.set(m.id, m)
       setRemoteMessages(
-  [...byId.values()].sort(
-    (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
-  )
-)
+        [...byId.values()].sort(
+          (a, b) => new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+        )
+      )
     }
 
-    // Org-scoped listeners (only if user has an active team)
     if (orgId) {
+      // Org thread listener — catches group thread + any org-scoped direct threads
       const orgThreadQuery = query(collection(db, "comms_threads"), where("organizationId", "==", orgId))
       unsubscribers.push(onSnapshot(orgThreadQuery, (snap) => {
         orgThreads.current = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsThreadRecord))
         mergeAndSetThreads()
       }, (err) => console.warn("[PrepSight] comms_threads org listener failed", err)))
 
+      // Org message listener — catches all messages in the group thread
       const orgMessageQuery = query(collection(db, "comms_messages"), where("organizationId", "==", orgId))
       unsubscribers.push(onSnapshot(orgMessageQuery, (snap) => {
         orgMessages.current = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsMessageRecord))
         mergeAndSetMessages()
       }, (err) => console.warn("[PrepSight] comms_messages org listener failed", err)))
+
+      // Real-time membership listener — keeps contacts up-to-date without page refresh
+      const membershipQuery = query(
+        collection(db, "organization_memberships"),
+        where("organizationId", "==", orgId),
+      )
+      unsubscribers.push(onSnapshot(membershipQuery, (snap) => {
+        const members = snap.docs.map((d) => ({ id: d.id, ...d.data() } as OrganizationMembershipRecord))
+        injectRemoteMemberships(orgId, members)
+      }, (err) => console.warn("[PrepSight] organization_memberships listener failed", err)))
     }
 
-    // DM listener — threads where this user is a member (no org required)
+    // DM listener — threads where this user is explicitly listed as a member (cross-org DMs)
     const dmThreadQuery = query(collection(db, "comms_threads"), where("memberUids", "array-contains", uid))
     unsubscribers.push(onSnapshot(dmThreadQuery, (snap) => {
-      dmThreads.current = snap.docs
-        .map((d) => ({ id: d.id, ...d.data() } as CommsThreadRecord))
-        .filter((t) => !orgId || t.organizationId !== orgId) // don't double-count org threads
+      dmThreads.current = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsThreadRecord))
       mergeAndSetThreads()
     }, (err) => console.warn("[PrepSight] comms_threads dm listener failed", err)))
 
-    // DM messages — query by memberUids array-contains
+    // DM message listener — messages where this user is in memberUids
     const dmMessageQuery = query(collection(db, "comms_messages"), where("memberUids", "array-contains", uid))
     unsubscribers.push(onSnapshot(dmMessageQuery, (snap) => {
       dmMessages.current = snap.docs.map((d) => ({ id: d.id, ...d.data() } as CommsMessageRecord))
@@ -1157,22 +1175,27 @@ export default function PrepSightV4App() {
       )
     }, (err) => console.warn("[PrepSight] comms_reads listener failed", err)))
 
-    unsubscribers.push(onSnapshot(collection(db, "comms_presence"), (snap) => {
-      const next = snap.docs.map((d) => {
-        const data = d.data()
-        const resolvedUid: string = data.uid || (!d.id.includes("__") ? d.id : "")
-        return { ...data, id: d.id, uid: resolvedUid } as CommsPresenceRecord
-      })
-      const presenceMap = next.reduce<Record<string, CommsPresenceRecord>>((acc, r) => {
-        if (!r.uid) return acc
-        const existing = acc[r.uid]
-        if (!existing || new Date(r.updatedAt).getTime() > new Date(existing.updatedAt).getTime()) {
-          acc[r.uid] = r
-        }
-        return acc
-      }, {})
-      setRemotePresence(presenceMap)
-    }, (err) => console.warn("[PrepSight] comms_presence listener failed", err)))
+    // Presence — all users' presence docs, keyed by uid, most-recent wins
+    unsubscribers.push(onSnapshot(
+      collection(db, "comms_presence"),
+      (snap) => {
+        const next = snap.docs.map((d) => {
+          const data = d.data()
+          const resolvedUid: string = data.uid || (!d.id.includes("__") ? d.id : "")
+          return { ...data, id: d.id, uid: resolvedUid } as CommsPresenceRecord
+        })
+        const presenceMap = next.reduce<Record<string, CommsPresenceRecord>>((acc, r) => {
+          if (!r.uid) return acc
+          const existing = acc[r.uid]
+          if (!existing || new Date(r.updatedAt).getTime() > new Date(existing.updatedAt).getTime()) {
+            acc[r.uid] = r
+          }
+          return acc
+        }, {})
+        setRemotePresence(presenceMap)
+      },
+      (err) => console.warn("[PrepSight] comms_presence listener failed", err),
+    ))
 
     return () => { for (const unsub of unsubscribers) unsub() }
   }, [activeTeam?.id, uid])
@@ -1406,23 +1429,11 @@ export default function PrepSightV4App() {
       return accumulator
     }, {})
 
-    // Only show threads that belong to the current org, and for direct threads,
-    // verify all members are known active members of this org. This prevents
-    // ghost threads from old test accounts or wrong-org users bleeding in.
-    const activeMemberUidSet = new Set([
-      uid,
-      ...activeTeamMembers
-        .filter((m) => m.status === "active" && m.uid)
-        .map((m) => m.uid),
-    ])
-
+    // Show all threads returned by Firestore listeners — the rules already enforce access.
+    // Group threads: trust org scoping. Direct threads: must include the current user.
     const validatedRemoteThreads = remoteThreads.filter((thread) => {
-      // Group threads are org-scoped — trust the organizationId
       if (thread.type === "group") return true
-      // For direct threads, every member must be a known active org member
-      // (or the current user). This blocks threads with unknown/test accounts.
-      if (!thread.memberUids?.length) return false
-      return thread.memberUids.every((memberUid) => activeMemberUidSet.has(memberUid))
+      return !!uid && !!thread.memberUids?.includes(uid)
     })
 
     const mappedThreads = validatedRemoteThreads
@@ -1559,8 +1570,9 @@ export default function PrepSightV4App() {
     // member pair in Firestore — regardless of what ID it was given.
     // This prevents creating duplicates when old threads have different IDs.
     let resolvedThreadId = requestedThreadId
-    if (openedThread?.type === "direct" && openedThread.memberUids?.length) {
-      const sortedPair = [...openedThread.memberUids].sort().join("__")
+    const requestedDirectThread = openedThread ?? chatThreads.find((thread) => thread.id === requestedThreadId)
+    if (requestedDirectThread?.type === "direct" && requestedDirectThread.memberUids?.length) {
+      const sortedPair = [...requestedDirectThread.memberUids].sort().join("__")
       const existingRemote = remoteThreads.find(
         (t) => t.type === "direct" && [...(t.memberUids ?? [])].sort().join("__") === sortedPair
       )
@@ -1575,18 +1587,18 @@ export default function PrepSightV4App() {
       db &&
       uid &&
       realOrgId &&
-      openedThread?.type === "direct" &&
+      requestedDirectThread?.type === "direct" &&
       resolvedThreadId === requestedThreadId && // still the formula ID — nothing found in Firestore
       !remoteThreads.some((t) => t.id === resolvedThreadId)
     ) {
       await setDoc(doc(db, "comms_threads", resolvedThreadId), {
         organizationId: realOrgId,
         type: "direct",
-        title: openedThread.title,
-        subtitle: openedThread.subtitle,
-        accent: openedThread.accent,
-        memberUids: openedThread.memberUids ?? [uid],
-        memberNames: openedThread.members ?? [profile?.name?.trim() || "You", openedThread.title],
+        title: requestedDirectThread.title,
+        subtitle: requestedDirectThread.subtitle,
+        accent: requestedDirectThread.accent,
+        memberUids: requestedDirectThread.memberUids ?? [uid],
+        memberNames: requestedDirectThread.members ?? [profile?.name?.trim() || "You", requestedDirectThread.title],
         createdBy: uid,
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString(),
@@ -1608,6 +1620,67 @@ export default function PrepSightV4App() {
 
   function closeThread() {
     setSelectedThreadId(null)
+  }
+
+  /**
+   * Open or create a direct thread with a contact.
+   * Unlike openThread(), this does NOT require the thread to already be in chatThreads.
+   * It creates the Firestore doc + optimistically updates remoteThreads so selectedThread
+   * is non-null immediately — before the Firestore listener fires.
+   */
+  async function startDirectChat(memberUid: string, memberName: string, memberDetail?: string) {
+    if (!uid || !activeTeam?.id) return
+    setContactsDrawerOpen(false)
+    setDrawerOpen(false)
+    setActiveTab("chat")
+
+    const orgId = activeTeam.id
+    const directPair = [uid, memberUid].sort().join("__")
+
+    // Check if a thread already exists for this pair
+    const existing = remoteThreads.find(
+      (t) => t.type === "direct" && [...(t.memberUids ?? [])].sort().join("__") === directPair,
+    )
+
+    if (existing) {
+      setSelectedThreadId(existing.id)
+      void markThreadRead(existing.id)
+      return
+    }
+
+    // Create new thread
+    const threadId = `direct-${orgId}-${directPair}`
+    const myName = profile?.name?.trim() || "You"
+    const createdAt = new Date().toISOString()
+    const newThread: CommsThreadRecord = {
+      id: threadId,
+      organizationId: orgId,
+      type: "direct",
+      title: memberName,
+      subtitle: memberDetail || "Direct message",
+      accent: "#4DA3FF",
+      memberUids: [uid, memberUid],
+      memberNames: [myName, memberName],
+      createdBy: uid,
+      createdAt,
+      updatedAt: createdAt,
+      lastMessageBody: "",
+    }
+
+    // Optimistic update — makes selectedThread non-null BEFORE the Firestore listener fires
+    setRemoteThreads((prev) => {
+      if (prev.some((t) => t.id === threadId)) return prev
+      return [...prev, newThread]
+    })
+    setSelectedThreadId(threadId)
+    void markThreadRead(threadId, createdAt)
+
+    if (commsUsingRemote && db) {
+      const { id: _id, ...threadData } = newThread
+      await setDoc(doc(db, "comms_threads", threadId), threadData).catch((err) =>
+        console.warn("[PrepSight] startDirectChat setDoc failed", err),
+      )
+    }
   }
 
   async function sendThreadMessage() {
@@ -1804,14 +1877,18 @@ export default function PrepSightV4App() {
         ),
     [activeTeamMembers, uid],
   )
-  const contactEntries = useMemo(() => {
-    return availableCommsMembers.map((member) => ({
-      id: member.id,
-      uid: member.uid,
-      label: member.displayName ?? member.publicAlias,
-      detail: member.departments?.[0] || "Same organisation",
-    }))
-  }, [availableCommsMembers])
+ const contactEntries = useMemo(() => {
+  const entries = availableCommsMembers.map((member) => ({
+    id: member.id,
+    uid: member.uid,
+    label: member.displayName ?? member.publicAlias,
+    detail: member.departments?.[0] || "Same organisation",
+  }))
+
+  console.warn("[PrepSight] contact entries", entries)
+
+  return entries
+}, [availableCommsMembers])
 
   useEffect(() => {
     if (!selectedThread || selectedThread.type !== "group") {
@@ -2448,12 +2525,8 @@ export default function PrepSightV4App() {
         <button
           key={member.id}
           type="button"
-        onClick={() => {
-          setDrawerOpen(false)
-          void openThread(threadId)
-        }}
-    
-           className="flex w-full items-center gap-2.5 rounded-[12px] px-2 py-1.5 text-left transition-colors hover:bg-white/6"
+        onClick={() => void startDirectChat(member.uid, member.label, member.detail)}
+        className="flex w-full items-center gap-2.5 rounded-[12px] px-2 py-1.5 text-left transition-colors hover:bg-white/6"
         >
           <div className="relative shrink-0">
             <Avatar label={member.label} accent="#4DA3FF" sizeClass="h-8 w-8" />
@@ -2712,17 +2785,12 @@ export default function PrepSightV4App() {
             {contactEntries.length ? (
               contactEntries.map((member) => {
                 if (!uid || !activeTeam?.id) return null
-                const directPair = [uid, member.uid].sort().join("__")
-                const threadId = `direct-${activeTeam.id}-${directPair}`
                 const isOnline = isPresenceOnline(member.uid)
                 return (
                   <button
                     key={member.id}
                     type="button"
-                    onClick={() => {
-                      setContactsDrawerOpen(false)
-                      openThread(threadId)
-                    }}
+                    onClick={() => void startDirectChat(member.uid, member.label, member.detail)}
                     className="flex w-full items-center gap-3 rounded-[18px] border border-white/8 bg-white/4 px-3 py-3 text-left hover:bg-white/8"
                   >
                     <Avatar label={member.label} accent="#4DA3FF" online={isOnline} sizeClass="h-11 w-11" />
@@ -2947,7 +3015,9 @@ export default function PrepSightV4App() {
                   <span className={`shrink-0 text-[11px] ${thread.unread > 0 ? (isDark ? "text-[#68E1FF]" : "text-[#0D8CCB]") : (isDark ? "text-[#6A7F93]" : "text-[#9AB5C2]")}`}>{thread.time}</span>
                 </div>
                 <div className="flex items-center justify-between gap-2">
-                  <p className={`truncate text-[13px] leading-snug ${isDark ? "text-[#7F93A9]" : "text-[#6A8A99]"}`}>{thread.preview}</p>
+                  <p className={`truncate text-[13px] leading-snug ${isDark ? "text-[#7F93A9]" : "text-[#6A8A99]"}`}>
+                    {thread.type === "direct" && thread.online ? "Online now" : thread.preview}
+                  </p>
                   {thread.unread > 0 ? (
                     <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-[#18A9D8] px-1.5 text-[11px] font-semibold text-white">
                       {thread.unread}

@@ -476,6 +476,17 @@ export async function approveTeamMember(
   await hydrateRemoteTeams(uid)
 }
 
+/**
+ * Inject live org membership data from a Firestore real-time listener.
+ * Merges the provided members into cachedMemberships and emits a change
+ * so that useSyncExternalStore consumers (activeTeamMembers) update immediately.
+ */
+export function injectRemoteMemberships(organizationId: string, members: OrganizationMembershipRecord[]): void {
+  const current = readMemberships()
+  writeMemberships({ ...current, [organizationId]: members })
+  emitChange()
+}
+
 export async function joinTeamWorkspace(input: {
   inviteCode: string
   profile: PrepSightProfile

@@ -169,49 +169,51 @@ service cloud.firestore {
       allow write: if false;
     }
 
-    function isThreadMember(threadId) {
-      return isSignedIn() &&
-        exists(/databases/$(database)/documents/comms_threads/$(threadId)) &&
-        request.auth.uid in get(/databases/$(database)/documents/comms_threads/$(threadId)).data.memberUids;
-    }
-
     match /comms_threads/{threadId} {
+      // Check uid in memberUids first (O(1), no extra reads) — covers DM threads.
+      // Fall back to org membership check only when memberUids doesn't apply (org-wide threads).
       allow read: if isSignedIn() && (
-        isActiveOrganizationMember(resource.data.organizationId) ||
-        request.auth.uid in resource.data.memberUids
+        request.auth.uid in resource.data.memberUids ||
+        (resource.data.organizationId is string &&
+          resource.data.organizationId.size() > 0 &&
+          isActiveOrganizationMember(resource.data.organizationId))
       );
       allow create: if isSignedIn() && (
+        request.auth.uid in request.resource.data.memberUids ||
         (
           request.resource.data.organizationId is string &&
           request.resource.data.organizationId.size() > 0 &&
           isActiveOrganizationMember(request.resource.data.organizationId)
-        ) || (
-          request.auth.uid in request.resource.data.memberUids
         )
       );
       allow update: if isSignedIn() && (
-        isActiveOrganizationMember(resource.data.organizationId) ||
-        request.auth.uid in resource.data.memberUids
+        request.auth.uid in resource.data.memberUids ||
+        (resource.data.organizationId is string &&
+          resource.data.organizationId.size() > 0 &&
+          isActiveOrganizationMember(resource.data.organizationId))
       );
       allow delete: if false;
     }
 
     match /comms_messages/{messageId} {
+      // Check uid in memberUids first (O(1)) — covers DMs.
+      // uid == resource.data.uid lets senders always read their own messages.
+      // Org membership check last (2 extra reads) — covers org-wide channel messages.
+      // Removed isThreadMember (was 2 more reads on top, redundant with memberUids).
       allow read: if isSignedIn() && (
-        isActiveOrganizationMember(resource.data.organizationId) ||
         request.auth.uid in resource.data.memberUids ||
-        isThreadMember(resource.data.threadId)
+        request.auth.uid == resource.data.uid ||
+        (resource.data.organizationId is string &&
+          resource.data.organizationId.size() > 0 &&
+          isActiveOrganizationMember(resource.data.organizationId))
       );
       allow create: if isSignedIn() &&
         request.resource.data.uid == request.auth.uid && (
+          request.auth.uid in request.resource.data.memberUids ||
           (
             request.resource.data.organizationId is string &&
             request.resource.data.organizationId.size() > 0 &&
             isActiveOrganizationMember(request.resource.data.organizationId)
-          ) || (
-            request.auth.uid in request.resource.data.memberUids
-          ) || (
-            isThreadMember(request.resource.data.threadId)
           )
         );
       allow update, delete: if false;
