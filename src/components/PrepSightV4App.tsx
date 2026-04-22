@@ -400,7 +400,7 @@ function DesktopRailMessage({
   threadAccent: string
 }) {
   const isSelf = message.sender === "self"
-  const isTom = message.sender === "tom" || message.sender === "them"
+  const isTom = message.sender === "tom" || message.sender === "other"
 
   return (
     <div className={`flex ${isSelf ? "justify-end" : "justify-start"}`}>
@@ -3962,6 +3962,7 @@ const lastSeenAt = presenceRecord?.updatedAt
     : "other",
     author: message.author,
     body: message.body,
+    time: message.createdAt ?? "",
     imageUrl: message.imageUrl,
     imageName: message.imageName,
   }}
