@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next"
 import AppGate from "@/components/AppGate"
 import UserPreferencesBoot from "@/components/UserPreferencesBoot"
+import "leaflet/dist/leaflet.css"
 import "./globals.css"
 
 export const metadata: Metadata = {

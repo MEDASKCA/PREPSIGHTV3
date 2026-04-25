@@ -744,6 +744,76 @@ html[data-theme="dark"] .item-row [class*="text-[#D5DCE3]"] {
   0%, 100% { opacity: 0.4; }
   50%       { opacity: 1;   }
 }
+
+.leaflet-container {
+  font-family: var(--font-body);
+}
+
+.prepsight-map-tooltip.leaflet-tooltip {
+  border: 1px solid #cfe3ea;
+  border-radius: 16px;
+  box-shadow: 0 16px 36px rgba(16, 36, 62, 0.12);
+  padding: 8px 10px;
+}
+
+.prepsight-map-tooltip.leaflet-tooltip::before {
+  border-top-color: #ffffff;
+}
+
+@keyframes prepsightPinGlowStrong {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(18, 165, 116, 0.14), 0 10px 24px rgba(16, 36, 62, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(18, 165, 116, 0), 0 14px 28px rgba(16, 36, 62, 0.22);
+  }
+}
+
+@keyframes prepsightPinGlowGood {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(40, 180, 199, 0.16), 0 10px 24px rgba(16, 36, 62, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 10px rgba(40, 180, 199, 0), 0 14px 28px rgba(16, 36, 62, 0.22);
+  }
+}
+
+@keyframes prepsightPinGlowSoft {
+  0%, 100% {
+    box-shadow: 0 0 0 0 rgba(89, 177, 216, 0.16), 0 10px 24px rgba(16, 36, 62, 0.18);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(89, 177, 216, 0), 0 14px 28px rgba(16, 36, 62, 0.22);
+  }
+}
+
+.prepsight-hospital-pin-glow-strong {
+  animation: prepsightPinGlowStrong 1.8s ease-in-out infinite;
+}
+
+.prepsight-hospital-pin-glow-good {
+  animation: prepsightPinGlowGood 1.8s ease-in-out infinite;
+}
+
+.prepsight-hospital-pin-glow-soft {
+  animation: prepsightPinGlowSoft 1.8s ease-in-out infinite;
+}
+
+.prepsight-hospital-pin-wrapper:hover .prepsight-hospital-pin-glow-strong,
+.prepsight-hospital-pin-wrapper:hover .prepsight-hospital-pin-glow-good,
+.prepsight-hospital-pin-wrapper:hover .prepsight-hospital-pin-glow-soft {
+  animation-play-state: paused;
+}
+
+.prepsight-route-beam {
+  animation: dash 1.4s linear infinite;
+}
+
+@keyframes dash {
+  to {
+    stroke-dashoffset: -26;
+  }
+}
 @keyframes fadeIn {
   from { opacity: 0; }
   to   { opacity: 1; }

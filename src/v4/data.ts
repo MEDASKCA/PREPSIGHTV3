@@ -1,113 +1,13 @@
 import type {
-  AssistantMessage,
-  ChatFilter,
-  ChatThread,
   CollectionSummary,
   LogisticsSummary,
   TabKey,
   UpdateSummary,
 } from "@/v4/types"
 import type { LucideIcon } from "lucide-react"
-import { Bell, BriefcaseMedical, LibraryBig, MessageCircle } from "lucide-react"
-
-export const CHAT_STORAGE_KEY = "prepsight_v4_threads"
-export const TOM_STORAGE_KEY = "prepsight_v4_tom"
-
-export const SEED_THREADS: ChatThread[] = [
-  {
-    id: "direct-tom",
-    type: "direct",
-    title: "TOM",
-    subtitle: "PrepSight assistant",
-    preview: "Ask about cards, updates, logistics, or what changed.",
-    time: "Now",
-    unread: 0,
-    online: true,
-    accent: "#0F7DBA",
-    messages: [
-      { id: "tom-1", sender: "tom", author: "TOM", body: "Ask me to find a card, summarise changes, or help draft a message for your group.", time: "Now" },
-    ],
-  },
-  {
-    id: "group-ortho",
-    type: "group",
-    title: "Royal London Ortho",
-    subtitle: "12 members",
-    preview: "Tray update for the revision knee set is pinned.",
-    time: "09:42",
-    unread: 3,
-    accent: "#0EA5E9",
-    members: ["Alex", "Sam", "Nina", "Khalid"],
-    messages: [
-      { id: "m1", sender: "other", author: "Sam", body: "Morning. The revision knee set note is now pinned.", time: "09:12" },
-      { id: "m2", sender: "other", author: "Nina", body: "Also moved the bookmark shortlist into My Groups.", time: "09:17" },
-      { id: "m3", sender: "self", author: "You", body: "Good. I will check the instrument list before theatre starts.", time: "09:21" },
-    ],
-  },
-  {
-    id: "group-endoscopy",
-    type: "group",
-    title: "Endoscopy North Wing",
-    subtitle: "8 members",
-    preview: "2 access requests still need approval.",
-    time: "08:25",
-    unread: 1,
-    accent: "#14B8A6",
-    members: ["Alex", "Maya", "Joel"],
-    messages: [
-      { id: "m4", sender: "other", author: "Maya", body: "Two new starters still need access approval.", time: "08:03" },
-      { id: "m5", sender: "self", author: "You", body: "I will review them after the list.", time: "08:25" },
-    ],
-  },
-  {
-    id: "direct-nina",
-    type: "direct",
-    title: "Nina Patel",
-    subtitle: "Scrub lead",
-    preview: "Can you send the updated shoulder setup?",
-    time: "Yesterday",
-    unread: 0,
-    online: true,
-    accent: "#4DA3FF",
-    messages: [
-      { id: "m6", sender: "other", author: "Nina", body: "Can you send the updated shoulder setup?", time: "Yesterday" },
-      { id: "m7", sender: "self", author: "You", body: "Yes. I will pull the latest card from Library.", time: "Yesterday" },
-    ],
-  },
-  {
-    id: "direct-james",
-    type: "direct",
-    title: "James Ford",
-    subtitle: "Anaesthetics",
-    preview: "Thanks. I have it.",
-    time: "Thu",
-    unread: 0,
-    online: false,
-    accent: "#7C5CFC",
-    messages: [
-      { id: "m8", sender: "self", author: "You", body: "Shared the airway checklist in case you need it.", time: "Thu" },
-      { id: "m9", sender: "other", author: "James", body: "Thanks. I have it.", time: "Thu" },
-    ],
-  },
-]
-
-export const SEED_TOM: AssistantMessage[] = [
-  {
-    id: "t1",
-    sender: "tom",
-    body: "Ask me to find a card, summarise a group thread, or pull together what changed in a workspace.",
-    time: "Now",
-  },
-]
-
-export const CHAT_FILTERS: Array<{ key: ChatFilter; label: string }> = [
-  { key: "all", label: "All" },
-  { key: "unread", label: "Unread" },
-  { key: "groups", label: "Groups" },
-]
+import { Bell, BriefcaseMedical, LibraryBig } from "lucide-react"
 
 export const TAB_ITEMS: Array<{ key: TabKey; label: string; icon: LucideIcon }> = [
-  { key: "chat", label: "Chat", icon: MessageCircle },
   { key: "library", label: "Library", icon: LibraryBig },
   { key: "logistics", label: "Resources", icon: BriefcaseMedical },
   { key: "updates", label: "Updates", icon: Bell },

@@ -498,13 +498,13 @@ export default function LibrariesDashboard() {
           </section>
         </div>
 
-        <div className={`hidden lg:grid lg:gap-y-4 lg:gap-x-0 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)]"}`}>
-          {desktopNavOpen ? <WorkspaceNavRail currentNav="collections" /> : null}
+        <div className={`hidden lg:grid lg:gap-y-4 lg:gap-x-0 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}>
+          <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
           <div className="min-w-0 space-y-2">
             <section className="px-1">
               <p className="text-[14px] text-[#5B7A8A]">Workspace</p>
-              <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">{workspaceLabel}</h1>
+              <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-[#10243E]">{workspaceLabel}</h1>
               <p className="mt-2 text-[15px] text-[#61758B]">{libraries.length} collections · {totalCards} procedure cards</p>
             </section>
 

@@ -21,6 +21,7 @@ import {
   MapPin,
   Phone,
 } from "lucide-react"
+import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
 import {
   type CatalogueProduct,
 } from "@/lib/catalogue-data"
@@ -628,8 +629,11 @@ export default function CataloguePage() {
       >
         <div className="space-y-4">
           <section className="px-1">
-            <p className="text-[13px] text-[#5B7A8A]">Catalogue</p>
-            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">Products and stock</h1>
+            <div className="hidden lg:block">
+              <DesktopSectionWordmark label="Library Catalogue" />
+            </div>
+            <p className="text-[13px] text-[#5B7A8A] lg:hidden">Catalogue</p>
+            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E] lg:hidden">Products and stock</h1>
             <p className="mt-2 text-[14px] text-[#61758B]">
               Search supplier-fixed systems, trays, implants, consumables, and equipment.
             </p>

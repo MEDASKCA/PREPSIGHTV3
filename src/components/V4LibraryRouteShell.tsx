@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { LibraryBig, Menu, MessageCircle, Search, Settings2, Bell, BriefcaseMedical } from "lucide-react"
+import { LibraryBig, Menu, Search, Settings2, Bell, BriefcaseMedical } from "lucide-react"
 import type { ReactNode } from "react"
 
 export default function V4LibraryRouteShell({
@@ -65,9 +65,8 @@ export default function V4LibraryRouteShell({
 
         <div className="fixed inset-x-0 bottom-0 mx-auto max-w-[460px]">
           <div className="border-t border-[#D7E9EE] bg-[#0077B6] px-2 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)] shadow-[0_-10px_36px_rgba(4,10,20,0.22)]">
-            <div className="grid grid-cols-4 gap-1">
+            <div className="grid grid-cols-3 gap-1">
               {[
-                { href: "/v4", label: "Chat", icon: MessageCircle },
                 { href: "/v4", label: "Library", icon: LibraryBig, active: true },
                 { href: "/v4", label: "Logistics", icon: BriefcaseMedical },
                 { href: "/v4", label: "Updates", icon: Bell },

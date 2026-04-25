@@ -35,9 +35,10 @@ interface Props {
   onClose: () => void
   onItemSave?: (sectionId: string, updatedItem: Item) => void
   className?: string
+  compact?: boolean
 }
 
-export default function ItemDetailPanel({ info, onClose, onItemSave, className = "" }: Props) {
+export default function ItemDetailPanel({ info, onClose, onItemSave, className = "", compact = false }: Props) {
   const [isEditing, setIsEditing] = useState(false)
 
   // Draft fields (populated when edit starts)
@@ -234,19 +235,19 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
     <div className={`flex h-full flex-col bg-[#F4F7FA] ${className}`}>
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
-      <div className="flex items-start gap-3 border-b border-[#D5DCE3] bg-white px-6 py-5 shrink-0">
+      <div className={`flex items-start gap-3 border-b border-[#D5DCE3] bg-white ${compact ? "px-5 py-3" : "px-6 py-5"} shrink-0`}>
         <div className="flex-1 min-w-0">
           {isEditing ? (
             <input
               value={draftName}
               onChange={(e) => setDraftName(e.target.value)}
-              className="w-full text-[22px] font-bold text-[#10243E] border-b-2 border-[#4DA3FF] bg-transparent focus:outline-none pb-0.5"
+              className={`w-full ${compact ? "text-[18px]" : "text-[22px]"} font-bold text-[#10243E] border-b-2 border-[#4DA3FF] bg-transparent focus:outline-none pb-0.5`}
             />
           ) : (
-            <h2 className="text-[22px] font-bold leading-snug text-[#10243E]">{item.name}</h2>
+            <h2 className={`${compact ? "text-[18px]" : "text-[22px]"} font-bold leading-snug text-[#10243E]`}>{item.name}</h2>
           )}
           {item.sku && (
-            <p className="mt-1 flex items-center gap-1.5 text-[14px] text-[#94a3b8]">
+            <p className={`mt-1 flex items-center gap-1.5 ${compact ? "text-[12px]" : "text-[14px]"} text-[#94a3b8]`}>
               <Hash size={13} className="shrink-0" />{item.sku}
             </p>
           )}

@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { useMemo, useState, useSyncExternalStore } from "react"
 import { Bookmark, Search, Trash2 } from "lucide-react"
+import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
 import LibraryAppShell from "@/components/LibraryAppShell"
 import { getBookmarksSnapshot, removeBookmark, subscribeBookmarks } from "@/lib/bookmarks"
 
@@ -20,8 +21,11 @@ function BookmarksPageContent({
   return (
     <div className="px-1 py-4 lg:px-8 lg:pt-4">
       <section>
-        <p className="text-[13px] text-[#5B7A8A]">My Team</p>
-        <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-[#10243E] lg:text-[30px]">Bookmarks</h1>
+        <p className="text-[13px] text-[#5B7A8A] lg:hidden">My Team</p>
+        <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-[#10243E] lg:hidden lg:text-[30px]">Bookmarks</h1>
+        <div className="hidden lg:block">
+          <DesktopSectionWordmark label="Library Bookmarks" />
+        </div>
         <p className="mt-3 text-[15px] leading-7 text-[#61758B] lg:text-[16px]">
           Keep quick links to community procedures and versions you want to return to.
         </p>

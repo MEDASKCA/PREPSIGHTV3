@@ -1,11 +1,12 @@
 "use client"
 
 import Link from "next/link"
-import { useMemo, useState, useSyncExternalStore } from "react"
+import { useMemo, useState, useSyncExternalStore, type CSSProperties } from "react"
 import { useRouter } from "next/navigation"
 import { ArrowDown, ArrowUp, Bookmark, Download, Eye, GitBranch, Heart, MessageCircle, Plus, Send, X } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
+import DesktopCommsPanel from "@/components/DesktopCommsPanel"
 import TriangleIcon from "@/components/TriangleIcon"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import { getBookmarksSnapshot, removeBookmark, saveBookmark, subscribeBookmarks } from "@/lib/bookmarks"
@@ -18,6 +19,7 @@ import {
   subscribeLibraries,
 } from "@/lib/libraries"
 import { formatProcedureHierarchy } from "@/lib/procedure-hierarchy"
+import { getDesktopCommsPreference, getDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
 import { getProfile } from "@/lib/profile"
 import { buildSystemCardSections } from "@/lib/system-card"
 import { getActiveTeamSnapshot } from "@/lib/team-workspaces"
@@ -418,6 +420,16 @@ export default function SharedProcedureIndexView({
   const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [desktopNavOpen, setDesktopNavOpen] = useState(true)
+  const commsRailOpen = useSyncExternalStore(
+    subscribeDesktopCommsPreference,
+    getDesktopCommsPreference,
+    getDesktopCommsPreference,
+  )
+  const commsRailWidth = useSyncExternalStore(
+    subscribeDesktopCommsPreference,
+    getDesktopCommsWidth,
+    getDesktopCommsWidth,
+  )
   const [composerOpen, setComposerOpen] = useState(false)
   const [selectedBranchId, setSelectedBranchId] = useState("")
   const [selectedVersionId, setSelectedVersionId] = useState("")
@@ -504,6 +516,12 @@ export default function SharedProcedureIndexView({
     }
     setMobileMenuOpen((value) => !value)
   }
+
+  const desktopGridStyle: CSSProperties | undefined = commsRailOpen
+    ? desktopNavOpen
+      ? { gridTemplateColumns: `210px minmax(0,1fr) ${commsRailWidth}px` }
+      : { gridTemplateColumns: `80px minmax(0,1fr) ${commsRailWidth}px` }
+    : undefined
 
   function handleSelectBranch(branch: BranchEntry) {
     setSelectedBranchId((current) => (current === branch.id ? "" : branch.id))
@@ -645,8 +663,11 @@ export default function SharedProcedureIndexView({
       />
 
       <main className="w-full px-4 pb-8 pt-4 lg:pl-0 lg:pr-4 lg:pt-4 lg:pb-4">
-        <div className={`lg:grid lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)]"}`}>
-          {desktopNavOpen ? <WorkspaceNavRail currentNav="collections" /> : null}
+        <div
+          style={desktopGridStyle}
+          className={`lg:grid lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}
+        >
+          <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
           <div className="min-w-0 lg:px-8 lg:pt-4">
             <section className="px-1 pb-2">
@@ -975,6 +996,8 @@ export default function SharedProcedureIndexView({
               </div>
             </section>
           </div>
+
+          {commsRailOpen ? <DesktopCommsPanel /> : null}
         </div>
       </main>
 

@@ -66,15 +66,16 @@ const DEPARTMENT_PURPOSE: Record<string, string> = {
   "Other": "Keeps your account flexible while the wider hospital library is still being built out.",
 }
 
-const TOTAL_STEPS = 8
+const TOTAL_STEPS = 9
 const CTA_LABELS = [
   "Continue",
   "Confirm my hospital",
   "Continue",
-  "Confirm my role",
-  "Understood, continue",
   "Confirm my area",
+  "Confirm my clinical role",
   "Continue",
+  "Confirm how I’ll use PrepSight",
+  "Understood, continue",
   "Enter PrepSight",
 ]
 
@@ -95,6 +96,18 @@ const ROLE_OPTIONS: Array<{ role: UserRole; label: string; description: string }
     description: "I author content and manage team access. Up to 2 admins per workspace.",
   },
 ]
+
+const CLINICAL_ROLE_OPTIONS: Record<string, string[]> = {
+  "Theatres": ["Anaesthetic Consultant", "Surgical Consultant", "Theatre Scrub Nurse / ODP", "Anaesthetic Nurse / ODP", "Registrar / Fellow", "Theatre Coordinator", "Other"],
+  "Endoscopy": ["Endoscopist", "Endoscopy Nurse", "Unit Coordinator", "Recovery Practitioner", "Support Worker", "Other"],
+  "ICU / Critical Care": ["ICU Consultant", "ICU Registrar / Fellow", "Critical Care Nurse", "Advanced Practitioner", "Critical Care Physiotherapist", "Outreach Practitioner", "Other"],
+  "Emergency Department": ["ED Consultant", "ED Registrar / Fellow", "ED Nurse", "Resus Practitioner", "Triage Clinician", "Flow Coordinator", "Other"],
+  "Ward": ["Consultant", "Junior Doctor", "Ward Nurse", "Pharmacist", "Therapist", "Other"],
+  "Clinic / Outpatients": ["Consultant", "Specialty Doctor", "Clinic Nurse", "Clinic Coordinator / Admin", "Allied Health Professional", "Other"],
+  "Maternity": ["Obstetrician", "Midwife", "Maternity Support Worker", "Anaesthetic Consultant", "Shift Coordinator", "Other"],
+  "Interventional Radiology": ["Interventional Radiologist", "Radiographer", "IR Nurse", "Advanced Practitioner", "Coordinator", "Other"],
+  "Other": ["Clinical Lead", "Doctor", "Nurse", "Allied Health Professional", "Manager / Coordinator", "Other"],
+}
 
 function normalizeDisplayName(value: string): string {
   return value.replace(/\s+/g, " ").trim()
@@ -155,6 +168,7 @@ export default function OnboardingPage() {
   const [showSuggestions, setShowSuggestions] = useState(false)
   const [displayName, setDisplayName] = useState("")
   const [role, setRole] = useState<UserRole>("viewer")
+  const [jobTitle, setJobTitle] = useState("")
   const [departments, setDepartments] = useState<string[]>([])
   const [specialties, setSpecialties] = useState<string[]>([])
   const [collapsedDepartments, setCollapsedDepartments] = useState<string[]>([])
@@ -215,6 +229,7 @@ export default function OnboardingPage() {
 
         setHospital((current) => current || profile.hospital || "")
         setDepartments((current) => (current.length > 0 ? current : profile.departments))
+        setJobTitle((current) => current || profile.jobTitle || "")
         setSpecialties((current) =>
           current.length > 0 ? current : profile.specialtiesOfInterest,
         )
@@ -247,6 +262,9 @@ export default function OnboardingPage() {
 
   const availableSpecialties = Array.from(
     new Set(departments.flatMap((department) => DEPT_TO_SPECIALTY[department] ?? [])),
+  )
+  const availableClinicalRoles = Array.from(
+    new Set(departments.flatMap((department) => CLINICAL_ROLE_OPTIONS[department] ?? [])),
   )
 
   const specialtyGroups = departments
@@ -298,7 +316,8 @@ export default function OnboardingPage() {
   function canAdvance() {
     if (step === 2) return hospital.trim().length > 0
     if (step === 3) return displayNameLooksValid
-    if (step === 6) return departments.length > 0
+    if (step === 4) return departments.length > 0
+    if (step === 5) return jobTitle.trim().length > 0
     return true
   }
 
@@ -348,6 +367,7 @@ export default function OnboardingPage() {
       hospital: hospital.trim(),
       departments,
       role,
+      jobTitle: jobTitle.trim(),
       name: normalizedDisplayName,
       specialtiesOfInterest: specialties,
       completedAt: new Date().toISOString(),
@@ -539,40 +559,45 @@ export default function OnboardingPage() {
             </div>
           )}
 
-          {step === 4 && (
+          {step === 5 && (
             <div className="animate-step-in">
               <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
-                How will you use PrepSight?
+                What is your role?
               </h2>
               <p className="mb-6 max-w-2xl text-base leading-7 text-[#0F4C5C] lg:text-xl lg:leading-9">
-                Choose the role that best fits how you work. You can update this later.
+                Choose the clinical role that best matches how you work. This helps PrepSight shape the most relevant context for you.
               </p>
-              <div className="grid gap-3">
-                {ROLE_OPTIONS.map((option) => (
-                  <button
-                    key={option.role}
-                    type="button"
-                    onClick={() => setRole(option.role)}
-                    className={`flex items-start gap-4 rounded-2xl border px-5 py-4 text-left transition-all duration-200 ${
-                      role === option.role
-                        ? "border-[#0085B2] bg-[#0096C7] text-white shadow-[0_10px_22px_rgba(0,150,199,0.24)] ring-2 ring-[#7DD9EE]/60"
-                        : "border-[#4CBFD4] bg-[#7DD9EE] text-[#0F4C5C] hover:bg-[#0096C7] hover:text-white"
-                    }`}
-                  >
-                    <div className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${role === option.role ? "border-white bg-white" : "border-[#0F4C5C]"}`}>
-                      {role === option.role && <span className="h-2.5 w-2.5 rounded-full bg-[#0096C7]" />}
-                    </div>
-                    <div>
-                      <p className="text-base font-semibold lg:text-lg">{option.label}</p>
-                      <p className={`mt-1 text-sm leading-5 lg:text-base lg:leading-6 ${role === option.role ? "text-white/90" : "text-[#0F4C5C]"}`}>{option.description}</p>
-                    </div>
-                  </button>
-                ))}
-              </div>
+              {availableClinicalRoles.length > 0 ? (
+                <div className="grid gap-3 lg:grid-cols-2">
+                  {availableClinicalRoles.map((option) => (
+                    <button
+                      key={option}
+                      type="button"
+                      onClick={() => setJobTitle(option)}
+                      className={`flex items-start gap-4 rounded-2xl border px-5 py-4 text-left transition-all duration-200 ${
+                        jobTitle === option
+                          ? "border-[#0085B2] bg-[#0096C7] text-white shadow-[0_10px_22px_rgba(0,150,199,0.24)] ring-2 ring-[#7DD9EE]/60"
+                          : "border-[#4CBFD4] bg-[#7DD9EE] text-[#0F4C5C] hover:bg-[#0096C7] hover:text-white"
+                      }`}
+                    >
+                      <div className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${jobTitle === option ? "border-white bg-white" : "border-[#0F4C5C]"}`}>
+                        {jobTitle === option && <span className="h-2.5 w-2.5 rounded-full bg-[#0096C7]" />}
+                      </div>
+                      <div>
+                        <p className="text-base font-semibold lg:text-lg">{option}</p>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              ) : (
+                <p className="text-sm leading-6 text-[#0F4C5C] lg:text-base lg:leading-7">
+                  Select at least one clinical area first and PrepSight will suggest the most relevant roles underneath it.
+                </p>
+              )}
             </div>
           )}
 
-          {step === 5 && (
+          {step === 8 && (
             <div className="animate-step-in">
               <div className="mb-2 flex justify-center lg:mb-3">
                 <img src="/disclaimer.png" alt="" className="h-28 w-28 lg:h-32 lg:w-32" />
@@ -616,7 +641,7 @@ export default function OnboardingPage() {
             </div>
           )}
 
-          {step === 6 && (
+          {step === 4 && (
             <div className="animate-step-in">
               <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
                 Which areas do you work in?
@@ -648,11 +673,10 @@ export default function OnboardingPage() {
                   </button>
                 ))}
               </div>
-
             </div>
           )}
 
-          {step === 7 && (
+          {step === 6 && (
             <div className="animate-step-in">
               <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
                 Which specialties matter most to you?
@@ -721,7 +745,40 @@ export default function OnboardingPage() {
             </div>
           )}
 
-          {step === 8 && (
+          {step === 7 && (
+            <div className="animate-step-in">
+              <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
+                How will you use PrepSight?
+              </h2>
+              <p className="mb-6 max-w-2xl text-base leading-7 text-[#0F4C5C] lg:text-xl lg:leading-9">
+                Choose the role that best fits how you work. You can update this later.
+              </p>
+              <div className="grid gap-3">
+                {ROLE_OPTIONS.map((option) => (
+                  <button
+                    key={option.role}
+                    type="button"
+                    onClick={() => setRole(option.role)}
+                    className={`flex items-start gap-4 rounded-2xl border px-5 py-4 text-left transition-all duration-200 ${
+                      role === option.role
+                        ? "border-[#0085B2] bg-[#0096C7] text-white shadow-[0_10px_22px_rgba(0,150,199,0.24)] ring-2 ring-[#7DD9EE]/60"
+                        : "border-[#4CBFD4] bg-[#7DD9EE] text-[#0F4C5C] hover:bg-[#0096C7] hover:text-white"
+                    }`}
+                  >
+                    <div className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${role === option.role ? "border-white bg-white" : "border-[#0F4C5C]"}`}>
+                      {role === option.role && <span className="h-2.5 w-2.5 rounded-full bg-[#0096C7]" />}
+                    </div>
+                    <div>
+                      <p className="text-base font-semibold lg:text-lg">{option.label}</p>
+                      <p className={`mt-1 text-sm leading-5 lg:text-base lg:leading-6 ${role === option.role ? "text-white/90" : "text-[#0F4C5C]"}`}>{option.description}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {step === 9 && (
             <div className="animate-step-in">
               <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">You&apos;re set up.</h2>
               <p className="mb-6 max-w-2xl text-base leading-7 text-[#0F4C5C] lg:text-xl lg:leading-9">
@@ -734,8 +791,9 @@ export default function OnboardingPage() {
               <div className="rounded-xl border border-[#0F4C5C] bg-[#DDF7FC] divide-y divide-[#0F4C5C]/20">
                 {[
                   { label: "Name", value: normalizedDisplayName || "-" },
-                  { label: "Role", value: ROLE_OPTIONS.find((o) => o.role === role)?.label ?? role },
+                  { label: "Clinical role", value: jobTitle || "-" },
                   { label: "Areas", value: departments.join(", ") || "-" },
+                  { label: "PrepSight usage", value: ROLE_OPTIONS.find((o) => o.role === role)?.label ?? role },
                   { label: "Hospital", value: hospital || "-" },
                   ...(specialties.length > 0 ? [{ label: "Specialties", value: specialties.join(", ") }] : []),
                 ].map(({ label, value }, index) => (

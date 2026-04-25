@@ -11,6 +11,7 @@ import {
   ScanSearch,
 } from "lucide-react"
 import TriangleIcon from "@/components/TriangleIcon"
+import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
 import liveMapping from "../../../data/systems/trauma_and_orthopaedics_full_live_mapping.json"
 import {
@@ -966,8 +967,11 @@ export default function ReviewPage() {
       >
         <div className="space-y-4">
           <section className="px-1">
-            <p className="text-[13px] text-[#5B7A8A]">Review</p>
-            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">Validate system records</h1>
+            <div className="hidden lg:block">
+              <DesktopSectionWordmark label="Library Review" />
+            </div>
+            <p className="text-[13px] text-[#5B7A8A] lg:hidden">Review</p>
+            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E] lg:hidden">Validate system records</h1>
             <p className="mt-2 text-[14px] text-[#61758B]">
               Help confirm supplier system data for theatre use.
             </p>

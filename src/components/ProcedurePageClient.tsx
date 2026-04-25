@@ -1,10 +1,11 @@
 "use client"
 
-import { useCallback, useEffect, useRef, useState, useTransition } from "react"
+import { useCallback, useEffect, useRef, useState, useSyncExternalStore, useTransition, type CSSProperties } from "react"
 import Link from "next/link"
 import { House, Plus } from "lucide-react"
 import AppMenuContent from "./AppMenuContent"
 import AppTopBar from "./AppTopBar"
+import DesktopCommsPanel from "./DesktopCommsPanel"
 import KardexSection from "./KardexSection"
 import CollectionPanel from "./CollectionPanel"
 import HistoryBackButton from "./HistoryBackButton"
@@ -20,6 +21,7 @@ import { onAuthChange } from "@/lib/auth"
 import { buildDraftSection } from "@/lib/procedure-library"
 import { formatProcedureHierarchy } from "@/lib/procedure-hierarchy"
 import { getContributionIdentity } from "@/lib/team-workspaces"
+import { getDesktopCommsPreference, getDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
 import { publishLocalCardToGlobal } from "@/lib/libraries"
 
 type PageMode = "browse" | "collection"
@@ -76,6 +78,16 @@ export default function ProcedurePageClient({
   const [isDesktop, setIsDesktop] = useState(false)
   const [showSectionRibbon, setShowSectionRibbon] = useState(false)
   const [publishMessage, setPublishMessage] = useState<string | null>(null)
+  const commsRailOpen = useSyncExternalStore(
+    subscribeDesktopCommsPreference,
+    getDesktopCommsPreference,
+    getDesktopCommsPreference,
+  )
+  const commsRailWidth = useSyncExternalStore(
+    subscribeDesktopCommsPreference,
+    getDesktopCommsWidth,
+    getDesktopCommsWidth,
+  )
   const contentRef = useRef<HTMLDivElement>(null)
 
   const [selectedItemInfo, setSelectedItemInfo] = useState<ItemDisplayInfo | null>(null)
@@ -292,6 +304,12 @@ export default function ProcedurePageClient({
     setMobileMenuOpen((value) => !value)
   }
 
+  const desktopGridStyle: CSSProperties | undefined = commsRailOpen
+    ? desktopNavOpen
+      ? { gridTemplateColumns: `210px minmax(0,1fr) ${commsRailWidth}px` }
+      : { gridTemplateColumns: `80px minmax(0,1fr) ${commsRailWidth}px` }
+    : undefined
+
   return (
     <div className="procedure-route-theme app-shell-bg min-h-screen bg-[#F4F7FA] lg:h-screen lg:flex lg:flex-col lg:overflow-hidden">
       <AppTopBar
@@ -302,8 +320,11 @@ export default function ProcedurePageClient({
         mobileMenuOnly
       />
 
-      <div className={`lg:grid lg:flex-1 lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)]"}`}>
-        {desktopNavOpen ? <WorkspaceNavRail currentNav="collections" /> : null}
+      <div
+        style={desktopGridStyle}
+        className={`lg:grid lg:flex-1 lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}
+      >
+        <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
         <div className="min-w-0 lg:flex lg:flex-1 lg:flex-col lg:overflow-hidden">
       <header data-dev-trigger className="shrink-0 border-b border-[#8ADFF0] bg-[#0077B6] lg:static">
@@ -556,6 +577,8 @@ export default function ProcedurePageClient({
         </div>
       </main>
         </div>
+
+        {commsRailOpen ? <DesktopCommsPanel /> : null}
       </div>
     </div>
   )

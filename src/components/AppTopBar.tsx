@@ -4,6 +4,7 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { Bell, LogOut, Menu, Search, Settings2, UserCircle2, UserRound, X } from "lucide-react"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
+import { getDesktopCommsPreference, subscribeDesktopCommsPreference, toggleDesktopCommsPreference } from "@/lib/desktop-comms"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { getProcedureLibrarySnapshot, subscribeProcedureLibrary } from "@/lib/procedure-library"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
@@ -106,6 +107,11 @@ export default function AppTopBar({
   const [user, setUser] = useState<User | null>(null)
   const [profile, setProfile] = useState<PrepSightProfile | null>(() => getProfile())
   const rootRef = useRef<HTMLDivElement | null>(null)
+  const commsRailOpen = useSyncExternalStore(
+    subscribeDesktopCommsPreference,
+    getDesktopCommsPreference,
+    getDesktopCommsPreference,
+  )
 
   const searchItems = useMemo<SearchItem[]>(() => {
     const libraryItems = libraries.map((library) => ({
@@ -250,6 +256,7 @@ export default function AppTopBar({
 
   const displayName = user?.displayName ?? user?.email ?? profile?.name ?? "Your account"
   const displayEmail = user?.email ?? ""
+  const profileInitial = (displayName.trim()[0] ?? "P").toUpperCase()
 
   return (
     <div ref={rootRef} className="prepsight-app-topbar sticky top-0 z-30">
@@ -259,7 +266,7 @@ export default function AppTopBar({
             <button
               type="button"
               onClick={handleMenuToggle}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#0F4C5C] bg-white/88 text-[#22425C]"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#0F4C5C] bg-white/88 text-[#22425C] lg:hidden"
               aria-label={menuOpen ? "Close navigation" : "Open navigation"}
             >
               {menuOpen ? <X size={18} /> : <Menu size={18} />}
@@ -334,7 +341,21 @@ export default function AppTopBar({
           <div className="relative flex items-center gap-2">
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#0F4C5C] bg-white/88 text-[#22425C]"
+              onClick={toggleDesktopCommsPreference}
+              className="hidden h-9 w-9 items-center justify-center text-white/95 transition-opacity hover:text-white hover:opacity-100 lg:inline-flex"
+              aria-label={commsRailOpen ? "Hide PrepSight Comms panel" : "Show PrepSight Comms panel"}
+              title={commsRailOpen ? "Hide PrepSight Comms" : "Show PrepSight Comms"}
+            >
+              <img
+                src="/image3.png"
+                alt=""
+                aria-hidden="true"
+                className="h-[580px] w-[580px] shrink-0 object-contain opacity-[0.98] [filter:drop-shadow(0_0_0.25px_rgba(255,255,255,0.6))]"
+              />
+            </button>
+            <button
+              type="button"
+              className="inline-flex h-9 w-9 items-center justify-center text-white/95 transition-opacity hover:text-white hover:opacity-100"
               aria-label="Activity"
             >
               <Bell size={17} />
@@ -347,45 +368,50 @@ export default function AppTopBar({
                 setAccountError(null)
                 setAccountMenuOpen((current) => !current)
               }}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#0F4C5C] bg-white/88 text-[#22425C]"
+              className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-[#0F4C5C] bg-white/88 text-[#22425C]"
               aria-label="Profile"
               aria-expanded={accountMenuOpen}
             >
-              <UserCircle2 size={18} />
+              <span className="hidden h-full w-full items-center justify-center bg-[#0f8fb8] text-[14px] font-medium text-white lg:flex">
+                {profileInitial}
+              </span>
+              <span className="flex lg:hidden">
+                <UserCircle2 size={18} />
+              </span>
             </button>
 
             {accountMenuOpen ? (
-              <div className="absolute right-0 top-[calc(100%+8px)] z-50 w-[14.5rem] overflow-hidden rounded-[16px] border border-[#0085B2] bg-[#0096C7] shadow-[0_20px_42px_rgba(16,36,62,0.16)] lg:border-[#0F4C5C] lg:bg-[linear-gradient(180deg,rgba(232,248,252,0.94)_0%,rgba(244,251,255,0.9)_100%)] lg:backdrop-blur-xl">
-                <div className="border-b border-[#0085B2] px-4 py-3 lg:border-[#0F4C5C]">
-                  <div className="text-[14px] font-medium text-white lg:text-[#10243E]">{displayName}</div>
-                  {displayEmail ? <div className="mt-0.5 text-[12px] text-[#D7E7F7] lg:text-[#61758B]">{displayEmail}</div> : null}
+              <div className="absolute right-0 top-[calc(100%+10px)] z-50 w-[15rem] overflow-hidden rounded-[24px] border border-[rgba(145,214,230,0.72)] bg-[rgba(222,247,252,0.88)] shadow-[0_28px_80px_rgba(31,124,150,0.18)] backdrop-blur-[24px]">
+                <div className="border-b border-[rgba(137,193,210,0.42)] px-4 py-3">
+                  <div className="text-[14px] font-medium text-[#154b5f]">{displayName}</div>
+                  {displayEmail ? <div className="mt-0.5 text-[12px] text-[#5e8ea0]">{displayEmail}</div> : null}
                 </div>
 
                 <div className="p-2">
                   <button
                     type="button"
                     onClick={() => openAccountPage("/settings/profile")}
-                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#D7E7F7] hover:bg-white/10 lg:text-[#10243E] lg:hover:bg-[rgba(244,251,255,0.72)]"
+                    className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#154b5f] hover:bg-[rgba(255,255,255,0.52)]"
                   >
-                    <UserRound size={16} className="text-white lg:text-[#4B6478]" />
+                    <UserRound size={16} className="text-[#4B6478]" />
                     <span>Profile</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => openAccountPage("/settings/access")}
-                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#D7E7F7] hover:bg-white/10 lg:text-[#10243E] lg:hover:bg-[rgba(244,251,255,0.72)]"
+                    className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#154b5f] hover:bg-[rgba(255,255,255,0.52)]"
                   >
-                    <Settings2 size={16} className="text-white lg:text-[#4B6478]" />
+                    <Settings2 size={16} className="text-[#4B6478]" />
                     <span>Settings</span>
                   </button>
-                  <div className="my-2 border-t border-[#0085B2] lg:border-[#0F4C5C]" />
+                  <div className="my-2 border-t border-[rgba(137,193,210,0.32)]" />
                   <button
                     type="button"
                     onClick={() => void handleSignOut()}
                     disabled={accountBusy}
-                    className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left text-[14px] text-[#D7E7F7] hover:bg-white/10 disabled:cursor-not-allowed disabled:opacity-60 lg:text-[#10243E] lg:hover:bg-[rgba(244,251,255,0.72)]"
+                    className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#154b5f] hover:bg-[rgba(255,255,255,0.52)] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    <LogOut size={16} className="text-white lg:text-[#4B6478]" />
+                    <LogOut size={16} className="text-[#4B6478]" />
                     <span>Sign out</span>
                   </button>
                   {accountError ? (

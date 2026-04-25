@@ -940,8 +940,8 @@ export default function LibraryPageClient({
           )}
         </div>
 
-        <div className={`hidden lg:grid lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[minmax(0,1fr)]"}`}>
-          {desktopNavOpen ? <WorkspaceNavRail currentNav="collections" /> : null}
+        <div className={`hidden lg:grid lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}>
+          <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
           <div className="min-w-0 space-y-2">
             <section className="space-y-2 px-1">

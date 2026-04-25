@@ -1,1334 +1,733 @@
 "use client"
 
-import { useState, useMemo, useEffect, useRef } from "react"
-import { useRouter } from "next/navigation"
-import Link from "next/link"
-import {
-  ArrowLeft, House, Plus, Search, X, Clock, User,
-  Scissors, Trash2, CheckCircle2, Circle, AlertTriangle,
-  ChevronRight, CalendarDays,
-} from "lucide-react"
-import Fuse from "fuse.js"
+import { useMemo, useState } from "react"
+import { ChevronLeft, ChevronRight, Plus } from "lucide-react"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
-import { procedures, SEED_SUPERSEDES } from "@/lib/data"
-import { hasVariantsForProcedure } from "@/lib/variants"
-import { db } from "@/lib/firebase"
-import {
-  collection, query, where, onSnapshot,
-  addDoc, deleteDoc, doc, serverTimestamp,
-} from "firebase/firestore"
-import { onAuthChange } from "@/lib/auth"
 
-// ── Types ─────────────────────────────────────────────────────────────────────
+// ─── Types ────────────────────────────────────────────────────────────────────
 
-interface PlannedCase {
+type CalendarView = "day" | "week" | "month"
+type CalendarSource = "library" | "resources" | "insights"
+type CalendarItemType = "shift" | "task" | "review" | "milestone" | "booking"
+
+type CalendarItem = {
   id: string
-  procedureId: string
-  procedureName: string
-  date: string        // "YYYY-MM-DD"
-  time?: string       // "08:00"
-  surgeonName?: string
-  theatre?: string
-  notes?: string
-  uid?: string
+  source: CalendarSource
+  type: CalendarItemType
+  title: string
+  detail: string
+  date: string
+  start?: string
+  end?: string
+  allDay?: boolean
 }
 
-type Tab = "upcoming" | "prepare" | "insights"
+// ─── Design tokens ────────────────────────────────────────────────────────────
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+const TEAL       = "#0f4c5c"   // dark teal — all body text
+const TEAL_MID   = "#0096c7"   // medium teal — today highlight, active
+const BORDER     = "#b0dce6"   // border colour throughout
+const HOVER_BG   = "#d6f3f9"   // sky-blue hover (onboarding palette)
+const PANEL_BG   = "#f0f9fc"   // left panel background
 
-function today(): string {
-  return formatDate(new Date())
+// ─── Source metadata ──────────────────────────────────────────────────────────
+
+const SOURCE_META: Record<CalendarSource, { label: string; color: string }> = {
+  library:   { label: "Library",   color: "#1497c8" },
+  resources: { label: "Resources", color: "#1eb89b" },
+  insights:  { label: "Insights",  color: "#e2a020" },
 }
 
-function formatDate(d: Date): string {
-  const year = d.getFullYear()
-  const month = `${d.getMonth() + 1}`.padStart(2, "0")
-  const day = `${d.getDate()}`.padStart(2, "0")
-  return `${year}-${month}-${day}`
+// ─── Seed data ────────────────────────────────────────────────────────────────
+
+const CALENDAR_ITEMS: CalendarItem[] = [
+  { id: "1",  source: "resources", type: "shift",     title: "Morning shift — Theatres T&O",      detail: "Royal Free Hospital",                      date: "2026-04-25", start: "07:30", end: "16:00" },
+  { id: "2",  source: "library",   type: "review",    title: "TKR instrumentation card review",   detail: "Community refresh requested by scrub lead", date: "2026-04-25", start: "11:00", end: "11:30" },
+  { id: "3",  source: "insights",  type: "milestone", title: "Readiness checkpoint — Case 4",     detail: "Turnaround review",                         date: "2026-04-25", start: "13:30", end: "14:00" },
+  { id: "4",  source: "resources", type: "task",      title: "Confirm weekend availability",      detail: "Offer window closes at 18:00",               date: "2026-04-26", start: "09:15", end: "09:45" },
+  { id: "5",  source: "resources", type: "booking",   title: "Loan kit delivery — Theatre 3",     detail: "Zimmer revision set",                       date: "2026-04-27", start: "08:00", end: "10:00" },
+  { id: "6",  source: "library",   type: "task",      title: "Airway card acknowledgement",       detail: "New card published — action required",      date: "2026-04-28", start: "12:00", end: "12:15" },
+  { id: "7",  source: "resources", type: "shift",     title: "External shift — St George's",      detail: "Anaesthetics support",                      date: "2026-04-29", start: "19:00", end: "23:00" },
+  { id: "8",  source: "insights",  type: "review",    title: "Monthly readiness huddle",          detail: "Staffing, equipment, pathway pinch points", date: "2026-05-02", start: "08:30", end: "09:15" },
+  { id: "9",  source: "resources", type: "shift",     title: "Morning shift — General Surgery",   detail: "Royal Free Hospital",                      date: "2026-05-05", start: "07:30", end: "15:30" },
+  { id: "10", source: "library",   type: "review",    title: "Hip arthroplasty card update",      detail: "Implant system change",                     date: "2026-05-08", start: "10:00", end: "10:30" },
+  { id: "11", source: "insights",  type: "task",      title: "Theatre utilisation report",        detail: "April figures due",                         date: "2026-05-09", start: "09:00", end: "10:00" },
+  { id: "12", source: "library",   type: "milestone", title: "Quarterly content freeze",          detail: "Escalation pack locked for review week",    date: "2026-05-14", allDay: true },
+  { id: "13", source: "resources", type: "task",      title: "CPD hours submission",              detail: "Mandatory by month end",                    date: "2026-05-31", allDay: true },
+  { id: "14", source: "resources", type: "shift",     title: "Bank shift — Vascular",             detail: "Royal London Hospital",                     date: "2026-06-06", start: "07:00", end: "15:30" },
+  { id: "15", source: "insights",  type: "milestone", title: "Q2 capacity planning review",       detail: "Service readiness and headcount",            date: "2026-06-18", allDay: true },
+]
+
+// ─── Date utilities ───────────────────────────────────────────────────────────
+
+const TODAY = new Date(2026, 3, 25)
+
+function isSameDay(a: Date, b: Date) {
+  return a.getFullYear() === b.getFullYear() && a.getMonth() === b.getMonth() && a.getDate() === b.getDate()
+}
+function isToday(d: Date) { return isSameDay(d, TODAY) }
+
+function dateToString(d: Date): string {
+  return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`
 }
 
-function parseLocalDate(dateStr: string): Date {
-  const [y, m, day] = dateStr.split("-").map(Number)
-  return new Date(y, m - 1, day)
+function getMonthGrid(year: number, month: number): Date[] {
+  const firstDay = new Date(year, month, 1)
+  let startDay = firstDay.getDay()
+  if (startDay === 0) startDay = 7
+  const start = new Date(firstDay)
+  start.setDate(firstDay.getDate() - (startDay - 1))
+  return Array.from({ length: 42 }, (_, i) => { const d = new Date(start); d.setDate(start.getDate() + i); return d })
 }
 
-function getDayLabel(dateStr: string): { dayNum: string; dayName: string; monthLabel: string | null } {
-  const d = parseLocalDate(dateStr)
-  const dayNum = d.getDate().toString()
-  const dayName = d.toLocaleDateString("en-GB", { weekday: "short" })
-  const monthLabel = d.getDate() === 1
-    ? d.toLocaleDateString("en-GB", { month: "short" })
-    : null
-  return { dayNum, dayName, monthLabel }
+function getWeekDates(date: Date): Date[] {
+  const day = date.getDay()
+  const offset = day === 0 ? -6 : 1 - day
+  const monday = new Date(date)
+  monday.setDate(date.getDate() + offset)
+  return Array.from({ length: 7 }, (_, i) => { const d = new Date(monday); d.setDate(monday.getDate() + i); return d })
 }
 
-function friendlyDate(dateStr: string): string {
-  const d = parseLocalDate(dateStr)
-  const t = today()
-  const tom = formatDate(new Date(parseLocalDate(t).getTime() + 86400000))
-  if (dateStr === t) return "Today"
-  if (dateStr === tom) return "Tomorrow"
-  return d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "short" })
+function getItemsForDate(items: CalendarItem[], date: Date) {
+  return items.filter((item) => item.date === dateToString(date))
 }
 
-function buildDateRange(): string[] {
-  const dates: string[] = []
-  const base = new Date()
-  base.setHours(0, 0, 0, 0)
-  for (let i = -3; i <= 90; i++) {
-    const d = new Date(base)
-    d.setDate(base.getDate() + i)
-    dates.push(formatDate(d))
-  }
-  return dates
+function parseTimeToMinutes(t: string): number {
+  const [h, m] = t.split(":").map(Number)
+  return h * 60 + m
 }
 
-// ── Sub-components ────────────────────────────────────────────────────────────
+// ─── Time grid constants ──────────────────────────────────────────────────────
 
-function CaseCard({
-  planned,
-  onDelete,
-  showDate = false,
-}: {
-  planned: PlannedCase
-  onDelete: (id: string) => void
-  showDate?: boolean
-}) {
-  const procedure = useMemo(
-    () => procedures.find((p) => p.id === planned.procedureId),
-    [planned.procedureId],
-  )
-  const hasCard = (procedure?.sections?.length ?? 0) > 0 || hasVariantsForProcedure(planned.procedureId)
-  const href = hasCard ? `/procedures/${planned.procedureId}` : null
+const HOUR_HEIGHT = 48           // px per hour
+const START_HOUR  = 0            // midnight
+const END_HOUR    = 24           // midnight next day
+const HOURS = Array.from({ length: END_HOUR - START_HOUR }, (_, i) => START_HOUR + i)
 
+function eventTop(start: string): number {
+  return ((parseTimeToMinutes(start) - START_HOUR * 60) / 60) * HOUR_HEIGHT
+}
+function eventHeight(start: string, end: string): number {
+  return Math.max(((parseTimeToMinutes(end) - parseTimeToMinutes(start)) / 60) * HOUR_HEIGHT, 20)
+}
+function hourLabel(h: number): string {
+  if (h === 0)  return "12am"
+  if (h === 12) return "12pm"
+  return h < 12 ? `${h}am` : `${h - 12}pm`
+}
+
+// ─── Format helpers ───────────────────────────────────────────────────────────
+
+function formatMonthYear(d: Date) {
+  return d.toLocaleDateString("en-GB", { month: "long", year: "numeric" })
+}
+function formatWeekRange(dates: Date[]) {
+  const a = dates[0], b = dates[6]
+  if (a.getMonth() === b.getMonth()) return `${a.getDate()} – ${b.getDate()} ${a.toLocaleDateString("en-GB", { month: "long", year: "numeric" })}`
+  return `${a.toLocaleDateString("en-GB", { day: "numeric", month: "short" })} – ${b.toLocaleDateString("en-GB", { day: "numeric", month: "short", year: "numeric" })}`
+}
+function formatDayLong(d: Date) {
+  return d.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long", year: "numeric" })
+}
+
+// ─── Source Filters ───────────────────────────────────────────────────────────
+
+function SourceFilters({ sources, onToggle }: { sources: Record<CalendarSource, boolean>; onToggle: (s: CalendarSource) => void }) {
   return (
-    <div className="app-card-bg app-card-border rounded-2xl border px-4 py-3.5 shadow-sm">
-      <div className="flex items-start gap-3">
-        <div className="flex-1 min-w-0">
-          {showDate && (
-            <p className="text-[11px] font-semibold text-[#4DA3FF] mb-0.5 uppercase tracking-wide">
-              {friendlyDate(planned.date)}
-            </p>
-          )}
-          <p className="app-text-strong text-[15px] font-semibold leading-snug">{planned.procedureName}</p>
-          <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1">
-            {planned.time && (
-              <span className="flex items-center gap-1 text-[12px] text-[#64748b]">
-                <Clock size={11} /> {planned.time}
-              </span>
-            )}
-            {planned.surgeonName && (
-              <span className="flex items-center gap-1 text-[12px] text-[#64748b]">
-                <User size={11} /> {planned.surgeonName}
-              </span>
-            )}
-            {planned.theatre && (
-              <span className="flex items-center gap-1 text-[12px] text-[#64748b]">
-                <Scissors size={11} /> {planned.theatre}
-              </span>
-            )}
-          </div>
-          {planned.notes && (
-            <p className="mt-1 text-[12px] text-[#94a3b8] line-clamp-1">{planned.notes}</p>
-          )}
-        </div>
-
-        <div className="flex shrink-0 items-center gap-2">
-          {href && (
-            <Link
-              href={href}
-              className="flex items-center gap-0.5 text-[12px] font-semibold text-[#4DA3FF]"
-            >
-              Card <ChevronRight size={12} />
-            </Link>
-          )}
-          <button
-            onClick={() => onDelete(planned.id)}
-            className="rounded-lg p-1.5 text-[#cbd5e1] transition-colors hover:bg-red-50 hover:text-red-500"
-          >
-            <Trash2 size={14} />
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ── Add Case Sheet ────────────────────────────────────────────────────────────
-
-function AddCaseSheet({
-  initialDate,
-  onClose,
-  onSave,
-}: {
-  initialDate: string
-  onClose: () => void
-  onSave: (data: Omit<PlannedCase, "id">) => void
-}) {
-  const [date, setDate]               = useState(initialDate)
-  const [query, setQuery]             = useState("")
-  const [selectedProc, setSelectedProc] = useState<{ id: string; name: string } | null>(null)
-  const [time, setTime]               = useState("")
-  const [surgeon, setSurgeon]         = useState("")
-  const [theatre, setTheatre]         = useState("")
-  const [notes, setNotes]             = useState("")
-
-  const searchableProcedures = useMemo(
-    () => procedures.filter((p) => !(p.id in SEED_SUPERSEDES) && (p.sections.length > 0 || hasVariantsForProcedure(p.id))),
-    [],
-  )
-
-  const fuse = useMemo(
-    () => new Fuse(searchableProcedures, { keys: ["name"], threshold: 0.4, minMatchCharLength: 2 }),
-    [searchableProcedures],
-  )
-
-  const matches = useMemo(() => {
-    if (query.trim().length < 2) return []
-    return fuse.search(query.trim()).slice(0, 6)
-  }, [query, fuse])
-
-  const canSave = !!selectedProc && !!date
-
-  function handleSave() {
-    if (!canSave) return
-    onSave({
-      procedureId: selectedProc!.id,
-      procedureName: selectedProc!.name,
-      date,
-      time: time || undefined,
-      surgeonName: surgeon || undefined,
-      theatre: theatre || undefined,
-      notes: notes || undefined,
-    })
-    onClose()
-  }
-
-  return (
-    <div className="fixed inset-0 z-50 flex items-end justify-center lg:items-center">
-      {/* Backdrop */}
-      <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" onClick={onClose} />
-
-      {/* Sheet */}
-      <div className="relative z-10 w-full max-w-lg rounded-t-[28px] bg-white pb-safe-area-inset-bottom lg:rounded-[28px] lg:mb-0">
-        {/* Handle */}
-        <div className="flex justify-center pt-3 pb-1 lg:hidden">
-          <div className="h-1 w-10 rounded-full bg-[#D5DCE3]" />
-        </div>
-
-        <div className="px-5 pb-6 pt-3">
-          <div className="mb-5 flex items-center justify-between">
-            <p className="text-[18px] font-bold text-[#1E293B]">Add to planner</p>
-            <button onClick={onClose} className="rounded-xl p-2 text-[#94a3b8] hover:bg-[#F4F7FA]">
-              <X size={18} />
-            </button>
-          </div>
-
-          <div className="space-y-4">
-            {/* Date */}
-            <div>
-              <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-[#94a3b8]">
-                Date
-              </label>
-              <input
-                type="date"
-                value={date}
-                onChange={(e) => setDate(e.target.value)}
-                className="w-full rounded-xl border border-[#D5DCE3] bg-white px-3 py-3 text-[15px] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#4DA3FF]"
-              />
-            </div>
-
-            {/* Procedure search */}
-            <div>
-              <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-[#94a3b8]">
-                Procedure
-              </label>
-              {selectedProc ? (
-                <div className="flex items-center justify-between rounded-xl border border-[#4DA3FF] bg-[#EFF8FF] px-3 py-3">
-                  <p className="text-[15px] font-semibold text-[#1E293B]">{selectedProc.name}</p>
-                  <button onClick={() => { setSelectedProc(null); setQuery("") }} className="text-[#94a3b8] hover:text-[#475569]">
-                    <X size={15} />
-                  </button>
-                </div>
-              ) : (
-                <div className="relative">
-                  <Search size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#94a3b8]" />
-                  <input
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search procedures…"
-                    autoFocus
-                    className="w-full rounded-xl border border-[#D5DCE3] bg-white py-3 pl-9 pr-3 text-[15px] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#4DA3FF]"
-                  />
-                  {matches.length > 0 && (
-                    <div className="absolute left-0 right-0 top-full z-10 mt-1 overflow-hidden rounded-xl border border-[#D5DCE3] bg-white shadow-lg">
-                      {matches.map(({ item }) => (
-                        <button
-                          key={item.id}
-                          onClick={() => { setSelectedProc({ id: item.id, name: item.name }); setQuery("") }}
-                          className="flex w-full items-center justify-between border-b border-[#F0F4F8] px-4 py-3 text-left last:border-0 hover:bg-[#F8FAFC]"
-                        >
-                          <span className="text-[14px] font-medium text-[#1E293B]">{item.name}</span>
-                          <span className="text-[11px] text-[#94a3b8]">{item.specialty}</span>
-                        </button>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-            </div>
-
-            {/* Optional fields */}
-            <div className="grid grid-cols-2 gap-3">
-              <div>
-                <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-[#94a3b8]">
-                  Time
-                </label>
-                <input
-                  type="time"
-                  value={time}
-                  onChange={(e) => setTime(e.target.value)}
-                  className="w-full rounded-xl border border-[#D5DCE3] bg-white px-3 py-3 text-[15px] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#4DA3FF]"
-                />
-              </div>
-              <div>
-                <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-[#94a3b8]">
-                  Theatre / Room
-                </label>
-                <input
-                  type="text"
-                  value={theatre}
-                  onChange={(e) => setTheatre(e.target.value)}
-                  placeholder="e.g. Theatre 4"
-                  className="w-full rounded-xl border border-[#D5DCE3] bg-white px-3 py-3 text-[15px] placeholder:text-[#cbd5e1] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#4DA3FF]"
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-[#94a3b8]">
-                Surgeon
-              </label>
-              <input
-                type="text"
-                value={surgeon}
-                onChange={(e) => setSurgeon(e.target.value)}
-                placeholder="e.g. Mr J Wilson"
-                className="w-full rounded-xl border border-[#D5DCE3] bg-white px-3 py-3 text-[15px] placeholder:text-[#cbd5e1] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#4DA3FF]"
-              />
-            </div>
-
-            <div>
-              <label className="mb-1.5 block text-[11px] font-semibold uppercase tracking-wide text-[#94a3b8]">
-                Notes
-              </label>
-              <textarea
-                value={notes}
-                onChange={(e) => setNotes(e.target.value)}
-                placeholder="Any prep notes…"
-                rows={2}
-                className="w-full resize-none rounded-xl border border-[#D5DCE3] bg-white px-3 py-3 text-[15px] placeholder:text-[#cbd5e1] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#4DA3FF]"
-              />
-            </div>
-          </div>
-
-          <button
-            disabled={!canSave}
-            onClick={handleSave}
-            className="mt-5 w-full rounded-xl bg-[#4DA3FF] py-3.5 text-[15px] font-semibold text-white transition-colors hover:bg-[#2F8EF7] disabled:cursor-not-allowed disabled:opacity-40"
-          >
-            Save to planner
-          </button>
-        </div>
-      </div>
-    </div>
-  )
-}
-
-// ── Main Page ─────────────────────────────────────────────────────────────────
-
-export default function CalendarPageClient({ embedded = false }: { embedded?: boolean }) {
-  const router = useRouter()
-  const stripRef = useRef<HTMLDivElement>(null)
-
-  const [uid, setUid]               = useState<string | null>(null)
-  const [cases, setCases]           = useState<PlannedCase[]>([])
-  const [firestoreUnavailable, setFirestoreUnavailable] = useState(false)
-  const [selectedDate, setSelectedDate] = useState(today())
-  const [tab, setTab]               = useState<Tab>("upcoming")
-  const [showAdd, setShowAdd]       = useState(false)
-
-  const dateRange = useMemo(() => buildDateRange(), [])
-
-  // ── Auth ──────────────────────────────────────────────────────────────────
-  useEffect(() => onAuthChange((u) => setUid(u?.uid ?? null)), [])
-
-  // ── Firestore listener ────────────────────────────────────────────────────
-  useEffect(() => {
-    if (!db || !uid) {
-      setFirestoreUnavailable(false)
-      return
-    }
-    const q = query(
-      collection(db, "planned_cases"),
-      where("uid", "==", uid),
-    )
-    const unsub = onSnapshot(
-      q,
-      (snap) => {
-        setFirestoreUnavailable(false)
-        const rows: PlannedCase[] = snap.docs.map((d) => ({ id: d.id, ...d.data() } as PlannedCase))
-        setCases(rows.sort((a, b) => (a.date + (a.time ?? "")).localeCompare(b.date + (b.time ?? ""))))
-      },
-      (err) => {
-        console.warn("[PrepSight] planned_cases listener failed", err)
-        setFirestoreUnavailable(true)
-      },
-    )
-    return () => unsub()
-  }, [uid])
-
-  // ── Scroll strip to today on mount ────────────────────────────────────────
-  useEffect(() => {
-    const todayIdx = dateRange.indexOf(today())
-    if (!stripRef.current || todayIdx < 0) return
-    const cell = stripRef.current.children[todayIdx] as HTMLElement | undefined
-    if (cell) cell.scrollIntoView({ inline: "center", behavior: "instant" })
-  }, [dateRange])
-
-  // ── Case counts per date ──────────────────────────────────────────────────
-  const casesByDate = useMemo(() => {
-    const map = new Map<string, PlannedCase[]>()
-    for (const c of cases) {
-      const list = map.get(c.date) ?? []
-      list.push(c)
-      map.set(c.date, list)
-    }
-    return map
-  }, [cases])
-
-  const selectedCases = casesByDate.get(selectedDate) ?? []
-
-  const upcomingCases = useMemo(() => {
-    const t = today()
-    return cases.filter((c) => c.date >= t)
-  }, [cases])
-
-  // ── Save ──────────────────────────────────────────────────────────────────
-  async function handleSave(data: Omit<PlannedCase, "id">) {
-    if (!db || !uid) {
-      // Optimistic local state (not persisted)
-      const local: PlannedCase = { ...data, id: `local-${Date.now()}` }
-      setCases((prev) => [...prev, local].sort((a, b) => (a.date + (a.time ?? "")).localeCompare(b.date + (b.time ?? ""))))
-      return
-    }
-    try {
-      await addDoc(collection(db, "planned_cases"), {
-        ...data,
-        uid,
-        createdAt: serverTimestamp(),
-      })
-    } catch (err) {
-      console.warn("[PrepSight] planned_cases save failed", err)
-    }
-  }
-
-  // ── Delete ────────────────────────────────────────────────────────────────
-  async function handleDelete(id: string) {
-    if (id.startsWith("local-")) {
-      setCases((prev) => prev.filter((c) => c.id !== id))
-      return
-    }
-    if (!db) return
-    try {
-      await deleteDoc(doc(db, "planned_cases", id))
-    } catch (err) {
-      console.warn("[PrepSight] planned_cases delete failed", err)
-    }
-  }
-
-  // ── Prepare tab data ──────────────────────────────────────────────────────
-  const prepCases = useMemo(() => {
-    const t = today()
-    const cutoff = formatDate(new Date(parseLocalDate(t).getTime() + 7 * 86400000))
-    return upcomingCases
-      .filter((c) => c.date <= cutoff)
-      .map((c) => {
-        const proc = procedures.find((p) => p.id === c.procedureId)
-        const hasCard = (proc?.sections?.length ?? 0) > 0 || hasVariantsForProcedure(c.procedureId)
-        const hasSurgeon = !!c.surgeonName
-        const readiness = hasCard && hasSurgeon ? "green" : hasCard ? "amber" : "red"
-        return { ...c, hasCard, hasSurgeon, readiness }
-      })
-  }, [upcomingCases])
-
-  // ── Insights ──────────────────────────────────────────────────────────────
-  const noCardCount = upcomingCases.filter((c) => {
-    const proc = procedures.find((p) => p.id === c.procedureId)
-    return !((proc?.sections?.length ?? 0) > 0 || hasVariantsForProcedure(c.procedureId))
-  }).length
-
-  const imminentCount = useMemo(() => {
-    const t = today()
-    const cutoff = formatDate(new Date(parseLocalDate(t).getTime() + 3 * 86400000))
-    return upcomingCases.filter((c) => c.date <= cutoff).length
-  }, [upcomingCases])
-
-  // ── Render ────────────────────────────────────────────────────────────────
-  if (embedded) {
-    return (
-      <>
-        <div className="grid gap-4 xl:grid-cols-[minmax(0,1fr)_280px]">
-          <div className="space-y-4">
-            <section className="px-1">
-              <p className="text-[13px] text-[#5B7A8A]">Calendar</p>
-              <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">Planner</h1>
-              <p className="mt-2 text-[14px] text-[#61758B]">
-                Plan upcoming cases, check readiness, and spot gaps before the list arrives.
-              </p>
-            </section>
-
-            <section className="rounded-[18px] border border-[#D8E3EE] bg-white p-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <div
-                ref={stripRef}
-                className="flex gap-1 overflow-x-auto pb-1 scrollbar-hide"
-                style={{ scrollbarWidth: "none" }}
-              >
-                {dateRange.map((dateStr) => {
-                  const { dayNum, dayName, monthLabel } = getDayLabel(dateStr)
-                  const isToday = dateStr === today()
-                  const isSelected = dateStr === selectedDate
-                  const count = casesByDate.get(dateStr)?.length ?? 0
-
-                  return (
-                    <button
-                      key={dateStr}
-                      onClick={() => { setSelectedDate(dateStr); setTab("upcoming") }}
-                      className={`flex shrink-0 flex-col items-center rounded-2xl px-3 py-2 transition-all ${
-                        isSelected
-                          ? "bg-[#4DA3FF] text-white shadow-md"
-                          : isToday
-                            ? "bg-[#EFF8FF] text-[#4DA3FF]"
-                            : "text-[#475569] hover:bg-[#F4F7FA]"
-                      }`}
-                    >
-                      {monthLabel ? (
-                        <span className={`mb-0.5 text-[9px] font-bold tracking-widest ${isSelected ? "text-white/70" : "text-[#94a3b8]"}`}>
-                          {monthLabel}
-                        </span>
-                      ) : null}
-                      <span className={`text-[11px] font-medium ${isSelected ? "text-white/80" : isToday ? "text-[#4DA3FF]" : "text-[#94a3b8]"}`}>
-                        {dayName}
-                      </span>
-                      <span className="text-[17px] font-bold leading-tight">{dayNum}</span>
-                      <div className={`mt-1 h-1.5 w-1.5 rounded-full transition-all ${count > 0 ? (isSelected ? "bg-white" : "bg-[#4DA3FF]") : "opacity-0"}`} />
-                    </button>
-                  )
-                })}
-              </div>
-
-              <div className="mt-3 flex gap-1">
-                {(["upcoming", "prepare", "insights"] as Tab[]).map((t) => (
-                  <button
-                    key={t}
-                    onClick={() => setTab(t)}
-                    className={`flex-1 rounded-lg py-1.5 text-[13px] font-semibold capitalize transition-all ${
-                      tab === t ? "bg-[#4DA3FF] text-white" : "text-[#64748b] hover:bg-[#F4F7FA]"
-                    }`}
-                  >
-                    {t}
-                  </button>
-                ))}
-              </div>
-            </section>
-
-            <section className="space-y-3">
-              {tab === "upcoming" && (
-                <div>
-                  {firestoreUnavailable ? (
-                    <div className="mb-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-[13px] text-amber-800">
-                      Planner sync is unavailable for this account. Cases added here will remain local on this device until Firestore access is available.
-                    </div>
-                  ) : null}
-
-                  <div className="mb-3 flex items-center justify-between">
-                    <p className="app-text-strong text-[15px] font-semibold">{friendlyDate(selectedDate)}</p>
-                    <button
-                      onClick={() => setShowAdd(true)}
-                      className="flex items-center gap-1 text-[13px] font-semibold text-[#4DA3FF]"
-                    >
-                      <Plus size={13} /> Add
-                    </button>
-                  </div>
-
-                  {selectedCases.length === 0 ? (
-                    <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
-                      <CalendarDays size={28} className="mx-auto mb-3 text-[#CBD5E1]" />
-                      <p className="app-text-muted text-[14px]">No cases planned for this day</p>
-                      <button
-                        onClick={() => setShowAdd(true)}
-                        className="mt-3 text-[13px] font-semibold text-[#4DA3FF] hover:underline"
-                      >
-                        Add a case
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      {selectedCases.map((c) => (
-                        <CaseCard key={c.id} planned={c} onDelete={handleDelete} />
-                      ))}
-                    </div>
-                  )}
-
-                  {upcomingCases.length > 0 ? (
-                    <div className="mt-8">
-                      <p className="app-text-muted mb-3 text-[11px] font-semibold uppercase tracking-wide">
-                        All upcoming ({upcomingCases.length})
-                      </p>
-                      <div className="space-y-3">
-                        {upcomingCases
-                          .filter((c) => c.date !== selectedDate)
-                          .map((c) => (
-                            <CaseCard key={c.id} planned={c} onDelete={handleDelete} showDate />
-                          ))}
-                      </div>
-                    </div>
-                  ) : null}
-                </div>
-              )}
-
-              {tab === "prepare" && (
-                <div>
-                  <p className="app-text-muted mb-4 text-[13px]">
-                    Next 7 days - readiness check for each planned case.
-                  </p>
-
-                  {prepCases.length === 0 ? (
-                    <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
-                      <p className="app-text-muted text-[14px]">No cases in the next 7 days</p>
-                    </div>
-                  ) : (
-                    <div className="space-y-3">
-                      {prepCases.map((c) => (
-                        <div key={c.id} className="app-card-bg app-card-border rounded-2xl border px-4 py-3.5 shadow-sm">
-                          <div className="flex items-start gap-3">
-                            <div
-                              className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${
-                                c.readiness === "green" ? "bg-emerald-400" :
-                                c.readiness === "amber" ? "bg-amber-400" : "bg-red-400"
-                              }`}
-                            />
-                            <div className="flex-1 min-w-0">
-                              <p className="app-text-strong text-[14px] font-semibold">{c.procedureName}</p>
-                              <p className="mt-0.5 text-[11px] font-semibold text-[#4DA3FF]">{friendlyDate(c.date)}{c.time ? ` · ${c.time}` : ""}</p>
-                              <div className="mt-2 flex flex-wrap gap-2">
-                                <span className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${c.hasCard ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`}>
-                                  {c.hasCard ? <CheckCircle2 size={11} /> : <Circle size={11} />}
-                                  Kardex card
-                                </span>
-                                <span className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${c.hasSurgeon ? "bg-emerald-50 text-emerald-700" : "bg-[#F4F7FA] text-[#94a3b8]"}`}>
-                                  {c.hasSurgeon ? <CheckCircle2 size={11} /> : <Circle size={11} />}
-                                  Surgeon noted
-                                </span>
-                              </div>
-                            </div>
-                            <button onClick={() => handleDelete(c.id)} className="shrink-0 rounded-lg p-1.5 text-[#cbd5e1] hover:bg-red-50 hover:text-red-500">
-                              <Trash2 size={13} />
-                            </button>
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {tab === "insights" && (
-                <div className="space-y-3">
-                  {upcomingCases.length === 0 ? (
-                    <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
-                      <p className="app-text-muted text-[14px]">Add cases to your planner to see insights</p>
-                    </div>
-                  ) : (
-                    <>
-                      <div className="app-card-bg app-card-border rounded-2xl border px-4 py-4 shadow-sm">
-                        <p className="mb-3 text-[14px] font-bold text-[#1E293B]">Overview</p>
-                        <div className="grid grid-cols-3 gap-3 text-center">
-                          <div>
-                            <p className="text-[22px] font-bold text-[#1E293B]">{upcomingCases.length}</p>
-                            <p className="text-[11px] text-[#94a3b8]">Upcoming</p>
-                          </div>
-                          <div>
-                            <p className="text-[22px] font-bold text-[#1E293B]">{imminentCount}</p>
-                            <p className="text-[11px] text-[#94a3b8]">Next 3 days</p>
-                          </div>
-                          <div>
-                            <p className={`text-[22px] font-bold ${noCardCount > 0 ? "text-amber-500" : "text-emerald-500"}`}>{noCardCount}</p>
-                            <p className="text-[11px] text-[#94a3b8]">No card</p>
-                          </div>
-                        </div>
-                      </div>
-
-                      {noCardCount > 0 ? (
-                        <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3.5">
-                          <div className="flex items-start gap-2.5">
-                            <AlertTriangle size={15} className="mt-0.5 shrink-0 text-amber-500" />
-                            <div>
-                              <p className="text-[13px] font-semibold text-amber-800">
-                                {noCardCount} case{noCardCount !== 1 ? "s" : ""} without a Kardex card
-                              </p>
-                              <p className="mt-0.5 text-[12px] text-amber-700">
-                                No reference card or variant data available. Verify preparation manually.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      ) : null}
-
-                      {imminentCount > 0 ? (
-                        <div className="rounded-2xl border border-[#B8DBFF] bg-[#EFF8FF] px-4 py-3.5">
-                          <div className="flex items-start gap-2.5">
-                            <CalendarDays size={15} className="mt-0.5 shrink-0 text-[#4DA3FF]" />
-                            <div>
-                              <p className="text-[13px] font-semibold text-[#1E4E8C]">
-                                {imminentCount} case{imminentCount !== 1 ? "s" : ""} in the next 3 days
-                              </p>
-                              <p className="mt-0.5 text-[12px] text-[#2563EB]">
-                                Check the Prepare tab to confirm readiness.
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      ) : null}
-
-                      {noCardCount === 0 ? (
-                        <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3.5">
-                          <div className="flex items-center gap-2.5">
-                            <CheckCircle2 size={15} className="shrink-0 text-emerald-500" />
-                            <p className="text-[13px] font-semibold text-emerald-800">
-                              All planned cases have reference cards
-                            </p>
-                          </div>
-                        </div>
-                      ) : null}
-                    </>
-                  )}
-                </div>
-              )}
-            </section>
-          </div>
-
-          <aside className="space-y-3">
-            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <p className="text-[15px] font-medium text-[#10243E]">Planner</p>
-              <div className="mt-3 space-y-3">
-                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                  <span>Upcoming</span>
-                  <span className="text-[18px] text-[#10243E]">{upcomingCases.length}</span>
-                </div>
-                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                  <span>Next 3 days</span>
-                  <span className="text-[18px] text-[#0F4C5C]">{imminentCount}</span>
-                </div>
-                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                  <span>No card</span>
-                  <span className="text-[18px] text-[#C2410C]">{noCardCount}</span>
-                </div>
-              </div>
-            </section>
-
-            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <p className="text-[15px] font-medium text-[#10243E]">Selected day</p>
-              <p className="mt-3 text-[17px] tracking-[-0.03em] text-[#10243E]">{friendlyDate(selectedDate)}</p>
-              <p className="mt-1 text-[12px] text-[#61758B]">
-                {selectedCases.length} planned case{selectedCases.length === 1 ? "" : "s"}.
-              </p>
-              <button
-                type="button"
-                onClick={() => setShowAdd(true)}
-                className="mt-3 inline-flex items-center gap-1.5 rounded-[10px] bg-[#4DA3FF] px-3 py-2 text-[13px] font-semibold text-white"
-              >
-                <Plus size={14} />
-                Add case
-              </button>
-            </section>
-
-            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <p className="text-[15px] font-medium text-[#10243E]">Readiness</p>
-              <p className="mt-3 text-[13px] leading-5 text-[#61758B]">
-                {prepCases.length} case{prepCases.length === 1 ? "" : "s"} fall inside the next 7 days preparation window.
-              </p>
-              {firestoreUnavailable ? (
-                <p className="mt-2 text-[12px] leading-5 text-amber-700">
-                  Planner sync is unavailable for this account, so local entries stay on this device.
-                </p>
-              ) : null}
-            </section>
-          </aside>
-        </div>
-
-        {showAdd && (
-          <AddCaseSheet
-            initialDate={selectedDate}
-            onClose={() => setShowAdd(false)}
-            onSave={handleSave}
-          />
-        )}
-      </>
-    )
-  }
-
-  return (
-    <>
-      <div className="lg:hidden">
-        <div className="app-shell-bg min-h-screen">
-      {/* Date strip */}
-      <div className="app-header-bg app-card-border border-b">
-        <div
-          ref={stripRef}
-          className="flex gap-1 overflow-x-auto px-3 py-3 scrollbar-hide"
-          style={{ scrollbarWidth: "none" }}
-        >
-          {dateRange.map((dateStr) => {
-            const { dayNum, dayName, monthLabel } = getDayLabel(dateStr)
-            const isToday = dateStr === today()
-            const isSelected = dateStr === selectedDate
-            const count = casesByDate.get(dateStr)?.length ?? 0
-
-            return (
-              <button
-                key={dateStr}
-                onClick={() => { setSelectedDate(dateStr); setTab("upcoming") }}
-                className={`flex shrink-0 flex-col items-center rounded-2xl px-3 py-2 transition-all ${
-                  isSelected
-                    ? "bg-[#4DA3FF] text-white shadow-md"
-                    : isToday
-                      ? "bg-[#EFF8FF] text-[#4DA3FF]"
-                      : "text-[#475569] hover:bg-[#F4F7FA]"
-                }`}
-              >
-                {monthLabel && (
-                  <span className={`mb-0.5 text-[9px] font-bold uppercase tracking-widest ${isSelected ? "text-white/70" : "text-[#94a3b8]"}`}>
-                    {monthLabel}
-                  </span>
-                )}
-                <span className={`text-[11px] font-medium ${isSelected ? "text-white/80" : isToday ? "text-[#4DA3FF]" : "text-[#94a3b8]"}`}>
-                  {dayName}
-                </span>
-                <span className="text-[17px] font-bold leading-tight">{dayNum}</span>
-                <div className={`mt-1 h-1.5 w-1.5 rounded-full transition-all ${count > 0 ? (isSelected ? "bg-white" : "bg-[#4DA3FF]") : "opacity-0"}`} />
-              </button>
-            )
-          })}
-        </div>
-      </div>
-
-      {/* Tab bar */}
-      <div className="app-header-bg app-card-border border-b">
-        <div className="max-w-2xl mx-auto flex gap-1 px-4 py-2">
-          {(["upcoming", "prepare", "insights"] as Tab[]).map((t) => (
+    <div>
+      <p className="text-[11px] font-semibold mb-2 px-1" style={{ color: TEAL }}>My calendars</p>
+      <div className="space-y-0.5">
+        {(Object.keys(SOURCE_META) as CalendarSource[]).map((source) => {
+          const { label, color } = SOURCE_META[source]
+          const on = sources[source]
+          return (
             <button
-              key={t}
-              onClick={() => setTab(t)}
-              className={`flex-1 rounded-lg py-1.5 text-[13px] font-semibold capitalize transition-all ${
-                tab === t ? "bg-[#4DA3FF] text-white" : "text-[#64748b] hover:bg-[#F4F7FA]"
-              }`}
+              key={source}
+              type="button"
+              onClick={() => onToggle(source)}
+              className="w-full flex items-center gap-2.5 px-2 py-1.5 rounded-lg transition"
+              style={{ color: TEAL }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = HOVER_BG)}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
             >
-              {t}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Content */}
-      <main className="max-w-2xl mx-auto px-4 py-5">
-
-        {/* ── Upcoming ─────────────────────────────────────────────────────── */}
-        {tab === "upcoming" && (
-          <div>
-            {firestoreUnavailable ? (
-              <div className="mb-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-[13px] text-amber-800">
-                Planner sync is unavailable for this account. Cases added here will remain local on this device until Firestore access is available.
-              </div>
-            ) : null}
-
-            <div className="mb-3 flex items-center justify-between">
-              <p className="app-text-strong text-[15px] font-semibold">
-                {friendlyDate(selectedDate)}
-              </p>
-              <button
-                onClick={() => setShowAdd(true)}
-                className="flex items-center gap-1 text-[13px] font-semibold text-[#4DA3FF]"
+              <span
+                className="w-3.5 h-3.5 rounded-sm flex-shrink-0 flex items-center justify-center border-2 transition"
+                style={{ backgroundColor: on ? color : "transparent", borderColor: color }}
               >
-                <Plus size={13} /> Add
-              </button>
+                {on && (
+                  <svg width="8" height="6" viewBox="0 0 8 6" fill="none">
+                    <path d="M1 3L3 5L7 1" stroke="white" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                  </svg>
+                )}
+              </span>
+              <span className="text-[13px] font-medium" style={{ color: on ? TEAL : "#7aa1b2" }}>
+                {label}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+// ─── Schedule (left panel list) ───────────────────────────────────────────────
+
+function ScheduleView({ items, fromDate }: { items: CalendarItem[]; fromDate: Date }) {
+  const fromStr = dateToString(fromDate)
+  const sorted = [...items]
+    .filter((it) => it.date >= fromStr)
+    .sort((a, b) => {
+      if (a.date !== b.date) return a.date.localeCompare(b.date)
+      return (a.start ?? "00:00").localeCompare(b.start ?? "00:00")
+    })
+
+  const grouped: Array<{ date: string; items: CalendarItem[] }> = []
+  for (const item of sorted) {
+    const last = grouped[grouped.length - 1]
+    if (last && last.date === item.date) last.items.push(item)
+    else grouped.push({ date: item.date, items: [item] })
+  }
+
+  if (grouped.length === 0) {
+    return (
+      <div className="flex items-center justify-center h-32 text-[12px]" style={{ color: TEAL }}>
+        Nothing on this date
+      </div>
+    )
+  }
+
+  return (
+    <div className="py-1">
+      {grouped.map(({ date, items: di }) => {
+        const d = new Date(`${date}T00:00:00`)
+        const todayDate = isToday(d)
+        return (
+          <div key={date} className="border-b last:border-0" style={{ borderColor: BORDER }}>
+            {/* Date header */}
+            <div className="flex items-baseline gap-2 px-3 pt-3 pb-1">
+              <span
+                className="text-[18px] font-semibold leading-none"
+                style={{ color: todayDate ? TEAL_MID : TEAL }}
+              >
+                {d.getDate()}
+              </span>
+              <span className="text-[12px] font-medium" style={{ color: todayDate ? TEAL_MID : TEAL }}>
+                {d.toLocaleDateString("en-GB", { weekday: "short", month: "short" })}
+                {todayDate ? " · Today" : ""}
+              </span>
             </div>
 
-            {selectedCases.length === 0 ? (
-              <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
-                <CalendarDays size={28} className="mx-auto mb-3 text-[#CBD5E1]" />
-                <p className="app-text-muted text-[14px]">No cases planned for this day</p>
-                <button
-                  onClick={() => setShowAdd(true)}
-                  className="mt-3 text-[13px] font-semibold text-[#4DA3FF] hover:underline"
-                >
-                  Add a case
-                </button>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {selectedCases.map((c) => (
-                  <CaseCard key={c.id} planned={c} onDelete={handleDelete} />
-                ))}
-              </div>
-            )}
-
-            {/* All upcoming section */}
-            {upcomingCases.length > 0 && (
-              <div className="mt-8">
-                <p className="app-text-muted mb-3 text-[11px] font-semibold uppercase tracking-wide">
-                  All upcoming ({upcomingCases.length})
-                </p>
-                <div className="space-y-3">
-                  {upcomingCases
-                    .filter((c) => c.date !== selectedDate)
-                    .map((c) => (
-                      <CaseCard key={c.id} planned={c} onDelete={handleDelete} showDate />
-                    ))}
-                </div>
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* ── Prepare ──────────────────────────────────────────────────────── */}
-        {tab === "prepare" && (
-          <div>
-            <p className="app-text-muted mb-4 text-[13px]">
-              Next 7 days — readiness check for each planned case.
-            </p>
-
-            {prepCases.length === 0 ? (
-              <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
-                <p className="app-text-muted text-[14px]">No cases in the next 7 days</p>
-              </div>
-            ) : (
-              <div className="space-y-3">
-                {prepCases.map((c) => (
-                  <div key={c.id} className="app-card-bg app-card-border rounded-2xl border px-4 py-3.5 shadow-sm">
-                    <div className="flex items-start gap-3">
-                      <div
-                        className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${
-                          c.readiness === "green" ? "bg-emerald-400" :
-                          c.readiness === "amber" ? "bg-amber-400" : "bg-red-400"
-                        }`}
-                      />
-                      <div className="flex-1 min-w-0">
-                        <p className="app-text-strong text-[14px] font-semibold">{c.procedureName}</p>
-                        <p className="text-[11px] font-semibold text-[#4DA3FF] mt-0.5">{friendlyDate(c.date)}{c.time ? ` · ${c.time}` : ""}</p>
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          <span className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${c.hasCard ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`}>
-                            {c.hasCard ? <CheckCircle2 size={11} /> : <Circle size={11} />}
-                            Kardex card
-                          </span>
-                          <span className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${c.hasSurgeon ? "bg-emerald-50 text-emerald-700" : "bg-[#F4F7FA] text-[#94a3b8]"}`}>
-                            {c.hasSurgeon ? <CheckCircle2 size={11} /> : <Circle size={11} />}
-                            Surgeon noted
-                          </span>
-                        </div>
-                      </div>
-                      <button onClick={() => handleDelete(c.id)} className="shrink-0 rounded-lg p-1.5 text-[#cbd5e1] hover:bg-red-50 hover:text-red-500">
-                        <Trash2 size={13} />
-                      </button>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* ── Insights ─────────────────────────────────────────────────────── */}
-        {tab === "insights" && (
-          <div className="space-y-3">
-            {upcomingCases.length === 0 ? (
-              <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
-                <p className="app-text-muted text-[14px]">Add cases to your planner to see insights</p>
-              </div>
-            ) : (
-              <>
-                {/* Summary */}
-                <div className="app-card-bg app-card-border rounded-2xl border px-4 py-4 shadow-sm">
-                  <p className="app-text-strong text-[14px] font-bold mb-3">Overview</p>
-                  <div className="grid grid-cols-3 gap-3 text-center">
-                    <div>
-                      <p className="text-[22px] font-bold text-[#1E293B]">{upcomingCases.length}</p>
-                      <p className="text-[11px] text-[#94a3b8]">Upcoming</p>
-                    </div>
-                    <div>
-                      <p className="text-[22px] font-bold text-[#1E293B]">{imminentCount}</p>
-                      <p className="text-[11px] text-[#94a3b8]">Next 3 days</p>
-                    </div>
-                    <div>
-                      <p className={`text-[22px] font-bold ${noCardCount > 0 ? "text-amber-500" : "text-emerald-500"}`}>{noCardCount}</p>
-                      <p className="text-[11px] text-[#94a3b8]">No card</p>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Flags */}
-                {noCardCount > 0 && (
-                  <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3.5">
-                    <div className="flex items-start gap-2.5">
-                      <AlertTriangle size={15} className="mt-0.5 shrink-0 text-amber-500" />
-                      <div>
-                        <p className="text-[13px] font-semibold text-amber-800">
-                          {noCardCount} case{noCardCount !== 1 ? "s" : ""} without a Kardex card
-                        </p>
-                        <p className="mt-0.5 text-[12px] text-amber-700">
-                          No reference card or variant data available. Verify preparation manually.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {imminentCount > 0 && (
-                  <div className="rounded-2xl border border-[#B8DBFF] bg-[#EFF8FF] px-4 py-3.5">
-                    <div className="flex items-start gap-2.5">
-                      <CalendarDays size={15} className="mt-0.5 shrink-0 text-[#4DA3FF]" />
-                      <div>
-                        <p className="text-[13px] font-semibold text-[#1E4E8C]">
-                          {imminentCount} case{imminentCount !== 1 ? "s" : ""} in the next 3 days
-                        </p>
-                        <p className="mt-0.5 text-[12px] text-[#2563EB]">
-                          Check the Prepare tab to confirm readiness.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {noCardCount === 0 && (
-                  <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3.5">
-                    <div className="flex items-center gap-2.5">
-                      <CheckCircle2 size={15} className="shrink-0 text-emerald-500" />
-                      <p className="text-[13px] font-semibold text-emerald-800">
-                        All planned cases have reference cards
-                      </p>
-                    </div>
-                  </div>
-                )}
-              </>
-            )}
-          </div>
-        )}
-      </main>
-        </div>
-      </div>
-
-      <WorkspaceDesktopShell
-        currentNav="calendar"
-        rightRail={
-          <div className="space-y-3">
-            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <p className="text-[15px] font-medium text-[#10243E]">Planner</p>
-              <div className="mt-3 space-y-3">
-                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                  <span>Upcoming</span>
-                  <span className="text-[18px] text-[#10243E]">{upcomingCases.length}</span>
-                </div>
-                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                  <span>Next 3 days</span>
-                  <span className="text-[18px] text-[#0F4C5C]">{imminentCount}</span>
-                </div>
-                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                  <span>No card</span>
-                  <span className="text-[18px] text-[#C2410C]">{noCardCount}</span>
-                </div>
-              </div>
-            </section>
-
-            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <p className="text-[15px] font-medium text-[#10243E]">Selected day</p>
-              <p className="mt-3 text-[17px] tracking-[-0.03em] text-[#10243E]">{friendlyDate(selectedDate)}</p>
-              <p className="mt-1 text-[12px] text-[#61758B]">
-                {selectedCases.length} planned case{selectedCases.length === 1 ? "" : "s"}.
-              </p>
-              <button
-                type="button"
-                onClick={() => setShowAdd(true)}
-                className="mt-3 inline-flex items-center gap-1.5 rounded-[10px] bg-[#4DA3FF] px-3 py-2 text-[13px] font-semibold text-white"
-              >
-                <Plus size={14} />
-                Add case
-              </button>
-            </section>
-
-            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <p className="text-[15px] font-medium text-[#10243E]">Readiness</p>
-              <p className="mt-3 text-[13px] leading-5 text-[#61758B]">
-                {prepCases.length} case{prepCases.length === 1 ? "" : "s"} fall inside the next 7 days preparation window.
-              </p>
-              {firestoreUnavailable ? (
-                <p className="mt-2 text-[12px] leading-5 text-amber-700">
-                  Planner sync is unavailable for this account, so local entries stay on this device.
-                </p>
-              ) : null}
-            </section>
-          </div>
-        }
-      >
-        <div className="space-y-4">
-          <section className="px-1">
-            <p className="text-[13px] text-[#5B7A8A]">Calendar</p>
-            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">Planner</h1>
-            <p className="mt-2 text-[14px] text-[#61758B]">
-              Plan upcoming cases, check readiness, and spot gaps before the list arrives.
-            </p>
-          </section>
-
-          <section className="rounded-[18px] border border-[#D8E3EE] bg-white p-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-            <div
-              ref={stripRef}
-              className="flex gap-1 overflow-x-auto pb-1 scrollbar-hide"
-              style={{ scrollbarWidth: "none" }}
-            >
-              {dateRange.map((dateStr) => {
-                const { dayNum, dayName, monthLabel } = getDayLabel(dateStr)
-                const isToday = dateStr === today()
-                const isSelected = dateStr === selectedDate
-                const count = casesByDate.get(dateStr)?.length ?? 0
-
+            {/* Events */}
+            <div className="pb-2">
+              {di.map((it) => {
+                const { color, label } = SOURCE_META[it.source]
                 return (
                   <button
-                    key={dateStr}
-                    onClick={() => { setSelectedDate(dateStr); setTab("upcoming") }}
-                    className={`flex shrink-0 flex-col items-center rounded-2xl px-3 py-2 transition-all ${
-                      isSelected
-                        ? "bg-[#4DA3FF] text-white shadow-md"
-                        : isToday
-                          ? "bg-[#EFF8FF] text-[#4DA3FF]"
-                          : "text-[#475569] hover:bg-[#F4F7FA]"
-                    }`}
+                    key={it.id}
+                    type="button"
+                    className="w-full text-left flex items-start gap-2 px-3 py-1.5 transition"
+                    onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = HOVER_BG)}
+                    onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
                   >
-                    {monthLabel ? (
-                      <span className={`mb-0.5 text-[9px] font-bold tracking-widest ${isSelected ? "text-white/70" : "text-[#94a3b8]"}`}>
-                        {monthLabel}
-                      </span>
-                    ) : null}
-                    <span className={`text-[11px] font-medium ${isSelected ? "text-white/80" : isToday ? "text-[#4DA3FF]" : "text-[#94a3b8]"}`}>
-                      {dayName}
-                    </span>
-                    <span className="text-[17px] font-bold leading-tight">{dayNum}</span>
-                    <div className={`mt-1 h-1.5 w-1.5 rounded-full transition-all ${count > 0 ? (isSelected ? "bg-white" : "bg-[#4DA3FF]") : "opacity-0"}`} />
+                    <span className="mt-1.5 w-2 h-2 rounded-full flex-shrink-0" style={{ backgroundColor: color }} />
+                    <div className="flex-1 min-w-0">
+                      <p className="text-[12px] font-semibold truncate" style={{ color: TEAL }}>{it.title}</p>
+                      <p className="text-[11px] truncate" style={{ color: TEAL }}>
+                        {it.allDay ? "All day" : `${it.start}${it.end ? ` – ${it.end}` : ""}`}
+                        {" · "}{label}
+                      </p>
+                    </div>
                   </button>
                 )
               })}
             </div>
+          </div>
+        )
+      })}
+    </div>
+  )
+}
 
-            <div className="mt-3 flex gap-1">
-              {(["upcoming", "prepare", "insights"] as Tab[]).map((t) => (
-                <button
-                  key={t}
-                  onClick={() => setTab(t)}
-                  className={`flex-1 rounded-lg py-1.5 text-[13px] font-semibold capitalize transition-all ${
-                    tab === t ? "bg-[#4DA3FF] text-white" : "text-[#64748b] hover:bg-[#F4F7FA]"
-                  }`}
+// ─── Toolbar ──────────────────────────────────────────────────────────────────
+
+function CalendarToolbar({ view, onChangeView, title, onPrev, onNext, onToday }: {
+  view: CalendarView; onChangeView: (v: CalendarView) => void
+  title: string; onPrev: () => void; onNext: () => void; onToday: () => void
+}) {
+  const views: Array<{ key: CalendarView; label: string }> = [
+    { key: "day",   label: "Day"   },
+    { key: "week",  label: "Week"  },
+    { key: "month", label: "Month" },
+  ]
+
+  return (
+    <div className="flex items-center justify-between px-4 py-2.5 flex-shrink-0 border-b" style={{ borderColor: BORDER, backgroundColor: "white" }}>
+      <div className="flex items-center gap-2">
+        <button
+          onClick={onToday}
+          className="px-3 py-1.5 rounded-lg border text-[12px] font-semibold transition"
+          style={{ borderColor: BORDER, color: TEAL }}
+          onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = HOVER_BG)}
+          onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+        >
+          Today
+        </button>
+        <div className="flex items-center">
+          <button
+            onClick={onPrev}
+            className="w-7 h-7 flex items-center justify-center rounded-full transition"
+            style={{ color: TEAL }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = HOVER_BG)}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+          >
+            <ChevronLeft size={16} />
+          </button>
+          <button
+            onClick={onNext}
+            className="w-7 h-7 flex items-center justify-center rounded-full transition"
+            style={{ color: TEAL }}
+            onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = HOVER_BG)}
+            onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+          >
+            <ChevronRight size={16} />
+          </button>
+        </div>
+        <span className="text-[17px] font-semibold tracking-[-0.02em]" style={{ color: TEAL }}>{title}</span>
+      </div>
+
+      <div className="inline-flex rounded-lg border p-0.5" style={{ borderColor: BORDER, backgroundColor: "#f0f9fc" }}>
+        {views.map((v) => (
+          <button
+            key={v.key}
+            type="button"
+            onClick={() => onChangeView(v.key)}
+            className="px-3 py-1.5 rounded-md text-[12px] font-semibold transition"
+            style={view === v.key
+              ? { backgroundColor: TEAL_MID, color: "white" }
+              : { color: TEAL, backgroundColor: "transparent" }
+            }
+            onMouseEnter={(e) => { if (view !== v.key) e.currentTarget.style.backgroundColor = HOVER_BG }}
+            onMouseLeave={(e) => { if (view !== v.key) e.currentTarget.style.backgroundColor = "transparent" }}
+          >
+            {v.label}
+          </button>
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ─── Event pill (month grid) ──────────────────────────────────────────────────
+
+function EventPill({ item }: { item: CalendarItem }) {
+  const { color } = SOURCE_META[item.source]
+  return (
+    <div className="truncate text-[11px] font-medium text-white rounded px-1.5 leading-5" style={{ backgroundColor: color }}>
+      {!item.allDay && item.start ? `${item.start} ` : ""}{item.title}
+    </div>
+  )
+}
+
+// ─── Month View ───────────────────────────────────────────────────────────────
+
+function MonthView({ date, items, onSelectDate }: {
+  date: Date; items: CalendarItem[]; onSelectDate: (d: Date, switchView?: boolean) => void
+}) {
+  const grid = getMonthGrid(date.getFullYear(), date.getMonth())
+  const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+  return (
+    <div className="flex flex-col h-full">
+      <div className="grid grid-cols-7 flex-shrink-0 border-b" style={{ borderColor: BORDER, backgroundColor: "white" }}>
+        {DAYS.map((d) => (
+          <div key={d} className="py-2 text-center text-[11px] font-semibold" style={{ color: TEAL }}>
+            {d}
+          </div>
+        ))}
+      </div>
+
+      <div className="flex-1 grid grid-cols-7 grid-rows-6 border-l overflow-hidden" style={{ borderColor: BORDER }}>
+        {grid.map((d, i) => {
+          const inMonth = d.getMonth() === date.getMonth()
+          const todayDate = isToday(d)
+          const dayItems = getItemsForDate(items, d)
+          const visible = dayItems.slice(0, 3)
+          const overflow = dayItems.length - visible.length
+
+          return (
+            <div
+              key={i}
+              onClick={() => onSelectDate(d, false)}
+              className="border-r border-b p-1.5 cursor-pointer transition"
+              style={{ borderColor: BORDER, backgroundColor: inMonth ? "white" : "#f4fafb" }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = HOVER_BG)}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = inMonth ? "white" : "#f4fafb")}
+            >
+              <div className="flex justify-center mb-1">
+                <span
+                  className="w-7 h-7 flex items-center justify-center rounded-full text-[13px] font-semibold leading-none transition"
+                  style={todayDate
+                    ? { backgroundColor: TEAL_MID, color: "white" }
+                    : { color: inMonth ? TEAL : "#b0ccd4" }
+                  }
                 >
-                  {t}
-                </button>
+                  {d.getDate()}
+                </span>
+              </div>
+              <div className="space-y-0.5">
+                {visible.map((item) => <EventPill key={item.id} item={item} />)}
+                {overflow > 0 && (
+                  <div className="text-[10px] font-semibold px-1.5 leading-5" style={{ color: TEAL }}>+{overflow} more</div>
+                )}
+              </div>
+            </div>
+          )
+        })}
+      </div>
+    </div>
+  )
+}
+
+// ─── Timed event block ────────────────────────────────────────────────────────
+
+function TimeBlock({ item }: { item: CalendarItem }) {
+  const { color } = SOURCE_META[item.source]
+  if (!item.start || !item.end) return null
+  const top    = eventTop(item.start)
+  const height = eventHeight(item.start, item.end)
+
+  return (
+    <div
+      className="absolute left-1 right-1 rounded-md px-1.5 py-0.5 overflow-hidden cursor-pointer transition hover:brightness-95"
+      style={{ top, height, backgroundColor: color + "28", borderLeft: `3px solid ${color}` }}
+    >
+      <p className="text-[11px] font-semibold leading-tight truncate" style={{ color }}>
+        {item.start} {item.title}
+      </p>
+      {height > 36 && (
+        <p className="text-[10px] leading-tight mt-0.5 truncate" style={{ color: color + "bb" }}>
+          {item.detail}
+        </p>
+      )}
+    </div>
+  )
+}
+
+// ─── Shared time grid helpers ─────────────────────────────────────────────────
+
+// CSS background that draws one clean 1px horizontal line per hour — no DOM elements needed
+const hourLinesBg = `repeating-linear-gradient(to bottom, ${BORDER}88 0px, ${BORDER}88 1px, transparent 1px, transparent ${HOUR_HEIGHT}px)`
+const GRID_TOTAL_H = HOURS.length * HOUR_HEIGHT  // total scrollable height
+
+// Gutter column — shared between WeekView and DayView
+function TimeGutter() {
+  return (
+    <div
+      className="flex-shrink-0 border-r"
+      style={{ width: 64, borderColor: BORDER }}
+    >
+      {HOURS.map((h) => (
+        <div key={h} style={{ height: HOUR_HEIGHT, position: "relative" }}>
+          {/* Label straddles the top edge of each row; first label goes below so it's never clipped */}
+          <span
+            style={{
+              position: "absolute",
+              top: h === 0 ? 3 : -8,
+              right: 10,
+              fontSize: 10,
+              fontWeight: 500,
+              color: TEAL,
+              whiteSpace: "nowrap",
+            }}
+          >
+            {hourLabel(h)}
+          </span>
+        </div>
+      ))}
+    </div>
+  )
+}
+
+// ─── Week View ────────────────────────────────────────────────────────────────
+
+function WeekView({ date, items, onSelectDate }: { date: Date; items: CalendarItem[]; onSelectDate: (d: Date) => void }) {
+  const weekDates = getWeekDates(date)
+  const DAYS = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+
+  return (
+    <div className="flex flex-col h-full">
+
+      {/* Fixed header row — gutter placeholder + day columns */}
+      <div
+        className="flex flex-shrink-0 border-b"
+        style={{ borderColor: BORDER, backgroundColor: "white", paddingRight: "17px" /* matches scrollbar-gutter:stable reservation */ }}
+      >
+        <div style={{ width: 64, flexShrink: 0, borderRight: `1px solid ${BORDER}` }} />
+        {weekDates.map((d, i) => {
+          const todayDate = isToday(d)
+          return (
+            <button
+              key={i}
+              type="button"
+              onClick={() => onSelectDate(d)}
+              className="flex-1 py-2 text-center transition"
+              style={{ borderRight: i < 6 ? `1px solid ${BORDER}` : "none" }}
+              onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = HOVER_BG)}
+              onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "transparent")}
+            >
+              <p className="text-[11px] font-semibold" style={{ color: todayDate ? TEAL_MID : TEAL }}>{DAYS[i]}</p>
+              <span
+                className="inline-flex items-center justify-center w-8 h-8 rounded-full text-[16px] font-semibold mt-0.5"
+                style={todayDate ? { backgroundColor: TEAL_MID, color: "white" } : { color: TEAL }}
+              >
+                {d.getDate()}
+              </span>
+            </button>
+          )
+        })}
+      </div>
+
+      {/* All-day strip */}
+      <div
+        className="flex flex-shrink-0 border-b"
+        style={{ borderColor: BORDER, minHeight: 32, backgroundColor: "#f8fcfd", paddingRight: "17px" }}
+      >
+        <div style={{ width: 64, flexShrink: 0, borderRight: `1px solid ${BORDER}`, display: "flex", alignItems: "center", justifyContent: "flex-end", paddingRight: 8 }}>
+          <span style={{ fontSize: 9, fontWeight: 600, color: TEAL }}>all-day</span>
+        </div>
+        {weekDates.map((d, i) => {
+          const allDay = getItemsForDate(items, d).filter((it) => it.allDay)
+          return (
+            <div
+              key={i}
+              className="flex-1 px-0.5 py-0.5 space-y-0.5"
+              style={{ borderRight: i < 6 ? `1px solid ${BORDER}` : "none" }}
+            >
+              {allDay.map((it) => (
+                <div key={it.id} className="truncate text-[10px] font-medium text-white rounded px-1 leading-4" style={{ backgroundColor: SOURCE_META[it.source].color }}>
+                  {it.title}
+                </div>
               ))}
             </div>
-          </section>
+          )
+        })}
+      </div>
 
-          <section className="space-y-3">
-            {tab === "upcoming" && (
-              <div>
-                {firestoreUnavailable ? (
-                  <div className="mb-4 rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3 text-[13px] text-amber-800">
-                    Planner sync is unavailable for this account. Cases added here will remain local on this device until Firestore access is available.
-                  </div>
-                ) : null}
+      {/* Scrollable time grid — gutter + columns scroll together, scrollbar-gutter keeps header aligned */}
+      <div
+        className="flex flex-1"
+        style={{ overflowY: "scroll", scrollbarGutter: "stable" }}
+      >
+        <TimeGutter />
 
-                <div className="mb-3 flex items-center justify-between">
-                  <p className="app-text-strong text-[15px] font-semibold">{friendlyDate(selectedDate)}</p>
-                  <button
-                    onClick={() => setShowAdd(true)}
-                    className="flex items-center gap-1 text-[13px] font-semibold text-[#4DA3FF]"
-                  >
-                    <Plus size={13} /> Add
-                  </button>
-                </div>
-
-                {selectedCases.length === 0 ? (
-                  <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
-                    <CalendarDays size={28} className="mx-auto mb-3 text-[#CBD5E1]" />
-                    <p className="app-text-muted text-[14px]">No cases planned for this day</p>
-                    <button
-                      onClick={() => setShowAdd(true)}
-                      className="mt-3 text-[13px] font-semibold text-[#4DA3FF] hover:underline"
-                    >
-                      Add a case
-                    </button>
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    {selectedCases.map((c) => (
-                      <CaseCard key={c.id} planned={c} onDelete={handleDelete} />
-                    ))}
-                  </div>
-                )}
-
-                {upcomingCases.length > 0 ? (
-                  <div className="mt-8">
-                    <p className="app-text-muted mb-3 text-[11px] font-semibold uppercase tracking-wide">
-                      All upcoming ({upcomingCases.length})
-                    </p>
-                    <div className="space-y-3">
-                      {upcomingCases
-                        .filter((c) => c.date !== selectedDate)
-                        .map((c) => (
-                          <CaseCard key={c.id} planned={c} onDelete={handleDelete} showDate />
-                        ))}
-                    </div>
-                  </div>
-                ) : null}
+        {/* Day columns on top of shared horizontal grid lines */}
+        <div
+          className="flex flex-1 relative"
+          style={{ height: GRID_TOTAL_H, backgroundImage: hourLinesBg }}
+        >
+          {weekDates.map((d, i) => {
+            const timed = getItemsForDate(items, d).filter((it) => !it.allDay && it.start)
+            const todayDate = isToday(d)
+            return (
+              <div
+                key={i}
+                className="flex-1 relative cursor-pointer group"
+                style={{
+                  height: "100%",
+                  borderRight: i < 6 ? `1px solid ${BORDER}` : "none",
+                  backgroundColor: todayDate ? "#eaf8fc" : "transparent",
+                }}
+                onClick={() => onSelectDate(d)}
+              >
+                <div
+                  className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+                  style={{ backgroundColor: HOVER_BG + "55", pointerEvents: "none" }}
+                />
+                {timed.map((it) => <TimeBlock key={it.id} item={it} />)}
               </div>
-            )}
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
 
-            {tab === "prepare" && (
-              <div>
-                <p className="app-text-muted mb-4 text-[13px]">
-                  Next 7 days - readiness check for each planned case.
-                </p>
+// ─── Day View ─────────────────────────────────────────────────────────────────
 
-                {prepCases.length === 0 ? (
-                  <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
-                    <p className="app-text-muted text-[14px]">No cases in the next 7 days</p>
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    {prepCases.map((c) => (
-                      <div key={c.id} className="app-card-bg app-card-border rounded-2xl border px-4 py-3.5 shadow-sm">
-                        <div className="flex items-start gap-3">
-                          <div
-                            className={`mt-1 h-2.5 w-2.5 shrink-0 rounded-full ${
-                              c.readiness === "green" ? "bg-emerald-400" :
-                              c.readiness === "amber" ? "bg-amber-400" : "bg-red-400"
-                            }`}
-                          />
-                          <div className="flex-1 min-w-0">
-                            <p className="app-text-strong text-[14px] font-semibold">{c.procedureName}</p>
-                            <p className="mt-0.5 text-[11px] font-semibold text-[#4DA3FF]">{friendlyDate(c.date)}{c.time ? ` · ${c.time}` : ""}</p>
-                            <div className="mt-2 flex flex-wrap gap-2">
-                              <span className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${c.hasCard ? "bg-emerald-50 text-emerald-700" : "bg-red-50 text-red-600"}`}>
-                                {c.hasCard ? <CheckCircle2 size={11} /> : <Circle size={11} />}
-                                Kardex card
-                              </span>
-                              <span className={`flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${c.hasSurgeon ? "bg-emerald-50 text-emerald-700" : "bg-[#F4F7FA] text-[#94a3b8]"}`}>
-                                {c.hasSurgeon ? <CheckCircle2 size={11} /> : <Circle size={11} />}
-                                Surgeon noted
-                              </span>
-                            </div>
-                          </div>
-                          <button onClick={() => handleDelete(c.id)} className="shrink-0 rounded-lg p-1.5 text-[#cbd5e1] hover:bg-red-50 hover:text-red-500">
-                            <Trash2 size={13} />
-                          </button>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                )}
+function DayView({ date, items }: { date: Date; items: CalendarItem[] }) {
+  const dayItems = getItemsForDate(items, date)
+  const timed    = dayItems.filter((it) => !it.allDay && it.start)
+  const allDay   = dayItems.filter((it) => it.allDay)
+
+  return (
+    <div className="flex flex-col h-full">
+
+      {/* Fixed header */}
+      <div
+        className="flex flex-shrink-0 border-b"
+        style={{ borderColor: BORDER, backgroundColor: "white", paddingRight: "17px" }}
+      >
+        <div style={{ width: 64, flexShrink: 0, borderRight: `1px solid ${BORDER}` }} />
+        <div className="flex-1 px-4 py-2.5">
+          <p className="text-[11px] font-semibold" style={{ color: isToday(date) ? TEAL_MID : TEAL }}>
+            {date.toLocaleDateString("en-GB", { weekday: "long" })}
+          </p>
+          <div className="flex items-center gap-2 mt-0.5">
+            <span
+              className="inline-flex items-center justify-center w-9 h-9 rounded-full text-[20px] font-semibold"
+              style={isToday(date) ? { backgroundColor: TEAL_MID, color: "white" } : { color: TEAL }}
+            >
+              {date.getDate()}
+            </span>
+            <span className="text-[13px]" style={{ color: TEAL }}>
+              {date.toLocaleDateString("en-GB", { month: "long", year: "numeric" })}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      {/* All-day strip */}
+      {allDay.length > 0 && (
+        <div
+          className="flex flex-shrink-0 border-b"
+          style={{ borderColor: BORDER, backgroundColor: "#f8fcfd", paddingRight: "17px" }}
+        >
+          <div style={{ width: 64, flexShrink: 0, borderRight: `1px solid ${BORDER}`, display: "flex", alignItems: "flex-start", justifyContent: "flex-end", paddingTop: 8, paddingRight: 8 }}>
+            <span style={{ fontSize: 9, fontWeight: 600, color: TEAL }}>all-day</span>
+          </div>
+          <div className="flex-1 px-2 py-1.5 space-y-1">
+            {allDay.map((it) => (
+              <div key={it.id} className="text-[12px] font-medium text-white rounded-md px-2 py-0.5 leading-5" style={{ backgroundColor: SOURCE_META[it.source].color }}>
+                {it.title}
               </div>
-            )}
+            ))}
+          </div>
+        </div>
+      )}
 
-            {tab === "insights" && (
-              <div className="space-y-3">
-                {upcomingCases.length === 0 ? (
-                  <div className="app-card-bg app-card-border rounded-2xl border border-dashed px-5 py-10 text-center">
-                    <p className="app-text-muted text-[14px]">Add cases to your planner to see insights</p>
-                  </div>
-                ) : (
-                  <>
-                    <div className="app-card-bg app-card-border rounded-2xl border px-4 py-4 shadow-sm">
-                      <p className="mb-3 text-[14px] font-bold text-[#1E293B]">Overview</p>
-                      <div className="grid grid-cols-3 gap-3 text-center">
-                        <div>
-                          <p className="text-[22px] font-bold text-[#1E293B]">{upcomingCases.length}</p>
-                          <p className="text-[11px] text-[#94a3b8]">Upcoming</p>
-                        </div>
-                        <div>
-                          <p className="text-[22px] font-bold text-[#1E293B]">{imminentCount}</p>
-                          <p className="text-[11px] text-[#94a3b8]">Next 3 days</p>
-                        </div>
-                        <div>
-                          <p className={`text-[22px] font-bold ${noCardCount > 0 ? "text-amber-500" : "text-emerald-500"}`}>{noCardCount}</p>
-                          <p className="text-[11px] text-[#94a3b8]">No card</p>
-                        </div>
-                      </div>
-                    </div>
+      {/* Scrollable time grid */}
+      <div
+        className="flex flex-1"
+        style={{ overflowY: "scroll", scrollbarGutter: "stable" }}
+      >
+        <TimeGutter />
 
-                    {noCardCount > 0 ? (
-                      <div className="rounded-2xl border border-amber-200 bg-amber-50 px-4 py-3.5">
-                        <div className="flex items-start gap-2.5">
-                          <AlertTriangle size={15} className="mt-0.5 shrink-0 text-amber-500" />
-                          <div>
-                            <p className="text-[13px] font-semibold text-amber-800">
-                              {noCardCount} case{noCardCount !== 1 ? "s" : ""} without a Kardex card
-                            </p>
-                            <p className="mt-0.5 text-[12px] text-amber-700">
-                              No reference card or variant data available. Verify preparation manually.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ) : null}
+        <div
+          className="flex-1 relative cursor-pointer group"
+          style={{ height: GRID_TOTAL_H, backgroundImage: hourLinesBg }}
+        >
+          <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity"
+            style={{ backgroundColor: HOVER_BG + "33", pointerEvents: "none" }}
+          />
+          {timed.map((it) => <TimeBlock key={it.id} item={it} />)}
+          {timed.length === 0 && (
+            <div className="flex items-center justify-center pt-32 text-[13px]" style={{ color: TEAL }}>
+              Nothing scheduled — click to add
+            </div>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
 
-                    {imminentCount > 0 ? (
-                      <div className="rounded-2xl border border-[#B8DBFF] bg-[#EFF8FF] px-4 py-3.5">
-                        <div className="flex items-start gap-2.5">
-                          <CalendarDays size={15} className="mt-0.5 shrink-0 text-[#4DA3FF]" />
-                          <div>
-                            <p className="text-[13px] font-semibold text-[#1E4E8C]">
-                              {imminentCount} case{imminentCount !== 1 ? "s" : ""} in the next 3 days
-                            </p>
-                            <p className="mt-0.5 text-[12px] text-[#2563EB]">
-                              Check the Prepare tab to confirm readiness.
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    ) : null}
+// ─── Main export ──────────────────────────────────────────────────────────────
 
-                    {noCardCount === 0 ? (
-                      <div className="rounded-2xl border border-emerald-200 bg-emerald-50 px-4 py-3.5">
-                        <div className="flex items-center gap-2.5">
-                          <CheckCircle2 size={15} className="shrink-0 text-emerald-500" />
-                          <p className="text-[13px] font-semibold text-emerald-800">
-                            All planned cases have reference cards
-                          </p>
-                        </div>
-                      </div>
-                    ) : null}
-                  </>
-                )}
-              </div>
-            )}
-          </section>
+export default function CalendarPageClient() {
+  const [view, setView]               = useState<CalendarView>("week")
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date(TODAY))
+  const [sources, setSources]         = useState<Record<CalendarSource, boolean>>({ library: true, resources: true, insights: true })
+
+  const visibleItems = useMemo(() => CALENDAR_ITEMS.filter((it) => sources[it.source]), [sources])
+
+  const toggleSource = (source: CalendarSource) => setSources((prev) => ({ ...prev, [source]: !prev[source] }))
+
+  const handleSelectDate = (d: Date, switchToDay = false) => {
+    setSelectedDate(d)
+    if (switchToDay) setView("day")
+  }
+
+  const toolbarTitle = useMemo(() => {
+    if (view === "month") return formatMonthYear(selectedDate)
+    if (view === "week")  return formatWeekRange(getWeekDates(selectedDate))
+    return formatDayLong(selectedDate)
+  }, [view, selectedDate])
+
+  const navigate = (dir: -1 | 1) => {
+    const d = new Date(selectedDate)
+    if (view === "month") { d.setDate(1); d.setMonth(d.getMonth() + dir) }
+    else if (view === "week") { d.setDate(d.getDate() + dir * 7) }
+    else { d.setDate(d.getDate() + dir) }
+    setSelectedDate(d)
+  }
+
+  return (
+    <>
+      {/* ── Desktop ────────────────────────────────────────────────────────── */}
+      <WorkspaceDesktopShell currentNav="calendar">
+        <div className="flex overflow-hidden" style={{ height: "calc(100vh - 64px)" }}>
+
+          {/* Left panel: filters + schedule */}
+          <div className="w-[270px] flex-shrink-0 border-r flex flex-col overflow-hidden" style={{ borderColor: BORDER, backgroundColor: PANEL_BG }}>
+            <div className="p-3 flex-shrink-0">
+              <SourceFilters sources={sources} onToggle={toggleSource} />
+            </div>
+            <div className="flex-shrink-0 border-t" style={{ borderColor: BORDER }} />
+            <div className="flex-1 overflow-y-auto overflow-x-hidden">
+              <ScheduleView items={visibleItems} fromDate={selectedDate} />
+            </div>
+          </div>
+
+          {/* Right panel: Day / Week / Month */}
+          <div className="flex-1 flex flex-col overflow-hidden" style={{ backgroundColor: "white" }}>
+            <CalendarToolbar
+              view={view}
+              onChangeView={setView}
+              title={toolbarTitle}
+              onPrev={() => navigate(-1)}
+              onNext={() => navigate(1)}
+              onToday={() => setSelectedDate(new Date(TODAY))}
+            />
+            <div className="flex-1 overflow-hidden flex flex-col">
+              {view === "month" && <MonthView date={selectedDate} items={visibleItems} onSelectDate={handleSelectDate} />}
+              {view === "week"  && <WeekView  date={selectedDate} items={visibleItems} onSelectDate={(d) => handleSelectDate(d)} />}
+              {view === "day"   && <DayView   date={selectedDate} items={visibleItems} />}
+            </div>
+          </div>
         </div>
       </WorkspaceDesktopShell>
 
-      {/* Add case sheet */}
-      {showAdd && (
-        <AddCaseSheet
-          initialDate={selectedDate}
-          onClose={() => setShowAdd(false)}
-          onSave={handleSave}
-        />
-      )}
+      {/* ── Mobile ─────────────────────────────────────────────────────────── */}
+      <div className="lg:hidden min-h-screen pb-24" style={{ background: "linear-gradient(180deg,#E5F5F8 0%,#F3F9FB 100%)" }}>
+        <div className="px-4 pt-5 pb-3">
+          <h1 className="text-[22px] font-semibold tracking-[-0.03em]" style={{ color: TEAL }}>What&apos;s coming up</h1>
+        </div>
+
+        <div className="px-4 flex gap-2 flex-wrap mb-3">
+          {(Object.keys(SOURCE_META) as CalendarSource[]).map((source) => {
+            const { label, color } = SOURCE_META[source]
+            const on = sources[source]
+            return (
+              <button
+                key={source}
+                onClick={() => toggleSource(source)}
+                className="flex items-center gap-1.5 rounded-full px-3 py-1.5 text-[12px] font-semibold border transition"
+                style={{ backgroundColor: on ? color + "18" : "white", borderColor: on ? color : BORDER, color: on ? color : TEAL }}
+              >
+                <span className="w-2 h-2 rounded-full" style={{ backgroundColor: color }} />
+                {label}
+              </button>
+            )
+          })}
+        </div>
+
+        <div className="mx-4 rounded-2xl border overflow-hidden" style={{ borderColor: BORDER, backgroundColor: "white" }}>
+          <ScheduleView items={visibleItems} fromDate={selectedDate} />
+        </div>
+      </div>
     </>
   )
 }
