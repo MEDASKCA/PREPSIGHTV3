@@ -5,12 +5,13 @@ import type {
   UpdateSummary,
 } from "@/v4/types"
 import type { LucideIcon } from "lucide-react"
-import { Bell, BriefcaseMedical, LibraryBig } from "lucide-react"
+import { Bell, BriefcaseMedical, LibraryBig, MessageCircle } from "lucide-react"
 
 export const TAB_ITEMS: Array<{ key: TabKey; label: string; icon: LucideIcon }> = [
-  { key: "library", label: "Library", icon: LibraryBig },
-  { key: "logistics", label: "Resources", icon: BriefcaseMedical },
-  { key: "updates", label: "Updates", icon: Bell },
+  { key: "comms",    label: "Comms",     icon: MessageCircle   },
+  { key: "library",  label: "Library",   icon: LibraryBig      },
+  { key: "logistics",label: "Resources", icon: BriefcaseMedical },
+  { key: "updates",  label: "Updates",   icon: Bell            },
 ]
 
 export const COLLECTIONS: CollectionSummary[] = [

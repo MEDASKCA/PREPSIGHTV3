@@ -134,7 +134,7 @@ export function LibraryTree({
   const lineColor = tone === "global" ? "#6FD3EA" : "#8ED9D6"
 
   return (
-    <div className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+    <div className="rounded-[12px] border border-[#BFE3EE] bg-[#D4EEF8] px-3 py-3 shadow-[0_10px_24px_rgba(16,36,62,0.05)]">
       <div className="pb-2">
         <button
           type="button"
@@ -225,7 +225,7 @@ export function BookmarkList({
   bookmarks: ReturnType<typeof getBookmarksSnapshot>
 }) {
   return (
-    <div className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+    <div className="rounded-[12px] border border-[#BFE3EE] bg-[#D4EEF8] px-3 py-3 shadow-[0_10px_24px_rgba(16,36,62,0.05)]">
       <div className="flex items-center justify-between gap-3">
         <div className="flex items-center gap-2 text-[18px] font-medium tracking-[-0.02em] text-[#10243E]">
           <FolderBadge tone="bookmark" open size="lg" />

@@ -9,6 +9,7 @@ import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } fro
 import { getProcedureLibrarySnapshot, subscribeProcedureLibrary } from "@/lib/procedure-library"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
 import { clearProfile, getProfile } from "@/lib/profile"
+import { clearDemoSession } from "@/lib/demo-access"
 import type { Procedure } from "@/lib/types"
 import type { PrepSightProfile } from "@/lib/types"
 import type { ReactNode } from "react"
@@ -244,6 +245,7 @@ export default function AppTopBar({
     setAccountError(null)
     try {
       clearProfile()
+      clearDemoSession()
       await signOut()
       setAccountMenuOpen(false)
       router.replace("/login")

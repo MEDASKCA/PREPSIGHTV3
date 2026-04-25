@@ -12,8 +12,10 @@ import {
   signOut,
   type User,
 } from "@/lib/auth"
-import { DEMO_PASSWORD, DEMO_USERNAME, enableDemoSession, isDemoSessionActive } from "@/lib/demo-access"
+import { DEMO_PASSWORD, DEMO_USERNAME, clearDemoSession, enableDemoSession, isDemoSessionActive } from "@/lib/demo-access"
 import { auth } from "@/lib/firebase"
+import { claimActiveUserSession, getActiveUserSession } from "@/lib/firestore"
+import { consumeSessionConflictNotice, getOrCreateDeviceSession, type ActiveUserSessionRecord } from "@/lib/device-session"
 import { clearProfile, hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import AuthSessionControl from "@/components/AuthSessionControl"
 import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
@@ -128,6 +130,11 @@ export default function LoginPage() {
   const [demoError, setDemoError] = useState<string | null>(null)
   const [demoSessionActive, setDemoSessionActive] = useState(() => isDemoSessionActive())
   const [embeddedBrowser, setEmbeddedBrowser] = useState(false)
+  const [sessionConflictNotice, setSessionConflictNotice] = useState<string | null>(null)
+  const [pendingSessionTakeover, setPendingSessionTakeover] = useState<{
+    user: User
+    activeSession: ActiveUserSessionRecord
+  } | null>(null)
 
   useEffect(() => {
     if (searchParams.get("demo") === "1") {
@@ -202,9 +209,56 @@ export default function LoginPage() {
     showPostLoginLoadingScreen("/onboarding")
   }
 
+  async function claimSessionAndContinue(user: User) {
+    const localSession = getOrCreateDeviceSession()
+    if (localSession) {
+      await claimActiveUserSession(user.uid, {
+        sessionId: localSession.sessionId,
+        deviceLabel: localSession.deviceLabel,
+        updatedAt: new Date().toISOString(),
+      })
+    }
+    await finalizeAuthenticatedUser(user)
+  }
+
+  async function beginAuthenticatedSession(user: User) {
+    const localSession = getOrCreateDeviceSession()
+    const activeSession = await getActiveUserSession(user.uid)
+
+    if (
+      localSession &&
+      activeSession &&
+      activeSession.sessionId !== localSession.sessionId
+    ) {
+      setPendingSessionTakeover({ user, activeSession })
+      setLoading(null)
+      setError(null)
+      return
+    }
+
+    await claimSessionAndContinue(user)
+  }
+
   async function handleExistingSessionSignOut() {
     clearPendingProvider()
     clearProfile()
+    clearDemoSession()
+    setSessionUser(null)
+    setLoading(null)
+    setError(null)
+    await signOut().catch(() => undefined)
+  }
+
+  async function handleConfirmSessionTakeover() {
+    if (!pendingSessionTakeover) return
+    const takeover = pendingSessionTakeover
+    setPendingSessionTakeover(null)
+    await claimSessionAndContinue(takeover.user)
+  }
+
+  async function handleCancelSessionTakeover() {
+    clearPendingProvider()
+    setPendingSessionTakeover(null)
     setSessionUser(null)
     setLoading(null)
     setError(null)
@@ -220,6 +274,7 @@ export default function LoginPage() {
     setShowDebug(window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
     setDemoSessionActive(isDemoSessionActive())
     setEmbeddedBrowser(isEmbeddedBrowser())
+    setSessionConflictNotice(consumeSessionConflictNotice())
   }, [])
 
   useEffect(() => {
@@ -251,7 +306,7 @@ export default function LoginPage() {
         if (result?.user) {
           appendDebug(`redirect result user uid=${result.user.uid}`)
           allowAutoResumeRef.current = true
-          void finalizeAuthenticatedUser(result.user)
+        void beginAuthenticatedSession(result.user)
           return
         }
         if (pendingProvider) {
@@ -295,7 +350,7 @@ export default function LoginPage() {
         setSessionUser(null)
         return
       }
-      void finalizeAuthenticatedUser(user)
+      void beginAuthenticatedSession(user)
     })
   }, [router])
 
@@ -310,6 +365,8 @@ export default function LoginPage() {
     }
     appendDebug("google sign-in clicked")
     allowAutoResumeRef.current = true
+    setSessionConflictNotice(null)
+    setPendingSessionTakeover(null)
     setSessionUser(null)
     setError(null); setLoading("google")
     try {
@@ -321,7 +378,7 @@ export default function LoginPage() {
         return
       }
       if (signIn.result?.user) {
-        void finalizeAuthenticatedUser(signIn.result.user)
+        void beginAuthenticatedSession(signIn.result.user)
       }
     } catch (e: unknown) {
       clearPendingProvider()
@@ -339,6 +396,8 @@ export default function LoginPage() {
     }
     appendDebug("microsoft sign-in clicked")
     allowAutoResumeRef.current = true
+    setSessionConflictNotice(null)
+    setPendingSessionTakeover(null)
     setSessionUser(null)
     setError(null); setLoading("microsoft")
     try {
@@ -350,7 +409,7 @@ export default function LoginPage() {
         return
       }
       if (signIn.result?.user) {
-        void finalizeAuthenticatedUser(signIn.result.user)
+        void beginAuthenticatedSession(signIn.result.user)
       }
     } catch (e: unknown) {
       clearPendingProvider()
@@ -590,6 +649,38 @@ export default function LoginPage() {
           }}
         >
           <div className="bg-[#0d0d0d] border border-[#1e1e1e] rounded-2xl p-5">
+            {sessionConflictNotice ? (
+              <div className="mb-4 rounded-xl border border-[#2A5B67] bg-[#10232A] px-3 py-3 text-left">
+                <p className="text-sm font-semibold text-[#8adfe8]">Session ended</p>
+                <p className="mt-1 text-xs leading-relaxed text-[#9fb7bf]">{sessionConflictNotice}</p>
+              </div>
+            ) : null}
+
+            {pendingSessionTakeover ? (
+              <div className="mb-4 rounded-xl border border-[#2A5B67] bg-[#10232A] px-3 py-3 text-left">
+                <p className="text-sm font-semibold text-[#8adfe8]">Continue on this device?</p>
+                <p className="mt-1 text-xs leading-relaxed text-[#9fb7bf]">
+                  Signing in here will log out the active session on {pendingSessionTakeover.activeSession.deviceLabel}.
+                </p>
+                <div className="mt-3 flex gap-2">
+                  <button
+                    type="button"
+                    onClick={() => void handleConfirmSessionTakeover()}
+                    className="flex-1 rounded-xl bg-[#0096C7] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#0085B2] active:bg-[#0077B6] transition-colors"
+                  >
+                    Continue here
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => void handleCancelSessionTakeover()}
+                    className="flex-1 rounded-xl border border-[#28434D] px-4 py-2.5 text-sm font-semibold text-[#B6CBD1] hover:bg-[#162A31] transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            ) : null}
+
             {sessionUser ? (
               <>
                 <p className="text-xs font-semibold text-[#555] uppercase tracking-widest text-center mb-3">
@@ -603,7 +694,7 @@ export default function LoginPage() {
                 </p>
 
                 <button
-                  onClick={() => void finalizeAuthenticatedUser(sessionUser)}
+                  onClick={() => void beginAuthenticatedSession(sessionUser)}
                   disabled={loading !== null || authenticated}
                   className="mt-4 w-full flex items-center justify-center gap-3 px-4 py-3 rounded-xl text-sm font-semibold text-white bg-[#0096C7] hover:bg-[#0085B2] active:bg-[#0077B6] transition-colors disabled:opacity-40"
                 >

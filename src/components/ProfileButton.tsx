@@ -5,6 +5,7 @@ import { useRouter } from "next/navigation"
 import { ArrowRightLeft, Bell, LogOut, RotateCcw, Settings2, UserRound, X } from "lucide-react"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
 import { clearProfile, getProfile, resetOnboarding } from "@/lib/profile"
+import { clearDemoSession } from "@/lib/demo-access"
 import { type PrepSightProfile, USER_ROLE_LABEL } from "@/lib/types"
 import { avatarColour, getInitials } from "@/lib/utils"
 
@@ -65,6 +66,7 @@ export default function ProfileButton({
 
   async function handleSignOut() {
     clearProfile()
+    clearDemoSession()
     await signOut()
     setOpen(false)
     router.replace("/login")

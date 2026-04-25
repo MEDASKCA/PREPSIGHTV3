@@ -1,9 +1,11 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
-import { onAuthChange, type User } from "@/lib/auth"
-import { isDemoSessionActive } from "@/lib/demo-access"
+import { onAuthChange, signOut, type User } from "@/lib/auth"
+import { clearDemoSession, isDemoSessionActive } from "@/lib/demo-access"
+import { readDeviceSession, setSessionConflictNotice } from "@/lib/device-session"
+import { subscribeToActiveUserSession } from "@/lib/firestore"
 import { hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import AdminUnlocker from "./AdminUnlocker"
 import MedaskcaLoadingScreen from "./MedaskcaLoadingScreen"
@@ -27,6 +29,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   const [profileReady, setProfileReady] = useState(false)
   const [profileComplete, setProfileComplete] = useState(false)
   const [demoSessionActive, setDemoSessionActive] = useState(() => isDemoSessionActive())
+  const sessionTakeoverHandledRef = useRef(false)
 
   function hasPendingAuth() {
     if (typeof window === "undefined") return false
@@ -61,6 +64,33 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     setDemoSessionActive(isDemoSessionActive())
   }, [pathname])
+
+  useEffect(() => {
+    if (!authReady || !user) {
+      sessionTakeoverHandledRef.current = false
+      return
+    }
+
+    const currentSession = readDeviceSession()
+    if (!currentSession) return
+
+    return subscribeToActiveUserSession(user.uid, (activeSession) => {
+      if (!activeSession || activeSession.sessionId === currentSession.sessionId) {
+        sessionTakeoverHandledRef.current = false
+        return
+      }
+      if (sessionTakeoverHandledRef.current) return
+
+      sessionTakeoverHandledRef.current = true
+      setSessionConflictNotice(
+        `This account was opened on ${activeSession.deviceLabel}. Sign in again to continue.`,
+      )
+      clearDemoSession()
+      void signOut().finally(() => {
+        router.replace("/login")
+      })
+    })
+  }, [authReady, router, user])
 
   useEffect(() => {
     let cancelled = false

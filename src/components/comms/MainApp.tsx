@@ -144,7 +144,7 @@ function Avatar({ name, size = 40, uid }: { name: string; size?: number; uid?: s
 function DesktopCommsWordmark() {
   return (
     <span
-      className="block text-[28px] leading-none tracking-[-0.05em] text-[#1b86ae]"
+      className="block text-[32px] leading-none tracking-[-0.05em] text-[#1b86ae]"
       style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
     >
       Comms
@@ -241,9 +241,10 @@ interface Props {
   onSignOut: () => void
   onSwitchOrg: () => void
   embedded?: boolean
+  showProfileButton?: boolean
 }
 
-export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false }: Props) {
+export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false }: Props) {
   const appRef = useRef<HTMLDivElement>(null)
   const firestore = db!
   const firebaseAuth = auth!
@@ -1247,17 +1248,36 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       >
         <div className="flex items-center justify-between mb-0.5">
           {embedded ? (
-            <DesktopCommsWordmark />
+            <>
+              <div className="hidden lg:block">
+                <DesktopCommsWordmark />
+              </div>
+              <span className="text-[#0891b2] text-2xl tracking-tight lg:hidden">
+                PrepSight{" "}
+                <em
+                  className="text-[0.9em] leading-none tracking-[-0.05em] text-[#1b86ae]"
+                  style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                >
+                  Comms
+                </em>
+              </span>
+            </>
           ) : (
             <span className="text-[#0891b2] text-2xl tracking-tight">
-              PrepSight <em className="not-italic font-light text-[#0ea5e9]">Comms</em>
+              PrepSight{" "}
+              <em
+                className="text-[0.9em] leading-none tracking-[-0.05em] text-[#1b86ae]"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+              >
+                Comms
+              </em>
             </span>
           )}
-          {embedded ? null : (
-            <button onClick={() => setShowProfile(true)}>
+          {(showProfileButton || !embedded) ? (
+            <button onClick={() => setShowProfile(true)} aria-label="Profile">
               <Avatar name={displayName} size={40} uid={user.uid} />
             </button>
-          )}
+          ) : null}
         </div>
         <div className="mb-4 mt-2 flex items-center gap-2 text-sm text-[#0891b2]/70">
           <span>{hospitalLabel}</span>
@@ -1277,7 +1297,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           <input
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search chats"
+            placeholder="Search Comms"
             className="flex-1 bg-transparent text-[16px] text-gray-700 placeholder-gray-400 outline-none"
           />
         </div>
@@ -1667,7 +1687,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         <div className="absolute inset-0 z-20 flex">
           {/* Panel */}
           <div
-            className="w-[78%] bg-[#0a1e2e] flex flex-col shadow-2xl rounded-r-3xl"
+            className="fixed inset-y-0 left-0 z-30 flex h-[100dvh] w-[78%] rounded-r-[34px] rounded-l-none border-r border-[rgba(126,196,214,0.78)] bg-[linear-gradient(180deg,rgba(188,228,239,0.98)_0%,rgba(207,236,245,0.96)_46%,rgba(196,231,241,0.99)_100%)] shadow-[12px_0_28px_rgba(23,109,140,0.12)] backdrop-blur-[12px]"
             style={{
               paddingTop: "env(safe-area-inset-top)",
               paddingBottom: "env(safe-area-inset-bottom)",
@@ -1675,16 +1695,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             }}
           >
             {/* Header */}
-            <div className="px-6 pt-10 pb-4 flex items-start justify-between">
+            <div className="flex items-start justify-between border-b border-[rgba(137,193,210,0.34)] px-6 pt-10 pb-4">
               <div>
-                <h2 className="text-white text-2xl">Contacts</h2>
-                <p className="text-white/40 text-sm mt-0.5">{org.name}</p>
+                <h2 className="text-[32px] tracking-[-0.05em] text-[#176d8c]">Contacts</h2>
+                <p className="mt-0.5 text-sm text-[#4b8ea4]">{org.name}</p>
               </div>
               <button
                 onClick={() => setShowContacts(false)}
-                className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mt-1"
+                className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-[#ccecf5] text-[#176d8c] shadow-[0_10px_22px_rgba(27,134,174,0.14)]"
               >
-                <ArrowLeft size={18} className="text-white" />
+                <ArrowLeft size={18} />
               </button>
             </div>
 
@@ -1692,15 +1712,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex-1 overflow-y-auto px-6 py-2">
               {contactMembers.filter(m => isOnline(m.uid)).length > 0 && (
                 <>
-                  <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-white/30">available</p>
+                  <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-[#73a8ba]">available</p>
                   {contactMembers.filter(m => isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
-                      className="flex w-full items-center gap-4 border-b border-white/5 py-2.5">
+                      className="flex w-full items-center gap-4 border-b border-[rgba(137,193,210,0.22)] py-2.5">
                       <div className="relative">
                         <Avatar name={m.displayName} size={44} uid={m.uid} />
-                        <div className="absolute bottom-0 right-0 w-3 h-3 bg-emerald-400 border-2 border-[#0a1e2e] rounded-full" />
+                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#dff3f8] bg-emerald-400" />
                       </div>
-                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-white">
+                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#154b5f]">
                         <span className="min-w-0 flex-1 truncate">{m.displayName}</span>
                         <span className="w-[52px] shrink-0 text-right text-sm text-emerald-400">online</span>
                       </div>
@@ -1710,25 +1730,25 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               )}
               {contactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
                 <>
-                  <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-white/30">offline</p>
+                  <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-[#73a8ba]">offline</p>
                   {contactMembers.filter(m => !isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
-                      className="flex w-full items-center gap-4 border-b border-white/5 py-2.5">
+                      className="flex w-full items-center gap-4 border-b border-[rgba(137,193,210,0.22)] py-2.5">
                       <div className="relative">
                         <Avatar name={m.displayName} size={44} uid={m.uid} />
-                        <div className="absolute bottom-0 right-0 w-3 h-3 bg-white/20 border-2 border-[#0a1e2e] rounded-full" />
+                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#dff3f8] bg-white/80" />
                       </div>
-                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-white/60">
+                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#4a7383]">
                         <span className="min-w-0 flex-1 truncate">{m.displayName}</span>
-                        <span className="w-[52px] shrink-0 text-right text-sm text-white/30">offline</span>
+                        <span className="w-[52px] shrink-0 text-right text-sm text-[#8eaab6]">offline</span>
                       </div>
                     </button>
                   ))}
                 </>
               )}
               {contactMembers.length === 0 && (
-                <p className="text-white/30 text-sm text-center mt-20">
-                  No members yet.<br />Code: <span className="text-[#29b6d8] tracking-widest">{org.joinCode}</span>
+                <p className="mt-20 text-center text-sm text-[#7ea6b4]">
+                  No members yet.<br />Code: <span className="tracking-widest text-[#176d8c]">{org.joinCode}</span>
                 </p>
               )}
             </div>
@@ -1736,7 +1756,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           </div>
 
           {/* Tap-outside to close */}
-          <div className="flex-1 bg-black/50" onClick={() => setShowContacts(false)} />
+          <div className="flex-1 bg-[rgba(145,182,196,0.22)]" onClick={() => setShowContacts(false)} />
         </div>
       )}
 
@@ -1749,7 +1769,71 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             aria-label="Close contacts"
           />
           <div
-            className="fixed z-30 flex flex-col overflow-hidden rounded-l-[32px] rounded-r-[26px] border border-[rgba(145,214,230,0.72)] bg-[rgba(222,247,252,0.88)] shadow-[0_28px_80px_rgba(31,124,150,0.18)] backdrop-blur-[24px]"
+            className="fixed inset-y-0 left-0 z-30 flex h-[100dvh] w-[78%] flex-col rounded-r-[34px] rounded-l-none border-r border-[rgba(126,196,214,0.78)] bg-[linear-gradient(180deg,rgba(188,228,239,0.98)_0%,rgba(207,236,245,0.96)_46%,rgba(196,231,241,0.99)_100%)] shadow-[12px_0_28px_rgba(23,109,140,0.12)] backdrop-blur-[12px] lg:hidden"
+            style={{
+              paddingTop: "env(safe-area-inset-top)",
+              paddingBottom: "env(safe-area-inset-bottom)",
+            }}
+          >
+            <div className="flex items-start justify-between border-b border-[rgba(137,193,210,0.34)] px-6 pt-10 pb-4">
+              <div>
+                <h2 className="text-[32px] tracking-[-0.05em] text-[#176d8c]">Contacts</h2>
+                <p className="mt-0.5 text-sm text-[#4b8ea4]">{org.name}</p>
+              </div>
+              <button
+                onClick={() => setShowContacts(false)}
+                className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-[#0096C7] text-white shadow-[0_12px_26px_rgba(0,150,199,0.22)]"
+              >
+                <ArrowRight size={18} />
+              </button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto px-6 py-2">
+              {contactMembers.filter(m => isOnline(m.uid)).length > 0 && (
+                <>
+                  <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-[#73a8ba]">available</p>
+                  {contactMembers.filter(m => isOnline(m.uid)).map(m => (
+                    <button key={m.uid} onClick={() => startDM(m.uid)}
+                      className="flex w-full items-center gap-4 border-b border-[rgba(137,193,210,0.22)] py-2.5">
+                      <div className="relative">
+                        <Avatar name={m.displayName} size={44} uid={m.uid} />
+                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#dff3f8] bg-emerald-400" />
+                      </div>
+                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#154b5f]">
+                        <span className="min-w-0 flex-1 truncate">{m.displayName}</span>
+                        <span className="w-[52px] shrink-0 text-right text-sm text-emerald-500">online</span>
+                      </div>
+                    </button>
+                  ))}
+                </>
+              )}
+              {contactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
+                <>
+                  <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-[#73a8ba]">offline</p>
+                  {contactMembers.filter(m => !isOnline(m.uid)).map(m => (
+                    <button key={m.uid} onClick={() => startDM(m.uid)}
+                      className="flex w-full items-center gap-4 border-b border-[rgba(137,193,210,0.22)] py-2.5">
+                      <div className="relative">
+                        <Avatar name={m.displayName} size={44} uid={m.uid} />
+                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#dff3f8] bg-white/80" />
+                      </div>
+                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#4a7383]">
+                        <span className="min-w-0 flex-1 truncate">{m.displayName}</span>
+                        <span className="w-[52px] shrink-0 text-right text-sm text-[#8eaab6]">offline</span>
+                      </div>
+                    </button>
+                  ))}
+                </>
+              )}
+              {contactMembers.length === 0 && (
+                <p className="mt-20 text-center text-sm text-[#7ea6b4]">
+                  No members yet.<br />Code: <span className="tracking-widest text-[#176d8c]">{org.joinCode}</span>
+                </p>
+              )}
+            </div>
+          </div>
+          <div
+            className="fixed z-30 hidden flex-col overflow-hidden rounded-l-[32px] rounded-r-[26px] border border-[rgba(145,214,230,0.72)] bg-[rgba(222,247,252,0.88)] shadow-[0_28px_80px_rgba(31,124,150,0.18)] backdrop-blur-[24px] lg:flex"
             style={{
               top: embeddedContactsBounds.top,
               left: Math.max(16, embeddedContactsBounds.left - 316),
@@ -1855,41 +1939,79 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* ═══════════════════ PROFILE DRAWER ═══════════════════ */}
       {showProfile && (
         <div className="absolute inset-0 z-30">
-          <div className="absolute inset-0 bg-black/40" onClick={() => setShowProfile(false)} />
-          <div className="absolute right-0 top-0 bottom-0 w-72 bg-[#0d1b2a] flex flex-col shadow-2xl"
+          <div className="absolute inset-0 bg-[rgba(145,182,196,0.22)]" onClick={() => setShowProfile(false)} />
+          <div className="fixed inset-y-0 right-0 z-30 flex h-[100dvh] w-72 flex-col rounded-l-[34px] rounded-r-none border-l border-[rgba(126,196,214,0.78)] bg-[linear-gradient(180deg,rgba(188,228,239,0.98)_0%,rgba(207,236,245,0.96)_46%,rgba(196,231,241,0.99)_100%)] shadow-[-12px_0_28px_rgba(23,109,140,0.12)] backdrop-blur-[12px] lg:hidden"
             style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}>
-            <div className="px-5 pt-12 pb-6 border-b border-white/10">
-              <div className="flex items-center justify-between mb-6">
-                <span className="text-white">Profile</span>
-                <button onClick={() => setShowProfile(false)}><X size={20} className="text-white/50" /></button>
+            <div className="border-b border-[rgba(137,193,210,0.34)] px-5 pt-12 pb-6">
+              <div className="mb-6 flex items-center justify-between">
+                <span className="text-[#176d8c]">Profile</span>
+                <button onClick={() => setShowProfile(false)}><X size={20} className="text-[#6f9db0]" /></button>
               </div>
               <div className="flex flex-col items-center">
                 <Avatar name={displayName} size={70} uid={user.uid} />
-                <p className="text-white text-[15px] mt-3">{user.displayName}</p>
-                <p className="text-[#29b6d8] text-sm mt-1">{clinicalRoleLabel}</p>
-                <p className="text-white/40 text-sm mt-1">{user.email}</p>
-                <div className="flex items-center gap-2 mt-2">
-                  <div className="w-2 h-2 rounded-full bg-emerald-400" />
-                  <span className="text-emerald-400 text-sm">Online</span>
+                <p className="mt-3 text-[15px] text-[#154b5f]">{user.displayName}</p>
+                <p className="mt-1 text-sm text-[#1b86ae]">{clinicalRoleLabel}</p>
+                <p className="mt-1 text-sm text-[#7a9aa8]">{user.email}</p>
+                <div className="mt-2 flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-emerald-400" />
+                  <span className="text-sm text-emerald-400">Online</span>
                 </div>
               </div>
             </div>
-            <div className="px-5 py-4 border-b border-white/10">
-              <p className="text-white/40 text-xs tracking-widest mb-3">WORKSPACE</p>
-              <p className="text-white text-[15px]">{hospitalLabel}</p>
-              <p className="text-white/60 text-sm mt-1">{groupLabel}</p>
-              <p className="text-white/40 text-sm mt-1">
-                Join code: <span className="text-[#29b6d8] tracking-widest">{org.joinCode}</span>
+            <div className="border-b border-[rgba(137,193,210,0.34)] px-5 py-4">
+              <p className="mb-3 text-xs tracking-widest text-[#7fa9b8]">workspace</p>
+              <p className="text-[15px] text-[#154b5f]">{hospitalLabel}</p>
+              <p className="mt-1 text-sm text-[#5d8797]">{groupLabel}</p>
+              <p className="mt-1 text-sm text-[#7fa9b8]">
+                Join code: <span className="tracking-widest text-[#1b86ae]">{org.joinCode}</span>
               </p>
             </div>
-            <div className="flex-1 px-5 py-4 flex flex-col gap-1">
-              <button className="flex items-center gap-3 py-3.5 text-white/60 text-[15px]">
+            <div className="flex flex-1 flex-col gap-1 px-5 py-4">
+              <button className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
                 <Settings size={18} /> Settings
               </button>
-              <button onClick={handleSwitchOrg} className="flex items-center gap-3 py-3.5 text-white/60 text-[15px]">
+              <button onClick={handleSwitchOrg} className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
                 <ChevronDown size={18} /> Switch workspace
               </button>
-              <button onClick={handleSignOut} className="flex items-center gap-3 py-3.5 text-red-400 text-[15px] mt-2">
+              <button onClick={handleSignOut} className="mt-2 flex items-center gap-3 py-3.5 text-[15px] text-red-400">
+                <LogOut size={18} /> Sign out
+              </button>
+            </div>
+          </div>
+          <div className="absolute inset-y-0 right-0 hidden w-72 flex-col rounded-l-[34px] border-l border-[rgba(168,221,234,0.72)] bg-[linear-gradient(180deg,rgba(214,243,250,0.96)_0%,rgba(233,248,252,0.94)_46%,rgba(222,243,249,0.98)_100%)] shadow-[-18px_0_44px_rgba(31,124,150,0.14)] backdrop-blur-[14px] lg:flex"
+            style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}>
+            <div className="border-b border-[rgba(137,193,210,0.34)] px-5 pt-12 pb-6">
+              <div className="mb-6 flex items-center justify-between">
+                <span className="text-[#176d8c]">Profile</span>
+                <button onClick={() => setShowProfile(false)}><X size={20} className="text-[#6f9db0]" /></button>
+              </div>
+              <div className="flex flex-col items-center">
+                <Avatar name={displayName} size={70} uid={user.uid} />
+                <p className="mt-3 text-[15px] text-[#154b5f]">{user.displayName}</p>
+                <p className="mt-1 text-sm text-[#1b86ae]">{clinicalRoleLabel}</p>
+                <p className="mt-1 text-sm text-[#7a9aa8]">{user.email}</p>
+                <div className="mt-2 flex items-center gap-2">
+                  <div className="h-2 w-2 rounded-full bg-emerald-400" />
+                  <span className="text-sm text-emerald-400">Online</span>
+                </div>
+              </div>
+            </div>
+            <div className="border-b border-[rgba(137,193,210,0.34)] px-5 py-4">
+              <p className="mb-3 text-xs tracking-widest text-[#7fa9b8]">workspace</p>
+              <p className="text-[15px] text-[#154b5f]">{hospitalLabel}</p>
+              <p className="mt-1 text-sm text-[#5d8797]">{groupLabel}</p>
+              <p className="mt-1 text-sm text-[#7fa9b8]">
+                Join code: <span className="tracking-widest text-[#1b86ae]">{org.joinCode}</span>
+              </p>
+            </div>
+            <div className="flex flex-1 flex-col gap-1 px-5 py-4">
+              <button className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
+                <Settings size={18} /> Settings
+              </button>
+              <button onClick={handleSwitchOrg} className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
+                <ChevronDown size={18} /> Switch workspace
+              </button>
+              <button onClick={handleSignOut} className="mt-2 flex items-center gap-3 py-3.5 text-[15px] text-red-400">
                 <LogOut size={18} /> Sign out
               </button>
             </div>
@@ -1954,4 +2076,3 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     </div>
   )
 }
-

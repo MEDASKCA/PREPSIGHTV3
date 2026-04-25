@@ -1,6 +1,6 @@
 import {
   doc, getDoc, setDoc, deleteDoc,
-  collection, getDocs, query, where,
+  collection, getDocs, query, where, onSnapshot,
 } from "firebase/firestore"
 import { db } from "./firebase"
 import {
@@ -14,6 +14,7 @@ import {
   UserRole,
 } from "./types"
 import { buildMemberPublicAlias, buildOrganizationPublicAlias } from "./identity"
+import { type ActiveUserSessionRecord } from "./device-session"
 
 const ORGANIZATION_ALIAS_ROTATION_DAYS = 30
 
@@ -47,10 +48,92 @@ export async function getUserProfile(uid: string): Promise<PrepSightProfile | nu
 export async function saveUserProfile(uid: string, profile: PrepSightProfile): Promise<void> {
   if (!db) return
   try {
-    await setDoc(doc(db, "users", uid), profile)
+    await setDoc(doc(db, "users", uid), profile, { merge: true })
   } catch (err) {
     console.warn("[PrepSight] Firestore saveUserProfile failed:", err)
   }
+}
+
+export async function getActiveUserSession(uid: string): Promise<ActiveUserSessionRecord | null> {
+  if (!db) return null
+  try {
+    const snap = await getDoc(doc(db, "users", uid))
+    if (!snap.exists()) return null
+    const activeSession = snap.data().activeSession as Partial<ActiveUserSessionRecord> | null | undefined
+    if (
+      !activeSession ||
+      typeof activeSession.sessionId !== "string" ||
+      typeof activeSession.deviceLabel !== "string" ||
+      typeof activeSession.updatedAt !== "string"
+    ) {
+      return null
+    }
+    return {
+      sessionId: activeSession.sessionId,
+      deviceLabel: activeSession.deviceLabel,
+      updatedAt: activeSession.updatedAt,
+    }
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getActiveUserSession failed:", err)
+    return null
+  }
+}
+
+export async function claimActiveUserSession(
+  uid: string,
+  activeSession: ActiveUserSessionRecord,
+): Promise<void> {
+  if (!db) return
+  try {
+    await setDoc(doc(db, "users", uid), { activeSession }, { merge: true })
+  } catch (err) {
+    console.warn("[PrepSight] Firestore claimActiveUserSession failed:", err)
+  }
+}
+
+export async function clearActiveUserSession(uid: string, sessionId?: string): Promise<void> {
+  if (!db) return
+  try {
+    const current = await getActiveUserSession(uid)
+    if (sessionId && current?.sessionId && current.sessionId !== sessionId) {
+      return
+    }
+    await setDoc(doc(db, "users", uid), { activeSession: null }, { merge: true })
+  } catch (err) {
+    console.warn("[PrepSight] Firestore clearActiveUserSession failed:", err)
+  }
+}
+
+export function subscribeToActiveUserSession(
+  uid: string,
+  onChange: (activeSession: ActiveUserSessionRecord | null) => void,
+) {
+  if (!db) return () => {}
+  return onSnapshot(
+    doc(db, "users", uid),
+    (snap) => {
+      if (!snap.exists()) {
+        onChange(null)
+        return
+      }
+      const activeSession = snap.data().activeSession as Partial<ActiveUserSessionRecord> | null | undefined
+      if (
+        !activeSession ||
+        typeof activeSession.sessionId !== "string" ||
+        typeof activeSession.deviceLabel !== "string" ||
+        typeof activeSession.updatedAt !== "string"
+      ) {
+        onChange(null)
+        return
+      }
+      onChange({
+        sessionId: activeSession.sessionId,
+        deviceLabel: activeSession.deviceLabel,
+        updatedAt: activeSession.updatedAt,
+      })
+    },
+    () => onChange(null),
+  )
 }
 
 export async function deleteUserAccountData(uid: string): Promise<void> {

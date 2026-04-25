@@ -1,4 +1,6 @@
 import { auth } from "./firebase"
+import { clearActiveUserSession } from "./firestore"
+import { clearDeviceSession, readDeviceSession } from "./device-session"
 import {
   GoogleAuthProvider,
   OAuthProvider,
@@ -243,7 +245,13 @@ export async function getLoginRedirectResult() {
 }
 
 export async function signOut() {
+  const currentUid = auth?.currentUser?.uid ?? null
+  const currentSessionId = readDeviceSession()?.sessionId
   clearLocalDevSession()
+  clearDeviceSession()
+  if (currentUid) {
+    await clearActiveUserSession(currentUid, currentSessionId ?? undefined)
+  }
   if (!auth) return
   return firebaseSignOut(auth)
 }
