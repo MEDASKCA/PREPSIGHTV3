@@ -4,9 +4,10 @@ import dynamic from "next/dynamic"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useMemo, useState, useSyncExternalStore, type CSSProperties } from "react"
-import { ArrowLeft, ArrowRightLeft, CalendarClock, ChevronDown, Clock3, Link2, LogOut, MapPinned, Phone, Search, Settings, ShieldCheck, Wrench, X } from "lucide-react"
+import { ArrowLeft, ArrowRightLeft, CalendarClock, ChevronDown, Clock3, Link2, LogOut, MapPinned, Moon, Phone, Search, Settings, ShieldCheck, Sun, Wrench, X } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import MobileCommsShell from "@/components/MobileCommsShell"
+import { MobileThemeProvider, useMobileTheme } from "@/lib/mobile-theme"
 import AppTopBar from "@/components/AppTopBar"
 import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
 import {
@@ -35,7 +36,7 @@ type MobileCalendarView = "daily" | "weekly" | "monthly" | "quarterly"
 type MobileCalendarSource = "all" | "library" | "resources" | "insights"
 type MobileConnectorFilter = "connected" | "available"
 
-const MOBILE_SOFT_SURFACE = "rounded-[20px] border border-[#BFE3EE] bg-[#D4EEF8] shadow-[0_10px_24px_rgba(16,36,62,0.05)]"
+const MOBILE_SOFT_SURFACE = "rounded-[20px] border border-[var(--mob-border)] bg-[var(--mob-surface)] shadow-[0_10px_24px_rgba(16,36,62,0.05)]"
 const MobileWorkforceShiftMap = dynamic(() => import("@/components/WorkforceShiftMap"), { ssr: false })
 
 function MobileAvatar({ label, onClick }: { label: string; onClick: () => void }) {
@@ -124,12 +125,12 @@ function MobileSectionHeader({
   searchPlaceholder: string
 }) {
   return (
-    <div className="shrink-0 bg-[#e8f6fd] px-5 pb-4" style={{ paddingTop: "calc(env(safe-area-inset-top) + 18px)" }}>
+    <div className="shrink-0 bg-[var(--mob-surface)] px-5 pb-4" style={{ paddingTop: "calc(env(safe-area-inset-top) + 18px)" }}>
       <div className="mb-0.5 flex items-center justify-between">
-        <span className="text-[#0891b2] text-2xl tracking-tight">
+        <span className="text-[var(--mob-accent)] text-2xl tracking-tight">
           PrepSight{" "}
           <em
-            className="text-[0.9em] leading-none tracking-[-0.05em] text-[#1b86ae]"
+            className="text-[0.9em] leading-none tracking-[-0.05em] text-[var(--mob-text)]"
             style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
           >
                 {title}
@@ -142,18 +143,18 @@ function MobileSectionHeader({
           onClick={onOpenProfile}
         />
       </div>
-      <div className="mb-4 mt-2 flex items-center gap-2 text-sm text-[#0891b2]/70">
+      <div className="mb-4 mt-2 flex items-center gap-2 text-sm text-[var(--mob-text-2)]">
         <span>{hospital}</span>
-        <span className="text-[#67c2d8]">|</span>
+        <span className="text-[var(--mob-border)]">|</span>
         <span>{department}</span>
       </div>
-      <div className="flex items-center gap-3 rounded-2xl border border-sky-200/60 bg-[#d4eef8] px-4 py-3">
-        <Search size={16} className="shrink-0 text-[#0891b2]" />
+      <div className="flex items-center gap-3 rounded-2xl border border-[var(--mob-border)] bg-[var(--mob-bg)] px-4 py-3">
+        <Search size={16} className="shrink-0 text-[var(--mob-accent)]" />
         <input
           value={searchValue}
           onChange={(event) => onSearchChange(event.target.value)}
           placeholder={searchPlaceholder}
-          className="flex-1 bg-transparent text-[16px] text-gray-700 placeholder-gray-400 outline-none"
+          className="flex-1 bg-transparent text-[16px] text-[var(--mob-text)] placeholder-[var(--mob-text-2)] outline-none"
         />
       </div>
     </div>
@@ -177,7 +178,7 @@ function MobileSubpagePills<T extends string>({
           type="button"
           onClick={() => onChange(item.key)}
           className={`shrink-0 rounded-full px-4 py-1.5 text-sm transition-colors ${
-            active === item.key ? "bg-[#29b6d8] text-white" : "text-gray-500 hover:text-gray-700"
+            active === item.key ? "bg-[var(--mob-accent)] text-white" : "text-[var(--mob-text-2)] hover:text-[var(--mob-text)]"
           }`}
         >
           {item.label}
@@ -200,7 +201,7 @@ function MobileLabeledPills<T extends string>({
 }) {
   return (
     <div className="flex items-center gap-3 overflow-x-auto px-5 py-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-      <span className="shrink-0 text-[13px] text-[#6C8A99]">{label}</span>
+      <span className="shrink-0 text-[13px] text-[var(--mob-text-2)]">{label}</span>
       <div className="flex gap-2">
         {items.map((item) => (
           <button
@@ -208,7 +209,7 @@ function MobileLabeledPills<T extends string>({
             type="button"
             onClick={() => onChange(item.key)}
             className={`shrink-0 rounded-full px-4 py-1.5 text-sm transition-colors ${
-              active === item.key ? "bg-[#29b6d8] text-white" : "text-gray-500 hover:text-gray-700"
+              active === item.key ? "bg-[var(--mob-accent)] text-white" : "text-[var(--mob-text-2)] hover:text-[var(--mob-text)]"
             }`}
           >
             {item.label}
@@ -232,12 +233,12 @@ function MobileLabeledSelect<T extends string>({
 }) {
   return (
     <div className="flex items-center justify-between gap-3 px-5 py-1">
-      <span className="shrink-0 text-[13px] text-[#6C8A99]">{label}</span>
+      <span className="shrink-0 text-[13px] text-[var(--mob-text-2)]">{label}</span>
       <div className="relative min-w-[160px]">
         <select
           value={value}
           onChange={(event) => onChange(event.target.value as T)}
-          className="w-full appearance-none rounded-full border border-[#BFE3EE] bg-[#D4EEF8] px-4 py-2 pr-10 text-sm text-[#15364D] outline-none"
+          className="w-full appearance-none rounded-full border border-[var(--mob-border)] bg-[var(--mob-surface)] px-4 py-2 pr-10 text-sm text-[var(--mob-text)] outline-none"
         >
           {items.map((item) => (
             <option key={item.key} value={item.key}>
@@ -1002,6 +1003,7 @@ function MobileSharedProfileDrawer({
   onOpenConnectors: () => void
   onSwitchWorkspace: () => void
 }) {
+  const { theme, toggle } = useMobileTheme()
   if (!open) return null
 
   return (
@@ -1048,6 +1050,10 @@ function MobileSharedProfileDrawer({
           </button>
           <button className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
             <Settings size={18} /> Settings
+          </button>
+          <button type="button" onClick={toggle} className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
+            {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
+            {theme === "dark" ? "Light mode" : "Dark mode"}
           </button>
           <button type="button" onClick={onSwitchWorkspace} className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
             <ChevronDown size={18} /> Switch workspace
@@ -1470,7 +1476,8 @@ export default function PrepSightV4App() {
         />
       </div>
 
-      <div className="lg:hidden">
+      <MobileThemeProvider>
+      <div className="lg:hidden min-h-[100dvh] bg-[var(--mob-bg)]">
         <MobileSharedProfileDrawer
           open={showMobileProfile}
           onClose={() => setShowMobileProfile(false)}
@@ -1635,7 +1642,7 @@ export default function PrepSightV4App() {
         </main>
 
         <div className="fixed inset-x-0 bottom-0">
-          <div className="bg-[linear-gradient(180deg,#E5F5F8_0%,#F3F9FB_42%,#F4F7FA_100%)] px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
+          <div className="bg-[var(--mob-dock-bg)] border-t border-[var(--mob-dock-border)] px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
             <div
               className="grid gap-1"
               style={{ gridTemplateColumns: `repeat(${TAB_ITEMS.length}, minmax(0, 1fr))` }}
@@ -1654,13 +1661,13 @@ export default function PrepSightV4App() {
                       if (item.key !== "comms") setSelectedLibraryId(null)
                     }}
                     className={`flex flex-col items-center justify-center rounded-[16px] px-2 py-2.5 transition-all ${
-                      isActive ? "bg-[#0077B6]/10 text-[#0077B6]" : "text-[#7aaab8] hover:text-[#0f4c5c]"
+                      isActive ? "bg-[var(--mob-dock-active-bg)] text-[var(--mob-dock-active)]" : "text-[var(--mob-dock-inactive)] hover:text-[var(--mob-text)]"
                     }`}
                   >
                     <div className="relative flex h-7 w-7 items-center justify-center">
                       <Icon size={23} strokeWidth={isActive ? 2.2 : 1.7} />
                     </div>
-                    <span className={`mt-1 text-[11px] font-medium tracking-wide ${isActive ? "text-[#0077B6]" : "text-[#7aaab8]"}`}>
+                    <span className={`mt-1 text-[11px] font-medium tracking-wide ${isActive ? "text-[var(--mob-dock-active)]" : "text-[var(--mob-dock-inactive)]"}`}>
                       {item.key === "updates" ? "Insights" : item.label}
                     </span>
                   </button>
@@ -1670,6 +1677,7 @@ export default function PrepSightV4App() {
           </div>
         </div>
       </div>
+      </MobileThemeProvider>
 
       <main
         style={desktopGridStyle}

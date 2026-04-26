@@ -30,6 +30,48 @@
   --settings-overlay: rgba(15, 23, 42, 0.22);
 }
 
+/* ─── Mobile themes ──────────────────────────────────────────────────────── */
+
+[data-mobile-theme="light"] {
+  --mob-bg:           #ffffff;
+  --mob-surface:      #f5f5f5;
+  --mob-surface-2:    #eeeeee;
+  --mob-text:         #111111;
+  --mob-text-2:       #888888;
+  --mob-border:       #e5e5e5;
+  --mob-accent:       #00B4D8;
+  --mob-accent-bg:    rgba(0,180,216,0.08);
+  --mob-header-bg:    #0096C7;
+  --mob-header-text:  #ffffff;
+  --mob-dock-bg:      #ffffff;
+  --mob-dock-border:  #e5e5e5;
+  --mob-dock-active:  #00B4D8;
+  --mob-dock-active-bg: rgba(0,180,216,0.08);
+  --mob-dock-inactive: #aaaaaa;
+  --mob-bubble-own-from: #29b6d8;
+  --mob-bubble-own-to:   #1a86c8;
+}
+
+[data-mobile-theme="dark"] {
+  --mob-bg:           #0a0a0a;
+  --mob-surface:      #111111;
+  --mob-surface-2:    #1a1a1a;
+  --mob-text:         #ffffff;
+  --mob-text-2:       #888888;
+  --mob-border:       #222222;
+  --mob-accent:       #00B4D8;
+  --mob-accent-bg:    rgba(0,180,216,0.12);
+  --mob-header-bg:    #0096C7;
+  --mob-header-text:  #ffffff;
+  --mob-dock-bg:      #0a0a0a;
+  --mob-dock-border:  #222222;
+  --mob-dock-active:  #00B4D8;
+  --mob-dock-active-bg: rgba(0,180,216,0.12);
+  --mob-dock-inactive: #444444;
+  --mob-bubble-own-from: #29b6d8;
+  --mob-bubble-own-to:   #1a86c8;
+}
+
 html,
 body {
   background: #F4F7FA;
