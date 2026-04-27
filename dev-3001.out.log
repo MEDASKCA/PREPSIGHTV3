@@ -2070,3 +2070,103 @@
  GET /manifest.webmanifest 200 in 13ms (compile: 8ms, render: 4ms)
 ✓ Compiled in 612ms
 ✓ Compiled in 554ms
+✓ Compiled in 893ms
+✓ Compiled in 1008ms
+✓ Compiled in 917ms
+✓ Compiled in 1006ms
+✓ Compiled in 998ms
+✓ Compiled in 995ms
+✓ Compiled in 962ms
+✓ Compiled in 1591ms
+✓ Compiled in 1528ms
+✓ Compiled in 1729ms
+ GET /manifest.webmanifest 200 in 75ms (compile: 29ms, render: 46ms)
+ GET / 200 in 3.2s (compile: 859ms, render: 2.3s)
+ GET /manifest.webmanifest 200 in 15ms (compile: 4ms, render: 12ms)
+✓ Compiled in 2.1s
+✓ Compiled in 1460ms
+✓ Compiled in 1011ms
+✓ Compiled in 976ms
+✓ Compiled in 969ms
+✓ Compiled in 935ms
+✓ Compiled in 1629ms
+✓ Compiled in 1230ms
+✓ Compiled in 1575ms
+ GET / 200 in 1784ms (compile: 510ms, render: 1274ms)
+ GET /manifest.webmanifest 200 in 25ms (compile: 9ms, render: 16ms)
+✓ Compiled in 1084ms
+✓ Compiled in 1435ms
+✓ Compiled in 1025ms
+✓ Compiled in 1544ms
+✓ Compiled in 1479ms
+✓ Compiled in 1518ms
+✓ Compiled in 1403ms
+✓ Compiled in 1102ms
+✓ Compiled in 1074ms
+ GET /manifest.webmanifest 200 in 32ms (compile: 19ms, render: 12ms)
+ GET /manifest.webmanifest 200 in 29ms (compile: 12ms, render: 17ms)
+ GET / 200 in 1953ms (compile: 408ms, render: 1546ms)
+✓ Compiled in 984ms
+✓ Compiled in 1029ms
+✓ Compiled in 981ms
+✓ Compiled in 1503ms
+✓ Compiled in 1068ms
+ GET /manifest.webmanifest 200 in 17ms (compile: 7ms, render: 10ms)
+✓ Compiled in 1097ms
+✓ Compiled in 1221ms
+✓ Compiled in 1561ms
+✓ Compiled in 1399ms
+✓ Compiled in 1540ms
+✓ Compiled in 1027ms
+✓ Compiled in 1403ms
+✓ Compiled in 1228ms
+✓ Compiled in 1175ms
+✓ Compiled in 1128ms
+✓ Compiled in 962ms
+✓ Compiled in 969ms
+ GET / 200 in 3.2s (compile: 1212ms, render: 2.0s)
+ GET /manifest.webmanifest 200 in 56ms (compile: 27ms, render: 29ms)
+ GET /resources/workforce 200 in 925ms (compile: 700ms, render: 225ms)
+ GET /manifest.webmanifest 200 in 70ms (compile: 56ms, render: 15ms)
+ GET /resources/workforce/shifts 200 in 679ms (compile: 546ms, render: 133ms)
+ GET /manifest.webmanifest 200 in 73ms (compile: 40ms, render: 33ms)
+ GET /calendar 200 in 839ms (compile: 687ms, render: 151ms)
+ GET /manifest.webmanifest 200 in 11ms (compile: 3ms, render: 8ms)
+✓ Compiled in 3.7s
+✓ Compiled in 1113ms
+✓ Compiled in 1507ms
+✓ Compiled in 1142ms
+✓ Compiled in 1223ms
+✓ Compiled in 884ms
+✓ Compiled in 831ms
+✓ Compiled in 1046ms
+ GET /calendar 200 in 1962ms (compile: 44ms, render: 1917ms)
+ GET /manifest.webmanifest 200 in 42ms (compile: 15ms, render: 26ms)
+✓ Compiled in 1037ms
+✓ Compiled in 989ms
+✓ Compiled in 835ms
+✓ Compiled in 1282ms
+✓ Compiled in 1018ms
+ GET /calendar 200 in 343ms (compile: 107ms, render: 236ms)
+ GET /calendar 200 in 131ms (compile: 13ms, render: 118ms)
+ GET /manifest.webmanifest 200 in 21ms (compile: 11ms, render: 11ms)
+✓ Compiled in 1322ms
+✓ Compiled in 1153ms
+✓ Compiled in 1423ms
+✓ Compiled in 991ms
+✓ Compiled in 933ms
+✓ Compiled in 927ms
+✓ Compiled in 1561ms
+✓ Compiled in 1343ms
+✓ Compiled in 1028ms
+✓ Compiled in 947ms
+✓ Compiled in 1069ms
+✓ Compiled in 902ms
+✓ Compiled in 980ms
+✓ Compiled in 997ms
+✓ Compiled in 790ms
+✓ Compiled in 1222ms
+✓ Compiled in 800ms
+ GET /manifest.webmanifest 200 in 86ms (compile: 45ms, render: 40ms)
+ GET /calendar 200 in 2.6s (compile: 1065ms, render: 1502ms)
+[?25h

@@ -292,9 +292,10 @@ interface Props {
   onSwitchOrg: () => void
   embedded?: boolean
   showProfileButton?: boolean
+  visible?: boolean   // false = this page is hidden; auto-minimise active calls
 }
 
-export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false }: Props) {
+export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true }: Props) {
   const appRef = useRef<HTMLDivElement>(null)
   const firestore = db!
   const firebaseAuth = auth!
@@ -359,6 +360,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const remoteAudioRef = useRef<HTMLAudioElement | null>(null)
   const remoteVideoRef = useRef<HTMLVideoElement | null>(null)
   const localVideoRef = useRef<HTMLVideoElement | null>(null)
+  const remoteStreamRef = useRef<MediaStream | null>(null)
   const callStartTimeRef = useRef<number>(0)
   const callThreadIdRef = useRef<string>("")
   const callUnsubRef = useRef<(() => void) | null>(null)
@@ -371,8 +373,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [callMuted, setCallMuted] = useState(false)
   const [callSpeaker, setCallSpeaker] = useState(false)
   const [callMinimized, setCallMinimized] = useState(false)
-  const [callCardPos, setCallCardPos] = useState({ x: 16, y: 70 })
-  const callDragOrigin = useRef({ clientX: 0, clientY: 0, cardX: 0, cardY: 0 })
   const [tomTyping, setTomTyping] = useState(false)
   const [tomTasks, setTomTasks] = useState<TomWatchTask[]>([])
 
@@ -424,7 +424,20 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (callState !== "idle" && localStreamRef.current && localVideoRef.current) {
       localVideoRef.current.srcObject = localStreamRef.current
     }
-  }, [callState])
+  }, [callState, callMinimized])
+
+  // ── Re-apply remote stream when video element mounts/unmounts (callState or minimized changes) ──
+  useEffect(() => {
+    if (remoteStreamRef.current && remoteVideoRef.current) {
+      remoteVideoRef.current.srcObject = remoteStreamRef.current
+      remoteVideoRef.current.play().catch(() => {})
+    }
+  }, [callState, callMinimized])
+
+  // ── Auto-minimise when user navigates to a different tab ──
+  useEffect(() => {
+    if (!visible && callState !== "idle") setCallMinimized(true)
+  }, [visible, callState])
 
   // ── Vibrate on incoming call ──
   useEffect(() => {
@@ -1154,11 +1167,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   function attachRemoteAudio(pc: RTCPeerConnection) {
     pc.ontrack = e => {
-      if (remoteAudioRef.current && e.streams[0]) {
+      if (!e.streams[0]) return
+      remoteStreamRef.current = e.streams[0]
+      if (remoteAudioRef.current) {
         remoteAudioRef.current.srcObject = e.streams[0]
         remoteAudioRef.current.play().catch(() => {})
       }
-      if (remoteVideoRef.current && e.streams[0]) {
+      if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = e.streams[0]
         remoteVideoRef.current.play().catch(() => {})
       }
@@ -1416,23 +1431,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (remoteAudioRef.current) { remoteAudioRef.current.srcObject = null }
     if (remoteVideoRef.current) { remoteVideoRef.current.srcObject = null }
     if (localVideoRef.current) { localVideoRef.current.srcObject = null }
+    remoteStreamRef.current = null
     setTomVoiceMode(false)
     setCallState("idle"); setActiveCall(null); setCallerInfo(null); setCalleeInfo(null)
     setCallElapsed(0); setCallMuted(false); setCallSpeaker(false)
-    setCallMinimized(false); setCallCardPos({ x: 16, y: 70 })
-  }
-
-  function onCallCardPointerDown(e: React.PointerEvent<HTMLDivElement>) {
-    e.currentTarget.setPointerCapture(e.pointerId)
-    callDragOrigin.current = { clientX: e.clientX, clientY: e.clientY, cardX: callCardPos.x, cardY: callCardPos.y }
-  }
-
-  function onCallCardPointerMove(e: React.PointerEvent<HTMLDivElement>) {
-    if (!(e.buttons & 1)) return
-    setCallCardPos({
-      x: Math.max(0, callDragOrigin.current.cardX + e.clientX - callDragOrigin.current.clientX),
-      y: Math.max(0, callDragOrigin.current.cardY + e.clientY - callDragOrigin.current.clientY),
-    })
+    setCallMinimized(false)
   }
 
   function toggleMute() {
@@ -2480,8 +2483,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             </div>
           )}
 
-          {/* Centre: avatar / GIF + identity */}
-          <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-5 px-8">
+          {/* Centre: avatar / GIF + identity — hidden during active video call (video fills screen) */}
+          <div className={`relative z-10 flex flex-1 flex-col items-center justify-center gap-5 px-8 ${callState === "active" && callMediaMode === "video" && !tomVoiceMode ? "hidden" : ""}`}>
             {callState === "outgoing" ? (
               <>
                 <img
@@ -2536,8 +2539,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             )}
           </div>
 
-          {/* Bottom: action buttons */}
-          <div className="relative z-10 flex justify-center gap-10 pb-14">
+          {/* Bottom: action buttons — float over video when video active */}
+          <div className={`z-10 flex justify-center gap-10 pb-14 ${callState === "active" && callMediaMode === "video" && !tomVoiceMode ? "absolute bottom-0 left-0 right-0" : "relative"}`}>
             {callState === "incoming" && (
               <button onClick={answerCall}
                 className="flex h-[68px] w-[68px] items-center justify-center rounded-full"
@@ -2555,114 +2558,77 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       )}
 
-      {/* ═══ MINIMISED CALL CARD — draggable, floats above everything ═══ */}
+      {/* ═══ MINIMISED CALL PILL — slim bar anchored top-right, floats above everything ═══ */}
       {callState !== "idle" && callMinimized && (
         <div
-          className="fixed z-[200] select-none"
-          style={{ left: callCardPos.x, top: callCardPos.y, touchAction: "none", maxWidth: "calc(100vw - 32px)" }}
-          onPointerDown={onCallCardPointerDown}
-          onPointerMove={onCallCardPointerMove}
+          className="fixed right-0 z-[200] flex items-center gap-1.5 pl-3 pr-2 select-none"
+          style={{
+            top: "env(safe-area-inset-top, 0px)",
+            height: 48,
+            background: "rgba(6,6,6,0.96)",
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+            borderLeft: "1px solid rgba(255,255,255,0.09)",
+            borderBottom: "1px solid rgba(255,255,255,0.09)",
+            borderBottomLeftRadius: 26,
+          }}
         >
-          <div
-            className="w-[272px] overflow-hidden rounded-[20px]"
-            style={{
-              background: "rgba(10,10,10,0.94)",
-              backdropFilter: "blur(24px)",
-              WebkitBackdropFilter: "blur(24px)",
-              border: "1px solid rgba(255,255,255,0.07)",
-              boxShadow: "0 20px 50px rgba(0,0,0,0.75), 0 0 0 0.5px rgba(255,255,255,0.04)",
-            }}
-          >
-            {/* Identity row — drag handle */}
-            <div className="flex cursor-grab items-center gap-3 px-4 pb-2.5 pt-3.5 active:cursor-grabbing">
-              {callState === "outgoing" ? (
-                <img src="/Plant%20Growing%20Sticker%20by%20Bouclair.gif" alt=""
-                  className="h-9 w-9 shrink-0 rounded-full object-cover"
-                  style={{ filter: "grayscale(1) sepia(1) hue-rotate(170deg) saturate(4.5) brightness(1.05)" }} />
-              ) : (
-                <div className="relative shrink-0">
-                  <div className="absolute rounded-full" style={{ inset: -2, border: "1.5px solid #0096C7", boxShadow: "0 0 6px 2px rgba(0,150,199,0.35)" }} />
-                  <Avatar
-                    name={(callState === "incoming" ? callerInfo?.displayName : calleeInfo?.displayName) ?? "?"}
-                    size={36}
-                    uid={callState === "incoming" ? callerInfo?.uid : calleeInfo?.uid}
-                  />
-                </div>
-              )}
-              <div className="min-w-0 flex-1">
-                <p className="truncate text-[13px] font-semibold text-white">
-                  {callState === "incoming"
-                    ? (callerInfo?.displayName ?? "Incoming call")
-                    : (calleeInfo?.displayName ?? (selectedThread ? getThreadName(selectedThread) : ""))}
-                </p>
-                <p className="mt-0.5 text-[11px] text-[#0096C7]/80">
-                  {callState === "incoming"
-                    ? (callMediaMode === "video" ? "Incoming video call" : "Incoming audio call")
-                    : callState === "outgoing"
-                    ? (callMediaMode === "video" ? "Video calling…" : "Audio calling…")
-                    : tomVoiceMode ? "TOM voice" : "Connected"}
-                </p>
-              </div>
-              <div className="flex items-center gap-1.5">
-                {callState === "active" && (
-                  <span className="font-mono text-[11px] text-white/35">{formatCallDuration(callElapsed)}</span>
-                )}
-                <button
-                  onClick={() => setCallMinimized(false)}
-                  className="flex h-6 w-6 items-center justify-center rounded-full bg-white/10 text-white/50 hover:bg-white/20 hover:text-white"
-                  aria-label="Expand"
-                  onPointerDown={e => e.stopPropagation()}
-                >
-                  <ArrowRight size={11} />
-                </button>
-              </div>
-            </div>
-
-            {/* Compact video (video + active) */}
-            {callMediaMode === "video" && !tomVoiceMode && callState === "active" && (
-              <div className="relative mx-3 mb-3 overflow-hidden rounded-[12px] bg-black" style={{ height: 110 }}>
-                <video ref={remoteVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
-                <video ref={localVideoRef} autoPlay playsInline muted
-                  className="absolute bottom-1.5 right-1.5 h-12 w-9 rounded-[6px] border border-white/20 object-cover" />
-              </div>
-            )}
-
-            <div className="mx-4 h-px bg-white/[0.06]" />
-
-            {/* Actions */}
-            <div className="flex items-center justify-between px-4 py-3">
-              <div className="flex items-center gap-1.5">
-                {callState === "active" && (
-                  <>
-                    <button onClick={toggleMute} onPointerDown={e => e.stopPropagation()}
-                      className="flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.07] hover:bg-white/[0.14]">
-                      {callMuted ? <MicOff size={13} className="text-red-400" /> : <Mic size={13} className="text-white/60" />}
-                    </button>
-                    <button onClick={() => setCallSpeaker(v => !v)} onPointerDown={e => e.stopPropagation()}
-                      className="flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.07] hover:bg-white/[0.14]">
-                      <Volume2 size={13} className={callSpeaker ? "text-[#0096C7]" : "text-white/60"} />
-                    </button>
-                  </>
-                )}
-              </div>
-              <div className="flex items-center gap-2">
-                {callState === "incoming" && (
-                  <button onClick={answerCall} onPointerDown={e => e.stopPropagation()}
-                    className="flex h-9 w-9 items-center justify-center rounded-full bg-emerald-500"
-                    style={{ boxShadow: "0 4px 12px rgba(16,185,129,0.4)" }}>
-                    <PhoneIncoming size={15} className="text-white" />
-                  </button>
-                )}
-                <button
-                  onClick={callState === "incoming" ? declineCall : endCall}
-                  onPointerDown={e => e.stopPropagation()}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-red-500"
-                  style={{ boxShadow: "0 4px 12px rgba(239,68,68,0.4)" }}>
-                  <PhoneOff size={15} className="text-white" />
-                </button>
-              </div>
-            </div>
+          {/* Avatar with cyan ring */}
+          <div className="relative mr-1.5 shrink-0">
+            <div className="absolute rounded-full" style={{ inset: -1.5, border: "1.5px solid #0096C7", boxShadow: "0 0 6px rgba(0,150,199,0.45)" }} />
+            <Avatar
+              name={(callState === "incoming" ? callerInfo?.displayName : calleeInfo?.displayName) ?? "?"}
+              size={26}
+              uid={callState === "incoming" ? callerInfo?.uid : calleeInfo?.uid}
+            />
           </div>
+
+          {/* Name + status/timer */}
+          <div className="mr-1.5 min-w-0 shrink" style={{ maxWidth: 88 }}>
+            <p className="truncate text-[11.5px] font-semibold leading-tight text-white">
+              {callState === "incoming"
+                ? (callerInfo?.displayName ?? "Incoming")
+                : (calleeInfo?.displayName ?? "Call")}
+            </p>
+            <p className="truncate text-[10px] leading-tight text-[#0096C7]/75">
+              {callState === "incoming"
+                ? (callMediaMode === "video" ? "Video call" : "Audio call")
+                : callState === "outgoing" ? "Calling…"
+                : formatCallDuration(callElapsed)}
+            </p>
+          </div>
+
+          {/* Mute — active only */}
+          {callState === "active" && (
+            <button onClick={toggleMute}
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.08] hover:bg-white/[0.15]">
+              {callMuted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white/60" />}
+            </button>
+          )}
+
+          {/* Answer — incoming only */}
+          {callState === "incoming" && (
+            <button onClick={answerCall}
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-500"
+              style={{ boxShadow: "0 2px 8px rgba(16,185,129,0.5)" }}>
+              <PhoneIncoming size={12} className="text-white" />
+            </button>
+          )}
+
+          {/* End / Decline */}
+          <button
+            onClick={callState === "incoming" ? declineCall : endCall}
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-red-500"
+            style={{ boxShadow: "0 2px 8px rgba(239,68,68,0.4)" }}>
+            <PhoneOff size={12} className="text-white" />
+          </button>
+
+          {/* Expand */}
+          <button
+            onClick={() => setCallMinimized(false)}
+            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/50 hover:bg-white/20 hover:text-white">
+            <ArrowRight size={10} />
+          </button>
         </div>
       )}
     </div>

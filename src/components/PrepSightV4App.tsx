@@ -1529,7 +1529,7 @@ export default function PrepSightV4App() {
             ? { height: "calc(100dvh - 56px)" }
             : { width: 0, height: 0, pointerEvents: "none" }}
         >
-          <MobileCommsShell />
+          <MobileCommsShell visible={mobileTab === "comms" && !mobileUtilityPage} />
         </div>
 
         <main className={`bg-black ${mobileTab === "comms" ? "h-[calc(100dvh-56px)] overflow-hidden" : "min-h-screen pb-28"}`}>

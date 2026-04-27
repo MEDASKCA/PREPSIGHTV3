@@ -30,7 +30,7 @@ function generateJoinCode() {
   return Math.random().toString(36).slice(2, 8).toUpperCase()
 }
 
-export default function MobileCommsShell() {
+export default function MobileCommsShell({ visible = true }: { visible?: boolean }) {
   const [user, setUser]         = useState<User | null>(null)
   const [org, setOrg]           = useState<CommsOrg | null>(null)
   const [errorText, setErrorText] = useState("")
@@ -144,6 +144,7 @@ export default function MobileCommsShell() {
         onSwitchOrg={() => setOrg(null)}
         embedded
         showProfileButton
+        visible={visible}
       />
     </div>
   )
