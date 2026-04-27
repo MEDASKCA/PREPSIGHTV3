@@ -370,6 +370,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [callElapsed, setCallElapsed] = useState(0)
   const [callMuted, setCallMuted] = useState(false)
   const [callSpeaker, setCallSpeaker] = useState(false)
+  const [callCardPos, setCallCardPos] = useState({ x: 16, y: 70 })
+  const callDragOrigin = useRef({ clientX: 0, clientY: 0, cardX: 0, cardY: 0 })
   const [tomTyping, setTomTyping] = useState(false)
   const [tomTasks, setTomTasks] = useState<TomWatchTask[]>([])
 
@@ -1194,8 +1196,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return unsub
   }
 
-  async function initiateCall(calleeUid: string, threadId: string) {
+  async function initiateCall(calleeUid: string, threadId: string, mode: "audio" | "video" = "audio") {
     if (callState !== "idle") return
+    setCallMediaMode(mode)
     if (calleeUid === TOM_UID) {
       callThreadIdRef.current = threadId
       callStartTimeRef.current = 0
@@ -1233,9 +1236,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
     let stream: MediaStream
     try {
-      stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: callMediaMode === "video" })
+      stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: mode === "video" })
     } catch {
-      alert(callMediaMode === "video" ? "Camera or microphone permission denied" : "Microphone permission denied")
+      alert(mode === "video" ? "Camera or microphone permission denied" : "Microphone permission denied")
       return
     }
     localStreamRef.current = stream
@@ -1263,7 +1266,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       callerUid: user.uid,
       calleeUid,
       organizationId: org.id,
-      mode: callMediaMode,
+      mode,
       status: "ringing",
       offer: { type: offer.type, sdp: offer.sdp },
       createdAt: Date.now(),
@@ -1415,6 +1418,20 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setTomVoiceMode(false)
     setCallState("idle"); setActiveCall(null); setCallerInfo(null); setCalleeInfo(null)
     setCallElapsed(0); setCallMuted(false); setCallSpeaker(false)
+    setCallCardPos({ x: 16, y: 70 })
+  }
+
+  function onCallCardPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    e.currentTarget.setPointerCapture(e.pointerId)
+    callDragOrigin.current = { clientX: e.clientX, clientY: e.clientY, cardX: callCardPos.x, cardY: callCardPos.y }
+  }
+
+  function onCallCardPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (!(e.buttons & 1)) return
+    setCallCardPos({
+      x: Math.max(0, callDragOrigin.current.cardX + e.clientX - callDragOrigin.current.clientX),
+      y: Math.max(0, callDragOrigin.current.cardY + e.clientY - callDragOrigin.current.clientY),
+    })
   }
 
   function toggleMute() {
@@ -1724,13 +1741,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               {selectedThread.type === "direct" && (
                 <>
                   <button
-                    onClick={() => { setCallMediaMode("audio"); void initiateCall(getOtherUid(selectedThread), selectedThread.id) }}
+                    onClick={() => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "audio")}
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8]"
                   >
                     <Phone size={18} className="text-white" />
                   </button>
                   <button
-                    onClick={() => { setCallMediaMode("video"); void initiateCall(getOtherUid(selectedThread), selectedThread.id) }}
+                    onClick={() => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")}
                     className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8]"
                   >
                     <Video size={18} className="text-white" />
@@ -2394,168 +2411,135 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       )}
 
-      {/* ═══════════════════ CALL UI ═══════════════════ */}
-      {/* position:fixed + z-[200] so it floats above the bottom nav on all pages */}
+      {/* ═══ CALL MODAL — draggable, compact, floats above all pages ═══ */}
       {callState !== "idle" && (
         <div
-          className="fixed inset-0 z-[200] flex flex-col bg-black"
-          style={{
-            paddingTop: "env(safe-area-inset-top)",
-            paddingBottom: "env(safe-area-inset-bottom)",
-          }}
+          className="fixed z-[200] select-none"
+          style={{ left: callCardPos.x, top: callCardPos.y, touchAction: "none", maxWidth: "calc(100vw - 32px)" }}
+          onPointerDown={onCallCardPointerDown}
+          onPointerMove={onCallCardPointerMove}
         >
-          {/* Video streams:
-              - outgoing video: show local camera preview immediately (pip corner)
-              - active video: show remote full-screen + local pip */}
-          {callMediaMode === "video" && !tomVoiceMode && (
-            <>
-              {callState === "active" && (
-                <div className="absolute inset-0 overflow-hidden">
-                  <video ref={remoteVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
-                </div>
-              )}
-              <video ref={localVideoRef} autoPlay playsInline muted
-                className={`absolute right-5 z-10 h-36 w-28 rounded-[20px] border border-white/30 object-cover ${callState === "active" ? "bottom-32" : "bottom-24"}`} />
-            </>
-          )}
-
-          {/* ── Top: timer + controls (active calls) ── */}
-          <div className="relative z-10 flex flex-col items-center pt-8">
-            {callState === "active" && (
-              <>
-                {/* Timer pill */}
-                <div className="flex items-center gap-2.5 rounded-full bg-white/10 px-5 py-2.5">
-                  <Phone size={15} className="text-[#0096C7]" />
-                  <span className="font-mono text-[17px] font-semibold tracking-wider text-[#0096C7]">
-                    {formatCallDuration(callElapsed)}
-                  </span>
-                </div>
-                {/* Controls row */}
-                <div className="mt-6 flex w-full items-stretch border-t border-b border-white/10">
-                  <button
-                    onClick={toggleMute}
-                    className="flex flex-1 flex-col items-center gap-1.5 py-4 text-white/70 transition-colors hover:text-white"
-                  >
-                    {callMuted
-                      ? <MicOff size={22} className="text-red-400" />
-                      : <Mic size={22} />}
-                    <span className="text-[11px]">{callMuted ? "Unmute" : "Mute"}</span>
-                  </button>
-                  <div className="w-px bg-white/10" />
-                  <button
-                    onClick={() => setCallSpeaker(v => !v)}
-                    className="flex flex-1 flex-col items-center gap-1.5 py-4 text-white/70 transition-colors hover:text-white"
-                  >
-                    <Volume2 size={22} className={callSpeaker ? "text-[#0096C7]" : ""} />
-                    <span className="text-[11px]">Speaker</span>
-                  </button>
-                  {activeCall?.mode === "video" && !tomVoiceMode && (
-                    <>
-                      <div className="w-px bg-white/10" />
-                      <button className="flex flex-1 flex-col items-center gap-1.5 py-4 text-[#0096C7]">
-                        <Video size={22} />
-                        <span className="text-[11px]">Video</span>
-                      </button>
-                    </>
-                  )}
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* ── Middle: avatar / GIF + identity ── */}
-          <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-5 px-8">
-            {callState === "outgoing" ? (
-              <>
+          <div
+            className="w-[280px] overflow-hidden rounded-[22px]"
+            style={{
+              background: "rgba(10,10,10,0.94)",
+              backdropFilter: "blur(24px)",
+              WebkitBackdropFilter: "blur(24px)",
+              border: "1px solid rgba(255,255,255,0.07)",
+              boxShadow: "0 24px 56px rgba(0,0,0,0.75), 0 0 0 0.5px rgba(255,255,255,0.04)",
+            }}
+          >
+            {/* ── Identity row (drag here) ── */}
+            <div className="flex cursor-grab items-center gap-3 px-4 pb-2.5 pt-4 active:cursor-grabbing">
+              {callState === "outgoing" ? (
                 <img
                   src="/Plant%20Growing%20Sticker%20by%20Bouclair.gif"
                   alt=""
-                  className="h-52 w-52 object-contain"
+                  className="h-10 w-10 shrink-0 rounded-full object-cover"
                   style={{ filter: "grayscale(1) sepia(1) hue-rotate(170deg) saturate(4.5) brightness(1.05)" }}
                 />
-                <div className="text-center">
-                  <p className="text-2xl font-bold text-[#0096C7]">
-                    {calleeInfo?.displayName ?? (selectedThread ? getThreadName(selectedThread) : "")}
-                  </p>
-                  {calleeInfo?.email ? (
-                    <p className="mt-1 text-[15px] font-medium text-white/80">{calleeInfo.email}</p>
-                  ) : null}
-                  {calleeInfo?.clinicalRole ? (
-                    <p className="mt-0.5 text-[13px] text-white/45">{calleeInfo.clinicalRole}</p>
-                  ) : null}
-                  <p className="mt-3 text-sm text-[#0096C7]/70">
-                    {callMediaMode === "video" ? "Video calling…" : "Audio calling…"}
-                  </p>
-                </div>
-              </>
-            ) : (
-              <>
-                {/* Glowing avatar ring */}
-                <div className="relative flex items-center justify-center">
+              ) : (
+                <div className="relative shrink-0">
                   <div
                     className="absolute rounded-full"
                     style={{
-                      inset: -5,
-                      border: "2px solid #0096C7",
-                      boxShadow: "0 0 18px 4px rgba(0,150,199,0.45), 0 0 55px 18px rgba(0,150,199,0.12)",
+                      inset: -2,
+                      border: "1.5px solid #0096C7",
+                      boxShadow: "0 0 8px 2px rgba(0,150,199,0.4)",
                     }}
                   />
                   <Avatar
                     name={(callState === "incoming" ? callerInfo?.displayName : calleeInfo?.displayName) ?? "?"}
-                    size={110}
+                    size={40}
                     uid={callState === "incoming" ? callerInfo?.uid : calleeInfo?.uid}
                   />
                 </div>
-                <div className="text-center">
-                  <p className="text-[26px] font-bold text-[#0096C7]">
-                    {callState === "incoming"
-                      ? (callerInfo?.displayName ?? "Incoming call")
-                      : (calleeInfo?.displayName ?? (selectedThread ? getThreadName(selectedThread) : ""))}
-                  </p>
-                  {(callState === "incoming" ? callerInfo?.email : calleeInfo?.email) ? (
-                    <p className="mt-1.5 text-[15px] font-semibold text-white">
-                      {callState === "incoming" ? callerInfo!.email : calleeInfo!.email}
-                    </p>
-                  ) : null}
-                  {(callState === "incoming" ? callerInfo?.clinicalRole : calleeInfo?.clinicalRole) ? (
-                    <p className="mt-1 text-[13px] text-white/50">
-                      {callState === "incoming" ? callerInfo!.clinicalRole : calleeInfo!.clinicalRole}
-                    </p>
-                  ) : null}
-                  <p className="mt-3 text-sm text-[#0096C7]/70">
-                    {callState === "incoming"
-                      ? (callMediaMode === "video" ? "Incoming video call" : "Incoming audio call")
-                      : (tomVoiceMode ? "TOM voice mode" : "Connected")}
-                  </p>
-                </div>
-              </>
-            )}
-          </div>
+              )}
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[14px] font-semibold text-white">
+                  {callState === "incoming"
+                    ? (callerInfo?.displayName ?? "Incoming call")
+                    : (calleeInfo?.displayName ?? (selectedThread ? getThreadName(selectedThread) : ""))}
+                </p>
+                <p className="mt-0.5 text-[11px] text-[#0096C7]/90">
+                  {callState === "incoming"
+                    ? (callMediaMode === "video" ? "Incoming video call" : "Incoming audio call")
+                    : callState === "outgoing"
+                    ? (callMediaMode === "video" ? "Video calling…" : "Audio calling…")
+                    : tomVoiceMode ? "TOM voice mode" : "Connected"}
+                </p>
+              </div>
+              {callState === "active" && (
+                <span className="shrink-0 font-mono text-[12px] text-white/35">
+                  {formatCallDuration(callElapsed)}
+                </span>
+              )}
+            </div>
 
-          {/* ── Bottom: action buttons ── */}
-          <div className="relative z-10 flex justify-center gap-12 pb-16">
-            {callState === "incoming" && (
-              <button
-                onClick={answerCall}
-                className="flex h-[72px] w-[72px] items-center justify-center rounded-full"
-                style={{
-                  background: "radial-gradient(circle at 38% 32%, #4ade80, #15803d)",
-                  boxShadow: "0 8px 28px rgba(21,128,61,0.55), inset 0 1px 0 rgba(255,255,255,0.18)",
-                }}
-              >
-                <PhoneIncoming size={28} className="text-white" />
-              </button>
+            {/* ── Video section (video calls only) ── */}
+            {callMediaMode === "video" && !tomVoiceMode && (
+              <div className="relative mx-3 mb-3 overflow-hidden rounded-[14px] bg-black" style={{ height: 130 }}>
+                {callState === "active" ? (
+                  <video ref={remoteVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
+                ) : null}
+                <video
+                  ref={localVideoRef}
+                  autoPlay
+                  playsInline
+                  muted
+                  className={callState === "active"
+                    ? "absolute bottom-2 right-2 h-14 w-10 rounded-[8px] border border-white/20 object-cover"
+                    : "h-full w-full object-cover"}
+                />
+              </div>
             )}
-            <button
-              onClick={callState === "incoming" ? declineCall : endCall}
-              className="flex h-[72px] w-[72px] items-center justify-center rounded-full"
-              style={{
-                background: "radial-gradient(circle at 38% 32%, #f87171, #b91c1c)",
-                boxShadow: "0 8px 28px rgba(185,28,28,0.55), inset 0 1px 0 rgba(255,255,255,0.18)",
-              }}
-            >
-              <PhoneOff size={28} className="text-white" />
-            </button>
+
+            {/* ── Divider ── */}
+            <div className="mx-4 h-px bg-white/[0.06]" />
+
+            {/* ── Actions ── */}
+            <div className="flex items-center justify-between px-4 py-3">
+              {/* Left: utility controls (active only) */}
+              <div className="flex items-center gap-2">
+                {callState === "active" && (
+                  <>
+                    <button
+                      onClick={toggleMute}
+                      className="flex h-8 w-8 items-center justify-center rounded-full bg-white/[0.07] transition-colors hover:bg-white/[0.14]"
+                    >
+                      {callMuted
+                        ? <MicOff size={14} className="text-red-400" />
+                        : <Mic size={14} className="text-white/60" />}
+                    </button>
+                    <button
+                      onClick={() => setCallSpeaker(v => !v)}
+                      className="flex h-8 w-8 items-center justify-center rounded-full bg-white/[0.07] transition-colors hover:bg-white/[0.14]"
+                    >
+                      <Volume2 size={14} className={callSpeaker ? "text-[#0096C7]" : "text-white/60"} />
+                    </button>
+                  </>
+                )}
+              </div>
+              {/* Right: answer / decline / end */}
+              <div className="flex items-center gap-2.5">
+                {callState === "incoming" && (
+                  <button
+                    onClick={answerCall}
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-emerald-500"
+                    style={{ boxShadow: "0 4px 14px rgba(16,185,129,0.45)" }}
+                  >
+                    <PhoneIncoming size={17} className="text-white" />
+                  </button>
+                )}
+                <button
+                  onClick={callState === "incoming" ? declineCall : endCall}
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-red-500"
+                  style={{ boxShadow: "0 4px 14px rgba(239,68,68,0.45)" }}
+                >
+                  <PhoneOff size={17} className="text-white" />
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       )}
