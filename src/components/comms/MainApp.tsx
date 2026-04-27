@@ -197,10 +197,9 @@ function EmojiPicker({
         </div>
       </div>
       <div className={`${variant === "drawer" ? "grid flex-1 grid-cols-3 gap-0.5 overflow-y-auto px-1 py-2" : "grid max-h-52 grid-cols-8 gap-0.5 overflow-y-auto p-2"}`}>
-        {EMOJI_CATS[cat].emojis.map((e, index) => (
+        {EMOJI_CATS[cat].emojis.map((e) => (
           <button key={e} onClick={() => { onSelect(e); onClose() }}
-            className={`${variant === "drawer" ? "rounded-xl py-2 text-[24px] leading-none transition duration-200 hover:bg-[#1c1c1c]" : "rounded p-1 text-xl leading-none hover:bg-gray-100"}`}
-            style={variant === "drawer" ? { transitionDelay: `${Math.min(index, 10) * 12}ms` } : undefined}>
+            className={`${variant === "drawer" ? "rounded-xl py-2 text-[24px] leading-none hover:bg-[#1c1c1c]" : "rounded p-1 text-xl leading-none hover:bg-gray-100"}`}>
             {e}
           </button>
         ))}
@@ -422,6 +421,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (callState !== "idle" && localStreamRef.current && localVideoRef.current) {
       localVideoRef.current.srcObject = localStreamRef.current
     }
+  }, [callState])
+
+  // ── Vibrate on incoming call ──
+  useEffect(() => {
+    if (callState !== "incoming" || !("vibrate" in navigator)) return
+    // Ring pattern: 400ms on, 200ms off, repeat
+    const interval = setInterval(() => navigator.vibrate([400, 200, 400, 200, 400]), 1400)
+    return () => { clearInterval(interval); navigator.vibrate(0) }
   }, [callState])
 
   // ── Call elapsed timer ──
@@ -2388,21 +2395,30 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       )}
 
       {/* ═══════════════════ CALL UI ═══════════════════ */}
+      {/* position:fixed + z-[200] so it floats above the bottom nav on all pages */}
       {callState !== "idle" && (
         <div
-          className="absolute inset-0 z-40 flex flex-col"
+          className="fixed inset-0 z-[200] flex flex-col"
           style={{
             background: "radial-gradient(ellipse at 50% 0%, #0a1f38 0%, #020d1e 65%)",
             paddingTop: "env(safe-area-inset-top)",
             paddingBottom: "env(safe-area-inset-bottom)",
           }}
         >
-          {/* Video streams — active video call only */}
-          <div className={`absolute inset-0 overflow-hidden ${activeCall?.mode === "video" && !tomVoiceMode && callState === "active" ? "" : "hidden"}`}>
-            <video ref={remoteVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
-            <video ref={localVideoRef} autoPlay playsInline muted
-              className="absolute bottom-6 right-5 h-32 w-24 rounded-[20px] border border-white/30 object-cover" />
-          </div>
+          {/* Video streams:
+              - outgoing video: show local camera preview immediately (pip corner)
+              - active video: show remote full-screen + local pip */}
+          {callMediaMode === "video" && !tomVoiceMode && (
+            <>
+              {callState === "active" && (
+                <div className="absolute inset-0 overflow-hidden">
+                  <video ref={remoteVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
+                </div>
+              )}
+              <video ref={localVideoRef} autoPlay playsInline muted
+                className={`absolute right-5 z-10 h-36 w-28 rounded-[20px] border border-white/30 object-cover ${callState === "active" ? "bottom-32" : "bottom-24"}`} />
+            </>
+          )}
 
           {/* ── Top: timer + controls (active calls) ── */}
           <div className="relative z-10 flex flex-col items-center pt-8">
@@ -2509,7 +2525,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ) : null}
                   <p className="mt-3 text-sm text-[#0096C7]/70">
                     {callState === "incoming"
-                      ? (activeCall?.mode === "video" ? "Incoming video call" : "Incoming audio call")
+                      ? (callMediaMode === "video" ? "Incoming video call" : "Incoming audio call")
                       : (tomVoiceMode ? "TOM voice mode" : "Connected")}
                   </p>
                 </div>

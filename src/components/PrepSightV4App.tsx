@@ -1520,6 +1520,18 @@ export default function PrepSightV4App() {
           onOpenConnectors={() => openMobileUtilityPage("connectors")}
           onSwitchWorkspace={handleMobileSwitchWorkspace}
         />
+        {/* Comms shell — always mounted so the call listener survives page switches.
+            When not on comms tab it collapses to 0×0. The call UI inside uses
+            position:fixed z-[200] so it floats above everything including the nav. */}
+        <div
+          className="fixed left-0 right-0 top-0 z-[40] overflow-hidden bg-black"
+          style={mobileTab === "comms" && !mobileUtilityPage
+            ? { height: "calc(100dvh - 56px)" }
+            : { width: 0, height: 0, pointerEvents: "none" }}
+        >
+          <MobileCommsShell />
+        </div>
+
         <main className={`bg-black ${mobileTab === "comms" ? "h-[calc(100dvh-56px)] overflow-hidden" : "min-h-screen pb-28"}`}>
           {mobileUtilityPage === "calendar" ? (
             <div className="space-y-4">
@@ -1547,9 +1559,8 @@ export default function PrepSightV4App() {
               />
               <MobileConnectorsSurface />
             </div>
-          ) : mobileTab === "comms" ? (
-            <MobileCommsShell />
-          ) : mobileTab === "library" ? (
+          ) : mobileTab === "comms" ? null
+          : mobileTab === "library" ? (
             <div className="space-y-4">
               <MobileSectionHeader
                 title={mobileSurfaceTitle}
