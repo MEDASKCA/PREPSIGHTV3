@@ -129,12 +129,12 @@ export function LibraryTree({
   compact?: boolean
   onLibrarySelect?: (libraryId: string) => void
 }) {
-  const textColor = tone === "global" ? "text-[#0F4C5C]" : "text-[#10243E]"
+  const textColor = "text-[#e0e0e0]"
   const nodeColor = tone === "global" ? "#0F9FC1" : "#16989A"
   const lineColor = tone === "global" ? "#6FD3EA" : "#8ED9D6"
 
   return (
-    <div className="rounded-[12px] border border-[#BFE3EE] bg-[#D4EEF8] px-3 py-3 shadow-[0_10px_24px_rgba(16,36,62,0.05)]">
+    <div className="rounded-[12px] border border-[#2d2d2d] bg-[#1c1c1c] px-3 py-3 shadow-[0_10px_24px_rgba(0,0,0,0.3)] transition-transform duration-200 ease-out hover:scale-[1.015] lg:hover:scale-100">
       <div className="pb-2">
         <button
           type="button"
@@ -146,11 +146,11 @@ export function LibraryTree({
             <span>{title}</span>
           </div>
           <span className="lg:hidden">
-            <TriangleIcon direction={open ? "up" : "down"} size={11} className="text-[#0077B6]" />
+            <TriangleIcon direction={open ? "up" : "down"} size={11} className="text-[#0096C7]" />
           </span>
-          <TriangleIcon direction={open ? "up" : "down"} size={11} className="hidden shrink-0 text-[#61758B] lg:block" />
+          <TriangleIcon direction={open ? "up" : "down"} size={11} className="hidden shrink-0 text-[#0096C7] lg:block" />
         </button>
-        <div className="mt-1 text-[14px] text-[#61758B]">{description}</div>
+        <div className="mt-1 text-[14px] text-[#888888]">{description}</div>
       </div>
 
       {open ? (
@@ -178,10 +178,10 @@ export function LibraryTree({
                           <FolderBadge tone={tone} open size="md" />
                         </div>
                         <div className="min-w-0">
-                          <p className="break-words text-[14px] leading-5 font-normal text-[#10243E] hover:text-[#0F4C5C] lg:truncate lg:text-[15px]">
+                          <p className="break-words text-[14px] leading-5 font-normal text-[#e0e0e0] hover:text-white lg:truncate lg:text-[15px]">
                             {getLibraryOwnerLabel(library)}/{library.name}
                           </p>
-                          <p className="mt-0.5 break-words text-[13px] leading-5 text-[#61758B] lg:truncate lg:text-[14px]">
+                          <p className="mt-0.5 break-words text-[13px] leading-5 text-[#888888] lg:truncate lg:text-[14px]">
                             {formatMeta(cardCount, getLibraryTypeLabel(library))}
                           </p>
                         </div>
@@ -197,10 +197,10 @@ export function LibraryTree({
                         <FolderBadge tone={tone} open size="md" />
                       </div>
                       <div className="min-w-0">
-                        <p className="break-words text-[14px] leading-5 font-normal text-[#10243E] hover:text-[#0F4C5C] lg:truncate lg:text-[15px]">
+                        <p className="break-words text-[14px] leading-5 font-normal text-[#e0e0e0] hover:text-white lg:truncate lg:text-[15px]">
                           {getLibraryOwnerLabel(library)}/{library.name}
                         </p>
-                        <p className="mt-0.5 break-words text-[13px] leading-5 text-[#61758B] lg:truncate lg:text-[14px]">
+                        <p className="mt-0.5 break-words text-[13px] leading-5 text-[#888888] lg:truncate lg:text-[14px]">
                           {formatMeta(cardCount, getLibraryTypeLabel(library))}
                         </p>
                       </div>
@@ -211,7 +211,7 @@ export function LibraryTree({
               )
             })
           ) : (
-            <p className="py-2 text-[14px] text-[#61758B]">{emptyMessage}</p>
+            <p className="py-2 text-[14px] text-[#888888]">{emptyMessage}</p>
           )}
         </div>
       ) : null}
@@ -225,17 +225,17 @@ export function BookmarkList({
   bookmarks: ReturnType<typeof getBookmarksSnapshot>
 }) {
   return (
-    <div className="rounded-[12px] border border-[#BFE3EE] bg-[#D4EEF8] px-3 py-3 shadow-[0_10px_24px_rgba(16,36,62,0.05)]">
+    <div className="rounded-[12px] border border-[#2d2d2d] bg-[#1c1c1c] px-3 py-3 shadow-[0_10px_24px_rgba(0,0,0,0.3)] transition-transform duration-200 ease-out hover:scale-[1.015] lg:hover:scale-100">
       <div className="flex items-center justify-between gap-3">
-        <div className="flex items-center gap-2 text-[18px] font-medium tracking-[-0.02em] text-[#10243E]">
+        <div className="flex items-center gap-2 text-[18px] font-medium tracking-[-0.02em] text-[#e0e0e0]">
           <FolderBadge tone="bookmark" open size="lg" />
           <span>Bookmarks</span>
         </div>
-        <Link href="/bookmarks" className="text-[14px] text-[#0F4C5C]">
+        <Link href="/bookmarks" className="text-[14px] text-[#0096C7]">
           View all
         </Link>
       </div>
-      <div className="mt-1 text-[14px] text-[#61758B]">Your saved procedure shortcuts.</div>
+      <div className="mt-1 text-[14px] text-[#888888]">Your saved procedure shortcuts.</div>
 
       <div className="mt-3">
         {bookmarks.length > 0 ? (
@@ -244,15 +244,15 @@ export function BookmarkList({
               <Link
                 key={bookmark.id}
                 href={bookmark.href}
-                className="block rounded-[10px] px-2.5 py-2 transition-colors hover:bg-[#F4FBFF]"
+                className="block rounded-[10px] px-2.5 py-2 transition-colors hover:bg-[#2a2a2a]"
               >
-                <p className="truncate text-[14px] text-[#10243E]">{bookmark.title}</p>
-                <p className="mt-0.5 truncate text-[13px] text-[#61758B]">{bookmark.subtitle}</p>
+                <p className="truncate text-[14px] text-[#e0e0e0]">{bookmark.title}</p>
+                <p className="mt-0.5 truncate text-[13px] text-[#888888]">{bookmark.subtitle}</p>
               </Link>
             ))}
           </div>
         ) : (
-          <p className="py-2 text-[14px] text-[#61758B]">No bookmarks yet.</p>
+          <p className="py-2 text-[14px] text-[#888888]">No bookmarks yet.</p>
         )}
       </div>
     </div>
@@ -316,16 +316,16 @@ export function EmbeddedLibrariesDashboardMobile({
   return (
     <div className="space-y-4">
       <section className="px-1">
-        <p className="text-[14px] text-[#5B7A8A]">Workspace</p>
-        <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">{workspaceLabel}</h1>
-        <p className="mt-2 text-[15px] text-[#61758B]">
+        <p className="text-[14px] text-[#888888]">Workspace</p>
+        <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-white">{workspaceLabel}</h1>
+        <p className="mt-2 text-[15px] text-[#888888]">
           {libraries.length} collections · {totalCards} procedure cards
         </p>
       </section>
 
       <section>
         <div className="px-1">
-          <h2 className="whitespace-nowrap text-[24px] font-medium tracking-[-0.03em] text-[#10243E]">Collections</h2>
+          <h2 className="whitespace-nowrap text-[24px] font-medium tracking-[-0.03em] text-white">Collections</h2>
         </div>
 
         <div className="mt-3 px-1">
@@ -355,7 +355,7 @@ export function EmbeddedLibrariesDashboardMobile({
             />
             {mobileLocalOpen ? (
               <div className="px-3 pt-2">
-                <Link href="/" className="inline-block text-[14px] text-[#0F4C5C]">
+                <Link href="/" className="inline-block text-[14px] text-[#0096C7]">
                   Request access to other collections
                 </Link>
               </div>
@@ -433,7 +433,7 @@ export default function LibrariesDashboard() {
   const localCollectionsTitle = filteredLocalLibraries.length === 1 ? "My Group" : "My Groups"
 
   return (
-    <div className="app-shell-bg min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#E5F5F8_0%,#F3F9FB_42%,#F4F7FA_100%)]">
+    <div className="app-shell-bg min-h-screen overflow-x-hidden bg-black">
       <AppTopBar
         menuOpen={mobileMenuOpen}
         onToggleMenu={handleToggleNavigation}
@@ -447,16 +447,16 @@ export default function LibrariesDashboard() {
       <main className="w-full px-4 pt-0 pb-4 lg:px-0 lg:pb-0">
         <div className="space-y-4 lg:hidden">
           <section className="px-1">
-            <p className="text-[14px] text-[#5B7A8A]">Workspace</p>
-            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">{workspaceLabel}</h1>
-            <p className="mt-2 text-[15px] text-[#61758B]">
+            <p className="text-[14px] text-[#888888]">Workspace</p>
+            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-white">{workspaceLabel}</h1>
+            <p className="mt-2 text-[15px] text-[#888888]">
               {libraries.length} collections · {totalCards} procedure cards
             </p>
           </section>
 
           <section>
             <div className="px-1">
-              <h2 className="whitespace-nowrap text-[24px] font-medium tracking-[-0.03em] text-[#10243E]">Collections</h2>
+              <h2 className="whitespace-nowrap text-[24px] font-medium tracking-[-0.03em] text-white">Collections</h2>
             </div>
 
             <div className="mt-3 px-1">
@@ -484,7 +484,7 @@ export default function LibrariesDashboard() {
                 />
                 {mobileLocalOpen ? (
                   <div className="px-3 pt-2">
-                    <Link href="/" className="inline-block text-[14px] text-[#0F4C5C]">
+                    <Link href="/" className="inline-block text-[14px] text-[#0096C7]">
                       Request access to other collections
                     </Link>
                   </div>
@@ -498,19 +498,19 @@ export default function LibrariesDashboard() {
           </section>
         </div>
 
-        <div className={`hidden lg:grid lg:gap-y-4 lg:gap-x-0 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}>
+        <div className={`hidden lg:grid lg:gap-y-4 lg:gap-x-0 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}>
           <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
           <div className="min-w-0 space-y-2">
             <section className="px-1">
-              <p className="text-[14px] text-[#5B7A8A]">Workspace</p>
-              <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-[#10243E]">{workspaceLabel}</h1>
-              <p className="mt-2 text-[15px] text-[#61758B]">{libraries.length} collections · {totalCards} procedure cards</p>
+              <p className="text-[14px] text-[#888888]">Workspace</p>
+              <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-white">{workspaceLabel}</h1>
+              <p className="mt-2 text-[15px] text-[#888888]">{libraries.length} collections · {totalCards} procedure cards</p>
             </section>
 
             <section>
               <div className="mb-3 flex items-center justify-between gap-4">
-                <h2 className="text-[24px] font-medium tracking-[-0.03em] text-[#10243E]">Collections</h2>
+                <h2 className="text-[24px] font-medium tracking-[-0.03em] text-white">Collections</h2>
               </div>
 
               <div className="px-1 py-1">

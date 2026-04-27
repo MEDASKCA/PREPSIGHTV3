@@ -8,7 +8,6 @@ import {
   Phone,
   Users2,
 } from "lucide-react"
-import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
 import WorkforceSectionNav from "@/components/WorkforceSectionNav"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
 
@@ -53,9 +52,8 @@ const rotaActions = [
 
 export default function WorkforcePage() {
   return (
-    <WorkspaceDesktopShell currentNav="workforce">
+    <WorkspaceDesktopShell currentNav="workforce" sectionLabel="Resources Workforce">
       <div className="px-5 py-4 lg:px-6 lg:py-5">
-        <DesktopSectionWordmark label="Resources Workforce" />
         <p className="mt-3 max-w-[780px] text-[15px] leading-7 text-[#486579]">
           Rota should be the permanent-staff surface. This is where the user sees their department allocation,
           upcoming rota, and actions like swaps, leave, and availability.

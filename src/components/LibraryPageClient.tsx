@@ -271,7 +271,7 @@ function FolderBadge({
 function MobileTriangle({ open }: { open: boolean }) {
   return (
     <span
-      className={`block text-[13px] leading-none text-[#0077B6] transition-transform ${open ? "rotate-180" : ""}`}
+      className={`block text-[13px] leading-none text-[#0096C7] transition-transform ${open ? "rotate-180" : ""}`}
       aria-hidden="true"
     >
       ▼
@@ -325,13 +325,13 @@ function TreeLeafList({
         <TreeBranchNode
           key={card.id}
           isLast={index === cards.length - 1}
-          lineColor="#6FD3EA"
-          nodeColor="#2FB8D6"
+          lineColor="#2d4a55"
+          nodeColor="#1e5a6a"
           compact={compact}
         >
           <Link
             href={`/libraries/${libraryId}/cards/${card.id}`}
-            className="block py-1 text-[14px] leading-6 text-[#10243E] transition-colors hover:text-[#0F4C5C] lg:text-[15px]"
+            className="block py-1 text-[14px] leading-6 text-[#e0e0e0] transition-colors hover:text-white lg:text-[15px]"
           >
             {card.name}
           </Link>
@@ -362,7 +362,7 @@ function TreeGroupContent({
   ]
 
   return (
-    <div className="border-t border-[#E8EFF6] px-4 py-2">
+    <div className="border-t border-[#1e1e1e] px-4 py-2">
       <div className="ml-3">
         {directRows.map((row, index) => {
           const isLast = index === directRows.length - 1
@@ -374,8 +374,8 @@ function TreeGroupContent({
               <TreeBranchNode
                 key={branch.id}
                 isLast={isLast}
-                lineColor="#2FB8D6"
-                nodeColor="#0F9FC1"
+                lineColor="#2d4a55"
+                nodeColor="#1e5a6a"
                 compact={compact}
               >
                 <button
@@ -385,14 +385,14 @@ function TreeGroupContent({
                 >
                   <div className="flex items-center gap-2">
                     <FolderBadge tone={folderTone} open={isBranchExpanded(branch.id)} size="md" />
-                    <p className="text-[14px] leading-5 font-normal text-[#10243E]">
+                    <p className="text-[14px] leading-5 font-normal text-[#e0e0e0]">
                       {branch.label}
                     </p>
                   </div>
                   <span className="lg:hidden">
                     <MobileTriangle open={isBranchExpanded(branch.id)} />
                   </span>
-                  <TriangleIcon direction={isBranchExpanded(branch.id) ? "up" : "down"} size={10} className="hidden shrink-0 text-[#406175] lg:block" />
+                  <TriangleIcon direction={isBranchExpanded(branch.id) ? "up" : "down"} size={10} className="hidden shrink-0 text-[#0096C7] lg:block" />
                 </button>
 
                 {isBranchExpanded(branch.id) ? (
@@ -413,11 +413,11 @@ function TreeGroupContent({
             <TreeBranchNode
               key={`${group.id}:cards`}
               isLast={isLast}
-              lineColor="#2FB8D6"
-              nodeColor="#0F9FC1"
+              lineColor="#2d4a55"
+              nodeColor="#1e5a6a"
               compact={compact}
             >
-              <p className="py-1 text-[14px] leading-5 font-normal text-[#10243E]">Procedures</p>
+              <p className="py-1 text-[14px] leading-5 font-normal text-[#888888]">Procedures</p>
               <TreeLeafList cards={group.cards} libraryId={libraryId} compact={compact} />
             </TreeBranchNode>
           )
@@ -460,8 +460,8 @@ function TreeBranchContent({
             <TreeBranchNode
               key={child.id}
               isLast={isLast}
-              lineColor="#6FD3EA"
-              nodeColor="#2FB8D6"
+              lineColor="#2d4a55"
+              nodeColor="#1e5a6a"
               compact={compact}
             >
               <button
@@ -471,14 +471,14 @@ function TreeBranchContent({
             >
                 <div className="flex items-center gap-2">
                   <FolderBadge tone={folderTone} open={expanded} size="md" />
-                  <p className="text-[14px] leading-5 font-normal text-[#10243E]">
+                  <p className="text-[14px] leading-5 font-normal text-[#e0e0e0]">
                     {child.label}
                   </p>
                 </div>
                 <span className="lg:hidden">
                   <MobileTriangle open={expanded} />
                 </span>
-                <TriangleIcon direction={expanded ? "up" : "down"} size={10} className="hidden shrink-0 text-[#406175] lg:block" />
+                <TriangleIcon direction={expanded ? "up" : "down"} size={10} className="hidden shrink-0 text-[#0096C7] lg:block" />
               </button>
 
               {expanded ? (
@@ -692,22 +692,30 @@ export default function LibraryPageClient({
       <div className="space-y-0 pb-[calc(env(safe-area-inset-bottom,0px)+168px)]">
         <section className="space-y-2 px-4 pt-3 pb-2">
           <div>
-            {showOwnerName ? <p className="text-[13px] text-[#0F4C5C]">{ownerLabel}</p> : null}
-            <h1 className="mt-1 text-[26px] tracking-[-0.04em] text-[#10243E]">{displayName}</h1>
+            {showOwnerName ? <p className="text-[13px] text-[#888888]">{ownerLabel}</p> : null}
+            <h1 className="mt-1 text-[26px] tracking-[-0.04em] text-white">{displayName}</h1>
           </div>
 
-          <nav className="flex items-center gap-6 overflow-x-auto border-b border-[#BFEAF5] text-[14px] text-[#0F4C5C]">
+          <nav className="flex items-center gap-6 overflow-x-auto border-b border-[#2d2d2d] text-[14px]">
             <button
               type="button"
               onClick={() => setActiveTab("procedures")}
-              className={`px-1 py-3 ${activeTab === "procedures" ? "border-b-2 border-[#0F4C5C] text-[#10243E]" : ""}`}
+              className={`border-b-2 pb-1 pt-3 transition-colors ${
+                activeTab === "procedures"
+                  ? "border-[#0096C7] font-semibold text-[#0096C7]"
+                  : "border-transparent text-[#888888] hover:text-[#e0e0e0]"
+              }`}
             >
               Procedures {cards.length}
             </button>
             <button
               type="button"
               onClick={() => setActiveTab("updates")}
-              className={`px-1 py-3 ${activeTab === "updates" ? "border-b-2 border-[#0F4C5C] text-[#10243E]" : ""}`}
+              className={`border-b-2 pb-1 pt-3 transition-colors ${
+                activeTab === "updates"
+                  ? "border-[#0096C7] font-semibold text-[#0096C7]"
+                  : "border-transparent text-[#888888] hover:text-[#e0e0e0]"
+              }`}
             >
               Updates {updates.length}
             </button>
@@ -716,24 +724,24 @@ export default function LibraryPageClient({
 
         {activeTab === "procedures" ? (
           <section className="space-y-0">
-            <div className="bg-[#10243E] px-4 py-3 text-[14px] font-medium text-white">Specialty hierarchy</div>
+            <div className="bg-black px-4 py-3 text-[14px] font-medium text-[#888888]">Specialty hierarchy</div>
             {tree.length === 0 ? (
-              <div className="px-4 py-5 text-[14px] text-[#0F4C5C]">{emptyProcedureMessage}</div>
+              <div className="px-4 py-5 text-[14px] text-[#888888]">{emptyProcedureMessage}</div>
             ) : (
-              <div className="border-y border-[#D7E9EE] bg-white">
+              <div className="border-y border-[#1e1e1e] bg-black">
                 {tree.map((group) => (
-                  <section key={group.id} className="border-b border-[#E8EFF6] last:border-b-0">
+                  <section key={group.id} className="border-b border-[#1e1e1e] last:border-b-0">
                     <button
                       type="button"
                       onClick={() => toggleMobileGroup(group.id)}
-                      className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px_18px] items-center gap-x-2 bg-[#EAF7FD] px-3 py-2 text-left font-normal text-[#10243E]"
+                      className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px_18px] items-center gap-x-2 bg-black px-3 py-2 text-left font-normal transition-colors hover:bg-[#111111]"
                     >
                       <div className="flex items-center justify-center">
                         <FolderBadge tone={folderTone} open={isMobileGroupExpanded(group.id)} size="lg" />
                       </div>
-                      <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#10243E]">{group.label}</p>
-                      <span className="text-right text-[15px] font-normal text-[#10243E]">{totalForGroup(group)}</span>
-                      <span className="flex justify-end">
+                      <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#e0e0e0]">{group.label}</p>
+                      <span className="text-right text-[15px] font-normal text-[#888888]">{totalForGroup(group)}</span>
+                      <span className="flex justify-end text-[#555555]">
                         <MobileTriangle open={isMobileGroupExpanded(group.id)} />
                       </span>
                     </button>
@@ -755,25 +763,25 @@ export default function LibraryPageClient({
           </section>
         ) : (
           <section className="space-y-0">
-            <div className="bg-[#10243E] px-4 py-3 text-[14px] font-medium text-white">Recent updates</div>
+            <div className="bg-black px-4 py-3 text-[14px] font-medium text-[#888888]">Recent updates</div>
             {updates.length > 0 ? (
-              <div className="border-y border-[#D7E9EE] bg-white">
+              <div className="border-y border-[#1e1e1e] bg-black">
                 {updates.map((update) => (
-                  <section key={update.id} className="border-b border-[#E8EFF6] last:border-b-0">
+                  <section key={update.id} className="border-b border-[#1e1e1e] last:border-b-0">
                     <button
                       type="button"
                       onClick={() => toggleMobileUpdate(update.id)}
-                      className="grid w-full grid-cols-[minmax(0,1fr)_auto_18px] items-center gap-x-2 bg-[#EAF7FD] px-3 py-2 text-left transition-colors hover:bg-[#DDF2F8]"
+                      className="grid w-full grid-cols-[minmax(0,1fr)_auto_18px] items-center gap-x-2 bg-black px-3 py-2 text-left transition-colors hover:bg-[#111111]"
                     >
-                      <p className="truncate text-[14px] font-medium text-[#10243E]">{update.title}</p>
-                      <p className="text-[12px] text-[#0F4C5C]">{formatUpdateDate(update.timestamp)}</p>
-                      <span className="flex justify-end">
+                      <p className="truncate text-[14px] font-medium text-[#e0e0e0]">{update.title}</p>
+                      <p className="text-[12px] text-[#888888]">{formatUpdateDate(update.timestamp)}</p>
+                      <span className="flex justify-end text-[#555555]">
                         <MobileTriangle open={isMobileUpdateExpanded(update.id)} />
                       </span>
                     </button>
                     {isMobileUpdateExpanded(update.id) ? (
-                      <div className="border-t border-[#EEF4F7] px-3 py-2">
-                        <p className="text-[14px] leading-5 text-[#0F4C5C]">{renderCompactUpdateMeta(update)}</p>
+                      <div className="border-t border-[#1e1e1e] px-3 py-2">
+                        <p className="text-[14px] leading-5 text-[#888888]">{renderCompactUpdateMeta(update)}</p>
                         <Link
                           href={update.href}
                           className="mt-2 inline-flex items-center justify-center rounded-xl bg-[#0096C7] px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-[#0085B2] active:bg-[#0077B6]"
@@ -795,18 +803,20 @@ export default function LibraryPageClient({
   }
 
   return (
-    <div className="app-shell-bg min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#E5F5F8_0%,#F4FAFC_40%,#F4F7FA_100%)]">
+    <div className="app-shell-bg min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#E5F5F8_0%,#F4FAFC_40%,#F4F7FA_100%)] lg:bg-none lg:bg-black">
       <AppTopBar
         menuOpen={mobileMenuOpen}
         onToggleMenu={handleToggleNavigation}
         searchValue={query}
         onSearchChange={setQuery}
         searchPlaceholder="Find a procedure, branch, or version..."
+        sectionLabel="Library"
         mobileMenuOnly
+        hideMobileMenu
         menuContent={<AppMenuContent />}
       />
 
-      <main className="w-full px-0 pt-0 pb-0 lg:pl-0 lg:pr-4 lg:pt-4 lg:pb-4">
+      <main className="w-full px-0 pt-0 pb-0 lg:p-0">
         <div className="space-y-0 lg:hidden">
           <section className="space-y-2 px-4 pt-3 pb-2">
             <div>
@@ -940,30 +950,30 @@ export default function LibraryPageClient({
           )}
         </div>
 
-        <div className={`hidden lg:grid lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}>
+        <div className={`hidden lg:grid lg:gap-0 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}>
           <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
-          <div className="min-w-0 space-y-2">
+          <div className="min-w-0 space-y-2 px-6 py-5">
             <section className="space-y-2 px-1">
               <div>
-                {showOwnerName ? <p className="text-[13px] text-[#5B7A8A]">{ownerLabel}</p> : null}
-                <h1 className="mt-1 text-[30px] tracking-[-0.04em] text-[#10243E]">{displayName}</h1>
+                {showOwnerName ? <p className="text-[13px] text-[#888888]">{ownerLabel}</p> : null}
+                <h1 className="mt-1 text-[30px] tracking-[-0.04em] text-white">{displayName}</h1>
               </div>
             </section>
 
-            <section className="overflow-x-auto border-b border-[#BFEAF5]">
-              <nav className="flex min-w-max items-center gap-6 text-[14px] text-[#406175]">
+            <section className="overflow-x-auto border-b border-[#2d2d2d]">
+              <nav className="flex min-w-max items-center gap-6 text-[14px] text-[#888888]">
                 <button
                   type="button"
                   onClick={() => setActiveTab("procedures")}
-                  className={`px-1 py-3 ${activeTab === "procedures" ? "border-b-2 border-[#0F4C5C] text-[#10243E]" : ""}`}
+                  className={`px-1 py-3 ${activeTab === "procedures" ? "border-b-2 border-[#0096C7] text-white" : ""}`}
                 >
                   Procedures {cards.length}
                 </button>
                 <button
                   type="button"
                   onClick={() => setActiveTab("updates")}
-                  className={`px-1 py-3 ${activeTab === "updates" ? "border-b-2 border-[#0F4C5C] text-[#10243E]" : ""}`}
+                  className={`px-1 py-3 ${activeTab === "updates" ? "border-b-2 border-[#0096C7] text-white" : ""}`}
                 >
                   Updates {updates.length}
                 </button>
@@ -971,21 +981,21 @@ export default function LibraryPageClient({
             </section>
 
             {activeTab === "procedures" ? (
-            <section className="overflow-hidden rounded-[12px] border border-[#DCEAF0] bg-white shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <div className="border-b border-[#D7E9EE] bg-[#10243E] px-4 py-3 text-[14px] text-white">
+            <section className="overflow-hidden rounded-[12px] border border-[#2d2d2d] bg-[#202020]">
+              <div className="border-b border-[#2d2d2d] bg-[#181818] px-4 py-3 text-[14px] text-[#888888]">
                 Specialty hierarchy
               </div>
 
               <div>
                 {tree.length === 0 ? (
-                  <div className="px-4 py-5 text-[14px] text-[#61758B]">
+                  <div className="px-4 py-5 text-[14px] text-[#888888]">
                     {library.libraryType === "local" ? (
                       <div className="space-y-3">
                         <p>Your hospital hasn&apos;t added any procedures yet.</p>
                         <p>Browse the PrepSight Library to find a procedure and adapt it for your team.</p>
                         <Link
                           href={`/libraries/${sharedLibraryId}`}
-                          className="inline-flex rounded-[10px] border border-[#0F4C5C] bg-[#0F4C5C] px-3 py-2 text-[13px] font-medium text-white"
+                          className="inline-flex rounded-[10px] border border-[#0096C7] bg-[#0096C7] px-3 py-2 text-[13px] font-medium text-white"
                         >
                           Browse PrepSight Library
                         </Link>
@@ -996,23 +1006,23 @@ export default function LibraryPageClient({
                   </div>
                 ) : (
                   tree.map((group) => (
-                    <div key={group.id} className="border-b border-[#E8EFF6] last:border-b-0">
+                    <div key={group.id} className="border-b border-[#2d2d2d] last:border-b-0">
                       <button
                         type="button"
                         onClick={() => toggleGroup(group.id)}
-                        className="flex w-full items-center justify-between gap-3 bg-[#F8FBFD] px-4 py-2 text-left font-normal"
+                        className="flex w-full items-center justify-between gap-3 bg-[#202020] px-4 py-2 text-left font-normal hover:bg-[#252525]"
                       >
                         <div className="flex min-w-0 items-center gap-2">
                           <FolderBadge tone={folderTone} open={isGroupExpanded(group.id)} size="lg" />
-                          <p className="truncate text-[14px] font-normal text-[#10243E]">
+                          <p className="truncate text-[14px] font-normal text-[#e0e0e0]">
                             {group.label}
                           </p>
-                      <span className="text-[14px] font-normal text-[#10243E]">{totalForGroup(group)}</span>
+                          <span className="text-[14px] font-normal text-[#888888]">{totalForGroup(group)}</span>
                         </div>
                         <TriangleIcon
                           direction={isGroupExpanded(group.id) ? "up" : "down"}
                           size={10}
-                          className="shrink-0 text-[#406175]"
+                          className="shrink-0 text-[#0096C7]"
                         />
                       </button>
 
@@ -1031,27 +1041,27 @@ export default function LibraryPageClient({
               </div>
             </section>
             ) : (
-              <section className="overflow-hidden rounded-[12px] border border-[#DCEAF0] bg-white shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-                <div className="border-b border-[#D7E9EE] bg-[#10243E] px-4 py-3 text-[14px] text-white">
+              <section className="overflow-hidden rounded-[12px] border border-[#2d2d2d] bg-[#202020]">
+                <div className="border-b border-[#2d2d2d] bg-[#181818] px-4 py-3 text-[14px] text-[#888888]">
                   Recent updates
                 </div>
                 {updates.length > 0 ? (
-                  <div className="divide-y divide-[#E8EFF6]">
+                  <div className="divide-y divide-[#2d2d2d]">
                     {updates.map((update) => (
                       <Link
                         key={update.id}
                         href={update.href}
-                        className="block px-4 py-3 transition-colors hover:bg-[#F8FBFD]"
+                        className="block px-4 py-3 transition-colors hover:bg-[#252525]"
                       >
                         <div className="min-w-0">
-                          <p className="text-[14px] font-medium text-[#10243E]">{update.title}</p>
-                          <p className="mt-1 text-[12px] leading-5 text-[#61758B]">{renderCompactUpdateMeta(update)}</p>
+                          <p className="text-[14px] font-medium text-[#e0e0e0]">{update.title}</p>
+                          <p className="mt-1 text-[12px] leading-5 text-[#888888]">{renderCompactUpdateMeta(update)}</p>
                         </div>
                       </Link>
                     ))}
                   </div>
                 ) : (
-                  <div className="px-4 py-5 text-[14px] text-[#61758B]">{updateEmptyMessage}</div>
+                  <div className="px-4 py-5 text-[14px] text-[#888888]">{updateEmptyMessage}</div>
                 )}
               </section>
             )}

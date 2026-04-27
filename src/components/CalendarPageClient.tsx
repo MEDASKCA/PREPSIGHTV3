@@ -667,7 +667,7 @@ export default function CalendarPageClient() {
   return (
     <>
       {/* ── Desktop ────────────────────────────────────────────────────────── */}
-      <WorkspaceDesktopShell currentNav="calendar">
+      <WorkspaceDesktopShell currentNav="calendar" sectionLabel="Calendar">
         <div className="flex overflow-hidden" style={{ height: "calc(100vh - 64px)" }}>
 
           {/* Left panel: filters + schedule */}

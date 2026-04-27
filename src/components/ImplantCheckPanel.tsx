@@ -46,9 +46,9 @@ function readStoredWidths(): Record<ColKey, number> {
 }
 
 function statusBadge(s: StockStatus) {
-  if (s === "Out")      return <span className="rounded-md px-2 py-0.5 text-[11px] font-bold bg-red-100 text-red-700 lg:text-[20px] lg:px-3 lg:py-1">Out</span>
-  if (s === "Critical") return <span className="rounded-md px-2 py-0.5 text-[11px] font-bold bg-red-50 text-red-600 lg:text-[20px] lg:px-3 lg:py-1">Critical</span>
-  if (s === "Low")      return <span className="rounded-md px-2 py-0.5 text-[11px] font-bold bg-amber-50 text-amber-700 lg:text-[20px] lg:px-3 lg:py-1">Low</span>
+  if (s === "Out")      return <span className="rounded-md px-2 py-0.5 text-[11px] font-bold bg-red-950 text-red-400 lg:text-[20px] lg:px-3 lg:py-1">Out</span>
+  if (s === "Critical") return <span className="rounded-md px-2 py-0.5 text-[11px] font-bold bg-red-950/70 text-red-400 lg:text-[20px] lg:px-3 lg:py-1">Critical</span>
+  if (s === "Low")      return <span className="rounded-md px-2 py-0.5 text-[11px] font-bold bg-amber-950 text-amber-400 lg:text-[20px] lg:px-3 lg:py-1">Low</span>
   return null
 }
 
@@ -80,7 +80,6 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
   const [result, setResult] = useState<SubmitResult | null>(null)
   const [infoOpen, setInfoOpen] = useState(false)
 
-  // Resizable columns — persisted to localStorage
   const [colWidths, setColWidths] = useState<Record<ColKey, number>>(readStoredWidths)
   const colWidthsRef = useRef<Record<ColKey, number>>(readStoredWidths())
 
@@ -102,7 +101,6 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
     window.addEventListener("mouseup", onUp)
   }
 
-  // Derive unique groups in order
   const groups = useMemo(() => {
     const seen = new Set<string>()
     const out: string[] = []
@@ -196,11 +194,13 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
 
   if (stockItems.length === 0) {
     return (
-      <div className="mb-3 rounded-xl border border-[#D5DCE3] px-4 py-3">
-        <p className="text-xs font-semibold text-[#3F4752]">Implant stock check</p>
-        <p className="mt-1 text-xs text-[#94a3b8]">
-          Stockroom not yet mapped for <span className="font-medium">{implantSystem}</span> — verify implant availability manually before knife-to-skin.
-        </p>
+      <div className="mb-3 flex items-center justify-center py-6">
+        <div className="rounded-xl bg-[#1c1c1c] px-5 py-4 max-w-sm text-center">
+          <p className="text-sm font-semibold text-[#e0e0e0]">Implant stock check</p>
+          <p className="mt-1 text-xs text-[#888888]">
+            Stockroom not yet mapped for <span className="font-medium text-[#aaaaaa]">{implantSystem}</span> — verify implant availability manually before knife-to-skin.
+          </p>
+        </div>
       </div>
     )
   }
@@ -208,22 +208,24 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
   // ── Submitted state ───────────────────────────────────────────────────────
   if (result) {
     return (
-      <div className="mb-3 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 lg:border-emerald-500/20 lg:bg-emerald-500/10">
-        <div className="flex items-start justify-between gap-2">
-          <div>
-            <div className="flex items-center gap-1.5 mb-1">
-              <Check size={14} className="text-emerald-600 shrink-0" />
-              <span className="text-sm font-semibold text-emerald-700">Implant check submitted</span>
+      <div className="mb-3 flex items-center justify-center py-4">
+        <div className="rounded-xl border border-emerald-800/40 bg-emerald-950/40 px-5 py-4">
+          <div className="flex items-start justify-between gap-4">
+            <div>
+              <div className="flex items-center gap-1.5 mb-1">
+                <Check size={14} className="text-emerald-400 shrink-0" />
+                <span className="text-sm font-semibold text-emerald-300">Implant check submitted</span>
+              </div>
+              <p className="text-[11px] text-emerald-500">By {result.by} · {result.at}</p>
+              <p className="text-[11px] text-emerald-500">
+                {result.verifiedCount}/{result.total} items verified
+                {result.adjustedCount > 0 && ` · ${result.adjustedCount} qty updated in stockroom`}
+              </p>
             </div>
-            <p className="text-[11px] text-emerald-600">By {result.by} · {result.at}</p>
-            <p className="text-[11px] text-emerald-600">
-              {result.verifiedCount}/{result.total} items verified
-              {result.adjustedCount > 0 && ` · ${result.adjustedCount} qty updated in stockroom`}
-            </p>
+            <button onClick={resetCheck} className="flex items-center gap-1 text-[11px] text-emerald-500 hover:text-emerald-300 shrink-0">
+              <RotateCcw size={11} /> Redo
+            </button>
           </div>
-          <button onClick={resetCheck} className="flex items-center gap-1 text-[11px] text-emerald-600 hover:text-emerald-800 shrink-0">
-            <RotateCcw size={11} /> Redo
-          </button>
         </div>
       </div>
     )
@@ -236,109 +238,102 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
     return s === "Out" || s === "Critical"
   })
 
-  // Shared desktop header row — rendered inside each group
   function DesktopColHeaders() {
     return (
-      <div className="hidden lg:flex items-center border-t border-[#D5DCE3] bg-[#EEF2F6]">
-        {/* Checkbox spacer */}
-        <div className="shrink-0 border-r border-[#D5DCE3]" style={{ width: CHECKBOX_W }} />
-        {/* Size */}
-        <div className="relative flex items-center px-3 py-2 border-r border-[#D5DCE3] shrink-0" style={{ width: colWidths.size }}>
-          <p className="text-[20px] font-semibold text-[#526579] leading-none">Size</p>
-          <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#4DA3FF] transition-colors z-10" onMouseDown={(e) => startColResize("size", e)} />
+      <div className="hidden lg:flex items-center border-t border-[#2d2d2d] bg-[#161616]">
+        <div className="shrink-0 border-r border-[#2d2d2d]" style={{ width: CHECKBOX_W }} />
+        <div className="relative flex items-center px-3 py-2 border-r border-[#2d2d2d] shrink-0" style={{ width: colWidths.size }}>
+          <p className="text-[20px] font-semibold text-[#888888] leading-none">Size</p>
+          <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#0096C7] transition-colors z-10" onMouseDown={(e) => startColResize("size", e)} />
         </div>
-        {/* Description — flex-1, adjusts with right panel */}
-        <div className="flex items-center px-3 py-2 border-r border-[#D5DCE3] flex-1 min-w-0">
-          <p className="text-[20px] font-semibold text-[#526579] leading-none">Description</p>
+        <div className="flex items-center px-3 py-2 border-r border-[#2d2d2d] flex-1 min-w-0">
+          <p className="text-[20px] font-semibold text-[#888888] leading-none">Description</p>
         </div>
-        {/* SKU */}
-        <div className="relative flex items-center px-3 py-2 border-r border-[#D5DCE3] shrink-0" style={{ width: colWidths.sku }}>
-          <p className="text-[20px] font-semibold text-[#526579] leading-none">SKU</p>
-          <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#4DA3FF] transition-colors z-10" onMouseDown={(e) => startColResize("sku", e)} />
+        <div className="relative flex items-center px-3 py-2 border-r border-[#2d2d2d] shrink-0" style={{ width: colWidths.sku }}>
+          <p className="text-[20px] font-semibold text-[#888888] leading-none">SKU</p>
+          <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#0096C7] transition-colors z-10" onMouseDown={(e) => startColResize("sku", e)} />
         </div>
-        {/* Location */}
-        <div className="relative flex items-center px-3 py-2 border-r border-[#D5DCE3] shrink-0" style={{ width: colWidths.loc }}>
-          <p className="text-[20px] font-semibold text-[#526579] leading-none">Location</p>
-          <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#4DA3FF] transition-colors z-10" onMouseDown={(e) => startColResize("loc", e)} />
+        <div className="relative flex items-center px-3 py-2 border-r border-[#2d2d2d] shrink-0" style={{ width: colWidths.loc }}>
+          <p className="text-[20px] font-semibold text-[#888888] leading-none">Location</p>
+          <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#0096C7] transition-colors z-10" onMouseDown={(e) => startColResize("loc", e)} />
         </div>
-        {/* Status */}
-        <div className="relative flex items-center justify-center px-3 py-2 border-r border-[#D5DCE3] shrink-0" style={{ width: colWidths.status }}>
-          <p className="text-[20px] font-semibold text-[#526579] leading-none">Status</p>
-          <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#4DA3FF] transition-colors z-10" onMouseDown={(e) => startColResize("status", e)} />
+        <div className="relative flex items-center justify-center px-3 py-2 border-r border-[#2d2d2d] shrink-0" style={{ width: colWidths.status }}>
+          <p className="text-[20px] font-semibold text-[#888888] leading-none">Status</p>
+          <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#0096C7] transition-colors z-10" onMouseDown={(e) => startColResize("status", e)} />
         </div>
-        {/* Qty */}
-        <div className="relative flex items-center justify-center px-3 py-2 border-r border-[#D5DCE3] shrink-0" style={{ width: colWidths.qty }}>
-          <p className="text-[20px] font-semibold text-[#526579] leading-none">Qty</p>
-          <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#4DA3FF] transition-colors z-10" onMouseDown={(e) => startColResize("qty", e)} />
+        <div className="relative flex items-center justify-center px-3 py-2 border-r border-[#2d2d2d] shrink-0" style={{ width: colWidths.qty }}>
+          <p className="text-[20px] font-semibold text-[#888888] leading-none">Qty</p>
+          <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#0096C7] transition-colors z-10" onMouseDown={(e) => startColResize("qty", e)} />
         </div>
-        {/* History — no resize handle on last col */}
         <div className="flex items-center px-3 py-2 shrink-0" style={{ width: colWidths.hist }}>
-          <p className="text-[20px] font-semibold text-[#526579] leading-none">History</p>
+          <p className="text-[20px] font-semibold text-[#888888] leading-none">History</p>
         </div>
       </div>
     )
   }
 
   return (
-    <div className="mb-3 rounded-xl border border-[#D5DCE3] overflow-hidden">
+    <div className="mb-3">
 
-      {/* Collapsed header */}
-      <div className="flex items-center bg-[#f8fafc]">
-        <button
-          type="button"
-          onClick={() => setExpanded((v) => !v)}
-          className="flex-1 flex items-center justify-between gap-3 px-4 py-3 text-left min-w-0"
-        >
-          <div className="flex items-center gap-2 min-w-0">
-            {expanded
-              ? <TriangleIcon direction="down" size={10} className="shrink-0 text-[#64748b]" />
-              : <TriangleIcon direction="right" size={10} className="shrink-0 text-[#64748b]" />}
-            <span className="text-sm font-semibold text-[#3F4752] lg:text-[20px]">Implant stock check</span>
-            <span className="hidden lg:inline text-[16px] text-[#94a3b8] font-normal ml-0.5">— tick each item to verify · adjust qty if count differs</span>
+      {/* Collapsed toggle — centered charcoal panel */}
+      <div className="flex items-center justify-center py-4">
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={() => setExpanded((v) => !v)}
+            className="flex items-center gap-3 rounded-xl bg-[#1c1c1c] px-5 py-3 text-left transition-colors hover:bg-[#252525]"
+          >
+            <TriangleIcon
+              direction={expanded ? "down" : "right"}
+              size={10}
+              className="shrink-0 text-[#0096C7]"
+            />
+            <span className="text-sm font-semibold text-[#e0e0e0] lg:text-[20px]">Implant stock check</span>
+            <span className="hidden lg:inline text-[16px] text-[#555555] font-normal">— tick each item to verify · adjust qty if count differs</span>
             {hasIssues && !expanded && (
               <AlertTriangle size={13} className="text-amber-500 shrink-0" />
             )}
-          </div>
-          <div className="flex items-center gap-2 shrink-0">
-            {verifiedCount > 0 && (
-              <span className="text-[11px] text-[#64748b] lg:text-[17px]">{verifiedCount}/{checks.length}</span>
-            )}
-            <span className="text-[11px] text-[#94a3b8] lg:text-[17px]">
-              {groups.length} group{groups.length !== 1 ? "s" : ""} · {stockItems.length} items
-            </span>
-          </div>
-        </button>
-
-        {/* Info button — desktop only */}
-        <div className="hidden lg:flex items-center pr-4 shrink-0 relative">
-          <button
-            type="button"
-            onClick={() => setInfoOpen((v) => !v)}
-            className="w-7 h-7 rounded-full border-2 border-[#94a3b8] flex items-center justify-center text-[#64748b] text-[14px] font-bold hover:bg-[#EEF2F6] transition-colors"
-            aria-label="How this works"
-          >
-            i
+            <div className="flex items-center gap-2 shrink-0">
+              {verifiedCount > 0 && (
+                <span className="text-[11px] text-[#888888] lg:text-[17px]">{verifiedCount}/{checks.length}</span>
+              )}
+              <span className="text-[11px] text-[#555555] lg:text-[17px]">
+                {groups.length} group{groups.length !== 1 ? "s" : ""} · {stockItems.length} items
+              </span>
+            </div>
           </button>
-          {infoOpen && (
-            <>
-              <div className="fixed inset-0 z-10" onClick={() => setInfoOpen(false)} />
-              <div className="absolute right-0 top-9 z-20 w-80 rounded-xl border border-[#D5DCE3] bg-white shadow-xl p-4">
-                <p className="text-[18px] font-semibold text-[#3F4752] mb-3">How Implant Stock Check works</p>
-                <ol className="space-y-2 text-[16px] text-[#526579] list-decimal list-inside leading-snug">
-                  <li>Expand the panel to see all implant groups and sizes</li>
-                  <li>Go to the physical store and locate each item</li>
-                  <li>Use the ± controls to adjust the quantity if the physical count differs — this automatically ticks the item as verified</li>
-                  <li>Tick the checkbox manually to confirm items where the count already matches</li>
-                  <li>Submit when done — any quantity discrepancies are written back to the stockroom</li>
-                </ol>
-                <button onClick={() => setInfoOpen(false)} className="mt-3 text-[14px] text-[#94a3b8] hover:text-[#526579]">Dismiss</button>
-              </div>
-            </>
-          )}
+
+          {/* Info button — desktop only */}
+          <div className="hidden lg:flex items-center shrink-0 relative">
+            <button
+              type="button"
+              onClick={() => setInfoOpen((v) => !v)}
+              className="w-7 h-7 rounded-full border-2 border-[#2d2d2d] flex items-center justify-center text-[#888888] text-[14px] font-bold hover:border-[#0096C7] hover:text-[#0096C7] transition-colors"
+              aria-label="How this works"
+            >
+              i
+            </button>
+            {infoOpen && (
+              <>
+                <div className="fixed inset-0 z-10" onClick={() => setInfoOpen(false)} />
+                <div className="absolute left-9 top-0 z-20 w-80 rounded-xl border border-[#2d2d2d] bg-[#1c1c1c] shadow-xl p-4">
+                  <p className="text-[18px] font-semibold text-[#e0e0e0] mb-3">How Implant Stock Check works</p>
+                  <ol className="space-y-2 text-[16px] text-[#888888] list-decimal list-inside leading-snug">
+                    <li>Expand the panel to see all implant groups and sizes</li>
+                    <li>Go to the physical store and locate each item</li>
+                    <li>Use the ± controls to adjust the quantity if the physical count differs — this automatically ticks the item as verified</li>
+                    <li>Tick the checkbox manually to confirm items where the count already matches</li>
+                    <li>Submit when done — any quantity discrepancies are written back to the stockroom</li>
+                  </ol>
+                  <button onClick={() => setInfoOpen(false)} className="mt-3 text-[14px] text-[#555555] hover:text-[#888888]">Dismiss</button>
+                </div>
+              </>
+            )}
+          </div>
         </div>
       </div>
 
-      {/* Expanded checklist */}
+      {/* Expanded checklist — full width */}
       {expanded && (
         <>
           {groups.map((group) => {
@@ -346,15 +341,15 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
             const allGroupVerified = groupItems.every((i) => getCheck(i.id).verified)
 
             return (
-              <div key={group} className="border-t border-[#D5DCE3]">
+              <div key={group} className="border-t border-[#2d2d2d]">
 
                 {/* Group name header */}
-                <div className="flex items-center gap-1.5 px-4 py-2 bg-[#f0f4f8]">
-                  {allGroupVerified && <Check size={12} className="text-emerald-500 shrink-0" />}
-                  <span className="text-xs font-semibold text-[#526579] lg:text-[18px]">{group}</span>
+                <div className="flex items-center gap-1.5 px-4 py-2 bg-[#1a1a1a]">
+                  {allGroupVerified && <Check size={12} className="text-emerald-400 shrink-0" />}
+                  <span className="text-xs font-semibold text-[#0096C7] lg:text-[18px]">{group}</span>
                 </div>
 
-                {/* Desktop column headers — below group name */}
+                {/* Desktop column headers */}
                 <DesktopColHeaders />
 
                 {/* Item rows */}
@@ -362,33 +357,33 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
                   const c = getCheck(item.id)
                   const s = getStockStatus(c.physicalQty, item.par)
                   const changed = c.physicalQty !== item.qty
-                  const rowBg = itemIndex % 2 === 0 ? "bg-white" : "bg-[#F4F7FA]"
+                  const rowBg = itemIndex % 2 === 0 ? "bg-[#111111]" : "bg-[#141414]"
 
                   return (
-                    <div key={item.id} className={`border-t border-[#D5DCE3]/60 ${rowBg}`}>
+                    <div key={item.id} className={`border-t border-[#2d2d2d]/60 ${rowBg}`}>
 
                       {/* ── Mobile row ─────────────────────────────────── */}
                       <div className="flex items-center gap-3 px-4 py-3 lg:hidden">
                         <button
                           type="button"
                           onClick={() => toggleVerified(item.id)}
-                          className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${c.verified ? "bg-emerald-500 border-emerald-500" : "border-[#D5DCE3] hover:border-[#94a3b8]"}`}
+                          className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${c.verified ? "bg-emerald-500 border-emerald-500" : "border-[#2d2d2d] hover:border-[#0096C7]"}`}
                         >
                           {c.verified && <Check size={10} className="text-white" />}
                         </button>
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm text-[#3F4752] leading-snug">{item.name}</p>
-                          <p className="text-[11px] text-[#94a3b8] mt-0.5">{item.sku}</p>
-                          {item.location && <p className="text-[11px] text-[#94a3b8] truncate">{item.location}</p>}
+                          <p className="text-sm text-[#e0e0e0] leading-snug">{item.name}</p>
+                          <p className="text-[11px] text-[#888888] mt-0.5">{item.sku}</p>
+                          {item.location && <p className="text-[11px] text-[#888888] truncate">{item.location}</p>}
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
                           {statusBadge(s)}
                           <div className="flex items-center gap-1">
-                            <button type="button" onClick={() => adjustQty(item.id, -1)} disabled={c.physicalQty === 0} className="w-6 h-6 rounded-md border border-[#D5DCE3] flex items-center justify-center text-[#526579] hover:bg-[#f0f4f8] disabled:opacity-30 transition-colors">
+                            <button type="button" onClick={() => adjustQty(item.id, -1)} disabled={c.physicalQty === 0} className="w-6 h-6 rounded-md border border-[#2d2d2d] flex items-center justify-center text-[#888888] hover:border-[#0096C7] hover:text-[#0096C7] disabled:opacity-30 transition-colors">
                               <Minus size={10} />
                             </button>
-                            <span className={`w-6 text-center text-sm font-semibold tabular-nums ${s === "Out" ? "text-red-600" : s === "Critical" ? "text-red-500" : s === "Low" ? "text-amber-600" : "text-[#3F4752]"}`}>{c.physicalQty}</span>
-                            <button type="button" onClick={() => adjustQty(item.id, 1)} className="w-6 h-6 rounded-md border border-[#D5DCE3] flex items-center justify-center text-[#526579] hover:bg-[#f0f4f8] transition-colors">
+                            <span className={`w-6 text-center text-sm font-semibold tabular-nums ${s === "Out" ? "text-red-400" : s === "Critical" ? "text-red-400" : s === "Low" ? "text-amber-400" : "text-[#e0e0e0]"}`}>{c.physicalQty}</span>
+                            <button type="button" onClick={() => adjustQty(item.id, 1)} className="w-6 h-6 rounded-md border border-[#2d2d2d] flex items-center justify-center text-[#888888] hover:border-[#0096C7] hover:text-[#0096C7] transition-colors">
                               <Plus size={10} />
                             </button>
                           </div>
@@ -399,37 +394,37 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
                       <div className="hidden lg:flex items-center">
 
                         {/* Checkbox */}
-                        <div className="flex items-center justify-center shrink-0 border-r border-[#D5DCE3] py-3" style={{ width: CHECKBOX_W }}>
+                        <div className="flex items-center justify-center shrink-0 border-r border-[#2d2d2d] py-3" style={{ width: CHECKBOX_W }}>
                           <button
                             type="button"
                             onClick={() => toggleVerified(item.id)}
-                            className={`w-7 h-7 rounded border-2 flex items-center justify-center transition-colors ${c.verified ? "bg-emerald-500 border-emerald-500" : "border-[#D5DCE3] hover:border-[#94a3b8]"}`}
+                            className={`w-7 h-7 rounded border-2 flex items-center justify-center transition-colors ${c.verified ? "bg-emerald-500 border-emerald-500" : "border-[#2d2d2d] hover:border-[#0096C7]"}`}
                           >
                             {c.verified && <Check size={14} className="text-white" />}
                           </button>
                         </div>
 
                         {/* Size */}
-                        <div className="px-3 py-3 border-r border-[#D5DCE3] shrink-0 overflow-hidden" style={{ width: colWidths.size }}>
-                          <p className="text-[20px] font-semibold text-[#3F4752] truncate">{item.name}</p>
+                        <div className="px-3 py-3 border-r border-[#2d2d2d] shrink-0 overflow-hidden" style={{ width: colWidths.size }}>
+                          <p className="text-[20px] font-semibold text-[#e0e0e0] truncate">{item.name}</p>
                         </div>
 
-                        {/* Description (item description + supplier) — flex-1, adjusts with right panel */}
-                        <div className="px-3 py-3 border-r border-[#D5DCE3] flex-1 min-w-0 overflow-hidden">
-                          <p className="text-[20px] text-[#3F4752] leading-snug truncate">{item.group ?? "—"}</p>
+                        {/* Description */}
+                        <div className="px-3 py-3 border-r border-[#2d2d2d] flex-1 min-w-0 overflow-hidden">
+                          <p className="text-[20px] text-[#e0e0e0] leading-snug truncate">{item.group ?? "—"}</p>
                           {item.supplier && (
-                            <p className="text-[20px] text-[#94a3b8] mt-0.5 truncate">{item.supplier}</p>
+                            <p className="text-[20px] text-[#555555] mt-0.5 truncate">{item.supplier}</p>
                           )}
                         </div>
 
                         {/* SKU */}
-                        <div className="px-3 py-3 border-r border-[#D5DCE3] shrink-0 overflow-hidden" style={{ width: colWidths.sku }}>
-                          <p className="text-[20px] font-mono text-[#64748b] truncate">{item.sku}</p>
+                        <div className="px-3 py-3 border-r border-[#2d2d2d] shrink-0 overflow-hidden" style={{ width: colWidths.sku }}>
+                          <p className="text-[20px] font-mono text-[#888888] truncate">{item.sku}</p>
                         </div>
 
                         {/* Location */}
-                        <div className="px-3 py-3 border-r border-[#D5DCE3] shrink-0 overflow-hidden" style={{ width: colWidths.loc }}>
-                          <p className="text-[20px] font-medium text-[#526579] truncate">
+                        <div className="px-3 py-3 border-r border-[#2d2d2d] shrink-0 overflow-hidden" style={{ width: colWidths.loc }}>
+                          <p className="text-[20px] font-medium text-[#aaaaaa] truncate">
                             {item.location
                               ? item.location.split("/").map((p) => p.trim()).filter(Boolean).join(" · ")
                               : "—"}
@@ -437,20 +432,20 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
                         </div>
 
                         {/* Status */}
-                        <div className="px-3 py-3 border-r border-[#D5DCE3] shrink-0 flex flex-col items-center gap-1" style={{ width: colWidths.status }}>
+                        <div className="px-3 py-3 border-r border-[#2d2d2d] shrink-0 flex flex-col items-center gap-1" style={{ width: colWidths.status }}>
                           {statusBadge(s)}
-                          {changed && <span className="text-[14px] text-amber-600 font-medium">was {item.qty}</span>}
+                          {changed && <span className="text-[14px] text-amber-400 font-medium">was {item.qty}</span>}
                         </div>
 
                         {/* Qty controls */}
-                        <div className="px-3 py-3 border-r border-[#D5DCE3] shrink-0 flex items-center justify-center gap-2" style={{ width: colWidths.qty }}>
-                          <button type="button" onClick={() => adjustQty(item.id, -1)} disabled={c.physicalQty === 0} className="w-9 h-9 rounded-lg border border-[#D5DCE3] flex items-center justify-center text-[#526579] hover:bg-[#f0f4f8] disabled:opacity-30 transition-colors">
+                        <div className="px-3 py-3 border-r border-[#2d2d2d] shrink-0 flex items-center justify-center gap-2" style={{ width: colWidths.qty }}>
+                          <button type="button" onClick={() => adjustQty(item.id, -1)} disabled={c.physicalQty === 0} className="w-9 h-9 rounded-lg border border-[#2d2d2d] flex items-center justify-center text-[#888888] hover:border-[#0096C7] hover:text-[#0096C7] disabled:opacity-30 transition-colors">
                             <Minus size={15} />
                           </button>
-                          <span className={`w-10 text-center text-[20px] font-semibold tabular-nums ${s === "Out" ? "text-red-600" : s === "Critical" ? "text-red-500" : s === "Low" ? "text-amber-600" : "text-[#3F4752]"}`}>
+                          <span className={`w-10 text-center text-[20px] font-semibold tabular-nums ${s === "Out" ? "text-red-400" : s === "Critical" ? "text-red-400" : s === "Low" ? "text-amber-400" : "text-[#e0e0e0]"}`}>
                             {c.physicalQty}
                           </span>
-                          <button type="button" onClick={() => adjustQty(item.id, 1)} className="w-9 h-9 rounded-lg border border-[#D5DCE3] flex items-center justify-center text-[#526579] hover:bg-[#f0f4f8] transition-colors">
+                          <button type="button" onClick={() => adjustQty(item.id, 1)} className="w-9 h-9 rounded-lg border border-[#2d2d2d] flex items-center justify-center text-[#888888] hover:border-[#0096C7] hover:text-[#0096C7] transition-colors">
                             <Plus size={15} />
                           </button>
                         </div>
@@ -458,20 +453,20 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
                         {/* History */}
                         <div className="px-3 py-3 shrink-0 overflow-hidden" style={{ width: colWidths.hist }}>
                           {item.history?.surgeon ? (
-                            <p className="text-[20px] text-[#3F4752] leading-snug truncate">
-                              <span className="text-[14px] uppercase tracking-wide text-[#94a3b8]">Last used </span>
+                            <p className="text-[20px] text-[#e0e0e0] leading-snug truncate">
+                              <span className="text-[14px] tracking-wide text-[#555555]">Last used </span>
                               {item.history.surgeon} · {item.history.usedDate}
                             </p>
                           ) : (
-                            <p className="text-[20px] text-[#D5DCE3]">—</p>
+                            <p className="text-[20px] text-[#333333]">—</p>
                           )}
                           {item.history?.checkedBy ? (
-                            <p className="text-[20px] text-[#526579] mt-1 leading-snug truncate">
-                              <span className="text-[14px] uppercase tracking-wide text-[#94a3b8]">Checked </span>
+                            <p className="text-[20px] text-[#aaaaaa] mt-1 leading-snug truncate">
+                              <span className="text-[14px] tracking-wide text-[#555555]">Checked </span>
                               {item.history.checkedBy} · {item.history.checkedDate}
                             </p>
                           ) : (
-                            <p className="text-[20px] text-[#D5DCE3] mt-1">Not checked</p>
+                            <p className="text-[20px] text-[#333333] mt-1">Not checked</p>
                           )}
                         </div>
 
@@ -485,8 +480,8 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
           })}
 
           {/* Submit bar */}
-          <div className="border-t border-[#D5DCE3] px-4 py-3 flex items-center justify-between gap-3 bg-[#f8fafc]">
-            <p className="text-xs text-[#64748b] lg:text-[20px]">
+          <div className="border-t border-[#2d2d2d] px-4 py-3 flex items-center justify-between gap-3 bg-[#1a1a1a]">
+            <p className="text-xs text-[#888888] lg:text-[20px]">
               {verifiedCount === checks.length
                 ? "All items verified"
                 : `${verifiedCount} of ${checks.length} verified`}
@@ -496,7 +491,7 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
               type="button"
               onClick={handleSubmit}
               disabled={submitting || verifiedCount === 0}
-              className="rounded-lg bg-[#4DA3FF] px-4 py-2 text-xs font-semibold text-white hover:bg-[#2F8EF7] disabled:opacity-40 transition-colors shrink-0 lg:text-[18px] lg:px-6 lg:py-3"
+              className="rounded-lg bg-[#0096C7] px-4 py-2 text-xs font-semibold text-white hover:bg-[#007aa8] disabled:opacity-40 transition-colors shrink-0 lg:text-[18px] lg:px-6 lg:py-3"
             >
               {submitting ? "Saving…" : "Submit check"}
             </button>

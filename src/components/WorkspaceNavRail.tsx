@@ -34,12 +34,22 @@ export default function WorkspaceNavRail({
 
   return (
     <aside
-      className={`-mt-4 hidden min-w-0 self-stretch border-r border-[#0F4C5C] bg-[#0077B6] pb-4 pt-5 lg:block lg:h-full lg:overflow-y-auto ${
+      className={`hidden min-w-0 self-stretch border-r border-[#2d2d2d] bg-[#202020] pb-4 pt-4 lg:block lg:min-h-screen lg:overflow-y-auto ${
         collapsed ? "px-2" : "px-3"
       }`}
     >
       <div>
-        <div className={`flex items-center pb-3 ${collapsed ? "justify-center" : "justify-end pr-1"}`}>
+        <div className={`flex pb-4 ${collapsed ? "flex-col items-center gap-3" : "items-center justify-between gap-4 px-1"}`}>
+          {collapsed ? (
+            <Link href="/" className="flex items-center justify-center">
+              <img src="/PrepSight%20logo.png" alt="PrepSight" className="h-[54px] w-auto" />
+            </Link>
+          ) : (
+            <Link href="/" className="app-display-font flex items-center gap-1 text-[26px] tracking-[-0.05em] text-[#0096C7]">
+              <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
+              PrepSight
+            </Link>
+          )}
           <button
             type="button"
             onClick={onToggleCollapsed}

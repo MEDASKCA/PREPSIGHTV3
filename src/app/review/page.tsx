@@ -11,7 +11,6 @@ import {
   ScanSearch,
 } from "lucide-react"
 import TriangleIcon from "@/components/TriangleIcon"
-import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
 import liveMapping from "../../../data/systems/trauma_and_orthopaedics_full_live_mapping.json"
 import {
@@ -916,6 +915,7 @@ export default function ReviewPage() {
 
       <WorkspaceDesktopShell
         currentNav="review"
+        sectionLabel="Library Review"
         rightRail={
           <div className="space-y-3">
             <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
@@ -967,9 +967,6 @@ export default function ReviewPage() {
       >
         <div className="space-y-4">
           <section className="px-1">
-            <div className="hidden lg:block">
-              <DesktopSectionWordmark label="Library Review" />
-            </div>
             <p className="text-[13px] text-[#5B7A8A] lg:hidden">Review</p>
             <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E] lg:hidden">Validate system records</h1>
             <p className="mt-2 text-[14px] text-[#61758B]">

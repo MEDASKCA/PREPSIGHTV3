@@ -2,7 +2,8 @@
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
-import { Bell, LogOut, Menu, Search, Settings2, UserCircle2, UserRound, X } from "lucide-react"
+import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
+import { Bell, LogOut, Menu, MoreVertical, Search, Settings2, UserCircle2, UserRound, X } from "lucide-react"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getDesktopCommsPreference, subscribeDesktopCommsPreference, toggleDesktopCommsPreference } from "@/lib/desktop-comms"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
@@ -79,17 +80,21 @@ export default function AppTopBar({
   onToggleMenu,
   menuContent,
   mobileMenuOnly = false,
+  hideMobileMenu = false,
   searchValue,
   onSearchChange,
   searchPlaceholder = "Search",
+  sectionLabel,
 }: {
   menuOpen: boolean
   onToggleMenu: () => void
   menuContent?: ReactNode
   mobileMenuOnly?: boolean
+  hideMobileMenu?: boolean
   searchValue?: string
   onSearchChange?: (value: string) => void
   searchPlaceholder?: string
+  sectionLabel?: string
 }) {
   const router = useRouter()
   const pathname = usePathname()
@@ -262,22 +267,38 @@ export default function AppTopBar({
 
   return (
     <div ref={rootRef} className="prepsight-app-topbar sticky top-0 z-30">
-      <header className="relative border-b border-[#0085B2] bg-[#0096C7] px-3 pt-[calc(env(safe-area-inset-top,0px)+12px)] pb-3">
+      <header className="relative border-b border-black bg-black px-3 pt-[calc(env(safe-area-inset-top,0px)+12px)] pb-3">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
-            <button
-              type="button"
-              onClick={handleMenuToggle}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#0F4C5C] bg-white/88 text-[#22425C] lg:hidden"
-              aria-label={menuOpen ? "Close navigation" : "Open navigation"}
-            >
-              {menuOpen ? <X size={18} /> : <Menu size={18} />}
-            </button>
-            <Link href="/" className="flex items-center">
-              <span className="app-display-font text-[26px] tracking-[-0.05em] text-white">
-                PrepSight
+            {!hideMobileMenu && (
+              <button
+                type="button"
+                onClick={handleMenuToggle}
+                className="inline-flex h-9 w-9 items-center justify-center rounded-[10px] border border-[#2d2d2d] bg-black text-[#0096C7] lg:hidden"
+                aria-label={menuOpen ? "Close navigation" : "Open navigation"}
+              >
+                {menuOpen ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            )}
+            <Link href="/" className="inline-flex items-center gap-1 text-[28px] tracking-tight lg:hidden">
+              <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
+              <span>
+                <span className="app-display-font text-[0.86em] tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
+                {hideMobileMenu && sectionLabel && (
+                  <em
+                    className="ml-1 text-[0.84em] leading-none tracking-[-0.05em] text-white"
+                    style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                  >
+                    {" "}{sectionLabel}
+                  </em>
+                )}
               </span>
             </Link>
+            {sectionLabel && (
+              <span className="hidden lg:block">
+                <DesktopSectionWordmark label={sectionLabel} />
+              </span>
+            )}
           </div>
 
           <div className="ml-auto hidden lg:block">
@@ -357,7 +378,7 @@ export default function AppTopBar({
             </button>
             <button
               type="button"
-              className="inline-flex h-9 w-9 items-center justify-center text-white/95 transition-opacity hover:text-white hover:opacity-100"
+              className="hidden h-9 w-9 items-center justify-center text-white/95 transition-opacity hover:text-white hover:opacity-100 lg:inline-flex"
               aria-label="Activity"
             >
               <Bell size={17} />
@@ -370,7 +391,7 @@ export default function AppTopBar({
                 setAccountError(null)
                 setAccountMenuOpen((current) => !current)
               }}
-              className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full border border-[#0F4C5C] bg-white/88 text-[#22425C]"
+              className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full text-white/80 hover:text-white lg:border lg:border-[#0F4C5C] lg:bg-white/88 lg:text-[#22425C] lg:hover:text-[#22425C]"
               aria-label="Profile"
               aria-expanded={accountMenuOpen}
             >
@@ -378,7 +399,7 @@ export default function AppTopBar({
                 {profileInitial}
               </span>
               <span className="flex lg:hidden">
-                <UserCircle2 size={18} />
+                <MoreVertical size={22} />
               </span>
             </button>
 
@@ -432,9 +453,9 @@ export default function AppTopBar({
         ) : null}
       </header>
 
-      <div className="relative bg-[#F4F7FA] px-3 py-3 lg:hidden">
-        <label className="flex min-w-0 items-center gap-2 rounded-[12px] border border-[#0F4C5C] bg-white px-3 py-2.5">
-          <Search size={16} className="shrink-0 text-[#0F4C5C]" />
+      <div className="relative bg-black px-3 py-3 lg:hidden">
+        <label className="flex min-w-0 items-center gap-3 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-4 py-2.5">
+          <Search size={15} className="shrink-0 text-[#888888]" />
           <input
             value={query}
             onChange={(event) => {
@@ -456,12 +477,12 @@ export default function AppTopBar({
               }
             }}
             placeholder="Search anywhere..."
-            className="min-w-0 flex-1 bg-transparent text-[14px] text-[#10243E] outline-none placeholder:text-[#0F4C5C]"
+            className="min-w-0 flex-1 bg-transparent text-[14px] text-[#e0e0e0] outline-none placeholder:text-[#555555]"
           />
         </label>
 
         {searchOpen && query.trim() ? (
-          <div className="absolute inset-x-3 top-[calc(100%+6px)] z-50 overflow-hidden rounded-[16px] border border-[#0F4C5C] bg-white shadow-[0_18px_40px_rgba(16,36,62,0.18)]">
+          <div className="absolute inset-x-3 top-[calc(100%+6px)] z-50 overflow-hidden rounded-[16px] border border-[#2d2d2d] bg-[#111111] shadow-[0_18px_40px_rgba(0,0,0,0.5)]">
             {results.length > 0 ? (
               <div className="max-h-[min(60vh,28rem)] overflow-y-auto py-2">
                 {results.map((item, index) => (
@@ -469,20 +490,20 @@ export default function AppTopBar({
                     key={item.id}
                     type="button"
                     onClick={() => handleSelect(item)}
-                    className={`flex w-full items-start justify-between gap-3 px-4 py-3 text-left ${index === highlightedIndex ? "bg-[#F0FAFC]" : "bg-white hover:bg-[#F8FBFD]"}`}
+                    className={`flex w-full items-start justify-between gap-3 px-4 py-3 text-left ${index === highlightedIndex ? "bg-[#1c1c1c]" : "hover:bg-[#1c1c1c]"}`}
                   >
                     <span className="min-w-0">
-                      <span className="block truncate text-[14px] text-[#10243E]">{item.title}</span>
-                      <span className="mt-0.5 block truncate text-[12px] text-[#0F4C5C]">{item.subtitle}</span>
+                      <span className="block truncate text-[14px] text-[#e0e0e0]">{item.title}</span>
+                      <span className="mt-0.5 block truncate text-[12px] text-[#888888]">{item.subtitle}</span>
                     </span>
-                    <span className="shrink-0 rounded-full bg-[#F2FAFD] px-2 py-1 text-[11px] text-[#0F4C5C]">
+                    <span className="shrink-0 rounded-full bg-[#1c1c1c] px-2 py-1 text-[11px] text-[#0096C7]">
                       {item.kind === "page" ? "Page" : item.kind === "library" ? "Library" : "Guide"}
                     </span>
                   </button>
                 ))}
               </div>
             ) : (
-              <div className="px-4 py-4 text-[13px] text-[#0F4C5C]">
+              <div className="px-4 py-4 text-[13px] text-[#888888]">
                 No matches for "{query}".
               </div>
             )}

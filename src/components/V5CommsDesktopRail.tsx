@@ -163,7 +163,7 @@ export default function V5CommsDesktopRail() {
 
   if (!user) {
     return (
-      <aside className="hidden min-w-0 border-l border-[#D6E7EE] bg-white/80 p-4 lg:flex lg:flex-col">
+      <aside className="hidden min-w-0 border-l border-black bg-black p-4 lg:flex lg:flex-col">
         <p className="text-[15px] text-[#35516A]">Sign in to open PrepSight Comms.</p>
       </aside>
     )
@@ -171,7 +171,7 @@ export default function V5CommsDesktopRail() {
 
   if (!org) {
     return (
-      <aside className="hidden min-w-0 border-l border-[#D6E7EE] bg-[linear-gradient(180deg,#EAF6FB_0%,#F8FBFD_100%)] lg:flex lg:min-h-[calc(100vh-5.5rem)] lg:flex-col lg:items-center lg:justify-center">
+      <aside className="hidden min-w-0 border-l border-black bg-black lg:flex lg:min-h-[calc(100vh-5.5rem)] lg:flex-col lg:items-center lg:justify-center">
         <div className="flex flex-col items-center gap-3 px-6 text-center">
           <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#29b6d8] border-t-transparent" />
           <p className="text-[14px] text-[#35516A]">Preparing PrepSight Comms...</p>
@@ -182,7 +182,7 @@ export default function V5CommsDesktopRail() {
   }
 
   return (
-    <aside className="hidden min-w-0 border-l border-[#D6E7EE] bg-[linear-gradient(180deg,#EAF6FB_0%,#F8FBFD_100%)] lg:block lg:min-h-[calc(100vh-5.5rem)]">
+    <aside className="hidden min-w-0 border-l border-black bg-black lg:block lg:min-h-[calc(100vh-5.5rem)]">
       <div className="h-[calc(100vh-5.5rem)]">
         <MainApp
           user={user}

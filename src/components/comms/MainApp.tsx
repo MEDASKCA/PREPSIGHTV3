@@ -39,16 +39,19 @@ import {
   LogOut,
   MoreVertical,
   Paperclip,
-  Pin,
   Phone,
   PhoneIncoming,
+  PhoneMissed,
   PhoneOff,
+  PhoneOutgoing,
+  Pin,
   Plus,
   Reply,
   Search,
   Send,
   Settings,
   Smile,
+  Sun,
   Trash2,
   Video,
   X,
@@ -149,8 +152,7 @@ function Avatar({ name, size = 40, uid }: { name: string; size?: number; uid?: s
 function DesktopCommsWordmark() {
   return (
     <span
-      className="block text-[32px] leading-none tracking-[-0.05em] text-[#d8f2fa]"
-      style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+      className="app-display-font block text-[22px] leading-none text-[#67CFCF]"
     >
       Comms
     </span>
@@ -168,22 +170,33 @@ function EmojiPicker({
 }) {
   const [cat, setCat] = useState(0)
   return (
-    <div className={`${variant === "drawer" ? "relative h-full w-full overflow-hidden" : "absolute bottom-full left-0 z-50 mb-2 w-72 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl"}`}>
-      <div className={`flex gap-1 ${variant === "drawer" ? "border-b border-white/20 px-1 py-2" : "border-b border-gray-100 px-2 pt-2"}`}>
-        {EMOJI_CATS.map((c, i) => (
-          <button key={i} onClick={() => setCat(i)}
-            className={`rounded-xl px-2 py-1 text-base transition duration-200 ${cat === i ? (variant === "drawer" ? "bg-white/70 shadow-sm -translate-y-0.5" : "bg-sky-100") : (variant === "drawer" ? "hover:bg-white/35 hover:-translate-y-0.5" : "hover:bg-gray-100")}`}>
-            {c.icon}
-          </button>
-        ))}
-        <button onClick={onClose} className={`ml-auto px-2 py-1 ${variant === "drawer" ? "text-sky-900/65 hover:text-sky-950" : "text-gray-400 hover:text-gray-600"}`}>
-          <X size={14} />
-        </button>
+    <div className={`${variant === "drawer" ? "flex h-full w-full flex-col overflow-hidden bg-black" : "absolute bottom-full left-0 z-50 mb-2 w-72 overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-2xl"}`}>
+      <div className={`${variant === "drawer" ? "border-b border-[#2d2d2d] px-1 py-1.5 shrink-0" : "border-b border-gray-100 px-2 pt-2"}`}>
+        {variant === "drawer" ? (
+          <div className="flex justify-end mb-1">
+            <button onClick={onClose} className="px-1 py-0.5 text-[#888888] hover:text-white">
+              <X size={12} />
+            </button>
+          </div>
+        ) : null}
+        <div className={`flex gap-0.5 ${variant === "drawer" ? "overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden" : ""}`}>
+          {EMOJI_CATS.map((c, i) => (
+            <button key={i} onClick={() => setCat(i)}
+              className={`shrink-0 rounded-lg px-1.5 py-1 text-sm transition duration-200 ${cat === i ? (variant === "drawer" ? "bg-[#1c1c1c]" : "bg-sky-100") : (variant === "drawer" ? "hover:bg-[#1c1c1c]" : "hover:bg-gray-100")}`}>
+              {c.icon}
+            </button>
+          ))}
+          {variant !== "drawer" && (
+            <button onClick={onClose} className="ml-auto px-2 py-1 text-gray-400 hover:text-gray-600">
+              <X size={14} />
+            </button>
+          )}
+        </div>
       </div>
-      <div className={`${variant === "drawer" ? "grid max-h-[calc(100dvh-140px)] grid-cols-3 gap-2 overflow-y-auto px-2 py-3" : "grid max-h-52 grid-cols-8 gap-0.5 overflow-y-auto p-2"}`}>
+      <div className={`${variant === "drawer" ? "grid flex-1 grid-cols-3 gap-0.5 overflow-y-auto px-1 py-2" : "grid max-h-52 grid-cols-8 gap-0.5 overflow-y-auto p-2"}`}>
         {EMOJI_CATS[cat].emojis.map((e, index) => (
           <button key={e} onClick={() => { onSelect(e); onClose() }}
-            className={`${variant === "drawer" ? "rounded-[20px] py-3 text-[26px] leading-none transition duration-200 hover:-translate-y-1 hover:scale-110 hover:bg-white/35" : "rounded p-1 text-xl leading-none hover:bg-gray-100"}`}
+            className={`${variant === "drawer" ? "rounded-xl py-2 text-[24px] leading-none transition duration-200 hover:bg-[#1c1c1c]" : "rounded p-1 text-xl leading-none hover:bg-gray-100"}`}
             style={variant === "drawer" ? { transitionDelay: `${Math.min(index, 10) * 12}ms` } : undefined}>
             {e}
           </button>
@@ -200,6 +213,36 @@ function formatTime(ts: number) {
   return isToday
     ? d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
     : d.toLocaleDateString([], { month: "short", day: "numeric" })
+}
+
+function isEmojiOnly(text: string): boolean {
+  if (!text.trim()) return false
+  const remainder = text.replace(/\p{Extended_Pictographic}/gu, "").replace(/[\s‍️]/g, "")
+  return remainder.length === 0
+}
+
+function segmentEmoji(text: string): string[] {
+  try {
+    if (typeof Intl !== "undefined" && "Segmenter" in Intl) {
+      const seg = new (Intl as any).Segmenter(undefined, { granularity: "grapheme" })
+      return [...seg.segment(text.trim())].map((s: any) => s.segment as string).filter((s: string) => s.trim().length > 0)
+    }
+  } catch {}
+  return [...text.trim()].filter(c => c.trim().length > 0)
+}
+
+function emojiToNotoUrl(emoji: string): string {
+  // Skip variation selectors (FE0F, FE0E) — they don't appear in CDN paths
+  const SKIP = new Set([0xFE0F, 0xFE0E])
+  const cps: string[] = []
+  for (const char of emoji) {
+    const cp = char.codePointAt(0)
+    if (cp !== undefined && cp > 0x20 && !SKIP.has(cp)) {
+      cps.push(cp.toString(16))
+    }
+  }
+  if (cps.length === 0) return ""
+  return `https://fonts.gstatic.com/s/e/notoemoji/latest/${cps.join("_")}/512.gif`
 }
 
 function formatCallDuration(sec: number) {
@@ -273,6 +316,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [showContacts, setShowContacts] = useState(false)
   const [embeddedContactsBounds, setEmbeddedContactsBounds] = useState<{ top: number; left: number; height: number } | null>(null)
   const [showProfile, setShowProfile] = useState(false)
+  const [showCommsSearch, setShowCommsSearch] = useState(false)
   const [showNewDM, setShowNewDM] = useState(false)
   const [filterTab, setFilterTab] = useState<"chats" | "pinned" | "groups">("chats")
   const [searchQuery, setSearchQuery] = useState("")
@@ -1286,7 +1330,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (!thread) return
     await addDoc(collection(firestore, "comms_v5_messages"), {
       threadId, uid: user.uid, displayName: user.displayName || "User",
-      text, type: "system", organizationId: org.id, memberUids: thread.memberUids, createdAt: Date.now(),
+      text, type: "call", callAnswered: answered, callDuration: duration, callMode: mode,
+      organizationId: org.id, memberUids: thread.memberUids, createdAt: Date.now(),
     })
     await updateDoc(doc(firestore, "comms_v5_threads", threadId), { updatedAt: Date.now(), lastMessage: text })
   }
@@ -1336,7 +1381,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   return (
     <div
       ref={appRef}
-      className={`relative flex flex-col overflow-hidden bg-[#0096C7] ${embedded ? "h-full max-w-none" : "max-w-md mx-auto"}`}
+      className={`relative flex flex-col overflow-hidden ${embedded ? "h-full max-w-none bg-black lg:bg-black" : "max-w-md mx-auto bg-black"}`}
       style={{ height: embedded ? "100%" : "100dvh" }}
     >
       <style jsx global>{`
@@ -1352,8 +1397,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
       {/* ── Header ── */}
       <div
-        className="bg-[#0096C7] px-5 pb-3 shrink-0"
-        style={{ paddingTop: "calc(env(safe-area-inset-top) + 14px)" }}
+        className={`px-5 pb-3 shrink-0 ${embedded ? "bg-black pt-3" : "bg-black"}`}
+        style={embedded ? undefined : { paddingTop: "calc(env(safe-area-inset-top) + 14px)" }}
       >
         <div className="flex items-center justify-between">
           {embedded ? (
@@ -1361,28 +1406,45 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <div className="hidden lg:block">
                 <DesktopCommsWordmark />
               </div>
-              <span className="text-[#dff6fb] text-[28px] tracking-tight lg:hidden">
-                <span className="text-[0.86em]">PrepSight</span>{" "}
+              <span className="inline-flex items-center gap-1 text-[28px] tracking-tight lg:hidden">
+                <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
+                <span>
+                  <span className="text-[0.86em] text-[#0096C7]">PrepSight</span>{" "}
+                  <em
+                    className="text-[0.84em] leading-none tracking-[-0.05em] text-white"
+                    style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                  >
+                    Comms
+                  </em>
+                </span>
+              </span>
+            </>
+          ) : (
+            <span className="inline-flex items-center gap-1 text-[28px] tracking-tight">
+              <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
+              <span>
+                <span className="text-[0.86em] text-[#0096C7]">PrepSight</span>{" "}
                 <em
-                  className="text-[0.84em] leading-none tracking-[-0.05em] text-[#d8f2fa]"
+                  className="text-[0.84em] leading-none tracking-[-0.05em] text-white"
                   style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
                 >
                   Comms
                 </em>
               </span>
-            </>
-          ) : (
-            <span className="text-[#dff6fb] text-[28px] tracking-tight">
-              <span className="text-[0.86em]">PrepSight</span>{" "}
-              <em
-                className="text-[0.84em] leading-none tracking-[-0.05em] text-[#d8f2fa]"
-                style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-              >
-                Comms
-              </em>
             </span>
           )}
           <div className="flex items-center gap-3">
+            <button
+              type="button"
+              onClick={() => {
+                if (showCommsSearch) { setSearchQuery("") }
+                setShowCommsSearch(v => !v)
+              }}
+              aria-label="Toggle search"
+              className={showCommsSearch ? "text-white" : "text-white/70 hover:text-white"}
+            >
+              <Search size={20} />
+            </button>
             {(showProfileButton || !embedded) ? (
               <button
                 type="button"
@@ -1395,31 +1457,39 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             ) : null}
           </div>
         </div>
-        <div className="mb-3 mt-1 flex items-center gap-2 text-[13px] text-white/60">
+        <div className="mt-1 flex items-center gap-2 text-[13px] text-[#888888]">
           <span>{hospitalLabel}</span>
-          {groupLabel ? <span className="text-white/30">|</span> : null}
+          {groupLabel ? <span className="text-[#2d2d2d]">|</span> : null}
           {groupLabel ? <span>{groupLabel}</span> : null}
         </div>
 
-        <div className="flex items-center gap-3 rounded-2xl border border-white/20 bg-white/15 px-4 py-2.5">
-          <Search size={15} className="shrink-0 text-white/60" />
-          <input
-            value={searchQuery}
-            onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Search chats"
-            className="flex-1 bg-transparent text-[15px] text-white placeholder-white/50 outline-none"
-          />
-        </div>
+        {showCommsSearch && (
+          <div className="mt-3 flex items-center gap-3 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-4 py-2">
+            <Search size={14} className="shrink-0 text-[#888888]" />
+            <input
+              autoFocus
+              value={searchQuery}
+              onChange={e => setSearchQuery(e.target.value)}
+              placeholder="Search Comms"
+              className="flex-1 bg-transparent text-[15px] text-[#e0e0e0] placeholder-[#555555] outline-none"
+            />
+            {searchQuery ? (
+              <button onClick={() => setSearchQuery("")} className="text-[#888888]">
+                <X size={14} />
+              </button>
+            ) : null}
+          </div>
+        )}
 
         {permissionWarning ? (
-          <div className="mb-4 rounded-2xl border border-[#bceaf5]/40 bg-[#0b7fa8] px-4 py-3 text-[13px] leading-5 text-[#e8fbff]">
+          <div className="mb-4 rounded-2xl border border-[#0096C7]/30 bg-[#001a26] px-4 py-3 text-[13px] leading-5 text-[#e0e0e0]">
             {permissionWarning}
           </div>
         ) : null}
       </div>
 
       {/* ── Filter row ── */}
-      <div className="border-b border-[var(--mob-border,#e5e5e5)] bg-[var(--mob-bg,#ffffff)] px-4 py-2.5 flex items-center gap-3 shrink-0">
+      <div className="border-b border-black bg-black px-4 py-2.5 flex items-center gap-3 shrink-0">
         <button onClick={() => setShowContacts(true)} className="shrink-0">
           <Image src="/contacts-icon.png" alt="Contacts" width={28} height={28} />
         </button>
@@ -1441,7 +1511,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       </div>
 
       {/* ── Thread list ── */}
-      <div className="flex-1 overflow-y-auto bg-[var(--mob-bg,#ffffff)]">
+      <div className="flex-1 overflow-y-auto bg-black">
         {visibleThreads.length === 0 && (
           <p className="mt-20 text-center text-sm text-[var(--mob-text-2,#888888)]">No conversations yet</p>
         )}
@@ -1457,7 +1527,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <button
               key={thread.id}
               onClick={() => selectThread(thread)}
-              className={`w-full flex items-center gap-3 px-4 py-3 border-b border-[var(--mob-border,#e5e5e5)] active:bg-[var(--mob-surface,#f5f5f5)] ${
+              className={`w-full flex items-center gap-3 px-4 py-3 border-b border-black active:bg-[#111111] ${
                 selectedThread?.id === thread.id ? "bg-[var(--mob-accent-bg,rgba(0,180,216,0.08))]" : ""
               }`}
             >
@@ -1470,10 +1540,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   <Avatar name="?" size={48} />
                 )}
                 {online && (
-                  <div className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-emerald-400 border-2 border-[var(--mob-bg,#ffffff)] rounded-full" />
+                  <div className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-emerald-400 border-2 border-black rounded-full" />
                 )}
                 {thread.type === "channel" && isGroupLocked(thread) && (
-                  <div className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--mob-surface,#f5f5f5)] text-[var(--mob-text-2,#888888)]">
+                  <div className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--mob-surface,#111111)] text-[var(--mob-text-2,#888888)]">
                     <LockKeyhole size={10} />
                   </div>
                 )}
@@ -1481,7 +1551,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
               <div className="flex-1 min-w-0 text-left">
                 <div className="flex items-start justify-between gap-3">
-                  <span className={`truncate text-[15px] ${unread ? "font-semibold text-[var(--mob-text,#111111)]" : "font-medium text-[var(--mob-text,#111111)]"}`}>
+                  <span className={`truncate text-[15px] ${unread ? "font-semibold text-[var(--mob-text,#e0e0e0)]" : "font-medium text-[var(--mob-text,#e0e0e0)]"}`}>
                     {name}
                   </span>
                   <div className="flex shrink-0 items-center gap-2">
@@ -1560,14 +1630,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       ) : null}
       {selectedThread && (
-        <div className="absolute inset-0 z-10 flex flex-col bg-[var(--mob-bg,#ffffff)]">
+        <div className="absolute inset-0 z-10 flex flex-col bg-black">
           {/* Thread header */}
           <div
-            className="bg-[var(--mob-bg,#ffffff)] border-b border-[var(--mob-border,#e5e5e5)] px-5 pb-4 flex items-center gap-3 shrink-0"
+            className="bg-black px-5 pb-4 flex items-center gap-3 shrink-0"
             style={{ paddingTop: "calc(env(safe-area-inset-top) + 16px)" }}
           >
             <button onClick={() => setSelectedThread(null)} className="mr-1">
-              <ArrowLeft size={22} className="text-[var(--mob-text,#111111)]" />
+              <ArrowLeft size={22} className="text-white" />
             </button>
             {selectedThread.type === "channel" ? (
               <Avatar name={getThreadName(selectedThread)} size={40} uid={selectedThread.id} />
@@ -1576,55 +1646,77 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               return av ? <Avatar name={av.displayName} size={40} uid={av.uid} /> : <Avatar name="?" size={40} />
             })()}
             <div className="flex-1 min-w-0">
-              <p className="text-[var(--mob-text,#111111)] text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
+              <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
               {selectedThread.type === "direct" && (
-                <p className="text-sm text-[var(--mob-text-2,#888888)]">
+                <p className="text-sm text-[#888888]">
                   {showTomTyping || otherIsTyping ? "typing…" : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
                 </p>
               )}
               {selectedThread.type === "channel" && selectedThread.description && (
-                <p className="truncate text-sm text-[var(--mob-text-2,#888888)]">{selectedThread.description}</p>
+                <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
               )}
             </div>
             <div className="flex items-center gap-2">
-              <button
-                type="button"
-                onClick={() => void togglePinThread(selectedThread.id)}
-                className={`flex h-10 w-10 items-center justify-center rounded-full ${isThreadPinned(selectedThread.id) ? "bg-[#0096C7] text-white" : "bg-[var(--mob-surface,#f5f5f5)] text-[var(--mob-text-2,#888888)]"}`}
-                aria-label={isThreadPinned(selectedThread.id) ? "Unpin thread" : "Pin thread"}
-              >
-                <Pin size={16} className={isThreadPinned(selectedThread.id) ? "fill-white" : ""} />
-              </button>
               {selectedThread.type === "direct" && (
                 <>
                   <button
                     onClick={() => { setCallMediaMode("audio"); void initiateCall(getOtherUid(selectedThread), selectedThread.id) }}
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--mob-surface,#f5f5f5)]"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8]"
                   >
-                    <Phone size={18} className="text-[var(--mob-text-2,#888888)]" />
+                    <Phone size={18} className="text-white" />
                   </button>
                   <button
                     onClick={() => { setCallMediaMode("video"); void initiateCall(getOtherUid(selectedThread), selectedThread.id) }}
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-[var(--mob-surface,#f5f5f5)]"
+                    className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8]"
                   >
-                    <Video size={18} className="text-[var(--mob-text-2,#888888)]" />
+                    <Video size={18} className="text-white" />
                   </button>
                 </>
               )}
+              <button
+                type="button"
+                onClick={() => setShowProfile(true)}
+                className="text-white hover:text-white/70"
+                aria-label="More options"
+              >
+                <MoreVertical size={22} />
+              </button>
             </div>
           </div>
 
-          {/* Messages */}
-          <div className="flex-1 overflow-y-auto bg-[var(--mob-surface,#f5f5f5)] px-4 py-4 space-y-1">
+          {/* Messages container with emoji overlay */}
+          <div className="relative flex-1 min-h-0">
+          <div className="absolute inset-0 overflow-y-auto bg-black px-4 py-4 space-y-1">
             {messages.map((msg, idx) => {
               const isOwn = msg.uid === user.uid
               const isSystem = msg.type === "system"
               const prevMsg = messages[idx - 1]
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
+              const emojiOnly = !msg.attachments?.length && !msg.deleted && isEmojiOnly(msg.text)
 
+              if (msg.type === "call" || (isSystem && msg.text?.startsWith("📞"))) {
+                const answered = msg.callAnswered ?? msg.text?.includes("Voice call")
+                const isOutgoing = msg.uid === user.uid
+                const missed = !answered
+                const callTime = new Date(msg.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+                const durationStr = msg.callDuration ? formatCallDuration(msg.callDuration) : null
+                const IconComp = missed ? PhoneMissed : isOutgoing ? PhoneOutgoing : PhoneIncoming
+                const iconColor = missed ? "text-red-400" : isOutgoing ? "text-[#0096C7]" : "text-emerald-400"
+                const label = missed ? "Missed call" : isOutgoing ? "Outgoing call" : "Incoming call"
+                return (
+                  <div key={msg.id} className="flex justify-center my-2">
+                    <div className={`flex items-center gap-2 rounded-full border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 ${iconColor}`}>
+                      <IconComp size={13} strokeWidth={2} className="shrink-0" />
+                      <span className="text-[12px] font-medium text-[#e0e0e0]">{label}</span>
+                      <span className="text-[12px] text-[#555]">·</span>
+                      <span className="text-[12px] text-[#666]">{callTime}{durationStr ? ` · ${durationStr}` : ""}</span>
+                    </div>
+                  </div>
+                )
+              }
               if (isSystem) return (
                 <div key={msg.id} className="flex justify-center my-3">
-                  <span className="bg-[var(--mob-surface-2,#eeeeee)] text-[var(--mob-text-2,#888888)] text-sm px-4 py-1.5 rounded-full">{msg.text}</span>
+                  <span className="bg-[#1c1c1c] text-[#888888] text-sm px-4 py-1.5 rounded-full">{msg.text}</span>
                 </div>
               )
               if (msg.deleted) return (
@@ -1649,7 +1741,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     )}
 
                     {msg.replyTo && (
-                      <div className={`text-sm text-[var(--mob-text-2,#888888)] bg-[var(--mob-surface-2,#eeeeee)] rounded-t-xl px-3 py-2 border-l-2 border-[#29b6d8] mb-0.5 max-w-full ${isOwn ? "rounded-bl-xl" : "rounded-br-xl"}`}>
+                      <div className={`text-sm text-[#888888] bg-[#1c1c1c] rounded-t-xl px-3 py-2 border-l-2 border-[#29b6d8] mb-0.5 max-w-full ${isOwn ? "rounded-bl-xl" : "rounded-br-xl"}`}>
                         <span className="text-[#29b6d8]">{msg.replyTo.displayName}</span>: {msg.replyTo.text.slice(0, 60)}{msg.replyTo.text.length > 60 ? "…" : ""}
                       </div>
                     )}
@@ -1661,7 +1753,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           value={editText}
                           onChange={e => setEditText(e.target.value)}
                           onKeyDown={e => { if (e.key === "Enter") saveEdit(); if (e.key === "Escape") { setEditingMessage(null); setEditText("") } }}
-                          className="flex-1 bg-[var(--mob-bg,#ffffff)] border border-[#29b6d8] rounded-xl px-3 py-2 text-[16px] text-[var(--mob-text,#111111)] outline-none"
+                          className="flex-1 bg-[#111111] border border-[#29b6d8] rounded-xl px-3 py-2 text-[16px] text-[#e0e0e0] outline-none"
                         />
                         <button onClick={saveEdit}><Check size={18} className="text-[#29b6d8]" /></button>
                         <button onClick={() => { setEditingMessage(null); setEditText("") }}><X size={18} className="text-gray-400" /></button>
@@ -1684,9 +1776,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           setActionMessage(msg)
                           setShowEmojiPicker(null)
                         }}
-                        className={`relative px-4 py-2.5 rounded-2xl text-left text-[15px] leading-relaxed ${
-                        isOwn ? "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm" : "bg-[var(--mob-bg,#ffffff)] text-[var(--mob-text,#111111)] rounded-bl-sm shadow-sm"
-                      }`}>
+                        className={`relative text-left text-[14px] leading-snug ${
+                          emojiOnly
+                            ? ""
+                            : isOwn
+                              ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
+                              : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
+                        }`}>
                         {msg.attachments?.map((att, ai) => (
                           <div key={ai} className="mb-2">
                             {att.type === "image" ? (
@@ -1699,8 +1795,38 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                             )}
                           </div>
                         ))}
-                        {msg.text}
-                        {msg.edited && <span className={`ml-1 text-xs ${isOwn ? "text-white/50" : "text-[var(--mob-text-2,#888888)]"}`}>(edited)</span>}
+                        {emojiOnly ? (() => {
+                          const segs = segmentEmoji(msg.text)
+                          const sz = segs.length === 1 ? 64 : segs.length <= 3 ? 52 : 44
+                          return (
+                            <div className="flex flex-wrap gap-1 py-1">
+                              {segs.map((em, i) => {
+                                const url = emojiToNotoUrl(em)
+                                return url ? (
+                                  <img
+                                    key={i}
+                                    src={url}
+                                    alt={em}
+                                    width={sz}
+                                    height={sz}
+                                    className="object-contain"
+                                    onError={(e) => {
+                                      const t = e.currentTarget
+                                      const span = document.createElement("span")
+                                      span.textContent = em
+                                      span.style.fontSize = `${sz}px`
+                                      span.style.lineHeight = "1"
+                                      t.replaceWith(span)
+                                    }}
+                                  />
+                                ) : (
+                                  <span key={i} style={{ fontSize: sz, lineHeight: 1 }}>{em}</span>
+                                )
+                              })}
+                            </div>
+                          )
+                        })() : msg.text}
+                        {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white/50" : "text-white/50"}`}>(edited)</span>}
                       </button>
                     )}
 
@@ -1709,8 +1835,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         {Object.entries(msg.reactions).map(([emoji, uids]) =>
                           uids.length > 0 && (
                             <button key={emoji} onClick={() => toggleReaction(msg.id, emoji)}
-                              className={`flex items-center gap-1 rounded-full border px-2.5 py-1 text-sm leading-none shadow-sm ${
-                                uids.includes(user.uid) ? "border-sky-300 bg-sky-100 text-sky-700" : "border-[var(--mob-border,#e5e5e5)] bg-[var(--mob-bg,#ffffff)] text-[var(--mob-text,#111111)]"
+                              className={`flex items-center gap-1 rounded-full border px-2.5 py-1 text-sm leading-none ${
+                                uids.includes(user.uid) ? "border-[#0096C7]/60 bg-[#003d54] text-white" : "border-[#2d2d2d] bg-[#1c1c1c] text-[#e0e0e0]"
                               }`}>
                               {emoji} {uids.length}
                             </button>
@@ -1729,7 +1855,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <div className="flex items-end gap-0.5">
                 <div className="w-1 shrink-0" />
                 <div className="flex max-w-[84%] flex-col items-start">
-                  <div className="rounded-2xl rounded-bl-sm bg-[var(--mob-bg,#ffffff)] px-4 py-3 text-left text-[15px] leading-relaxed text-[var(--mob-text-2,#888888)] shadow-sm">
+                  <div className="rounded-2xl rounded-bl-sm bg-[#003d54] px-3 py-1.5 text-left text-[14px] leading-snug text-white/70">
                     <TypingDots tone={showTomTyping ? "tom" : "default"} />
                   </div>
                 </div>
@@ -1738,118 +1864,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Reply banner */}
-          {replyTo && (
-            <div className="flex items-center gap-3 px-4 py-2.5 bg-[var(--mob-accent-bg,rgba(0,180,216,0.08))] border-t border-[var(--mob-border,#e5e5e5)] shrink-0">
-              <div className="flex-1 min-w-0">
-                <span className="text-sm text-[#29b6d8]">{replyTo.displayName}</span>
-                <p className="text-sm text-[var(--mob-text-2,#888888)] truncate">{replyTo.text}</p>
-              </div>
-              <button onClick={() => setReplyTo(null)}><X size={16} className="text-[var(--mob-text-2,#888888)]" /></button>
-            </div>
-          )}
-
-          {/* Input */}
-          <div
-            className="px-4 py-3 bg-[var(--mob-bg,#ffffff)] border-t border-[var(--mob-border,#e5e5e5)] shrink-0 relative"
-            style={{ paddingBottom: "calc(env(safe-area-inset-bottom) + 16px)" }}
-          >
-            <div className="flex items-center gap-3 rounded-2xl border border-[var(--mob-border,#e5e5e5)] bg-[var(--mob-surface,#f5f5f5)] px-4 py-3 pr-3">
-              <button onClick={() => fileInputRef.current?.click()} className="text-[var(--mob-text-2,#888888)] shrink-0">
-                <Paperclip size={18} />
-              </button>
-              <input type="file" ref={fileInputRef} className="hidden"
-                onChange={e => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); e.target.value = "" }} />
-              <input
-                value={inputText}
-                onChange={e => setInputText(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage() } }}
-                placeholder="Message…"
-                className="min-w-0 flex-1 bg-transparent text-[16px] text-[var(--mob-text,#111111)] placeholder-[var(--mob-text-2,#888888)] outline-none"
-              />
-              <button onClick={() => setShowEmojiPicker(showEmojiPicker === "input" ? null : "input")}
-                className="text-[var(--mob-text-2,#888888)] text-xl shrink-0">😊</button>
-              <button onClick={() => sendMessage()} disabled={!inputText.trim()}
-                className="h-10 w-10 bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] disabled:opacity-40 rounded-full flex items-center justify-center shrink-0">
-                <Send size={15} className="text-white" />
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ═══════════════════ CONTACTS DRAWER (slides from left) ═══════════════════ */}
-      {(actionMessage || showEmojiPicker === "input") && (
-        <div className="absolute inset-0 z-20">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(125,211,252,0.14),transparent_42%)]" onClick={() => { setActionMessage(null); setActionBoxPosition(null); setShowEmojiPicker(null) }} />
-          {actionMessage ? (
-            <div
-              className="absolute"
-              style={{
-                top: actionBoxPosition?.top ?? 24,
-                left: actionBoxPosition?.left ?? 16,
-              }}
-            >
-              <div className="flex items-center gap-1.5">
-                <button
-                  onClick={() => setShowEmojiPicker(showEmojiPicker === "drawer" ? null : "drawer")}
-                  className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white shadow-[0_10px_24px_rgba(26,134,200,0.28)] transition hover:scale-[1.03]"
-                  aria-label="More reactions"
-                >
-                  <Smile size={17} />
-                </button>
-                <button
-                  onClick={() => {
-                    setReplyTo(actionMessage)
-                    setActionMessage(null)
-                    setActionBoxPosition(null)
-                  }}
-                  className="group flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white shadow-[0_10px_24px_rgba(26,134,200,0.28)] transition hover:scale-[1.03]"
-                  aria-label="Reply"
-                >
-                  <Reply size={18} className="transition group-hover:scale-110" />
-                </button>
-                <button
-                  onClick={() => {
-                    setForwardingMessage(actionMessage)
-                    setShowNewDM(true)
-                    setActionMessage(null)
-                    setActionBoxPosition(null)
-                  }}
-                  className="group flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white shadow-[0_10px_24px_rgba(26,134,200,0.28)] transition hover:scale-[1.03]"
-                  aria-label="Forward"
-                >
-                  <Forward size={18} className="transition group-hover:translate-x-0.5" />
-                </button>
-                {actionMessage.uid === user.uid && !actionMessage.deleted ? (
-                  <button
-                    onClick={() => {
-                      void deleteMessage(actionMessage.id)
-                      setActionMessage(null)
-                      setActionBoxPosition(null)
-                    }}
-                    className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white shadow-[0_10px_24px_rgba(26,134,200,0.28)] transition hover:scale-[1.03]"
-                    aria-label="Delete"
-                  >
-                    <Trash2 size={17} />
-                  </button>
-                ) : null}
-              </div>
-
-              {showEmojiPicker === "drawer" ? (
-                <div className="pointer-events-none absolute inset-y-0 left-full w-3" />
-              ) : null}
-            </div>
-          ) : null}
-
-          <div
-            className={`absolute right-0 top-0 bottom-0 w-[184px] overflow-hidden rounded-l-[30px] border-l border-white/30 bg-[rgba(94,206,221,0.42)] shadow-[0_24px_60px_rgba(14,116,144,0.22)] backdrop-blur-[22px] transition-all duration-300 ${(showEmojiPicker === "drawer" || showEmojiPicker === "input") ? "translate-x-0 opacity-100" : "translate-x-[108%] opacity-0 pointer-events-none"}`}
-            style={{
-              paddingTop: "calc(env(safe-area-inset-top) + 10px)",
-              paddingBottom: "calc(env(safe-area-inset-bottom) + 10px)",
-            }}
-          >
-            <div className="h-full px-2 py-2">
+          {/* Emoji overlay — absolute right side, overlays messages without pushing them */}
+          {(showEmojiPicker === "drawer" || showEmojiPicker === "input") && (
+            <div className="absolute right-0 inset-y-0 z-10 w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col">
               <EmojiPicker
                 variant="drawer"
                 onSelect={e => {
@@ -1867,6 +1884,112 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 onClose={() => setShowEmojiPicker(null)}
               />
             </div>
+          )}
+          </div>{/* end messages container */}
+
+          {/* Reply banner */}
+          {replyTo && (
+            <div className="flex items-center gap-3 px-4 py-2.5 bg-[#0d1a22] border-t border-[#2d2d2d] shrink-0">
+              <div className="flex-1 min-w-0">
+                <span className="text-sm text-[#29b6d8]">{replyTo.displayName}</span>
+                <p className="text-sm text-[#888888] truncate">{replyTo.text}</p>
+              </div>
+              <button onClick={() => setReplyTo(null)}><X size={16} className="text-[#888888]" /></button>
+            </div>
+          )}
+
+          {/* Input */}
+          <div
+            className="bg-black shrink-0 relative px-4 pt-2"
+            style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 48px)" }}
+          >
+            <div className="flex items-center gap-2 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-3 py-1.5 pr-2">
+              <button onClick={() => fileInputRef.current?.click()} className="text-white shrink-0">
+                <Paperclip size={17} />
+              </button>
+              <button
+                onClick={() => selectedThread && void togglePinThread(selectedThread.id)}
+                className="shrink-0"
+                aria-label="Pin thread"
+              >
+                <Sun size={17} strokeWidth={2} className={selectedThread && isThreadPinned(selectedThread.id) ? "text-[#00e5ff]" : "text-[#00b8d4]"} />
+              </button>
+              <input type="file" ref={fileInputRef} className="hidden"
+                onChange={e => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); e.target.value = "" }} />
+              <input
+                value={inputText}
+                onChange={e => setInputText(e.target.value)}
+                onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage() } }}
+                placeholder="Message…"
+                className="min-w-0 flex-1 bg-transparent text-[15px] text-[#e0e0e0] placeholder-[#555555] outline-none"
+              />
+              <button onClick={() => setShowEmojiPicker(showEmojiPicker === "input" ? null : "input")}
+                className="text-[#888888] text-lg shrink-0">😊</button>
+              <button onClick={() => sendMessage()} disabled={!inputText.trim()}
+                className="h-8 w-8 bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] disabled:opacity-40 rounded-full flex items-center justify-center shrink-0">
+                <Send size={13} className="text-white" />
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* ═══════════════════ MESSAGE ACTION OVERLAY (tap-hold bubble) ═══════════════════ */}
+      {actionMessage && (
+        <div className="absolute inset-0 z-20">
+          <div className="absolute inset-0" onClick={() => { setActionMessage(null); setActionBoxPosition(null); setShowEmojiPicker(null) }} />
+          <div
+            className="absolute"
+            style={{
+              top: actionBoxPosition?.top ?? 24,
+              left: actionBoxPosition?.left ?? 16,
+            }}
+          >
+            <div className="flex items-center gap-1.5">
+              <button
+                onClick={() => setShowEmojiPicker(showEmojiPicker === "drawer" ? null : "drawer")}
+                className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white shadow-[0_10px_24px_rgba(26,134,200,0.28)] transition hover:scale-[1.03]"
+                aria-label="More reactions"
+              >
+                <Smile size={17} />
+              </button>
+              <button
+                onClick={() => {
+                  setReplyTo(actionMessage)
+                  setActionMessage(null)
+                  setActionBoxPosition(null)
+                }}
+                className="group flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white shadow-[0_10px_24px_rgba(26,134,200,0.28)] transition hover:scale-[1.03]"
+                aria-label="Reply"
+              >
+                <Reply size={18} className="transition group-hover:scale-110" />
+              </button>
+              <button
+                onClick={() => {
+                  setForwardingMessage(actionMessage)
+                  setShowNewDM(true)
+                  setActionMessage(null)
+                  setActionBoxPosition(null)
+                }}
+                className="group flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white shadow-[0_10px_24px_rgba(26,134,200,0.28)] transition hover:scale-[1.03]"
+                aria-label="Forward"
+              >
+                <Forward size={18} className="transition group-hover:translate-x-0.5" />
+              </button>
+              {actionMessage.uid === user.uid && !actionMessage.deleted ? (
+                <button
+                  onClick={() => {
+                    void deleteMessage(actionMessage.id)
+                    setActionMessage(null)
+                    setActionBoxPosition(null)
+                  }}
+                  className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white shadow-[0_10px_24px_rgba(26,134,200,0.28)] transition hover:scale-[1.03]"
+                  aria-label="Delete"
+                >
+                  <Trash2 size={17} />
+                </button>
+              ) : null}
+            </div>
           </div>
         </div>
       )}
@@ -1875,7 +1998,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         <div className="absolute inset-0 z-20 flex">
           {/* Panel */}
           <div
-            className="fixed inset-y-0 left-0 z-30 flex h-[100dvh] w-[78%] rounded-r-[34px] rounded-l-none border-r border-[rgba(126,196,214,0.78)] bg-[linear-gradient(180deg,rgba(188,228,239,0.98)_0%,rgba(207,236,245,0.96)_46%,rgba(196,231,241,0.99)_100%)] shadow-[12px_0_28px_rgba(23,109,140,0.12)] backdrop-blur-[12px]"
+            className="fixed inset-y-0 left-0 z-30 flex h-[100dvh] w-[78%] flex-col rounded-r-[34px] border-r border-[#2d2d2d] bg-[#1c1c1c] shadow-[12px_0_28px_rgba(0,0,0,0.4)]"
             style={{
               paddingTop: "env(safe-area-inset-top)",
               paddingBottom: "env(safe-area-inset-bottom)",
@@ -1883,14 +2006,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             }}
           >
             {/* Header */}
-            <div className="flex items-start justify-between border-b border-[rgba(137,193,210,0.34)] px-6 pt-10 pb-4">
+            <div className="flex items-start justify-between border-b border-[#2d2d2d] px-6 pt-10 pb-4">
               <div>
-                <h2 className="text-[32px] tracking-[-0.05em] text-[#176d8c]">Contacts</h2>
-                <p className="mt-0.5 text-sm text-[#4b8ea4]">{org.name}</p>
+                <h2 className="text-[32px] tracking-[-0.05em] text-[#e0e0e0]">Contacts</h2>
+                <p className="mt-0.5 text-sm text-[#888888]">{org.name}</p>
               </div>
               <button
                 onClick={() => setShowContacts(false)}
-                className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-[#ccecf5] text-[#176d8c] shadow-[0_10px_22px_rgba(27,134,174,0.14)]"
+                className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-[#2d2d2d] text-[#e0e0e0]"
               >
                 <ArrowLeft size={18} />
               </button>
@@ -1900,15 +2023,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex-1 overflow-y-auto px-6 py-2">
               {contactMembers.filter(m => isOnline(m.uid)).length > 0 && (
                 <>
-                  <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-[#73a8ba]">available</p>
+                  <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-[#888888]">available</p>
                   {contactMembers.filter(m => isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
-                      className="flex w-full items-center gap-4 border-b border-[rgba(137,193,210,0.22)] py-2.5">
+                      className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
                       <div className="relative">
                         <Avatar name={m.displayName} size={44} uid={m.uid} />
-                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#dff3f8] bg-emerald-400" />
+                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#1c1c1c] bg-emerald-400" />
                       </div>
-                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#154b5f]">
+                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#e0e0e0]">
                         <span className="min-w-0 flex-1 truncate">{m.displayName}</span>
                         <span className="w-[52px] shrink-0 text-right text-sm text-emerald-400">online</span>
                       </div>
@@ -1918,25 +2041,25 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               )}
               {contactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
                 <>
-                  <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-[#73a8ba]">offline</p>
+                  <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-[#888888]">offline</p>
                   {contactMembers.filter(m => !isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
-                      className="flex w-full items-center gap-4 border-b border-[rgba(137,193,210,0.22)] py-2.5">
+                      className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
                       <div className="relative">
                         <Avatar name={m.displayName} size={44} uid={m.uid} />
-                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#dff3f8] bg-white/80" />
+                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#1c1c1c] bg-[#555555]" />
                       </div>
-                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#4a7383]">
+                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#888888]">
                         <span className="min-w-0 flex-1 truncate">{m.displayName}</span>
-                        <span className="w-[52px] shrink-0 text-right text-sm text-[#8eaab6]">offline</span>
+                        <span className="w-[52px] shrink-0 text-right text-sm text-[#555555]">offline</span>
                       </div>
                     </button>
                   ))}
                 </>
               )}
               {contactMembers.length === 0 && (
-                <p className="mt-20 text-center text-sm text-[#7ea6b4]">
-                  No members yet.<br />Code: <span className="tracking-widest text-[#176d8c]">{org.joinCode}</span>
+                <p className="mt-20 text-center text-sm text-[#888888]">
+                  No members yet.<br />Code: <span className="tracking-widest text-[#0096C7]">{org.joinCode}</span>
                 </p>
               )}
             </div>
@@ -1944,7 +2067,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           </div>
 
           {/* Tap-outside to close */}
-          <div className="flex-1 bg-[rgba(145,182,196,0.22)]" onClick={() => setShowContacts(false)} />
+          <div className="flex-1 bg-black/50" onClick={() => setShowContacts(false)} />
         </div>
       )}
 
@@ -1953,24 +2076,24 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           <button
             type="button"
             onClick={() => setShowContacts(false)}
-            className="fixed inset-0 z-20 bg-[rgba(222,244,249,0.18)] backdrop-blur-[1px]"
+            className="fixed inset-0 z-20 bg-black/50"
             aria-label="Close contacts"
           />
           <div
-            className="fixed inset-y-0 left-0 z-30 flex h-[100dvh] w-[78%] flex-col rounded-r-[34px] rounded-l-none border-r border-[rgba(126,196,214,0.78)] bg-[linear-gradient(180deg,rgba(188,228,239,0.98)_0%,rgba(207,236,245,0.96)_46%,rgba(196,231,241,0.99)_100%)] shadow-[12px_0_28px_rgba(23,109,140,0.12)] backdrop-blur-[12px] lg:hidden"
+            className="fixed inset-y-0 left-0 z-30 flex h-[100dvh] w-[78%] flex-col rounded-r-[34px] border-r border-[#2d2d2d] bg-[#1c1c1c] shadow-[12px_0_28px_rgba(0,0,0,0.4)] lg:hidden"
             style={{
               paddingTop: "env(safe-area-inset-top)",
               paddingBottom: "env(safe-area-inset-bottom)",
             }}
           >
-            <div className="flex items-start justify-between border-b border-[rgba(137,193,210,0.34)] px-6 pt-10 pb-4">
+            <div className="flex items-start justify-between border-b border-[#2d2d2d] px-6 pt-10 pb-4">
               <div>
-                <h2 className="text-[32px] tracking-[-0.05em] text-[#176d8c]">Contacts</h2>
-                <p className="mt-0.5 text-sm text-[#4b8ea4]">{org.name}</p>
+                <h2 className="text-[32px] tracking-[-0.05em] text-[#e0e0e0]">Contacts</h2>
+                <p className="mt-0.5 text-sm text-[#888888]">{org.name}</p>
               </div>
               <button
                 onClick={() => setShowContacts(false)}
-                className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-[#0096C7] text-white shadow-[0_12px_26px_rgba(0,150,199,0.22)]"
+                className="mt-1 flex h-10 w-10 items-center justify-center rounded-full bg-[#0096C7] text-white"
               >
                 <ArrowRight size={18} />
               </button>
@@ -1979,17 +2102,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex-1 overflow-y-auto px-6 py-2">
               {contactMembers.filter(m => isOnline(m.uid)).length > 0 && (
                 <>
-                  <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-[#73a8ba]">available</p>
+                  <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-[#888888]">available</p>
                   {contactMembers.filter(m => isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
-                      className="flex w-full items-center gap-4 border-b border-[rgba(137,193,210,0.22)] py-2.5">
+                      className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
                       <div className="relative">
                         <Avatar name={m.displayName} size={44} uid={m.uid} />
-                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#dff3f8] bg-emerald-400" />
+                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#1c1c1c] bg-emerald-400" />
                       </div>
-                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#154b5f]">
+                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#e0e0e0]">
                         <span className="min-w-0 flex-1 truncate">{m.displayName}</span>
-                        <span className="w-[52px] shrink-0 text-right text-sm text-emerald-500">online</span>
+                        <span className="w-[52px] shrink-0 text-right text-sm text-emerald-400">online</span>
                       </div>
                     </button>
                   ))}
@@ -1997,25 +2120,25 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               )}
               {contactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
                 <>
-                  <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-[#73a8ba]">offline</p>
+                  <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-[#888888]">offline</p>
                   {contactMembers.filter(m => !isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
-                      className="flex w-full items-center gap-4 border-b border-[rgba(137,193,210,0.22)] py-2.5">
+                      className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
                       <div className="relative">
                         <Avatar name={m.displayName} size={44} uid={m.uid} />
-                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#dff3f8] bg-white/80" />
+                        <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#1c1c1c] bg-[#555555]" />
                       </div>
-                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#4a7383]">
+                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#888888]">
                         <span className="min-w-0 flex-1 truncate">{m.displayName}</span>
-                        <span className="w-[52px] shrink-0 text-right text-sm text-[#8eaab6]">offline</span>
+                        <span className="w-[52px] shrink-0 text-right text-sm text-[#555555]">offline</span>
                       </div>
                     </button>
                   ))}
                 </>
               )}
               {contactMembers.length === 0 && (
-                <p className="mt-20 text-center text-sm text-[#7ea6b4]">
-                  No members yet.<br />Code: <span className="tracking-widest text-[#176d8c]">{org.joinCode}</span>
+                <p className="mt-20 text-center text-sm text-[#888888]">
+                  No members yet.<br />Code: <span className="tracking-widest text-[#0096C7]">{org.joinCode}</span>
                 </p>
               )}
             </div>
@@ -2127,38 +2250,38 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* ═══════════════════ PROFILE DRAWER ═══════════════════ */}
       {showProfile && (
         <div className="absolute inset-0 z-30">
-          <div className="absolute inset-0 bg-[rgba(145,182,196,0.22)]" onClick={() => setShowProfile(false)} />
-          <div className="fixed inset-y-0 right-0 z-30 flex h-[100dvh] w-72 flex-col rounded-l-[34px] rounded-r-none border-l border-[rgba(126,196,214,0.78)] bg-[linear-gradient(180deg,rgba(188,228,239,0.98)_0%,rgba(207,236,245,0.96)_46%,rgba(196,231,241,0.99)_100%)] shadow-[-12px_0_28px_rgba(23,109,140,0.12)] backdrop-blur-[12px] lg:hidden"
+          <div className="absolute inset-0 bg-black/50" onClick={() => setShowProfile(false)} />
+          <div className="fixed inset-y-0 right-0 z-30 flex h-[100dvh] w-72 flex-col rounded-l-[34px] border-l border-[#2d2d2d] bg-[#1c1c1c] shadow-[-12px_0_28px_rgba(0,0,0,0.4)] lg:hidden"
             style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}>
-            <div className="border-b border-[rgba(137,193,210,0.34)] px-5 pt-12 pb-6">
+            <div className="border-b border-[#2d2d2d] px-5 pt-12 pb-6">
               <div className="mb-6 flex items-center justify-between">
-                <span className="text-[#176d8c]">Profile</span>
-                <button onClick={() => setShowProfile(false)}><X size={20} className="text-[#6f9db0]" /></button>
+                <span className="text-[#e0e0e0]">Profile</span>
+                <button onClick={() => setShowProfile(false)}><X size={20} className="text-[#888888]" /></button>
               </div>
               <div className="flex flex-col items-center">
                 <Avatar name={displayName} size={70} uid={user.uid} />
-                <p className="mt-3 text-[15px] text-[#154b5f]">{user.displayName}</p>
-                <p className="mt-1 text-sm text-[#1b86ae]">{clinicalRoleLabel}</p>
-                <p className="mt-1 text-sm text-[#7a9aa8]">{user.email}</p>
+                <p className="mt-3 text-[15px] text-[#e0e0e0]">{user.displayName}</p>
+                <p className="mt-1 text-sm text-[#0096C7]">{clinicalRoleLabel}</p>
+                <p className="mt-1 text-sm text-[#888888]">{user.email}</p>
                 <div className="mt-2 flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-400" />
                   <span className="text-sm text-emerald-400">Online</span>
                 </div>
               </div>
             </div>
-            <div className="border-b border-[rgba(137,193,210,0.34)] px-5 py-4">
-              <p className="mb-3 text-xs tracking-widest text-[#7fa9b8]">workspace</p>
-              <p className="text-[15px] text-[#154b5f]">{hospitalLabel}</p>
-              <p className="mt-1 text-sm text-[#5d8797]">{groupLabel}</p>
-              <p className="mt-1 text-sm text-[#7fa9b8]">
-                Join code: <span className="tracking-widest text-[#1b86ae]">{org.joinCode}</span>
+            <div className="border-b border-[#2d2d2d] px-5 py-4">
+              <p className="mb-3 text-xs tracking-widest text-[#888888]">workspace</p>
+              <p className="text-[15px] text-[#e0e0e0]">{hospitalLabel}</p>
+              <p className="mt-1 text-sm text-[#888888]">{groupLabel}</p>
+              <p className="mt-1 text-sm text-[#888888]">
+                Join code: <span className="tracking-widest text-[#0096C7]">{org.joinCode}</span>
               </p>
             </div>
             <div className="flex flex-1 flex-col gap-1 px-5 py-4">
-              <button className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
+              <button className="flex items-center gap-3 py-3.5 text-[15px] text-[#888888]">
                 <Settings size={18} /> Settings
               </button>
-              <button onClick={handleSwitchOrg} className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
+              <button onClick={handleSwitchOrg} className="flex items-center gap-3 py-3.5 text-[15px] text-[#888888]">
                 <ChevronDown size={18} /> Switch workspace
               </button>
               <button onClick={handleSignOut} className="mt-2 flex items-center gap-3 py-3.5 text-[15px] text-red-400">

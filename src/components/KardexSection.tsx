@@ -14,6 +14,7 @@ interface Props {
   defaultOpen?: boolean
   anchorId?: string
   variant?: "default" | "community"
+  isDark?: boolean
   showChecks?: boolean
   checkedItems?: Set<string>
   onItemCheck?: (itemId: string) => void
@@ -38,6 +39,7 @@ export default function KardexSection({
   defaultOpen = false,
   anchorId,
   variant = "default",
+  isDark = false,
   showChecks = false,
   checkedItems,
   onItemCheck,
@@ -159,11 +161,17 @@ export default function KardexSection({
   const isImplants      = section.sectionType === "implants_prosthetics"
   const canEditSection  = section.contentMode !== "fixed"
   const isCommunity = variant === "community"
-  const headerClass = editHighlight ? "bg-[#F2B6BF]" : isCommunity ? "bg-[#D9EFF7]" : "bg-[#00B4D8]"
-  const headerHoverClass = editHighlight ? "hover:bg-[#EBA5B1]" : isCommunity ? "hover:bg-[#C8E7F3]" : "hover:bg-[#33C4E2]"
-  const headerTitleClass = isCommunity
-    ? "flex-1 flex items-center gap-3 px-4 py-3.5 text-left text-[17px] font-medium text-[#10243E] transition-colors lg:px-7 lg:py-4 lg:text-[22px]"
-    : "flex-1 flex items-center gap-3 px-4 py-3.5 text-left text-base font-semibold text-[#10243E] transition-colors lg:px-7 lg:py-5 lg:text-[24px]"
+  const headerClass = isDark
+    ? "bg-[#003d54]"
+    : editHighlight ? "bg-[#F2B6BF]" : isCommunity ? "bg-[#D9EFF7]" : "bg-[#00B4D8]"
+  const headerHoverClass = isDark
+    ? "hover:bg-[#004a66]"
+    : editHighlight ? "hover:bg-[#EBA5B1]" : isCommunity ? "hover:bg-[#C8E7F3]" : "hover:bg-[#33C4E2]"
+  const headerTitleClass = isDark
+    ? "flex-1 flex items-center gap-3 px-4 py-3.5 text-left text-[17px] font-medium text-white transition-colors lg:px-7 lg:py-4 lg:text-[22px]"
+    : isCommunity
+      ? "flex-1 flex items-center gap-3 px-4 py-3.5 text-left text-[17px] font-medium text-[#10243E] transition-colors lg:px-7 lg:py-4 lg:text-[22px]"
+      : "flex-1 flex items-center gap-3 px-4 py-3.5 text-left text-base font-semibold text-[#10243E] transition-colors lg:px-7 lg:py-5 lg:text-[24px]"
 
 
   function emitSectionChange(overrides?: Partial<Section>) {
@@ -211,7 +219,7 @@ export default function KardexSection({
               className={`ml-2 flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-colors shrink-0 lg:mr-4 lg:px-5 lg:py-2.5 lg:text-[20px] ${
                 editMode
                   ? "bg-[#0F4C5C] text-white hover:bg-[#136275]"
-                  : "bg-white/80 text-[#10243E] hover:bg-[#EEF9FC]"
+                  : isDark ? "bg-white/10 text-[#e0e0e0] hover:bg-white/15" : "bg-white/80 text-[#10243E] hover:bg-[#EEF9FC]"
               }`}
               aria-label={editMode ? "Save changes" : "Edit section"}
             >
@@ -225,49 +233,49 @@ export default function KardexSection({
 
         <button
           onClick={() => setOpen(!open)}
-          className={`px-4 py-3.5 text-[#10243E] transition-colors lg:px-6 ${headerHoverClass}`}
+          className={`px-4 py-3.5 transition-colors lg:px-6 ${isDark ? "text-[#0096C7]" : "text-[#10243E]"} ${headerHoverClass}`}
         >
           {open ? <TriangleIcon direction="up" size={12} /> : <TriangleIcon direction="down" size={12} />}
         </button>
       </div>
 
       {open && (
-        <div className="kardex-section-body bg-white px-4 py-2 lg:px-7 lg:py-4">
+        <div className={`kardex-section-body px-4 py-2 lg:px-7 lg:py-4 ${isDark ? "bg-[#111111] text-[#e0e0e0]" : "bg-white"}`}>
 
           {/* ── OVERVIEW ───────────────────────────────────────────── */}
           {isOverview && (section.summary || section.duration || section.anaesthesiaType || section.primarySystem || section.alternatives?.length) && (
             <div className="py-2 space-y-3">
               {section.summary && (
-                <p className="text-base leading-relaxed text-[#10243E] lg:text-[20px] lg:text-lg lg:leading-8">{section.summary}</p>
+                <p className={`text-base leading-relaxed lg:text-[20px] lg:text-lg lg:leading-8 ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{section.summary}</p>
               )}
               <div className="flex flex-wrap gap-x-6 gap-y-3">
                 {section.duration && (
                   <div>
-                    <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px]">Duration</p>
-                    <p className="text-sm font-semibold text-[#10243E] lg:text-[20px]">{section.duration}</p>
+                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Duration</p>
+                    <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{section.duration}</p>
                   </div>
                 )}
                 {section.anaesthesiaType && (
                   <div>
-                    <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px]">Anaesthesia</p>
-                    <p className="text-sm font-semibold text-[#10243E] lg:text-[20px]">{section.anaesthesiaType}</p>
+                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Anaesthesia</p>
+                    <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{section.anaesthesiaType}</p>
                   </div>
                 )}
                 {section.primarySystem && (
                   <div>
-                    <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px]">System</p>
-                    <p className="text-sm font-semibold text-[#10243E] lg:text-[20px]">{section.primarySystem}</p>
+                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>System</p>
+                    <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{section.primarySystem}</p>
                   </div>
                 )}
               </div>
               {section.alternatives && section.alternatives.length > 0 && (
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px] mb-1">Alternatives</p>
+                  <p className={`text-xs tracking-wide lg:text-[18px] mb-1 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Alternatives</p>
                   <div className="flex flex-wrap gap-1.5">
                     {section.alternatives.map((alt) => (
                       <span
                         key={alt}
-                        className="rounded-full border border-[#D5EAF1] bg-[#F8FBFD] px-2.5 py-0.5 text-xs font-medium text-[#406175]"
+                        className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a] text-[#aaaaaa]" : "border-[#D5EAF1] bg-[#F8FBFD] text-[#406175]"}`}
                       >
                         {alt}
                       </span>
@@ -284,10 +292,10 @@ export default function KardexSection({
               {editMode ? (
                 /* Edit mode — link inputs */
                 <div className="space-y-3">
-                  <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px]">Edit references</p>
+                  <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Edit references</p>
 
                   <div>
-                    <label className="text-xs text-[#64748b] font-medium block mb-1.5">
+                    <label className={`text-xs font-medium block mb-1.5 ${isDark ? "text-[#888888]" : "text-[#64748b]"}`}>
                       Operative Technique URL
                     </label>
                     <input
@@ -295,12 +303,12 @@ export default function KardexSection({
                       value={localOpTechUrl}
                       onChange={(e) => setLocalOpTechUrl(e.target.value)}
                       placeholder="https://"
-                        className="w-full rounded-xl border border-[#D5DCE3] bg-white px-3 py-2.5 text-sm text-[#10243E] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#00B4D8] placeholder:text-[#7A8DA3]"
+                      className={`w-full rounded-xl border px-3 py-2.5 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
                     />
                   </div>
 
                   <div>
-                    <label className="text-xs text-[#64748b] font-medium block mb-1.5">
+                    <label className={`text-xs font-medium block mb-1.5 ${isDark ? "text-[#888888]" : "text-[#64748b]"}`}>
                       Implant Guide / Catalogue URL
                     </label>
                     <input
@@ -308,7 +316,7 @@ export default function KardexSection({
                       value={localImplantUrl}
                       onChange={(e) => setLocalImplantUrl(e.target.value)}
                       placeholder="https://"
-                        className="w-full rounded-xl border border-[#D5DCE3] bg-white px-3 py-2.5 text-sm text-[#10243E] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#00B4D8] placeholder:text-[#7A8DA3]"
+                      className={`w-full rounded-xl border px-3 py-2.5 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
                     />
                   </div>
 
@@ -320,19 +328,19 @@ export default function KardexSection({
                           value={link.label}
                           onChange={(e) => updateExternalLink(i, "label", e.target.value)}
                           placeholder="Link label"
-                          className="w-full rounded-xl border border-[#D5DCE3] bg-white px-3 py-2 text-sm text-[#10243E] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#00B4D8] placeholder:text-[#7A8DA3]"
+                          className={`w-full rounded-xl border px-3 py-2 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
                         />
                         <input
                           type="url"
                           value={link.url}
                           onChange={(e) => updateExternalLink(i, "url", e.target.value)}
                           placeholder="https://"
-                          className="w-full rounded-xl border border-[#D5DCE3] bg-white px-3 py-2 text-sm text-[#10243E] focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#00B4D8] placeholder:text-[#7A8DA3]"
+                          className={`w-full rounded-xl border px-3 py-2 text-sm focus:border-transparent focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
                         />
                       </div>
                       <button
                         onClick={() => removeExternalLink(i)}
-                        className="mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#EEF9FC] text-[#0F4C5C] hover:bg-[#DDF4FA] transition-colors"
+                        className={`mt-1 flex h-7 w-7 shrink-0 items-center justify-center rounded-full transition-colors ${isDark ? "bg-[#1a1a1a] text-[#0096C7] hover:bg-[#252525]" : "bg-[#EEF9FC] text-[#0F4C5C] hover:bg-[#DDF4FA]"}`}
                         aria-label="Remove link"
                       >
                         <Trash2 size={13} />
@@ -342,7 +350,7 @@ export default function KardexSection({
 
                   <button
                     onClick={addExternalLink}
-                    className="flex items-center gap-1.5 text-sm text-[#0F4C5C] font-semibold"
+                    className={`flex items-center gap-1.5 text-sm font-semibold ${isDark ? "text-[#0096C7]" : "text-[#0F4C5C]"}`}
                   >
                     <Plus size={14} /> Add link
                   </button>
@@ -351,13 +359,13 @@ export default function KardexSection({
                 /* View mode — link list */
                 (localOpTechUrl || localImplantUrl || localExternalLinks.some((l) => l.url)) && (
                   <div className="space-y-2">
-                    <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px]">References</p>
+                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>References</p>
                     {localOpTechUrl && (
                       <a
                         href={localOpTechUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-base font-semibold text-[#0F4C5C] lg:text-[20px] underline underline-offset-2"
+                        className={`flex items-center gap-2 text-base font-semibold lg:text-[20px] underline underline-offset-2 ${isDark ? "text-[#0096C7]" : "text-[#0F4C5C]"}`}
                       >
                         <ExternalLink size={16} className="shrink-0" />
                         Operative Technique
@@ -368,7 +376,7 @@ export default function KardexSection({
                         href={localImplantUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-base font-semibold text-[#0F4C5C] lg:text-[20px] underline underline-offset-2"
+                        className={`flex items-center gap-2 text-base font-semibold lg:text-[20px] underline underline-offset-2 ${isDark ? "text-[#0096C7]" : "text-[#0F4C5C]"}`}
                       >
                         <ExternalLink size={16} className="shrink-0" />
                         Implant Guide / Catalogue
@@ -380,7 +388,7 @@ export default function KardexSection({
                         href={link.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="flex items-center gap-2 text-base font-semibold text-[#0F4C5C] lg:text-[20px] underline underline-offset-2"
+                        className={`flex items-center gap-2 text-base font-semibold lg:text-[20px] underline underline-offset-2 ${isDark ? "text-[#0096C7]" : "text-[#0F4C5C]"}`}
                       >
                         <ExternalLink size={16} className="shrink-0" />
                         {link.label || link.url}
@@ -394,22 +402,22 @@ export default function KardexSection({
 
           {/* ── NURSE PREP NOTES ───────────────────────────────────── */}
           {isNurseNotes && (
-            <div className="my-2 rounded-xl border border-[#D5EAF1] bg-[#F8FBFD] p-4">
-              <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px] mb-2">Nurse prep notes</p>
+            <div className={`my-2 rounded-xl border p-4 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
+              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Nurse prep notes</p>
               {editMode ? (
                 <textarea
                   value={notesDraft}
                   onChange={(e) => setNotesDraft(e.target.value)}
                   rows={5}
-                  className="w-full resize-none rounded-xl border border-[#D5DCE3] bg-white px-3 py-2.5 text-base text-[#10243E] focus:outline-none focus:ring-2 focus:ring-[#00B4D8]"
+                  className={`w-full resize-none rounded-xl border px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0]" : "border-[#D5DCE3] bg-white text-[#10243E]"}`}
                 />
               ) : (
                 <>
-                  <p className="whitespace-pre-wrap text-base leading-relaxed text-[#475569] lg:text-[20px]">
-                    {nurseNotes || <span className="text-[#5D8A97]">No prep notes added yet.</span>}
+                  <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
+                    {nurseNotes || <span className={isDark ? "text-[#555555]" : "text-[#5D8A97]"}>No prep notes added yet.</span>}
                   </p>
                   {notesLastEdited && (
-                    <p className="mt-2 text-xs text-[#A7D8E2] flex items-center gap-1">
+                    <p className={`mt-2 text-xs flex items-center gap-1 ${isDark ? "text-[#555555]" : "text-[#A7D8E2]"}`}>
                       <Clock size={11} /> Last edited by You · {notesLastEdited}
                     </p>
                   )}
@@ -420,15 +428,15 @@ export default function KardexSection({
 
           {/* ── PATIENT POSITIONING ────────────────────────────────── */}
           {isPositioning && (
-            <div className="mt-2 mb-3 rounded-xl border border-[#D5EAF1] bg-[#F8FBFD] p-4">
-              <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px] mb-2">Patient positioning</p>
+            <div className={`mt-2 mb-3 rounded-xl border p-4 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
+              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Patient positioning</p>
               {editMode ? (
                 <>
                   <textarea
                     value={positionDraft}
                     onChange={(e) => setPositionDraft(e.target.value)}
                     rows={5}
-                    className="w-full resize-none rounded-xl border border-[#D5DCE3] bg-white px-3 py-2.5 text-base text-[#10243E] focus:outline-none focus:ring-2 focus:ring-[#00B4D8]"
+                    className={`w-full resize-none rounded-xl border px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0]" : "border-[#D5DCE3] bg-white text-[#10243E]"}`}
                   />
                   <p className="mt-2 text-xs text-[#FFD58A] flex items-center gap-1">
                     ⚠ Changes to patient positioning require clinical approval before publishing.
@@ -436,8 +444,8 @@ export default function KardexSection({
                 </>
               ) : (
                 <>
-                  <p className="whitespace-pre-wrap text-base leading-relaxed text-[#475569] lg:text-[20px]">
-                    {positionText || <span className="text-[#5D8A97]">No positioning instructions set.</span>}
+                  <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
+                    {positionText || <span className={isDark ? "text-[#555555]" : "text-[#5D8A97]"}>No positioning instructions set.</span>}
                   </p>
                   {positionPending && (
                     <p className="mt-2 text-xs text-[#FFD58A] flex items-center gap-1">
@@ -451,19 +459,19 @@ export default function KardexSection({
 
           {/* ── POST-PROCEDURE CARE ────────────────────────────────── */}
           {isPostCare && section.recoveryNotes && (
-            <div className="my-2 rounded-xl border border-[#D5EAF1] bg-[#F8FBFD] p-4">
-              <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px] mb-2">Recovery notes</p>
-              <p className="whitespace-pre-wrap text-base leading-relaxed text-[#475569] lg:text-[20px]">{section.recoveryNotes}</p>
+            <div className={`my-2 rounded-xl border p-4 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
+              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Recovery notes</p>
+              <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>{section.recoveryNotes}</p>
             </div>
           )}
 
           {/* ── DISCHARGE CRITERIA ─────────────────────────────────── */}
           {isDischarge && section.dischargeCriteria && section.dischargeCriteria.length > 0 && (
             <div className="py-2">
-              <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px] mb-2">Discharge criteria</p>
+              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Discharge criteria</p>
               <ul className="space-y-1">
                 {section.dischargeCriteria.map((criterion, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-[#475569] lg:text-[20px] lg:text-base">
+                  <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] lg:text-base ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
                     <span className="text-emerald-500 mt-0.5">✓</span>
                     {criterion}
                   </li>
@@ -475,10 +483,10 @@ export default function KardexSection({
           {/* ── COMPLICATIONS & ESCALATION ─────────────────────────── */}
           {isComplications && section.commonComplications && section.commonComplications.length > 0 && (
             <div className="py-2">
-              <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px] mb-2">Common complications</p>
+              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Common complications</p>
               <ul className="space-y-1">
                 {section.commonComplications.map((c, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-[#475569] lg:text-[20px] lg:text-base">
+                  <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] lg:text-base ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
                     <span className="text-amber-500 mt-0.5">⚠</span>
                     {c}
                   </li>
@@ -491,17 +499,17 @@ export default function KardexSection({
           {isHandover && (
             <div className="space-y-4 py-2">
               {section.recoveryNotes && (
-                <div className="rounded-xl border border-[#D5EAF1] bg-[#F8FBFD] p-4">
-                  <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px] mb-2">Post-op care</p>
-                  <p className="whitespace-pre-wrap text-base leading-relaxed text-[#475569] lg:text-[20px]">{section.recoveryNotes}</p>
+                <div className={`rounded-xl border p-4 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
+                  <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Post-op care</p>
+                  <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>{section.recoveryNotes}</p>
                 </div>
               )}
               {section.dischargeCriteria && section.dischargeCriteria.length > 0 && (
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px] mb-2">Discharge criteria</p>
+                  <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Discharge criteria</p>
                   <ul className="space-y-1">
                     {section.dischargeCriteria.map((criterion, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-[#475569] lg:text-[20px]">
+                      <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
                         <span className="text-emerald-500 mt-0.5">✓</span>
                         {criterion}
                       </li>
@@ -511,10 +519,10 @@ export default function KardexSection({
               )}
               {section.commonComplications && section.commonComplications.length > 0 && (
                 <div>
-                  <p className="text-xs uppercase tracking-wide text-[#61758B] lg:text-[18px] mb-2">Complications & escalation</p>
+                  <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Complications & escalation</p>
                   <ul className="space-y-1">
                     {section.commonComplications.map((c, i) => (
-                      <li key={i} className="flex items-start gap-2 text-sm text-[#475569] lg:text-[20px]">
+                      <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
                         <span className="text-amber-500 mt-0.5">⚠</span>
                         {c}
                       </li>
@@ -543,7 +551,7 @@ export default function KardexSection({
             <div className="mb-3 flex justify-end">
               <button
                 onClick={() => setShowCataloguePicker(true)}
-                className="inline-flex items-center gap-1.5 rounded-lg border border-[#D5EAF1] bg-[#F8FBFD] px-3 py-1.5 text-xs font-semibold text-[#10243E] transition-colors hover:bg-[#EEF9FC]"
+                className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold transition-colors ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a] text-[#e0e0e0] hover:bg-[#222222]" : "border-[#D5EAF1] bg-[#F8FBFD] text-[#10243E] hover:bg-[#EEF9FC]"}`}
               >
                 <Plus size={13} /> Add from catalogue
               </button>
@@ -553,13 +561,13 @@ export default function KardexSection({
           {localItems.length > 0 && (
             <>
               {/* Desktop column headers */}
-              <div className="hidden lg:flex items-center gap-5 border-b border-[#D5EAF1] px-4 py-2 bg-[#F8FBFD]">
+              <div className={`hidden lg:flex items-center gap-5 border-b px-4 py-2 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
                 <div className="flex-1 min-w-0" />
                 <div className="w-60 shrink-0">
-                  <p className="text-[20px] font-semibold text-[#A7D8E2]">Location</p>
+                  <p className={`text-[20px] font-semibold ${isDark ? "text-[#888888]" : "text-[#A7D8E2]"}`}>Location</p>
                 </div>
                 <div className="w-28 shrink-0 text-center">
-                  <p className="text-[20px] font-semibold text-[#A7D8E2]">Quantity</p>
+                  <p className={`text-[20px] font-semibold ${isDark ? "text-[#888888]" : "text-[#A7D8E2]"}`}>Quantity</p>
                 </div>
               </div>
 

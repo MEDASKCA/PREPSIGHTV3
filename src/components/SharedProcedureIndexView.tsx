@@ -1,9 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { useMemo, useState, useSyncExternalStore, type CSSProperties } from "react"
+import { useMemo, useState, useSyncExternalStore } from "react"
 import { useRouter } from "next/navigation"
-import { ArrowDown, ArrowUp, Bookmark, Download, Eye, GitBranch, Heart, MessageCircle, Plus, Send, X } from "lucide-react"
+import { ArrowDown, ArrowUp, Bookmark, Download, Eye, Heart, MessageCircle, Plus, Send, X } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
 import DesktopCommsPanel from "@/components/DesktopCommsPanel"
@@ -284,19 +284,19 @@ function VersionDrawer({
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 max-h-[72vh] w-full rounded-t-[20px] border border-[#0F4C5C] bg-[linear-gradient(180deg,rgba(232,248,252,0.94)_0%,rgba(244,251,255,0.9)_100%)] shadow-[0_-18px_40px_rgba(16,36,62,0.16)] backdrop-blur-xl transition-transform duration-200 ${open ? "translate-y-0 lg:translate-x-0" : "translate-y-full lg:translate-x-full"} lg:inset-y-auto lg:bottom-0 lg:right-0 lg:left-auto lg:top-[72px] lg:max-h-[calc(100vh-72px)] lg:w-full lg:max-w-[28rem] lg:rounded-t-none lg:rounded-l-[18px] lg:border-y lg:border-r-0 lg:border-l lg:shadow-[-18px_0_40px_rgba(16,36,62,0.16)] lg:translate-y-0`}
+      className={`fixed inset-x-0 bottom-0 z-40 max-h-[72vh] w-full rounded-t-[20px] border border-[#2d2d2d] bg-[#202020] shadow-[0_-18px_40px_rgba(0,0,0,0.5)] transition-transform duration-200 ${open ? "translate-y-0 lg:translate-x-0" : "translate-y-full lg:translate-x-full"} lg:inset-y-auto lg:bottom-0 lg:right-0 lg:left-auto lg:top-[72px] lg:max-h-[calc(100vh-72px)] lg:w-full lg:max-w-[28rem] lg:rounded-t-none lg:rounded-l-[18px] lg:border-y lg:border-r-0 lg:border-l lg:shadow-[-18px_0_40px_rgba(0,0,0,0.5)] lg:translate-y-0`}
     >
       <div className="flex h-full flex-col">
-        <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-[#B9DCE4] lg:hidden" />
-        <div className="flex items-start justify-between border-b border-[#7CB9C7] px-3.5 py-2.5 lg:px-5 lg:py-4">
+        <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-[#444444] lg:hidden" />
+        <div className="flex items-start justify-between border-b border-[#2d2d2d] px-3.5 py-2.5 lg:px-5 lg:py-4">
           <div>
-            <div className="text-[13px] text-[#61758B]">Published version</div>
-            <div className="mt-0.5 text-[16px] tracking-[-0.03em] text-[#10243E] lg:mt-1 lg:text-[20px]">
+            <div className="text-[13px] text-[#888888]">Published version</div>
+            <div className="mt-0.5 text-[16px] tracking-[-0.03em] text-white lg:mt-1 lg:text-[20px]">
               {version?.name ?? "Details"}
-              {version ? <span className="ml-2 text-[14px] tracking-normal text-[#61758B]">| {getVersionLinkStatus(version.name)}</span> : null}
+              {version ? <span className="ml-2 text-[14px] tracking-normal text-[#888888]">| {getVersionLinkStatus(version.name)}</span> : null}
             </div>
           </div>
-          <button type="button" onClick={onClose} className="rounded-[8px] p-2 text-[#61758B] hover:bg-[#F4FBFF]">
+          <button type="button" onClick={onClose} className="rounded-[8px] p-2 text-[#888888] hover:bg-[#2d2d2d]">
             <X size={18} />
           </button>
         </div>
@@ -305,15 +305,15 @@ function VersionDrawer({
           {branch && version ? (
             <div className="space-y-3 lg:space-y-5">
               <div>
-                <div className="text-[13px] text-[#61758B]">Branch</div>
-                <div className="mt-1 text-[13px] leading-5 text-[#10243E] lg:text-[15px] lg:leading-7">
+                <div className="text-[13px] text-[#888888]">Branch</div>
+                <div className="mt-1 text-[13px] leading-5 text-[#e0e0e0] lg:text-[15px] lg:leading-7">
                   {branch.systemName}
                   {branch.approach ? ` | ${branch.approach}` : ""}
                   {branch.supplierName ? ` | ${branch.supplierName}` : ""}
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-[#B9DCE4] pb-2.5 text-[13px] text-[#0F4C5C]">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-[#2d2d2d] pb-2.5 text-[13px] text-[#888888]">
                 <span className="inline-flex items-center gap-1">
                   <Heart size={15} />
                   {version.likes}
@@ -332,22 +332,22 @@ function VersionDrawer({
                 </span>
               </div>
 
-              <div className="space-y-1.5 border-b border-[#B9DCE4] pb-3 lg:grid lg:gap-3 lg:space-y-0 lg:sm:grid-cols-3">
+              <div className="space-y-1.5 border-b border-[#2d2d2d] pb-3 lg:grid lg:gap-3 lg:space-y-0 lg:sm:grid-cols-3">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] leading-5 lg:block lg:text-[15px]">
-                  <span className="text-[#61758B]">Contributor</span>
-                  <span className="text-[#10243E] lg:mt-1 lg:block">{version.contributor}</span>
-                  <span className="text-[#61758B] lg:hidden">Organisation</span>
-                  <span className="text-[#10243E] lg:hidden">{version.organization}</span>
-                  <span className="text-[#61758B] lg:hidden">Published</span>
-                  <span className="text-[#10243E] lg:hidden">{formatDate(version.publishedAt)}</span>
+                  <span className="text-[#888888]">Contributor</span>
+                  <span className="text-[#e0e0e0] lg:mt-1 lg:block">{version.contributor}</span>
+                  <span className="text-[#888888] lg:hidden">Organisation</span>
+                  <span className="text-[#e0e0e0] lg:hidden">{version.organization}</span>
+                  <span className="text-[#888888] lg:hidden">Published</span>
+                  <span className="text-[#e0e0e0] lg:hidden">{formatDate(version.publishedAt)}</span>
                 </div>
                 <div className="hidden lg:block">
-                  <div className="text-[13px] text-[#61758B]">Organisation</div>
-                  <div className="mt-1 text-[15px] text-[#10243E]">{version.organization}</div>
+                  <div className="text-[13px] text-[#888888]">Organisation</div>
+                  <div className="mt-1 text-[15px] text-[#e0e0e0]">{version.organization}</div>
                 </div>
                 <div className="hidden lg:block">
-                  <div className="text-[13px] text-[#61758B]">Published</div>
-                  <div className="mt-1 text-[15px] text-[#10243E]">{formatDate(version.publishedAt)}</div>
+                  <div className="text-[13px] text-[#888888]">Published</div>
+                  <div className="mt-1 text-[15px] text-[#e0e0e0]">{formatDate(version.publishedAt)}</div>
                 </div>
               </div>
 
@@ -366,20 +366,20 @@ function VersionDrawer({
                 </button>
               </div>
 
-              <div className="border-t border-[#B9DCE4] pt-3">
-                <div className="flex items-center gap-2 text-[14px] text-[#10243E] lg:text-[15px]">
+              <div className="border-t border-[#2d2d2d] pt-3">
+                <div className="flex items-center gap-2 text-[14px] text-[#e0e0e0] lg:text-[15px]">
                   <MessageCircle size={15} />
                   Comments
                 </div>
 
                 <div className="mt-2.5 space-y-2.5">
                   {comments.map((comment) => (
-                    <div key={comment.id} className="rounded-[12px] border border-[#B9DCE4] bg-[rgba(244,251,255,0.88)] px-3 py-2 backdrop-blur-sm">
+                    <div key={comment.id} className="rounded-[12px] border border-[#2d2d2d] bg-[#2a2a2a] px-3 py-2">
                       <div className="flex items-center justify-between gap-3">
-                        <div className="text-[13px] text-[#10243E] lg:text-[14px]">{comment.author}</div>
-                        <div className="text-[12px] text-[#61758B]">{comment.createdAt}</div>
+                        <div className="text-[13px] text-[#e0e0e0] lg:text-[14px]">{comment.author}</div>
+                        <div className="text-[12px] text-[#888888]">{comment.createdAt}</div>
                       </div>
-                      <div className="mt-1.5 text-[13px] leading-5 text-[#406175] lg:text-[14px] lg:leading-6">{comment.body}</div>
+                      <div className="mt-1.5 text-[13px] leading-5 text-[#aaaaaa] lg:text-[14px] lg:leading-6">{comment.body}</div>
                     </div>
                   ))}
                 </div>
@@ -389,7 +389,7 @@ function VersionDrawer({
                     value={commentDraft}
                     onChange={(event) => setCommentDraft(event.target.value)}
                     placeholder="Add a comment"
-                    className="min-h-[64px] flex-1 resize-none rounded-[10px] border border-[#7CB9C7] bg-[rgba(248,251,253,0.92)] px-3 py-2 text-[13px] text-[#10243E] outline-none placeholder:text-[#7B8EA3] backdrop-blur-sm lg:min-h-[76px] lg:py-2.5 lg:text-[14px]"
+                    className="min-h-[64px] flex-1 resize-none rounded-[10px] border border-[#2d2d2d] bg-[#2a2a2a] px-3 py-2 text-[13px] text-[#e0e0e0] outline-none placeholder:text-[#555555] lg:min-h-[76px] lg:py-2.5 lg:text-[14px]"
                   />
                   <button
                     type="button"
@@ -516,12 +516,6 @@ export default function SharedProcedureIndexView({
     }
     setMobileMenuOpen((value) => !value)
   }
-
-  const desktopGridStyle: CSSProperties | undefined = commsRailOpen
-    ? desktopNavOpen
-      ? { gridTemplateColumns: `210px minmax(0,1fr) ${commsRailWidth}px` }
-      : { gridTemplateColumns: `80px minmax(0,1fr) ${commsRailWidth}px` }
-    : undefined
 
   function handleSelectBranch(branch: BranchEntry) {
     setSelectedBranchId((current) => (current === branch.id ? "" : branch.id))
@@ -653,39 +647,48 @@ export default function SharedProcedureIndexView({
   }
 
   return (
-    <div className="app-shell-bg min-h-screen bg-[#F6FAFC] text-[#10243E]">
-      <AppTopBar
-        menuOpen={mobileMenuOpen}
-        onToggleMenu={handleToggleNavigation}
-        menuContent={<AppMenuContent />}
-        searchPlaceholder="Search anywhere..."
-        mobileMenuOnly
-      />
+    <div className="min-h-screen bg-black text-[#e0e0e0]">
+      <div className="lg:hidden">
+        <AppTopBar
+          menuOpen={mobileMenuOpen}
+          onToggleMenu={handleToggleNavigation}
+          menuContent={<AppMenuContent />}
+          searchPlaceholder="Search anywhere..."
+          sectionLabel="Library"
+          mobileMenuOnly
+          hideMobileMenu
+        />
+      </div>
 
-      <main className="w-full px-4 pb-8 pt-4 lg:pl-0 lg:pr-4 lg:pt-4 lg:pb-4">
+      <main className="w-full px-4 pb-28 pt-4 lg:p-0 lg:pb-0">
         <div
-          style={desktopGridStyle}
-          className={`lg:grid lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}
+          className={`lg:grid lg:min-h-screen lg:gap-0 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}
         >
           <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
-          <div className="min-w-0 lg:px-8 lg:pt-4">
+          <div className="flex min-w-0 flex-col">
+            <div className="hidden lg:block">
+              <AppTopBar menuOpen={false} onToggleMenu={handleToggleNavigation} searchPlaceholder="Search anywhere..." sectionLabel="Library Collections" />
+            </div>
+            <div className="flex min-h-0 flex-1">
+              <div className="min-w-0 flex-1">
+                <div className="lg:px-8 lg:pt-4">
             <section className="px-1 pb-2">
-              <p className="text-[13px] text-[#5B7A8A]">Community</p>
-              <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-[#10243E] lg:text-[30px]">
+              <p className="text-[13px] text-[#888888]">Community</p>
+              <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-white lg:text-[30px]">
                 {procedure.name}
               </h1>
-              <p className="mt-2 text-[15px] leading-7 text-[#5B7A8A] lg:text-[16px]">{hierarchyLabel}</p>
+              <p className="mt-2 text-[15px] leading-7 text-[#888888] lg:text-[16px]">{hierarchyLabel}</p>
             </section>
 
-            <section className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 pb-3 text-[14px] lg:border-b lg:border-[#D5EAF1] lg:text-[15px]">
+            <section className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 pb-3 text-[14px] lg:border-b lg:border-[#2d2d2d] lg:text-[15px]">
               <button
                 type="button"
                 onClick={() => {
                   setComposerOpen((value) => !value)
                   setMessage("")
                 }}
-                className="inline-flex items-center gap-1.5 text-[#0F4C5C] hover:text-[#10243E]"
+                className="inline-flex items-center gap-1.5 text-[#0096C7] hover:text-white"
               >
                 <Plus size={14} />
                 Create
@@ -697,7 +700,7 @@ export default function SharedProcedureIndexView({
                     setComposerOpen((value) => !value)
                     setMessage("")
                   }}
-                  className="inline-flex items-center gap-1.5 text-[#0F4C5C] hover:text-[#10243E]"
+                  className="inline-flex items-center gap-1.5 text-[#0096C7] hover:text-white"
                 >
                   <Download size={14} />
                   Adapt
@@ -719,7 +722,7 @@ export default function SharedProcedureIndexView({
                       href: selectedVersion.href,
                     })
                   }}
-                  className="inline-flex items-center gap-1.5 text-[#0F4C5C] hover:text-[#10243E]"
+                  className="inline-flex items-center gap-1.5 text-[#0096C7] hover:text-white"
                 >
                   <Bookmark size={14} />
                   {saved ? "Bookmarked" : "Bookmark"}
@@ -727,9 +730,22 @@ export default function SharedProcedureIndexView({
               ) : null}
             </section>
 
-            <section className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[14px] text-[#61758B] lg:text-[15px]">
-              <span className="inline-flex items-center gap-1.5">
-                <GitBranch size={13} />
+            <section className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[14px] text-[#888888] lg:text-[15px]">
+              <span className="inline-flex items-center gap-2">
+                <span
+                  aria-hidden="true"
+                  className="h-[13px] w-[13px] shrink-0 bg-current"
+                  style={{
+                    WebkitMaskImage: "url('/9168210.png')",
+                    maskImage: "url('/9168210.png')",
+                    WebkitMaskRepeat: "no-repeat",
+                    maskRepeat: "no-repeat",
+                    WebkitMaskPosition: "center",
+                    maskPosition: "center",
+                    WebkitMaskSize: "contain",
+                    maskSize: "contain",
+                  }}
+                />
                 {branches.length} total branches
               </span>
               <span className="inline-flex items-center gap-1.5">
@@ -738,21 +754,21 @@ export default function SharedProcedureIndexView({
               </span>
             </section>
 
-            <section className="relative left-1/2 mt-6 w-screen -translate-x-1/2 px-0 lg:left-auto lg:w-auto lg:translate-x-0 lg:px-0">
-              <div className="flex items-center justify-between px-1 pb-3 lg:border-b lg:border-[#D9EBF0]">
+            <section className="relative left-1/2 mt-6 w-screen -translate-x-1/2 px-0 lg:left-auto lg:w-auto lg:translate-x-0 lg:px-0 lg:-mx-8">
+              <div className="flex items-center justify-between px-1 pb-3 lg:border-b lg:border-[#2d2d2d] lg:px-8">
                 <div className="flex flex-wrap items-center gap-2 text-[13px] lg:text-[14px]">
                   <div className="relative">
                     <button
                       type="button"
                       onClick={() => setFilterOpen((value) => !value)}
-                      className="inline-flex items-center gap-2 rounded-[8px] border border-[#C9E3EE] bg-[#EEF6FA] px-3 py-1.5 text-[#406175] hover:bg-[#DFF2FA]"
+                      className="inline-flex items-center gap-2 rounded-[8px] border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 text-[#888888] hover:bg-[#252525]"
                     >
                       <span>View by: {getViewLabel(branchView)}</span>
                       <span className={`text-[11px] leading-none transition-transform ${filterOpen ? "rotate-180" : ""}`}>▼</span>
                     </button>
 
                     {filterOpen ? (
-                      <div className="absolute left-0 top-[calc(100%+8px)] z-20 min-w-[13rem] rounded-[14px] border border-[#D5EAF1] bg-white p-2 shadow-[0_16px_30px_rgba(16,36,62,0.12)]">
+                      <div className="absolute left-0 top-[calc(100%+8px)] z-20 min-w-[13rem] rounded-[14px] border border-[#2d2d2d] bg-[#1a1a1a] p-2 shadow-[0_16px_30px_rgba(0,0,0,0.4)]">
                         {([
                           ["approach", "By Approach"],
                           ["supplier", "By Supplier"],
@@ -770,8 +786,8 @@ export default function SharedProcedureIndexView({
                             }}
                             className={`block w-full rounded-[10px] px-3 py-2 text-left text-[14px] ${
                               branchView === value
-                                ? "bg-[#F0FAFC] text-[#10243E]"
-                                : "text-[#406175] hover:bg-[#EAF7FD]"
+                                ? "bg-[#252525] text-[#e0e0e0]"
+                                : "text-[#888888] hover:bg-[#252525]"
                             }`}
                           >
                             {label}
@@ -786,14 +802,14 @@ export default function SharedProcedureIndexView({
                       <button
                         type="button"
                         onClick={() => setValueFilterOpen((value) => !value)}
-                        className="inline-flex items-center gap-2 rounded-[8px] border border-[#C9E3EE] bg-[#EEF6FA] px-3 py-1.5 text-[#406175] hover:bg-[#DFF2FA]"
+                        className="inline-flex items-center gap-2 rounded-[8px] border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 text-[#888888] hover:bg-[#252525]"
                       >
                         <span>{getViewLabel(branchView)}: {selectedViewValue}</span>
                         <span className={`text-[11px] leading-none transition-transform ${valueFilterOpen ? "rotate-180" : ""}`}>▼</span>
                       </button>
 
                       {valueFilterOpen ? (
-                        <div className="absolute left-0 top-[calc(100%+8px)] z-20 min-w-[15rem] rounded-[14px] border border-[#D5EAF1] bg-white p-2 shadow-[0_16px_30px_rgba(16,36,62,0.12)]">
+                        <div className="absolute left-0 top-[calc(100%+8px)] z-20 min-w-[15rem] rounded-[14px] border border-[#2d2d2d] bg-[#1a1a1a] p-2 shadow-[0_16px_30px_rgba(0,0,0,0.4)]">
                           {availableViewValues.map((value) => (
                             <button
                               key={value}
@@ -804,8 +820,8 @@ export default function SharedProcedureIndexView({
                               }}
                               className={`block w-full rounded-[10px] px-3 py-2 text-left text-[14px] ${
                                 selectedViewValue === value
-                                  ? "bg-[#F0FAFC] text-[#10243E]"
-                                  : "text-[#406175] hover:bg-[#EAF7FD]"
+                                  ? "bg-[#252525] text-[#e0e0e0]"
+                                  : "text-[#888888] hover:bg-[#252525]"
                               }`}
                             >
                               {value}
@@ -816,7 +832,7 @@ export default function SharedProcedureIndexView({
                     </div>
                   ) : null}
 
-                  <span className="ml-1 text-[13px] text-[#61758B] lg:text-[14px]">
+                  <span className="ml-1 text-[13px] text-[#888888] lg:text-[14px]">
                     {orderedBranches.length} total {orderedBranches.length === 1 ? "branch" : "branches"}
                   </span>
                 </div>
@@ -834,10 +850,10 @@ export default function SharedProcedureIndexView({
               </div>
 
               {composerOpen ? (
-                <div className="px-1 py-4 lg:border-b lg:border-[#E3EDF1]">
-                  <div className="mb-3 text-[14px] text-[#61758B]">
+                <div className="px-1 py-4 lg:border-b lg:border-[#2d2d2d] lg:px-8">
+                  <div className="mb-3 text-[14px] text-[#888888]">
                     {selectedBranch
-                      ? <>Adapting from <span className="text-[#10243E]">{selectedBranch.systemName}</span>.</>
+                      ? <>Adapting from <span className="text-[#e0e0e0]">{selectedBranch.systemName}</span>.</>
                       : <>Select a branch below first, then adapt from that branch.</>}
                   </div>
                   <div className="space-y-3">
@@ -845,13 +861,13 @@ export default function SharedProcedureIndexView({
                       value={variantName}
                       onChange={(event) => setVariantName(event.target.value)}
                       placeholder="Version name"
-                      className="w-full rounded-[6px] border border-[#D5EAF1] bg-[#F8FBFD] px-3 py-2.5 text-[15px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
+                      className="w-full rounded-[6px] border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-2.5 text-[15px] text-[#e0e0e0] outline-none placeholder:text-[#555555]"
                     />
                     <input
                       value={supplierName}
                       onChange={(event) => setSupplierName(event.target.value)}
                       placeholder="Implant system or supplier"
-                      className="w-full rounded-[6px] border border-[#D5EAF1] bg-[#F8FBFD] px-3 py-2.5 text-[15px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
+                      className="w-full rounded-[6px] border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-2.5 text-[15px] text-[#e0e0e0] outline-none placeholder:text-[#555555]"
                     />
                     {message ? <p className="text-[14px] text-[#B65454]">{message}</p> : null}
                     <div className="flex justify-end">
@@ -868,8 +884,8 @@ export default function SharedProcedureIndexView({
                 </div>
               ) : null}
 
-              <div className="lg:bg-[#F4FBFF]">
-                <div className="hidden lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(88px,0.65fr)_minmax(132px,0.9fr)_20px] lg:items-center lg:gap-3 lg:px-0 lg:py-2">
+              <div className="lg:bg-black">
+                <div className="hidden lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(88px,0.65fr)_minmax(132px,0.9fr)_20px] lg:items-center lg:gap-3 lg:px-8 lg:py-2">
                   {([
                     ["system", "System", "text-left"],
                     ["approach", "Approach", "text-left"],
@@ -883,13 +899,13 @@ export default function SharedProcedureIndexView({
                         key={key}
                         type="button"
                         onClick={() => handleSortBranches(key)}
-                        className={`inline-flex min-w-0 items-center gap-1 text-[15px] text-[#0F4C5C] hover:text-[#0096C7] ${alignClass} ${key === "versions" ? "justify-end" : ""}`}
+                        className={`inline-flex min-w-0 items-center gap-1 text-[15px] text-[#888888] hover:text-[#0096C7] ${alignClass} ${key === "versions" ? "justify-end" : ""}`}
                       >
                         <span className="truncate">{label}</span>
                         {active ? (
                           branchSortDirection === "asc" ? <ArrowUp size={14} /> : <ArrowDown size={14} />
                         ) : (
-                          <span className="text-[13px] text-[#406175]">↕</span>
+                          <span className="text-[13px] text-[#555555]">↕</span>
                         )}
                       </button>
                     )
@@ -900,58 +916,58 @@ export default function SharedProcedureIndexView({
                   const expanded = selectedBranchId === branch.id
 
                   return (
-                    <div key={branch.id} className="px-0 py-1 lg:px-0 lg:py-0">
+                    <div key={branch.id} className="mb-0.5 lg:mb-0">
                       <button
                         type="button"
                         onClick={() => handleSelectBranch(branch)}
-                        className={`group flex w-full items-center justify-between gap-3 rounded-none border-t border-[#0F4C5C] bg-[#D9EFF7] px-4 py-2.5 text-left transition-colors hover:bg-[#C7EAF7] last:border-b last:border-b-[#0F4C5C] lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(88px,0.65fr)_minmax(132px,0.9fr)_20px] lg:items-center lg:gap-3 lg:border-b lg:border-[#0F4C5C] lg:px-0 lg:py-2.5 lg:hover:bg-[#CFEAF5] ${branchIndex === 0 ? "lg:border-t" : "lg:border-t-0"}`}
+                        className={`group flex w-full items-center justify-between gap-3 bg-[#003d54] px-4 py-3 text-left transition-colors hover:bg-[#004a66] lg:grid lg:grid-cols-[minmax(0,1.6fr)_minmax(0,1.35fr)_minmax(0,1.2fr)_minmax(88px,0.65fr)_minmax(132px,0.9fr)_20px] lg:items-center lg:gap-3 lg:border-b lg:border-[#0096C7] lg:px-8 lg:py-2.5 lg:hover:bg-[#004a66] ${branchIndex === 0 ? "lg:border-t" : "lg:border-t-0"}`}
                       >
-                        <span className="min-w-0 flex-1 text-[15px] leading-6 text-[#10243E] transition-colors group-hover:lg:text-[#0096C7] lg:text-[15px]">
+                        <span className="min-w-0 flex-1 text-[15px] leading-6 text-[#e0e0e0] transition-colors group-hover:lg:text-white lg:text-[15px]">
                           <span className="line-clamp-2 lg:hidden">{buildBranchSummary(branch)}</span>
                           <span className="hidden min-w-0 lg:block lg:truncate">{branch.systemName}</span>
                         </span>
-                        <span className="hidden min-w-0 text-[15px] text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7] lg:block lg:truncate">
+                        <span className="hidden min-w-0 text-[15px] text-[#aaaaaa] transition-colors group-hover:lg:text-white lg:block lg:truncate">
                           {branch.approach?.trim() || "Not specified"}
                         </span>
-                        <span className="hidden min-w-0 text-[15px] text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7] lg:block lg:truncate">
+                        <span className="hidden min-w-0 text-[15px] text-[#aaaaaa] transition-colors group-hover:lg:text-white lg:block lg:truncate">
                           {branch.supplierName?.trim() || "Unknown supplier"}
                         </span>
-                        <span className="hidden text-[15px] text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7] lg:block lg:truncate">
+                        <span className="hidden text-[15px] text-[#aaaaaa] transition-colors group-hover:lg:text-white lg:block lg:truncate">
                           {branch.defaultBranch ? "Default" : ""}
                         </span>
-                        <span className="hidden whitespace-nowrap text-right text-[15px] text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7] lg:block">
+                        <span className="hidden whitespace-nowrap text-right text-[15px] text-[#aaaaaa] transition-colors group-hover:lg:text-white lg:block">
                           {getPublishedVersionLabel(branch.versions.length)}
                         </span>
                         <span className="hidden lg:flex lg:justify-end">
                           <TriangleIcon
                             direction={expanded ? "up" : "down"}
                             size={11}
-                            className="shrink-0 text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7]"
+                            className="shrink-0 text-[#0096C7] transition-colors"
                           />
                         </span>
                         <span className="lg:hidden">
                           <TriangleIcon
                             direction={expanded ? "up" : "down"}
                             size={11}
-                            className="shrink-0 text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7]"
+                            className="shrink-0 text-[#0096C7] transition-colors"
                           />
                         </span>
                       </button>
 
                       {expanded ? (
-                        <div className="pb-1.5 pl-0.5 lg:bg-[#F4FBFF] lg:px-0 lg:pb-2 lg:pl-0">
+                        <div className="pb-1.5 pl-0.5 lg:bg-black lg:px-0 lg:pb-2 lg:pl-0">
                           <div className="space-y-1 pl-1 lg:space-y-0 lg:pl-0">
                             {branch.versions.length > 0 ? branch.versions.map((version) => (
                               <button
                                 key={version.id}
                                 type="button"
                                 onClick={() => handleSelectVersion(branch, version)}
-                                className="group flex w-full items-center justify-between gap-3 rounded-none border-t border-[#A9D3DC] bg-[#F4FBFF] px-4 py-2 text-left hover:bg-[#EAF7FD] last:border-b last:border-b-[#A9D3DC] lg:border-x-0 lg:border-t-0 lg:border-b lg:border-[#B9DCE4] lg:bg-[#F4FBFF] lg:px-0 lg:py-2 lg:hover:bg-[#EDF8FC] last:lg:border-b-0"
+                                className="group flex w-full items-center justify-between gap-3 rounded-none border-t border-[#2d2d2d] bg-[#111111] px-4 py-2 text-left hover:bg-[#1a1a1a] last:border-b last:border-b-[#2d2d2d] lg:border-x-0 lg:border-t-0 lg:border-b lg:border-[#2d2d2d] lg:bg-[#111111] lg:px-8 lg:py-2 lg:hover:bg-[#1a1a1a] last:lg:border-b-0"
                               >
-                                <span className="min-w-0 flex-1 text-[14px] text-[#10243E] transition-colors group-hover:lg:text-[#0096C7] lg:text-[15px]">
+                                <span className="min-w-0 flex-1 text-[14px] text-[#e0e0e0] transition-colors group-hover:lg:text-[#0096C7] lg:text-[15px]">
                                   <span className="block truncate">{buildVersionSummary(version)}</span>
                                 </span>
-                                <span className="flex shrink-0 items-center gap-2.5 text-[#0F4C5C] transition-colors group-hover:lg:text-[#0096C7]">
+                                <span className="flex shrink-0 items-center gap-2.5 text-[#888888] transition-colors group-hover:lg:text-[#0096C7]">
                                   <span
                                     aria-label={`${version.likes} likes`}
                                     className="inline-flex items-center gap-1 text-[13px]"
@@ -969,15 +985,15 @@ export default function SharedProcedureIndexView({
                                 </span>
                               </button>
                             )) : (
-                              <div className="px-2 py-3">
-                                <div className="text-[14px] text-[#61758B]">
+                              <div className="px-4 py-3 lg:px-8">
+                                <div className="text-[14px] text-[#888888]">
                                   No published versions yet for this branch.
                                 </div>
                                 <button
                                   type="button"
                                   onClick={() => handleAddTeamVersion(branch)}
                                   disabled={isCreating}
-                                  className="mt-2 inline-flex items-center rounded-[10px] bg-[#0077B6] px-3.5 py-2 text-[13px] text-white transition-colors hover:bg-[#00689f] disabled:cursor-not-allowed disabled:bg-[#9CC9DB]"
+                                  className="mt-2 inline-flex items-center rounded-[10px] bg-[#0077B6] px-3.5 py-2 text-[13px] text-white transition-colors hover:bg-[#00689f] disabled:cursor-not-allowed disabled:bg-[#1a4a6a]"
                                 >
                                   Add your team version
                                 </button>
@@ -989,15 +1005,21 @@ export default function SharedProcedureIndexView({
                     </div>
                   )
                 }) : (
-                  <div className="px-1 py-6 text-[14px] text-[#61758B] lg:text-[15px]">
+                  <div className="px-4 py-6 text-[14px] text-[#888888] lg:px-8 lg:text-[15px]">
                     No branches match the current filters.
                   </div>
                 )}
               </div>
             </section>
+                </div>
+              </div>
+              {commsRailOpen ? (
+                <div className="relative hidden flex-shrink-0 border-l border-black lg:block" style={{ width: commsRailWidth }}>
+                  <DesktopCommsPanel />
+                </div>
+              ) : null}
+            </div>
           </div>
-
-          {commsRailOpen ? <DesktopCommsPanel /> : null}
         </div>
       </main>
 
@@ -1005,7 +1027,7 @@ export default function SharedProcedureIndexView({
         <button
           type="button"
           onClick={() => setSelectedVersionId("")}
-          className="fixed inset-0 z-30 bg-[#10243E]/18 lg:top-[72px]"
+          className="fixed inset-0 z-30 bg-black/50 lg:top-[72px]"
           aria-label="Close version details"
         />
       ) : null}

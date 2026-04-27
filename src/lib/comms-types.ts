@@ -26,6 +26,8 @@ export interface CommsUser {
   clinicalRole?: string
   specialties?: string[]
   groupLabel?: string
+  pinnedThreadIds?: string[]
+  unlockedGroupIds?: string[]
   updatedAt: number
 }
 
@@ -63,7 +65,7 @@ export interface CommsMessage {
   uid: string
   displayName: string
   text: string
-  type: "text" | "system" | "file"
+  type: "text" | "system" | "file" | "call"
   organizationId: string
   memberUids: string[]
   createdAt: number
@@ -73,6 +75,9 @@ export interface CommsMessage {
   edited?: boolean
   editedAt?: number
   deleted?: boolean
+  callAnswered?: boolean
+  callDuration?: number
+  callMode?: "audio" | "video"
 }
 
 export interface CommsPresence {
@@ -89,6 +94,7 @@ export interface CommsCall {
   callerUid: string
   calleeUid: string
   organizationId: string
+  mode?: "audio" | "video"
   status: "ringing" | "active" | "ended" | "declined" | "missed"
   createdAt: number
   answeredAt?: number

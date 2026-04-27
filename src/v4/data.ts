@@ -5,13 +5,17 @@ import type {
   UpdateSummary,
 } from "@/v4/types"
 import type { LucideIcon } from "lucide-react"
-import { Bell, BriefcaseMedical, LibraryBig, MessageCircle } from "lucide-react"
+import { LibraryBig, MessageCircle } from "lucide-react"
+import ResourcesIcon from "@/components/icons/ResourcesIcon"
+import InsightsIcon from "@/components/icons/InsightsIcon"
 
-export const TAB_ITEMS: Array<{ key: TabKey; label: string; icon: LucideIcon }> = [
+type TabIcon = LucideIcon | React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>
+
+export const TAB_ITEMS: Array<{ key: TabKey; label: string; icon: TabIcon }> = [
   { key: "comms",    label: "Comms",     icon: MessageCircle   },
   { key: "library",  label: "Library",   icon: LibraryBig      },
-  { key: "logistics",label: "Resources", icon: BriefcaseMedical },
-  { key: "updates",  label: "Updates",   icon: Bell            },
+  { key: "logistics",label: "Resources", icon: ResourcesIcon   },
+  { key: "updates",  label: "Updates",   icon: InsightsIcon    },
 ]
 
 export const COLLECTIONS: CollectionSummary[] = [

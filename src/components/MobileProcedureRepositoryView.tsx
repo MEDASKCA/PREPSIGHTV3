@@ -2,18 +2,16 @@
 
 import Link from "next/link"
 import type { PointerEvent as ReactPointerEvent } from "react"
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type CSSProperties } from "react"
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { useRouter } from "next/navigation"
 import {
   Bookmark,
   ChevronDown,
   ChevronUp,
   Download,
-  GitBranch,
   Play,
   Plus,
   ShieldAlert,
-  Users,
 } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
@@ -668,31 +666,25 @@ export default function MobileProcedureRepositoryView({
     setMobileMenuOpen((value) => !value)
   }
 
-  const desktopShellStyle: CSSProperties | undefined = commsRailOpen
-    ? desktopNavOpen
-      ? { gridTemplateColumns: `210px minmax(0,1fr) ${commsRailWidth}px` }
-      : { gridTemplateColumns: `80px minmax(0,1fr) ${commsRailWidth}px` }
-    : undefined
-
   function renderDesktopMetaPanel(compact = false, includePublishedVersions = true) {
     return (
       <>
-        <section className={`${compact ? "pb-3" : "border-b border-[#E6F1F5] pb-5"}`}>
+        <section className={`${compact ? "pb-3" : "border-b border-[#2d2d2d] pb-5"}`}>
           <div className="px-6">
-            <h1 className={`${compact ? "text-[28px]" : "text-[36px]"} font-semibold leading-tight tracking-[-0.03em] text-[#10243E]`}>{displayTitle}</h1>
-            <p className={`${compact ? "mt-1 text-[14px] leading-6" : "mt-2 text-[16px] leading-7"} text-[#35546D]`}>{hierarchyLabel}</p>
+            <h1 className={`${compact ? "text-[28px]" : "text-[36px]"} font-semibold leading-tight tracking-[-0.03em] text-white`}>{displayTitle}</h1>
+            <p className={`${compact ? "mt-1 text-[14px] leading-6" : "mt-2 text-[16px] leading-7"} text-[#888888]`}>{hierarchyLabel}</p>
           </div>
         </section>
 
-        <section className={`${compact ? "mt-2 pb-3" : "mt-3 border-b border-[#E6F1F5] pb-4"}`}>
+        <section className={`${compact ? "mt-2 pb-3" : "mt-3 border-b border-[#2d2d2d] pb-4"}`}>
           <div className="px-6">
             <div
               className={`${
                 compact ? "grid grid-cols-[minmax(0,1fr)_420px] items-start gap-6" : "flex items-start gap-3"
-              } ${compact ? "text-[14px] leading-6" : "text-[16px] leading-7"} text-[#35546D]`}
+              } ${compact ? "text-[14px] leading-6" : "text-[16px] leading-7"} text-[#888888]`}
             >
               <div className="flex min-w-0 items-start gap-3">
-                <ShieldAlert size={20} className="mt-1 shrink-0 text-[#2A96A8]" />
+                <ShieldAlert size={20} className="mt-1 shrink-0 text-[#0096C7]" />
                 <p>
                   Community reference card · Updated {formatUpdatedDate(procedure.updatedAt)}.
                 </p>
@@ -718,20 +710,20 @@ export default function MobileProcedureRepositoryView({
             <button
               type="button"
               onClick={handleOpenCreateNotice}
-              className="inline-flex items-center gap-2 font-medium text-[#0F4C5C] hover:text-[#10243E]"
+              className="inline-flex items-center gap-2 font-medium text-[#0096C7] hover:text-white"
             >
               <Download size={18} />
               Adapt
             </button>
           ) : null}
           {showVersionActions || compact ? (
-            <button type="button" onClick={handleToggleBookmark} className="inline-flex items-center gap-2 font-medium text-[#0F4C5C] hover:text-[#10243E]">
+            <button type="button" onClick={handleToggleBookmark} className="inline-flex items-center gap-2 font-medium text-[#0096C7] hover:text-white">
               <Bookmark size={18} />
               {saved ? "Bookmarked" : "Bookmark"}
             </button>
           ) : null}
           {(showVersionActions || compact) && hasPublishedVersions ? (
-            <button type="button" className="inline-flex items-center gap-2 font-medium text-[#0F4C5C] hover:text-[#10243E]">
+            <button type="button" className="inline-flex items-center gap-2 font-medium text-[#0096C7] hover:text-white">
               <Play size={18} />
               Start procedure
             </button>
@@ -739,18 +731,18 @@ export default function MobileProcedureRepositoryView({
         </section>
 
         {showStatsRow ? (
-                <section className={`${compact ? "mt-3 gap-x-3 gap-y-2 px-6 text-[14px]" : "mt-4 gap-x-4 gap-y-3 px-6 text-[16px]"} flex flex-wrap text-[#4C647A]`}>
+                <section className={`${compact ? "mt-3 gap-x-3 gap-y-2 px-6 text-[14px]" : "mt-4 gap-x-4 gap-y-3 px-6 text-[16px]"} flex flex-wrap text-[#888888]`}>
             {bookmarkCount > 0 ? (
-              <button type="button" onClick={handleToggleBookmark} className="inline-flex items-center gap-2 transition-colors hover:text-[#10243E]">
+              <button type="button" onClick={handleToggleBookmark} className="inline-flex items-center gap-2 transition-colors hover:text-white">
                 <Bookmark size={17} />
                 {bookmarkCount} bookmark{bookmarkCount === 1 ? "" : "s"}
               </button>
             ) : null}
             {publishedCards.length > 0 ? (
-              <button type="button" onClick={handleOpenLocalVariants} className="inline-flex items-center gap-2 transition-colors hover:text-[#10243E]">
+              <button type="button" onClick={handleOpenLocalVariants} className="inline-flex items-center gap-2 transition-colors hover:text-white">
                 <span
                   aria-hidden="true"
-                  className="h-[17px] w-[17px] shrink-0 bg-[#4C647A]"
+                  className="h-[17px] w-[17px] shrink-0 bg-[#888888]"
                   style={{
                     WebkitMaskImage: "url('/9168210.png')",
                     maskImage: "url('/9168210.png')",
@@ -766,8 +758,8 @@ export default function MobileProcedureRepositoryView({
               </button>
             ) : null}
             {contributorCount > 0 ? (
-              <button type="button" onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))} className="inline-flex items-center gap-2 transition-colors hover:text-[#10243E]">
-                <span aria-hidden="true" className="inline-flex h-[17px] w-[17px] items-center justify-center text-[#4C647A]">
+              <button type="button" onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))} className="inline-flex items-center gap-2 transition-colors hover:text-white">
+                <span aria-hidden="true" className="inline-flex h-[17px] w-[17px] items-center justify-center text-[#888888]">
                   <svg viewBox="0 0 24 24" className="h-[17px] w-[17px] fill-current" focusable="false">
                     <path d="M12 12c2.76 0 5-2.46 5-5.5S14.76 1 12 1 7 3.46 7 6.5 9.24 12 12 12Zm0 2c-4.42 0-8 2.69-8 6v1h16v-1c0-3.31-3.58-6-8-6Z" />
                   </svg>
@@ -779,23 +771,23 @@ export default function MobileProcedureRepositoryView({
         ) : null}
 
         {createOpen ? (
-          <section className={`${compact ? "mt-3 pb-3" : "mt-4 border-b border-[#EAF3F6] pb-4"}`}>
+          <section className={`${compact ? "mt-3 pb-3" : "mt-4 border-b border-[#2d2d2d] pb-4"}`}>
             <div className="space-y-3">
               {authoringMode === "adapt" ? (
                 <input
                   value={cardName}
                   onChange={(event) => setCardName(event.target.value)}
                   placeholder="Hospital version name"
-                  className="w-full rounded-[6px] border border-[#D5EAF1] bg-[#F8FBFD] px-3 py-2.5 text-[14px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
+                  className="w-full rounded-[6px] border border-[#2d2d2d] bg-[#111111] px-3 py-2.5 text-[14px] text-[#e0e0e0] outline-none placeholder:text-[#7B8EA3]"
                 />
               ) : (
                 <div className="space-y-3">
-                  <p className="text-[14px] font-semibold text-[#10243E]">Sections</p>
+                  <p className="text-[14px] font-semibold text-white">Sections</p>
                   <div className="space-y-2">
                     <button
                       type="button"
                       onClick={() => setNewSectionOpen((value) => !value)}
-                      className="text-[12px] font-semibold text-[#0F4C5C]"
+                      className="text-[12px] font-semibold text-[#0096C7]"
                     >
                       + New
                     </button>
@@ -808,13 +800,13 @@ export default function MobileProcedureRepositoryView({
                             setCreateMessage("")
                           }}
                           placeholder="Section name"
-                          className="w-full rounded-[8px] border border-[#D5EAF1] bg-white px-3 py-2 text-[13px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
+                          className="w-full rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-3 py-2 text-[13px] text-[#e0e0e0] outline-none placeholder:text-[#7B8EA3]"
                         />
                         <div className="flex items-center gap-2">
                           <select
                             value={newSectionLayout}
                             onChange={(event) => setNewSectionLayout(event.target.value as NewSectionLayout | "")}
-                            className="min-w-0 flex-1 rounded-[8px] border border-[#D5EAF1] bg-white px-3 py-2 text-[13px] text-[#10243E] outline-none"
+                            className="min-w-0 flex-1 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-3 py-2 text-[13px] text-[#e0e0e0] outline-none"
                           >
                             <option value="">Select Type</option>
                             <option value="item_list">Item list</option>
@@ -835,11 +827,11 @@ export default function MobileProcedureRepositoryView({
                   </div>
                   <div className="grid grid-cols-[minmax(0,1fr)_44px_minmax(0,1fr)] gap-2">
                     <div className="min-w-0">
-                      <div className="flex items-center justify-between gap-2 px-1 py-1 text-[11px] font-semibold text-[#0F4C5C]">
+                      <div className="flex items-center justify-between gap-2 px-1 py-1 text-[11px] font-semibold text-[#0096C7]">
                         <button
                           type="button"
                           onClick={() => scrollEditList(desktopEditAvailableListRef, "up")}
-                          className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#B9DCE4] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF]"
+                          className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#2d2d2d] text-[#0096C7] transition-colors hover:bg-[#1c1c1c]"
                         >
                           <ChevronUp size={12} />
                         </button>
@@ -847,7 +839,7 @@ export default function MobileProcedureRepositoryView({
                         <button
                           type="button"
                           onClick={() => scrollEditList(desktopEditAvailableListRef, "down")}
-                          className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#B9DCE4] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF]"
+                          className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#2d2d2d] text-[#0096C7] transition-colors hover:bg-[#1c1c1c]"
                         >
                           <ChevronDown size={12} />
                         </button>
@@ -870,7 +862,7 @@ export default function MobileProcedureRepositoryView({
                               }}
                               className={`mx-1 my-0.5 block w-[calc(100%-0.5rem)] rounded-[8px] border px-2 py-1.5 text-center text-[12px] leading-4 transition-colors ${
                                 disabled
-                                  ? "cursor-not-allowed border-[#D5EAF1] bg-[#E6EDF2] text-[#0F4C5C]"
+                                  ? "cursor-not-allowed border-[#2d2d2d] bg-[#1c1c1c] text-[#0096C7]"
                                   : selected
                                     ? "border-[#0096C7] bg-[#0096C7] text-white"
                                     : "border-[#0096C7] bg-[#0096C7] text-white hover:bg-[#0085B2]"
@@ -887,7 +879,7 @@ export default function MobileProcedureRepositoryView({
                         type="button"
                         onClick={addSelectedEditSection}
                         disabled={!selectedEditAvailableSectionId}
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#B9DCE4] text-[16px] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF] disabled:cursor-not-allowed disabled:opacity-40"
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#2d2d2d] text-[16px] text-[#0096C7] transition-colors hover:bg-[#1c1c1c] disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         &rarr;
                       </button>
@@ -895,17 +887,17 @@ export default function MobileProcedureRepositoryView({
                         type="button"
                         onClick={removeSelectedEditSection}
                         disabled={!selectedEditIncludedSectionId}
-                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#B9DCE4] text-[16px] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF] disabled:cursor-not-allowed disabled:opacity-40"
+                        className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#2d2d2d] text-[16px] text-[#0096C7] transition-colors hover:bg-[#1c1c1c] disabled:cursor-not-allowed disabled:opacity-40"
                       >
                         &larr;
                       </button>
                     </div>
                     <div className="min-w-0">
-                      <div className="flex items-center justify-between gap-2 px-1 py-1 text-[11px] font-semibold text-[#0F4C5C]">
+                      <div className="flex items-center justify-between gap-2 px-1 py-1 text-[11px] font-semibold text-[#0096C7]">
                         <button
                           type="button"
                           onClick={() => scrollEditList(desktopEditExistingListRef, "up")}
-                          className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#B9DCE4] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF]"
+                          className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#2d2d2d] text-[#0096C7] transition-colors hover:bg-[#1c1c1c]"
                         >
                           <ChevronUp size={12} />
                         </button>
@@ -913,7 +905,7 @@ export default function MobileProcedureRepositoryView({
                         <button
                           type="button"
                           onClick={() => scrollEditList(desktopEditExistingListRef, "down")}
-                          className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#B9DCE4] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF]"
+                          className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#2d2d2d] text-[#0096C7] transition-colors hover:bg-[#1c1c1c]"
                         >
                           <ChevronDown size={12} />
                         </button>
@@ -934,8 +926,8 @@ export default function MobileProcedureRepositoryView({
                               }}
                               className={`mx-1 my-0.5 block w-[calc(100%-0.5rem)] rounded-[8px] border px-2 py-1.5 text-center text-[12px] leading-4 transition-colors ${
                                 selected
-                                  ? "border-[#0096C7] bg-[#EAF7FD] text-[#10243E]"
-                                  : "border-[#B9DCE4] bg-[#EAF7FD] text-[#10243E] hover:bg-[#DDF2F8]"
+                                  ? "border-[#0096C7] bg-[#001a2a] text-[#e0e0e0]"
+                                  : "border-[#2d2d2d] bg-[#001a2a] text-[#e0e0e0] hover:bg-[#001a2a]"
                               }`}
                             >
                               {section.title}
@@ -953,7 +945,7 @@ export default function MobileProcedureRepositoryView({
                   type="button"
                   disabled={isCreating}
                   onClick={authoringMode === "adapt" ? handleCreateLocalCard : () => setCreateOpen(false)}
-                  className="rounded-[6px] bg-[#2A96A8] px-3 py-2 text-[13px] text-white disabled:opacity-60"
+                  className="rounded-[6px] bg-[#0096C7] px-3 py-2 text-[13px] text-white disabled:opacity-60"
                 >
                   {authoringMode === "adapt" ? (isCreating ? "Saving..." : "Save to my hospital") : "Done"}
                 </button>
@@ -963,38 +955,38 @@ export default function MobileProcedureRepositoryView({
         ) : null}
 
         {!compact && includePublishedVersions && hasPublishedVersions ? (
-          <section className={`${compact ? "mt-3" : "mt-5"} border-t border-[#E6F1F5]`}>
-            <div className={`flex items-center justify-between border-b border-[#EEF5F8] px-6 ${compact ? "py-2 text-[14px]" : "py-3 text-[16px]"} text-[#10243E]`}>
+          <section className={`${compact ? "mt-3" : "mt-5"} border-t border-[#2d2d2d]`}>
+            <div className={`flex items-center justify-between border-b border-[#2d2d2d] px-6 ${compact ? "py-2 text-[14px]" : "py-3 text-[16px]"} text-white`}>
               <span className="font-semibold">Published versions</span>
-              <span className="font-medium text-[#35546D]">{versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}</span>
+              <span className="font-medium text-[#888888]">{versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}</span>
             </div>
             <div>
               {versionEntries.map((version) => (
-                <div key={version.id} className={`border-b border-[#EEF5F8] px-6 ${compact ? "py-2 text-[14px]" : "py-3 text-[16px]"}`}>
+                <div key={version.id} className={`border-b border-[#2d2d2d] px-6 ${compact ? "py-2 text-[14px]" : "py-3 text-[16px]"}`}>
                   <button
                     type="button"
                     onClick={() => setOpenVersionId((current) => (current === version.id ? "" : version.id))}
                     className="flex w-full items-center justify-between gap-3 text-left"
                   >
                     <span className="min-w-0">
-                      <span className="block truncate font-medium text-[#10243E]">{version.name}</span>
-                      <span className="block truncate text-[14px] text-[#4C647A]">
+                      <span className="block truncate font-medium text-white">{version.name}</span>
+                      <span className="block truncate text-[14px] text-[#888888]">
                         Updated {formatUpdatedDate(version.updatedAt)}
                       </span>
                     </span>
                     <TriangleIcon
                       direction={openVersionId === version.id ? "up" : "down"}
                       size={10}
-                      className="shrink-0 text-[#61758B]"
+                      className="shrink-0 text-[#888888]"
                     />
                   </button>
                   {openVersionId === version.id ? (
                     <div className="pt-2">
-                      <div className="text-[14px] leading-6 text-[#4C647A]">{version.detail}</div>
+                      <div className="text-[14px] leading-6 text-[#888888]">{version.detail}</div>
                       <button
                         type="button"
                         onClick={() => router.push(version.href)}
-                        className="mt-2 inline-flex items-center gap-1 text-[14px] font-medium text-[#0F4C5C]"
+                        className="mt-2 inline-flex items-center gap-1 text-[14px] font-medium text-[#0096C7]"
                       >
                         Open procedure guide
                       </button>
@@ -1015,13 +1007,13 @@ export default function MobileProcedureRepositoryView({
     const versionsOpen = openVersionId !== ""
 
     return (
-      <section className="bg-[#F6FAFC] px-6 py-4">
+      <section className="bg-black px-6 py-4">
         <div className="text-[14px]">
-          <p className="text-right font-semibold text-[#10243E]">Published versions</p>
+          <p className="text-right font-semibold text-white">Published versions</p>
           <button
             type="button"
             onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))}
-            className="mt-0.5 inline-flex w-full items-center justify-end gap-2 text-right text-[#35546D] transition-colors hover:text-[#10243E]"
+            className="mt-0.5 inline-flex w-full items-center justify-end gap-2 text-right text-[#888888] transition-colors hover:text-white"
           >
             <span>
               {versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}
@@ -1029,7 +1021,7 @@ export default function MobileProcedureRepositoryView({
             <TriangleIcon
               direction={versionsOpen ? "up" : "down"}
               size={10}
-              className="shrink-0 text-[#61758B]"
+              className="shrink-0 text-[#888888]"
             />
           </button>
           {versionsOpen ? (
@@ -1037,15 +1029,15 @@ export default function MobileProcedureRepositoryView({
               {versionEntries.map((version) => (
                 <div key={version.id} className="flex items-center justify-between gap-3 py-2">
                   <div className="min-w-0 flex items-center gap-3 text-[14px]">
-                    <span className="truncate font-medium text-[#10243E]">{version.name}</span>
-                    <span className="truncate text-[13px] text-[#4C647A]">
+                    <span className="truncate font-medium text-white">{version.name}</span>
+                    <span className="truncate text-[13px] text-[#888888]">
                       Updated {formatUpdatedDate(version.updatedAt)}
                     </span>
                   </div>
                   <button
                     type="button"
                     onClick={() => router.push(version.href)}
-                    className="shrink-0 text-[13px] font-medium text-[#0F4C5C] transition-colors hover:text-[#10243E]"
+                    className="shrink-0 text-[13px] font-medium text-[#0096C7] transition-colors hover:text-white"
                   >
                     [Open]
                   </button>
@@ -1151,24 +1143,27 @@ export default function MobileProcedureRepositoryView({
   }, [dragPreview, dragTargetSectionId, draggingSectionId, sectionsState])
 
   return (
-    <div className="shared-card-route min-h-screen bg-[#F6FAFC] text-[#10243E]">
-      <div className="min-h-screen w-full bg-transparent">
+    <div className="min-h-screen bg-black text-[#e0e0e0]">
+      <div className="lg:hidden">
         <AppTopBar
           menuOpen={mobileMenuOpen}
           onToggleMenu={handleToggleNavigation}
           menuContent={<AppMenuContent />}
+          sectionLabel="Library"
           mobileMenuOnly
+          hideMobileMenu
         />
+      </div>
 
         {createNoticeOpen ? (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(16,36,62,0.42)] px-4">
-            <div className="w-full max-w-md rounded-[18px] bg-white p-5 shadow-[0_20px_50px_rgba(16,36,62,0.24)]">
-              <h2 className="text-center text-[20px] font-semibold tracking-[-0.03em] text-[#10243E]">
+            <div className="w-full max-w-md rounded-[18px] bg-[#1c1c1c] p-5 shadow-[0_20px_50px_rgba(0,0,0,0.6)]">
+              <h2 className="text-center text-[20px] font-semibold tracking-[-0.03em] text-[#e0e0e0]">
                 {createNoticeStep === 1 ? "Before you create" : "Surgeon"}
               </h2>
               {createNoticeStep === 1 ? (
                 <div className="mt-3 space-y-4">
-                  <p className="text-center text-[14px] leading-6 text-[#35546D]">
+                  <p className="text-center text-[14px] leading-6 text-[#888888]">
                     Will this need more than one version because of different surgeon preferences, approaches, implant systems, or variants?
                   </p>
                   <div className="space-y-2">
@@ -1180,8 +1175,8 @@ export default function MobileProcedureRepositoryView({
                       }}
                       className={`block w-full rounded-xl border px-4 py-3 text-left text-sm transition-colors ${
                         createNeedsVariants === "yes"
-                          ? "border-[#0096C7] bg-[#EAF7FD] text-[#10243E]"
-                          : "border-[#D5EAF1] text-[#35546D] hover:bg-[#F4FBFF]"
+                          ? "border-[#0096C7] bg-[#001a2a] text-[#e0e0e0]"
+                          : "border-[#2d2d2d] text-[#888888] hover:bg-[#1c1c1c]"
                       }`}
                     >
                       Yes, there may be different versions
@@ -1194,8 +1189,8 @@ export default function MobileProcedureRepositoryView({
                       }}
                       className={`block w-full rounded-xl border px-4 py-3 text-left text-sm transition-colors ${
                         createNeedsVariants === "no"
-                          ? "border-[#0096C7] bg-[#EAF7FD] text-[#10243E]"
-                          : "border-[#D5EAF1] text-[#35546D] hover:bg-[#F4FBFF]"
+                          ? "border-[#0096C7] bg-[#001a2a] text-[#e0e0e0]"
+                          : "border-[#2d2d2d] text-[#888888] hover:bg-[#1c1c1c]"
                       }`}
                     >
                       No, one version is enough
@@ -1204,7 +1199,7 @@ export default function MobileProcedureRepositoryView({
                 </div>
               ) : (
                 <div className="mt-3 space-y-4">
-                  <p className="text-center text-[14px] leading-6 text-[#35546D]">
+                  <p className="text-center text-[14px] leading-6 text-[#888888]">
                     Who is the surgeon for this version? This version will be saved to My Team&apos;s collection and also published in Community.
                   </p>
                   <div className="grid gap-3 sm:grid-cols-2">
@@ -1216,11 +1211,11 @@ export default function MobileProcedureRepositoryView({
                           setCreateNoticeMessage("")
                         }}
                         placeholder="Grade"
-                        className="w-full rounded-xl border border-[#D5EAF1] bg-[#F8FBFD] px-4 py-3 text-center text-[14px] text-[#10243E] outline-none placeholder:text-center placeholder:text-[#0F4C5C]"
+                        className="w-full rounded-xl border border-[#2d2d2d] bg-[#111111] px-4 py-3 text-center text-[14px] text-[#e0e0e0] outline-none placeholder:text-center placeholder:text-[#0096C7]"
                       />
                       {surgeonGrade.trim() && surgeonGradeSuggestions.length > 0 && !hasExactMatch(surgeonGrade, surgeonGradeSuggestions) ? (
-                        <div className="rounded-xl border border-[#D5EAF1] bg-white py-1">
-                          <p className="px-3 py-2 text-center text-[13px] font-medium text-[#0F4C5C]">
+                        <div className="rounded-xl border border-[#2d2d2d] bg-[#1c1c1c] py-1">
+                          <p className="px-3 py-2 text-center text-[13px] font-medium text-[#0096C7]">
                             Are you talking about:
                           </p>
                           <div>
@@ -1232,7 +1227,7 @@ export default function MobileProcedureRepositoryView({
                                   setSurgeonGrade(suggestion)
                                   setCreateNoticeMessage("")
                                 }}
-                                className="block w-full px-3 py-2 text-center text-[13px] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF] hover:text-[#10243E]"
+                                className="block w-full px-3 py-2 text-center text-[13px] text-[#0096C7] transition-colors hover:bg-[#1c1c1c] hover:text-white"
                               >
                                 {suggestion}
                               </button>
@@ -1249,11 +1244,11 @@ export default function MobileProcedureRepositoryView({
                           setCreateNoticeMessage("")
                         }}
                         placeholder="Title"
-                        className="w-full rounded-xl border border-[#D5EAF1] bg-[#F8FBFD] px-4 py-3 text-center text-[14px] text-[#10243E] outline-none placeholder:text-center placeholder:text-[#0F4C5C]"
+                        className="w-full rounded-xl border border-[#2d2d2d] bg-[#111111] px-4 py-3 text-center text-[14px] text-[#e0e0e0] outline-none placeholder:text-center placeholder:text-[#0096C7]"
                       />
                       {surgeonTitle.trim() && surgeonTitleSuggestions.length > 0 && !hasExactMatch(surgeonTitle, surgeonTitleSuggestions) ? (
-                        <div className="rounded-xl border border-[#D5EAF1] bg-white py-1">
-                          <p className="px-3 py-2 text-center text-[13px] font-medium text-[#0F4C5C]">
+                        <div className="rounded-xl border border-[#2d2d2d] bg-[#1c1c1c] py-1">
+                          <p className="px-3 py-2 text-center text-[13px] font-medium text-[#0096C7]">
                             Are you talking about:
                           </p>
                           <div>
@@ -1265,7 +1260,7 @@ export default function MobileProcedureRepositoryView({
                                   setSurgeonTitle(suggestion)
                                   setCreateNoticeMessage("")
                                 }}
-                                className="block w-full px-3 py-2 text-center text-[13px] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF] hover:text-[#10243E]"
+                                className="block w-full px-3 py-2 text-center text-[13px] text-[#0096C7] transition-colors hover:bg-[#1c1c1c] hover:text-white"
                               >
                                 {suggestion}
                               </button>
@@ -1281,7 +1276,7 @@ export default function MobileProcedureRepositoryView({
                         setCreateNoticeMessage("")
                       }}
                       placeholder="First name"
-                      className="w-full rounded-xl border border-[#D5EAF1] bg-[#F8FBFD] px-4 py-3 text-center text-[14px] text-[#10243E] outline-none placeholder:text-center placeholder:text-[#0F4C5C]"
+                      className="w-full rounded-xl border border-[#2d2d2d] bg-[#111111] px-4 py-3 text-center text-[14px] text-[#e0e0e0] outline-none placeholder:text-center placeholder:text-[#0096C7]"
                     />
                     <input
                       value={surgeonLastName}
@@ -1290,7 +1285,7 @@ export default function MobileProcedureRepositoryView({
                         setCreateNoticeMessage("")
                       }}
                       placeholder="Last name"
-                      className="w-full rounded-xl border border-[#D5EAF1] bg-[#F8FBFD] px-4 py-3 text-center text-[14px] text-[#10243E] outline-none placeholder:text-center placeholder:text-[#0F4C5C]"
+                      className="w-full rounded-xl border border-[#2d2d2d] bg-[#111111] px-4 py-3 text-center text-[14px] text-[#e0e0e0] outline-none placeholder:text-center placeholder:text-[#0096C7]"
                     />
                   </div>
                 </div>
@@ -1308,7 +1303,7 @@ export default function MobileProcedureRepositoryView({
                     setCreateNoticeOpen(false)
                     setCreateNoticeMessage("")
                   }}
-                  className="inline-flex items-center justify-center rounded-xl border border-[#B9DCE4] px-4 py-2.5 text-sm font-semibold text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF]"
+                  className="inline-flex items-center justify-center rounded-xl border border-[#2d2d2d] px-4 py-2.5 text-sm font-semibold text-[#0096C7] transition-colors hover:bg-[#1c1c1c]"
                 >
                   {createNoticeStep === 1 ? "Cancel" : "Back"}
                 </button>
@@ -1342,25 +1337,25 @@ export default function MobileProcedureRepositoryView({
               }`}
               style={{ minHeight: dragPreview.height }}
             >
-              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/75 text-[#0F4C5C]">
+              <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-[#0096C7]">
                 <span className="text-[16px] leading-none">⋮⋮</span>
               </div>
-              <span className="text-[16px] font-medium text-[#10243E]">
+              <span className="text-[16px] font-medium text-[#e0e0e0]">
                 {dragPreview.title}
               </span>
-              <span className="ml-auto text-[#10243E]">▼</span>
+              <span className="ml-auto text-[#e0e0e0]">▼</span>
             </div>
           </div>
         ) : null}
 
-        <main className="pb-8 lg:hidden">
-          <section className={`mt-4 px-4 pb-4 ${mobileMetaOpen ? "border-b border-[#C7DEE7]" : ""}`}>
-              <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.03em] text-[#10243E]">{displayTitle}</h1>
-            <p className="mt-2 text-[14px] leading-6 text-[#35546D]">{hierarchyLabel}</p>
+        <main className="pb-28 lg:hidden">
+          <section className={`mt-4 px-4 pb-4 ${mobileMetaOpen ? "border-b border-[#2d2d2d]" : ""}`}>
+              <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.03em] text-[#e0e0e0]">{displayTitle}</h1>
+            <p className="mt-2 text-[14px] leading-6 text-[#888888]">{hierarchyLabel}</p>
             <button
               type="button"
               onClick={() => setMobileMetaOpen((value) => !value)}
-              className="mt-3 inline-flex items-center gap-2 text-[14px] font-medium text-[#0F4C5C]"
+              className="mt-3 inline-flex items-center gap-2 text-[14px] font-medium text-[#0096C7]"
             >
               <span className={`text-[12px] leading-none transition-transform ${mobileMetaOpen ? "rotate-180" : ""}`}>▼</span>
               <span>{mobileMetaOpen ? "Hide details" : "Show details"}</span>
@@ -1369,9 +1364,9 @@ export default function MobileProcedureRepositoryView({
 
           {mobileMetaOpen ? (
           <>
-          <section className="mt-3 border-b border-[#E3F1F5] px-4 pb-3">
-            <div className="flex items-start gap-3 text-[14px] leading-6 text-[#35546D]">
-              <ShieldAlert size={16} className="mt-0.5 shrink-0 text-[#2A96A8]" />
+          <section className="mt-3 border-b border-[#2d2d2d] px-4 pb-3">
+            <div className="flex items-start gap-3 text-[14px] leading-6 text-[#888888]">
+              <ShieldAlert size={16} className="mt-0.5 shrink-0 text-[#0096C7]" />
               <p>
                 Community reference card · Updated {formatUpdatedDate(procedure.updatedAt)}. Adapt this card locally.
               </p>
@@ -1395,20 +1390,20 @@ export default function MobileProcedureRepositoryView({
               <button
                 type="button"
                 onClick={handleOpenCreateNotice}
-                className="inline-flex items-center gap-1.5 font-medium text-[#0F4C5C] hover:text-[#10243E]"
+                className="inline-flex items-center gap-1.5 font-medium text-[#0096C7] hover:text-white"
               >
                 <Download size={14} />
                 Adapt
               </button>
             ) : null}
             {showVersionActions ? (
-              <button type="button" onClick={handleToggleBookmark} className="inline-flex items-center gap-1.5 font-medium text-[#0F4C5C] hover:text-[#10243E]">
+              <button type="button" onClick={handleToggleBookmark} className="inline-flex items-center gap-1.5 font-medium text-[#0096C7] hover:text-white">
                 <Bookmark size={14} />
                 {saved ? "Bookmarked" : "Bookmark"}
               </button>
             ) : null}
             {showVersionActions && hasPublishedVersions ? (
-              <button type="button" className="inline-flex items-center gap-2 font-medium text-[#0F4C5C] hover:text-[#10243E]">
+              <button type="button" className="inline-flex items-center gap-2 font-medium text-[#0096C7] hover:text-white">
                 <Play size={14} />
                 Start procedure
               </button>
@@ -1416,22 +1411,39 @@ export default function MobileProcedureRepositoryView({
           </section>
 
           {showStatsRow ? (
-            <section className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-b border-[#E3F1F5] px-4 pb-3 text-[14px] text-[#4C647A]">
+            <section className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-b border-[#2d2d2d] px-4 pb-3 text-[14px] text-[#888888]">
               {bookmarkCount > 0 ? (
-                <button type="button" onClick={handleToggleBookmark} className="inline-flex items-center gap-1.5 transition-colors hover:text-[#10243E]">
+                <button type="button" onClick={handleToggleBookmark} className="inline-flex items-center gap-1.5 transition-colors hover:text-white">
                   <Bookmark size={13} />
                   {bookmarkCount} bookmark{bookmarkCount === 1 ? "" : "s"}
                 </button>
               ) : null}
               {publishedCards.length > 0 ? (
-                <button type="button" onClick={handleOpenLocalVariants} className="inline-flex items-center gap-1.5 transition-colors hover:text-[#10243E]">
-                  <GitBranch size={13} />
+                <button type="button" onClick={handleOpenLocalVariants} className="inline-flex items-center gap-2 transition-colors hover:text-white">
+                  <span
+                    aria-hidden="true"
+                    className="h-[13px] w-[13px] shrink-0 bg-current"
+                    style={{
+                      WebkitMaskImage: "url('/9168210.png')",
+                      maskImage: "url('/9168210.png')",
+                      WebkitMaskRepeat: "no-repeat",
+                      maskRepeat: "no-repeat",
+                      WebkitMaskPosition: "center",
+                      maskPosition: "center",
+                      WebkitMaskSize: "contain",
+                      maskSize: "contain",
+                    }}
+                  />
                   {publishedCards.length} version{publishedCards.length === 1 ? "" : "s"}
                 </button>
               ) : null}
               {contributorCount > 0 ? (
-                <button type="button" onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))} className="inline-flex items-center gap-1.5 transition-colors hover:text-[#10243E]">
-                  <Users size={13} />
+                <button type="button" onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))} className="inline-flex items-center gap-2 transition-colors hover:text-white">
+                  <span aria-hidden="true" className="inline-flex h-[13px] w-[13px] shrink-0 items-center justify-center">
+                    <svg viewBox="0 0 24 24" className="h-[13px] w-[13px] fill-current" focusable="false">
+                      <path d="M12 12c2.76 0 5-2.46 5-5.5S14.76 1 12 1 7 3.46 7 6.5 9.24 12 12 12Zm0 2c-4.42 0-8 2.69-8 6v1h16v-1c0-3.31-3.58-6-8-6Z" />
+                    </svg>
+                  </span>
                   {contributorCount} contributor{contributorCount === 1 ? "" : "s"}
                 </button>
               ) : null}
@@ -1439,23 +1451,23 @@ export default function MobileProcedureRepositoryView({
           ) : null}
 
           {createOpen ? (
-              <section className="mt-4 border-b border-[#E3F1F5] px-4 pb-4">
+              <section className="mt-4 border-b border-[#2d2d2d] px-4 pb-4">
                 <div className="space-y-3">
                 {authoringMode === "adapt" ? (
                   <input
                     value={cardName}
                     onChange={(event) => setCardName(event.target.value)}
                     placeholder="Version name"
-                    className="w-full rounded-[6px] border border-[#E3F1F5] bg-[#F8FBFD] px-3 py-2.5 text-[14px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
+                    className="w-full rounded-[6px] border border-[#2d2d2d] bg-[#111111] px-3 py-2.5 text-[14px] text-[#e0e0e0] outline-none placeholder:text-[#7B8EA3]"
                   />
                 ) : (
                   <div className="space-y-3">
-                    <p className="text-[14px] font-semibold text-[#10243E]">Sections</p>
+                    <p className="text-[14px] font-semibold text-[#e0e0e0]">Sections</p>
                     <div className="space-y-2">
                       <button
                         type="button"
                         onClick={() => setNewSectionOpen((value) => !value)}
-                        className="text-[12px] font-semibold text-[#0F4C5C]"
+                        className="text-[12px] font-semibold text-[#0096C7]"
                       >
                         + New
                       </button>
@@ -1468,13 +1480,13 @@ export default function MobileProcedureRepositoryView({
                               setCreateMessage("")
                             }}
                             placeholder="Section name"
-                            className="w-full rounded-[8px] border border-[#E3F1F5] bg-white px-3 py-2 text-[13px] text-[#10243E] outline-none placeholder:text-[#7B8EA3]"
+                            className="w-full rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-3 py-2 text-[13px] text-[#e0e0e0] outline-none placeholder:text-[#7B8EA3]"
                           />
                           <div className="flex items-center gap-2">
                             <select
                               value={newSectionLayout}
                               onChange={(event) => setNewSectionLayout(event.target.value as NewSectionLayout | "")}
-                              className="min-w-0 flex-1 rounded-[8px] border border-[#E3F1F5] bg-white px-3 py-2 text-[13px] text-[#10243E] outline-none"
+                              className="min-w-0 flex-1 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-3 py-2 text-[13px] text-[#e0e0e0] outline-none"
                             >
                               <option value="">Select Type</option>
                               <option value="item_list">Item list</option>
@@ -1495,11 +1507,11 @@ export default function MobileProcedureRepositoryView({
                     </div>
                     <div className="grid grid-cols-[minmax(0,1fr)_44px_minmax(0,1fr)] gap-1.5">
                       <div className="min-w-0">
-                        <div className="flex items-center justify-between gap-2 px-1 py-1 text-[11px] font-semibold text-[#0F4C5C]">
+                        <div className="flex items-center justify-between gap-2 px-1 py-1 text-[11px] font-semibold text-[#0096C7]">
                           <button
                             type="button"
                             onClick={() => scrollEditList(mobileEditAvailableListRef, "up")}
-                            className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#B9DCE4] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF]"
+                            className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#2d2d2d] text-[#0096C7] transition-colors hover:bg-[#1c1c1c]"
                           >
                             <ChevronUp size={12} />
                           </button>
@@ -1507,7 +1519,7 @@ export default function MobileProcedureRepositoryView({
                           <button
                             type="button"
                             onClick={() => scrollEditList(mobileEditAvailableListRef, "down")}
-                            className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#B9DCE4] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF]"
+                            className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#2d2d2d] text-[#0096C7] transition-colors hover:bg-[#1c1c1c]"
                           >
                             <ChevronDown size={12} />
                           </button>
@@ -1530,7 +1542,7 @@ export default function MobileProcedureRepositoryView({
                                 }}
                                 className={`mx-1 my-0.5 block w-[calc(100%-0.5rem)] rounded-[8px] border px-2 py-1.5 text-center text-[12px] leading-4 transition-colors ${
                                   disabled
-                                    ? "cursor-not-allowed border-[#E3F1F5] bg-[#E6EDF2] text-[#0F4C5C]"
+                                    ? "cursor-not-allowed border-[#2d2d2d] bg-[#1c1c1c] text-[#0096C7]"
                                     : selected
                                       ? "border-[#0096C7] bg-[#0096C7] text-white"
                                       : "border-[#0096C7] bg-[#0096C7] text-white hover:bg-[#0085B2]"
@@ -1547,7 +1559,7 @@ export default function MobileProcedureRepositoryView({
                           type="button"
                           onClick={addSelectedEditSection}
                           disabled={!selectedEditAvailableSectionId}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#B9DCE4] text-[16px] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF] disabled:cursor-not-allowed disabled:opacity-40"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#2d2d2d] text-[16px] text-[#0096C7] transition-colors hover:bg-[#1c1c1c] disabled:cursor-not-allowed disabled:opacity-40"
                         >
                           &rarr;
                         </button>
@@ -1555,17 +1567,17 @@ export default function MobileProcedureRepositoryView({
                           type="button"
                           onClick={removeSelectedEditSection}
                           disabled={!selectedEditIncludedSectionId}
-                          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#B9DCE4] text-[16px] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF] disabled:cursor-not-allowed disabled:opacity-40"
+                          className="inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#2d2d2d] text-[16px] text-[#0096C7] transition-colors hover:bg-[#1c1c1c] disabled:cursor-not-allowed disabled:opacity-40"
                         >
                           &larr;
                         </button>
                       </div>
                       <div className="min-w-0">
-                        <div className="flex items-center justify-between gap-2 px-1 py-1 text-[11px] font-semibold text-[#0F4C5C]">
+                        <div className="flex items-center justify-between gap-2 px-1 py-1 text-[11px] font-semibold text-[#0096C7]">
                           <button
                             type="button"
                             onClick={() => scrollEditList(mobileEditExistingListRef, "up")}
-                            className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#B9DCE4] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF]"
+                            className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#2d2d2d] text-[#0096C7] transition-colors hover:bg-[#1c1c1c]"
                           >
                             <ChevronUp size={12} />
                           </button>
@@ -1573,7 +1585,7 @@ export default function MobileProcedureRepositoryView({
                           <button
                             type="button"
                             onClick={() => scrollEditList(mobileEditExistingListRef, "down")}
-                            className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#B9DCE4] text-[#0F4C5C] transition-colors hover:bg-[#F4FBFF]"
+                            className="inline-flex h-5 w-5 items-center justify-center rounded-full border border-[#2d2d2d] text-[#0096C7] transition-colors hover:bg-[#1c1c1c]"
                           >
                             <ChevronDown size={12} />
                           </button>
@@ -1594,8 +1606,8 @@ export default function MobileProcedureRepositoryView({
                                 }}
                                 className={`mx-1 my-0.5 block w-[calc(100%-0.5rem)] rounded-[8px] border px-2 py-1.5 text-center text-[12px] leading-4 transition-colors ${
                                   selected
-                                    ? "border-[#0096C7] bg-[#EAF7FD] text-[#10243E]"
-                                    : "border-[#B9DCE4] bg-[#EAF7FD] text-[#10243E] hover:bg-[#DDF2F8]"
+                                    ? "border-[#0096C7] bg-[#001a2a] text-[#e0e0e0]"
+                                    : "border-[#2d2d2d] bg-[#001a2a] text-[#e0e0e0] hover:bg-[#001a2a]"
                                 }`}
                               >
                                 {section.title}
@@ -1613,7 +1625,7 @@ export default function MobileProcedureRepositoryView({
                     type="button"
                     disabled={isCreating}
                     onClick={authoringMode === "adapt" ? handleCreateLocalCard : () => setCreateOpen(false)}
-                    className="rounded-[6px] bg-[#2A96A8] px-3 py-2 text-[13px] text-white disabled:opacity-60"
+                    className="rounded-[6px] bg-[#0096C7] px-3 py-2 text-[13px] text-white disabled:opacity-60"
                   >
                     {authoringMode === "adapt" ? (isCreating ? "Adapting..." : "Adapt") : "Done"}
                   </button>
@@ -1623,38 +1635,38 @@ export default function MobileProcedureRepositoryView({
           ) : null}
 
           {hasPublishedVersions ? (
-            <section className="mt-5 border-t border-[#E3F1F5]">
-              <div className="flex items-center justify-between border-b border-[#E3F1F5] px-4 py-3 text-[14px] text-[#10243E]">
+            <section className="mt-5 border-t border-[#2d2d2d]">
+              <div className="flex items-center justify-between border-b border-[#2d2d2d] px-4 py-3 text-[14px] text-[#e0e0e0]">
                 <span className="font-semibold">Published versions</span>
-                <span className="font-medium text-[#35546D]">{versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}</span>
+                <span className="font-medium text-[#888888]">{versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}</span>
               </div>
               <div>
                 {versionEntries.map((version) => (
-                  <div key={version.id} className="border-b border-[#E3F1F5] px-4 py-3 text-[14px]">
+                  <div key={version.id} className="border-t border-[#0096C7] bg-[#003d54] px-4 py-3 text-[14px] last:border-b last:border-b-[#0096C7]">
                     <button
                       type="button"
                       onClick={() => setOpenVersionId((current) => (current === version.id ? "" : version.id))}
-                      className="flex w-full items-center justify-between gap-3 text-left"
+                      className="flex w-full items-start justify-between gap-3 text-left"
                     >
-                      <span className="min-w-0">
-                        <span className="block truncate font-medium text-[#10243E]">{version.name}</span>
-                        <span className="block truncate text-[13px] text-[#4C647A]">
+                      <span className="min-w-0 flex-1">
+                        <span className="block font-medium leading-snug text-[#e0e0e0]">{version.name}</span>
+                        <span className="mt-0.5 block text-[13px] text-[#aaaaaa]">
                           Updated {formatUpdatedDate(version.updatedAt)}
                         </span>
                       </span>
                       <TriangleIcon
                         direction={openVersionId === version.id ? "up" : "down"}
                         size={10}
-                        className="shrink-0 text-[#61758B]"
+                        className="mt-0.5 shrink-0 text-[#0096C7]"
                       />
                     </button>
                     {openVersionId === version.id ? (
                       <div className="pt-2">
-                        <div className="text-[13px] leading-5 text-[#4C647A]">{version.detail}</div>
+                        <div className="text-[13px] leading-5 text-[#888888]">{version.detail}</div>
                         <button
                           type="button"
                           onClick={() => router.push(version.href)}
-                          className="mt-2 inline-flex items-center gap-1 text-[13px] font-medium text-[#0F4C5C]"
+                          className="mt-2 inline-flex items-center gap-1 text-[13px] font-medium text-[#0096C7]"
                         >
                           Open procedure guide
                         </button>
@@ -1669,18 +1681,18 @@ export default function MobileProcedureRepositoryView({
           ) : null}
 
           {localVersionLinks.length > 0 ? (
-            <section className={`mt-5 ${mobileMetaOpen ? "border-t border-[#E3F1F5]" : ""}`}>
-              <div className="border-b border-[#E3F1F5] px-4 py-3 text-[14px] font-semibold text-[#10243E]">Versions</div>
+            <section className={`mt-5 ${mobileMetaOpen ? "border-t border-[#2d2d2d]" : ""}`}>
+              <div className="border-b border-[#2d2d2d] px-4 py-3 text-[14px] font-semibold text-[#e0e0e0]">Versions</div>
               <div>
                 {localVersionLinks.map((version) => (
                   <button
                     key={version.id}
                     type="button"
                     onClick={() => router.push(version.href)}
-                    className="flex w-full items-center justify-between border-b border-[#E3F1F5] px-4 py-3 text-left text-[14px] hover:bg-[#F8FBFD]"
+                    className="flex w-full items-start justify-between gap-3 border-t border-[#0096C7] bg-[#003d54] px-4 py-3 text-left text-[14px] last:border-b last:border-b-[#0096C7] hover:bg-[#004a66]"
                   >
-                    <span className="truncate font-medium text-[#10243E]">{version.name}</span>
-                    <span className="font-medium text-[#35546D]">Open</span>
+                    <span className="flex-1 font-medium leading-snug text-[#e0e0e0]">{version.name}</span>
+                    <TriangleIcon direction="down" size={10} className="mt-0.5 shrink-0 text-[#0096C7]" />
                   </button>
                 ))}
               </div>
@@ -1691,7 +1703,7 @@ export default function MobileProcedureRepositoryView({
             {sectionsState.length > 0 ? (
               <>
                 {createOpen && authoringMode === "edit" ? (
-                  <div className="mb-3 text-[13px] font-medium text-[#0F4C5C]">
+                  <div className="mb-3 text-[13px] font-medium text-[#0096C7]">
                     Rearrange sections by dragging the grip on each section bar.
                   </div>
                 ) : null}
@@ -1705,7 +1717,7 @@ export default function MobileProcedureRepositoryView({
                   >
                     {dragTargetSectionId === section.id && draggingSectionId !== section.id ? (
                       <div className="mb-1 rounded-[10px] border-2 border-dashed border-[#00B4D8] bg-[#D9EFF7] px-4 py-4">
-                        <div className="text-center text-[13px] font-medium text-[#0F4C5C]">
+                        <div className="text-center text-[13px] font-medium text-[#0096C7]">
                           Drop section here
                         </div>
                       </div>
@@ -1737,6 +1749,7 @@ export default function MobileProcedureRepositoryView({
                             current.map((entry) => (entry.id === updatedSection.id ? updatedSection : entry)),
                           )
                         }
+                        isDark={true}
                       />
                     )}
                   </div>
@@ -1749,137 +1762,143 @@ export default function MobileProcedureRepositoryView({
                     procedureId={procedure.id}
                     procedureName={procedure.name}
                     uid={null}
-                    isDark={false}
+                    isDark={true}
                   />
                 ) : null}
               </>
             ) : (
-              <div className="border-t border-[#E3F1F5] px-1 py-8 text-center text-[14px] text-[#61758B]">
+              <div className="border-t border-[#2d2d2d] px-1 py-8 text-center text-[14px] text-[#888888]">
                 No sections match the current search.
               </div>
             )}
           </section>
         </main>
 
-        <div
-          style={desktopShellStyle}
-          className={`hidden lg:grid lg:h-[calc(100vh-84px)] lg:min-h-0 lg:gap-0 lg:overflow-hidden ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"} lg:pl-0 lg:pr-4 lg:pt-0 lg:pb-4`}
-        >
+        <div className={`hidden lg:grid lg:min-h-screen lg:gap-0 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}>
           <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
-        <main
-          className={`min-w-0 lg:grid lg:min-h-0 lg:flex-1 lg:gap-0 ${
-            commsRailOpen
-              ? "lg:grid-cols-[minmax(0,1fr)_420px] lg:grid-rows-[auto_minmax(0,1fr)]"
-              : "lg:grid-cols-[440px_minmax(0,1fr)_440px]"
-          }`}
-        >
-          {!commsRailOpen ? (
-            <aside className="flex min-h-0 h-full flex-col border-r border-[#C7DEE7] bg-[#F6FAFC]">
-              <div className="min-h-0 flex-1 overflow-y-auto py-6">{renderDesktopMetaPanel()}</div>
-            </aside>
-          ) : null}
+          <div className="flex min-w-0 flex-col">
+            <div className="hidden lg:block">
+              <AppTopBar menuOpen={false} onToggleMenu={handleToggleNavigation} searchPlaceholder="Search anywhere..." sectionLabel="Library Collections" />
+            </div>
+            <div className="flex min-h-0 flex-1 overflow-hidden">
+              <main className={`min-w-0 flex-1 lg:grid lg:min-h-0 lg:gap-0 ${
+                commsRailOpen
+                  ? "lg:grid-cols-[minmax(0,1fr)_420px] lg:grid-rows-[auto_minmax(0,1fr)]"
+                  : "lg:grid-cols-[440px_minmax(0,1fr)_440px]"
+              }`}>
+                {!commsRailOpen ? (
+                  <aside className="flex min-h-0 h-full flex-col border-r border-[#2d2d2d] bg-black">
+                    <div className="min-h-0 flex-1 overflow-y-auto py-6">{renderDesktopMetaPanel()}</div>
+                  </aside>
+                ) : null}
 
-          {commsRailOpen ? (
-            <>
-              <section className="border-b border-[#C7DEE7] bg-[#F6FAFC]">
-                <div className="py-4">{renderDesktopMetaPanel(true, false)}</div>
-              </section>
-              <div>{renderCompactPublishedVersionsPanel()}</div>
-            </>
-          ) : null}
+                {commsRailOpen ? (
+                  <>
+                    <section className="border-b border-[#2d2d2d] bg-black">
+                      <div className="py-4">{renderDesktopMetaPanel(true, false)}</div>
+                    </section>
+                    <div>{renderCompactPublishedVersionsPanel()}</div>
+                  </>
+                ) : null}
 
-          <section className={`bg-[#F6FAFC] ${commsRailOpen ? "min-w-0 border-r border-[#C7DEE7]" : "border-r border-[#C7DEE7]"}`}>
-            <div className={`h-full overflow-y-auto ${commsRailOpen ? "py-0" : "py-6"}`}>
-              {sectionsState.length > 0 ? (
-                <>
-                  {createOpen && authoringMode === "edit" ? (
-                    <div className={`${commsRailOpen ? "px-6 py-3" : "px-6 pb-3"} text-[13px] font-medium text-[#0F4C5C]`}>
-                      Rearrange sections by dragging the grip on each section bar.
-                    </div>
-                  ) : null}
-                  {sectionsState.map((section) => (
-                    <div
-                      key={`${section.id}:${section.items.length}:${section.nurseNotes ?? ""}:${section.patientPositionInstructions ?? ""}:${section.externalLinks?.length ?? 0}`}
-                      ref={(element) => {
-                        sectionElementRefs.current[section.id] = element
-                      }}
-                      className="transition-opacity"
-                    >
-                      {dragTargetSectionId === section.id && draggingSectionId !== section.id ? (
-                        <div className="mx-6 mb-1 rounded-[12px] border-2 border-dashed border-[#00B4D8] bg-[#D9EFF7] px-4 py-5">
-                          <div className="text-center text-[14px] font-medium text-[#0F4C5C]">
-                            Drop section here
+                <section className={`bg-black ${commsRailOpen ? "min-w-0 border-r border-[#2d2d2d]" : "border-r border-[#2d2d2d]"}`}>
+                  <div className={`h-full overflow-y-auto ${commsRailOpen ? "py-0" : "py-6"}`}>
+                    {sectionsState.length > 0 ? (
+                      <>
+                        {createOpen && authoringMode === "edit" ? (
+                          <div className={`${commsRailOpen ? "px-6 py-3" : "px-6 pb-3"} text-[13px] font-medium text-[#0096C7]`}>
+                            Rearrange sections by dragging the grip on each section bar.
                           </div>
-                        </div>
-                      ) : null}
-                      {draggingSectionId === section.id ? (
-                        <div className="mx-6 mb-1 rounded-[12px] border-2 border-dashed border-[#D9919B] bg-[#FBECEE] px-4 py-5">
-                          <div className="text-center text-[14px] font-medium text-[#A34F5C]">
-                            Moving section
+                        ) : null}
+                        {sectionsState.map((section) => (
+                          <div
+                            key={`${section.id}:${section.items.length}:${section.nurseNotes ?? ""}:${section.patientPositionInstructions ?? ""}:${section.externalLinks?.length ?? 0}`}
+                            ref={(element) => {
+                              sectionElementRefs.current[section.id] = element
+                            }}
+                            className="transition-opacity"
+                          >
+                            {dragTargetSectionId === section.id && draggingSectionId !== section.id ? (
+                              <div className="mx-6 mb-1 rounded-[12px] border-2 border-dashed border-[#0096C7] bg-[#001a26] px-4 py-5">
+                                <div className="text-center text-[14px] font-medium text-[#0096C7]">
+                                  Drop section here
+                                </div>
+                              </div>
+                            ) : null}
+                            {draggingSectionId === section.id ? (
+                              <div className="mx-6 mb-1 rounded-[12px] border-2 border-dashed border-[#D9919B] bg-[#1a0608] px-4 py-5">
+                                <div className="text-center text-[14px] font-medium text-[#D9919B]">
+                                  Moving section
+                                </div>
+                              </div>
+                            ) : (
+                              <KardexSection
+                                section={section}
+                                anchorId={`section-${section.id}`}
+                                defaultOpen={false}
+                                showChecks={mode === "collect"}
+                                checkedItems={checkedItems}
+                                onItemCheck={toggleItem}
+                                implantSystem={procedure.implantSystem}
+                                procedureId={procedure.id}
+                                procedureName={procedure.name}
+                                uid={null}
+                                onSave={() => undefined}
+                                editHighlight={createOpen && authoringMode === "edit"}
+                                reorderActive={createOpen && authoringMode === "edit"}
+                                onReorderPointerDown={(event) => beginSectionReorder(section.id, event)}
+                                onSectionChange={(updatedSection) =>
+                                  setSectionsState((current) =>
+                                    current.map((entry) => (entry.id === updatedSection.id ? updatedSection : entry)),
+                                  )
+                                }
+                                onItemSelect={setSelectedItemInfo}
+                                isDark={true}
+                              />
+                            )}
                           </div>
-                        </div>
-                      ) : (
-                        <KardexSection
-                          section={section}
-                          anchorId={`section-${section.id}`}
-                          defaultOpen={false}
-                          showChecks={mode === "collect"}
-                          checkedItems={checkedItems}
-                          onItemCheck={toggleItem}
-                          implantSystem={procedure.implantSystem}
-                          procedureId={procedure.id}
-                          procedureName={procedure.name}
-                          uid={null}
-                          onSave={() => undefined}
-                          editHighlight={createOpen && authoringMode === "edit"}
-                          reorderActive={createOpen && authoringMode === "edit"}
-                          onReorderPointerDown={(event) => beginSectionReorder(section.id, event)}
-                          onSectionChange={(updatedSection) =>
-                            setSectionsState((current) =>
-                              current.map((entry) => (entry.id === updatedSection.id ? updatedSection : entry)),
-                            )
-                          }
-                          onItemSelect={setSelectedItemInfo}
-                        />
-                      )}
-                    </div>
-                  ))}
+                        ))}
 
-                  {mode === "collect" ? (
-                    <CollectionPanel
-                      sections={sectionsState}
-                      checkedItems={checkedItems}
-                      procedureId={procedure.id}
-                      procedureName={procedure.name}
-                      uid={null}
-                      isDark={false}
+                        {mode === "collect" ? (
+                          <CollectionPanel
+                            sections={sectionsState}
+                            checkedItems={checkedItems}
+                            procedureId={procedure.id}
+                            procedureName={procedure.name}
+                            uid={null}
+                            isDark={true}
+                          />
+                        ) : null}
+                      </>
+                    ) : (
+                      <div className="px-6 py-8 text-center text-[14px] text-[#888888]">
+                        No sections match the current search.
+                      </div>
+                    )}
+                  </div>
+                </section>
+
+                <aside className={`h-full bg-black ${commsRailOpen ? "min-h-0" : ""}`}>
+                  <div className="h-full overflow-hidden flex flex-col">
+                    <ItemDetailPanel
+                      className="shared-desktop-item-panel"
+                      info={selectedItemInfo}
+                      onClose={() => setSelectedItemInfo(null)}
+                      compact={commsRailOpen}
                     />
-                  ) : null}
-                </>
-              ) : (
-                <div className="px-6 py-8 text-center text-[14px] text-[#61758B]">
-                  No sections match the current search.
+                  </div>
+                </aside>
+              </main>
+
+              {commsRailOpen ? (
+                <div className="relative hidden flex-shrink-0 border-l border-black lg:block" style={{ width: commsRailWidth }}>
+                  <DesktopCommsPanel />
                 </div>
-              )}
+              ) : null}
             </div>
-          </section>
-
-          <aside className={`h-full bg-[#F4F7FA] ${commsRailOpen ? "min-h-0" : ""}`}>
-            <div className="h-full overflow-hidden flex flex-col">
-              <ItemDetailPanel
-                className="shared-desktop-item-panel"
-                info={selectedItemInfo}
-                onClose={() => setSelectedItemInfo(null)}
-                compact={commsRailOpen}
-              />
-            </div>
-          </aside>
-        </main>
-
-        {commsRailOpen ? <DesktopCommsPanel /> : null}
+          </div>
         </div>
-      </div>
     </div>
   )
 }

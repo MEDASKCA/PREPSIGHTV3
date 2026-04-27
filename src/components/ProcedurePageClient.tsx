@@ -306,7 +306,7 @@ export default function ProcedurePageClient({
 
   const desktopGridStyle: CSSProperties | undefined = commsRailOpen
     ? desktopNavOpen
-      ? { gridTemplateColumns: `210px minmax(0,1fr) ${commsRailWidth}px` }
+      ? { gridTemplateColumns: `240px minmax(0,1fr) ${commsRailWidth}px` }
       : { gridTemplateColumns: `80px minmax(0,1fr) ${commsRailWidth}px` }
     : undefined
 
@@ -322,7 +322,7 @@ export default function ProcedurePageClient({
 
       <div
         style={desktopGridStyle}
-        className={`lg:grid lg:flex-1 lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}
+        className={`lg:grid lg:flex-1 lg:gap-4 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}
       >
         <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 

@@ -8,10 +8,12 @@ import { getDesktopCommsPreference, getDesktopCommsWidth, getDesktopCommsWidthBo
 
 export default function WorkspaceDesktopShell({
   currentNav,
+  sectionLabel,
   children,
   rightRail,
 }: {
   currentNav: WorkspaceNavKey
+  sectionLabel?: string
   children: ReactNode
   rightRail?: ReactNode
 }) {
@@ -59,50 +61,55 @@ export default function WorkspaceDesktopShell({
     }
   }, [effectiveRightRail])
 
-  const gridStyle: CSSProperties | undefined = effectiveRightRail
-    ? desktopNavOpen
-      ? { gridTemplateColumns: `210px minmax(0,1fr) ${commsRailWidth}px` }
-      : { gridTemplateColumns: `80px minmax(0,1fr) ${commsRailWidth}px` }
-    : undefined
+  const navGridStyle: CSSProperties = desktopNavOpen
+    ? { gridTemplateColumns: "240px minmax(0,1fr)" }
+    : { gridTemplateColumns: "80px minmax(0,1fr)" }
 
   return (
-    <div className="hidden min-h-screen overflow-x-hidden bg-[linear-gradient(180deg,#E5F5F8_0%,#F3F9FB_42%,#F4F7FA_100%)] lg:block">
-      <AppTopBar
-        menuOpen={desktopNavOpen}
-        onToggleMenu={() => setDesktopNavOpen((value) => !value)}
-        searchPlaceholder="Search anywhere..."
+    <div
+      className="hidden min-h-screen overflow-x-hidden bg-black lg:grid lg:min-h-screen"
+      style={navGridStyle}
+    >
+      <WorkspaceNavRail
+        currentNav={currentNav}
+        collapsed={!desktopNavOpen}
+        onToggleCollapsed={() => setDesktopNavOpen((v) => !v)}
       />
 
-      <main className="w-full px-4 pt-0 pb-4 lg:px-0 lg:pb-0">
-        <div
-          style={gridStyle}
-          className={`grid gap-y-4 gap-x-0 ${desktopNavOpen ? "grid-cols-[210px_minmax(0,1fr)]" : "grid-cols-[80px_minmax(0,1fr)]"}`}
-        >
-          <WorkspaceNavRail currentNav={currentNav} collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
+      <div className="flex min-w-0 flex-col">
+        <AppTopBar
+          menuOpen={desktopNavOpen}
+          onToggleMenu={() => setDesktopNavOpen((v) => !v)}
+          searchPlaceholder="Search anywhere..."
+          sectionLabel={sectionLabel}
+        />
 
-          <div className="min-w-0">{children}</div>
+        <div className="flex min-h-0 flex-1">
+          <main className="min-w-0 flex-1 px-6 py-5">
+            {children}
+          </main>
 
           {effectiveRightRail ? (
-            <aside className="relative min-w-0">
+            <aside
+              className="relative flex-shrink-0 border-l border-black"
+              style={{ width: commsRailWidth }}
+            >
               {commsRailOpen ? (
                 <button
                   type="button"
                   onMouseDown={(event) => {
                     ;(window as Window & { __prepsightStartCommsResize?: (nextEvent: MouseEvent) => void }).__prepsightStartCommsResize?.(event.nativeEvent)
                   }}
-                  className="group absolute left-0 top-0 z-20 hidden h-full w-5 -translate-x-1/2 cursor-col-resize lg:block"
+                  className="absolute left-0 top-0 z-20 h-full w-[4px] cursor-col-resize bg-[#333333]"
                   aria-label="Resize PrepSight Comms panel"
                   title={`Resize Comms panel (${minCommsWidth}-${maxCommsWidth}px)`}
-                >
-                  <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[#b8ddea] transition-colors group-hover:bg-[#7fcce3]" />
-                  <span className="absolute left-1/2 top-1/2 h-24 w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#dff5fb] shadow-[0_8px_24px_rgba(15,76,92,0.14)] ring-1 ring-[#a8d9e8] transition-all group-hover:h-28 group-hover:bg-[#c8edf7] group-hover:ring-[#7fcce3]" />
-                </button>
+                />
               ) : null}
               {effectiveRightRail}
             </aside>
           ) : null}
         </div>
-      </main>
+      </div>
     </div>
   )
 }

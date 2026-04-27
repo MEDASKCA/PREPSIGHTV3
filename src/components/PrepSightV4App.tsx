@@ -4,12 +4,11 @@ import dynamic from "next/dynamic"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useEffect, useMemo, useState, useSyncExternalStore, type CSSProperties } from "react"
-import { ArrowLeft, ArrowRightLeft, CalendarClock, ChevronDown, Clock3, Link2, LogOut, MapPinned, Moon, Phone, Search, Settings, ShieldCheck, Sun, Wrench, X } from "lucide-react"
+import { ArrowLeft, ArrowRightLeft, CalendarClock, ChevronDown, Clock3, Link2, LogOut, MapPinned, MoreVertical, Moon, Phone, Search, Settings, ShieldCheck, Sun, Wrench, X } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import MobileCommsShell from "@/components/MobileCommsShell"
 import { MobileThemeProvider, useMobileTheme } from "@/lib/mobile-theme"
 import AppTopBar from "@/components/AppTopBar"
-import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
 import {
   BookmarkList,
   EmbeddedLibrariesDashboardMobile,
@@ -36,8 +35,26 @@ type MobileCalendarView = "daily" | "weekly" | "monthly" | "quarterly"
 type MobileCalendarSource = "all" | "library" | "resources" | "insights"
 type MobileConnectorFilter = "connected" | "available"
 
-const MOBILE_SOFT_SURFACE = "rounded-[20px] border border-[var(--mob-border)] bg-[var(--mob-surface)] shadow-[0_10px_24px_rgba(16,36,62,0.05)]"
+const MOBILE_SOFT_SURFACE = "rounded-[20px] border border-[var(--mob-border,#BFE3EE)] bg-[var(--mob-surface,#D4EEF8)] shadow-[0_10px_24px_rgba(16,36,62,0.05)]"
 const MobileWorkforceShiftMap = dynamic(() => import("@/components/WorkforceShiftMap"), { ssr: false })
+
+function CommsFilledIcon({ size = 23 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2C6.477 2 2 6.477 2 12c0 1.821.487 3.53 1.338 5.003L2.5 21.5l4.497-.838A9.954 9.954 0 0 0 12 22c5.523 0 10-4.477 10-10S17.523 2 12 2Z" />
+    </svg>
+  )
+}
+
+function LibraryFilledIcon({ size = 23 }: { size?: number }) {
+  return (
+    <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
+      <rect x="2" y="3" width="6" height="18" rx="1.5" />
+      <rect x="10" y="3" width="3.5" height="18" rx="1" />
+      <path d="M16 4.8 21.2 6.5 17.8 18.2 12.6 16.5z" />
+    </svg>
+  )
+}
 
 function MobileAvatar({ label, onClick }: { label: string; onClick: () => void }) {
   return (
@@ -105,9 +122,6 @@ function MobileSectionHeader({
   title,
   hospital,
   department,
-  profileInitial,
-  profileUid,
-  profilePhotoURL,
   onOpenProfile,
   searchValue,
   onSearchChange,
@@ -116,47 +130,73 @@ function MobileSectionHeader({
   title: string
   hospital: string
   department: string
-  profileInitial: string
-  profileUid?: string
-  profilePhotoURL?: string | null
   onOpenProfile: () => void
   searchValue: string
   onSearchChange: (value: string) => void
   searchPlaceholder: string
 }) {
+  const [showSearch, setShowSearch] = useState(false)
+
+  function toggleSearch() {
+    if (showSearch) {
+      onSearchChange("")
+    }
+    setShowSearch(v => !v)
+  }
+
   return (
-    <div className="shrink-0 bg-[var(--mob-surface)] px-5 pb-4" style={{ paddingTop: "calc(env(safe-area-inset-top) + 18px)" }}>
+    <div className="shrink-0 bg-black px-5 pb-3" style={{ paddingTop: "calc(env(safe-area-inset-top) + 18px)" }}>
       <div className="mb-0.5 flex items-center justify-between">
-        <span className="text-[var(--mob-accent)] text-2xl tracking-tight">
-          PrepSight{" "}
-          <em
-            className="text-[0.9em] leading-none tracking-[-0.05em] text-[var(--mob-text)]"
-            style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+        <span className="inline-flex items-center gap-1 text-2xl tracking-tight">
+          <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
+          <span className="text-[var(--mob-accent)]">PrepSight{" "}
+            <em
+              className="text-[0.9em] leading-none tracking-[-0.05em] text-[var(--mob-text)]"
+              style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+            >{title}</em>
+          </span>
+        </span>
+        <div className="flex items-center gap-3">
+          <button
+            type="button"
+            onClick={toggleSearch}
+            aria-label="Toggle search"
+            className={showSearch ? "text-white" : "text-white/70 hover:text-white"}
           >
-                {title}
-              </em>
-            </span>
-        <SharedMobileAvatar
-          label={profileInitial}
-          uid={profileUid}
-          photoURL={profilePhotoURL}
-          onClick={onOpenProfile}
-        />
+            <Search size={20} />
+          </button>
+          <button
+            type="button"
+            onClick={onOpenProfile}
+            aria-label="More"
+            className="text-white/80 hover:text-white"
+          >
+            <MoreVertical size={22} />
+          </button>
+        </div>
       </div>
-      <div className="mb-4 mt-2 flex items-center gap-2 text-sm text-[var(--mob-text-2)]">
+      <div className="mt-1 flex items-center gap-2 text-[13px] text-[#888888]">
         <span>{hospital}</span>
-        <span className="text-[var(--mob-border)]">|</span>
+        <span className="text-[#2d2d2d]">|</span>
         <span>{department}</span>
       </div>
-      <div className="flex items-center gap-3 rounded-2xl border border-[var(--mob-border)] bg-[var(--mob-bg)] px-4 py-3">
-        <Search size={16} className="shrink-0 text-[var(--mob-accent)]" />
-        <input
-          value={searchValue}
-          onChange={(event) => onSearchChange(event.target.value)}
-          placeholder={searchPlaceholder}
-          className="flex-1 bg-transparent text-[16px] text-[var(--mob-text)] placeholder-[var(--mob-text-2)] outline-none"
-        />
-      </div>
+      {showSearch && (
+        <div className="mt-3 flex items-center gap-3 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-4 py-2">
+          <Search size={14} className="shrink-0 text-[#888888]" />
+          <input
+            autoFocus
+            value={searchValue}
+            onChange={(event) => onSearchChange(event.target.value)}
+            placeholder={searchPlaceholder}
+            className="flex-1 bg-transparent text-[15px] text-[#e0e0e0] placeholder-[#555555] outline-none"
+          />
+          {searchValue ? (
+            <button onClick={() => onSearchChange("")} className="text-[#888888]">
+              <X size={14} />
+            </button>
+          ) : null}
+        </div>
+      )}
     </div>
   )
 }
@@ -1276,11 +1316,11 @@ function LibraryOverview({
           <button
             type="button"
             onClick={onBackToCollections}
-            className="rounded-[12px] border border-[#A9DBEA] bg-[#D4EEF8] px-3 py-2 text-[14px] text-[#0F4C5C]"
+            className="rounded-[12px] border border-[#2d2d2d] bg-[#202020] px-3 py-2 text-[14px] text-[#e0e0e0]"
           >
             Back to collections
           </button>
-          <p className="text-[14px] text-[#61758B]">Library detail</p>
+          <p className="text-[14px] text-[#888888]">Library detail</p>
         </div>
         <LibraryPageClient libraryId={selectedLibraryId} embedded />
       </div>
@@ -1289,18 +1329,18 @@ function LibraryOverview({
 
   return (
     <div className="space-y-4">
-      <section className={`${MOBILE_SOFT_SURFACE} p-4`}>
-        <p className="text-[14px] text-[#5B7A8A]">Workspace</p>
-        <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E]">{workspaceLabel}</h1>
-        <p className="mt-2 text-[15px] text-[#61758B]">
+      <section className="p-4">
+        <p className="text-[11px] text-[#888888]">Workspace</p>
+        <h1 className="mt-1 text-[20px] tracking-[-0.03em] text-white">{workspaceLabel}</h1>
+        <p className="mt-1 text-[13px] text-[#888888]">
           {libraries.length} collections · {totalCards} procedure cards
         </p>
       </section>
 
-      <section className={`${MOBILE_SOFT_SURFACE} p-4`}>
+      <section className="p-4">
         <div className="mb-3 flex items-center justify-between gap-4">
-          <h2 className="text-[24px] font-medium tracking-[-0.03em] text-[#10243E]">Collections</h2>
-          <Link href="/" className="text-[14px] text-[#0F4C5C]">
+          <h2 className="text-[16px] font-medium tracking-[-0.02em] text-white">Collections</h2>
+          <Link href="/" className="text-[14px] text-[#0096C7]">
             Request access
           </Link>
         </div>
@@ -1330,7 +1370,7 @@ function LibraryOverview({
         </div>
       </section>
 
-      <section className={`${MOBILE_SOFT_SURFACE} p-4`}>
+      <section className="p-4">
         <BookmarkList bookmarks={bookmarks} />
       </section>
     </div>
@@ -1462,23 +1502,10 @@ export default function PrepSightV4App() {
   }
 
   return (
-    <div className="min-h-screen bg-[linear-gradient(180deg,#E5F5F8_0%,#F3F9FB_42%,#F4F7FA_100%)]">
-      {/* Header — desktop only */}
-      <div className="hidden lg:block">
-        <AppTopBar
-          menuOpen={menuOpen}
-          onToggleMenu={() => setMenuOpen((value) => !value)}
-          menuContent={<AppMenuContent />}
-          mobileMenuOnly
-          searchValue={searchValue}
-          onSearchChange={setSearchValue}
-          searchPlaceholder="Search anywhere..."
-        />
-      </div>
+<div className="min-h-screen bg-black">
 
       <MobileThemeProvider>
-      <div className="lg:hidden min-h-[100dvh] bg-[var(--mob-bg)]">
-        <MobileSharedProfileDrawer
+<div id="mobile-app-root" data-mobile-theme="dark" className="lg:hidden min-h-[100dvh] bg-[var(--mob-bg,#000000)]">        <MobileSharedProfileDrawer
           open={showMobileProfile}
           onClose={() => setShowMobileProfile(false)}
           profileInitial={mobileProfileInitial}
@@ -1493,16 +1520,13 @@ export default function PrepSightV4App() {
           onOpenConnectors={() => openMobileUtilityPage("connectors")}
           onSwitchWorkspace={handleMobileSwitchWorkspace}
         />
-        <main className={mobileTab === "comms" ? "h-[calc(100vh-56px)] overflow-hidden" : "pb-28"}>
+        <main className={`bg-black ${mobileTab === "comms" ? "h-[calc(100dvh-56px)] overflow-hidden" : "min-h-screen pb-28"}`}>
           {mobileUtilityPage === "calendar" ? (
             <div className="space-y-4">
               <MobileSectionHeader
                 title={mobileSurfaceTitle}
                 hospital={mobileHospitalLabel}
                 department={mobileDepartmentLabel}
-                profileInitial={mobileProfileInitial}
-                profileUid={mobileUser?.uid}
-                profilePhotoURL={mobilePhotoURL}
                 onOpenProfile={() => setShowMobileProfile(true)}
                 searchValue={searchValue}
                 onSearchChange={setSearchValue}
@@ -1516,9 +1540,6 @@ export default function PrepSightV4App() {
                 title={mobileSurfaceTitle}
                 hospital={mobileHospitalLabel}
                 department={mobileDepartmentLabel}
-                profileInitial={mobileProfileInitial}
-                profileUid={mobileUser?.uid}
-                profilePhotoURL={mobilePhotoURL}
                 onOpenProfile={() => setShowMobileProfile(true)}
                 searchValue={searchValue}
                 onSearchChange={setSearchValue}
@@ -1534,21 +1555,18 @@ export default function PrepSightV4App() {
                 title={mobileSurfaceTitle}
                 hospital={mobileHospitalLabel}
                 department={mobileDepartmentLabel}
-                profileInitial={mobileProfileInitial}
-                profileUid={mobileUser?.uid}
-                profilePhotoURL={mobilePhotoURL}
                 onOpenProfile={() => setShowMobileProfile(true)}
                 searchValue={searchValue}
                 onSearchChange={setSearchValue}
                 searchPlaceholder={mobileSearchPlaceholder}
               />
-              <div className="space-y-4 px-4 pb-4">
+              <div className="space-y-4 bg-black px-4 pb-4">
                 {selectedLibraryId ? (
                   <>
                     <button
                       type="button"
                       onClick={() => setSelectedLibraryId(null)}
-                      className="rounded-[12px] border border-[#A9DBEA] bg-white px-3 py-2 text-[14px] text-[#0F4C5C]"
+                      className="rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
                     >
                       Back to collections
                     </button>
@@ -1565,9 +1583,6 @@ export default function PrepSightV4App() {
                 title={mobileSurfaceTitle}
                 hospital={mobileHospitalLabel}
                 department={mobileDepartmentLabel}
-                profileInitial={mobileProfileInitial}
-                profileUid={mobileUser?.uid}
-                profilePhotoURL={mobilePhotoURL}
                 onOpenProfile={() => setShowMobileProfile(true)}
                 searchValue={searchValue}
                 onSearchChange={setSearchValue}
@@ -1626,9 +1641,6 @@ export default function PrepSightV4App() {
                 title={mobileSurfaceTitle}
                 hospital={mobileHospitalLabel}
                 department={mobileDepartmentLabel}
-                profileInitial={mobileProfileInitial}
-                profileUid={mobileUser?.uid}
-                profilePhotoURL={mobilePhotoURL}
                 onOpenProfile={() => setShowMobileProfile(true)}
                 searchValue={searchValue}
                 onSearchChange={setSearchValue}
@@ -1641,8 +1653,8 @@ export default function PrepSightV4App() {
           )}
         </main>
 
-        <div className="fixed inset-x-0 bottom-0">
-          <div className="bg-[var(--mob-dock-bg)] border-t border-[var(--mob-dock-border)] px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
+        <div className="fixed inset-x-0 bottom-0 z-50">
+          <div className="bg-black border-t border-black px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
             <div
               className="grid gap-1"
               style={{ gridTemplateColumns: `repeat(${TAB_ITEMS.length}, minmax(0, 1fr))` }}
@@ -1661,13 +1673,19 @@ export default function PrepSightV4App() {
                       if (item.key !== "comms") setSelectedLibraryId(null)
                     }}
                     className={`flex flex-col items-center justify-center rounded-[16px] px-2 py-2.5 transition-all ${
-                      isActive ? "bg-[var(--mob-dock-active-bg)] text-[var(--mob-dock-active)]" : "text-[var(--mob-dock-inactive)] hover:text-[var(--mob-text)]"
+                      isActive ? "bg-[var(--mob-dock-active-bg)] text-[var(--mob-dock-active)]" : "text-[var(--mob-dock-inactive)]"
                     }`}
                   >
                     <div className="relative flex h-7 w-7 items-center justify-center">
-                      <Icon size={23} strokeWidth={isActive ? 2.2 : 1.7} />
+                      {item.key === "comms" ? (
+                        <CommsFilledIcon size={23} />
+                      ) : item.key === "library" ? (
+                        <LibraryFilledIcon size={23} />
+                      ) : (
+                        <Icon size={23} strokeWidth={isActive ? 2.2 : 1.7} />
+                      )}
                     </div>
-                    <span className={`mt-1 text-[11px] font-medium tracking-wide ${isActive ? "text-[var(--mob-dock-active)]" : "text-[var(--mob-dock-inactive)]"}`}>
+                    <span className="mt-1 text-[11px] font-medium tracking-wide">
                       {item.key === "updates" ? "Insights" : item.label}
                     </span>
                   </button>
@@ -1679,49 +1697,60 @@ export default function PrepSightV4App() {
       </div>
       </MobileThemeProvider>
 
-      <main
-        style={desktopGridStyle}
-        className={`hidden lg:grid ${desktopNavOpen ? "lg:grid-cols-[210px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}
+      <div
+        className={`hidden lg:grid lg:min-h-screen ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}
       >
         <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
-        <section className="min-w-0 px-6 py-5">
-          <div className="mb-4">
-            <DesktopSectionWordmark label="Library Collections" />
+        <div className="flex min-w-0 flex-col">
+          <AppTopBar
+            menuOpen={menuOpen}
+            onToggleMenu={() => setMenuOpen((value) => !value)}
+            menuContent={<AppMenuContent />}
+            mobileMenuOnly
+            searchValue={searchValue}
+            onSearchChange={setSearchValue}
+            searchPlaceholder="Search anywhere..."
+            sectionLabel="Library Collections"
+          />
+          <div className="flex flex-1 min-h-0">
+            <main className="flex-1 min-w-0 px-6 pt-4 pb-5">
+              {activeTab === "library" ? (
+                <LibraryOverview
+                  query={searchValue}
+                  selectedLibraryId={selectedLibraryId}
+                  onSelectLibrary={setSelectedLibraryId}
+                  onBackToCollections={() => setSelectedLibraryId(null)}
+                />
+              ) : activeTab === "logistics" ? (
+                <ResourcesPanel activeKey={activeResourceKey} onSelect={setActiveResourceKey} />
+              ) : (
+                <UpdatesPanel activeKey={activeUpdateKey} onSelect={setActiveUpdateKey} />
+              )}
+            </main>
+            {commsRailOpen ? (
+              <aside
+                className="relative flex-shrink-0 border-l border-black"
+                style={{ width: commsRailWidth }}
+              >
+                <button
+                  type="button"
+                  onMouseDown={(event) => {
+                    ;(window as Window & { __prepsightStartCommsResize?: (nextEvent: MouseEvent) => void }).__prepsightStartCommsResize?.(event.nativeEvent)
+                  }}
+                  className="group absolute left-0 top-0 z-20 hidden h-full w-5 -translate-x-1/2 cursor-col-resize lg:block"
+                  aria-label="Resize PrepSight Comms panel"
+                  title={`Resize Comms panel (${minCommsWidth}-${maxCommsWidth}px)`}
+                >
+                  <span className="absolute left-1/2 top-0 h-full w-[4px] -translate-x-1/2 bg-[#333333] transition-colors group-hover:bg-[#555555]" />
+                  <span className="absolute left-1/2 top-1/2 h-24 w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#404040] shadow-[0_8px_24px_rgba(0,0,0,0.4)] ring-1 ring-[#444444] transition-all group-hover:h-28 group-hover:bg-[#505050] group-hover:ring-[#666666]" />
+                </button>
+                <V5CommsDesktopRail />
+              </aside>
+            ) : null}
           </div>
-
-          {activeTab === "library" ? (
-            <LibraryOverview
-              query={searchValue}
-              selectedLibraryId={selectedLibraryId}
-              onSelectLibrary={setSelectedLibraryId}
-              onBackToCollections={() => setSelectedLibraryId(null)}
-            />
-          ) : activeTab === "logistics" ? (
-            <ResourcesPanel activeKey={activeResourceKey} onSelect={setActiveResourceKey} />
-          ) : (
-            <UpdatesPanel activeKey={activeUpdateKey} onSelect={setActiveUpdateKey} />
-          )}
-        </section>
-
-        {commsRailOpen ? (
-          <aside className="relative min-w-0">
-            <button
-              type="button"
-              onMouseDown={(event) => {
-                ;(window as Window & { __prepsightStartCommsResize?: (nextEvent: MouseEvent) => void }).__prepsightStartCommsResize?.(event.nativeEvent)
-              }}
-              className="group absolute left-0 top-0 z-20 hidden h-full w-5 -translate-x-1/2 cursor-col-resize lg:block"
-              aria-label="Resize PrepSight Comms panel"
-              title={`Resize Comms panel (${minCommsWidth}-${maxCommsWidth}px)`}
-            >
-              <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[#b8ddea] transition-colors group-hover:bg-[#7fcce3]" />
-              <span className="absolute left-1/2 top-1/2 h-24 w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#dff5fb] shadow-[0_8px_24px_rgba(15,76,92,0.14)] ring-1 ring-[#a8d9e8] transition-all group-hover:h-28 group-hover:bg-[#c8edf7] group-hover:ring-[#7fcce3]" />
-            </button>
-            <V5CommsDesktopRail />
-          </aside>
-        ) : null}
-      </main>
+        </div>
+      </div>
     </div>
   )
 }

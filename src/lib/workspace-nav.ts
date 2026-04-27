@@ -44,9 +44,9 @@ export const WORKSPACE_NAV_GROUPS: WorkspaceNavGroup[] = [
     key: "resources",
     label: "Resources",
     items: [
-      { key: "workforce", label: "Workforce", href: "/resources/workforce", iconSrc: "/icons/navigation/review.svg" },
-      { key: "equipment", label: "Equipment", href: "/resources/equipment", iconSrc: "/icons/navigation/catalogue.svg" },
-      { key: "supplies", label: "Supplies", href: "/resources/supplies", iconSrc: "/icons/navigation/bookmarks.svg" },
+      { key: "workforce", label: "Workforce", href: "/resources/workforce", iconSrc: "/icons/navigation/workforce.svg" },
+      { key: "equipment", label: "Equipment", href: "/resources/equipment", iconSrc: "/icons/navigation/equipment.svg" },
+      { key: "supplies", label: "Supplies", href: "/resources/supplies", iconSrc: "/icons/navigation/supplies.svg" },
     ],
   },
   {

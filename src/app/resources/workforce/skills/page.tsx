@@ -1,7 +1,6 @@
 "use client"
 
 import { GraduationCap, ShieldCheck, Sparkles } from "lucide-react"
-import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
 import WorkforceSectionNav from "@/components/WorkforceSectionNav"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
 
@@ -33,9 +32,8 @@ function pillTone(value: string) {
 
 export default function WorkforceSkillsPage() {
   return (
-    <WorkspaceDesktopShell currentNav="workforce">
+    <WorkspaceDesktopShell currentNav="workforce" sectionLabel="Resources Workforce">
       <div className="px-5 py-4 lg:px-6 lg:py-5">
-        <DesktopSectionWordmark label="Resources Workforce" />
         <p className="mt-3 max-w-[760px] text-[15px] leading-7 text-[#486579]">
           Skills should feel like a passport and eligibility view. It should be obvious what I am signed off
           to do and what kind of shifts should be surfaced to me.
