@@ -2398,9 +2398,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* position:fixed + z-[200] so it floats above the bottom nav on all pages */}
       {callState !== "idle" && (
         <div
-          className="fixed inset-0 z-[200] flex flex-col"
+          className="fixed inset-0 z-[200] flex flex-col bg-black"
           style={{
-            background: "radial-gradient(ellipse at 50% 0%, #0a1f38 0%, #020d1e 65%)",
             paddingTop: "env(safe-area-inset-top)",
             paddingBottom: "env(safe-area-inset-bottom)",
           }}
