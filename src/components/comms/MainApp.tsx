@@ -37,6 +37,8 @@ import {
   Forward,
   LockKeyhole,
   LogOut,
+  Mic,
+  MicOff,
   MoreVertical,
   Paperclip,
   Phone,
@@ -54,6 +56,7 @@ import {
   Sun,
   Trash2,
   Video,
+  Volume2,
   X,
 } from "lucide-react"
 
@@ -364,6 +367,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const tomAnswerTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const tomTypingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [tomVoiceMode, setTomVoiceMode] = useState(false)
+  const [calleeInfo, setCalleeInfo] = useState<CommsUser | null>(null)
+  const [callElapsed, setCallElapsed] = useState(0)
+  const [callMuted, setCallMuted] = useState(false)
+  const [callSpeaker, setCallSpeaker] = useState(false)
   const [tomTyping, setTomTyping] = useState(false)
   const [tomTasks, setTomTasks] = useState<TomWatchTask[]>([])
 
@@ -390,6 +397,41 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       // ignore local persistence failures
     }
   }, [tomTaskStorageKey, tomTasks])
+
+  // ── Clear stale calls on mount (page refresh leaves Firestore calls open) ──
+  // Uses single-field queries only — Firestore auto-indexes these, no composite index needed.
+  useEffect(() => {
+    async function clearStaleCalls() {
+      try {
+        const [s1, s2] = await Promise.all([
+          getDocs(query(collection(firestore, "comms_v5_calls"), where("callerUid", "==", user.uid))),
+          getDocs(query(collection(firestore, "comms_v5_calls"), where("calleeUid", "==", user.uid))),
+        ])
+        const stale = [...s1.docs, ...s2.docs].filter(d => {
+          const data = d.data()
+          return data.organizationId === org.id && ["ringing", "active"].includes(data.status)
+        })
+        await Promise.all(stale.map(d => updateDoc(d.ref, { status: "ended", endedAt: Date.now() })))
+      } catch (e) { console.warn("stale call cleanup:", e) }
+    }
+    clearStaleCalls()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Sync local video stream to ref once call UI mounts ──
+  useEffect(() => {
+    if (callState !== "idle" && localStreamRef.current && localVideoRef.current) {
+      localVideoRef.current.srcObject = localStreamRef.current
+    }
+  }, [callState])
+
+  // ── Call elapsed timer ──
+  useEffect(() => {
+    if (callState !== "active") { setCallElapsed(0); return }
+    const interval = setInterval(() => {
+      setCallElapsed(Math.round((Date.now() - callStartTimeRef.current) / 1000))
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [callState])
 
   // ── Presence heartbeat ──
   useEffect(() => {
@@ -536,6 +578,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       if (!snap.empty && callState === "idle") {
         const callDoc = snap.docs[0]
         const call = { id: callDoc.id, ...callDoc.data() } as CommsCall
+        // Reject ghost calls left over from a previous session (older than 60 s)
+        if (Date.now() - call.createdAt > 60_000) {
+          try { await updateDoc(doc(firestore, "comms_v5_calls", callDoc.id), { status: "missed" }) } catch {}
+          return
+        }
         setActiveCall(call)
         setCallMediaMode(call.mode || "audio")
         setCallState("incoming")
@@ -1120,7 +1167,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       const nextCall = { id: snap.id, ...data } as CommsCall
       setActiveCall(nextCall)
 
-      if (data.status === "active" && callState !== "active") {
+      if (data.status === "active") {
         setCallState("active")
       }
 
@@ -1171,6 +1218,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       }, 1400)
       return
     }
+    // Fetch callee profile for call UI
+    try {
+      const calleeDoc = await getDoc(doc(firestore, "comms_v5_users", calleeUid))
+      if (calleeDoc.exists()) setCalleeInfo(calleeDoc.data() as CommsUser)
+    } catch { /* non-critical */ }
+
     let stream: MediaStream
     try {
       stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: callMediaMode === "video" })
@@ -1353,7 +1406,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (remoteVideoRef.current) { remoteVideoRef.current.srcObject = null }
     if (localVideoRef.current) { localVideoRef.current.srcObject = null }
     setTomVoiceMode(false)
-    setCallState("idle"); setActiveCall(null); setCallerInfo(null)
+    setCallState("idle"); setActiveCall(null); setCallerInfo(null); setCalleeInfo(null)
+    setCallElapsed(0); setCallMuted(false); setCallSpeaker(false)
+  }
+
+  function toggleMute() {
+    localStreamRef.current?.getAudioTracks().forEach(t => { t.enabled = !t.enabled })
+    setCallMuted(v => !v)
   }
 
   const handleSignOut = useCallback(async () => {
@@ -1862,9 +1921,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Emoji overlay — absolute right side, overlays messages without pushing them */}
+          {/* Emoji overlay — z-[25] sits above the z-20 action backdrop so category buttons are clickable */}
           {(showEmojiPicker === "drawer" || showEmojiPicker === "input") && (
-            <div className="absolute right-0 inset-y-0 z-10 w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col">
+            <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col">
               <EmojiPicker
                 variant="drawer"
                 onSelect={e => {
@@ -2330,62 +2389,155 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
       {/* ═══════════════════ CALL UI ═══════════════════ */}
       {callState !== "idle" && (
-        <div className="absolute inset-0 bg-[#0d1b2a]/95 z-40 flex flex-col items-center justify-center gap-10"
-          style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}>
-          <div className={`absolute inset-0 overflow-hidden ${activeCall?.mode === "video" && !tomVoiceMode ? "" : "hidden"}`}>
+        <div
+          className="absolute inset-0 z-40 flex flex-col"
+          style={{
+            background: "radial-gradient(ellipse at 50% 0%, #0a1f38 0%, #020d1e 65%)",
+            paddingTop: "env(safe-area-inset-top)",
+            paddingBottom: "env(safe-area-inset-bottom)",
+          }}
+        >
+          {/* Video streams — active video call only */}
+          <div className={`absolute inset-0 overflow-hidden ${activeCall?.mode === "video" && !tomVoiceMode && callState === "active" ? "" : "hidden"}`}>
             <video ref={remoteVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
-            <video
-              ref={localVideoRef}
-              autoPlay
-              playsInline
-              muted
-              className="absolute bottom-6 right-5 h-32 w-24 rounded-[20px] border border-white/30 object-cover shadow-[0_18px_40px_rgba(0,0,0,0.28)]"
-            />
+            <video ref={localVideoRef} autoPlay playsInline muted
+              className="absolute bottom-6 right-5 h-32 w-24 rounded-[20px] border border-white/30 object-cover" />
           </div>
-          <div className="flex flex-col items-center gap-5">
-            {callState === "incoming" && callerInfo ? (
+
+          {/* ── Top: timer + controls (active calls) ── */}
+          <div className="relative z-10 flex flex-col items-center pt-8">
+            {callState === "active" && (
               <>
-                <Avatar name={callerInfo.displayName} size={90} uid={callerInfo.uid} />
-                <div className="text-center">
-                  <p className="text-white text-xl">{callerInfo.displayName}</p>
-                  <p className="text-white/50 text-base mt-1">Incoming call…</p>
+                {/* Timer pill */}
+                <div className="flex items-center gap-2.5 rounded-full bg-white/10 px-5 py-2.5">
+                  <Phone size={15} className="text-[#0096C7]" />
+                  <span className="font-mono text-[17px] font-semibold tracking-wider text-[#0096C7]">
+                    {formatCallDuration(callElapsed)}
+                  </span>
                 </div>
-              </>
-            ) : callState === "outgoing" ? (
-              <>
-                <div className="w-24 h-24 rounded-full bg-[#29b6d8]/20 flex items-center justify-center">
-                  <Phone size={40} className="text-[#29b6d8]" />
-                </div>
-                <div className="text-center">
-                  <p className="text-white text-xl">Calling…</p>
-                  <p className="text-white/50 text-base mt-1">{selectedThread ? getThreadName(selectedThread) : ""}</p>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="w-24 h-24 rounded-full bg-emerald-500/20 flex items-center justify-center">
-                  <Phone size={40} className="text-emerald-400" />
-                </div>
-                <div className="text-center">
-                  <p className="text-white text-xl">{tomVoiceMode ? "TOM voice mode" : "On call"}</p>
-                  <p className="text-white/50 text-base mt-1">{tomVoiceMode ? "Connected" : "Connected"}</p>
+                {/* Controls row */}
+                <div className="mt-6 flex w-full items-stretch border-t border-b border-white/10">
+                  <button
+                    onClick={toggleMute}
+                    className="flex flex-1 flex-col items-center gap-1.5 py-4 text-white/70 transition-colors hover:text-white"
+                  >
+                    {callMuted
+                      ? <MicOff size={22} className="text-red-400" />
+                      : <Mic size={22} />}
+                    <span className="text-[11px]">{callMuted ? "Unmute" : "Mute"}</span>
+                  </button>
+                  <div className="w-px bg-white/10" />
+                  <button
+                    onClick={() => setCallSpeaker(v => !v)}
+                    className="flex flex-1 flex-col items-center gap-1.5 py-4 text-white/70 transition-colors hover:text-white"
+                  >
+                    <Volume2 size={22} className={callSpeaker ? "text-[#0096C7]" : ""} />
+                    <span className="text-[11px]">Speaker</span>
+                  </button>
+                  {activeCall?.mode === "video" && !tomVoiceMode && (
+                    <>
+                      <div className="w-px bg-white/10" />
+                      <button className="flex flex-1 flex-col items-center gap-1.5 py-4 text-[#0096C7]">
+                        <Video size={22} />
+                        <span className="text-[11px]">Video</span>
+                      </button>
+                    </>
+                  )}
                 </div>
               </>
             )}
           </div>
 
-          <div className="flex gap-8">
+          {/* ── Middle: avatar / GIF + identity ── */}
+          <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-5 px-8">
+            {callState === "outgoing" ? (
+              <>
+                <img
+                  src="/Plant%20Growing%20Sticker%20by%20Bouclair.gif"
+                  alt=""
+                  className="h-52 w-52 object-contain"
+                  style={{ filter: "grayscale(1) sepia(1) hue-rotate(170deg) saturate(4.5) brightness(1.05)" }}
+                />
+                <div className="text-center">
+                  <p className="text-2xl font-bold text-[#0096C7]">
+                    {calleeInfo?.displayName ?? (selectedThread ? getThreadName(selectedThread) : "")}
+                  </p>
+                  {calleeInfo?.email ? (
+                    <p className="mt-1 text-[15px] font-medium text-white/80">{calleeInfo.email}</p>
+                  ) : null}
+                  {calleeInfo?.clinicalRole ? (
+                    <p className="mt-0.5 text-[13px] text-white/45">{calleeInfo.clinicalRole}</p>
+                  ) : null}
+                  <p className="mt-3 text-sm text-[#0096C7]/70">
+                    {callMediaMode === "video" ? "Video calling…" : "Audio calling…"}
+                  </p>
+                </div>
+              </>
+            ) : (
+              <>
+                {/* Glowing avatar ring */}
+                <div className="relative flex items-center justify-center">
+                  <div
+                    className="absolute rounded-full"
+                    style={{
+                      inset: -5,
+                      border: "2px solid #0096C7",
+                      boxShadow: "0 0 18px 4px rgba(0,150,199,0.45), 0 0 55px 18px rgba(0,150,199,0.12)",
+                    }}
+                  />
+                  <Avatar
+                    name={(callState === "incoming" ? callerInfo?.displayName : calleeInfo?.displayName) ?? "?"}
+                    size={110}
+                    uid={callState === "incoming" ? callerInfo?.uid : calleeInfo?.uid}
+                  />
+                </div>
+                <div className="text-center">
+                  <p className="text-[26px] font-bold text-[#0096C7]">
+                    {callState === "incoming"
+                      ? (callerInfo?.displayName ?? "Incoming call")
+                      : (calleeInfo?.displayName ?? (selectedThread ? getThreadName(selectedThread) : ""))}
+                  </p>
+                  {(callState === "incoming" ? callerInfo?.email : calleeInfo?.email) ? (
+                    <p className="mt-1.5 text-[15px] font-semibold text-white">
+                      {callState === "incoming" ? callerInfo!.email : calleeInfo!.email}
+                    </p>
+                  ) : null}
+                  {(callState === "incoming" ? callerInfo?.clinicalRole : calleeInfo?.clinicalRole) ? (
+                    <p className="mt-1 text-[13px] text-white/50">
+                      {callState === "incoming" ? callerInfo!.clinicalRole : calleeInfo!.clinicalRole}
+                    </p>
+                  ) : null}
+                  <p className="mt-3 text-sm text-[#0096C7]/70">
+                    {callState === "incoming"
+                      ? (activeCall?.mode === "video" ? "Incoming video call" : "Incoming audio call")
+                      : (tomVoiceMode ? "TOM voice mode" : "Connected")}
+                  </p>
+                </div>
+              </>
+            )}
+          </div>
+
+          {/* ── Bottom: action buttons ── */}
+          <div className="relative z-10 flex justify-center gap-12 pb-16">
             {callState === "incoming" && (
-              <button onClick={answerCall}
-                className="w-18 h-18 bg-emerald-500 rounded-full flex items-center justify-center shadow-lg"
-                style={{ width: 72, height: 72 }}>
+              <button
+                onClick={answerCall}
+                className="flex h-[72px] w-[72px] items-center justify-center rounded-full"
+                style={{
+                  background: "radial-gradient(circle at 38% 32%, #4ade80, #15803d)",
+                  boxShadow: "0 8px 28px rgba(21,128,61,0.55), inset 0 1px 0 rgba(255,255,255,0.18)",
+                }}
+              >
                 <PhoneIncoming size={28} className="text-white" />
               </button>
             )}
             <button
               onClick={callState === "incoming" ? declineCall : endCall}
-              className="bg-red-500 rounded-full flex items-center justify-center shadow-lg"
-              style={{ width: 72, height: 72 }}
+              className="flex h-[72px] w-[72px] items-center justify-center rounded-full"
+              style={{
+                background: "radial-gradient(circle at 38% 32%, #f87171, #b91c1c)",
+                boxShadow: "0 8px 28px rgba(185,28,28,0.55), inset 0 1px 0 rgba(255,255,255,0.18)",
+              }}
             >
               <PhoneOff size={28} className="text-white" />
             </button>
