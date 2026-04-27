@@ -1390,10 +1390,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           40% { transform: translateY(-2px); opacity: 1; }
         }
       `}</style>
-      {/* Hidden audio for remote stream */}
+      {/* Hidden audio for remote stream — video refs live in call UI only to avoid ref conflicts */}
       <audio ref={remoteAudioRef} autoPlay playsInline className="hidden" />
-      <video ref={remoteVideoRef} autoPlay playsInline className="hidden" />
-      <video ref={localVideoRef} autoPlay playsInline muted className="hidden" />
 
       {/* ── Header ── */}
       <div
@@ -2334,18 +2332,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {callState !== "idle" && (
         <div className="absolute inset-0 bg-[#0d1b2a]/95 z-40 flex flex-col items-center justify-center gap-10"
           style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}>
-          {activeCall?.mode === "video" && !tomVoiceMode ? (
-            <div className="absolute inset-0 overflow-hidden">
-              <video ref={remoteVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
-              <video
-                ref={localVideoRef}
-                autoPlay
-                playsInline
-                muted
-                className="absolute bottom-6 right-5 h-32 w-24 rounded-[20px] border border-white/30 object-cover shadow-[0_18px_40px_rgba(0,0,0,0.28)]"
-              />
-            </div>
-          ) : null}
+          <div className={`absolute inset-0 overflow-hidden ${activeCall?.mode === "video" && !tomVoiceMode ? "" : "hidden"}`}>
+            <video ref={remoteVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
+            <video
+              ref={localVideoRef}
+              autoPlay
+              playsInline
+              muted
+              className="absolute bottom-6 right-5 h-32 w-24 rounded-[20px] border border-white/30 object-cover shadow-[0_18px_40px_rgba(0,0,0,0.28)]"
+            />
+          </div>
           <div className="flex flex-col items-center gap-5">
             {callState === "incoming" && callerInfo ? (
               <>
