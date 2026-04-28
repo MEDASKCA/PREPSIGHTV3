@@ -3,9 +3,10 @@
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
-import { Bell, LogOut, Menu, MoreVertical, Search, Settings2, UserCircle2, UserRound, X } from "lucide-react"
+import { Bell, LogOut, Menu, Mic, MicOff, MoreVertical, PhoneOff, Search, Settings2, UserCircle2, UserRound, Video, X } from "lucide-react"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getDesktopCommsPreference, subscribeDesktopCommsPreference, toggleDesktopCommsPreference } from "@/lib/desktop-comms"
+import { useCallStatus } from "@/lib/call-state"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { getProcedureLibrarySnapshot, subscribeProcedureLibrary } from "@/lib/procedure-library"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
@@ -118,6 +119,13 @@ export default function AppTopBar({
     getDesktopCommsPreference,
     getDesktopCommsPreference,
   )
+  const callStatus = useCallStatus()
+  const showCallControls = !commsRailOpen && callStatus.state !== "idle"
+
+  function fmtDur(s: number) {
+    const m = Math.floor(s / 60), ss = s % 60
+    return `${String(m).padStart(2, "0")}:${String(ss).padStart(2, "0")}`
+  }
 
   const searchItems = useMemo<SearchItem[]>(() => {
     const libraryItems = libraries.map((library) => ({
@@ -301,7 +309,49 @@ export default function AppTopBar({
             )}
           </div>
 
-          <div className="ml-auto hidden lg:block">
+          <div className="ml-auto hidden lg:flex lg:items-center lg:gap-3">
+            {/* Call status bar — shown on desktop when comms panel is closed */}
+            {showCallControls && (
+              <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/80 px-3 py-1.5"
+                style={{ backdropFilter: "blur(12px)", WebkitBackdropFilter: "blur(12px)" }}>
+                <div className="h-2 w-2 shrink-0 rounded-full bg-[#0096C7] animate-pulse" />
+                <span className="max-w-[100px] truncate text-[12px] font-medium text-white">
+                  {callStatus.state === "incoming" ? callStatus.callerName || "Incoming"
+                    : callStatus.calleeName || "Call"}
+                </span>
+                {callStatus.state === "active" && (
+                  <span className="font-mono text-[11px] text-[#0096C7]/80">{fmtDur(callStatus.elapsed)}</span>
+                )}
+                <div className="mx-1 h-4 w-px bg-white/10" />
+                {callStatus.state === "active" && (
+                  <button onClick={() => callStatus.toggleMute?.()}
+                    className="flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.08] hover:bg-white/[0.15]"
+                    title={callStatus.muted ? "Unmute" : "Mute"}>
+                    {callStatus.muted ? <MicOff size={11} className="text-red-400" /> : <Mic size={11} className="text-white/60" />}
+                  </button>
+                )}
+                {callStatus.state === "active" && callStatus.mediaMode === "video" && (
+                  <button onClick={() => callStatus.switchToAudio?.()}
+                    className="flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.08] hover:bg-white/[0.15]"
+                    title="Switch to audio only">
+                    <Video size={11} className="text-[#0096C7]" />
+                  </button>
+                )}
+                {callStatus.state === "incoming" && (
+                  <button onClick={() => callStatus.answer?.()}
+                    className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500"
+                    title="Answer">
+                    <PhoneOff size={10} className="text-white rotate-[135deg]" />
+                  </button>
+                )}
+                <button
+                  onClick={() => callStatus.state === "incoming" ? callStatus.decline?.() : callStatus.end?.()}
+                  className="flex h-6 w-6 items-center justify-center rounded-full bg-red-500"
+                  title={callStatus.state === "incoming" ? "Decline" : "End call"}>
+                  <PhoneOff size={11} className="text-white" />
+                </button>
+              </div>
+            )}
             <div className="relative w-[440px] xl:w-[520px]">
             <label className="flex min-w-0 items-center gap-2 rounded-[12px] border border-[#0F4C5C] bg-white/96 px-3 py-2.5">
               <Search size={16} className="shrink-0 text-[#0F4C5C]" />

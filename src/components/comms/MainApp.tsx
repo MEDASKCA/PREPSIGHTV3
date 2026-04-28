@@ -20,6 +20,7 @@ import {
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage"
 import { signOut, type User } from "firebase/auth"
 import { auth, db, storage } from "@/lib/firebase"
+import { clearCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
 import type {
   CommsOrg,
   CommsThread,
@@ -382,6 +383,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const seededGroupNamesRef = useRef<Record<string, true>>({})
   const tomThreadSeededRef = useRef(false)
   const tomTaskStorageKey = `prepsight-tom-tasks:${org.id}:${user.uid}`
+  // Stable wrappers that always point to the latest function versions (avoids stale-closure in published callbacks)
+  const callActionsRef = useRef<{
+    endCall: () => void
+    answerCall: () => void
+    declineCall: () => void
+    toggleMute: () => void
+    switchToAudio: () => void
+  }>({ endCall: () => {}, answerCall: () => {}, declineCall: () => {}, toggleMute: () => {}, switchToAudio: () => {} })
 
   useEffect(() => {
     try {
@@ -438,6 +447,36 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   useEffect(() => {
     if (!visible && callState !== "idle") setCallMinimized(true)
   }, [visible, callState])
+
+  // ── Register stable action callbacks in global store (mount only) ──
+  useEffect(() => {
+    publishCallStatus({
+      end: () => callActionsRef.current.endCall(),
+      answer: () => callActionsRef.current.answerCall(),
+      decline: () => callActionsRef.current.declineCall(),
+      toggleMute: () => callActionsRef.current.toggleMute(),
+      switchToAudio: () => callActionsRef.current.switchToAudio(),
+      expand: () => setCallMinimized(false),
+    })
+    return () => clearCallStatus()
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Sync call state changes to global store ──
+  useEffect(() => {
+    publishCallStatus({ state: callState, mediaMode: callMediaMode, muted: callMuted, minimized: callMinimized })
+  }, [callState, callMediaMode, callMuted, callMinimized])
+
+  useEffect(() => {
+    publishCallStatus({ elapsed: callElapsed })
+  }, [callElapsed])
+
+  useEffect(() => {
+    publishCallStatus({ callerName: callerInfo?.displayName ?? "", callerUid: callerInfo?.uid ?? "" })
+  }, [callerInfo])
+
+  useEffect(() => {
+    publishCallStatus({ calleeName: calleeInfo?.displayName ?? "", calleeUid: calleeInfo?.uid ?? "" })
+  }, [calleeInfo])
 
   // ── Vibrate on incoming call ──
   useEffect(() => {
@@ -1169,6 +1208,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     pc.ontrack = e => {
       if (!e.streams[0]) return
       remoteStreamRef.current = e.streams[0]
+      publishCallStatus({ remoteStream: e.streams[0] })
       if (remoteAudioRef.current) {
         remoteAudioRef.current.srcObject = e.streams[0]
         remoteAudioRef.current.play().catch(() => {})
@@ -1436,12 +1476,27 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setCallState("idle"); setActiveCall(null); setCallerInfo(null); setCalleeInfo(null)
     setCallElapsed(0); setCallMuted(false); setCallSpeaker(false)
     setCallMinimized(false)
+    resetCallStatus()
   }
 
   function toggleMute() {
     localStreamRef.current?.getAudioTracks().forEach(t => { t.enabled = !t.enabled })
     setCallMuted(v => !v)
   }
+
+  function switchToAudio() {
+    if (!localStreamRef.current || callState !== "active") return
+    localStreamRef.current.getVideoTracks().forEach(track => {
+      track.stop()
+      const sender = pcRef.current?.getSenders().find(s => s.track === track)
+      if (sender) pcRef.current?.removeTrack(sender)
+    })
+    if (localVideoRef.current) localVideoRef.current.srcObject = null
+    setCallMediaMode("audio")
+  }
+
+  // Keep callActionsRef current every render so stable store callbacks always invoke latest functions
+  callActionsRef.current = { endCall, answerCall, declineCall, toggleMute, switchToAudio }
 
   const handleSignOut = useCallback(async () => {
     await setDoc(doc(firestore, "comms_v5_presence", user.uid), {
@@ -1744,17 +1799,45 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex items-center gap-2">
               {selectedThread.type === "direct" && (
                 <>
+                  {/* Audio call button — red hang-up when audio call active, grey when video call active, blue otherwise */}
                   <button
-                    onClick={() => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "audio")}
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8]"
+                    onClick={
+                      callState === "active" && callMediaMode === "audio" ? () => void endCall()
+                      : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "audio")
+                      : undefined
+                    }
+                    disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "audio")}
+                    className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
+                      callState === "active" && callMediaMode === "audio"
+                        ? "bg-red-500"
+                        : callState !== "idle"
+                        ? "cursor-not-allowed bg-[#2d2d2d] opacity-40"
+                        : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8]"
+                    }`}
                   >
-                    <Phone size={18} className="text-white" />
+                    {callState === "active" && callMediaMode === "audio"
+                      ? <PhoneOff size={18} className="text-white" />
+                      : <Phone size={18} className="text-white" />}
                   </button>
+                  {/* Video call button — red hang-up-video when video active (switches to audio), blue otherwise */}
                   <button
-                    onClick={() => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")}
-                    className="flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8]"
+                    onClick={
+                      callState === "active" && callMediaMode === "video" ? switchToAudio
+                      : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
+                      : undefined
+                    }
+                    disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "video")}
+                    className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
+                      callState === "active" && callMediaMode === "video"
+                        ? "bg-red-500"
+                        : callState === "active" && callMediaMode === "audio"
+                        ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
+                        : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8]"
+                    }`}
                   >
-                    <Video size={18} className="text-white" />
+                    {callState === "active" && callMediaMode === "video"
+                      ? <PhoneOff size={18} className="text-white" />
+                      : <Video size={18} className={callState === "active" ? "text-white/50" : "text-white"} />}
                   </button>
                 </>
               )}
@@ -2558,79 +2641,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       )}
 
-      {/* ═══ MINIMISED CALL PILL — slim bar anchored top-right, floats above everything ═══ */}
-      {callState !== "idle" && callMinimized && (
-        <div
-          className="fixed right-0 z-[200] flex items-center gap-1.5 pl-3 pr-2 select-none"
-          style={{
-            top: "env(safe-area-inset-top, 0px)",
-            height: 48,
-            background: "rgba(6,6,6,0.96)",
-            backdropFilter: "blur(24px)",
-            WebkitBackdropFilter: "blur(24px)",
-            borderLeft: "1px solid rgba(255,255,255,0.09)",
-            borderBottom: "1px solid rgba(255,255,255,0.09)",
-            borderBottomLeftRadius: 26,
-          }}
-        >
-          {/* Avatar with cyan ring */}
-          <div className="relative mr-1.5 shrink-0">
-            <div className="absolute rounded-full" style={{ inset: -1.5, border: "1.5px solid #0096C7", boxShadow: "0 0 6px rgba(0,150,199,0.45)" }} />
-            <Avatar
-              name={(callState === "incoming" ? callerInfo?.displayName : calleeInfo?.displayName) ?? "?"}
-              size={26}
-              uid={callState === "incoming" ? callerInfo?.uid : calleeInfo?.uid}
-            />
-          </div>
-
-          {/* Name + status/timer */}
-          <div className="mr-1.5 min-w-0 shrink" style={{ maxWidth: 88 }}>
-            <p className="truncate text-[11.5px] font-semibold leading-tight text-white">
-              {callState === "incoming"
-                ? (callerInfo?.displayName ?? "Incoming")
-                : (calleeInfo?.displayName ?? "Call")}
-            </p>
-            <p className="truncate text-[10px] leading-tight text-[#0096C7]/75">
-              {callState === "incoming"
-                ? (callMediaMode === "video" ? "Video call" : "Audio call")
-                : callState === "outgoing" ? "Calling…"
-                : formatCallDuration(callElapsed)}
-            </p>
-          </div>
-
-          {/* Mute — active only */}
-          {callState === "active" && (
-            <button onClick={toggleMute}
-              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.08] hover:bg-white/[0.15]">
-              {callMuted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white/60" />}
-            </button>
-          )}
-
-          {/* Answer — incoming only */}
-          {callState === "incoming" && (
-            <button onClick={answerCall}
-              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-500"
-              style={{ boxShadow: "0 2px 8px rgba(16,185,129,0.5)" }}>
-              <PhoneIncoming size={12} className="text-white" />
-            </button>
-          )}
-
-          {/* End / Decline */}
-          <button
-            onClick={callState === "incoming" ? declineCall : endCall}
-            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-red-500"
-            style={{ boxShadow: "0 2px 8px rgba(239,68,68,0.4)" }}>
-            <PhoneOff size={12} className="text-white" />
-          </button>
-
-          {/* Expand */}
-          <button
-            onClick={() => setCallMinimized(false)}
-            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/50 hover:bg-white/20 hover:text-white">
-            <ArrowRight size={10} />
-          </button>
-        </div>
-      )}
     </div>
   )
 }

@@ -3,8 +3,8 @@
 import dynamic from "next/dynamic"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
-import { useEffect, useMemo, useState, useSyncExternalStore, type CSSProperties } from "react"
-import { ArrowLeft, ArrowRightLeft, CalendarClock, ChevronDown, Clock3, Link2, LogOut, MapPinned, MoreVertical, Moon, Phone, Search, Settings, ShieldCheck, Sun, Wrench, X } from "lucide-react"
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type CSSProperties } from "react"
+import { ArrowLeft, ArrowRightLeft, CalendarClock, ChevronDown, Clock3, Link2, LogOut, MapPinned, Maximize2, Mic, MicOff, MoreVertical, Moon, Phone, PhoneIncoming, PhoneOff, Search, Settings, ShieldCheck, Sun, Video, Wrench, X } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import MobileCommsShell from "@/components/MobileCommsShell"
 import { MobileThemeProvider, useMobileTheme } from "@/lib/mobile-theme"
@@ -27,6 +27,7 @@ import { subscribeTeams } from "@/lib/team-workspaces"
 import { LOGISTICS_SECTIONS, TAB_ITEMS, UPDATES } from "@/v4/data"
 import type { LogisticsKey, TabKey, UpdateKey } from "@/v4/types"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
+import { useCallStatus } from "@/lib/call-state"
 
 type MobileResourcesTab = "workforce" | "equipment" | "supplies"
 type MobileWorkforceTab = "rota" | "shifts" | "skills" | "tasks"
@@ -1390,6 +1391,11 @@ export default function PrepSightV4App() {
   const [mobileCalendarView, setMobileCalendarView] = useState<MobileCalendarView>("monthly")
   const [activeTab, setActiveTab] = useState<TabKey>("library")
   const [mobileTab, setMobileTab] = useState<TabKey>("comms")
+  const callStatus = useCallStatus()
+  const pipVideoRef = useRef<HTMLVideoElement>(null)
+  const desktopPipVideoRef = useRef<HTMLVideoElement>(null)
+  const [desktopPipPos, setDesktopPipPos] = useState({ x: -1, y: -1 }) // -1 = not yet positioned
+  const desktopPipDragOrigin = useRef({ clientX: 0, clientY: 0, x: 0, y: 0 })
   const [activeResourceKey, setActiveResourceKey] = useState<LogisticsKey | null>(LOGISTICS_SECTIONS[0]?.key ?? null)
   const [activeUpdateKey, setActiveUpdateKey] = useState<UpdateKey | null>(UPDATES[0]?.key ?? null)
   const [selectedLibraryId, setSelectedLibraryId] = useState<string | null>(null)
@@ -1473,6 +1479,52 @@ export default function PrepSightV4App() {
   }, [commsRailOpen])
 
   useEffect(() => onAuthChange((nextUser) => setMobileUser(nextUser)), [])
+
+  // ── Sync remote stream to floating video pip elements ──
+  useEffect(() => {
+    if (pipVideoRef.current) {
+      if (callStatus.remoteStream) {
+        pipVideoRef.current.srcObject = callStatus.remoteStream
+        pipVideoRef.current.play().catch(() => {})
+      } else {
+        pipVideoRef.current.srcObject = null
+      }
+    }
+  }, [callStatus.remoteStream, callStatus.minimized])
+
+  useEffect(() => {
+    if (desktopPipVideoRef.current) {
+      if (callStatus.remoteStream) {
+        desktopPipVideoRef.current.srcObject = callStatus.remoteStream
+        desktopPipVideoRef.current.play().catch(() => {})
+      } else {
+        desktopPipVideoRef.current.srcObject = null
+      }
+    }
+  }, [callStatus.remoteStream, callStatus.minimized])
+
+  // ── Reset desktop pip position when a new call starts ──
+  useEffect(() => {
+    if (callStatus.state === "idle") setDesktopPipPos({ x: -1, y: -1 })
+  }, [callStatus.state])
+
+  function fmtDur(s: number) {
+    const m = Math.floor(s / 60)
+    const ss = s % 60
+    return `${String(m).padStart(2, "0")}:${String(ss).padStart(2, "0")}`
+  }
+
+  function onDesktopPipPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    e.currentTarget.setPointerCapture(e.pointerId)
+    desktopPipDragOrigin.current = { clientX: e.clientX, clientY: e.clientY, x: desktopPipPos.x, y: desktopPipPos.y }
+  }
+
+  function onDesktopPipPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (!(e.buttons & 1)) return
+    const nx = Math.max(8, Math.min(window.innerWidth - 160, desktopPipDragOrigin.current.x + e.clientX - desktopPipDragOrigin.current.clientX))
+    const ny = Math.max(8, Math.min(window.innerHeight - 220, desktopPipDragOrigin.current.y + e.clientY - desktopPipDragOrigin.current.clientY))
+    setDesktopPipPos({ x: nx, y: ny })
+  }
 
   const desktopGridStyle: CSSProperties | undefined = commsRailOpen
     ? { gridTemplateColumns: `${desktopNavOpen ? 210 : 80}px minmax(0,1fr) ${commsRailWidth}px` }
@@ -1762,6 +1814,180 @@ export default function PrepSightV4App() {
           </div>
         </div>
       </div>
+
+      {/* ═══ GLOBAL CALL OVERLAYS — fixed, pointer-events always on ═══ */}
+
+      {/* ── Mobile: floating video pip ── */}
+      {callStatus.state !== "idle" && callStatus.minimized && callStatus.mediaMode === "video" && (
+        <div
+          className="fixed z-[200] lg:hidden overflow-hidden rounded-[18px] select-none"
+          style={{
+            bottom: 76, right: 12,
+            width: 128, height: 210,
+            background: "#000",
+            boxShadow: "0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08)",
+            pointerEvents: "auto",
+          }}
+        >
+          <video ref={pipVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+          <div className="absolute left-2 right-2 top-2 flex items-center justify-between">
+            <button onClick={() => callStatus.end?.()}
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-red-500"
+              style={{ boxShadow: "0 2px 8px rgba(239,68,68,0.5)" }}>
+              <PhoneOff size={12} className="text-white" />
+            </button>
+            <button onClick={() => { callStatus.expand?.(); setMobileTab("comms") }}
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-white/20 hover:bg-white/30">
+              <Maximize2 size={12} className="text-white" />
+            </button>
+          </div>
+          <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between">
+            <button onClick={() => callStatus.toggleMute?.()}
+              className="flex h-7 w-7 items-center justify-center rounded-full bg-black/50">
+              {callStatus.muted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white/80" />}
+            </button>
+            <span className="font-mono text-[10px] text-white/70">{fmtDur(callStatus.elapsed)}</span>
+          </div>
+        </div>
+      )}
+
+      {/* ── Mobile: slim pill (audio call minimized) ── */}
+      {callStatus.state !== "idle" && callStatus.minimized && callStatus.mediaMode === "audio" && (
+        <div
+          className="fixed right-0 z-[200] flex items-center gap-1.5 pl-3 pr-2 lg:hidden select-none"
+          style={{
+            top: "env(safe-area-inset-top, 0px)",
+            height: 48,
+            background: "rgba(6,6,6,0.96)",
+            backdropFilter: "blur(24px)",
+            WebkitBackdropFilter: "blur(24px)",
+            borderLeft: "1px solid rgba(255,255,255,0.09)",
+            borderBottom: "1px solid rgba(255,255,255,0.09)",
+            borderBottomLeftRadius: 26,
+            pointerEvents: "auto",
+          }}
+        >
+          <div className="mr-1.5 min-w-0 shrink" style={{ maxWidth: 96 }}>
+            <p className="truncate text-[11.5px] font-semibold leading-tight text-white">
+              {callStatus.state === "incoming" ? callStatus.callerName || "Incoming" : callStatus.calleeName || "Call"}
+            </p>
+            <p className="truncate text-[10px] leading-tight text-[#0096C7]/75">
+              {callStatus.state === "incoming" ? "Audio call"
+                : callStatus.state === "outgoing" ? "Calling…"
+                : fmtDur(callStatus.elapsed)}
+            </p>
+          </div>
+          {callStatus.state === "active" && (
+            <button onClick={() => callStatus.toggleMute?.()}
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-white/[0.08] hover:bg-white/[0.15]">
+              {callStatus.muted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white/60" />}
+            </button>
+          )}
+          {callStatus.state === "incoming" && (
+            <button onClick={() => callStatus.answer?.()}
+              className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-500"
+              style={{ boxShadow: "0 2px 8px rgba(16,185,129,0.5)" }}>
+              <PhoneIncoming size={12} className="text-white" />
+            </button>
+          )}
+          <button
+            onClick={() => callStatus.state === "incoming" ? callStatus.decline?.() : callStatus.end?.()}
+            className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-red-500"
+            style={{ boxShadow: "0 2px 8px rgba(239,68,68,0.4)" }}>
+            <PhoneOff size={12} className="text-white" />
+          </button>
+          <button onClick={() => { callStatus.expand?.(); setMobileTab("comms") }}
+            className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/50 hover:bg-white/20 hover:text-white">
+            <Maximize2 size={10} />
+          </button>
+        </div>
+      )}
+
+      {/* ── Desktop: draggable floating pip (call minimized within open comms panel) ── */}
+      {callStatus.state !== "idle" && callStatus.minimized && (
+        <div
+          className="fixed z-[200] hidden select-none lg:block"
+          style={{
+            right: desktopPipPos.x < 0 ? 24 : undefined,
+            bottom: desktopPipPos.x < 0 ? 32 : undefined,
+            left: desktopPipPos.x >= 0 ? desktopPipPos.x : undefined,
+            top: desktopPipPos.y >= 0 ? desktopPipPos.y : undefined,
+            width: 200,
+            pointerEvents: "auto",
+            touchAction: "none",
+          }}
+          onPointerDown={onDesktopPipPointerDown}
+          onPointerMove={onDesktopPipPointerMove}
+        >
+          <div className="overflow-hidden rounded-[16px]" style={{
+            background: "#0a0a0a",
+            boxShadow: "0 12px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07)",
+          }}>
+            {callStatus.mediaMode === "video" && callStatus.state === "active" && (
+              <div className="relative" style={{ height: 160 }}>
+                <video ref={desktopPipVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+              </div>
+            )}
+            <div className="flex items-center gap-2 px-3 py-2.5 cursor-grab active:cursor-grabbing">
+              <div className="min-w-0 flex-1">
+                <p className="truncate text-[12px] font-semibold text-white">
+                  {callStatus.state === "incoming" ? callStatus.callerName || "Incoming" : callStatus.calleeName || "Call"}
+                </p>
+                <p className="text-[10px] text-[#0096C7]/80">
+                  {callStatus.state === "incoming" ? (callStatus.mediaMode === "video" ? "Incoming video" : "Incoming call")
+                    : callStatus.state === "outgoing" ? "Calling…"
+                    : callStatus.mediaMode === "video" ? `📹 ${fmtDur(callStatus.elapsed)}`
+                    : `🎙 ${fmtDur(callStatus.elapsed)}`}
+                </p>
+              </div>
+            </div>
+            <div className="flex items-center justify-between border-t border-white/[0.06] px-3 py-2">
+              <div className="flex items-center gap-1.5">
+                {callStatus.state === "active" && (
+                  <button onClick={() => callStatus.toggleMute?.()}
+                    onPointerDown={e => e.stopPropagation()}
+                    className="flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.08] hover:bg-white/[0.14]">
+                    {callStatus.muted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white/60" />}
+                  </button>
+                )}
+                {callStatus.state === "active" && callStatus.mediaMode === "video" && (
+                  <button onClick={() => callStatus.switchToAudio?.()}
+                    onPointerDown={e => e.stopPropagation()}
+                    className="flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.08] hover:bg-white/[0.14]"
+                    title="Switch to audio only">
+                    <Video size={12} className="text-[#0096C7]" />
+                  </button>
+                )}
+              </div>
+              <div className="flex items-center gap-1.5">
+                {callStatus.state === "incoming" && (
+                  <button onClick={() => callStatus.answer?.()}
+                    onPointerDown={e => e.stopPropagation()}
+                    className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500"
+                    style={{ boxShadow: "0 2px 8px rgba(16,185,129,0.45)" }}>
+                    <PhoneIncoming size={12} className="text-white" />
+                  </button>
+                )}
+                <button
+                  onClick={() => callStatus.state === "incoming" ? callStatus.decline?.() : callStatus.end?.()}
+                  onPointerDown={e => e.stopPropagation()}
+                  className="flex h-7 w-7 items-center justify-center rounded-full bg-red-500"
+                  style={{ boxShadow: "0 2px 8px rgba(239,68,68,0.4)" }}>
+                  <PhoneOff size={12} className="text-white" />
+                </button>
+                <button onClick={() => callStatus.expand?.()}
+                  onPointerDown={e => e.stopPropagation()}
+                  className="flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.08] hover:bg-white/[0.14]"
+                  title="Return to full call">
+                  <Maximize2 size={12} className="text-white/60" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   )
 }
