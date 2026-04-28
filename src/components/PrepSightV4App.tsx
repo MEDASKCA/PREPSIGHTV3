@@ -1817,8 +1817,8 @@ export default function PrepSightV4App() {
 
       {/* ═══ GLOBAL CALL OVERLAYS — fixed, pointer-events always on ═══ */}
 
-      {/* ── Mobile: floating video pip ── */}
-      {callStatus.state !== "idle" && callStatus.minimized && callStatus.mediaMode === "video" && (
+      {/* ── Mobile: floating video pip — only for ACTIVE video calls (remote stream is flowing) ── */}
+      {callStatus.state === "active" && callStatus.minimized && callStatus.mediaMode === "video" && (
         <div
           className="fixed z-[200] lg:hidden overflow-hidden rounded-[18px] select-none"
           style={{
@@ -1852,8 +1852,10 @@ export default function PrepSightV4App() {
         </div>
       )}
 
-      {/* ── Mobile: slim pill (audio call minimized) ── */}
-      {callStatus.state !== "idle" && callStatus.minimized && callStatus.mediaMode === "audio" && (
+      {/* ── Mobile: slim pill — incoming/outgoing/active-audio, AND incoming video (no stream yet) ──
+          Answer button icon: Video for incoming video call, PhoneIncoming for audio call. */}
+      {callStatus.state !== "idle" && callStatus.minimized &&
+        !(callStatus.state === "active" && callStatus.mediaMode === "video") && (
         <div
           className="fixed right-0 z-[200] flex items-center gap-1.5 pl-3 pr-2 lg:hidden select-none"
           style={{
@@ -1873,8 +1875,10 @@ export default function PrepSightV4App() {
               {callStatus.state === "incoming" ? callStatus.callerName || "Incoming" : callStatus.calleeName || "Call"}
             </p>
             <p className="truncate text-[10px] leading-tight text-[#0096C7]/75">
-              {callStatus.state === "incoming" ? "Audio call"
-                : callStatus.state === "outgoing" ? "Calling…"
+              {callStatus.state === "incoming"
+                ? (callStatus.mediaMode === "video" ? "Incoming video call" : "Incoming call")
+                : callStatus.state === "outgoing"
+                ? (callStatus.mediaMode === "video" ? "Video calling…" : "Calling…")
                 : fmtDur(callStatus.elapsed)}
             </p>
           </div>
@@ -1888,7 +1892,9 @@ export default function PrepSightV4App() {
             <button onClick={() => callStatus.answer?.()}
               className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-emerald-500"
               style={{ boxShadow: "0 2px 8px rgba(16,185,129,0.5)" }}>
-              <PhoneIncoming size={12} className="text-white" />
+              {callStatus.mediaMode === "video"
+                ? <Video size={12} className="text-white" />
+                : <PhoneIncoming size={12} className="text-white" />}
             </button>
           )}
           <button
@@ -1967,7 +1973,9 @@ export default function PrepSightV4App() {
                     onPointerDown={e => e.stopPropagation()}
                     className="flex h-7 w-7 items-center justify-center rounded-full bg-emerald-500"
                     style={{ boxShadow: "0 2px 8px rgba(16,185,129,0.45)" }}>
-                    <PhoneIncoming size={12} className="text-white" />
+                    {callStatus.mediaMode === "video"
+                      ? <Video size={12} className="text-white" />
+                      : <PhoneIncoming size={12} className="text-white" />}
                   </button>
                 )}
                 <button

@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
-import { Bell, LogOut, Menu, Mic, MicOff, MoreVertical, PhoneOff, Search, Settings2, UserCircle2, UserRound, Video, X } from "lucide-react"
+import { Bell, LogOut, Menu, Mic, MicOff, MoreVertical, PhoneIncoming, PhoneOff, Search, Settings2, UserCircle2, UserRound, Video, X } from "lucide-react"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getDesktopCommsPreference, subscribeDesktopCommsPreference, toggleDesktopCommsPreference } from "@/lib/desktop-comms"
 import { useCallStatus } from "@/lib/call-state"
@@ -341,7 +341,9 @@ export default function AppTopBar({
                   <button onClick={() => callStatus.answer?.()}
                     className="flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500"
                     title="Answer">
-                    <PhoneOff size={10} className="text-white rotate-[135deg]" />
+                    {callStatus.mediaMode === "video"
+                      ? <Video size={10} className="text-white" />
+                      : <PhoneIncoming size={10} className="text-white" />}
                   </button>
                 )}
                 <button
