@@ -5,7 +5,7 @@ import { usePathname, useRouter } from "next/navigation"
 import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
 import { Bell, Clock, LogOut, Menu, Mic, MicOff, MoreVertical, PhoneIncoming, PhoneOff, Search, Settings2, UserCircle2, UserRound, Video, X } from "lucide-react"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
-import { getDesktopCommsPreference, subscribeDesktopCommsPreference, toggleDesktopCommsPreference } from "@/lib/desktop-comms"
+import { getDesktopCommsPreference, getDesktopCommsWidth, subscribeDesktopCommsPreference, toggleDesktopCommsPreference } from "@/lib/desktop-comms"
 import { useCallStatus } from "@/lib/call-state"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { getProcedureLibrarySnapshot, subscribeProcedureLibrary } from "@/lib/procedure-library"
@@ -147,6 +147,11 @@ export default function AppTopBar({
     subscribeDesktopCommsPreference,
     getDesktopCommsPreference,
     getDesktopCommsPreference,
+  )
+  const commsRailWidth = useSyncExternalStore(
+    subscribeDesktopCommsPreference,
+    getDesktopCommsWidth,
+    getDesktopCommsWidth,
   )
   const callStatus = useCallStatus()
   const showCallControls = !commsRailOpen && callStatus.state !== "idle"
@@ -324,7 +329,7 @@ export default function AppTopBar({
   const profileInitial = (displayName.trim()[0] ?? "P").toUpperCase()
 
   return (
-    <div ref={rootRef} className="prepsight-app-topbar sticky top-0 z-30">
+    <div ref={rootRef} className="prepsight-app-topbar sticky top-0 z-30" style={commsRailOpen ? { paddingRight: commsRailWidth } : undefined}>
       <header className="relative border-b border-black bg-black px-3 pt-[calc(env(safe-area-inset-top,0px)+12px)] pb-3">
         <div className="flex items-center justify-between gap-3">
           <div className="flex items-center gap-3">
