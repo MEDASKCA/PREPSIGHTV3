@@ -4,6 +4,7 @@ import { CLINICAL_SETTINGS } from "./settings"
 import { onAuthChange } from "./auth"
 import {
   canUseCollaborationFirestore,
+  deleteFirestoreLibrary,
   getFirestoreLibraries,
   getFirestoreLibraryCards,
   getFirestorePublishedCards,
@@ -21,6 +22,8 @@ import type { LibraryRecord, Procedure } from "./types"
 const LIBRARIES_STORAGE_KEY = "prepsight_local_libraries"
 const LIBRARY_CARDS_STORAGE_KEY = "prepsight_local_library_cards"
 const PUBLISHED_CARDS_STORAGE_KEY = "prepsight_published_cards"
+const KNOWN_REMOTE_LIBRARY_IDS_KEY = "prepsight_known_remote_library_ids"
+const DELETED_LOCAL_LIBRARY_IDS_KEY = "prepsight_deleted_local_library_ids"
 const LIBRARIES_EVENT = "prepsight:libraries"
 
 const SHARED_LIBRARY_CREATED_AT = "2026-03-30T00:00:00.000Z"
@@ -135,6 +138,36 @@ function readPublishedCards(): Procedure[] {
   } catch {
     return cachedPublishedCards
   }
+}
+
+function readKnownRemoteLibraryIds(): Set<string> {
+  if (typeof window === "undefined") return new Set()
+  try {
+    const raw = window.localStorage.getItem(KNOWN_REMOTE_LIBRARY_IDS_KEY)
+    if (!raw) return new Set()
+    const parsed = JSON.parse(raw)
+    return new Set(Array.isArray(parsed) ? parsed : [])
+  } catch { return new Set() }
+}
+
+function writeKnownRemoteLibraryIds(ids: Set<string>): void {
+  if (typeof window === "undefined") return
+  window.localStorage.setItem(KNOWN_REMOTE_LIBRARY_IDS_KEY, JSON.stringify([...ids]))
+}
+
+function readDeletedLocalLibraryIds(): Set<string> {
+  if (typeof window === "undefined") return new Set()
+  try {
+    const raw = window.localStorage.getItem(DELETED_LOCAL_LIBRARY_IDS_KEY)
+    if (!raw) return new Set()
+    const parsed = JSON.parse(raw)
+    return new Set(Array.isArray(parsed) ? parsed : [])
+  } catch { return new Set() }
+}
+
+function writeDeletedLocalLibraryIds(ids: Set<string>): void {
+  if (typeof window === "undefined") return
+  window.localStorage.setItem(DELETED_LOCAL_LIBRARY_IDS_KEY, JSON.stringify([...ids]))
 }
 
 function writeLocalLibraries(libraries: LibraryRecord[]): void {
@@ -260,40 +293,80 @@ function ensureDefaultLocalLibrary(libraries: LibraryRecord[]): LibraryRecord[] 
   const identity = getActiveLocalLibraryIdentity()
   if (!identity) return libraries
 
-  const matchingLibrary = libraries.find(
-    (library) => library.libraryType === "local" && library.ownerId === identity.ownerId,
+  const deletedIds = readDeletedLocalLibraryIds()
+  const ownerSlug = slugify(identity.ownerName) || "hospital"
+  const defaultId = `local-${ownerSlug}-library`
+
+  // Find/create the top-level (parent) library — excludes specialty sub-libraries
+  const matchingParent = libraries.find(
+    (library) => library.libraryType === "local" && library.ownerId === identity.ownerId && !library.parentId,
   )
-  if (matchingLibrary) {
-    return dedupeLibraries(libraries.map((library) =>
-      library.id === matchingLibrary.id
-        ? {
-            ...library,
-            ownerName: identity.ownerName,
-            ownerPublicAlias: identity.ownerPublicAlias,
-          }
+
+  let result = libraries
+  let parentId = defaultId
+
+  if (matchingParent) {
+    parentId = matchingParent.id
+    result = dedupeLibraries(result.map((library) =>
+      library.id === matchingParent.id
+        ? { ...library, ownerName: identity.ownerName, ownerPublicAlias: identity.ownerPublicAlias }
         : library,
     ))
+  } else if (!deletedIds.has(defaultId)) {
+    result = dedupeLibraries([
+      {
+        id: defaultId,
+        name: `${identity.ownerName} Local Cards`,
+        slug: `${ownerSlug}-local-cards`,
+        description: `Local procedure cards for ${identity.ownerName}.`,
+        libraryType: "local",
+        visibility: identity.ownerId === "me" ? "private" : "organization",
+        ownerType: identity.ownerId === "me" ? "user" : "organization",
+        ownerId: identity.ownerId,
+        ownerName: identity.ownerName,
+        ownerPublicAlias: identity.ownerPublicAlias,
+        cardIds: [],
+        createdAt: identity.createdAt,
+        updatedAt: identity.createdAt,
+      },
+      ...result,
+    ])
   }
 
-  return dedupeLibraries([
-    {
-      id: `local-${slugify(identity.ownerName) || "hospital"}-library`,
-      name: `${identity.ownerName} Local Cards`,
-      slug: `${slugify(identity.ownerName) || "hospital"}-local-cards`,
-      description: `Local procedure cards for ${identity.ownerName}.`,
-      libraryType: "local",
-      visibility: identity.ownerId === "me" ? "private" : "organization",
-      ownerType: identity.ownerId === "me" ? "user" : "organization",
-      ownerId: identity.ownerId,
-      ownerName: identity.ownerName,
-      ownerPublicAlias: identity.ownerPublicAlias,
-      cardIds: [],
-      createdAt: identity.createdAt,
-      updatedAt: identity.createdAt,
-    },
-    ...libraries,
-  ])
+  // Create specialty sub-libraries from the user's specialties of interest
+  const profile = getProfile()
+  const specialties = profile?.specialtiesOfInterest?.filter(Boolean) ?? []
+
+  for (const specialty of specialties) {
+    const specialtyId = `local-${ownerSlug}-${slugify(specialty)}-library`
+    if (deletedIds.has(specialtyId)) continue
+    const alreadyExists = result.some((lib) => lib.id === specialtyId)
+    if (alreadyExists) continue
+    result = dedupeLibraries([
+      ...result,
+      {
+        id: specialtyId,
+        name: `${specialty} Local Cards`,
+        slug: `${ownerSlug}-${slugify(specialty)}-local-cards`,
+        description: `Local cards for ${specialty}.`,
+        libraryType: "local",
+        visibility: identity.ownerId === "me" ? "private" : "organization",
+        ownerType: identity.ownerId === "me" ? "user" : "organization",
+        ownerId: identity.ownerId,
+        ownerName: identity.ownerName,
+        ownerPublicAlias: identity.ownerPublicAlias,
+        cardIds: [],
+        parentId,
+        createdAt: identity.createdAt,
+        updatedAt: identity.createdAt,
+      },
+    ])
+  }
+
+  return result
 }
+
+const AUTOGEN_LIB_CLEANUP_KEY = "prepsight_autogen_lib_cleanup_v2"
 
 async function hydrateRemoteLibraries(uid: string | null): Promise<void> {
   if (typeof window === "undefined") return
@@ -308,13 +381,65 @@ async function hydrateRemoteLibraries(uid: string | null): Promise<void> {
   const remoteUid = uid as string
   const profile = getProfile()
   const allowedOwnerIds = getAccessibleOrganizationIdsForProfile(profile)
-  const localLibraries = ensureDefaultLocalLibrary(readLocalLibraries())
-  const [remoteLibraries, remotePublishedCards] = await Promise.all([
+
+  const [allRemoteLibraries, remotePublishedCards] = await Promise.all([
     getFirestoreLibraries(allowedOwnerIds),
     getFirestorePublishedCards(),
   ])
+
+  // One-time migration: purge stale auto-generated "Local Cards" libraries.
+  // These are created by ensureDefaultLocalLibrary and keep re-appearing because old code
+  // re-uploaded them to Firestore even after the user deleted them.
+  // We scan BOTH Firestore AND localStorage — Firestore may already be clean but
+  // localStorage still holds the ghost entries.
+  if (!window.localStorage.getItem(AUTOGEN_LIB_CLEANUP_KEY)) {
+    const isStale = (lib: LibraryRecord) =>
+      lib.libraryType === "local" && lib.name.endsWith("Local Cards")
+    const staleInFirestore = allRemoteLibraries.filter(isStale)
+    const staleInLocal = readLocalLibraries().filter(isStale)
+    const allStaleIds = new Set([
+      ...staleInFirestore.map((l) => l.id),
+      ...staleInLocal.map((l) => l.id),
+    ])
+    if (allStaleIds.size > 0) {
+      await Promise.all(
+        staleInFirestore.map((lib) => deleteFirestoreLibrary(remoteUid, lib.id).catch(() => undefined)),
+      )
+      writeDeletedLocalLibraryIds(new Set([...readDeletedLocalLibraryIds(), ...allStaleIds]))
+      writeLocalLibraries(readLocalLibraries().filter((lib) => !allStaleIds.has(lib.id)))
+      const currentCards = readLocalCards()
+      const cleanedCards: StoredCardsByLibrary = {}
+      for (const [id, cards] of Object.entries(currentCards)) {
+        if (!allStaleIds.has(id)) cleanedCards[id] = cards
+      }
+      writeLocalCards(cleanedCards)
+      emitLibrariesChanged()
+    }
+    window.localStorage.setItem(AUTOGEN_LIB_CLEANUP_KEY, "1")
+  }
+
+  // If Firestore has no libraries at all, the database was wiped — clear local state entirely
+  // rather than re-uploading stale local data.
+  if (allRemoteLibraries.length === 0) {
+    const localCount = readLocalLibraries().filter((lib) => lib.libraryType === "local").length
+    if (localCount > 0) {
+      writeLocalLibraries([])
+      writeLocalCards({})
+      writeKnownRemoteLibraryIds(new Set())
+      emitLibrariesChanged()
+      return
+    }
+  }
+
+  // Always exclude deleted IDs from both Firestore results and localStorage
+  const deletedIds = readDeletedLocalLibraryIds()
+  const remoteLibraries = allRemoteLibraries.filter((lib) => !deletedIds.has(lib.id))
+  const localLibraries = ensureDefaultLocalLibrary(
+    readLocalLibraries().filter((lib) => !deletedIds.has(lib.id)),
+  )
+
   const remoteCards = await getFirestoreLibraryCards([
-    ...new Set([...localLibraries.map((library) => library.id), ...remoteLibraries.map((library) => library.id)]),
+    ...new Set([...localLibraries.map((lib) => lib.id), ...remoteLibraries.map((lib) => lib.id)]),
   ])
 
   const mergedLibraries = ensureDefaultLocalLibrary(mergeLibraries(remoteLibraries, localLibraries))
@@ -326,15 +451,51 @@ async function hydrateRemoteLibraries(uid: string | null): Promise<void> {
   writePublishedCards(mergedPublishedCards)
   emitLibrariesChanged()
 
-  const remoteLibraryIds = new Set(remoteLibraries.map((library) => library.id))
+  const remoteLibraryIds = new Set(remoteLibraries.map((lib) => lib.id))
   const remotePublishedIds = new Set(remotePublishedCards.map((card) => card.id))
 
+  // Track known remote IDs so future Firestore deletions can be detected
+  let knownRemoteIds = readKnownRemoteLibraryIds()
+  if (knownRemoteIds.size === 0) {
+    const seedIds = new Set(remoteLibraryIds)
+    const localCardStore = readLocalCards()
+    for (const lib of localLibraries) {
+      const hasCards = lib.cardIds.length > 0 || (localCardStore[lib.id]?.length ?? 0) > 0
+      if (hasCards) seedIds.add(lib.id)
+    }
+    writeKnownRemoteLibraryIds(seedIds)
+    knownRemoteIds = seedIds
+  }
+
+  const deletedRemoteIds = new Set(
+    localLibraries
+      .filter((lib) => knownRemoteIds.has(lib.id) && !remoteLibraryIds.has(lib.id))
+      .map((lib) => lib.id),
+  )
+
+  if (deletedRemoteIds.size > 0) {
+    writeLocalLibraries(mergedLibraries.filter((lib) => !deletedRemoteIds.has(lib.id)))
+    const currentCards = readLocalCards()
+    const cleanedCards: StoredCardsByLibrary = {}
+    for (const [libraryId, cards] of Object.entries(currentCards)) {
+      if (!deletedRemoteIds.has(libraryId)) cleanedCards[libraryId] = cards
+    }
+    writeLocalCards(cleanedCards)
+    writeDeletedLocalLibraryIds(new Set([...readDeletedLocalLibraryIds(), ...deletedRemoteIds]))
+  }
+
+  writeKnownRemoteLibraryIds(new Set([...knownRemoteIds, ...remoteLibraryIds]))
+
+  const uploadableLocalLibraries = localLibraries.filter((lib) => !deletedRemoteIds.has(lib.id))
+
   await Promise.all([
-    ...localLibraries
-      .filter((library) => !remoteLibraryIds.has(library.id))
-      .map((library) => saveFirestoreLibrary(remoteUid, library).catch(() => undefined)),
+    ...uploadableLocalLibraries
+      .filter((lib) => !remoteLibraryIds.has(lib.id))
+      .map((lib) => saveFirestoreLibrary(remoteUid, lib).catch(() => undefined)),
     ...Object.entries(readLocalCards()).flatMap(([libraryId, cards]) =>
-      cards.map((card) => saveFirestoreLibraryCard(remoteUid, libraryId, card).catch(() => undefined)),
+      deletedIds.has(libraryId) || deletedRemoteIds.has(libraryId)
+        ? []
+        : cards.map((card) => saveFirestoreLibraryCard(remoteUid, libraryId, card).catch(() => undefined)),
     ),
     ...readPublishedCards()
       .filter((card) => !remotePublishedIds.has(card.id))
@@ -664,4 +825,55 @@ export function getDefaultLocalLibraryId(): string | null {
 
 export function getSharedLibraryId(setting: Procedure["setting"] = "Operating Theatre"): string {
   return buildSharedLibraryId(setting)
+}
+
+export async function deleteLocalLibrary(libraryId: string): Promise<void> {
+  ensureRealtimeSync()
+
+  // Remove from localStorage
+  writeLocalLibraries(readLocalLibraries().filter((lib) => lib.id !== libraryId))
+  const currentCards = readLocalCards()
+  const cleanedCards: StoredCardsByLibrary = {}
+  for (const [id, cards] of Object.entries(currentCards)) {
+    if (id !== libraryId) cleanedCards[id] = cards
+  }
+  writeLocalCards(cleanedCards)
+
+  // Block this ID from ever being auto-recreated
+  writeDeletedLocalLibraryIds(new Set([...readDeletedLocalLibraryIds(), libraryId]))
+
+  // Remove from known-remote set so the deletion isn't misread as an external deletion
+  const knownRemoteIds = readKnownRemoteLibraryIds()
+  knownRemoteIds.delete(libraryId)
+  writeKnownRemoteLibraryIds(knownRemoteIds)
+
+  emitLibrariesChanged()
+
+  // Purge from Firestore (library doc + all card docs)
+  if (canUseCollaborationFirestore(activeUid)) {
+    void deleteFirestoreLibrary(activeUid as string, libraryId).catch((error) => {
+      console.warn("[PrepSight] deleteLocalLibrary Firestore delete failed:", error)
+    })
+  }
+}
+
+export function clearAllLocalData(): void {
+  if (typeof window === "undefined") return
+  const keysToRemove = [
+    LIBRARIES_STORAGE_KEY,
+    LIBRARY_CARDS_STORAGE_KEY,
+    PUBLISHED_CARDS_STORAGE_KEY,
+    KNOWN_REMOTE_LIBRARY_IDS_KEY,
+    // DELETED_LOCAL_LIBRARY_IDS_KEY and AUTOGEN_LIB_CLEANUP_KEY are intentionally preserved —
+    // they are permanent guards against ghost libraries re-appearing, not transient cache.
+  ]
+  for (const key of keysToRemove) window.localStorage.removeItem(key)
+  cachedLibrariesRaw = undefined
+  cachedLocalLibraries = []
+  cachedCardsRaw = undefined
+  cachedLocalCards = {}
+  cachedPublishedRaw = undefined
+  cachedPublishedCards = []
+  cachedSnapshotKey = undefined
+  emitLibrariesChanged()
 }

@@ -9,6 +9,7 @@ import { subscribeToActiveUserSession } from "@/lib/firestore"
 import { hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import AdminUnlocker from "./AdminUnlocker"
 import MedaskcaLoadingScreen from "./MedaskcaLoadingScreen"
+import PersistentCommsLayer from "./PersistentCommsLayer"
 
 const PUBLIC_ROUTES    = ["/", "/login", "/privacy", "/terms"]
 const ONBOARDING_ROUTE = "/onboarding"
@@ -141,7 +142,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     if (!user && isAdmin && !pendingAuth) { router.replace("/login"); return }
     if (!user && demoSessionActive && (pathname === "/" || pathname === "/login")) { router.replace("/onboarding"); return }
     if (!user && !demoSessionActive && !isPublic && !pendingAuth) { router.replace("/login"); return }
-    if (user && isPublic && !isLegalPage && !isLandingPage && pathname !== "/login") {
+    if (user && isPublic && !isLegalPage && !isLandingPage) {
       router.replace((!profileComplete || forceOnboarding) ? "/onboarding" : "/")
       return
     }
@@ -193,7 +194,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       : <MedaskcaLoadingScreen message="Loading..." />
   }
 
-  if (isPublic && !isLegalPage && !isLandingPage && pathname !== "/login") {
+  if (isPublic && !isLegalPage && !isLandingPage) {
     return <MedaskcaLoadingScreen message="Loading..." />
   }
 
@@ -223,6 +224,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
         <main className="flex-1">{children}</main>
       </div>
       <AdminUnlocker />
+      <PersistentCommsLayer />
     </div>
   )
 }

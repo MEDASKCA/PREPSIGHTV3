@@ -10,8 +10,11 @@ import {
   type WorkspaceNavGroupKey,
   type WorkspaceNavKey,
 } from "@/lib/workspace-nav"
+import { getProfile } from "@/lib/profile"
 
 export type { WorkspaceNavKey } from "@/lib/workspace-nav"
+
+const MANAGEMENT_ROLES = new Set(["manager", "senior_manager"])
 
 export default function WorkspaceNavRail({
   currentNav,
@@ -22,15 +25,27 @@ export default function WorkspaceNavRail({
   collapsed?: boolean
   onToggleCollapsed?: () => void
 }) {
+  const profile = getProfile()
+  const canManage = MANAGEMENT_ROLES.has(profile?.role ?? "")
+
+  const visibleGroups = WORKSPACE_NAV_GROUPS.filter(
+    (group) => group.key !== "management" || canManage,
+  )
+
   const [openGroups, setOpenGroups] = useState<Record<WorkspaceNavGroupKey, boolean>>({
     library: true,
     resources: true,
     insights: false,
+    management: true,
   })
 
   function toggleGroup(groupKey: WorkspaceNavGroupKey) {
     setOpenGroups(current => ({ ...current, [groupKey]: !current[groupKey] }))
   }
+
+  const visibleFlatItems = canManage
+    ? WORKSPACE_NAV_ITEMS
+    : WORKSPACE_NAV_ITEMS.filter((item) => item.key !== "user_accounts")
 
   return (
     <aside
@@ -39,7 +54,7 @@ export default function WorkspaceNavRail({
       }`}
     >
       <div>
-        <div className={`flex pb-4 ${collapsed ? "flex-col items-center gap-3" : "items-center justify-between gap-4 px-1"}`}>
+        <div className={`flex pb-2 ${collapsed ? "flex-col items-center gap-2" : "items-center justify-between gap-4 px-1"}`}>
           {collapsed ? (
             <Link href="/" className="flex items-center justify-center">
               <img src="/PrepSight%20logo.png" alt="PrepSight" className="h-[54px] w-auto" />
@@ -66,13 +81,13 @@ export default function WorkspaceNavRail({
 
         {collapsed ? (
           <div className="space-y-1">
-            {WORKSPACE_NAV_ITEMS.map((item) => {
+            {visibleFlatItems.map((item) => {
               const active = item.key === currentNav
               return (
                 <Link
                   key={item.key}
                   href={item.href}
-                  className={`flex items-center justify-center rounded-[10px] px-2 py-2.5 ${
+                  className={`flex items-center justify-center rounded-[10px] px-2 py-1.5 ${
                     active ? "bg-white/10 font-medium text-white" : "text-[#D7E7F7] hover:bg-white/6"
                   }`}
                   title={item.label}
@@ -88,15 +103,15 @@ export default function WorkspaceNavRail({
             })}
           </div>
         ) : (
-          <div className="space-y-2 px-2">
-            {WORKSPACE_NAV_GROUPS.map((group) => {
+          <div className="space-y-1 px-2">
+            {visibleGroups.map((group) => {
               const isOpen = openGroups[group.key]
               return (
                 <div key={group.key}>
                   <button
                     type="button"
                     onClick={() => toggleGroup(group.key)}
-                    className="flex min-w-0 items-center justify-between px-2 pb-1 text-left"
+                    className="flex min-w-0 items-center justify-between px-2 pb-0.5 text-left"
                     aria-expanded={isOpen}
                     aria-label={isOpen ? `Collapse ${group.label} section` : `Expand ${group.label} section`}
                   >
@@ -110,7 +125,7 @@ export default function WorkspaceNavRail({
                           <Link
                             key={item.key}
                             href={item.href}
-                            className={`flex items-center gap-3 rounded-[8px] px-2 py-2 text-[15px] ${
+                            className={`flex items-center gap-3 rounded-[8px] px-2 py-1 text-[15px] ${
                               active ? "bg-white/10 font-medium text-white" : "text-[#D7E7F7] hover:bg-white/6"
                             }`}
                           >
@@ -131,8 +146,8 @@ export default function WorkspaceNavRail({
             })}
 
             {WORKSPACE_TOP_LEVEL_ITEMS.length > 0 ? (
-              <div className="pt-2">
-                <div className="mb-2 h-px bg-white/12" />
+              <div className="pt-1">
+                <div className="mb-1 h-px bg-white/12" />
                 {WORKSPACE_TOP_LEVEL_ITEMS.map((item) => {
                   const active = item.key === currentNav
                   return (

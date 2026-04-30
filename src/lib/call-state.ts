@@ -19,7 +19,9 @@ export type CallStatusState = {
   decline: (() => void) | null
   toggleMute: (() => void) | null
   switchToAudio: (() => void) | null
+  switchCamera: (() => void) | null
   expand: (() => void) | null
+  enterFullscreen: (() => void) | null
 }
 
 const IDLE: CallStatusState = {
@@ -38,7 +40,9 @@ const IDLE: CallStatusState = {
   decline: null,
   toggleMute: null,
   switchToAudio: null,
+  switchCamera: null,
   expand: null,
+  enterFullscreen: null,
 }
 
 let _state: CallStatusState = { ...IDLE }

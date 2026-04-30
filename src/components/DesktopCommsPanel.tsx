@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useSyncExternalStore } from "react"
-import V5CommsDesktopRail from "@/components/V5CommsDesktopRail"
 import {
   getDesktopCommsPreference,
   getDesktopCommsWidth,
@@ -76,7 +75,6 @@ export default function DesktopCommsPanel() {
         <span className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[#b8ddea] transition-colors group-hover:bg-[#7fcce3]" />
         <span className="absolute left-1/2 top-1/2 h-24 w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#dff5fb] shadow-[0_8px_24px_rgba(15,76,92,0.14)] ring-1 ring-[#a8d9e8] transition-all group-hover:h-28 group-hover:bg-[#c8edf7] group-hover:ring-[#7fcce3]" />
       </button>
-      <V5CommsDesktopRail />
     </aside>
   )
 }

@@ -7,8 +7,8 @@
 :root {
   color-scheme: light;
 
-  --font-body: "Manrope", sans-serif;
-  --font-display: "Sora", sans-serif;
+  --font-body: var(--font-geist-sans), "Geist", sans-serif;
+  --font-display: var(--font-geist-sans), "Geist", sans-serif;
 
   --app-shell-bg: #f7f8fa;
   --app-shell-bg-alt: #ffffff;

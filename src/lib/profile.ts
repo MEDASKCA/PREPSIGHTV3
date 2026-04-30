@@ -1,8 +1,9 @@
 import { ClinicalSetting, PlatformRole, PrepSightProfile, USER_ROLE_TO_PLATFORM_ROLE } from "./types"
 import {
-  getUserOrganizationMemberships,
+  getPortalMemberships,
+  ensureOrganizationForHospital,
   saveUserProfile,
-  upsertOrganizationMembership,
+  upsertPortalMembership,
   getUserProfile,
 } from "./firestore"
 
@@ -20,7 +21,15 @@ function resolvePlatformRole(profile: PrepSightProfile): PlatformRole {
 }
 
 function isUserRole(value: unknown): value is PrepSightProfile["role"] {
-  return value === "viewer" || value === "editor" || value === "clinical_author"
+  return value === "viewer" || value === "editor" || value === "clinical_author" || value === "manager" || value === "senior_manager"
+}
+
+function isAccountType(value: unknown): value is NonNullable<PrepSightProfile["accountType"]> {
+  return value === "portal_user" || value === "governance_admin" || value === "vendor_operator"
+}
+
+function isAccessSurface(value: unknown): value is NonNullable<PrepSightProfile["surfaces"]>[number] {
+  return value === "portal" || value === "governance" || value === "operator"
 }
 
 function setPlatformRoleCookie(role: PlatformRole): void {
@@ -66,10 +75,15 @@ function normalizeProfile(profile: unknown): PrepSightProfile | null {
     completedAt: candidate.completedAt,
     jobTitle: typeof candidate.jobTitle === "string" ? candidate.jobTitle : undefined,
     name: typeof candidate.name === "string" ? candidate.name : undefined,
+    email: typeof candidate.email === "string" ? candidate.email : undefined,
     activeOrganizationId:
       typeof candidate.activeOrganizationId === "string" ? candidate.activeOrganizationId : undefined,
     organizationIds: Array.isArray(candidate.organizationIds)
       ? candidate.organizationIds.filter((value): value is string => typeof value === "string")
+      : undefined,
+    accountType: isAccountType(candidate.accountType) ? candidate.accountType : undefined,
+    surfaces: Array.isArray(candidate.surfaces)
+      ? candidate.surfaces.filter(isAccessSurface)
       : undefined,
     platformRole:
       candidate.platformRole === "user" ||
@@ -80,6 +94,7 @@ function normalizeProfile(profile: unknown): PrepSightProfile | null {
   }
 
   normalized.platformRole = resolvePlatformRole(normalized)
+  normalized.surfaces = normalized.surfaces?.length ? Array.from(new Set(normalized.surfaces)) : undefined
   return normalized
 }
 
@@ -99,6 +114,14 @@ function ensureLocalOrganizationContext(profile: PrepSightProfile): PrepSightPro
     ...profile,
     activeOrganizationId,
     organizationIds,
+  }
+}
+
+function ensurePortalSurfaceProfile(profile: PrepSightProfile): PrepSightProfile {
+  return {
+    ...profile,
+    accountType: "portal_user",
+    surfaces: Array.from(new Set([...(profile.surfaces ?? []), "portal"])),
   }
 }
 
@@ -133,7 +156,7 @@ export function saveProfileLocal(profile: PrepSightProfile): void {
   if (typeof window === "undefined") return
   const normalized = normalizeProfile(profile)
   if (!normalized) return
-  const hydrated = ensureLocalOrganizationContext(normalized)
+  const hydrated = ensureLocalOrganizationContext(ensurePortalSurfaceProfile(normalized))
   localStorage.setItem(STORAGE_KEY, JSON.stringify(hydrated))
   window.localStorage.removeItem(FORCE_ONBOARDING_KEY)
   setPlatformRoleCookie(hydrated.platformRole!)
@@ -203,18 +226,19 @@ export function resetOnboarding(): void {
 export async function saveProfile(profile: PrepSightProfile, uid?: string): Promise<void> {
   const normalized = normalizeProfile(profile)
   if (!normalized) return
-  saveProfileLocal(normalized)
+  const portalProfile = ensurePortalSurfaceProfile(normalized)
+  saveProfileLocal(portalProfile)
   if (!uid) return
 
   try {
-    const membership = await upsertOrganizationMembership(uid, normalized)
+    const membership = await upsertPortalMembership(uid, portalProfile)
     const approvedOrganizationId = membership?.status === "active" ? membership.organizationId : undefined
     const profileForStorage: PrepSightProfile = {
-      ...normalized,
+      ...portalProfile,
       activeOrganizationId: approvedOrganizationId ?? normalized.activeOrganizationId,
       organizationIds: approvedOrganizationId
-        ? Array.from(new Set([...(normalized.organizationIds ?? []), approvedOrganizationId]))
-        : normalized.organizationIds,
+        ? Array.from(new Set([...(portalProfile.organizationIds ?? []), approvedOrganizationId]))
+        : portalProfile.organizationIds,
     }
 
     saveProfileLocal(profileForStorage)
@@ -233,18 +257,21 @@ export async function resolveProfile(uid: string): Promise<PrepSightProfile | nu
   if (remote) {
     const normalized = normalizeProfile(remote)
     if (!normalized) return null
-    const memberships = await getUserOrganizationMemberships(uid)
+    const portalProfile = ensurePortalSurfaceProfile(normalized)
+    const portalMemberships = await getPortalMemberships(uid)
+    const activePortalMembershipIds = portalMemberships
+      .filter((membership) => membership.status === "active")
+      .map((membership) => membership.organizationId)
     const hydrated: PrepSightProfile = {
-      ...normalized,
+      ...portalProfile,
       activeOrganizationId:
-        normalized.activeOrganizationId ??
-        memberships.find((membership) => membership.status === "active")?.organizationId,
+        portalProfile.activeOrganizationId ??
+        activePortalMembershipIds[0] ??
+        (await ensureOrganizationForHospital(uid, portalProfile.hospital))?.id,
       organizationIds:
-        normalized.organizationIds?.length
-          ? normalized.organizationIds
-          : memberships
-              .filter((membership) => membership.status === "active")
-              .map((membership) => membership.organizationId),
+        portalProfile.organizationIds?.length
+          ? Array.from(new Set([...portalProfile.organizationIds, ...activePortalMembershipIds]))
+          : Array.from(new Set(activePortalMembershipIds)),
     }
     saveProfileLocal(hydrated)
     return hydrated
@@ -257,15 +284,17 @@ export async function syncMembershipsIntoProfile(uid: string): Promise<PrepSight
   const profile = await resolveProfile(uid)
   if (!profile) return null
 
-  const memberships = await getUserOrganizationMemberships(uid)
-  const activeMembershipIds = memberships
+  const portalMemberships = await getPortalMemberships(uid)
+  const activePortalMembershipIds = portalMemberships
     .filter((membership) => membership.status === "active")
     .map((membership) => membership.organizationId)
 
   const next: PrepSightProfile = {
-    ...profile,
-    activeOrganizationId: profile.activeOrganizationId ?? activeMembershipIds[0],
-    organizationIds: Array.from(new Set([...(profile.organizationIds ?? []), ...activeMembershipIds])),
+    ...ensurePortalSurfaceProfile(profile),
+    activeOrganizationId: profile.activeOrganizationId ?? activePortalMembershipIds[0],
+    organizationIds: Array.from(
+      new Set([...(profile.organizationIds ?? []), ...activePortalMembershipIds]),
+    ),
   }
 
   saveProfileLocal(next)

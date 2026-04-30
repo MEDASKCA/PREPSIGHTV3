@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next"
+import { GeistSans } from "geist/font/sans"
 import AppGate from "@/components/AppGate"
 import UserPreferencesBoot from "@/components/UserPreferencesBoot"
 import "leaflet/dist/leaflet.css"
@@ -40,7 +41,7 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={GeistSans.variable}>
       <body>
         <UserPreferencesBoot />
         <AppGate>{children}</AppGate>

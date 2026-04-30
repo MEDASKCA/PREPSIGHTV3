@@ -6,7 +6,7 @@ import TriangleIcon from "@/components/TriangleIcon"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
-import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
+import { deleteLocalLibrary, getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { getProfile, getRelevantSettings } from "@/lib/profile"
 import { subscribeTeams } from "@/lib/team-workspaces"
 import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
@@ -118,6 +118,7 @@ export function LibraryTree({
   emptyMessage,
   compact = false,
   onLibrarySelect,
+  onDeleteLibrary,
 }: {
   title: string
   tone: "global" | "local"
@@ -128,6 +129,7 @@ export function LibraryTree({
   emptyMessage: string
   compact?: boolean
   onLibrarySelect?: (libraryId: string) => void
+  onDeleteLibrary?: (libraryId: string) => void
 }) {
   const textColor = "text-[#e0e0e0]"
   const nodeColor = tone === "global" ? "#0F9FC1" : "#16989A"
@@ -155,62 +157,109 @@ export function LibraryTree({
 
       {open ? (
         <div className={compact ? "ml-[4px] pl-1.5" : "ml-[14px] pl-6"}>
-          {libraries.length > 0 ? (
-            libraries.map((library, index) => {
+          {libraries.length > 0 ? (() => {
+            const topLevel = libraries.filter((lib) => !lib.parentId)
+            const byParent = libraries.reduce<Record<string, typeof libraries>>((acc, lib) => {
+              if (lib.parentId) {
+                acc[lib.parentId] = [...(acc[lib.parentId] ?? []), lib]
+              }
+              return acc
+            }, {})
+
+            return topLevel.map((library, index) => {
               const cardCount = getLibraryCardsSnapshot(library.id).length
+              const children = byParent[library.id] ?? []
+              const isLast = index === topLevel.length - 1
+
+              function renderLibraryContent(lib: typeof library, childMode = false) {
+                const count = getLibraryCardsSnapshot(lib.id).length
+                const label = lib.name
+                return (
+                  <div className="group flex items-start gap-1 py-1">
+                    {onLibrarySelect ? (
+                      <button
+                        type="button"
+                        onClick={() => onLibrarySelect(lib.id)}
+                        className="block min-w-0 flex-1 text-left transition-colors"
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5">
+                            <FolderBadge tone={tone} open size={childMode ? "md" : "md"} />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="break-words text-[14px] leading-5 font-normal text-[#e0e0e0] hover:text-white lg:truncate lg:text-[15px]">
+                              {label}
+                            </p>
+                            <p className="mt-0.5 break-words text-[13px] leading-5 text-[#888888] lg:truncate lg:text-[14px]">
+                              {formatMeta(count, getLibraryTypeLabel(lib))}
+                            </p>
+                          </div>
+                        </div>
+                      </button>
+                    ) : (
+                      <Link
+                        href={`/libraries/${lib.id}`}
+                        className="block min-w-0 flex-1 py-0 text-left transition-colors"
+                      >
+                        <div className="flex items-start gap-3">
+                          <div className="mt-0.5">
+                            <FolderBadge tone={tone} open size="md" />
+                          </div>
+                          <div className="min-w-0">
+                            <p className="break-words text-[14px] leading-5 font-normal text-[#e0e0e0] hover:text-white lg:truncate lg:text-[15px]">
+                              {label}
+                            </p>
+                            <p className="mt-0.5 break-words text-[13px] leading-5 text-[#888888] lg:truncate lg:text-[14px]">
+                              {formatMeta(count, getLibraryTypeLabel(lib))}
+                            </p>
+                          </div>
+                        </div>
+                      </Link>
+                    )}
+                    {onDeleteLibrary && lib.libraryType === "local" ? (
+                      <button
+                        type="button"
+                        title="Remove library"
+                        onClick={(e) => { e.stopPropagation(); onDeleteLibrary(lib.id) }}
+                        className="mt-0.5 shrink-0 rounded p-1 text-[#555] opacity-0 transition-opacity hover:text-[#e05252] group-hover:opacity-100"
+                      >
+                        <svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+                          <path d="M2 2l10 10M12 2L2 12" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round"/>
+                        </svg>
+                      </button>
+                    ) : null}
+                  </div>
+                )
+              }
 
               return (
                 <TreeBranchNode
                   key={library.id}
-                  isLast={index === libraries.length - 1}
+                  isLast={isLast}
                   lineColor={lineColor}
                   nodeColor={nodeColor}
                   compact={compact}
                 >
-                  {onLibrarySelect ? (
-                    <button
-                      type="button"
-                      onClick={() => onLibrarySelect(library.id)}
-                      className="block w-full py-1 text-left transition-colors"
-                    >
-                      <div className="flex items-start gap-3">
-                        <div className="mt-0.5">
-                          <FolderBadge tone={tone} open size="md" />
-                        </div>
-                        <div className="min-w-0">
-                          <p className="break-words text-[14px] leading-5 font-normal text-[#e0e0e0] hover:text-white lg:truncate lg:text-[15px]">
-                            {getLibraryOwnerLabel(library)}/{library.name}
-                          </p>
-                          <p className="mt-0.5 break-words text-[13px] leading-5 text-[#888888] lg:truncate lg:text-[14px]">
-                            {formatMeta(cardCount, getLibraryTypeLabel(library))}
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  ) : (
-                  <Link
-                    href={`/libraries/${library.id}`}
-                    className="block py-1 text-left transition-colors"
-                  >
-                    <div className="flex items-start gap-3">
-                      <div className="mt-0.5">
-                        <FolderBadge tone={tone} open size="md" />
-                      </div>
-                      <div className="min-w-0">
-                        <p className="break-words text-[14px] leading-5 font-normal text-[#e0e0e0] hover:text-white lg:truncate lg:text-[15px]">
-                          {getLibraryOwnerLabel(library)}/{library.name}
-                        </p>
-                        <p className="mt-0.5 break-words text-[13px] leading-5 text-[#888888] lg:truncate lg:text-[14px]">
-                          {formatMeta(cardCount, getLibraryTypeLabel(library))}
-                        </p>
-                      </div>
+                  {renderLibraryContent(library)}
+                  {children.length > 0 ? (
+                    <div className={compact ? "ml-[4px] pl-1.5" : "ml-[14px] pl-4"}>
+                      {children.map((child, ci) => (
+                        <TreeBranchNode
+                          key={child.id}
+                          isLast={ci === children.length - 1}
+                          lineColor={lineColor}
+                          nodeColor={nodeColor}
+                          compact
+                        >
+                          {renderLibraryContent(child, true)}
+                        </TreeBranchNode>
+                      ))}
                     </div>
-                  </Link>
-                  )}
+                  ) : null}
                 </TreeBranchNode>
               )
             })
-          ) : (
+          })() : (
             <p className="py-2 text-[14px] text-[#888888]">{emptyMessage}</p>
           )}
         </div>
@@ -262,9 +311,11 @@ export function BookmarkList({
 export function EmbeddedLibrariesDashboardMobile({
   query = "",
   onSelectLibrary,
+  onDeleteLibrary,
 }: {
   query?: string
   onSelectLibrary?: (libraryId: string) => void
+  onDeleteLibrary?: (libraryId: string) => void
 }) {
   const libraries = useSyncExternalStore(
     subscribeLibraries,
@@ -352,6 +403,7 @@ export function EmbeddedLibrariesDashboardMobile({
               emptyMessage="No My Group collections are available yet."
               compact
               onLibrarySelect={onSelectLibrary}
+              onDeleteLibrary={onDeleteLibrary}
             />
             {mobileLocalOpen ? (
               <div className="px-3 pt-2">
@@ -402,6 +454,10 @@ export default function LibrariesDashboard() {
       return
     }
     setMobileMenuOpen((value) => !value)
+  }
+
+  function handleDeleteLibrary(libraryId: string) {
+    void deleteLocalLibrary(libraryId)
   }
 
   const { filteredLibraries, totalCards } = useMemo(() => {
@@ -481,6 +537,7 @@ export default function LibrariesDashboard() {
                   libraries={filteredLocalLibraries}
                   emptyMessage="No My Group collections are available yet."
                   compact
+                  onDeleteLibrary={handleDeleteLibrary}
                 />
                 {mobileLocalOpen ? (
                   <div className="px-3 pt-2">
@@ -531,8 +588,9 @@ export default function LibrariesDashboard() {
                     open={localOpen}
                     onToggle={() => setLocalOpen((value) => !value)}
                     description="Collections specific to your organisation or access scope."
-                    libraries={filteredLocalLibraries.slice(0, 8)}
+                    libraries={filteredLocalLibraries}
                     emptyMessage="No My Group collections are available yet."
+                    onDeleteLibrary={handleDeleteLibrary}
                   />
                   {localOpen ? (
                     <div className="pt-2">

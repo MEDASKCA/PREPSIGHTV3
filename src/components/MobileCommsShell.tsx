@@ -15,6 +15,7 @@ import {
 } from "firebase/firestore"
 import type { CommsOrg, CommsUser } from "@/lib/comms-types"
 import MainApp from "@/components/comms/MainApp"
+import { getProfile } from "@/lib/profile"
 
 const DEFAULT_HOSPITAL       = "Royal Free Hospital"
 const DEFAULT_DEPARTMENT     = "Operating Theatres"
@@ -34,6 +35,8 @@ export default function MobileCommsShell({ visible = true }: { visible?: boolean
   const [user, setUser]         = useState<User | null>(null)
   const [org, setOrg]           = useState<CommsOrg | null>(null)
   const [errorText, setErrorText] = useState("")
+  const [profileHospital, setProfileHospital] = useState("")
+  const [profileDepartment, setProfileDepartment] = useState("")
 
   useEffect(() => onAuthChange(nextUser => setUser(nextUser)), [])
 
@@ -45,15 +48,50 @@ export default function MobileCommsShell({ visible = true }: { visible?: boolean
 
     async function ensureCommsContext() {
       try {
+        // Always read the PrepSight profile so hospital/dept reflect onboarding choices.
+        // Fall back to the locally cached profile when the Firestore doc is missing (e.g. new database).
+        const psProfileSnap = await getDoc(doc(firestore, "users", currentUser.uid))
+        const psProfile = psProfileSnap.exists() ? (psProfileSnap.data() as Record<string, unknown>) : {}
+        const localProfile = getProfile()
+        const profileHospital = (typeof psProfile.hospital === "string" && psProfile.hospital.trim()) || localProfile?.hospital?.trim() || ""
+        const profileDept = (Array.isArray(psProfile.departments) && psProfile.departments.length > 0
+          ? String(psProfile.departments[0]).trim()
+          : "") || (localProfile?.departments?.[0]?.trim() ?? "")
+        const profileRole = (typeof psProfile.jobTitle === "string" && psProfile.jobTitle.trim()) || localProfile?.jobTitle?.trim() || DEFAULT_CLINICAL_ROLE
+        const profileName = (typeof psProfile.name === "string" && psProfile.name.trim()) || localProfile?.name?.trim() || currentUser.displayName || currentUser.email || "User"
+
+        // Query ALL memberships (any status) so we can reactivate one that was accidentally deactivated
         const memberSnap = await getDocs(
-          query(collection(firestore, "comms_v5_memberships"), where("uid", "==", currentUser.uid), where("status", "==", "active")),
+          query(collection(firestore, "comms_v5_memberships"), where("uid", "==", currentUser.uid)),
         )
         if (!memberSnap.empty) {
-          const orgId = String(memberSnap.docs[0].data().orgId || "")
+          // Prefer active membership; fall back to the first inactive one (reactivate it)
+          const activeMembership = memberSnap.docs.find(d => d.data().status === "active")
+          const bestMembership = activeMembership ?? memberSnap.docs[0]
+          const orgId = String(bestMembership.data().orgId || "")
           if (orgId) {
             const orgDoc = await getDoc(doc(firestore, "comms_v5_orgs", orgId))
             if (orgDoc.exists()) {
-              if (!cancelled) setOrg({ id: orgDoc.id, ...orgDoc.data() } as CommsOrg)
+              // Reactivate if needed
+              if (!activeMembership) {
+                await setDoc(doc(firestore, "comms_v5_memberships", bestMembership.id), { status: "active" }, { merge: true })
+              }
+              // Sync comms user record with current PrepSight profile on every login
+              const userRef = doc(firestore, "comms_v5_users", currentUser.uid)
+              const updatePayload: Partial<CommsUser> = {
+                displayName: profileName,
+                email: currentUser.email || "",
+                updatedAt: Date.now(),
+              }
+              if (profileHospital) updatePayload.hospital = profileHospital
+              if (profileDept) { updatePayload.department = profileDept; updatePayload.groupLabel = profileDept }
+              if (profileRole) updatePayload.clinicalRole = profileRole
+              await setDoc(userRef, updatePayload, { merge: true })
+              if (!cancelled) {
+                setProfileHospital(profileHospital)
+                setProfileDepartment(profileDept)
+                setOrg({ id: orgDoc.id, ...orgDoc.data() } as CommsOrg)
+              }
               return
             }
           }
@@ -62,17 +100,19 @@ export default function MobileCommsShell({ visible = true }: { visible?: boolean
         const userRef       = doc(firestore, "comms_v5_users", currentUser.uid)
         const userSnap      = await getDoc(userRef)
         const existingUser  = userSnap.exists() ? (userSnap.data() as Partial<CommsUser>) : {}
+        const resolvedHospital = profileHospital || existingUser.hospital?.trim() || DEFAULT_HOSPITAL
+        const resolvedDept = profileDept || existingUser.department?.trim() || DEFAULT_DEPARTMENT
         const hydratedUser: CommsUser = {
           uid:          currentUser.uid,
-          displayName:  existingUser.displayName?.trim()   || currentUser.displayName || currentUser.email || "User",
-          email:        existingUser.email?.trim()         || currentUser.email || "",
-          hospital:     existingUser.hospital?.trim()      || DEFAULT_HOSPITAL,
-          department:   existingUser.department?.trim()    || DEFAULT_DEPARTMENT,
-          clinicalRole: existingUser.clinicalRole?.trim()  || DEFAULT_CLINICAL_ROLE,
+          displayName:  profileName,
+          email:        currentUser.email || "",
+          hospital:     resolvedHospital,
+          department:   resolvedDept,
+          clinicalRole: profileRole,
           specialties:  existingUser.specialties?.length
             ? existingUser.specialties.map(v => v.trim()).filter(Boolean)
             : DEFAULT_THEATRE_GROUPS,
-          groupLabel:   existingUser.groupLabel?.trim() || existingUser.department?.trim() || DEFAULT_DEPARTMENT,
+          groupLabel:   resolvedDept,
           updatedAt:    Date.now(),
           ...(existingUser.photoURL ? { photoURL: existingUser.photoURL } : {}),
         }
@@ -85,7 +125,7 @@ export default function MobileCommsShell({ visible = true }: { visible?: boolean
           activeOrg = { id: orgDoc.id, ...orgDoc.data() } as CommsOrg
         } else {
           const orgRef = doc(collection(firestore, "comms_v5_orgs"))
-          activeOrg = { id: orgRef.id, name: hydratedUser.hospital || DEFAULT_HOSPITAL, joinCode: generateJoinCode(), createdBy: currentUser.uid, createdAt: Date.now() }
+          activeOrg = { id: orgRef.id, name: hydratedUser.hospital ?? "", joinCode: generateJoinCode(), createdBy: currentUser.uid, createdAt: Date.now() }
           await setDoc(orgRef, { name: activeOrg.name, joinCode: activeOrg.joinCode, createdBy: activeOrg.createdBy, createdAt: activeOrg.createdAt })
         }
 
@@ -107,7 +147,11 @@ export default function MobileCommsShell({ visible = true }: { visible?: boolean
           existingThreadNames.add(normalized)
         }
 
-        if (!cancelled) setOrg(activeOrg)
+        if (!cancelled) {
+          setProfileHospital(profileHospital)
+          setProfileDepartment(profileDept)
+          setOrg(activeOrg)
+        }
       } catch (error) {
         if (!cancelled) setErrorText(error instanceof Error ? error.message : "Unable to load Comms.")
       }
@@ -142,6 +186,8 @@ export default function MobileCommsShell({ visible = true }: { visible?: boolean
         org={org}
         onSignOut={() => { setUser(null); setOrg(null) }}
         onSwitchOrg={() => setOrg(null)}
+        profileHospital={profileHospital}
+        profileDepartment={profileDepartment}
         embedded
         showProfileButton
         visible={visible}

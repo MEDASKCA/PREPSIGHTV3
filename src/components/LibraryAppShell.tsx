@@ -3,7 +3,6 @@
 import { useEffect, useState, useSyncExternalStore, type ReactNode } from "react"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
-import V5CommsDesktopRail from "@/components/V5CommsDesktopRail"
 import WorkspaceNavRail, { type WorkspaceNavKey } from "@/components/WorkspaceNavRail"
 import { getDesktopCommsPreference, getDesktopCommsWidth, getDesktopCommsWidthBounds, setDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
 
@@ -36,11 +35,13 @@ export default function LibraryAppShell({
     getDesktopCommsWidth,
     getDesktopCommsWidth,
   )
-  const effectiveRightRail = commsRailOpen ? <V5CommsDesktopRail /> : rightRail
   const { min: minCommsWidth, max: maxCommsWidth } = getDesktopCommsWidthBounds()
+  // PersistentCommsLayer (at AppGate level) renders the actual comms content as a fixed overlay.
+  // LibraryAppShell only needs a spacer aside to reserve the layout column.
+  const showRightAside = commsRailOpen || Boolean(rightRail)
 
   useEffect(() => {
-    if (!effectiveRightRail) return
+    if (!commsRailOpen) return
 
     const handleMouseUp = () => {
       document.body.style.cursor = ""
@@ -67,7 +68,7 @@ export default function LibraryAppShell({
       handleMouseUp()
       delete (window as Window & { __prepsightStartCommsResize?: (event: MouseEvent) => void }).__prepsightStartCommsResize
     }
-  }, [effectiveRightRail])
+  }, [commsRailOpen])
 
   const navCols = desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"
 
@@ -112,7 +113,7 @@ export default function LibraryAppShell({
               {children}
             </main>
 
-            {effectiveRightRail ? (
+            {showRightAside ? (
               <aside
                 className="relative hidden flex-shrink-0 border-l border-black lg:block"
                 style={{ width: commsRailWidth }}
@@ -128,7 +129,7 @@ export default function LibraryAppShell({
                     title={`Resize Comms panel (${minCommsWidth}-${maxCommsWidth}px)`}
                   />
                 ) : null}
-                {effectiveRightRail}
+                {!commsRailOpen ? rightRail : null}
               </aside>
             ) : null}
           </div>

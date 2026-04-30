@@ -82,31 +82,106 @@ const CTA_LABELS = [
 const ROLE_OPTIONS: Array<{ role: UserRole; label: string; description: string }> = [
   {
     role: "viewer",
-    label: USER_ROLE_LABEL.viewer,
-    description: "I use PrepSight to look up and reference procedure cards.",
+    label: "User",
+    description: "I use PrepSight to reference, prepare, and collaborate on procedure cards.",
   },
   {
-    role: "editor",
-    label: USER_ROLE_LABEL.editor,
-    description: "I help create and maintain card content for my team.",
-  },
-  {
-    role: "clinical_author",
-    label: "Clinical Author / Admin",
-    description: "I author content and manage team access. Up to 2 admins per workspace.",
+    role: "manager",
+    label: "Manager",
+    description: "I manage a clinical department and oversee its PrepSight library. Requires a department access code.",
   },
 ]
 
+const MANAGER_ACCESS_CODE = "PSADMIN"
+
 const CLINICAL_ROLE_OPTIONS: Record<string, string[]> = {
-  "Theatres": ["Anaesthetic Consultant", "Surgical Consultant", "Theatre Scrub Nurse / ODP", "Anaesthetic Nurse / ODP", "Registrar / Fellow", "Theatre Coordinator", "Other"],
-  "Endoscopy": ["Endoscopist", "Endoscopy Nurse", "Unit Coordinator", "Recovery Practitioner", "Support Worker", "Other"],
-  "ICU / Critical Care": ["ICU Consultant", "ICU Registrar / Fellow", "Critical Care Nurse", "Advanced Practitioner", "Critical Care Physiotherapist", "Outreach Practitioner", "Other"],
-  "Emergency Department": ["ED Consultant", "ED Registrar / Fellow", "ED Nurse", "Resus Practitioner", "Triage Clinician", "Flow Coordinator", "Other"],
-  "Ward": ["Consultant", "Junior Doctor", "Ward Nurse", "Pharmacist", "Therapist", "Other"],
-  "Clinic / Outpatients": ["Consultant", "Specialty Doctor", "Clinic Nurse", "Clinic Coordinator / Admin", "Allied Health Professional", "Other"],
-  "Maternity": ["Obstetrician", "Midwife", "Maternity Support Worker", "Anaesthetic Consultant", "Shift Coordinator", "Other"],
-  "Interventional Radiology": ["Interventional Radiologist", "Radiographer", "IR Nurse", "Advanced Practitioner", "Coordinator", "Other"],
-  "Other": ["Clinical Lead", "Doctor", "Nurse", "Allied Health Professional", "Manager / Coordinator", "Other"],
+  "Theatres": [
+    "Surgical Consultant",
+    "Anaesthetic Consultant",
+    "Registrar / Fellow",
+    "Theatre Scrub Nurse / ODP",
+    "Senior Theatre Scrub Nurse / ODP",
+    "Anaesthetic Nurse / ODP",
+    "Senior Theatre Anaesthetic Nurse / ODP",
+    "Theatre Manager / Matron",
+    "Other",
+  ],
+  "Endoscopy": [
+    "Endoscopist",
+    "Endoscopy Nurse",
+    "Senior Endoscopy Nurse",
+    "Recovery Practitioner",
+    "Support Worker",
+    "Endoscopy Manager / Matron",
+    "Other",
+  ],
+  "ICU / Critical Care": [
+    "ICU Consultant",
+    "ICU Registrar / Fellow",
+    "Critical Care Nurse",
+    "Senior Critical Care Nurse",
+    "Advanced Practitioner",
+    "Critical Care Physiotherapist",
+    "Outreach Practitioner",
+    "ICU Manager / Matron",
+    "Other",
+  ],
+  "Emergency Department": [
+    "ED Consultant",
+    "ED Registrar / Fellow",
+    "ED Nurse",
+    "Senior ED Nurse",
+    "Resus Practitioner",
+    "Triage Clinician",
+    "ED Manager / Matron",
+    "Other",
+  ],
+  "Ward": [
+    "Consultant",
+    "Junior Doctor",
+    "Ward Nurse",
+    "Senior Ward Nurse",
+    "Pharmacist",
+    "Therapist",
+    "Ward Manager / Matron",
+    "Other",
+  ],
+  "Clinic / Outpatients": [
+    "Consultant",
+    "Specialty Doctor",
+    "Clinic Nurse",
+    "Senior Clinic Nurse",
+    "Allied Health Professional",
+    "Clinic Manager",
+    "Other",
+  ],
+  "Maternity": [
+    "Obstetrician",
+    "Anaesthetic Consultant",
+    "Midwife",
+    "Senior Midwife",
+    "Maternity Support Worker",
+    "Maternity Manager / Matron",
+    "Other",
+  ],
+  "Interventional Radiology": [
+    "Interventional Radiologist",
+    "Radiographer",
+    "IR Nurse",
+    "Senior IR Nurse / Practitioner",
+    "Advanced Practitioner",
+    "IR Manager",
+    "Other",
+  ],
+  "Other": [
+    "Consultant",
+    "Doctor",
+    "Nurse",
+    "Senior Nurse / Practitioner",
+    "Allied Health Professional",
+    "Manager / Matron",
+    "Other",
+  ],
 }
 
 function normalizeDisplayName(value: string): string {
@@ -172,6 +247,8 @@ export default function OnboardingPage() {
   const [departments, setDepartments] = useState<string[]>([])
   const [specialties, setSpecialties] = useState<string[]>([])
   const [collapsedDepartments, setCollapsedDepartments] = useState<string[]>([])
+  const [managerCode, setManagerCode] = useState("")
+  const [managerCodeError, setManagerCodeError] = useState("")
   const [saving, setSaving] = useState(false)
   const [saveError, setSaveError] = useState("")
   const [finishing, setFinishing] = useState(false)
@@ -318,7 +395,14 @@ export default function OnboardingPage() {
     if (step === 3) return displayNameLooksValid
     if (step === 4) return departments.length > 0
     if (step === 5) return jobTitle.trim().length > 0
+    if (step === 7 && role === "manager") return managerCode.trim().length > 0
     return true
+  }
+
+  function handleRoleSelect(selected: UserRole) {
+    setRole(selected)
+    setManagerCode("")
+    setManagerCodeError("")
   }
 
   function toggleDepartmentCollapse(department: string) {
@@ -332,6 +416,13 @@ export default function OnboardingPage() {
 
   function goNext() {
     setHasStartedOnboarding(true)
+    if (step === 7 && role === "manager") {
+      if (managerCode.trim().toUpperCase() !== MANAGER_ACCESS_CODE) {
+        setManagerCodeError("Invalid access code. Contact your hospital administrator.")
+        return
+      }
+      setManagerCodeError("")
+    }
     setStep((current) => current + 1)
     setAnimKey((current) => current + 1)
   }
@@ -369,6 +460,7 @@ export default function OnboardingPage() {
       role,
       jobTitle: jobTitle.trim(),
       name: normalizedDisplayName,
+      email: user?.email ?? undefined,
       specialtiesOfInterest: specialties,
       completedAt: new Date().toISOString(),
     }
@@ -748,17 +840,17 @@ export default function OnboardingPage() {
           {step === 7 && (
             <div className="animate-step-in">
               <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
-                How will you use PrepSight?
+                Are you a user or a manager?
               </h2>
               <p className="mb-6 max-w-2xl text-base leading-7 text-[#0F4C5C] lg:text-xl lg:leading-9">
-                Choose the role that best fits how you work. You can update this later.
+                Most clinical staff are Users. Select Manager only if you are responsible for overseeing your department's PrepSight library.
               </p>
               <div className="grid gap-3">
                 {ROLE_OPTIONS.map((option) => (
                   <button
                     key={option.role}
                     type="button"
-                    onClick={() => setRole(option.role)}
+                    onClick={() => handleRoleSelect(option.role)}
                     className={`flex items-start gap-4 rounded-2xl border px-5 py-4 text-left transition-all duration-200 ${
                       role === option.role
                         ? "border-[#0085B2] bg-[#0096C7] text-white shadow-[0_10px_22px_rgba(0,150,199,0.24)] ring-2 ring-[#7DD9EE]/60"
@@ -775,6 +867,29 @@ export default function OnboardingPage() {
                   </button>
                 ))}
               </div>
+
+              {role === "manager" && (
+                <div className="mt-6 max-w-md">
+                  <label className="block mb-2 text-sm font-medium text-[#0F4C5C] lg:text-base">
+                    Department access code
+                  </label>
+                  <input
+                    type="text"
+                    value={managerCode}
+                    onChange={(e) => { setManagerCode(e.target.value); setManagerCodeError("") }}
+                    placeholder="Enter your department access code"
+                    className="w-full rounded-xl border border-[#D5DCE3] bg-white px-4 py-3.5 text-[15px] tracking-widest uppercase focus:outline-none focus:ring-2 focus:ring-[#4DA3FF] transition-shadow lg:px-5 lg:py-4 lg:text-lg"
+                    autoFocus
+                  />
+                  {managerCodeError && (
+                    <p className="mt-2 text-[13px] text-[#C2410C]">{managerCodeError}</p>
+                  )}
+                  <p className="mt-2 text-[12px] text-[#0F4C5C]/60 lg:text-sm">
+                    This code is provided by your hospital administrator.
+  Don't have one? Contact your hospital admin or sign up as a clinician instead.
+                  </p>
+                </div>
+              )}
             </div>
           )}
 

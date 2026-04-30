@@ -12,6 +12,7 @@ import {
 export type BookmarkRecord = StoredBookmarkRecord
 
 const BOOKMARKS_STORAGE_KEY = "prepsight_bookmarks"
+const KNOWN_REMOTE_BOOKMARK_IDS_KEY = "prepsight_known_remote_bookmark_ids"
 const BOOKMARKS_EVENT = "prepsight:bookmarks"
 
 let cachedBookmarksRaw: string | null | undefined
@@ -58,6 +59,21 @@ function emitBookmarksChanged(): void {
   window.dispatchEvent(new Event(BOOKMARKS_EVENT))
 }
 
+function readKnownRemoteBookmarkIds(): Set<string> {
+  if (typeof window === "undefined") return new Set()
+  try {
+    const raw = window.localStorage.getItem(KNOWN_REMOTE_BOOKMARK_IDS_KEY)
+    if (!raw) return new Set()
+    const parsed = JSON.parse(raw)
+    return new Set(Array.isArray(parsed) ? parsed : [])
+  } catch { return new Set() }
+}
+
+function writeKnownRemoteBookmarkIds(ids: Set<string>): void {
+  if (typeof window === "undefined") return
+  window.localStorage.setItem(KNOWN_REMOTE_BOOKMARK_IDS_KEY, JSON.stringify([...ids]))
+}
+
 function mergeBookmarks(primary: BookmarkRecord[], secondary: BookmarkRecord[]): BookmarkRecord[] {
   const byId = new Map<string, BookmarkRecord>()
   for (const bookmark of secondary) byId.set(bookmark.id, bookmark)
@@ -76,15 +92,40 @@ async function hydrateRemoteBookmarks(uid: string | null): Promise<void> {
   const remoteUid = uid as string
   const localBookmarks = readBookmarks()
   const remoteBookmarks = await getFirestoreBookmarks(remoteUid)
-  const merged = mergeBookmarks(remoteBookmarks, localBookmarks)
-  writeBookmarks(merged)
+  const remoteIds = new Set(remoteBookmarks.map((b) => b.id))
+
+  // If Firestore is completely empty but local has bookmarks, the user wiped Firebase.
+  // Treat every local bookmark as deleted rather than re-uploading them.
+  if (remoteBookmarks.length === 0 && localBookmarks.length > 0) {
+    writeBookmarks([])
+    writeKnownRemoteBookmarkIds(new Set())
+    emitBookmarksChanged()
+    return
+  }
+
+  // Track which IDs have ever been in Firestore.
+  // If a local bookmark was previously known to be in Firestore but is now gone, it was deleted.
+  let knownRemoteIds = readKnownRemoteBookmarkIds()
+  if (knownRemoteIds.size === 0) {
+    knownRemoteIds = new Set(remoteIds)
+    writeKnownRemoteBookmarkIds(knownRemoteIds)
+  }
+
+  const deletedRemoteIds = new Set(
+    localBookmarks
+      .filter((b) => knownRemoteIds.has(b.id) && !remoteIds.has(b.id))
+      .map((b) => b.id),
+  )
+
+  const validLocalBookmarks = localBookmarks.filter((b) => !deletedRemoteIds.has(b.id))
+  writeBookmarks(mergeBookmarks(remoteBookmarks, validLocalBookmarks))
+  writeKnownRemoteBookmarkIds(new Set([...knownRemoteIds, ...remoteIds]))
   emitBookmarksChanged()
 
-  const remoteIds = new Set(remoteBookmarks.map((bookmark) => bookmark.id))
   await Promise.all(
-    localBookmarks
-      .filter((bookmark) => !remoteIds.has(bookmark.id))
-      .map((bookmark) => saveFirestoreBookmark(remoteUid, bookmark).catch(() => undefined)),
+    validLocalBookmarks
+      .filter((b) => !remoteIds.has(b.id))
+      .map((b) => saveFirestoreBookmark(remoteUid, b).catch(() => undefined)),
   )
 }
 
@@ -147,6 +188,16 @@ export function saveBookmark(input: Omit<BookmarkRecord, "savedAt">): void {
       console.warn("[PrepSight] saveBookmark remote sync failed:", error)
     })
   }
+}
+
+export function clearAllLocalBookmarks(): void {
+  if (typeof window === "undefined") return
+  window.localStorage.removeItem(BOOKMARKS_STORAGE_KEY)
+  window.localStorage.removeItem(KNOWN_REMOTE_BOOKMARK_IDS_KEY)
+  cachedBookmarksRaw = undefined
+  cachedBookmarks = []
+  cachedSnapshotKey = undefined
+  emitBookmarksChanged()
 }
 
 export function removeBookmark(bookmarkId: string): void {

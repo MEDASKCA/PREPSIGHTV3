@@ -5,9 +5,12 @@ import {
 import { db } from "./firebase"
 import {
   ChecklistEntry,
+  GovernanceMembershipRecord,
   OrganizationMembershipRecord,
   OrganizationRecord,
+  OperatorMembershipRecord,
   PlatformRole,
+  PortalMembershipRecord,
   PrepSightProfile,
   Section,
   USER_ROLE_TO_PLATFORM_ROLE,
@@ -17,6 +20,9 @@ import { buildMemberPublicAlias, buildOrganizationPublicAlias } from "./identity
 import { type ActiveUserSessionRecord } from "./device-session"
 
 const ORGANIZATION_ALIAS_ROTATION_DAYS = 30
+const PORTAL_MEMBERSHIPS_COLLECTION = "portal_memberships"
+const GOVERNANCE_MEMBERSHIPS_COLLECTION = "governance_memberships"
+const OPERATOR_MEMBERSHIPS_COLLECTION = "operator_memberships"
 
 function slugify(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
@@ -30,6 +36,167 @@ function addDaysIso(date: Date, days: number): string {
 
 function membershipDocId(uid: string, organizationId: string): string {
   return `${uid}__${organizationId}`
+}
+
+function operatorMembershipDocId(uid: string): string {
+  return uid
+}
+
+function portalMembershipDoc(uid: string, organizationId: string) {
+  return doc(db!, PORTAL_MEMBERSHIPS_COLLECTION, membershipDocId(uid, organizationId))
+}
+
+function governanceMembershipDoc(uid: string, organizationId: string) {
+  return doc(db!, GOVERNANCE_MEMBERSHIPS_COLLECTION, membershipDocId(uid, organizationId))
+}
+
+function operatorMembershipDoc(uid: string) {
+  return doc(db!, OPERATOR_MEMBERSHIPS_COLLECTION, operatorMembershipDocId(uid))
+}
+
+function mapLegacyMembershipToPortalMembership(
+  membership: OrganizationMembershipRecord,
+): PortalMembershipRecord {
+  return {
+    id: membership.id,
+    organizationId: membership.organizationId,
+    uid: membership.uid,
+    role:
+      membership.internalRole === "manager" || membership.internalRole === "senior_manager"
+        ? "manager"
+        : "user",
+    status: membership.status,
+    displayName: membership.displayName,
+    publicAlias: membership.publicAlias,
+    departments: membership.departments,
+    specialtiesOfInterest: membership.specialtiesOfInterest,
+    requestedAt: membership.requestedAt,
+    approvedAt: membership.approvedAt,
+    approvedBy: membership.approvedBy,
+  }
+}
+
+export async function getPortalMemberships(uid: string): Promise<PortalMembershipRecord[]> {
+  if (!db) return []
+  try {
+    const snap = await getDocs(query(collection(db, PORTAL_MEMBERSHIPS_COLLECTION), where("uid", "==", uid)))
+    return snap.docs.map((entry) => ({ id: entry.id, ...entry.data() } as PortalMembershipRecord))
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getPortalMemberships failed:", err)
+    return []
+  }
+}
+
+export async function getGovernanceMemberships(uid: string): Promise<GovernanceMembershipRecord[]> {
+  if (!db) return []
+  try {
+    const snap = await getDocs(query(collection(db, GOVERNANCE_MEMBERSHIPS_COLLECTION), where("uid", "==", uid)))
+    return snap.docs.map((entry) => ({ id: entry.id, ...entry.data() } as GovernanceMembershipRecord))
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getGovernanceMemberships failed:", err)
+    return []
+  }
+}
+
+export async function getOperatorMembership(uid: string): Promise<OperatorMembershipRecord | null> {
+  if (!db) return null
+  try {
+    const snap = await getDoc(operatorMembershipDoc(uid))
+    return snap.exists() ? ({ id: snap.id, ...snap.data() } as OperatorMembershipRecord) : null
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getOperatorMembership failed:", err)
+    return null
+  }
+}
+
+export async function savePortalMembership(membership: PortalMembershipRecord): Promise<void> {
+  if (!db) return
+  try {
+    await setDoc(portalMembershipDoc(membership.uid, membership.organizationId), membership)
+  } catch (err) {
+    console.warn("[PrepSight] Firestore savePortalMembership failed:", err)
+  }
+}
+
+export async function upsertPortalMembership(
+  uid: string,
+  profile: PrepSightProfile,
+  options?: {
+    organizationId?: string
+    displayName?: string
+    approvedBy?: string
+    forceStatus?: PortalMembershipRecord["status"]
+  },
+): Promise<PortalMembershipRecord | null> {
+  if (!db) return null
+
+  const organization =
+    options?.organizationId
+      ? await getOrganization(options.organizationId)
+      : await ensureOrganizationForHospital(uid, profile.hospital)
+
+  if (!organization) return null
+
+  const membershipRef = portalMembershipDoc(uid, organization.id)
+  const existing = await getDoc(membershipRef)
+  const now = new Date().toISOString()
+  const requestedStatus: PortalMembershipRecord["status"] =
+    options?.forceStatus ??
+    (existing.exists() ? (existing.data().status as PortalMembershipRecord["status"] | undefined) : undefined) ??
+    (organization.createdBy === uid ? "active" : "pending_approval")
+
+  const membership: PortalMembershipRecord = {
+    id: membershipDocId(uid, organization.id),
+    organizationId: organization.id,
+    uid,
+    role: profile.role === "manager" || profile.role === "senior_manager" ? "manager" : "user",
+    status: requestedStatus,
+    displayName: options?.displayName ?? profile.name,
+    publicAlias:
+      existing.exists() && typeof existing.data().publicAlias === "string"
+        ? (existing.data().publicAlias as string)
+        : buildMemberPublicAlias(profile),
+    departments: profile.departments,
+    specialtiesOfInterest: profile.specialtiesOfInterest,
+    requestedAt:
+      existing.exists() && typeof existing.data().requestedAt === "string"
+        ? (existing.data().requestedAt as string)
+        : now,
+    approvedAt:
+      requestedStatus === "active"
+        ? existing.exists() && typeof existing.data().approvedAt === "string"
+          ? (existing.data().approvedAt as string)
+          : now
+        : undefined,
+    approvedBy:
+      requestedStatus === "active"
+        ? options?.approvedBy ??
+          (existing.exists() && typeof existing.data().approvedBy === "string"
+            ? (existing.data().approvedBy as string)
+            : organization.createdBy)
+        : undefined,
+  }
+
+  await savePortalMembership(membership)
+  return membership
+}
+
+export async function saveGovernanceMembership(membership: GovernanceMembershipRecord): Promise<void> {
+  if (!db) return
+  try {
+    await setDoc(governanceMembershipDoc(membership.uid, membership.organizationId), membership)
+  } catch (err) {
+    console.warn("[PrepSight] Firestore saveGovernanceMembership failed:", err)
+  }
+}
+
+export async function saveOperatorMembership(membership: OperatorMembershipRecord): Promise<void> {
+  if (!db) return
+  try {
+    await setDoc(operatorMembershipDoc(membership.uid), membership)
+  } catch (err) {
+    console.warn("[PrepSight] Firestore saveOperatorMembership failed:", err)
+  }
 }
 
 // ── User profile ──────────────────────────────────────────────────────────────
@@ -51,6 +218,17 @@ export async function saveUserProfile(uid: string, profile: PrepSightProfile): P
     await setDoc(doc(db, "users", uid), profile, { merge: true })
   } catch (err) {
     console.warn("[PrepSight] Firestore saveUserProfile failed:", err)
+  }
+}
+
+export async function getUsersByHospital(hospitalName: string): Promise<Array<PrepSightProfile & { uid: string }>> {
+  if (!db) return []
+  try {
+    const snap = await getDocs(query(collection(db, "users"), where("hospital", "==", hospitalName)))
+    return snap.docs.map((d) => ({ uid: d.id, ...(d.data() as PrepSightProfile) }))
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getUsersByHospital failed:", err)
+    return []
   }
 }
 
@@ -154,6 +332,17 @@ export async function deleteUserAccountData(uid: string): Promise<void> {
     await Promise.all(snap.docs.map((entry) => deleteDoc(entry.ref)))
   } catch (err) {
     console.warn("[PrepSight] Firestore deleteUserMemberships failed:", err)
+  }
+
+  try {
+    const portalMembershipsQuery = query(
+      collection(db, PORTAL_MEMBERSHIPS_COLLECTION),
+      where("uid", "==", uid),
+    )
+    const snap = await getDocs(portalMembershipsQuery)
+    await Promise.all(snap.docs.map((entry) => deleteDoc(entry.ref)))
+  } catch (err) {
+    console.warn("[PrepSight] Firestore deletePortalMemberships failed:", err)
   }
 }
 
@@ -337,6 +526,7 @@ export async function upsertOrganizationMembership(
   }
 
   await setDoc(membershipRef, membership)
+  await savePortalMembership(mapLegacyMembershipToPortalMembership(membership))
   return membership
 }
 
@@ -363,6 +553,7 @@ export async function approveOrganizationMembership(
     }
 
     await setDoc(membershipRef, approved)
+    await savePortalMembership(mapLegacyMembershipToPortalMembership(approved))
     return approved
   } catch (err) {
     console.warn("[PrepSight] Firestore approveOrganizationMembership failed:", err)

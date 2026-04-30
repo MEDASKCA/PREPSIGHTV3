@@ -8,8 +8,9 @@ export type WorkspaceNavKey =
   | "workforce"
   | "equipment"
   | "supplies"
+  | "user_accounts"
 
-export type WorkspaceNavGroupKey = "library" | "resources" | "insights"
+export type WorkspaceNavGroupKey = "library" | "resources" | "insights" | "management"
 
 export type WorkspaceNavItem = {
   key: WorkspaceNavKey
@@ -53,6 +54,13 @@ export const WORKSPACE_NAV_GROUPS: WorkspaceNavGroup[] = [
     key: "insights",
     label: "Insights",
     items: [],
+  },
+  {
+    key: "management",
+    label: "Management",
+    items: [
+      { key: "user_accounts", label: "User Accounts", href: "/user-accounts", iconSrc: "/icons/navigation/workforce.svg" },
+    ],
   },
 ]
 

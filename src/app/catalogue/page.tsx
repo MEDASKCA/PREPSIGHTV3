@@ -3,27 +3,23 @@
 import Link from "next/link"
 import { useMemo, useState } from "react"
 import {
-  ArrowLeft,
-  Plus,
-  Pencil,
-  SlidersHorizontal,
-  ChevronRight,
-  X,
   Bone,
-  Package,
-  Settings,
-  Zap,
-  Thermometer,
+  ChevronRight,
   LayoutGrid,
   List,
-  Wrench,
-  Search,
   MapPin,
+  Package,
+  Pencil,
   Phone,
+  Plus,
+  Search,
+  Settings,
+  Thermometer,
+  Wrench,
+  X,
+  Zap,
 } from "lucide-react"
-import {
-  type CatalogueProduct,
-} from "@/lib/catalogue-data"
+import type { CatalogueProduct } from "@/lib/catalogue-data"
 import {
   getCatalogueCategoryOptions,
   getCatalogueSpecialtyOptions,
@@ -32,208 +28,187 @@ import {
 } from "@/lib/catalogue-products-store"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
 
-// ── Types ─────────────────────────────────────────────────────────────────────
-
 type IconKey = "bone" | "package" | "settings" | "zap" | "thermometer" | "layout" | "wrench"
+type ViewMode = "list" | "grid"
 
-// View type for the page — CatalogueProduct extended with runtime stock fields
 interface Product extends CatalogueProduct {
   icon: IconKey
   sourceBadge: string
 }
 
-// ── Derive icon from category/subcategory ────────────────────────────────────
-
-function iconForProduct(p: CatalogueProduct): IconKey {
-  if (p.category === "Implants") return "bone"
-  if (p.subcategory === "Diathermy") return "zap"
-  if (p.subcategory === "Warming") return "thermometer"
-  if (p.subcategory === "Tables") return "layout"
-  if (p.category === "Instruments") return "wrench"
-  if (p.category === "Equipment") return "settings"
-  return "package"
+const ICON_MAP: Record<IconKey, React.ElementType> = {
+  bone: Bone,
+  package: Package,
+  settings: Settings,
+  zap: Zap,
+  thermometer: Thermometer,
+  layout: LayoutGrid,
+  wrench: Wrench,
 }
 
-// ── Map catalogue to display products (placeholder stock until Firestore) ────
+const RECORD_TYPES = ["All record types", "Seeded product", "Extracted system", "Extracted component"]
 
-// Stable placeholder qty — seeded from SKU so consistent across renders.
-// Replace with live Firestore stock data when inventory module is connected.
-// ── Helpers ──────────────────────────────────────────────────────────────────
-
-const ICON_MAP: Record<IconKey, React.ElementType> = {
-  bone:        Bone,
-  package:     Package,
-  settings:    Settings,
-  zap:         Zap,
-  thermometer: Thermometer,
-  layout:      LayoutGrid,
-  wrench:      Wrench,
+function iconForProduct(product: CatalogueProduct): IconKey {
+  if (product.category === "Implants") return "bone"
+  if (product.subcategory === "Diathermy") return "zap"
+  if (product.subcategory === "Warming") return "thermometer"
+  if (product.subcategory === "Tables") return "layout"
+  if (product.category === "Instruments") return "wrench"
+  if (product.category === "Equipment") return "settings"
+  return "package"
 }
 
 function sourceBadgeForProduct(product: CatalogueProduct): string {
   switch (product.sourceModel) {
     case "extracted_system":
-      return "Extracted System"
+      return "Extracted system"
     case "extracted_component":
-      return "Extracted Component"
+      return "Extracted component"
     default:
-      return "Seeded Product"
+      return "Seeded product"
   }
 }
-
-// ── Thumbnail ─────────────────────────────────────────────────────────────────
 
 function Thumbnail({ icon, imageUrl, size = 28 }: { icon: IconKey; imageUrl?: string; size?: number }) {
   const Icon = ICON_MAP[icon]
   return (
-    <div className="w-16 h-16 rounded-xl bg-[#F0F4F8] flex items-center justify-center shrink-0">
+    <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-[10px] border border-[#2d2d2d] bg-[#202020]">
       {imageUrl ? (
-        <img src={imageUrl} alt="" className="h-full w-full rounded-xl object-cover" />
+        <img src={imageUrl} alt="" className="h-full w-full rounded-[10px] object-cover" />
       ) : (
-        <Icon size={size} className="text-[#4DA3FF]" />
+        <Icon size={size} className="text-white" />
       )}
     </div>
   )
 }
 
-// ── Detail Panel ──────────────────────────────────────────────────────────────
-
-function DetailPanel({ product, onClose }: { product: Product; onClose: () => void }) {
-  const Icon = ICON_MAP[product.icon]
+function DetailRow({ label, value }: { label: string; value?: string }) {
   return (
-    <>
-      {/* Backdrop (mobile) */}
-      <div
-        className="fixed inset-0 bg-black/40 z-40 lg:hidden"
-        onClick={onClose}
-      />
+    <div className="border-b border-[#252525] pb-3 last:border-b-0">
+      <p className="text-[12px] text-[#7f7f7f]">{label}</p>
+      <p className="mt-1 text-[14px] text-white">{value || "not set"}</p>
+    </div>
+  )
+}
 
-      {/* Mobile bottom sheet */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl z-50 lg:hidden shadow-2xl max-h-[85vh] overflow-y-auto">
-        <div className="flex justify-center pt-3 pb-1">
-          <div className="w-10 h-1 rounded-full bg-[#D5DCE3]" />
+function DetailContent({ product, onClose }: { product: Product; onClose: () => void }) {
+  const Icon = ICON_MAP[product.icon]
+
+  return (
+    <div className="space-y-5 p-5">
+      <div className="flex items-start justify-between gap-4">
+        <div className="flex items-start gap-3">
+          <div className="flex h-16 w-16 items-center justify-center rounded-[12px] border border-[#2d2d2d] bg-[#202020]">
+            {product.imageUrl ? (
+              <img src={product.imageUrl} alt={product.name} className="h-full w-full rounded-[12px] object-cover" />
+            ) : (
+              <Icon size={28} className="text-white" />
+            )}
+          </div>
+          <div className="min-w-0">
+            <h2 className="text-[18px] leading-6 text-white">{product.name}</h2>
+            <p className="mt-1 text-[13px] text-[#8f8f8f]">{product.sourceBadge}</p>
+          </div>
         </div>
-        <DetailContent product={product} Icon={Icon} onClose={onClose} />
+        <button
+          type="button"
+          onClick={onClose}
+          className="rounded-[10px] border border-[#2d2d2d] bg-[#202020] p-2 text-[#8f8f8f] hover:text-white"
+        >
+          <X size={16} />
+        </button>
       </div>
 
-      {/* Desktop right panel */}
-      <div className="hidden lg:flex fixed right-0 top-0 bottom-0 w-96 bg-white shadow-2xl z-50 flex-col border-l border-[#D5DCE3] overflow-y-auto">
-        <DetailContent product={product} Icon={Icon} onClose={onClose} />
+      <div className="space-y-3">
+        <DetailRow label="supplier" value={product.supplier} />
+        <DetailRow label="category" value={`${product.category} / ${product.subcategory}`} />
+        <DetailRow label="record type" value={product.sourceBadge} />
+        <DetailRow label="location" value={product.location || "not assigned"} />
+      </div>
+
+      {product.description ? (
+        <p className="text-[14px] leading-6 text-[#9a9a9a]">{product.description}</p>
+      ) : null}
+
+      <div className="space-y-3 border-t border-[#252525] pt-4 text-[13px] text-[#8f8f8f]">
+        {product.supplierPhone ? (
+          <a href={`tel:${product.supplierPhone}`} className="flex items-center gap-2 hover:text-white">
+            <Phone size={14} />
+            {product.supplierPhone}
+          </a>
+        ) : null}
+        {product.location ? (
+          <div className="flex items-center gap-2">
+            <MapPin size={14} />
+            {product.location}
+          </div>
+        ) : null}
+      </div>
+
+      <div className="flex flex-wrap gap-2">
+        <Link
+          href={`/catalogue/add-product?id=${encodeURIComponent(product.id)}&source=library`}
+          className="inline-flex items-center gap-2 rounded-full border border-white bg-white px-4 py-2 text-[13px] text-black hover:bg-[#e8e8e8]"
+        >
+          <Pencil size={14} />
+          edit product
+        </Link>
+        {product.category === "Implants" ? (
+          <Link
+            href="/catalogue/implants"
+            className="inline-flex items-center gap-2 rounded-full border border-[#2d2d2d] bg-[#202020] px-4 py-2 text-[13px] text-white hover:bg-[#252525]"
+          >
+            view rack
+            <ChevronRight size={14} />
+          </Link>
+        ) : null}
+      </div>
+    </div>
+  )
+}
+
+function DetailPanel({ product, onClose }: { product: Product; onClose: () => void }) {
+  return (
+    <>
+      <div className="fixed inset-0 z-40 bg-black/60 lg:hidden" onClick={onClose} />
+      <div className="fixed inset-x-0 bottom-0 z-50 max-h-[85vh] overflow-y-auto rounded-t-[16px] border border-[#2d2d2d] bg-[#111111] lg:hidden">
+        <DetailContent product={product} onClose={onClose} />
       </div>
     </>
   )
 }
 
-function DetailContent({ product, Icon, onClose }: { product: Product; Icon: React.ElementType; onClose: () => void }) {
+function FilterSelect({
+  value,
+  onChange,
+  options,
+}: {
+  value: string
+  onChange: (value: string) => void
+  options: string[]
+}) {
   return (
-    <div className="p-6">
-      {/* Close + header row */}
-      <div className="flex items-start justify-between mb-4">
-        {/* Thumbnail + QR side by side */}
-        <div className="flex gap-3">
-          <div className="w-28 h-28 rounded-2xl bg-[#F0F4F8] flex items-center justify-center shrink-0">
-            <Icon size={52} className="text-[#4DA3FF]" />
-          </div>
-          <div className="w-28 h-28 rounded-2xl border border-dashed border-[#D5DCE3] bg-[#F4F7FA] flex items-center justify-center overflow-hidden">
-            {product.imageUrl ? (
-              <img src={product.imageUrl} alt={product.name} className="h-full w-full object-cover" />
-            ) : (
-              <Icon size={32} className="text-[#94A3B8]" />
-            )}
-          </div>
-        </div>
-        <button onClick={onClose} className="p-2 rounded-xl hover:bg-[#F4F7FA] transition-colors">
-          <X size={20} className="text-[#94A3B8]" />
-        </button>
-      </div>
-
-      <h2 className="text-base font-bold text-[#3F4752] mt-3 leading-snug">{product.name}</h2>
-      <div className="mt-4 space-y-2">
-        {/* Supplier — tappable, links to Directory */}
-        <div className="flex items-center justify-between border-b border-[#D5DCE3] pb-2">
-          <span className="text-xs text-[#94A3B8]">Supplier</span>
-          <div className="flex items-center gap-2">
-            {product.supplierPhone ? (
-              <a
-                href={`tel:${product.supplierPhone}`}
-                className="flex items-center gap-1.5 text-sm font-medium text-[#4DA3FF] hover:underline"
-                title="Tap to call · Linked to Directory"
-              >
-                <Phone size={12} />
-                {product.supplier}
-              </a>
-            ) : (
-              <span className="text-sm text-[#3F4752] font-medium">{product.supplier}</span>
-            )}
-          </div>
-        </div>
-
-        <DetailRow label="Category" value={`${product.category} · ${product.subcategory}`} />
-        <DetailRow label="Record type" value={product.sourceBadge} />
-
-        {/* Location — links to Stockroom later */}
-        {product.location && (
-          <div className="flex items-start justify-between border-b border-[#D5DCE3] pb-2 gap-4">
-            <span className="text-xs text-[#94A3B8] shrink-0">Location</span>
-            <span className="flex items-center gap-1 text-xs text-[#526579] text-right">
-              <MapPin size={11} className="text-[#94A3B8] shrink-0" />
-              {product.location}
-            </span>
-          </div>
-        )}
-      </div>
-
-      {product.description && (
-        <p className="mt-4 text-sm text-[#526579] leading-relaxed">{product.description}</p>
-      )}
-
-      <div className="mt-5">
-        <Link
-          href={`/catalogue/add-product?id=${encodeURIComponent(product.id)}&source=library`}
-          className="inline-flex items-center gap-2 rounded-xl border border-[#D5DCE3] bg-[#F8FBFF] px-3 py-2 text-sm font-semibold text-[#1D4ED8] transition-colors hover:bg-[#EAF3FF]"
-        >
-          <Pencil size={14} />
-          Edit product
-        </Link>
-      </div>
-
-      {product.category === "Implants" && (
-        <Link
-          href="/catalogue/implants"
-          className="mt-6 flex items-center justify-center gap-2 w-full py-3 rounded-xl bg-[#4DA3FF] text-white text-sm font-semibold"
-        >
-          View Rack
-          <ChevronRight size={16} />
-        </Link>
-      )}
-    </div>
+    <select
+      value={value}
+      onChange={(event) => onChange(event.target.value)}
+      className="rounded-full border border-[#2d2d2d] bg-[#202020] px-3 py-2 text-[13px] text-white outline-none"
+    >
+      {options.map((option) => (
+        <option key={option}>{option}</option>
+      ))}
+    </select>
   )
 }
-
-function DetailRow({ label, value, children }: { label: string; value?: string; children?: React.ReactNode }) {
-  return (
-    <div className="flex items-center justify-between border-b border-[#D5DCE3] pb-2">
-      <span className="text-xs text-[#94A3B8]">{label}</span>
-      {children ?? <span className="text-sm text-[#3F4752] font-medium">{value}</span>}
-    </div>
-  )
-}
-
-// ── Page ──────────────────────────────────────────────────────────────────────
-
-type ViewMode = "list" | "grid"
-const RECORD_TYPES = ["All Record Types", "Seeded Product", "Extracted System", "Extracted Component"]
 
 export default function CataloguePage() {
   const catalogueProducts = useCatalogueProducts()
-  const [catFilter,       setCatFilter]       = useState("All Categories")
-  const [supplierFilter,  setSupplierFilter]  = useState("All Suppliers")
+  const [catFilter, setCatFilter] = useState("All Categories")
+  const [supplierFilter, setSupplierFilter] = useState("All Suppliers")
   const [specialtyFilter, setSpecialtyFilter] = useState("All Specialties")
-  const [recordTypeFilter, setRecordTypeFilter] = useState("All Record Types")
-  const [selected,        setSelected]        = useState<Product | null>(null)
-  const [view,            setView]            = useState<ViewMode>("list")
-  const [query,           setQuery]           = useState("")
-  const [filterOpen,      setFilterOpen]      = useState(false)
+  const [recordTypeFilter, setRecordTypeFilter] = useState("All record types")
+  const [selected, setSelected] = useState<Product | null>(null)
+  const [view, setView] = useState<ViewMode>("list")
+  const [query, setQuery] = useState("")
 
   const products = useMemo(
     () =>
@@ -245,526 +220,214 @@ export default function CataloguePage() {
     [catalogueProducts],
   )
 
-  const CATEGORIES = useMemo(() => getCatalogueCategoryOptions(catalogueProducts), [catalogueProducts])
-  const SUPPLIERS = useMemo(() => getCatalogueSupplierOptions(catalogueProducts), [catalogueProducts])
-  const SPECIALTIES = useMemo(() => ["All Specialties", ...getCatalogueSpecialtyOptions(catalogueProducts)], [catalogueProducts])
+  const categoryOptions = useMemo(() => getCatalogueCategoryOptions(catalogueProducts), [catalogueProducts])
+  const supplierOptions = useMemo(() => getCatalogueSupplierOptions(catalogueProducts), [catalogueProducts])
+  const specialtyOptions = useMemo(
+    () => ["All Specialties", ...getCatalogueSpecialtyOptions(catalogueProducts)],
+    [catalogueProducts],
+  )
 
   const activeFilterCount = [
     catFilter !== "All Categories",
     supplierFilter !== "All Suppliers",
     specialtyFilter !== "All Specialties",
-    recordTypeFilter !== "All Record Types",
+    recordTypeFilter !== "All record types",
   ].filter(Boolean).length
 
-  const filtered = products.filter(p => {
-    if (catFilter !== "All Categories"        && p.category !== catFilter)                                                        return false
-    if (supplierFilter !== "All Suppliers"    && p.supplier !== supplierFilter)                                                    return false
-    if (specialtyFilter !== "All Specialties" && !p.specialty.includes(specialtyFilter) && !p.specialty.includes("All"))          return false
-    if (recordTypeFilter !== "All Record Types" && p.sourceBadge !== recordTypeFilter)                                             return false
-    if (query) {
-      const q = query.toLowerCase()
-      if (
-        !p.name.toLowerCase().includes(q) &&
-        !p.supplier.toLowerCase().includes(q) &&
-        !(p.description ?? "").toLowerCase().includes(q)
-      ) return false
-    }
-    return true
-  })
+  const filtered = useMemo(() => {
+    return products.filter((product) => {
+      if (catFilter !== "All Categories" && product.category !== catFilter) return false
+      if (supplierFilter !== "All Suppliers" && product.supplier !== supplierFilter) return false
+      if (specialtyFilter !== "All Specialties" && !product.specialty.includes(specialtyFilter) && !product.specialty.includes("All")) return false
+      if (recordTypeFilter !== "All record types" && product.sourceBadge !== recordTypeFilter) return false
+      if (!query.trim()) return true
+
+      const text = `${product.name} ${product.supplier} ${product.description ?? ""}`.toLowerCase()
+      return text.includes(query.trim().toLowerCase())
+    })
+  }, [catFilter, products, query, recordTypeFilter, specialtyFilter, supplierFilter])
+
+  const stats = (
+    <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-4 py-4">
+      <p className="text-[15px] text-white">catalogue</p>
+      <div className="mt-4 space-y-3 text-[13px] text-[#8f8f8f]">
+        <div className="flex items-center justify-between">
+          <span>total items</span>
+          <span className="text-[18px] text-white">{products.length}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span>filtered</span>
+          <span className="text-[18px] text-white">{filtered.length}</span>
+        </div>
+        <div className="flex items-center justify-between">
+          <span>active filters</span>
+          <span className="text-[18px] text-white">{activeFilterCount}</span>
+        </div>
+      </div>
+    </section>
+  )
+
+  const catalogueBody = (
+    <div className="space-y-5">
+      <section>
+        <h1 className="text-[32px] tracking-[-0.04em] text-white">catalogue</h1>
+        <p className="mt-2 max-w-[760px] text-[15px] leading-7 text-[#9a9a9a]">
+          Search supplier-fixed systems, trays, implants, consumables, and equipment in one minimal surface.
+        </p>
+      </section>
+
+      <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] p-4">
+        <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
+          <label className="relative min-w-0 flex-1">
+            <Search size={16} className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 text-[#7f7f7f]" />
+            <input
+              type="text"
+              placeholder="search by name, supplier, or description"
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              className="w-full rounded-full border border-[#2d2d2d] bg-[#202020] py-2.5 pl-9 pr-10 text-[14px] text-white outline-none placeholder:text-[#6f6f6f]"
+            />
+            {query ? (
+              <button
+                type="button"
+                onClick={() => setQuery("")}
+                className="absolute right-3 top-1/2 -translate-y-1/2 text-[#7f7f7f] hover:text-white"
+              >
+                <X size={14} />
+              </button>
+            ) : null}
+          </label>
+
+          <Link
+            href="/catalogue/add-product?source=library"
+            className="inline-flex shrink-0 items-center justify-center gap-2 rounded-full border border-white bg-white px-4 py-2.5 text-[13px] text-black hover:bg-[#e8e8e8]"
+          >
+            <Plus size={15} />
+            add product
+          </Link>
+        </div>
+
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <FilterSelect value={specialtyFilter} onChange={setSpecialtyFilter} options={specialtyOptions} />
+          <FilterSelect value={catFilter} onChange={setCatFilter} options={categoryOptions} />
+          <FilterSelect value={supplierFilter} onChange={setSupplierFilter} options={supplierOptions} />
+          <FilterSelect value={recordTypeFilter} onChange={setRecordTypeFilter} options={RECORD_TYPES} />
+
+          <div className="ml-auto flex items-center gap-2">
+            <span className="text-[13px] text-[#8f8f8f]">{filtered.length} items</span>
+            <div className="flex items-center gap-1 rounded-full border border-[#2d2d2d] bg-[#202020] p-1">
+              <button
+                type="button"
+                onClick={() => setView("list")}
+                className={`rounded-full p-2 ${view === "list" ? "bg-white text-black" : "text-[#8f8f8f] hover:text-white"}`}
+              >
+                <List size={14} />
+              </button>
+              <button
+                type="button"
+                onClick={() => setView("grid")}
+                className={`rounded-full p-2 ${view === "grid" ? "bg-white text-black" : "text-[#8f8f8f] hover:text-white"}`}
+              >
+                <LayoutGrid size={14} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {view === "list" ? (
+        <section className="overflow-hidden rounded-[12px] border border-[#2d2d2d] bg-[#161616]">
+          {filtered.length === 0 ? (
+            <div className="px-4 py-12 text-center">
+              <p className="text-[16px] text-white">no products match this view</p>
+              <p className="mt-1 text-[14px] text-[#8f8f8f]">try another search or filter combination</p>
+            </div>
+          ) : (
+            filtered.map((product) => (
+              <button
+                key={product.id}
+                type="button"
+                onClick={() => setSelected(product)}
+                className={`flex w-full items-center gap-4 border-b border-[#252525] px-4 py-4 text-left last:border-b-0 hover:bg-[#1d1d1d] ${
+                  selected?.id === product.id ? "bg-[#1d1d1d]" : ""
+                }`}
+              >
+                <Thumbnail icon={product.icon} imageUrl={product.imageUrl} />
+                <div className="min-w-0 flex-1">
+                  <p className="truncate text-[15px] text-white">{product.name}</p>
+                  <p className="mt-1 text-[13px] text-[#8f8f8f]">{product.supplier}</p>
+                  <p className="mt-1 text-[12px] text-[#6f6f6f]">{product.sourceBadge}</p>
+                </div>
+                <div className="shrink-0 text-right">
+                  <p className="text-[12px] text-[#8f8f8f]">{product.category}</p>
+                  <ChevronRight size={14} className="ml-auto mt-2 text-[#6f6f6f]" />
+                </div>
+              </button>
+            ))
+          )}
+        </section>
+      ) : (
+        <section className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          {filtered.length === 0 ? (
+            <div className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-4 py-12 text-center sm:col-span-2 xl:col-span-3">
+              <p className="text-[16px] text-white">no products match this view</p>
+              <p className="mt-1 text-[14px] text-[#8f8f8f]">try another search or filter combination</p>
+            </div>
+          ) : (
+            filtered.map((product) => {
+              const Icon = ICON_MAP[product.icon]
+
+              return (
+                <button
+                  key={product.id}
+                  type="button"
+                  onClick={() => setSelected(product)}
+                  className={`rounded-[12px] border px-4 py-4 text-left transition-colors ${
+                    selected?.id === product.id
+                      ? "border-[#3a3a3a] bg-[#1d1d1d]"
+                      : "border-[#2d2d2d] bg-[#161616] hover:border-[#3a3a3a] hover:bg-[#1d1d1d]"
+                  }`}
+                >
+                  <div className="mb-4 flex aspect-square w-full items-center justify-center rounded-[10px] border border-[#2d2d2d] bg-[#202020]">
+                    {product.imageUrl ? (
+                      <img src={product.imageUrl} alt={product.name} className="h-full w-full rounded-[10px] object-cover" />
+                    ) : (
+                      <Icon size={36} className="text-white" />
+                    )}
+                  </div>
+                  <p className="line-clamp-2 text-[15px] leading-6 text-white">{product.name}</p>
+                  <p className="mt-1 text-[13px] text-[#8f8f8f]">{product.supplier}</p>
+                  <p className="mt-1 text-[12px] text-[#6f6f6f]">{product.sourceBadge}</p>
+                </button>
+              )
+            })
+          )}
+        </section>
+      )}
+    </div>
+  )
 
   return (
     <>
-      <div className="app-shell-bg min-h-screen lg:hidden">
-      {/* Header */}
-      <header className="bg-[#00B4D8] px-4 py-3 lg:px-8 lg:py-4 flex items-center gap-3">
-        <Link href="/" className="p-2 rounded-xl hover:bg-white/10 transition-colors">
-          <ArrowLeft size={20} className="text-[#10243E]" />
-        </Link>
-        <div className="flex-1 min-w-0">
-          <h1 className="text-lg font-bold text-[#10243E] lg:text-2xl leading-tight">Catalogue</h1>
-          <p className="text-xs text-[#10243E]/70">NHS Supply Chain · 50,000+ products</p>
-        </div>
-        <Link
-          href="/catalogue/add-product?source=library"
-          className="inline-flex items-center gap-2 rounded-xl bg-white/90 px-3 py-2 text-sm font-semibold text-[#10243E] transition-colors hover:bg-white"
-        >
-          <Plus size={16} />
-          Add product
-        </Link>
-        <button className="p-2 rounded-xl hover:bg-white/10 transition-colors">
-          <SlidersHorizontal size={18} className="text-[#10243E]" />
-        </button>
-      </header>
-
-      {/* Search bar */}
-      <div className="bg-white border-b border-[#D5DCE3] px-4 py-2.5 lg:px-8">
-        <div className="relative">
-          <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
-          <input
-            type="text"
-            placeholder="Search by name, supplier, or description…"
-            value={query}
-            onChange={e => setQuery(e.target.value)}
-            className="w-full pl-9 pr-4 py-2 text-sm border border-[#D5DCE3] rounded-xl bg-[#F4F7FA] text-[#3F4752] placeholder:text-[#94A3B8] focus:outline-none focus:border-[#4DA3FF] focus:bg-white transition-colors"
-          />
-          {query && (
-            <button
-              onClick={() => setQuery("")}
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#526579]"
-            >
-              <X size={14} />
-            </button>
-          )}
-        </div>
-      </div>
-
-      {/* Filter bar */}
-      <div className="bg-white border-b border-[#D5DCE3] px-4 py-2.5 flex items-center gap-2 lg:px-8">
-
-        {/* Mobile: single Filter button */}
-        <button
-          onClick={() => setFilterOpen(true)}
-          className={`lg:hidden flex items-center gap-2 border rounded-lg px-3 py-1.5 text-sm shrink-0 transition-colors ${
-            activeFilterCount > 0
-              ? "border-[#4DA3FF] text-[#4DA3FF] bg-[#EAF3FF]"
-              : "border-[#D5DCE3] text-[#526579]"
-          }`}
-        >
-          <SlidersHorizontal size={14} />
-          Filters
-          {activeFilterCount > 0 && (
-            <span className="w-4 h-4 rounded-full bg-[#4DA3FF] text-white text-[10px] font-bold flex items-center justify-center">
-              {activeFilterCount}
-            </span>
-          )}
-        </button>
-
-        {/* Desktop: inline dropdowns */}
-        <select value={specialtyFilter} onChange={e => setSpecialtyFilter(e.target.value)}
-          className="hidden lg:block text-sm border border-[#D5DCE3] rounded-lg px-3 py-1.5 bg-white text-[#3F4752]">
-          {SPECIALTIES.map(s => <option key={s}>{s}</option>)}
-        </select>
-        <select value={catFilter} onChange={e => setCatFilter(e.target.value)}
-          className="hidden lg:block text-sm border border-[#D5DCE3] rounded-lg px-3 py-1.5 bg-white text-[#3F4752]">
-          {CATEGORIES.map(c => <option key={c}>{c}</option>)}
-        </select>
-        <select value={supplierFilter} onChange={e => setSupplierFilter(e.target.value)}
-          className="hidden lg:block text-sm border border-[#D5DCE3] rounded-lg px-3 py-1.5 bg-white text-[#3F4752]">
-          {SUPPLIERS.map(s => <option key={s}>{s}</option>)}
-        </select>
-        <select value={recordTypeFilter} onChange={e => setRecordTypeFilter(e.target.value)}
-          className="hidden lg:block text-sm border border-[#D5DCE3] rounded-lg px-3 py-1.5 bg-white text-[#3F4752]">
-          {RECORD_TYPES.map(type => <option key={type}>{type}</option>)}
-        </select>
-        <span className="ml-auto text-xs text-[#94A3B8] whitespace-nowrap shrink-0">
-          {filtered.length} items
-        </span>
-
-        {/* Desktop-only view toggle */}
-        <div className="hidden lg:flex items-center gap-0.5 border border-[#D5DCE3] rounded-lg p-0.5 shrink-0">
-          <button onClick={() => setView("list")}
-            className={`p-1.5 rounded-md transition-colors ${view === "list" ? "bg-[#4DA3FF] text-white" : "text-[#94A3B8] hover:text-[#526579]"}`}
-            title="List view">
-            <List size={15} />
-          </button>
-          <button onClick={() => setView("grid")}
-            className={`p-1.5 rounded-md transition-colors ${view === "grid" ? "bg-[#4DA3FF] text-white" : "text-[#94A3B8] hover:text-[#526579]"}`}
-            title="Grid view">
-            <LayoutGrid size={15} />
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile filter sheet */}
-      {filterOpen && (
-        <>
-          <div className="fixed inset-0 bg-black/40 z-40 lg:hidden" onClick={() => setFilterOpen(false)} />
-          <div className="fixed bottom-0 left-0 right-0 bg-white rounded-t-2xl z-50 lg:hidden shadow-2xl">
-            <div className="flex justify-center pt-3 pb-1">
-              <div className="w-10 h-1 rounded-full bg-[#D5DCE3]" />
-            </div>
-            <div className="px-6 pb-8">
-              <div className="flex items-center justify-between mb-5">
-                <h3 className="text-base font-bold text-[#3F4752]">Filters</h3>
-                <button
-                  onClick={() => { setCatFilter("All Categories"); setSupplierFilter("All Suppliers"); setSpecialtyFilter("All Specialties"); setRecordTypeFilter("All Record Types") }}
-                  className="text-sm text-[#4DA3FF]"
-                >
-                  Clear all
-                </button>
-              </div>
-              <div className="space-y-4">
-                <div>
-                  <label className="block text-xs text-[#94A3B8] mb-1.5 uppercase tracking-wider">Specialty</label>
-                  <select value={specialtyFilter} onChange={e => setSpecialtyFilter(e.target.value)}
-                    className="w-full text-sm border border-[#D5DCE3] rounded-xl px-3 py-2.5 bg-white text-[#3F4752]">
-                    {SPECIALTIES.map(s => <option key={s}>{s}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-xs text-[#94A3B8] mb-1.5 uppercase tracking-wider">Category</label>
-                  <select value={catFilter} onChange={e => setCatFilter(e.target.value)}
-                    className="w-full text-sm border border-[#D5DCE3] rounded-xl px-3 py-2.5 bg-white text-[#3F4752]">
-                    {CATEGORIES.map(c => <option key={c}>{c}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-xs text-[#94A3B8] mb-1.5 uppercase tracking-wider">Supplier</label>
-                  <select value={supplierFilter} onChange={e => setSupplierFilter(e.target.value)}
-                    className="w-full text-sm border border-[#D5DCE3] rounded-xl px-3 py-2.5 bg-white text-[#3F4752]">
-                    {SUPPLIERS.map(s => <option key={s}>{s}</option>)}
-                  </select>
-                </div>
-                <div>
-                  <label className="block text-xs text-[#94A3B8] mb-1.5 uppercase tracking-wider">Record type</label>
-                  <select value={recordTypeFilter} onChange={e => setRecordTypeFilter(e.target.value)}
-                    className="w-full text-sm border border-[#D5DCE3] rounded-xl px-3 py-2.5 bg-white text-[#3F4752]">
-                    {RECORD_TYPES.map(type => <option key={type}>{type}</option>)}
-                  </select>
-                </div>
-              </div>
-              <button
-                onClick={() => setFilterOpen(false)}
-                className="mt-6 w-full py-3 bg-[#4DA3FF] text-white font-semibold rounded-xl text-sm"
-              >
-                Show {filtered.length} results
-              </button>
-            </div>
-          </div>
-        </>
-      )}
-
-      {/* Desktop two-col layout — list view */}
-      {view === "list" && (
-        <div className="lg:flex lg:h-[calc(100vh-120px)]">
-          {/* Product list */}
-          <div className="bg-white lg:flex-1 lg:overflow-y-auto lg:border-r lg:border-[#D5DCE3]">
-            {filtered.length === 0 ? (
-              <div className="py-16 text-center">
-                <p className="text-sm text-[#94A3B8]">No products match the selected filters.</p>
-                <Link
-                  href="/catalogue/add-product?source=library"
-                  className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#8ADFF0] bg-[#AEEAF7] px-4 py-2.5 text-sm font-semibold text-[#10243E] transition-colors hover:bg-[#9BE4F4]"
-                >
-                  <Plus size={16} />
-                  Add product
-                </Link>
-              </div>
-            ) : (
-              filtered.map(product => (
-                <button
-                  key={product.id}
-                  onClick={() => setSelected(product)}
-                  className={`w-full flex items-center gap-4 px-4 py-4 border-b border-[#D5DCE3] hover:bg-[#F4F7FA] transition-colors text-left lg:px-8 ${
-                    selected?.id === product.id ? "bg-[#F4F7FA]" : ""
-                  }`}
-                >
-                  <Thumbnail icon={product.icon} imageUrl={product.imageUrl} />
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-[#3F4752] truncate">{product.name}</p>
-                    <p className="text-xs text-[#526579] mt-0.5">{product.supplier}</p>
-                    <p className="text-[11px] text-[#6B7B8C] mt-1">{product.sourceBadge}</p>
-                  </div>
-                  <div className="flex items-center gap-3 shrink-0">
-                    <ChevronRight size={16} className="text-[#94A3B8]" />
-                  </div>
-                </button>
-              ))
-            )}
-          </div>
-
-          {/* Desktop inline right panel */}
-          <div className="hidden lg:block w-[400px] bg-white overflow-y-auto border-l border-[#D5DCE3]">
-            {selected ? (
-              <DetailContent
-                product={selected}
-                Icon={ICON_MAP[selected.icon]}
-                onClose={() => setSelected(null)}
-              />
-            ) : (
-              <div className="flex flex-col items-center justify-center h-full text-[#94A3B8] text-sm gap-2 p-8">
-                <Package size={32} className="text-[#D5DCE3]" />
-                <p>Select a product to view details</p>
-              </div>
-            )}
-          </div>
-        </div>
-      )}
-
-      {/* Desktop grid view (desktop only — mobile always uses list) */}
-      {view === "grid" && (
-        <>
-          {/* Mobile: render as list (ignore grid toggle) */}
-          <div className="lg:hidden bg-white">
-            {filtered.map(product => (
-              <button
-                key={product.id}
-                onClick={() => setSelected(product)}
-                className="w-full flex items-center gap-4 px-4 py-4 border-b border-[#D5DCE3] hover:bg-[#F4F7FA] transition-colors text-left"
-              >
-                <Thumbnail icon={product.icon} imageUrl={product.imageUrl} />
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-[#3F4752] truncate">{product.name}</p>
-                  <p className="text-xs text-[#526579] mt-0.5">{product.supplier}</p>
-                </div>
-                <ChevronRight size={16} className="text-[#94A3B8] shrink-0" />
-              </button>
-            ))}
-          </div>
-
-          {/* Desktop: grid of tiles */}
-          <div className="hidden lg:block bg-[#F4F7FA] px-8 py-6">
-            {filtered.length === 0 ? (
-              <div className="py-16 text-center">
-                <p className="text-sm text-[#94A3B8]">No products match the selected filters.</p>
-                <Link
-                  href="/catalogue/add-product?source=library"
-                  className="mt-4 inline-flex items-center gap-2 rounded-full border border-[#8ADFF0] bg-[#AEEAF7] px-4 py-2.5 text-sm font-semibold text-[#10243E] transition-colors hover:bg-[#9BE4F4]"
-                >
-                  <Plus size={16} />
-                  Add product
-                </Link>
-              </div>
-            ) : (
-              <div className="grid grid-cols-3 xl:grid-cols-4 gap-4">
-                {filtered.map(product => {
-                  const Icon = ICON_MAP[product.icon]
-                  return (
-                    <button
-                      key={product.id}
-                      onClick={() => setSelected(product)}
-                      className={`bg-white rounded-2xl border border-[#D5DCE3] p-4 text-left hover:shadow-md hover:border-[#4DA3FF]/40 transition-all group ${
-                        selected?.id === product.id ? "border-[#4DA3FF] shadow-md" : ""
-                      }`}
-                    >
-                      <div className="w-full aspect-square rounded-xl bg-[#F0F4F8] flex items-center justify-center mb-3 overflow-hidden group-hover:bg-[#EAF3FF] transition-colors">
-                        {product.imageUrl ? (
-                          <img src={product.imageUrl} alt={product.name} className="h-full w-full object-cover" />
-                        ) : (
-                          <Icon size={40} className="text-[#4DA3FF]" />
-                        )}
-                      </div>
-                      <p className="text-sm font-semibold text-[#3F4752] leading-snug line-clamp-2">{product.name}</p>
-                      <p className="text-[11px] text-[#6B7B8C] mt-1 line-clamp-1">{product.sourceBadge}</p>
-                      <div className="flex items-center justify-between mt-2">
-                        <span className="text-[11px] text-[#526579]">{product.supplier}</span>
-                        <span className="text-[11px] text-[#94A3B8]">{product.category}</span>
-                      </div>
-                    </button>
-                  )
-                })}
-              </div>
-            )}
-          </div>
-        </>
-      )}
-
-      {/* Mobile detail panel (always) */}
-      {selected && (
-        <div className="lg:hidden">
-          <DetailPanel product={selected} onClose={() => setSelected(null)} />
-        </div>
-      )}
-
-      {/* Desktop overlay panel — grid view only */}
-      {view === "grid" && selected && (
-        <div className="hidden lg:flex fixed right-0 top-0 bottom-0 w-96 bg-white shadow-2xl z-50 flex-col border-l border-[#D5DCE3] overflow-y-auto">
-          <DetailContent
-            product={selected}
-            Icon={ICON_MAP[selected.icon]}
-            onClose={() => setSelected(null)}
-          />
-        </div>
-      )}
+      <div className="min-h-screen bg-black px-4 py-4 text-white lg:hidden">
+        {catalogueBody}
+        {selected ? <DetailPanel product={selected} onClose={() => setSelected(null)} /> : null}
       </div>
 
       <WorkspaceDesktopShell
         currentNav="catalogue"
-        sectionLabel="Library Catalogue"
+        sectionLabel="library catalogue"
         rightRail={
           selected ? (
-            <section className="overflow-hidden rounded-[12px] border border-[#DCEAF0] bg-white shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <DetailContent
-                product={selected}
-                Icon={ICON_MAP[selected.icon]}
-                onClose={() => setSelected(null)}
-              />
+            <section className="h-full overflow-y-auto border-l border-[#252525] bg-[#111111]">
+              <DetailContent product={selected} onClose={() => setSelected(null)} />
             </section>
           ) : (
-            <div className="space-y-3">
-              <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-                <p className="text-[15px] font-medium text-[#10243E]">Catalogue</p>
-                <div className="mt-3 space-y-3">
-                  <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                    <span>Total items</span>
-                    <span className="text-[18px] text-[#10243E]">{products.length}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                    <span>Filtered</span>
-                    <span className="text-[18px] text-[#0F4C5C]">{filtered.length}</span>
-                  </div>
-                  <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                    <span>Active filters</span>
-                    <span className="text-[18px] text-[#C2410C]">{activeFilterCount}</span>
-                  </div>
-                </div>
-              </section>
-
-              <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-                <p className="text-[15px] font-medium text-[#10243E]">Data source</p>
-                <p className="mt-3 text-[13px] leading-5 text-[#61758B]">
-                  This catalogue is still running from seeded product data plus local overrides, not a shared Firebase catalogue yet.
-                </p>
-              </section>
-
-              <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-                <p className="text-[15px] font-medium text-[#10243E]">Selection</p>
-                <p className="mt-3 text-[13px] leading-5 text-[#61758B]">
-                  Select a product to inspect supplier details, description, saved imagery, and linked edit actions.
-                </p>
-              </section>
-            </div>
+            stats
           )
         }
       >
-        <div className="space-y-4">
-          <section className="px-1">
-            <p className="text-[13px] text-[#5B7A8A] lg:hidden">Catalogue</p>
-            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E] lg:hidden">Products and stock</h1>
-            <p className="mt-2 text-[14px] text-[#61758B]">
-              Search supplier-fixed systems, trays, implants, consumables, and equipment.
-            </p>
-          </section>
-
-          <section className="rounded-[18px] border border-[#D8E3EE] bg-white p-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-            <div className="flex items-center gap-3">
-              <div className="relative min-w-0 flex-1">
-                <Search size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-[#94A3B8]" />
-                <input
-                  type="text"
-                  placeholder="Search by name, supplier, or description..."
-                  value={query}
-                  onChange={(event) => setQuery(event.target.value)}
-                  className="w-full rounded-xl border border-[#D5DCE3] bg-[#F4F7FA] py-2.5 pl-9 pr-4 text-sm text-[#3F4752] placeholder:text-[#94A3B8] transition-colors focus:border-[#4DA3FF] focus:bg-white focus:outline-none"
-                />
-                {query ? (
-                  <button
-                    onClick={() => setQuery("")}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-[#94A3B8] hover:text-[#526579]"
-                  >
-                    <X size={14} />
-                  </button>
-                ) : null}
-              </div>
-
-              <Link
-                href="/catalogue/add-product?source=library"
-                className="inline-flex shrink-0 items-center gap-2 rounded-xl bg-[#10243E] px-3 py-2 text-sm font-semibold text-white transition-colors hover:bg-[#163250]"
-              >
-                <Plus size={16} />
-                Add product
-              </Link>
-            </div>
-
-            <div className="mt-3 flex flex-wrap items-center gap-2">
-              <select value={specialtyFilter} onChange={(event) => setSpecialtyFilter(event.target.value)} className="text-sm border border-[#D5DCE3] rounded-lg px-3 py-1.5 bg-white text-[#3F4752]">
-                {SPECIALTIES.map((specialty) => <option key={specialty}>{specialty}</option>)}
-              </select>
-              <select value={catFilter} onChange={(event) => setCatFilter(event.target.value)} className="text-sm border border-[#D5DCE3] rounded-lg px-3 py-1.5 bg-white text-[#3F4752]">
-                {CATEGORIES.map((category) => <option key={category}>{category}</option>)}
-              </select>
-              <select value={supplierFilter} onChange={(event) => setSupplierFilter(event.target.value)} className="text-sm border border-[#D5DCE3] rounded-lg px-3 py-1.5 bg-white text-[#3F4752]">
-                {SUPPLIERS.map((supplier) => <option key={supplier}>{supplier}</option>)}
-              </select>
-              <select value={recordTypeFilter} onChange={(event) => setRecordTypeFilter(event.target.value)} className="text-sm border border-[#D5DCE3] rounded-lg px-3 py-1.5 bg-white text-[#3F4752]">
-                {RECORD_TYPES.map((type) => <option key={type}>{type}</option>)}
-              </select>
-              <span className="ml-auto text-xs text-[#94A3B8]">{filtered.length} items</span>
-
-              <div className="flex items-center gap-0.5 rounded-lg border border-[#D5DCE3] p-0.5">
-                <button
-                  onClick={() => setView("list")}
-                  className={`rounded-md p-1.5 transition-colors ${view === "list" ? "bg-[#4DA3FF] text-white" : "text-[#94A3B8] hover:text-[#526579]"}`}
-                  title="List view"
-                >
-                  <List size={15} />
-                </button>
-                <button
-                  onClick={() => setView("grid")}
-                  className={`rounded-md p-1.5 transition-colors ${view === "grid" ? "bg-[#4DA3FF] text-white" : "text-[#94A3B8] hover:text-[#526579]"}`}
-                  title="Grid view"
-                >
-                  <LayoutGrid size={15} />
-                </button>
-              </div>
-            </div>
-          </section>
-
-          {view === "list" ? (
-            <section className="overflow-hidden rounded-[18px] border border-[#D8E3EE] bg-white shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              {filtered.length === 0 ? (
-                <div className="py-16 text-center">
-                  <p className="text-sm text-[#94A3B8]">No products match the selected filters.</p>
-                </div>
-              ) : (
-                filtered.map((product) => (
-                  <button
-                    key={product.id}
-                    onClick={() => setSelected(product)}
-                    className={`flex w-full items-center gap-4 border-b border-[#D5DCE3] px-4 py-4 text-left transition-colors hover:bg-[#F4F7FA] last:border-b-0 ${
-                      selected?.id === product.id ? "bg-[#F4F7FA]" : ""
-                    }`}
-                  >
-                    <Thumbnail icon={product.icon} imageUrl={product.imageUrl} />
-                    <div className="min-w-0 flex-1">
-                      <p className="truncate text-sm font-semibold text-[#3F4752]">{product.name}</p>
-                      <p className="mt-0.5 text-xs text-[#526579]">{product.supplier}</p>
-                      <p className="mt-1 text-[11px] text-[#6B7B8C]">{product.sourceBadge}</p>
-                    </div>
-                    <div className="shrink-0 text-right text-[11px] text-[#94A3B8]">{product.category}</div>
-                  </button>
-                ))
-              )}
-            </section>
-          ) : (
-            <section className="rounded-[18px] border border-[#D8E3EE] bg-[#F4F7FA] p-4 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              {filtered.length === 0 ? (
-                <div className="py-16 text-center">
-                  <p className="text-sm text-[#94A3B8]">No products match the selected filters.</p>
-                </div>
-              ) : (
-                <div className="grid grid-cols-3 gap-4 xl:grid-cols-4">
-                  {filtered.map((product) => {
-                    const Icon = ICON_MAP[product.icon]
-                    return (
-                      <button
-                        key={product.id}
-                        onClick={() => setSelected(product)}
-                        className={`rounded-2xl border border-[#D5DCE3] bg-white p-4 text-left transition-all hover:border-[#4DA3FF]/40 hover:shadow-md ${
-                          selected?.id === product.id ? "border-[#4DA3FF] shadow-md" : ""
-                        }`}
-                      >
-                        <div className="mb-3 flex aspect-square w-full items-center justify-center overflow-hidden rounded-xl bg-[#F0F4F8]">
-                          {product.imageUrl ? (
-                            <img src={product.imageUrl} alt={product.name} className="h-full w-full object-cover" />
-                          ) : (
-                            <Icon size={40} className="text-[#4DA3FF]" />
-                          )}
-                        </div>
-                        <p className="line-clamp-2 text-sm font-semibold leading-snug text-[#3F4752]">{product.name}</p>
-                        <p className="mt-1 line-clamp-1 text-[11px] text-[#6B7B8C]">{product.sourceBadge}</p>
-                        <div className="mt-2 flex items-center justify-between">
-                          <span className="text-[11px] text-[#526579]">{product.supplier}</span>
-                          <span className="text-[11px] text-[#94A3B8]">{product.category}</span>
-                        </div>
-                      </button>
-                    )
-                  })}
-                </div>
-              )}
-            </section>
-          )}
-        </div>
+        {catalogueBody}
       </WorkspaceDesktopShell>
     </>
   )

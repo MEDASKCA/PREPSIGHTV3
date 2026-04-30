@@ -15,6 +15,7 @@ import { db } from "./firebase"
 import {
   OrganizationMembershipRecord,
   OrganizationRecord,
+  PortalMembershipRecord,
   PrepSightProfile,
   Procedure,
   USER_ROLE_TO_PLATFORM_ROLE,
@@ -49,6 +50,54 @@ function isRemoteReady(uid?: string | null): uid is string {
 
 function membershipDocId(uid: string, organizationId: string) {
   return `${uid}__${organizationId}`
+}
+
+function portalMembershipDocId(uid: string, organizationId: string) {
+  return `${uid}__${organizationId}`
+}
+
+function mapLegacyMembershipToPortalMembership(
+  membership: OrganizationMembershipRecord,
+): PortalMembershipRecord {
+  return {
+    id: portalMembershipDocId(membership.uid, membership.organizationId),
+    organizationId: membership.organizationId,
+    uid: membership.uid,
+    role:
+      membership.internalRole === "manager" || membership.internalRole === "senior_manager"
+        ? "manager"
+        : "user",
+    status: membership.status,
+    displayName: membership.displayName,
+    publicAlias: membership.publicAlias,
+    departments: membership.departments,
+    specialtiesOfInterest: membership.specialtiesOfInterest,
+    requestedAt: membership.requestedAt,
+    approvedAt: membership.approvedAt,
+    approvedBy: membership.approvedBy,
+  }
+}
+
+function mapPortalMembershipToLegacyMembership(
+  membership: PortalMembershipRecord,
+): OrganizationMembershipRecord {
+  const internalRole = membership.role === "manager" ? "manager" : "viewer"
+
+  return {
+    id: membership.id,
+    organizationId: membership.organizationId,
+    uid: membership.uid,
+    displayName: membership.displayName,
+    internalRole,
+    platformRole: USER_ROLE_TO_PLATFORM_ROLE[internalRole],
+    departments: membership.departments,
+    specialtiesOfInterest: membership.specialtiesOfInterest,
+    status: membership.status,
+    publicAlias: membership.publicAlias ?? buildOpaquePublicAlias("MEM"),
+    approvedBy: membership.approvedBy,
+    requestedAt: membership.requestedAt,
+    approvedAt: membership.approvedAt,
+  }
 }
 
 function libraryCardDocId(libraryId: string, cardId: string) {
@@ -205,6 +254,15 @@ export async function deleteFirestoreBookmark(uid: string, bookmarkId: string): 
   await deleteDoc(doc(db!, BOOKMARKS_COLLECTION, bookmarkDocId(uid, bookmarkId)))
 }
 
+export async function deleteFirestoreLibrary(uid: string, libraryId: string): Promise<void> {
+  if (!isRemoteReady(uid)) return
+  await deleteDoc(doc(db!, LIBRARIES_COLLECTION, libraryId))
+  const cardsSnap = await getDocs(
+    query(collection(db!, LIBRARY_CARDS_COLLECTION), where("libraryId", "==", libraryId)),
+  )
+  await Promise.all(cardsSnap.docs.map((cardDoc) => deleteDoc(cardDoc.ref)))
+}
+
 export async function getFirestoreTeamsForProfile(
   uid: string,
   profile: PrepSightProfile | null,
@@ -219,11 +277,11 @@ export async function getFirestoreTeamsForProfile(
   try {
     const [organizationsSnap, membershipsSnap] = await Promise.all([
       getDocs(collection(db!, "organizations")),
-      getDocs(collection(db!, "organization_memberships")),
+      getDocs(query(collection(db!, "portal_memberships"), where("uid", "==", uid))),
     ])
 
     const allMemberships = membershipsSnap.docs.map(
-      (entry) => ({ id: entry.id, ...entry.data() } as OrganizationMembershipRecord),
+      (entry) => mapPortalMembershipToLegacyMembership({ id: entry.id, ...entry.data() } as PortalMembershipRecord),
     )
 
     const allowedOrganizationIds = new Set<string>([
@@ -302,7 +360,10 @@ export async function createFirestoreTeamWorkspace(input: {
 
   await Promise.all([
     setDoc(doc(db!, "organizations", team.id), team),
-    setDoc(doc(db!, "organization_memberships", membership.id), membership),
+    setDoc(
+      doc(db!, "portal_memberships", portalMembershipDocId(membership.uid, membership.organizationId)),
+      mapLegacyMembershipToPortalMembership(membership),
+    ),
   ])
 
   return team
@@ -326,11 +387,13 @@ export async function joinFirestoreTeamWorkspace(input: {
     if (!team) return null
 
     const membershipId = membershipDocId(input.uid, team.id)
-    const membershipRef = doc(db!, "organization_memberships", membershipId)
+    const membershipRef = doc(db!, "portal_memberships", membershipId)
     const existingMembershipSnap = await getDoc(membershipRef)
     const now = new Date().toISOString()
     const existingMembership = existingMembershipSnap.exists()
-      ? ({ id: existingMembershipSnap.id, ...existingMembershipSnap.data() } as OrganizationMembershipRecord)
+      ? mapPortalMembershipToLegacyMembership(
+          { id: existingMembershipSnap.id, ...existingMembershipSnap.data() } as PortalMembershipRecord,
+        )
       : null
     const requestedStatus = existingMembership?.status ?? "pending_approval"
     const membership: OrganizationMembershipRecord = {
@@ -349,7 +412,7 @@ export async function joinFirestoreTeamWorkspace(input: {
       approvedAt: requestedStatus === "active" ? existingMembership?.approvedAt ?? now : undefined,
     }
 
-    await setDoc(membershipRef, membership)
+    await setDoc(membershipRef, mapLegacyMembershipToPortalMembership(membership))
     return { team, membership }
   } catch (error) {
     console.warn("[PrepSight] joinFirestoreTeamWorkspace failed:", error)
@@ -362,12 +425,18 @@ export async function approveFirestoreMembership(
   approverUid: string,
 ): Promise<void> {
   if (!isRemoteReady(approverUid)) return
-  const membershipRef = doc(db!, "organization_memberships", membershipId)
+  const membershipRef = doc(db!, "portal_memberships", membershipId)
   await updateDoc(membershipRef, {
     status: "active",
     approvedBy: approverUid,
     approvedAt: new Date().toISOString(),
   })
+  const membershipSnap = await getDoc(membershipRef)
+  if (!membershipSnap.exists()) return
+  const membership = mapPortalMembershipToLegacyMembership(
+    { id: membershipSnap.id, ...membershipSnap.data() } as PortalMembershipRecord,
+  )
+  await setDoc(membershipRef, mapLegacyMembershipToPortalMembership(membership))
 }
 
 export interface UserContactRecord {

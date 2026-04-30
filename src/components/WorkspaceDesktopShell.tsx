@@ -2,7 +2,6 @@
 
 import { useEffect, useState, useSyncExternalStore, type CSSProperties, type ReactNode } from "react"
 import AppTopBar from "@/components/AppTopBar"
-import V5CommsDesktopRail from "@/components/V5CommsDesktopRail"
 import WorkspaceNavRail, { type WorkspaceNavKey } from "@/components/WorkspaceNavRail"
 import { getDesktopCommsPreference, getDesktopCommsWidth, getDesktopCommsWidthBounds, setDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
 
@@ -28,11 +27,11 @@ export default function WorkspaceDesktopShell({
     getDesktopCommsWidth,
     getDesktopCommsWidth,
   )
-  const effectiveRightRail = commsRailOpen ? <V5CommsDesktopRail /> : rightRail
   const { min: minCommsWidth, max: maxCommsWidth } = getDesktopCommsWidthBounds()
+  const showRightAside = commsRailOpen || Boolean(rightRail)
 
   useEffect(() => {
-    if (!effectiveRightRail) return
+    if (!commsRailOpen) return
 
     const handleMouseUp = () => {
       document.body.style.cursor = ""
@@ -59,7 +58,7 @@ export default function WorkspaceDesktopShell({
       handleMouseUp()
       delete (window as Window & { __prepsightStartCommsResize?: (event: MouseEvent) => void }).__prepsightStartCommsResize
     }
-  }, [effectiveRightRail])
+  }, [commsRailOpen])
 
   const navGridStyle: CSSProperties = desktopNavOpen
     ? { gridTemplateColumns: "240px minmax(0,1fr)" }
@@ -89,7 +88,7 @@ export default function WorkspaceDesktopShell({
             {children}
           </main>
 
-          {effectiveRightRail ? (
+          {showRightAside ? (
             <aside
               className="relative flex-shrink-0 border-l border-black"
               style={{ width: commsRailWidth }}
@@ -105,7 +104,7 @@ export default function WorkspaceDesktopShell({
                   title={`Resize Comms panel (${minCommsWidth}-${maxCommsWidth}px)`}
                 />
               ) : null}
-              {effectiveRightRail}
+              {!commsRailOpen ? rightRail : null}
             </aside>
           ) : null}
         </div>

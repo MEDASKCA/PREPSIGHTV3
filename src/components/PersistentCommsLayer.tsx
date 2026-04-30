@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useState, useSyncExternalStore } from "react"
 import { onAuthChange, type User } from "@/lib/auth"
 import { db } from "@/lib/firebase"
 import {
@@ -16,6 +16,11 @@ import {
 import type { CommsOrg, CommsUser } from "@/lib/comms-types"
 import MainApp from "@/components/comms/MainApp"
 import { getProfile } from "@/lib/profile"
+import {
+  getDesktopCommsPreference,
+  getDesktopCommsWidth,
+  subscribeDesktopCommsPreference,
+} from "@/lib/desktop-comms"
 
 const DEFAULT_HOSPITAL = "Royal Free Hospital"
 const DEFAULT_DEPARTMENT = "Operating Theatres"
@@ -43,12 +48,27 @@ function generateJoinCode() {
   return Math.random().toString(36).slice(2, 8).toUpperCase()
 }
 
-export default function V5CommsDesktopRail() {
+// Persistent comms host — lives at AppGate level so it never unmounts on navigation.
+// The container uses fixed positioning; when width=0 it is invisible but MainApp stays
+// in the React tree, keeping WebRTC connections and call state alive across page changes.
+// position:fixed descendants (call overlay, floating pill) escape overflow:hidden and
+// render at their viewport positions regardless of container width.
+export default function PersistentCommsLayer() {
   const [user, setUser] = useState<User | null>(null)
   const [org, setOrg] = useState<CommsOrg | null>(null)
-  const [errorText, setErrorText] = useState("")
   const [profileHospital, setProfileHospital] = useState("")
   const [profileDepartment, setProfileDepartment] = useState("")
+
+  const commsRailOpen = useSyncExternalStore(
+    subscribeDesktopCommsPreference,
+    getDesktopCommsPreference,
+    getDesktopCommsPreference,
+  )
+  const commsRailWidth = useSyncExternalStore(
+    subscribeDesktopCommsPreference,
+    getDesktopCommsWidth,
+    getDesktopCommsWidth,
+  )
 
   useEffect(() => onAuthChange(nextUser => setUser(nextUser)), [])
 
@@ -63,49 +83,43 @@ export default function V5CommsDesktopRail() {
 
     async function ensureCommsContext() {
       try {
-        // Always read the PrepSight profile so hospital/dept reflect onboarding choices.
-        // Fall back to the locally cached profile when the Firestore doc is missing (e.g. new database).
         const psProfileSnap = await getDoc(doc(firestore, "users", currentUser.uid))
         const psProfile = psProfileSnap.exists() ? (psProfileSnap.data() as Record<string, unknown>) : {}
         const localProfile = getProfile()
-        const profileHospital = (typeof psProfile.hospital === "string" && psProfile.hospital.trim()) || localProfile?.hospital?.trim() || ""
-        const profileDept = (Array.isArray(psProfile.departments) && psProfile.departments.length > 0
+        const resolvedHospital = (typeof psProfile.hospital === "string" && psProfile.hospital.trim()) || localProfile?.hospital?.trim() || ""
+        const resolvedDept = (Array.isArray(psProfile.departments) && psProfile.departments.length > 0
           ? String(psProfile.departments[0]).trim()
           : "") || (localProfile?.departments?.[0]?.trim() ?? "")
-        const profileRole = (typeof psProfile.jobTitle === "string" && psProfile.jobTitle.trim()) || localProfile?.jobTitle?.trim() || DEFAULT_CLINICAL_ROLE
-        const profileName = (typeof psProfile.name === "string" && psProfile.name.trim()) || localProfile?.name?.trim() || currentUser.displayName || currentUser.email || "User"
+        const resolvedRole = (typeof psProfile.jobTitle === "string" && psProfile.jobTitle.trim()) || localProfile?.jobTitle?.trim() || DEFAULT_CLINICAL_ROLE
+        const resolvedName = (typeof psProfile.name === "string" && psProfile.name.trim()) || localProfile?.name?.trim() || currentUser.displayName || currentUser.email || "User"
 
-        // Query ALL memberships (any status) so we can reactivate one that was accidentally deactivated
         const memberSnap = await getDocs(
           query(collection(firestore, "comms_v5_memberships"), where("uid", "==", currentUser.uid)),
         )
 
         if (!memberSnap.empty) {
-          // Prefer active membership; fall back to the first inactive one (reactivate it)
           const activeMembership = memberSnap.docs.find(d => d.data().status === "active")
           const bestMembership = activeMembership ?? memberSnap.docs[0]
           const orgId = String(bestMembership.data().orgId || "")
           if (orgId) {
             const orgDoc = await getDoc(doc(firestore, "comms_v5_orgs", orgId))
             if (orgDoc.exists()) {
-              // Reactivate if needed
               if (!activeMembership) {
                 await setDoc(doc(firestore, "comms_v5_memberships", bestMembership.id), { status: "active" }, { merge: true })
               }
-              // Sync comms user record with current PrepSight profile on every login
               const userRef = doc(firestore, "comms_v5_users", currentUser.uid)
               const updatePayload: Partial<CommsUser> = {
-                displayName: profileName,
+                displayName: resolvedName,
                 email: currentUser.email || "",
                 updatedAt: Date.now(),
               }
-              if (profileHospital) updatePayload.hospital = profileHospital
-              if (profileDept) { updatePayload.department = profileDept; updatePayload.groupLabel = profileDept }
-              if (profileRole) updatePayload.clinicalRole = profileRole
+              if (resolvedHospital) updatePayload.hospital = resolvedHospital
+              if (resolvedDept) { updatePayload.department = resolvedDept; updatePayload.groupLabel = resolvedDept }
+              if (resolvedRole) updatePayload.clinicalRole = resolvedRole
               await setDoc(userRef, updatePayload, { merge: true })
               if (!cancelled) {
-                setProfileHospital(profileHospital)
-                setProfileDepartment(profileDept)
+                setProfileHospital(resolvedHospital)
+                setProfileDepartment(resolvedDept)
                 setOrg({ id: orgDoc.id, ...orgDoc.data() } as CommsOrg)
               }
               return
@@ -116,19 +130,19 @@ export default function V5CommsDesktopRail() {
         const userRef = doc(firestore, "comms_v5_users", currentUser.uid)
         const userSnap = await getDoc(userRef)
         const existingUser = userSnap.exists() ? (userSnap.data() as Partial<CommsUser>) : {}
-        const resolvedHospital = profileHospital || existingUser.hospital?.trim() || DEFAULT_HOSPITAL
-        const resolvedDept = profileDept || existingUser.department?.trim() || DEFAULT_DEPARTMENT
+        const hospital = resolvedHospital || existingUser.hospital?.trim() || DEFAULT_HOSPITAL
+        const dept = resolvedDept || existingUser.department?.trim() || DEFAULT_DEPARTMENT
         const hydratedUser: CommsUser = {
           uid: currentUser.uid,
-          displayName: profileName,
+          displayName: resolvedName,
           email: currentUser.email || "",
-          hospital: resolvedHospital,
-          department: resolvedDept,
-          clinicalRole: profileRole,
+          hospital,
+          department: dept,
+          clinicalRole: resolvedRole,
           specialties: existingUser.specialties?.length
-            ? existingUser.specialties.map(value => value.trim()).filter(Boolean)
+            ? existingUser.specialties.map(v => v.trim()).filter(Boolean)
             : DEFAULT_THEATRE_GROUPS,
-          groupLabel: resolvedDept,
+          groupLabel: dept,
           updatedAt: Date.now(),
           ...(existingUser.photoURL ? { photoURL: existingUser.photoURL } : {}),
         }
@@ -157,21 +171,20 @@ export default function V5CommsDesktopRail() {
           })
         }
 
-        await setDoc(doc(firestore, "comms_v5_memberships", `${currentUser.uid}__${activeOrg.id}`), {
-          uid: currentUser.uid,
-          orgId: activeOrg.id,
-          displayName: hydratedUser.displayName,
-          status: "active",
-          joinedAt: Date.now(),
-        }, { merge: true })
-
-        const existingThreadsSnap = await getDocs(query(collection(firestore, "comms_v5_threads"), where("organizationId", "==", activeOrg.id)))
-        const existingThreadNames = new Set(
-          existingThreadsSnap.docs
-            .map(docSnap => String(docSnap.data().name || "").trim().toLowerCase())
-            .filter(Boolean),
+        await setDoc(
+          doc(firestore, "comms_v5_memberships", `${currentUser.uid}__${activeOrg.id}`),
+          { uid: currentUser.uid, orgId: activeOrg.id, displayName: hydratedUser.displayName, status: "active", joinedAt: Date.now() },
+          { merge: true },
         )
 
+        const existingThreadsSnap = await getDocs(
+          query(collection(firestore, "comms_v5_threads"), where("organizationId", "==", activeOrg.id)),
+        )
+        const existingThreadNames = new Set(
+          existingThreadsSnap.docs
+            .map(d => String(d.data().name || "").trim().toLowerCase())
+            .filter(Boolean),
+        )
         for (const groupName of hydratedUser.specialties ?? []) {
           const normalized = groupName.trim().toLowerCase()
           if (!normalized || existingThreadNames.has(normalized)) continue
@@ -190,14 +203,12 @@ export default function V5CommsDesktopRail() {
         }
 
         if (!cancelled) {
-          setProfileHospital(profileHospital)
-          setProfileDepartment(profileDept)
+          setProfileHospital(resolvedHospital)
+          setProfileDepartment(resolvedDept)
           setOrg(activeOrg)
         }
-      } catch (error) {
-        if (!cancelled) {
-          setErrorText(error instanceof Error ? error.message : "Unable to load Comms.")
-        }
+      } catch {
+        // Silently fail — comms is non-blocking; the user can still use the app
       }
     }
 
@@ -205,29 +216,14 @@ export default function V5CommsDesktopRail() {
     return () => { cancelled = true }
   }, [user])
 
-  if (!user) {
-    return (
-      <aside className="hidden min-w-0 border-l border-black bg-black p-4 lg:flex lg:flex-col">
-        <p className="text-[15px] text-[#35516A]">Sign in to open PrepSight Comms.</p>
-      </aside>
-    )
-  }
-
-  if (!org) {
-    return (
-      <aside className="hidden min-w-0 border-l border-black bg-black lg:flex lg:min-h-[calc(100vh-5.5rem)] lg:flex-col lg:items-center lg:justify-center">
-        <div className="flex flex-col items-center gap-3 px-6 text-center">
-          <div className="h-8 w-8 animate-spin rounded-full border-2 border-[#29b6d8] border-t-transparent" />
-          <p className="text-[14px] text-[#35516A]">Preparing PrepSight Comms...</p>
-          {errorText ? <p className="text-[12px] text-[#B45309]">{errorText}</p> : null}
-        </div>
-      </aside>
-    )
-  }
+  if (!user || !org) return null
 
   return (
-    <aside className="hidden min-w-0 border-l border-black bg-black lg:block lg:min-h-[calc(100vh-5.5rem)]">
-      <div className="h-[calc(100vh-5.5rem)]">
+    <div
+      className={`hidden lg:block fixed right-0 top-0 z-[200] h-screen overflow-hidden transition-none ${commsRailOpen ? "border-l border-black bg-black" : ""}`}
+      style={{ width: commsRailOpen ? commsRailWidth : 0 }}
+    >
+      <div className="h-full">
         <MainApp
           user={user}
           org={org}
@@ -236,8 +232,9 @@ export default function V5CommsDesktopRail() {
           profileHospital={profileHospital}
           profileDepartment={profileDepartment}
           embedded
+          visible={commsRailOpen}
         />
       </div>
-    </aside>
+    </div>
   )
 }

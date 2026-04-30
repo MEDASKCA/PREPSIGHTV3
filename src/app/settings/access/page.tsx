@@ -12,6 +12,8 @@ import {
 } from "@/lib/auth"
 
 import { clearProfile } from "@/lib/profile"
+import { clearAllLocalData } from "@/lib/libraries"
+import { clearAllLocalBookmarks } from "@/lib/bookmarks"
 import {
   applyUserPreferences,
   type LanguagePreference,
@@ -195,6 +197,34 @@ export default function AccessSettingsPage() {
               ))}
             </select>
           </label>
+        </div>
+
+        <div className="settings-border border-t pt-4">
+          <div className="flex items-start gap-3">
+            <div className="flex h-9 w-9 items-center justify-center rounded-[14px] bg-[#FEF3C7] text-[#92400E]">
+              <Trash2 size={18} />
+            </div>
+            <div className="min-w-0">
+              <p className="settings-text text-sm font-medium">Clear local data</p>
+              <p className="settings-muted mt-1 text-sm">
+                Remove all locally cached libraries, cards, and bookmarks. Your Firestore data is not affected.
+              </p>
+            </div>
+          </div>
+          <div className="mt-3 rounded-[14px] border border-[#FDE68A] bg-[#FFFBEB] p-4">
+            <button
+              type="button"
+              onClick={() => {
+                if (!window.confirm("Clear all locally cached libraries and bookmarks? This cannot be undone.")) return
+                clearAllLocalData()
+                clearAllLocalBookmarks()
+              }}
+              className="inline-flex items-center gap-2 rounded-[12px] bg-[#92400E] px-4 py-2.5 text-sm font-medium text-white transition-colors hover:bg-[#78350F]"
+            >
+              <Trash2 size={16} />
+              Clear local data
+            </button>
+          </div>
         </div>
 
         <div className="settings-border border-t pt-4">

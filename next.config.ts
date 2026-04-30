@@ -21,8 +21,15 @@ const nextConfig: NextConfig = {
   async headers() {
     return [
       {
-        // Allow Firebase Auth popups to communicate back
-        source: "/(.*)",
+        // Login page opts out of COOP so the Firebase OAuth popup can post the auth
+        // result back via window.opener (firebaseapp.com's own COOP would sever it).
+        source: "/login",
+        headers: [
+          { key: "Cross-Origin-Opener-Policy", value: "unsafe-none" },
+        ],
+      },
+      {
+        source: "/((?!login).*)",
         headers: [
           { key: "Cross-Origin-Opener-Policy", value: "same-origin-allow-popups" },
         ],

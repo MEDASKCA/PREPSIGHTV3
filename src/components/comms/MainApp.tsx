@@ -57,7 +57,12 @@ import {
   Sun,
   Trash2,
   Video,
+  VideoOff,
   Volume2,
+  SwitchCamera,
+  Maximize2,
+  Minimize2,
+  PanelRight,
   X,
 } from "lucide-react"
 
@@ -284,6 +289,32 @@ function TypingDots({ tone = "default" }: { tone?: "default" | "tom" }) {
   )
 }
 
+// ─── Call button helper ────────────────────────────────────────────────────────
+
+function CallButton({ icon, onClick, danger, active, "aria-label": ariaLabel }: {
+  icon: React.ReactNode
+  onClick?: () => void
+  danger?: boolean
+  active?: boolean
+  "aria-label"?: string
+}) {
+  return (
+    <button
+      onClick={onClick}
+      aria-label={ariaLabel}
+      className={`flex h-[52px] w-[52px] items-center justify-center rounded-full transition-colors ${
+        danger
+          ? "bg-[#ef4444] text-white hover:bg-[#dc2626] active:bg-[#b91c1c]"
+          : active
+            ? "bg-[#404040] text-white"
+            : "bg-[#2a2a2a] text-white/80 hover:bg-[#383838]"
+      }`}
+    >
+      {icon}
+    </button>
+  )
+}
+
 // ─── Main component ────────────────────────────────────────────────────────────
 
 interface Props {
@@ -294,9 +325,11 @@ interface Props {
   embedded?: boolean
   showProfileButton?: boolean
   visible?: boolean   // false = this page is hidden; auto-minimise active calls
+  profileHospital?: string
+  profileDepartment?: string
 }
 
-export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true }: Props) {
+export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment }: Props) {
   const appRef = useRef<HTMLDivElement>(null)
   const firestore = db!
   const firebaseAuth = auth!
@@ -361,6 +394,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const remoteAudioRef = useRef<HTMLAudioElement | null>(null)
   const remoteVideoRef = useRef<HTMLVideoElement | null>(null)
   const localVideoRef = useRef<HTMLVideoElement | null>(null)
+  const floatingVideoRef = useRef<HTMLVideoElement | null>(null)
   const remoteStreamRef = useRef<MediaStream | null>(null)
   const callStartTimeRef = useRef<number>(0)
   const callThreadIdRef = useRef<string>("")
@@ -373,7 +407,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [callElapsed, setCallElapsed] = useState(0)
   const [callMuted, setCallMuted] = useState(false)
   const [callSpeaker, setCallSpeaker] = useState(false)
-  const [callMinimized, setCallMinimized] = useState(false)
+  const [callViewMode, setCallViewMode] = useState<"panel" | "fullscreen" | "floating">("panel")
+  const [camFacingMode, setCamFacingMode] = useState<"user" | "environment">("user")
   const [tomTyping, setTomTyping] = useState(false)
   const [tomTasks, setTomTasks] = useState<TomWatchTask[]>([])
 
@@ -390,7 +425,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     declineCall: () => void
     toggleMute: () => void
     switchToAudio: () => void
-  }>({ endCall: () => {}, answerCall: () => {}, declineCall: () => {}, toggleMute: () => {}, switchToAudio: () => {} })
+    switchToVideo: () => void
+  }>({ endCall: () => {}, answerCall: () => {}, declineCall: () => {}, toggleMute: () => {}, switchToAudio: () => {}, switchToVideo: () => {} })
 
   useEffect(() => {
     try {
@@ -433,20 +469,25 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (callState !== "idle" && localStreamRef.current && localVideoRef.current) {
       localVideoRef.current.srcObject = localStreamRef.current
     }
-  }, [callState, callMinimized])
+  }, [callState, callViewMode])
 
-  // ── Re-apply remote stream when video element mounts/unmounts (callState or minimized changes) ──
+  // ── Re-apply remote stream when video element mounts/unmounts (callState or view mode changes) ──
   useEffect(() => {
-    if (remoteStreamRef.current && remoteVideoRef.current) {
+    if (!remoteStreamRef.current) return
+    if (remoteVideoRef.current) {
       remoteVideoRef.current.srcObject = remoteStreamRef.current
       remoteVideoRef.current.play().catch(() => {})
     }
-  }, [callState, callMinimized])
+    if (floatingVideoRef.current) {
+      floatingVideoRef.current.srcObject = remoteStreamRef.current
+      floatingVideoRef.current.play().catch(() => {})
+    }
+  }, [callState, callViewMode])
 
-  // ── Auto-minimise when user navigates to a different tab ──
+  // ── Auto-minimise to floating only when panel becomes invisible (not fullscreen — that's intentional) ──
   useEffect(() => {
-    if (!visible && callState !== "idle") setCallMinimized(true)
-  }, [visible, callState])
+    if (!visible && callState !== "idle" && callViewMode === "panel") setCallViewMode("floating")
+  }, [visible, callState, callViewMode])
 
   // ── Register stable action callbacks in global store (mount only) ──
   useEffect(() => {
@@ -456,15 +497,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       decline: () => callActionsRef.current.declineCall(),
       toggleMute: () => callActionsRef.current.toggleMute(),
       switchToAudio: () => callActionsRef.current.switchToAudio(),
-      expand: () => setCallMinimized(false),
+      expand: () => setCallViewMode("panel"),
     })
     return () => clearCallStatus()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // ── Sync call state changes to global store ──
   useEffect(() => {
-    publishCallStatus({ state: callState, mediaMode: callMediaMode, muted: callMuted, minimized: callMinimized })
-  }, [callState, callMediaMode, callMuted, callMinimized])
+    publishCallStatus({ state: callState, mediaMode: callMediaMode, muted: callMuted, minimized: callViewMode === "floating" })
+  }, [callState, callMediaMode, callMuted, callViewMode])
 
   useEffect(() => {
     publishCallStatus({ elapsed: callElapsed })
@@ -816,8 +857,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const currentUserRecord = members.find(member => member.uid === user.uid) || null
   const allMembers = [TOM_USER, ...members.filter(member => member.uid !== TOM_UID)]
   const contactMembers = allMembers.filter(member => member.uid !== user.uid)
-  const hospitalLabel = currentUserRecord?.hospital?.trim() || org.name
-  const departmentLabel = currentUserRecord?.department?.trim() || "Operating Theatres"
+  const hospitalLabel = profileHospital || currentUserRecord?.hospital?.trim() || org.name
+  const departmentLabel = profileDepartment || currentUserRecord?.department?.trim() || ""
   const groupLabel = currentUserRecord?.groupLabel?.trim() || departmentLabel
   const clinicalRoleLabel = currentUserRecord?.clinicalRole?.trim() || "Clinical role not set"
 
@@ -1475,7 +1516,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setTomVoiceMode(false)
     setCallState("idle"); setActiveCall(null); setCallerInfo(null); setCalleeInfo(null)
     setCallElapsed(0); setCallMuted(false); setCallSpeaker(false)
-    setCallMinimized(false)
+    setCallViewMode("panel")
     resetCallStatus()
   }
 
@@ -1495,8 +1536,44 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setCallMediaMode("audio")
   }
 
+  async function switchToVideo() {
+    if (callState !== "active") return
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacingMode }, audio: false })
+      const track = stream.getVideoTracks()[0]
+      if (!track) return
+      localStreamRef.current?.addTrack(track)
+      if (pcRef.current && localStreamRef.current) {
+        pcRef.current.addTrack(track, localStreamRef.current)
+      }
+      if (localVideoRef.current) localVideoRef.current.srcObject = localStreamRef.current
+      setCallMediaMode("video")
+    } catch (e) {
+      console.warn("switch to video:", e)
+    }
+  }
+
+  async function switchCamera() {
+    if (!localStreamRef.current || callMediaMode !== "video") return
+    const currentTrack = localStreamRef.current.getVideoTracks()[0]
+    const nextFacing: "user" | "environment" = camFacingMode === "user" ? "environment" : "user"
+    try {
+      const newStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: nextFacing }, audio: false })
+      const newTrack = newStream.getVideoTracks()[0]
+      const sender = pcRef.current?.getSenders().find(s => s.track?.kind === "video")
+      if (sender) await sender.replaceTrack(newTrack)
+      currentTrack?.stop()
+      if (currentTrack) localStreamRef.current.removeTrack(currentTrack)
+      localStreamRef.current.addTrack(newTrack)
+      if (localVideoRef.current) localVideoRef.current.srcObject = localStreamRef.current
+      setCamFacingMode(nextFacing)
+    } catch (e) {
+      console.warn("switch camera:", e)
+    }
+  }
+
   // Keep callActionsRef current every render so stable store callbacks always invoke latest functions
-  callActionsRef.current = { endCall, answerCall, declineCall, toggleMute, switchToAudio }
+  callActionsRef.current = { endCall, answerCall, declineCall, toggleMute, switchToAudio, switchToVideo }
 
   const handleSignOut = useCallback(async () => {
     await setDoc(doc(firestore, "comms_v5_presence", user.uid), {
@@ -1807,19 +1884,18 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       : undefined
                     }
                     disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "audio")}
-                    className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
+                    className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
                       callState === "active" && callMediaMode === "audio"
-                        ? "bg-red-500"
+                        ? "bg-[#ef4444]"
                         : callState !== "idle"
-                        ? "cursor-not-allowed bg-[#2d2d2d] opacity-40"
-                        : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8]"
+                        ? "cursor-not-allowed bg-white/10 opacity-40"
+                        : "bg-white/10 hover:bg-white/20"
                     }`}
                   >
                     {callState === "active" && callMediaMode === "audio"
-                      ? <PhoneOff size={18} className="text-white" />
-                      : <Phone size={18} className="text-white" />}
+                      ? <PhoneOff size={17} className="text-white" />
+                      : <Phone size={17} className="text-white/70" />}
                   </button>
-                  {/* Video call button — red hang-up-video when video active (switches to audio), blue otherwise */}
                   <button
                     onClick={
                       callState === "active" && callMediaMode === "video" ? switchToAudio
@@ -1827,17 +1903,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       : undefined
                     }
                     disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "video")}
-                    className={`flex h-10 w-10 items-center justify-center rounded-full transition-colors ${
+                    className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
                       callState === "active" && callMediaMode === "video"
-                        ? "bg-red-500"
-                        : callState === "active" && callMediaMode === "audio"
-                        ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
-                        : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8]"
+                        ? "bg-[#ef4444]"
+                        : callState !== "idle"
+                        ? "cursor-not-allowed bg-white/10 opacity-40"
+                        : "bg-white/10 hover:bg-white/20"
                     }`}
                   >
                     {callState === "active" && callMediaMode === "video"
-                      ? <PhoneOff size={18} className="text-white" />
-                      : <Video size={18} className={callState === "active" ? "text-white/50" : "text-white"} />}
+                      ? <PhoneOff size={17} className="text-white" />
+                      : <Video size={17} className="text-white/70" />}
                   </button>
                 </>
               )}
@@ -2498,147 +2574,258 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       )}
 
-      {/* ═══ CALL UI ═══
-          Full screen by default (fixed on mobile, absolute on desktop panel).
-          Minimize button collapses to a draggable compact card. */}
-      {callState !== "idle" && !callMinimized && (
+      {/* ═══ CALL OVERLAY — panel or fullscreen ═══ */}
+      {callState !== "idle" && callViewMode !== "floating" && (
         <div
-          className={`z-[200] flex flex-col bg-black ${embedded ? "absolute inset-0" : "fixed inset-0"}`}
-          style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}
+          className={`z-[200] flex flex-col bg-[#0c0c0c] pointer-events-auto ${callViewMode === "fullscreen" ? "fixed inset-0" : "absolute inset-0"}`}
+          style={callViewMode === "fullscreen" ? { paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" } : undefined}
         >
-          {/* Video streams (active video) */}
+          {/* Remote video background */}
           {callMediaMode === "video" && !tomVoiceMode && callState === "active" && (
-            <div className="absolute inset-0 overflow-hidden">
+            <div className="absolute inset-0 overflow-hidden bg-black">
               <video ref={remoteVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
-              <video ref={localVideoRef} autoPlay playsInline muted
-                className="absolute bottom-32 right-4 h-28 w-20 rounded-[14px] border border-white/20 object-cover" />
             </div>
           )}
-          {/* Local camera preview during outgoing video */}
-          {callMediaMode === "video" && !tomVoiceMode && callState === "outgoing" && (
-            <video ref={localVideoRef} autoPlay playsInline muted
-              className="absolute bottom-32 right-4 h-28 w-20 rounded-[14px] border border-white/20 object-cover" />
+
+          {/* Local PIP */}
+          {callMediaMode === "video" && !tomVoiceMode && (callState === "active" || callState === "outgoing") && (
+            <div
+              className="absolute bottom-28 right-3 z-20 overflow-hidden rounded-xl border border-white/15 shadow-lg"
+              style={{ width: callViewMode === "fullscreen" ? 90 : 68, height: callViewMode === "fullscreen" ? 126 : 96 }}
+            >
+              <video ref={localVideoRef} autoPlay playsInline muted className="h-full w-full object-cover" />
+            </div>
           )}
 
-          {/* Top bar: minimize + timer */}
-          <div className="relative z-10 flex items-center justify-between px-5 pt-4">
-            <button
-              onClick={() => setCallMinimized(true)}
-              className="flex h-8 w-8 items-center justify-center rounded-full bg-white/10 text-white/60 hover:bg-white/20 hover:text-white"
-              aria-label="Minimise"
-            >
-              <ChevronDown size={16} />
-            </button>
+          {/* Top bar — single size toggle + panel switcher (desktop) + timer */}
+          <div className="relative z-20 flex items-center justify-between px-4 pt-4">
+            <div className="flex items-center gap-2">
+              {/* Minimise to floating — expand again by tapping the floating window */}
+              <button
+                onClick={() => setCallViewMode("floating")}
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white/60 backdrop-blur-sm transition-colors hover:bg-black/60 hover:text-white"
+                aria-label="Minimise to floating window"
+              >
+                <Minimize2 size={14} />
+              </button>
+              {/* Desktop-only panel view button */}
+              <button
+                onClick={() => setCallViewMode("panel")}
+                className={`hidden lg:flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors ${
+                  callViewMode === "panel"
+                    ? "bg-white/20 text-white"
+                    : "bg-black/40 text-white/60 hover:bg-black/60 hover:text-white"
+                }`}
+                aria-label="Panel view"
+              >
+                <PanelRight size={14} />
+              </button>
+            </div>
             {callState === "active" && (
-              <div className="flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5">
-                <Phone size={13} className="text-[#0096C7]" />
-                <span className="font-mono text-[14px] font-semibold text-[#0096C7]">
-                  {formatCallDuration(callElapsed)}
-                </span>
-              </div>
+              <span className="tabular-nums text-[13px] text-white/50">
+                {formatCallDuration(callElapsed)}
+              </span>
             )}
-            <div className="w-8" /> {/* spacer */}
+            <div className="w-[72px]" />
           </div>
 
-          {/* Controls row (active) */}
-          {callState === "active" && (
-            <div className="relative z-10 mt-4 flex w-full items-stretch border-t border-b border-white/[0.08]">
-              <button onClick={toggleMute}
-                className="flex flex-1 flex-col items-center gap-1.5 py-3.5 text-white/60 hover:text-white">
-                {callMuted ? <MicOff size={20} className="text-red-400" /> : <Mic size={20} />}
-                <span className="text-[10px]">{callMuted ? "Unmute" : "Mute"}</span>
-              </button>
-              <div className="w-px bg-white/[0.08]" />
-              <button onClick={() => setCallSpeaker(v => !v)}
-                className="flex flex-1 flex-col items-center gap-1.5 py-3.5 text-white/60 hover:text-white">
-                <Volume2 size={20} className={callSpeaker ? "text-[#0096C7]" : ""} />
-                <span className="text-[10px]">Speaker</span>
-              </button>
-              {callMediaMode === "video" && !tomVoiceMode && (
+          {/* Identity block — hidden during active video */}
+          <div className={`relative z-10 flex flex-1 flex-col items-center justify-center gap-4 px-6
+            ${callState === "active" && callMediaMode === "video" && !tomVoiceMode ? "pointer-events-none opacity-0" : ""}`}
+          >
+            <div className="relative flex items-center justify-center">
+              {callState === "incoming" && (
                 <>
-                  <div className="w-px bg-white/[0.08]" />
-                  <button className="flex flex-1 flex-col items-center gap-1.5 py-3.5 text-[#0096C7]">
-                    <Video size={20} />
-                    <span className="text-[10px]">Video</span>
-                  </button>
+                  <div className="absolute rounded-full bg-white/[0.06] animate-ping" style={{ inset: -22 }} />
+                  <div className="absolute rounded-full bg-white/[0.04] animate-ping" style={{ inset: -40, animationDelay: "0.35s" }} />
                 </>
               )}
+              <Avatar
+                name={(callState === "incoming" ? callerInfo?.displayName : calleeInfo?.displayName) ?? "?"}
+                size={callViewMode === "fullscreen" ? 88 : 68}
+                uid={callState === "incoming" ? callerInfo?.uid : calleeInfo?.uid}
+              />
+            </div>
+            <div className="text-center">
+              <p className={`tracking-[-0.02em] text-white ${callViewMode === "fullscreen" ? "text-[24px]" : "text-[19px]"}`}>
+                {callState === "incoming"
+                  ? (callerInfo?.displayName ?? "Incoming call")
+                  : (calleeInfo?.displayName ?? (selectedThread ? getThreadName(selectedThread) : ""))}
+              </p>
+              {(callState === "incoming" ? callerInfo?.clinicalRole : calleeInfo?.clinicalRole) && (
+                <p className="mt-1 text-[12px] text-white/40">
+                  {callState === "incoming" ? callerInfo!.clinicalRole : calleeInfo!.clinicalRole}
+                </p>
+              )}
+              <p className="mt-2 text-[12px] text-white/30">
+                {callState === "outgoing"
+                  ? (callMediaMode === "video" ? "Video calling" : "Calling")
+                  : callState === "incoming"
+                    ? (callMediaMode === "video" ? "Incoming video call" : "Incoming call")
+                    : (tomVoiceMode ? "TOM voice" : "Connected")}
+              </p>
+            </div>
+          </div>
+
+          {/* Active call controls */}
+          {callState === "active" && (
+            <div className={`z-20 flex items-center justify-center gap-3 ${
+              callMediaMode === "video" && !tomVoiceMode
+                ? "absolute bottom-0 left-0 right-0 pb-8 pt-6 bg-gradient-to-t from-black/60 to-transparent"
+                : "relative mb-6"
+            }`}>
+              {callMediaMode === "video" && !tomVoiceMode && (
+                <CallButton icon={<SwitchCamera size={20} />} onClick={() => void switchCamera()} aria-label="Flip camera" />
+              )}
+              <CallButton
+                icon={callMuted ? <MicOff size={20} className="text-red-400" /> : <Mic size={20} />}
+                onClick={toggleMute}
+                active={callMuted}
+                aria-label={callMuted ? "Unmute" : "Mute"}
+              />
+              {callMediaMode === "audio" ? (
+                <>
+                  <CallButton
+                    icon={<Volume2 size={20} className={callSpeaker ? "text-[#0096C7]" : ""} />}
+                    onClick={() => setCallSpeaker(v => !v)}
+                    active={callSpeaker}
+                    aria-label="Speaker"
+                  />
+                  <CallButton
+                    icon={<Video size={20} />}
+                    onClick={() => void switchToVideo()}
+                    aria-label="Switch to video"
+                  />
+                </>
+              ) : (
+                !tomVoiceMode && (
+                  <CallButton
+                    icon={<VideoOff size={20} />}
+                    onClick={switchToAudio}
+                    aria-label="Camera off"
+                  />
+                )
+              )}
+              <CallButton icon={<PhoneOff size={20} />} onClick={() => void endCall()} danger aria-label="End call" />
             </div>
           )}
 
-          {/* Centre: avatar / GIF + identity — hidden during active video call (video fills screen) */}
-          <div className={`relative z-10 flex flex-1 flex-col items-center justify-center gap-5 px-8 ${callState === "active" && callMediaMode === "video" && !tomVoiceMode ? "hidden" : ""}`}>
-            {callState === "outgoing" ? (
-              <>
-                <img
-                  src="/Plant%20Growing%20Sticker%20by%20Bouclair.gif"
-                  alt=""
-                  className="h-44 w-44 object-contain"
-                  style={{ filter: "grayscale(1) sepia(1) hue-rotate(170deg) saturate(4.5) brightness(1.05)" }}
-                />
-                <div className="text-center">
-                  <p className="text-2xl font-bold text-[#0096C7]">
-                    {calleeInfo?.displayName ?? (selectedThread ? getThreadName(selectedThread) : "")}
-                  </p>
-                  {calleeInfo?.email ? <p className="mt-1 text-[14px] font-medium text-white/70">{calleeInfo.email}</p> : null}
-                  {calleeInfo?.clinicalRole ? <p className="mt-0.5 text-[13px] text-white/40">{calleeInfo.clinicalRole}</p> : null}
-                  <p className="mt-3 text-[13px] text-[#0096C7]/70">
-                    {callMediaMode === "video" ? "Video calling…" : "Audio calling…"}
-                  </p>
-                </div>
-              </>
-            ) : (
-              <>
-                <div className="relative flex items-center justify-center">
-                  <div className="absolute rounded-full" style={{
-                    inset: -5, border: "2px solid #0096C7",
-                    boxShadow: "0 0 18px 4px rgba(0,150,199,0.45), 0 0 50px 16px rgba(0,150,199,0.1)",
-                  }} />
-                  <Avatar
-                    name={(callState === "incoming" ? callerInfo?.displayName : calleeInfo?.displayName) ?? "?"}
-                    size={100}
-                    uid={callState === "incoming" ? callerInfo?.uid : calleeInfo?.uid}
-                  />
-                </div>
-                <div className="text-center">
-                  <p className="text-[24px] font-bold text-[#0096C7]">
-                    {callState === "incoming"
-                      ? (callerInfo?.displayName ?? "Incoming call")
-                      : (calleeInfo?.displayName ?? (selectedThread ? getThreadName(selectedThread) : ""))}
-                  </p>
-                  {(callState === "incoming" ? callerInfo?.email : calleeInfo?.email)
-                    ? <p className="mt-1.5 text-[14px] font-semibold text-white">{callState === "incoming" ? callerInfo!.email : calleeInfo!.email}</p>
-                    : null}
-                  {(callState === "incoming" ? callerInfo?.clinicalRole : calleeInfo?.clinicalRole)
-                    ? <p className="mt-1 text-[12px] text-white/45">{callState === "incoming" ? callerInfo!.clinicalRole : calleeInfo!.clinicalRole}</p>
-                    : null}
-                  <p className="mt-3 text-[13px] text-[#0096C7]/70">
-                    {callState === "incoming"
-                      ? (callMediaMode === "video" ? "Incoming video call" : "Incoming audio call")
-                      : (tomVoiceMode ? "TOM voice mode" : "Connected")}
-                  </p>
-                </div>
-              </>
-            )}
-          </div>
-
-          {/* Bottom: action buttons — float over video when video active */}
-          <div className={`z-10 flex justify-center gap-10 pb-14 ${callState === "active" && callMediaMode === "video" && !tomVoiceMode ? "absolute bottom-0 left-0 right-0" : "relative"}`}>
-            {callState === "incoming" && (
-              <button onClick={answerCall}
-                className="flex h-[68px] w-[68px] items-center justify-center rounded-full"
-                style={{ background: "radial-gradient(circle at 38% 32%, #4ade80, #15803d)", boxShadow: "0 8px 24px rgba(21,128,61,0.5), inset 0 1px 0 rgba(255,255,255,0.15)" }}>
-                <PhoneIncoming size={26} className="text-white" />
+          {/* Incoming / outgoing action buttons */}
+          {(callState === "incoming" || callState === "outgoing") && (
+            <div className="relative z-10 flex items-end justify-center gap-12 pb-12">
+              {callState === "incoming" && (
+                <button
+                  onClick={answerCall}
+                  className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[#22c55e] hover:bg-[#16a34a] active:bg-[#15803d]"
+                  aria-label="Answer"
+                >
+                  <PhoneIncoming size={24} className="text-white" />
+                </button>
+              )}
+              <button
+                onClick={callState === "incoming" ? declineCall : () => void endCall()}
+                className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[#ef4444] hover:bg-[#dc2626] active:bg-[#b91c1c]"
+                aria-label={callState === "incoming" ? "Decline" : "Cancel"}
+              >
+                <PhoneOff size={24} className="text-white" />
               </button>
-            )}
+            </div>
+          )}
+        </div>
+      )}
+
+      {/* ═══ FLOATING WINDOW ═══ */}
+      {callState !== "idle" && callViewMode === "floating" && (
+        callState === "active" && callMediaMode === "video" && !tomVoiceMode ? (
+          /* Video PiP — shows remote video so you can browse while on a call */
+          <div
+            className="fixed bottom-24 right-4 z-[300] overflow-hidden rounded-2xl shadow-2xl border border-white/[0.08] pointer-events-auto"
+            style={{ width: 130, height: 190 }}
+          >
+            <video ref={floatingVideoRef} autoPlay playsInline className="absolute inset-0 h-full w-full object-cover bg-black" />
+            {/* Gradient scrim + controls */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
+            {/* Tap anywhere to expand — small expand icon hint */}
             <button
-              onClick={callState === "incoming" ? declineCall : endCall}
-              className="flex h-[68px] w-[68px] items-center justify-center rounded-full"
-              style={{ background: "radial-gradient(circle at 38% 32%, #f87171, #b91c1c)", boxShadow: "0 8px 24px rgba(185,28,28,0.5), inset 0 1px 0 rgba(255,255,255,0.15)" }}>
-              <PhoneOff size={26} className="text-white" />
+              className="absolute inset-0 z-10"
+              onClick={() => setCallViewMode(visible ? "panel" : "fullscreen")}
+              aria-label="Expand call"
+            />
+            <div className="absolute right-1.5 top-1.5 z-20 flex h-5 w-5 items-center justify-center rounded-md bg-black/40 pointer-events-none">
+              <Maximize2 size={10} className="text-white/60" />
+            </div>
+            {/* Name + elapsed */}
+            <div className="absolute bottom-9 left-0 right-0 z-20 px-2">
+              <p className="truncate text-center text-[11px] text-white/80">
+                {calleeInfo?.displayName ?? ""}
+              </p>
+              <p className="text-center text-[10px] text-white/45 tabular-nums">
+                {formatCallDuration(callElapsed)}
+              </p>
+            </div>
+            {/* Mute + End */}
+            <div className="absolute bottom-1.5 left-0 right-0 z-20 flex items-center justify-center gap-2">
+              <button
+                onClick={(e) => { e.stopPropagation(); toggleMute() }}
+                className="flex h-7 w-7 items-center justify-center rounded-full bg-black/50"
+                aria-label={callMuted ? "Unmute" : "Mute"}
+              >
+                {callMuted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white/70" />}
+              </button>
+              <button
+                onClick={(e) => { e.stopPropagation(); void endCall() }}
+                className="flex h-7 w-7 items-center justify-center rounded-full bg-[#ef4444]"
+                aria-label="End call"
+              >
+                <PhoneOff size={12} className="text-white" />
+              </button>
+            </div>
+          </div>
+        ) : (
+          /* Audio pill — incoming / outgoing / audio-only active */
+          <div
+            className="z-[300] flex items-center gap-3 rounded-2xl bg-[#181818] px-3 py-2.5 shadow-2xl border border-white/[0.08] pointer-events-auto fixed bottom-24 left-4 right-4 sm:left-auto sm:right-4 sm:w-[248px]"
+            role="button"
+            tabIndex={0}
+            onClick={() => setCallViewMode(visible ? "panel" : "fullscreen")}
+            onKeyDown={(e) => e.key === "Enter" && setCallViewMode(visible ? "panel" : "fullscreen")}
+            aria-label="Expand call"
+          >
+            <Avatar
+              name={(callState === "incoming" ? callerInfo?.displayName : calleeInfo?.displayName) ?? "?"}
+              size={34}
+              uid={callState === "incoming" ? callerInfo?.uid : calleeInfo?.uid}
+            />
+            <div className="min-w-0 flex-1">
+              <p className="truncate text-[13px] text-white">
+                {callState === "incoming"
+                  ? (callerInfo?.displayName ?? "Incoming call")
+                  : (calleeInfo?.displayName ?? "Call")}
+              </p>
+              <p className="text-[11px] text-white/40">
+                {callState === "active"
+                  ? formatCallDuration(callElapsed)
+                  : callState === "outgoing"
+                    ? "Calling"
+                    : "Incoming"}
+              </p>
+            </div>
+            <button
+              onClick={(e) => { e.stopPropagation(); toggleMute() }}
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#2a2a2a]"
+              aria-label={callMuted ? "Unmute" : "Mute"}
+            >
+              {callMuted ? <MicOff size={14} className="text-red-400" /> : <Mic size={14} className="text-white/70" />}
+            </button>
+            <button
+              onClick={(e) => { e.stopPropagation(); void endCall() }}
+              className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#ef4444]"
+              aria-label="End call"
+            >
+              <PhoneOff size={14} className="text-white" />
             </button>
           </div>
-        </div>
+        )
       )}
 
     </div>

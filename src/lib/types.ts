@@ -184,6 +184,7 @@ export interface LibraryRecord {
   ownerPublicAlias?: string
   cardIds: string[]
   sourceLibraryId?: string
+  parentId?: string
   createdAt: string
   updatedAt: string
 }
@@ -216,21 +217,30 @@ export interface ItemDisplayInfo {
 }
 
 /** How the user intends to use PrepSight — stored internally, not shown verbatim */
-export type UserRole = "viewer" | "editor" | "clinical_author"
+export type UserRole = "viewer" | "editor" | "clinical_author" | "manager" | "senior_manager"
 export type PlatformRole = "user" | "moderator" | "admin"
 export type MembershipStatus = "active" | "pending_approval" | "suspended"
 export type OrganizationVisibility = "private" | "discoverable" | "shared_anonymised"
+export type AccessSurface = "portal" | "governance" | "operator"
+export type AccountType = "portal_user" | "governance_admin" | "vendor_operator"
+export type PortalMembershipRole = "user" | "manager"
+export type GovernanceMembershipRole = "it_admin" | "governance_admin" | "read_only"
+export type OperatorMembershipRole = "vendor_operator" | "vendor_admin"
 
 export const USER_ROLE_LABEL: Record<UserRole, string> = {
-  viewer:          "Browse & Reference",
+  viewer:          "User",
   editor:          "Content Manager",
   clinical_author: "Clinical Author",
+  manager:         "Manager",
+  senior_manager:  "Senior Manager",
 }
 
 export const USER_ROLE_TO_PLATFORM_ROLE: Record<UserRole, PlatformRole> = {
-  viewer: "user",
-  editor: "moderator",
+  viewer:          "user",
+  editor:          "moderator",
   clinical_author: "admin",
+  manager:         "admin",
+  senior_manager:  "admin",
 }
 
 export interface PrepSightProfile {
@@ -238,10 +248,13 @@ export interface PrepSightProfile {
   departments: string[]
   role: UserRole
   platformRole?: PlatformRole
+  accountType?: AccountType
+  surfaces?: AccessSurface[]
   activeOrganizationId?: string
   organizationIds?: string[]
-  jobTitle?: string            // optional — collected later via profile settings
-  name?: string                // optional — "First Last", used for edit attribution
+  jobTitle?: string
+  name?: string
+  email?: string
   specialtiesOfInterest: string[]
   completedAt: string
 }
@@ -279,3 +292,41 @@ export interface OrganizationMembershipRecord {
 }
 
 export type IdentityMode = "internal" | "anonymised"
+
+export interface PortalMembershipRecord {
+  id: string
+  organizationId: string
+  uid: string
+  role: PortalMembershipRole
+  status: MembershipStatus
+  displayName?: string
+  publicAlias?: string
+  departments: string[]
+  specialtiesOfInterest: string[]
+  requestedAt: string
+  approvedAt?: string
+  approvedBy?: string
+}
+
+export interface GovernanceMembershipRecord {
+  id: string
+  organizationId: string
+  uid: string
+  role: GovernanceMembershipRole
+  status: MembershipStatus
+  displayName?: string
+  requestedAt: string
+  approvedAt?: string
+  approvedBy?: string
+}
+
+export interface OperatorMembershipRecord {
+  id: string
+  uid: string
+  role: OperatorMembershipRole
+  status: "active" | "suspended"
+  displayName?: string
+  requestedAt: string
+  approvedAt?: string
+  approvedBy?: string
+}

@@ -163,7 +163,7 @@ function canUseSessionStorage() {
 }
 
 function shouldPreferRedirect() {
-  // Redirect is unreliable: Chrome for Android partitions sessionStorage/IndexedDB
+  // Redirect is unreliable on mobile: Chrome for Android partitions sessionStorage/IndexedDB
   // across navigations, causing auth/missing-initial-state and infinite loading screens.
   // Always use popup — if Android shows the account chooser, the user picks Chrome/browser
   // and the OAuth completes normally.

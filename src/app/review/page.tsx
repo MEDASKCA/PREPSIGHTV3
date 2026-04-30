@@ -251,24 +251,24 @@ function getQueueStatus(row: ReviewRow): QueueStatus {
 }
 
 function queueStatusLabel(status: QueueStatus): string {
-  if (status === "validated") return "Validated"
-  if (status === "needs_review") return "Needs review"
-  if (status === "rejected") return "Rejected"
-  return "Needs validation"
+  if (status === "validated") return "validated"
+  if (status === "needs_review") return "needs review"
+  if (status === "rejected") return "rejected"
+  return "needs validation"
 }
 
 function queueStatusPillClass(status: QueueStatus): string {
-  if (status === "validated") return "bg-emerald-100 text-emerald-700"
-  if (status === "needs_review") return "bg-amber-100 text-amber-800"
-  if (status === "rejected") return "bg-rose-100 text-rose-700"
-  return "bg-amber-100 text-amber-800"
+  if (status === "validated") return "border border-[#2d2d2d] bg-[#202020] text-white"
+  if (status === "needs_review") return "border border-[#3a3320] bg-[#221d12] text-[#f0d28a]"
+  if (status === "rejected") return "border border-[#3a2323] bg-[#241616] text-[#f2b8b8]"
+  return "border border-[#3a3320] bg-[#221d12] text-[#f0d28a]"
 }
 
 function queueCardClass(status: QueueStatus): string {
-  if (status === "validated") return "border-emerald-200 bg-white hover:border-emerald-300"
-  if (status === "needs_review") return "border-amber-200 bg-white hover:border-amber-300"
-  if (status === "rejected") return "border-rose-200 bg-white hover:border-rose-300"
-  return "border-[#D8E3EE] bg-white hover:border-[#C2D4E3]"
+  if (status === "validated") return "border-[#2d2d2d] bg-[#161616] hover:border-[#3a3a3a] hover:bg-[#1d1d1d]"
+  if (status === "needs_review") return "border-[#3a3320] bg-[#181512] hover:border-[#4b4329] hover:bg-[#1f1b17]"
+  if (status === "rejected") return "border-[#3a2323] bg-[#181212] hover:border-[#4b2e2e] hover:bg-[#1e1717]"
+  return "border-[#2d2d2d] bg-[#161616] hover:border-[#3a3a3a] hover:bg-[#1d1d1d]"
 }
 
 function getReviewSummaryLine(row: ReviewRow, status: QueueStatus): string {
@@ -317,25 +317,25 @@ function ReviewSection({
 }) {
   const statusClass =
     status === "Reviewed"
-      ? "bg-emerald-500/18 text-white"
+      ? "border border-[#2d2d2d] bg-[#202020] text-white"
       : status === "Needs review"
-        ? "bg-rose-500/18 text-white"
-        : "bg-white/18 text-white"
+        ? "border border-[#3a2323] bg-[#241616] text-[#f2b8b8]"
+        : "border border-[#2d2d2d] bg-[#202020] text-[#b0b0b0]"
 
   return (
-    <div className="kardex-section mt-4 overflow-hidden rounded-xl border border-[#D5DCE3] bg-white lg:rounded-[30px] lg:border-[#14304B] lg:bg-[#08131F] lg:shadow-[0_28px_64px_rgba(15,23,42,0.24)]">
-      <div className="kardex-section-header flex items-center bg-[#4DA3FF] transition-colors">
+    <div className="mt-4 overflow-hidden rounded-[12px] border border-[#2d2d2d] bg-[#161616]">
+      <div className="flex items-center border-b border-[#252525] bg-[#161616] transition-colors">
         <button
           type="button"
           onClick={onToggle}
-          className="flex-1 px-4 py-3.5 text-left text-base font-semibold text-white transition-colors hover:bg-[#2F8EF7] lg:px-7 lg:py-6 lg:text-[30px] lg:font-semibold lg:tracking-[-0.05em]"
+          className="flex-1 px-4 py-3.5 text-left text-base text-white transition-colors hover:bg-[#1d1d1d] lg:px-5 lg:py-4 lg:text-[20px]"
         >
           <span className="block">{title}</span>
-          {subtitle ? <span className="mt-1 block text-[11px] uppercase tracking-[0.14em] text-white/78 lg:text-[13px]">{subtitle}</span> : null}
+          {subtitle ? <span className="mt-1 block text-[12px] text-[#7f7f7f] lg:text-[13px]">{subtitle}</span> : null}
         </button>
 
         {status ? (
-          <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide lg:px-4 lg:py-1.5 lg:text-[11px] ${statusClass}`}>
+          <span className={`shrink-0 rounded-full px-3 py-1 text-[11px] lg:mr-2 ${statusClass}`}>
             {status}
           </span>
         ) : null}
@@ -343,12 +343,12 @@ function ReviewSection({
         <button
           type="button"
           onClick={onToggle}
-          className="px-4 py-3.5 text-white transition-colors hover:bg-[#2F8EF7] lg:px-6"
+          className="px-4 py-3.5 text-white transition-colors hover:bg-[#1d1d1d] lg:px-5"
         >
           {open ? <TriangleIcon direction="up" size={12} /> : <TriangleIcon direction="down" size={12} />}
         </button>
       </div>
-      {open ? <div className="kardex-section-body px-4 py-2 lg:px-7 lg:py-6 lg:text-white/78">{children}</div> : null}
+      {open ? <div className="px-4 py-3 lg:px-5 lg:py-4 lg:text-[#b0b0b0]">{children}</div> : null}
     </div>
   )
 }
@@ -363,14 +363,14 @@ function ValidationChoices({
   return (
     <div className="grid gap-3">
       {[
-        { value: "correct" as const, label: "Correct", active: "border-emerald-500 bg-emerald-50 text-emerald-800" },
-        { value: "incorrect" as const, label: "Incorrect", active: "border-rose-500 bg-rose-50 text-rose-800" },
-        { value: "not_sure" as const, label: "Not sure", active: "border-amber-500 bg-amber-50 text-amber-800" },
+        { value: "correct" as const, label: "correct", active: "border-[#2d2d2d] bg-[#202020] text-white" },
+        { value: "incorrect" as const, label: "incorrect", active: "border-[#3a2323] bg-[#241616] text-[#f2b8b8]" },
+        { value: "not_sure" as const, label: "not sure", active: "border-[#3a3320] bg-[#221d12] text-[#f0d28a]" },
       ].map((option) => (
         <label
           key={option.value}
           className={`flex min-h-[56px] items-center gap-3 rounded-[18px] border px-4 py-3 text-[16px] font-medium ${
-            value === option.value ? option.active : "border-[#D8E3EE] bg-white text-[#334155]"
+            value === option.value ? option.active : "border-[#2d2d2d] bg-[#1a1a1a] text-[#b0b0b0]"
           }`}
         >
           <input
@@ -378,7 +378,7 @@ function ValidationChoices({
             name={`section_answer_${option.value}`}
             checked={value === option.value}
             onChange={() => onChange(option.value)}
-            className="h-4 w-4 border-slate-300 text-[#06B6D4] focus:ring-[#06B6D4]"
+            className="h-4 w-4 border-[#3a3a3a] bg-[#202020] text-white focus:ring-white"
           />
           <span>{option.label}</span>
         </label>
@@ -749,13 +749,13 @@ export default function ReviewPage() {
     const correctCount = reviewableSections.filter((section) => sectionReviews[section].answer === "correct").length
     const incorrectCount = reviewableSections.filter((section) => sectionReviews[section].answer === "incorrect").length
 
-    let label = "Unverified"
+    let label = "unverified"
     if (incorrectCount > 0) {
-      label = "Needs review"
+      label = "needs review"
     } else if (correctCount === 3) {
-      label = "Validated"
+      label = "validated"
     } else if (reviewedCount > 0) {
-      label = "Partially validated"
+      label = "partially validated"
     }
 
     return { label, reviewedCount, correctCount, incorrectCount }
@@ -782,14 +782,14 @@ export default function ReviewPage() {
   return (
     <>
       <div className="lg:hidden">
-        <div className="min-h-screen bg-[#F4F8FB] text-[#10243E]">
-      <main className="mx-auto max-w-7xl px-4 pb-5 pt-4 text-[#10243E] lg:px-8 lg:pb-8 lg:pt-8">
+        <div className="min-h-screen bg-black text-white">
+      <main className="mx-auto max-w-7xl px-4 pb-5 pt-4 text-white lg:px-8 lg:pb-8 lg:pt-8">
         <div className="flex gap-2 overflow-x-auto pb-1">
           {[
-            { value: "all" as const, label: "Total", count: summary.total, activeClass: "border-[#10243E] bg-[#10243E] text-white", idleClass: "border-[#D8E3EE] bg-white text-[#334155]" },
-            { value: "validated" as const, label: "Validated", count: summary.validated, activeClass: "border-emerald-600 bg-emerald-600 text-white", idleClass: "border-emerald-200 bg-emerald-50 text-emerald-800" },
-            { value: "awaiting" as const, label: "Awaiting validation", count: summary.awaiting, activeClass: "border-amber-500 bg-amber-500 text-white", idleClass: "border-amber-200 bg-amber-50 text-amber-800" },
-            { value: "rejected" as const, label: "Rejected", count: summary.rejected, activeClass: "border-rose-600 bg-rose-600 text-white", idleClass: "border-rose-200 bg-rose-50 text-rose-800" },
+            { value: "all" as const, label: "total", count: summary.total, activeClass: "border-white bg-white text-black", idleClass: "border-[#2d2d2d] bg-[#161616] text-[#b0b0b0]" },
+            { value: "validated" as const, label: "validated", count: summary.validated, activeClass: "border-white bg-white text-black", idleClass: "border-[#2d2d2d] bg-[#161616] text-[#b0b0b0]" },
+            { value: "awaiting" as const, label: "awaiting validation", count: summary.awaiting, activeClass: "border-white bg-white text-black", idleClass: "border-[#2d2d2d] bg-[#161616] text-[#b0b0b0]" },
+            { value: "rejected" as const, label: "rejected", count: summary.rejected, activeClass: "border-white bg-white text-black", idleClass: "border-[#2d2d2d] bg-[#161616] text-[#b0b0b0]" },
           ].map((item) => (
             <button
               key={item.value}
@@ -805,8 +805,8 @@ export default function ReviewPage() {
           ))}
         </div>
 
-        <div className="mt-3 rounded-[20px] border border-amber-200 bg-amber-50 px-4 py-3 text-[#7C2D12]">
-          <p className="text-[12px] font-semibold uppercase tracking-[0.14em]">Internal note</p>
+        <div className="mt-3 rounded-[12px] border border-[#3a3320] bg-[#181512] px-4 py-3 text-[#f0d28a]">
+          <p className="text-[12px] font-semibold">internal note</p>
           <p className="mt-1 text-[14px] leading-6">
             Fixed data assets such as systems, trays, SKUs, and core mappings should move toward researched and curated master data rather than crowdsourced validation. Keep this page for now, but plan to revise or revert this workflow later.
           </p>
@@ -814,34 +814,34 @@ export default function ReviewPage() {
 
         <div className="mt-4">
           <div>
-            <h2 className="text-[24px] font-semibold tracking-[-0.04em] text-[#10243E]">Records awaiting validation</h2>
-            <p className="mt-1 text-[14px] text-[#64748B]">Select a system to confirm or flag its linked data</p>
+            <h2 className="text-[24px] font-semibold tracking-[-0.04em] text-white">records awaiting validation</h2>
+            <p className="mt-1 text-[14px] text-[#8f8f8f]">select a system to confirm or flag its linked data</p>
           </div>
 
-          <div className="mt-3 rounded-[22px] border border-[#D8E3EE] bg-white p-3">
+          <div className="mt-3 rounded-[12px] border border-[#2d2d2d] bg-[#161616] p-3">
             <div className="flex flex-col gap-2">
               <label className="relative w-full">
-                <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B]" />
+                <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#6f6f6f]" />
                 <input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
-                  placeholder="Search system, supplier, procedure…"
-                  className="w-full rounded-[16px] border border-[#D8E3EE] bg-[#F8FBFD] py-3 pl-10 pr-4 text-sm outline-none"
+                  placeholder="search system, supplier, procedure"
+                  className="w-full rounded-full border border-[#2d2d2d] bg-[#202020] py-3 pl-10 pr-4 text-sm text-white outline-none placeholder:text-[#6f6f6f]"
                 />
               </label>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { value: "awaiting" as const, label: "Awaiting validation" },
-                  { value: "validated" as const, label: "Validated" },
-                  { value: "needs_review" as const, label: "Needs review" },
-                  { value: "rejected" as const, label: "Rejected" },
+                  { value: "awaiting" as const, label: "awaiting validation" },
+                  { value: "validated" as const, label: "validated" },
+                  { value: "needs_review" as const, label: "needs review" },
+                  { value: "rejected" as const, label: "rejected" },
                 ].map((item) => (
                   <button
                     key={item.value}
                     type="button"
                     onClick={() => setStatusFilter(item.value)}
                     className={`rounded-full px-3 py-2 text-[12px] font-semibold ${
-                      statusFilter === item.value ? "bg-[#10243E] text-white" : "border border-[#D8E3EE] bg-white text-[#475569]"
+                      statusFilter === item.value ? "border border-white bg-white text-black" : "border border-[#2d2d2d] bg-[#202020] text-[#b0b0b0]"
                     }`}
                   >
                     {item.label}
@@ -856,10 +856,10 @@ export default function ReviewPage() {
                 const reviewLine = getReviewSummaryLine(row, queueStatus)
                 const ctaLabel =
                   queueStatus === "awaiting"
-                    ? "Validate record"
+                    ? "validate record"
                     : queueStatus === "validated"
-                      ? "View record"
-                      : "Review record"
+                      ? "view record"
+                      : "review record"
 
                 return (
                   <button
@@ -870,15 +870,15 @@ export default function ReviewPage() {
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <p className="text-[18px] font-semibold tracking-[-0.03em] text-[#10243E]">{row.system}</p>
-                        <p className="mt-0.5 text-[15px] text-[#64748B]">{row.supplier}</p>
+                        <p className="text-[18px] font-semibold tracking-[-0.03em] text-white">{row.system}</p>
+                        <p className="mt-0.5 text-[15px] text-[#8f8f8f]">{row.supplier}</p>
                       </div>
-                      <span className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${queueStatusPillClass(queueStatus)}`}>
+                      <span className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold ${queueStatusPillClass(queueStatus)}`}>
                         {queueStatusLabel(queueStatus)}
                       </span>
                     </div>
 
-                    <div className="mt-3 space-y-0.5 text-[14px] text-[#475569]">
+                    <div className="mt-3 space-y-0.5 text-[14px] text-[#9a9a9a]">
                       <p>{reviewLine}</p>
                       <p>{getSupportLine(row)}</p>
                     </div>
@@ -887,10 +887,10 @@ export default function ReviewPage() {
                       <span
                         className={`inline-flex rounded-full px-4 py-2 text-[12px] font-semibold ${
                           queueStatus === "validated"
-                            ? "bg-[#DFF7F1] text-[#0F766E]"
+                            ? "border border-white bg-white text-black"
                             : queueStatus === "rejected"
-                              ? "bg-[#FFE4E6] text-[#BE123C]"
-                              : "bg-[#CCFBF1] text-[#0F766E]"
+                              ? "border border-[#3a2323] bg-[#241616] text-[#f2b8b8]"
+                              : "border border-[#2d2d2d] bg-[#202020] text-white"
                         }`}
                       >
                         {ctaLabel}
@@ -901,9 +901,9 @@ export default function ReviewPage() {
               })}
 
               {filteredRows.length === 0 ? (
-                <div className="rounded-[20px] border border-dashed border-[#D8E3EE] bg-[#F8FBFD] px-4 py-8 text-center">
-                  <p className="text-[16px] font-medium text-[#10243E]">No records match this view</p>
-                  <p className="mt-1 text-[14px] text-[#64748B]">Try another status filter or search term.</p>
+                <div className="rounded-[12px] border border-dashed border-[#2d2d2d] bg-[#161616] px-4 py-8 text-center">
+                  <p className="text-[16px] font-medium text-white">no records match this view</p>
+                  <p className="mt-1 text-[14px] text-[#8f8f8f]">try another status filter or search term.</p>
                 </div>
               ) : null}
             </div>
@@ -915,35 +915,35 @@ export default function ReviewPage() {
 
       <WorkspaceDesktopShell
         currentNav="review"
-        sectionLabel="Library Review"
+        sectionLabel="library review"
         rightRail={
           <div className="space-y-3">
-            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <p className="text-[15px] font-medium text-[#10243E]">Queue</p>
+            <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-3 py-3">
+              <p className="text-[15px] font-medium text-white">queue</p>
               <div className="mt-3 space-y-3">
-                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                  <span>Total</span>
-                  <span className="text-[18px] text-[#10243E]">{summary.total}</span>
+                <div className="flex items-center justify-between text-[13px] text-[#8f8f8f]">
+                  <span>total</span>
+                  <span className="text-[18px] text-white">{summary.total}</span>
                 </div>
-                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                  <span>Awaiting</span>
+                <div className="flex items-center justify-between text-[13px] text-[#8f8f8f]">
+                  <span>awaiting</span>
                   <span className="text-[18px] text-[#A16207]">{summary.awaiting}</span>
                 </div>
-                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                  <span>Validated</span>
+                <div className="flex items-center justify-between text-[13px] text-[#8f8f8f]">
+                  <span>validated</span>
                   <span className="text-[18px] text-[#047857]">{summary.validated}</span>
                 </div>
-                <div className="flex items-center justify-between text-[13px] text-[#5B7286]">
-                  <span>Needs review</span>
+                <div className="flex items-center justify-between text-[13px] text-[#8f8f8f]">
+                  <span>needs review</span>
                   <span className="text-[18px] text-[#C2410C]">{summary.needsReview}</span>
                 </div>
               </div>
             </section>
 
-            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <p className="text-[15px] font-medium text-[#10243E]">Reviewer</p>
-              <p className="mt-3 text-[17px] tracking-[-0.03em] text-[#10243E]">{reviewerName}</p>
-              <p className="mt-1 text-[12px] text-[#61758B]">
+            <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-3 py-3">
+              <p className="text-[15px] font-medium text-white">reviewer</p>
+              <p className="mt-3 text-[17px] tracking-[-0.03em] text-white">{reviewerName}</p>
+              <p className="mt-1 text-[12px] text-[#8f8f8f]">
                 Status: {reviewerStatus.replaceAll("_", " ")}
               </p>
               <p className="mt-3 text-[12px] leading-5 text-[#61758B]">
@@ -953,9 +953,9 @@ export default function ReviewPage() {
               </p>
             </section>
 
-            <section className="rounded-[12px] border border-[#DCEAF0] bg-white px-3 py-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
-              <p className="text-[15px] font-medium text-[#10243E]">Current view</p>
-              <p className="mt-3 text-[13px] text-[#5B7286]">
+            <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-3 py-3">
+              <p className="text-[15px] font-medium text-white">current view</p>
+              <p className="mt-3 text-[13px] text-[#8f8f8f]">
                 {filteredRows.length} records match the current filter and search.
               </p>
               <p className="mt-2 text-[12px] leading-5 text-[#61758B]">
@@ -967,19 +967,19 @@ export default function ReviewPage() {
       >
         <div className="space-y-4">
           <section className="px-1">
-            <p className="text-[13px] text-[#5B7A8A] lg:hidden">Review</p>
-            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-[#10243E] lg:hidden">Validate system records</h1>
-            <p className="mt-2 text-[14px] text-[#61758B]">
+            <p className="text-[13px] text-[#7f7f7f] lg:hidden">review</p>
+            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-white lg:hidden">validate system records</h1>
+            <p className="mt-2 text-[14px] text-[#8f8f8f]">
               Help confirm supplier system data for theatre use.
             </p>
           </section>
 
           <div className="flex gap-2 overflow-x-auto pb-1">
             {[
-              { value: "all" as const, label: "Total", count: summary.total, activeClass: "border-[#10243E] bg-[#10243E] text-white", idleClass: "border-[#D8E3EE] bg-white text-[#334155]" },
-              { value: "validated" as const, label: "Validated", count: summary.validated, activeClass: "border-emerald-600 bg-emerald-600 text-white", idleClass: "border-emerald-200 bg-emerald-50 text-emerald-800" },
-              { value: "awaiting" as const, label: "Awaiting validation", count: summary.awaiting, activeClass: "border-amber-500 bg-amber-500 text-white", idleClass: "border-amber-200 bg-amber-50 text-amber-800" },
-              { value: "rejected" as const, label: "Rejected", count: summary.rejected, activeClass: "border-rose-600 bg-rose-600 text-white", idleClass: "border-rose-200 bg-rose-50 text-rose-800" },
+              { value: "all" as const, label: "total", count: summary.total, activeClass: "border-white bg-white text-black", idleClass: "border-[#2d2d2d] bg-[#161616] text-[#b0b0b0]" },
+              { value: "validated" as const, label: "validated", count: summary.validated, activeClass: "border-white bg-white text-black", idleClass: "border-[#2d2d2d] bg-[#161616] text-[#b0b0b0]" },
+              { value: "awaiting" as const, label: "awaiting validation", count: summary.awaiting, activeClass: "border-white bg-white text-black", idleClass: "border-[#2d2d2d] bg-[#161616] text-[#b0b0b0]" },
+              { value: "rejected" as const, label: "rejected", count: summary.rejected, activeClass: "border-white bg-white text-black", idleClass: "border-[#2d2d2d] bg-[#161616] text-[#b0b0b0]" },
             ].map((item) => (
               <button
                 key={item.value}
@@ -995,42 +995,42 @@ export default function ReviewPage() {
             ))}
           </div>
 
-          <div className="rounded-[20px] border border-amber-200 bg-amber-50 px-4 py-3 text-[#7C2D12]">
-            <p className="text-[12px] font-semibold text-[#7C2D12]">Internal note</p>
+          <div className="rounded-[12px] border border-[#3a3320] bg-[#181512] px-4 py-3 text-[#f0d28a]">
+            <p className="text-[12px] font-semibold text-[#7C2D12]">internal note</p>
             <p className="mt-1 text-[14px] leading-6">
               Fixed data assets such as systems, trays, SKUs, and core mappings should move toward researched and curated master data rather than crowdsourced validation. Keep this page for now, but plan to revise or revert this workflow later.
             </p>
           </div>
 
-          <section className="rounded-[18px] border border-[#D8E3EE] bg-white p-3 shadow-[0_12px_30px_-26px_rgba(16,36,62,0.28)]">
+          <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] p-3">
             <div>
-              <h2 className="text-[24px] tracking-[-0.04em] text-[#10243E]">Records awaiting validation</h2>
-              <p className="mt-1 text-[14px] text-[#64748B]">Select a system to confirm or flag its linked data.</p>
+              <h2 className="text-[24px] tracking-[-0.04em] text-white">records awaiting validation</h2>
+              <p className="mt-1 text-[14px] text-[#8f8f8f]">select a system to confirm or flag its linked data.</p>
             </div>
 
             <div className="mt-3 flex flex-col gap-2">
               <label className="relative w-full">
-                <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#64748B]" />
+                <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#6f6f6f]" />
                 <input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Search system, supplier, procedure..."
-                  className="w-full rounded-[16px] border border-[#D8E3EE] bg-[#F8FBFD] py-3 pl-10 pr-4 text-sm outline-none"
+                  className="w-full rounded-full border border-[#2d2d2d] bg-[#202020] py-3 pl-10 pr-4 text-sm text-white outline-none placeholder:text-[#6f6f6f]"
                 />
               </label>
               <div className="flex flex-wrap gap-2">
                 {[
-                  { value: "awaiting" as const, label: "Awaiting validation" },
-                  { value: "validated" as const, label: "Validated" },
-                  { value: "needs_review" as const, label: "Needs review" },
-                  { value: "rejected" as const, label: "Rejected" },
+                  { value: "awaiting" as const, label: "awaiting validation" },
+                  { value: "validated" as const, label: "validated" },
+                  { value: "needs_review" as const, label: "needs review" },
+                  { value: "rejected" as const, label: "rejected" },
                 ].map((item) => (
                   <button
                     key={item.value}
                     type="button"
                     onClick={() => setStatusFilter(item.value)}
                     className={`rounded-full px-3 py-2 text-[12px] font-semibold ${
-                      statusFilter === item.value ? "bg-[#10243E] text-white" : "border border-[#D8E3EE] bg-white text-[#475569]"
+                      statusFilter === item.value ? "border border-white bg-white text-black" : "border border-[#2d2d2d] bg-[#202020] text-[#b0b0b0]"
                     }`}
                   >
                     {item.label}
@@ -1045,10 +1045,10 @@ export default function ReviewPage() {
                 const reviewLine = getReviewSummaryLine(row, queueStatus)
                 const ctaLabel =
                   queueStatus === "awaiting"
-                    ? "Validate record"
+                    ? "validate record"
                     : queueStatus === "validated"
-                      ? "View record"
-                      : "Review record"
+                      ? "view record"
+                      : "review record"
 
                 return (
                   <button
@@ -1059,15 +1059,15 @@ export default function ReviewPage() {
                   >
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
-                        <p className="text-[18px] font-semibold tracking-[-0.03em] text-[#10243E]">{row.system}</p>
-                        <p className="mt-0.5 text-[15px] text-[#64748B]">{row.supplier}</p>
+                        <p className="text-[18px] font-semibold tracking-[-0.03em] text-white">{row.system}</p>
+                        <p className="mt-0.5 text-[15px] text-[#8f8f8f]">{row.supplier}</p>
                       </div>
-                      <span className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${queueStatusPillClass(queueStatus)}`}>
+                      <span className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold ${queueStatusPillClass(queueStatus)}`}>
                         {queueStatusLabel(queueStatus)}
                       </span>
                     </div>
 
-                    <div className="mt-3 space-y-0.5 text-[14px] text-[#475569]">
+                    <div className="mt-3 space-y-0.5 text-[14px] text-[#9a9a9a]">
                       <p>{reviewLine}</p>
                       <p>{getSupportLine(row)}</p>
                     </div>
@@ -1076,10 +1076,10 @@ export default function ReviewPage() {
                       <span
                         className={`inline-flex rounded-full px-4 py-2 text-[12px] font-semibold ${
                           queueStatus === "validated"
-                            ? "bg-[#DFF7F1] text-[#0F766E]"
+                            ? "border border-white bg-white text-black"
                             : queueStatus === "rejected"
-                              ? "bg-[#FFE4E6] text-[#BE123C]"
-                              : "bg-[#CCFBF1] text-[#0F766E]"
+                              ? "border border-[#3a2323] bg-[#241616] text-[#f2b8b8]"
+                              : "border border-[#2d2d2d] bg-[#202020] text-white"
                         }`}
                       >
                         {ctaLabel}
@@ -1090,9 +1090,9 @@ export default function ReviewPage() {
               })}
 
               {filteredRows.length === 0 ? (
-                <div className="rounded-[20px] border border-dashed border-[#D8E3EE] bg-[#F8FBFD] px-4 py-8 text-center">
-                  <p className="text-[16px] font-medium text-[#10243E]">No records match this view</p>
-                  <p className="mt-1 text-[14px] text-[#64748B]">Try another status filter or search term.</p>
+                <div className="rounded-[12px] border border-dashed border-[#2d2d2d] bg-[#161616] px-4 py-8 text-center">
+                  <p className="text-[16px] font-medium text-white">no records match this view</p>
+                  <p className="mt-1 text-[14px] text-[#8f8f8f]">try another status filter or search term.</p>
                 </div>
               ) : null}
             </div>
@@ -1101,19 +1101,19 @@ export default function ReviewPage() {
       </WorkspaceDesktopShell>
 
       {selectedRow ? (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-[#F4F8FB] text-[#10243E]">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-black text-white">
           <div className="mx-auto min-h-screen w-full max-w-4xl">
-            <div className="sticky top-0 z-10 border-b border-[#D8E3EE] bg-white/95 backdrop-blur">
+            <div className="sticky top-0 z-10 border-b border-[#252525] bg-[#111111]/95 backdrop-blur">
               <div className="flex items-start justify-between gap-3 px-4 pb-3 pt-[calc(env(safe-area-inset-top,0px)+12px)] lg:px-6 lg:pb-5 lg:pt-5">
                 <div>
-                  <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0891B2]">Data Review</p>
-                  <h2 className="mt-1 text-[26px] font-semibold tracking-[-0.04em] text-[#10243E]">{selectedRow.system}</h2>
-                  <p className="mt-1 text-[15px] text-[#64748B]">{selectedRow.supplier}</p>
+                  <p className="text-[12px] font-semibold text-[#7f7f7f]">data review</p>
+                  <h2 className="mt-1 text-[26px] font-semibold tracking-[-0.04em] text-white">{selectedRow.system}</h2>
+                  <p className="mt-1 text-[15px] text-[#8f8f8f]">{selectedRow.supplier}</p>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedRow(null)}
-                  className="rounded-full border border-[#D8E3EE] bg-white px-3 py-1.5 text-[12px] font-semibold uppercase tracking-[0.12em] text-[#475569]"
+                  className="rounded-full border border-[#2d2d2d] bg-[#202020] px-3 py-1.5 text-[12px] font-semibold text-white"
                 >
                   Close
                 </button>
@@ -1121,32 +1121,32 @@ export default function ReviewPage() {
             </div>
 
             <div className="px-4 py-4 lg:px-6 lg:py-6">
-            <div className="rounded-[20px] border border-[#D8E3EE] bg-white px-4 py-3">
-              <p className="text-[12px] font-semibold uppercase tracking-[0.16em] text-[#0891B2]">Record validation</p>
+            <div className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-4 py-3">
+              <p className="text-[12px] font-semibold text-[#7f7f7f]">record validation</p>
               <div className="mt-2 flex items-center justify-between gap-3">
                 <div className="flex items-center gap-2">
-                  {validationSummary.label === "Validated" ? (
+                  {validationSummary.label === "validated" ? (
                     <Check size={16} className="text-emerald-600" />
-                  ) : validationSummary.label === "Needs review" ? (
+                  ) : validationSummary.label === "needs review" ? (
                     <CircleAlert size={16} className="text-rose-600" />
-                  ) : validationSummary.label === "Partially validated" ? (
+                  ) : validationSummary.label === "partially validated" ? (
                     <ScanSearch size={16} className="text-sky-600" />
                   ) : (
                     <CircleAlert size={16} className="text-amber-600" />
                   )}
-                  <p className="text-[22px] font-semibold tracking-[-0.03em] text-[#10243E]">{validationSummary.label}</p>
+                  <p className="text-[22px] font-semibold tracking-[-0.03em] text-white">{validationSummary.label}</p>
                 </div>
-                <span className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.12em] ${queueStatusPillClass(getQueueStatus(selectedRow))}`}>
+                <span className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold ${queueStatusPillClass(getQueueStatus(selectedRow))}`}>
                   {queueStatusLabel(getQueueStatus(selectedRow))}
                 </span>
               </div>
-              <div className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-[#64748B]">
+              <div className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-[#8f8f8f]">
                 <span>{validationSummary.reviewedCount} of 3 sections reviewed</span>
-                <span className="text-[#CBD5E1]">•</span>
+                <span className="text-[#5f5f5f]">/</span>
                 <span>{validationSummary.correctCount} correct</span>
                 {validationSummary.incorrectCount > 0 ? (
                   <>
-                    <span className="text-[#CBD5E1]">•</span>
+                    <span className="text-[#5f5f5f]">/</span>
                     <span>{validationSummary.incorrectCount} need review</span>
                   </>
                 ) : null}
@@ -1157,8 +1157,8 @@ export default function ReviewPage() {
               <div
                 className={`mt-3 rounded-[18px] border px-4 py-3 ${
                   submissionFeedback.tone === "ok"
-                    ? "border-emerald-200 bg-emerald-50 text-emerald-900"
-                    : "border-amber-200 bg-amber-50 text-amber-900"
+                    ? "border border-[#2d2d2d] bg-[#202020] text-white"
+                    : "border border-[#3a3320] bg-[#181512] text-[#f0d28a]"
                 }`}
               >
                 <p className="text-[14px] font-semibold">{submissionFeedback.title}</p>
@@ -1167,18 +1167,18 @@ export default function ReviewPage() {
             ) : null}
 
             <ReviewSection
-              title="Systems"
-              subtitle="Linked system data"
+              title="systems"
+              subtitle="linked system data"
               status={sectionStatus.systems}
               open={openSections.systems}
               onToggle={() => toggleSection("systems")}
             >
-              <div className="rounded-[18px] border border-[#D8E3EE] bg-white px-4 py-3">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#0891B2]">Currently held</p>
-                <div className="mt-3 space-y-2 text-[15px] leading-6 text-[#475569]">
+              <div className="rounded-[12px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-3">
+                <p className="text-[12px] font-semibold text-[#7f7f7f]">currently held</p>
+                <div className="mt-3 space-y-2 text-[15px] leading-6 text-[#b0b0b0]">
                   {selectedSectionData.systems.items.map((item) => (
                     <p key={item.label}>
-                      <span className="font-semibold text-[#10243E]">{item.label}:</span> {item.value}
+                      <span className="font-semibold text-white">{item.label}:</span> {item.value}
                     </p>
                   ))}
                 </div>
@@ -1186,7 +1186,7 @@ export default function ReviewPage() {
 
               <div className="mt-4 space-y-4">
                 <div>
-                  <p className="text-[17px] font-semibold text-[#10243E]">Is this section correct?</p>
+                  <p className="text-[17px] font-semibold text-white">is this section correct?</p>
                 </div>
                 <ValidationChoices
                   value={sectionReviews.systems.answer}
@@ -1196,16 +1196,16 @@ export default function ReviewPage() {
 
               {sectionReviews.systems.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#475569]">What is wrong?</legend>
+                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">what is wrong?</legend>
                   <div className="mt-2 grid gap-2">
                     {INCORRECT_REASON_OPTIONS.map((option) => (
-                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#D8E3EE] bg-white px-4 py-2 text-[15px] text-[#334155]">
+                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-2 text-[15px] text-[#b0b0b0]">
                         <input
                           type="radio"
                           name="systems_incorrect_reason"
                           checked={sectionReviews.systems.issue === option.value}
                           onChange={() => setSectionReviewValue("systems", { issue: option.value })}
-                          className="h-4 w-4 border-slate-300 text-[#06B6D4] focus:ring-[#06B6D4]"
+                          className="h-4 w-4 border-[#3a3a3a] bg-[#202020] text-white focus:ring-white"
                         />
                         <span>{option.label}</span>
                       </label>
@@ -1216,20 +1216,20 @@ export default function ReviewPage() {
 
               {sectionReviews.systems.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#475569]">Help improve this section</legend>
+                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">help improve this section</legend>
                   <div className="mt-2 grid gap-2">
                     {[
                       { value: "suggest_correction" as const, label: "Suggest correction" },
                       { value: "add_missing" as const, label: "Add missing data" },
                       { value: "flag_only" as const, label: "Flag only" },
                     ].map((option) => (
-                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#D8E3EE] bg-white px-4 py-2 text-[15px] text-[#334155]">
+                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-2 text-[15px] text-[#b0b0b0]">
                         <input
                           type="radio"
                           name="systems_improve_mode"
                           checked={sectionReviews.systems.improveMode === option.value}
                           onChange={() => setSectionReviewValue("systems", { improveMode: option.value })}
-                          className="h-4 w-4 border-slate-300 text-[#06B6D4] focus:ring-[#06B6D4]"
+                          className="h-4 w-4 border-[#3a3a3a] bg-[#202020] text-white focus:ring-white"
                         />
                         <span>{option.label}</span>
                       </label>
@@ -1241,41 +1241,41 @@ export default function ReviewPage() {
               {sectionReviews.systems.improveMode === "suggest_correction" || sectionReviews.systems.improveMode === "add_missing" ? (
                 <div className="mt-4 grid gap-4">
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#475569]">Procedure variant</span>
+                    <span className="text-[13px] font-semibold text-[#8f8f8f]">procedure variant</span>
                     <input
                       value={sectionReviews.systems.procedureVariant}
                       onChange={(event) => setSectionReviewValue("systems", { procedureVariant: event.target.value })}
-                      className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                      className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#475569]">Implant type</span>
+                    <span className="text-[13px] font-semibold text-[#8f8f8f]">implant type</span>
                     <input
                       value={sectionReviews.systems.implantType}
                       onChange={(event) => setSectionReviewValue("systems", { implantType: event.target.value })}
-                      className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                      className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#475569]">Source / rationale (optional)</span>
+                    <span className="text-[13px] font-semibold text-[#8f8f8f]">source / rationale (optional)</span>
                     <input
                       value={sectionReviews.systems.sourceRationale}
                       onChange={(event) => setSectionReviewValue("systems", { sourceRationale: event.target.value })}
-                      className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                      className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                     />
                   </label>
                 </div>
               ) : null}
 
               <label className="mt-4 block">
-                <span className="flex items-center gap-2 text-[13px] font-semibold text-[#475569]">
-                  Add note or correction (optional)
+                <span className="flex items-center gap-2 text-[13px] font-semibold text-[#8f8f8f]">
+                  add note or correction (optional)
                 </span>
                 <textarea
                   value={sectionReviews.systems.note}
                   onChange={(event) => setSectionReviewValue("systems", { note: event.target.value })}
                   rows={3}
-                  className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                  className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                 />
               </label>
 
@@ -1283,38 +1283,38 @@ export default function ReviewPage() {
                 <button
                   type="button"
                   onClick={() => saveSectionReview("systems")}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#06B6D4] px-4 py-2.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-white"
+                  className="inline-flex items-center gap-1.5 rounded-full border border-white bg-white px-4 py-2.5 text-[13px] font-semibold text-black"
                 >
                   <Check size={13} />
-                  {sectionReviews.systems.improveMode === "suggest_correction" || sectionReviews.systems.improveMode === "add_missing" ? "Submit suggestion" : "Save review"}
+                  {sectionReviews.systems.improveMode === "suggest_correction" || sectionReviews.systems.improveMode === "add_missing" ? "submit suggestion" : "save review"}
                 </button>
               </div>
             </ReviewSection>
 
             <ReviewSection
-              title="Trays"
-              subtitle="Held tray data"
+              title="trays"
+              subtitle="held tray data"
               status={sectionStatus.trays}
               open={openSections.trays}
               onToggle={() => toggleSection("trays")}
             >
-              <div className="rounded-[18px] border border-[#D8E3EE] bg-white px-4 py-3">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#0891B2]">Current linked data</p>
+              <div className="rounded-[12px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-3">
+                <p className="text-[12px] font-semibold text-[#7f7f7f]">current linked data</p>
                 {selectedSectionData.trays.items.length > 0 ? (
-                  <div className="mt-3 space-y-2 text-[15px] leading-6 text-[#475569]">
+                  <div className="mt-3 space-y-2 text-[15px] leading-6 text-[#b0b0b0]">
                     {selectedSectionData.trays.items.map((item) => (
                       <p key={item.label}>
-                        <span className="font-semibold text-[#10243E]">{item.label}:</span> {item.value}
+                        <span className="font-semibold text-white">{item.label}:</span> {item.value}
                       </p>
                     ))}
                   </div>
                 ) : (
-                  <p className="mt-3 text-[15px] leading-6 text-[#475569]">{selectedSectionData.trays.empty_state || "No linked tray data currently held"}</p>
+                  <p className="mt-3 text-[15px] leading-6 text-[#b0b0b0]">{selectedSectionData.trays.empty_state || "No linked tray data currently held"}</p>
                 )}
               </div>
 
               <div className="mt-4 space-y-4">
-                <p className="text-[17px] font-semibold text-[#10243E]">Is this section correct?</p>
+                <p className="text-[17px] font-semibold text-white">is this section correct?</p>
                 <ValidationChoices
                   value={sectionReviews.trays.answer}
                   onChange={(value) => setSectionReviewValue("trays", { answer: value, issue: value === "incorrect" ? sectionReviews.trays.issue : "" })}
@@ -1323,16 +1323,16 @@ export default function ReviewPage() {
 
               {sectionReviews.trays.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#475569]">What is wrong?</legend>
+                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">what is wrong?</legend>
                   <div className="mt-2 grid gap-2">
                     {INCORRECT_REASON_OPTIONS.map((option) => (
-                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#D8E3EE] bg-white px-4 py-2 text-[15px] text-[#334155]">
+                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-2 text-[15px] text-[#b0b0b0]">
                         <input
                           type="radio"
                           name="trays_incorrect_reason"
                           checked={sectionReviews.trays.issue === option.value}
                           onChange={() => setSectionReviewValue("trays", { issue: option.value })}
-                          className="h-4 w-4 border-slate-300 text-[#06B6D4] focus:ring-[#06B6D4]"
+                          className="h-4 w-4 border-[#3a3a3a] bg-[#202020] text-white focus:ring-white"
                         />
                         <span>{option.label}</span>
                       </label>
@@ -1343,20 +1343,20 @@ export default function ReviewPage() {
 
               {sectionReviews.trays.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#475569]">Help improve this section</legend>
+                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">help improve this section</legend>
                   <div className="mt-2 grid gap-2">
                     {[
                       { value: "suggest_correction" as const, label: "Suggest correction" },
                       { value: "add_missing" as const, label: "Add missing data" },
                       { value: "flag_only" as const, label: "Flag only" },
                     ].map((option) => (
-                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#D8E3EE] bg-white px-4 py-2 text-[15px] text-[#334155]">
+                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-2 text-[15px] text-[#b0b0b0]">
                         <input
                           type="radio"
                           name="trays_improve_mode"
                           checked={sectionReviews.trays.improveMode === option.value}
                           onChange={() => setSectionReviewValue("trays", { improveMode: option.value })}
-                          className="h-4 w-4 border-slate-300 text-[#06B6D4] focus:ring-[#06B6D4]"
+                          className="h-4 w-4 border-[#3a3a3a] bg-[#202020] text-white focus:ring-white"
                         />
                         <span>{option.label}</span>
                       </label>
@@ -1368,74 +1368,74 @@ export default function ReviewPage() {
               {sectionReviews.trays.improveMode === "suggest_correction" || sectionReviews.trays.improveMode === "add_missing" ? (
                 <div className="mt-4 grid gap-4">
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#475569]">Tray name</span>
+                    <span className="text-[13px] font-semibold text-[#8f8f8f]">Tray name</span>
                     <input
                       value={sectionReviews.trays.trayName}
                       onChange={(event) => setSectionReviewValue("trays", { trayName: event.target.value })}
-                      className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                      className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#475569]">Tray type / category (optional)</span>
+                    <span className="text-[13px] font-semibold text-[#8f8f8f]">Tray type / category (optional)</span>
                     <input
                       value={sectionReviews.trays.trayCategory}
                       onChange={(event) => setSectionReviewValue("trays", { trayCategory: event.target.value })}
-                      className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                      className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#475569]">Supplier (optional)</span>
+                    <span className="text-[13px] font-semibold text-[#8f8f8f]">Supplier (optional)</span>
                     <input
                       value={sectionReviews.trays.traySupplier}
                       onChange={(event) => setSectionReviewValue("trays", { traySupplier: event.target.value })}
-                      className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                      className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                     />
                   </label>
                 </div>
               ) : null}
 
               <label className="mt-4 block">
-                <span className="text-[13px] font-semibold text-[#475569]">Add note or correction (optional)</span>
+                <span className="text-[13px] font-semibold text-[#8f8f8f]">add note or correction (optional)</span>
                 <textarea
                   value={sectionReviews.trays.note}
                   onChange={(event) => setSectionReviewValue("trays", { note: event.target.value })}
                   rows={3}
-                  className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                  className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                 />
               </label>
 
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                <button type="button" onClick={() => saveSectionReview("trays")} className="inline-flex items-center gap-1.5 rounded-full bg-[#06B6D4] px-4 py-2.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-white">
+                <button type="button" onClick={() => saveSectionReview("trays")} className="inline-flex items-center gap-1.5 rounded-full border border-white bg-white px-4 py-2.5 text-[13px] font-semibold text-black">
                   <Check size={13} />
-                  {sectionReviews.trays.improveMode === "suggest_correction" || sectionReviews.trays.improveMode === "add_missing" ? "Submit suggestion" : "Save review"}
+                  {sectionReviews.trays.improveMode === "suggest_correction" || sectionReviews.trays.improveMode === "add_missing" ? "submit suggestion" : "save review"}
                 </button>
               </div>
             </ReviewSection>
 
             <ReviewSection
-              title="SKUs"
-              subtitle="Held SKU data"
+              title="skus"
+              subtitle="held sku data"
               status={sectionStatus.skus}
               open={openSections.skus}
               onToggle={() => toggleSection("skus")}
             >
-              <div className="rounded-[18px] border border-[#D8E3EE] bg-white px-4 py-3">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#0891B2]">Current linked data</p>
+              <div className="rounded-[12px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-3">
+                <p className="text-[12px] font-semibold text-[#7f7f7f]">current linked data</p>
                 {selectedSectionData.skus.items.length > 0 ? (
-                  <div className="mt-3 space-y-2 text-[15px] leading-6 text-[#475569]">
+                  <div className="mt-3 space-y-2 text-[15px] leading-6 text-[#b0b0b0]">
                     {selectedSectionData.skus.items.map((item) => (
                       <p key={item.label}>
-                        <span className="font-semibold text-[#10243E]">{item.label}:</span> {item.value}
+                        <span className="font-semibold text-white">{item.label}:</span> {item.value}
                       </p>
                     ))}
                   </div>
                 ) : (
-                  <p className="mt-3 text-[15px] leading-6 text-[#475569]">{selectedSectionData.skus.empty_state || "No linked SKU data currently held"}</p>
+                  <p className="mt-3 text-[15px] leading-6 text-[#b0b0b0]">{selectedSectionData.skus.empty_state || "No linked SKU data currently held"}</p>
                 )}
               </div>
 
               <div className="mt-4 space-y-4">
-                <p className="text-[17px] font-semibold text-[#10243E]">Is this section correct?</p>
+                <p className="text-[17px] font-semibold text-white">is this section correct?</p>
                 <ValidationChoices
                   value={sectionReviews.skus.answer}
                   onChange={(value) => setSectionReviewValue("skus", { answer: value, issue: value === "incorrect" ? sectionReviews.skus.issue : "" })}
@@ -1444,16 +1444,16 @@ export default function ReviewPage() {
 
               {sectionReviews.skus.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#475569]">What is wrong?</legend>
+                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">what is wrong?</legend>
                   <div className="mt-2 grid gap-2">
                     {INCORRECT_REASON_OPTIONS.map((option) => (
-                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#D8E3EE] bg-white px-4 py-2 text-[15px] text-[#334155]">
+                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-2 text-[15px] text-[#b0b0b0]">
                         <input
                           type="radio"
                           name="skus_incorrect_reason"
                           checked={sectionReviews.skus.issue === option.value}
                           onChange={() => setSectionReviewValue("skus", { issue: option.value })}
-                          className="h-4 w-4 border-slate-300 text-[#06B6D4] focus:ring-[#06B6D4]"
+                          className="h-4 w-4 border-[#3a3a3a] bg-[#202020] text-white focus:ring-white"
                         />
                         <span>{option.label}</span>
                       </label>
@@ -1464,20 +1464,20 @@ export default function ReviewPage() {
 
               {sectionReviews.skus.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#475569]">Help improve this section</legend>
+                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">help improve this section</legend>
                   <div className="mt-2 grid gap-2">
                     {[
                       { value: "suggest_correction" as const, label: "Suggest correction" },
                       { value: "add_missing" as const, label: "Add missing data" },
                       { value: "flag_only" as const, label: "Flag only" },
                     ].map((option) => (
-                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#D8E3EE] bg-white px-4 py-2 text-[15px] text-[#334155]">
+                      <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-2 text-[15px] text-[#b0b0b0]">
                         <input
                           type="radio"
                           name="skus_improve_mode"
                           checked={sectionReviews.skus.improveMode === option.value}
                           onChange={() => setSectionReviewValue("skus", { improveMode: option.value })}
-                          className="h-4 w-4 border-slate-300 text-[#06B6D4] focus:ring-[#06B6D4]"
+                          className="h-4 w-4 border-[#3a3a3a] bg-[#202020] text-white focus:ring-white"
                         />
                         <span>{option.label}</span>
                       </label>
@@ -1489,116 +1489,116 @@ export default function ReviewPage() {
               {sectionReviews.skus.improveMode === "suggest_correction" || sectionReviews.skus.improveMode === "add_missing" ? (
                 <div className="mt-4 grid gap-4">
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#475569]">SKU / product code</span>
+                    <span className="text-[13px] font-semibold text-[#8f8f8f]">SKU / product code</span>
                     <input
                       value={sectionReviews.skus.skuCode}
                       onChange={(event) => setSectionReviewValue("skus", { skuCode: event.target.value })}
-                      className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                      className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#475569]">Product name</span>
+                    <span className="text-[13px] font-semibold text-[#8f8f8f]">Product name</span>
                     <input
                       value={sectionReviews.skus.productName}
                       onChange={(event) => setSectionReviewValue("skus", { productName: event.target.value })}
-                      className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                      className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#475569]">Category (optional)</span>
+                    <span className="text-[13px] font-semibold text-[#8f8f8f]">Category (optional)</span>
                     <input
                       value={sectionReviews.skus.skuCategory}
                       onChange={(event) => setSectionReviewValue("skus", { skuCategory: event.target.value })}
-                      className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                      className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                     />
                   </label>
                 </div>
               ) : null}
 
               <label className="mt-4 block">
-                <span className="text-[13px] font-semibold text-[#475569]">Add note or correction (optional)</span>
+                <span className="text-[13px] font-semibold text-[#8f8f8f]">add note or correction (optional)</span>
                 <textarea
                   value={sectionReviews.skus.note}
                   onChange={(event) => setSectionReviewValue("skus", { note: event.target.value })}
                   rows={3}
-                  className="mt-1 w-full rounded-[16px] border border-[#D8E3EE] bg-white px-3 py-2.5 text-[16px] text-[#334155] outline-none"
+                  className="mt-1 w-full rounded-[16px] border border-[#2d2d2d] bg-[#202020] px-3 py-2.5 text-[16px] text-white outline-none"
                 />
               </label>
 
               <div className="mt-4 flex flex-wrap items-center gap-2">
-                <button type="button" onClick={() => saveSectionReview("skus")} className="inline-flex items-center gap-1.5 rounded-full bg-[#06B6D4] px-4 py-2.5 text-[13px] font-semibold uppercase tracking-[0.12em] text-white">
+                <button type="button" onClick={() => saveSectionReview("skus")} className="inline-flex items-center gap-1.5 rounded-full border border-white bg-white px-4 py-2.5 text-[13px] font-semibold text-black">
                   <Check size={13} />
-                  {sectionReviews.skus.improveMode === "suggest_correction" || sectionReviews.skus.improveMode === "add_missing" ? "Submit suggestion" : "Save review"}
+                  {sectionReviews.skus.improveMode === "suggest_correction" || sectionReviews.skus.improveMode === "add_missing" ? "submit suggestion" : "save review"}
                 </button>
               </div>
             </ReviewSection>
 
             <ReviewSection
-              title="Cards"
-              subtitle="Linked card content"
+              title="cards"
+              subtitle="linked card content"
               open={openSections.cards}
               onToggle={() => toggleSection("cards")}
             >
-              <div className="rounded-[18px] border border-[#D8E3EE] bg-white px-4 py-3">
-                <p className="text-[12px] font-semibold uppercase tracking-[0.14em] text-[#0891B2]">Current linked data</p>
-                <p className="mt-3 text-[15px] leading-6 text-[#475569]">No linked cards are shown for this record yet.</p>
+              <div className="rounded-[12px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-3">
+                <p className="text-[12px] font-semibold text-[#7f7f7f]">current linked data</p>
+                <p className="mt-3 text-[15px] leading-6 text-[#b0b0b0]">No linked cards are shown for this record yet.</p>
               </div>
             </ReviewSection>
 
             <ReviewSection
-              title="Reviews"
+              title="reviews"
               subtitle={`${selectedHistory.reviewHistory.length} recorded`}
               open={openSections.reviews}
               onToggle={() => toggleSection("reviews")}
             >
-              <div className="mt-3 overflow-hidden rounded-[16px] border border-[#D8E3EE] bg-white">
-                <div className="grid grid-cols-[1.2fr,1fr,1fr] gap-2 border-b border-[#E2E8F0] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#64748B]">
-                  <span>Reviewer</span>
-                  <span>Outcome</span>
-                  <span>Date</span>
+              <div className="mt-3 overflow-hidden rounded-[12px] border border-[#2d2d2d] bg-[#161616]">
+                <div className="grid grid-cols-[1.2fr,1fr,1fr] gap-2 border-b border-[#E2E8F0] px-3 py-2 text-[11px] font-semibold text-[#64748B]">
+                  <span>reviewer</span>
+                  <span>outcome</span>
+                  <span>date</span>
                 </div>
                 {selectedHistory.reviewHistory.length > 0 ? (
                   selectedHistory.reviewHistory
                     .slice()
                     .reverse()
                     .map((entry, index) => (
-                      <div key={`${entry.actor}-${entry.reviewed_at}-${index}`} className="grid grid-cols-[1.2fr,1fr,1fr] gap-2 border-b border-[#EEF2F7] px-3 py-2 text-[13px] text-[#334155] last:border-b-0">
+                      <div key={`${entry.actor}-${entry.reviewed_at}-${index}`} className="grid grid-cols-[1.2fr,1fr,1fr] gap-2 border-b border-[#252525] px-3 py-2 text-[13px] text-[#b0b0b0] last:border-b-0">
                         <span>{entry.actor}</span>
                         <span>{entry.outcome.replaceAll("_", " ")}</span>
                         <span>{new Date(entry.reviewed_at).toLocaleDateString("en-GB")}</span>
                       </div>
                     ))
                 ) : (
-                  <p className="px-3 py-3 text-[13px] text-[#64748B]">No reviews yet.</p>
+                  <p className="px-3 py-3 text-[13px] text-[#8f8f8f]">no reviews yet.</p>
                 )}
               </div>
             </ReviewSection>
 
             <ReviewSection
-              title="Revisions"
+              title="revisions"
               subtitle={`${selectedHistory.revisionHistory.length} recorded`}
               open={openSections.revisions}
               onToggle={() => toggleSection("revisions")}
             >
-              <div className="mt-3 overflow-hidden rounded-[16px] border border-[#D8E3EE] bg-white">
-                <div className="grid grid-cols-[1fr,1.4fr,1fr] gap-2 border-b border-[#E2E8F0] px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#64748B]">
-                  <span>Revised by</span>
-                  <span>Change</span>
-                  <span>Date</span>
+              <div className="mt-3 overflow-hidden rounded-[12px] border border-[#2d2d2d] bg-[#161616]">
+                <div className="grid grid-cols-[1fr,1.4fr,1fr] gap-2 border-b border-[#E2E8F0] px-3 py-2 text-[11px] font-semibold text-[#64748B]">
+                  <span>revised by</span>
+                  <span>change</span>
+                  <span>date</span>
                 </div>
                 {selectedHistory.revisionHistory.length > 0 ? (
                   selectedHistory.revisionHistory
                     .slice()
                     .reverse()
                     .map((entry, index) => (
-                      <div key={`${entry.actor}-${entry.revised_at}-${index}`} className="grid grid-cols-[1fr,1.4fr,1fr] gap-2 border-b border-[#EEF2F7] px-3 py-2 text-[13px] text-[#334155] last:border-b-0">
+                      <div key={`${entry.actor}-${entry.revised_at}-${index}`} className="grid grid-cols-[1fr,1.4fr,1fr] gap-2 border-b border-[#252525] px-3 py-2 text-[13px] text-[#b0b0b0] last:border-b-0">
                         <span>{entry.actor}</span>
                         <span>{entry.summary}</span>
                         <span>{new Date(entry.revised_at).toLocaleDateString("en-GB")}</span>
                       </div>
                     ))
                 ) : (
-                  <p className="px-3 py-3 text-[13px] text-[#64748B]">No revisions yet.</p>
+                  <p className="px-3 py-3 text-[13px] text-[#8f8f8f]">no revisions yet.</p>
                 )}
               </div>
             </ReviewSection>
@@ -1609,3 +1609,7 @@ export default function ReviewPage() {
     </>
   )
 }
+
+
+
+

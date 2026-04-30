@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
-import { Bell, LogOut, Menu, Mic, MicOff, MoreVertical, PhoneIncoming, PhoneOff, Search, Settings2, UserCircle2, UserRound, Video, X } from "lucide-react"
+import { Bell, Clock, LogOut, Menu, Mic, MicOff, MoreVertical, PhoneIncoming, PhoneOff, Search, Settings2, UserCircle2, UserRound, Video, X } from "lucide-react"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getDesktopCommsPreference, subscribeDesktopCommsPreference, toggleDesktopCommsPreference } from "@/lib/desktop-comms"
 import { useCallStatus } from "@/lib/call-state"
@@ -25,6 +25,33 @@ type SearchItem = {
   kind: "page" | "library" | "guide"
 }
 
+type RecentSearch = {
+  id: string
+  title: string
+  subtitle: string
+  href: string
+  kind: "page" | "library" | "guide"
+}
+
+const RECENT_KEY = "prepsight-search-recent"
+const MAX_RECENT = 8
+
+function loadRecents(): RecentSearch[] {
+  if (typeof window === "undefined") return []
+  try {
+    const raw = localStorage.getItem(RECENT_KEY)
+    return raw ? (JSON.parse(raw) as RecentSearch[]) : []
+  } catch {
+    return []
+  }
+}
+
+function saveRecents(items: RecentSearch[]): void {
+  try {
+    localStorage.setItem(RECENT_KEY, JSON.stringify(items))
+  } catch {}
+}
+
 const STATIC_SEARCH_ITEMS: SearchItem[] = [
   { id: "page:home", title: "Home", subtitle: "Dashboard", href: "/", keywords: ["home", "dashboard", "workspace"], kind: "page" },
   { id: "page:bookmarks", title: "Bookmarks", subtitle: "Saved procedure shortcuts", href: "/bookmarks", keywords: ["bookmarks", "saved", "saved cards", "shortlist"], kind: "page" },
@@ -32,6 +59,7 @@ const STATIC_SEARCH_ITEMS: SearchItem[] = [
   { id: "page:calendar", title: "Calendar", subtitle: "Schedule and case planning", href: "/calendar", keywords: ["calendar", "schedule", "cases"], kind: "page" },
   { id: "page:catalogue", title: "Catalogue", subtitle: "Products and stock", href: "/catalogue", keywords: ["catalogue", "catalog", "products", "stock", "stockroom"], kind: "page" },
   { id: "page:directory", title: "Directory", subtitle: "Hospitals and trusts", href: "/directory", keywords: ["directory", "hospitals", "trusts"], kind: "page" },
+  { id: "page:user-accounts", title: "User Accounts", subtitle: "Organisation access and role management", href: "/user-accounts", keywords: ["users", "accounts", "roles", "permissions", "management", "access"], kind: "page" },
   { id: "page:settings-profile", title: "Profile", subtitle: "Profile and workspace settings", href: "/settings/profile", keywords: ["profile", "settings", "workspace"], kind: "page" },
   { id: "page:settings-access", title: "Access", subtitle: "Access and appearance", href: "/settings/access", keywords: ["access", "appearance", "settings"], kind: "page" },
   { id: "page:settings-notifications", title: "Notifications", subtitle: "Notification settings", href: "/settings/notifications", keywords: ["notifications", "alerts", "settings"], kind: "page" },
@@ -108,6 +136,7 @@ export default function AppTopBar({
   const [query, setQuery] = useState("")
   const [highlightedIndex, setHighlightedIndex] = useState(0)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [recentSearches, setRecentSearches] = useState<RecentSearch[]>(() => loadRecents())
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const [accountBusy, setAccountBusy] = useState(false)
   const [accountError, setAccountError] = useState<string | null>(null)
@@ -193,6 +222,8 @@ export default function AppTopBar({
       .map((entry) => entry.item)
   }, [query, searchItems])
 
+  const activeItems: RecentSearch[] = query.trim() ? results : recentSearches
+
   useEffect(() => {
     setQuery("")
     setSearchOpen(false)
@@ -236,10 +267,29 @@ export default function AppTopBar({
     }
   }, [])
 
-  function handleSelect(item: SearchItem) {
+  function handleSelect(item: RecentSearch) {
+    const entry: RecentSearch = { id: item.id, title: item.title, subtitle: item.subtitle, href: item.href, kind: item.kind }
+    setRecentSearches(prev => {
+      const next = [entry, ...prev.filter(r => r.id !== entry.id)].slice(0, MAX_RECENT)
+      saveRecents(next)
+      return next
+    })
     setQuery("")
     setSearchOpen(false)
     router.push(item.href)
+  }
+
+  function removeRecent(id: string) {
+    setRecentSearches(prev => {
+      const next = prev.filter(r => r.id !== id)
+      saveRecents(next)
+      return next
+    })
+  }
+
+  function clearRecents() {
+    localStorage.removeItem(RECENT_KEY)
+    setRecentSearches([])
   }
 
   function handleMenuToggle() {
@@ -365,16 +415,17 @@ export default function AppTopBar({
                 }}
                 onFocus={() => setSearchOpen(true)}
                 onKeyDown={(event) => {
-                  if (!results.length) return
+                  if (!activeItems.length) return
                   if (event.key === "ArrowDown") {
                     event.preventDefault()
-                    setHighlightedIndex((current) => (current + 1) % results.length)
+                    setHighlightedIndex((current) => (current + 1) % activeItems.length)
                   } else if (event.key === "ArrowUp") {
                     event.preventDefault()
-                    setHighlightedIndex((current) => (current - 1 + results.length) % results.length)
+                    setHighlightedIndex((current) => (current - 1 + activeItems.length) % activeItems.length)
                   } else if (event.key === "Enter") {
                     event.preventDefault()
-                    handleSelect(results[highlightedIndex] ?? results[0])
+                    const target = activeItems[highlightedIndex] ?? activeItems[0]
+                    if (target) handleSelect(target)
                   }
                 }}
                 placeholder="Search anywhere..."
@@ -408,6 +459,37 @@ export default function AppTopBar({
                     No matches for "{query}".
                   </div>
                 )}
+              </div>
+            ) : searchOpen && !query.trim() && recentSearches.length > 0 ? (
+              <div className="absolute inset-x-0 top-[calc(100%+6px)] z-50 overflow-hidden rounded-[16px] border border-[#0F4C5C] bg-white shadow-[0_18px_40px_rgba(16,36,62,0.18)]">
+                <div className="flex items-center justify-between border-b border-[#E8F5FA] px-4 py-2">
+                  <span className="text-[11px] font-medium uppercase tracking-wide text-[#0F4C5C]/60">Recent</span>
+                  <button type="button" onClick={clearRecents} className="text-[11px] text-[#0F4C5C] hover:text-[#0096C7]">
+                    Clear all
+                  </button>
+                </div>
+                <div className="max-h-[min(60vh,28rem)] overflow-y-auto py-2">
+                  {recentSearches.map((item, index) => (
+                    <div
+                      key={item.id}
+                      onClick={() => handleSelect(item)}
+                      className={`flex cursor-pointer items-center gap-3 px-4 py-2.5 ${index === highlightedIndex ? "bg-[#F0FAFC]" : "hover:bg-[#F8FBFD]"}`}
+                    >
+                      <Clock size={14} className="shrink-0 text-[#0F4C5C]/40" />
+                      <span className="min-w-0 flex-1">
+                        <span className="block truncate text-[14px] text-[#10243E]">{item.title}</span>
+                        <span className="mt-0.5 block truncate text-[12px] text-[#0F4C5C]">{item.subtitle}</span>
+                      </span>
+                      <button
+                        type="button"
+                        onClick={(e) => { e.stopPropagation(); removeRecent(item.id) }}
+                        className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[#0F4C5C]/40 hover:bg-[#E8F5FA] hover:text-[#0F4C5C]"
+                      >
+                        <X size={11} />
+                      </button>
+                    </div>
+                  ))}
+                </div>
               </div>
             ) : null}
             </div>
@@ -516,16 +598,17 @@ export default function AppTopBar({
             }}
             onFocus={() => setSearchOpen(true)}
             onKeyDown={(event) => {
-              if (!results.length) return
+              if (!activeItems.length) return
               if (event.key === "ArrowDown") {
                 event.preventDefault()
-                setHighlightedIndex((current) => (current + 1) % results.length)
+                setHighlightedIndex((current) => (current + 1) % activeItems.length)
               } else if (event.key === "ArrowUp") {
                 event.preventDefault()
-                setHighlightedIndex((current) => (current - 1 + results.length) % results.length)
+                setHighlightedIndex((current) => (current - 1 + activeItems.length) % activeItems.length)
               } else if (event.key === "Enter") {
                 event.preventDefault()
-                handleSelect(results[highlightedIndex] ?? results[0])
+                const target = activeItems[highlightedIndex] ?? activeItems[0]
+                if (target) handleSelect(target)
               }
             }}
             placeholder="Search anywhere..."
@@ -559,6 +642,37 @@ export default function AppTopBar({
                 No matches for "{query}".
               </div>
             )}
+          </div>
+        ) : searchOpen && !query.trim() && recentSearches.length > 0 ? (
+          <div className="absolute inset-x-3 top-[calc(100%+6px)] z-50 overflow-hidden rounded-[16px] border border-[#2d2d2d] bg-[#111111] shadow-[0_18px_40px_rgba(0,0,0,0.5)]">
+            <div className="flex items-center justify-between border-b border-[#2d2d2d] px-4 py-2">
+              <span className="text-[11px] font-medium uppercase tracking-wide text-[#555555]">Recent</span>
+              <button type="button" onClick={clearRecents} className="text-[11px] text-[#888888] hover:text-[#0096C7]">
+                Clear all
+              </button>
+            </div>
+            <div className="max-h-[min(60vh,28rem)] overflow-y-auto py-2">
+              {recentSearches.map((item, index) => (
+                <div
+                  key={item.id}
+                  onClick={() => handleSelect(item)}
+                  className={`flex cursor-pointer items-center gap-3 px-4 py-2.5 ${index === highlightedIndex ? "bg-[#1c1c1c]" : "hover:bg-[#1a1a1a]"}`}
+                >
+                  <Clock size={14} className="shrink-0 text-[#555555]" />
+                  <span className="min-w-0 flex-1">
+                    <span className="block truncate text-[14px] text-[#e0e0e0]">{item.title}</span>
+                    <span className="mt-0.5 block truncate text-[12px] text-[#888888]">{item.subtitle}</span>
+                  </span>
+                  <button
+                    type="button"
+                    onClick={(e) => { e.stopPropagation(); removeRecent(item.id) }}
+                    className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[#555555] hover:bg-[#2d2d2d] hover:text-[#888888]"
+                  >
+                    <X size={11} />
+                  </button>
+                </div>
+              ))}
+            </div>
           </div>
         ) : null}
       </div>

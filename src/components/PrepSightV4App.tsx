@@ -15,7 +15,6 @@ import {
   LibraryTree,
 } from "@/components/LibrariesDashboard"
 import LibraryPageClient from "@/components/LibraryPageClient"
-import V5CommsDesktopRail from "@/components/V5CommsDesktopRail"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import type { WorkforceHospitalPin } from "@/components/WorkforceShiftMap"
 import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
@@ -1808,7 +1807,6 @@ export default function PrepSightV4App() {
                   <span className="absolute left-1/2 top-0 h-full w-[4px] -translate-x-1/2 bg-[#333333] transition-colors group-hover:bg-[#555555]" />
                   <span className="absolute left-1/2 top-1/2 h-24 w-[6px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#404040] shadow-[0_8px_24px_rgba(0,0,0,0.4)] ring-1 ring-[#444444] transition-all group-hover:h-28 group-hover:bg-[#505050] group-hover:ring-[#666666]" />
                 </button>
-                <V5CommsDesktopRail />
               </aside>
             ) : null}
           </div>
