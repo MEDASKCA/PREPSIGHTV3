@@ -96,22 +96,23 @@ export default function LibraryAppShell({
         />
 
         <div className="flex min-w-0 flex-col">
-          {/* Desktop AppTopBar inside content column */}
-          <div className="hidden lg:block">
-            <AppTopBar
-              menuOpen={desktopNavOpen}
-              onToggleMenu={() => setDesktopNavOpen((v) => !v)}
-              searchValue={searchValue}
-              onSearchChange={onSearchChange}
-              searchPlaceholder={searchPlaceholder}
-              sectionLabel={sectionLabel}
-            />
-          </div>
-
           <div className="flex min-h-0 flex-1">
-            <main className="min-w-0 flex-1 px-4 pb-4 lg:px-6 lg:py-5">
-              {children}
-            </main>
+            {/* Sub-column: AppTopBar + main content — sized to exclude the comms aside */}
+            <div className="flex min-w-0 flex-1 flex-col">
+              <div className="hidden lg:block">
+                <AppTopBar
+                  menuOpen={desktopNavOpen}
+                  onToggleMenu={() => setDesktopNavOpen((v) => !v)}
+                  searchValue={searchValue}
+                  onSearchChange={onSearchChange}
+                  searchPlaceholder={searchPlaceholder}
+                  sectionLabel={sectionLabel}
+                />
+              </div>
+              <main className="min-w-0 flex-1 px-4 pb-4 lg:px-6 lg:py-5">
+                {children}
+              </main>
+            </div>
 
             {showRightAside ? (
               <aside

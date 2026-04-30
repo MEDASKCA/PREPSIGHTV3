@@ -76,17 +76,19 @@ export default function WorkspaceDesktopShell({
       />
 
       <div className="flex min-w-0 flex-col">
-        <AppTopBar
-          menuOpen={desktopNavOpen}
-          onToggleMenu={() => setDesktopNavOpen((v) => !v)}
-          searchPlaceholder="Search anywhere..."
-          sectionLabel={sectionLabel}
-        />
-
         <div className="flex min-h-0 flex-1">
-          <main className="min-w-0 flex-1 px-6 py-5">
-            {children}
-          </main>
+          {/* Sub-column: AppTopBar + main content — sized to exclude the comms aside */}
+          <div className="flex min-w-0 flex-1 flex-col">
+            <AppTopBar
+              menuOpen={desktopNavOpen}
+              onToggleMenu={() => setDesktopNavOpen((v) => !v)}
+              searchPlaceholder="Search anywhere..."
+              sectionLabel={sectionLabel}
+            />
+            <main className="min-w-0 flex-1 px-6 py-5">
+              {children}
+            </main>
+          </div>
 
           {showRightAside ? (
             <aside
