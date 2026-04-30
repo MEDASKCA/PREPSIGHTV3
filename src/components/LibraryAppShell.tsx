@@ -5,6 +5,7 @@ import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
 import WorkspaceNavRail, { type WorkspaceNavKey } from "@/components/WorkspaceNavRail"
 import { getDesktopCommsPreference, getDesktopCommsWidth, getDesktopCommsWidthBounds, setDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
+import { getNavBreadcrumb } from "@/lib/workspace-nav"
 
 export default function LibraryAppShell({
   currentNav = "collections",
@@ -36,6 +37,7 @@ export default function LibraryAppShell({
     getDesktopCommsWidth,
   )
   const { min: minCommsWidth, max: maxCommsWidth } = getDesktopCommsWidthBounds()
+  const navBreadcrumb = getNavBreadcrumb(currentNav ?? "collections")
   // PersistentCommsLayer (at AppGate level) renders the actual comms content as a fixed overlay.
   // LibraryAppShell only needs a spacer aside to reserve the layout column.
   const showRightAside = commsRailOpen || Boolean(rightRail)
@@ -107,6 +109,7 @@ export default function LibraryAppShell({
                   onSearchChange={onSearchChange}
                   searchPlaceholder={searchPlaceholder}
                   sectionLabel={sectionLabel}
+                  navBreadcrumb={navBreadcrumb}
                 />
               </div>
               <main className="min-w-0 flex-1 px-4 pb-4 lg:px-6 lg:py-5">
@@ -116,7 +119,7 @@ export default function LibraryAppShell({
 
             {showRightAside ? (
               <aside
-                className="relative hidden flex-shrink-0 border-l border-black lg:block"
+                className="relative hidden flex-shrink-0 border-l-[3px] border-[#2d2d2d] lg:block"
                 style={{ width: commsRailWidth }}
               >
                 {commsRailOpen ? (

@@ -114,6 +114,7 @@ export default function AppTopBar({
   onSearchChange,
   searchPlaceholder = "Search",
   sectionLabel,
+  navBreadcrumb,
 }: {
   menuOpen: boolean
   onToggleMenu: () => void
@@ -124,6 +125,7 @@ export default function AppTopBar({
   onSearchChange?: (value: string) => void
   searchPlaceholder?: string
   sectionLabel?: string
+  navBreadcrumb?: { group: string | null; label: string }
 }) {
   const router = useRouter()
   const pathname = usePathname()
@@ -368,9 +370,12 @@ export default function AppTopBar({
                 )}
               </span>
             </Link>
-            {sectionLabel && (
+            {(navBreadcrumb ?? sectionLabel) && (
               <span className="hidden lg:block">
-                <DesktopSectionWordmark label={sectionLabel} />
+                <DesktopSectionWordmark
+                  group={navBreadcrumb?.group}
+                  label={navBreadcrumb?.label ?? sectionLabel ?? ""}
+                />
               </span>
             )}
           </div>

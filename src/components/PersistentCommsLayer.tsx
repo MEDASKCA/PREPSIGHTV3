@@ -220,7 +220,7 @@ export default function PersistentCommsLayer() {
 
   return (
     <div
-      className={`hidden lg:block fixed right-0 z-[200] overflow-hidden transition-none ${commsRailOpen ? "border-l border-black bg-black" : ""}`}
+      className={`hidden lg:block fixed right-0 z-[200] overflow-hidden transition-none ${commsRailOpen ? "border-l-[3px] border-[#2d2d2d] bg-black" : ""}`}
       style={{
         width: commsRailOpen ? commsRailWidth : 0,
         top: "var(--app-topbar-height, 65px)",

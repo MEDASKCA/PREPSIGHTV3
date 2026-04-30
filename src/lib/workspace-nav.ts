@@ -65,3 +65,13 @@ export const WORKSPACE_NAV_GROUPS: WorkspaceNavGroup[] = [
 ]
 
 export const WORKSPACE_NAV_ITEMS = [...WORKSPACE_TOP_LEVEL_ITEMS, ...WORKSPACE_NAV_GROUPS.flatMap(group => group.items)]
+
+export function getNavBreadcrumb(key: WorkspaceNavKey): { group: string | null; label: string } {
+  for (const group of WORKSPACE_NAV_GROUPS) {
+    const item = group.items.find(i => i.key === key)
+    if (item) return { group: group.label, label: item.label }
+  }
+  const topItem = WORKSPACE_TOP_LEVEL_ITEMS.find(i => i.key === key)
+  if (topItem) return { group: null, label: topItem.label }
+  return { group: null, label: "" }
+}

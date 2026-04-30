@@ -4,6 +4,7 @@ import { useEffect, useState, useSyncExternalStore, type CSSProperties, type Rea
 import AppTopBar from "@/components/AppTopBar"
 import WorkspaceNavRail, { type WorkspaceNavKey } from "@/components/WorkspaceNavRail"
 import { getDesktopCommsPreference, getDesktopCommsWidth, getDesktopCommsWidthBounds, setDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
+import { getNavBreadcrumb } from "@/lib/workspace-nav"
 
 export default function WorkspaceDesktopShell({
   currentNav,
@@ -28,6 +29,7 @@ export default function WorkspaceDesktopShell({
     getDesktopCommsWidth,
   )
   const { min: minCommsWidth, max: maxCommsWidth } = getDesktopCommsWidthBounds()
+  const navBreadcrumb = getNavBreadcrumb(currentNav)
   const showRightAside = commsRailOpen || Boolean(rightRail)
 
   useEffect(() => {
@@ -84,6 +86,7 @@ export default function WorkspaceDesktopShell({
               onToggleMenu={() => setDesktopNavOpen((v) => !v)}
               searchPlaceholder="Search anywhere..."
               sectionLabel={sectionLabel}
+              navBreadcrumb={navBreadcrumb}
             />
             <main className="min-w-0 flex-1 px-6 py-5">
               {children}
@@ -92,7 +95,7 @@ export default function WorkspaceDesktopShell({
 
           {showRightAside ? (
             <aside
-              className="relative flex-shrink-0 border-l border-black"
+              className="relative flex-shrink-0 border-l-[3px] border-[#2d2d2d]"
               style={{ width: commsRailWidth }}
             >
               {commsRailOpen ? (
