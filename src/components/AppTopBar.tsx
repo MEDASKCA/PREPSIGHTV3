@@ -272,6 +272,17 @@ export default function AppTopBar({
     }
   }, [])
 
+  // Publish topbar height as a CSS variable so fixed overlays (comms panel) can offset below it
+  useEffect(() => {
+    const el = rootRef.current
+    if (!el) return
+    const publish = () => document.documentElement.style.setProperty("--app-topbar-height", `${el.offsetHeight}px`)
+    publish()
+    const observer = new ResizeObserver(publish)
+    observer.observe(el)
+    return () => observer.disconnect()
+  }, [])
+
   function handleSelect(item: RecentSearch) {
     const entry: RecentSearch = { id: item.id, title: item.title, subtitle: item.subtitle, href: item.href, kind: item.kind }
     setRecentSearches(prev => {
