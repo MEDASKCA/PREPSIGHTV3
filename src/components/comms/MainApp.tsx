@@ -408,6 +408,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [callMuted, setCallMuted] = useState(false)
   const [callSpeaker, setCallSpeaker] = useState(false)
   const [callViewMode, setCallViewMode] = useState<"panel" | "fullscreen" | "floating">("panel")
+  const [floatingPos, setFloatingPos] = useState<{ x: number; y: number } | null>(null)
+  const [floatingSize, setFloatingSize] = useState({ w: 130, h: 190 })
+  const floatingDragRef = useRef<{ startX: number; startY: number; origX: number; origY: number } | null>(null)
+  const floatingResizeRef = useRef<{ startX: number; startY: number; origW: number; origH: number } | null>(null)
   const [camFacingMode, setCamFacingMode] = useState<"user" | "environment">("user")
   const [tomTyping, setTomTyping] = useState(false)
   const [tomTasks, setTomTasks] = useState<TomWatchTask[]>([])
@@ -488,6 +492,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   useEffect(() => {
     if (!visible && callState !== "idle" && callViewMode === "panel") setCallViewMode("floating")
   }, [visible, callState, callViewMode])
+
+  // ── Reset floating position when entering floating mode ──
+  useEffect(() => {
+    if (callViewMode === "floating") setFloatingPos(null)
+  }, [callViewMode])
 
   // ── Register stable action callbacks in global store (mount only) ──
   useEffect(() => {
@@ -2737,15 +2746,51 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* ═══ FLOATING WINDOW ═══ */}
       {callState !== "idle" && callViewMode === "floating" && (
         callState === "active" && callMediaMode === "video" && !tomVoiceMode ? (
-          /* Video PiP — shows remote video so you can browse while on a call */
+          /* Video PiP — draggable + resizable */
           <div
-            className="fixed bottom-24 right-4 z-[300] overflow-hidden rounded-2xl shadow-2xl border border-white/[0.08] pointer-events-auto"
-            style={{ width: 130, height: 190 }}
+            className="fixed z-[300] overflow-hidden rounded-2xl shadow-2xl border border-white/[0.08] pointer-events-auto select-none"
+            style={{
+              width: floatingSize.w,
+              height: floatingSize.h,
+              ...(floatingPos
+                ? { left: floatingPos.x, top: floatingPos.y, right: "auto", bottom: "auto" }
+                : { right: 16, bottom: 96 }),
+            }}
+            onMouseDown={(e) => {
+              if ((e.target as HTMLElement).dataset.resize) return
+              const rect = e.currentTarget.getBoundingClientRect()
+              floatingDragRef.current = { startX: e.clientX, startY: e.clientY, origX: rect.left, origY: rect.top }
+              const onMove = (mv: MouseEvent) => {
+                if (!floatingDragRef.current) return
+                const nx = floatingDragRef.current.origX + mv.clientX - floatingDragRef.current.startX
+                const ny = floatingDragRef.current.origY + mv.clientY - floatingDragRef.current.startY
+                setFloatingPos({ x: Math.max(0, Math.min(nx, window.innerWidth - floatingSize.w)), y: Math.max(0, Math.min(ny, window.innerHeight - floatingSize.h)) })
+              }
+              const onUp = () => { floatingDragRef.current = null; window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp) }
+              window.addEventListener("mousemove", onMove)
+              window.addEventListener("mouseup", onUp)
+            }}
+            onTouchStart={(e) => {
+              if ((e.target as HTMLElement).dataset.resize) return
+              const t = e.touches[0]
+              const rect = e.currentTarget.getBoundingClientRect()
+              floatingDragRef.current = { startX: t.clientX, startY: t.clientY, origX: rect.left, origY: rect.top }
+              const onMove = (mv: TouchEvent) => {
+                if (!floatingDragRef.current) return
+                const tc = mv.touches[0]
+                const nx = floatingDragRef.current.origX + tc.clientX - floatingDragRef.current.startX
+                const ny = floatingDragRef.current.origY + tc.clientY - floatingDragRef.current.startY
+                setFloatingPos({ x: Math.max(0, Math.min(nx, window.innerWidth - floatingSize.w)), y: Math.max(0, Math.min(ny, window.innerHeight - floatingSize.h)) })
+              }
+              const onEnd = () => { floatingDragRef.current = null; window.removeEventListener("touchmove", onMove); window.removeEventListener("touchend", onEnd) }
+              window.addEventListener("touchmove", onMove, { passive: true })
+              window.addEventListener("touchend", onEnd)
+            }}
           >
             <video ref={floatingVideoRef} autoPlay playsInline className="absolute inset-0 h-full w-full object-cover bg-black" />
             {/* Gradient scrim + controls */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent" />
-            {/* Tap anywhere to expand — small expand icon hint */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
+            {/* Tap anywhere to expand */}
             <button
               className="absolute inset-0 z-10"
               onClick={() => setCallViewMode(visible ? "panel" : "fullscreen")}
@@ -2755,7 +2800,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <Maximize2 size={10} className="text-white/60" />
             </div>
             {/* Name + elapsed */}
-            <div className="absolute bottom-9 left-0 right-0 z-20 px-2">
+            <div className="absolute bottom-9 left-0 right-0 z-20 px-2 pointer-events-none">
               <p className="truncate text-center text-[11px] text-white/80">
                 {calleeInfo?.displayName ?? ""}
               </p>
@@ -2780,11 +2825,87 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <PhoneOff size={12} className="text-white" />
               </button>
             </div>
+            {/* Resize handle — bottom-right corner */}
+            <div
+              data-resize="1"
+              className="absolute bottom-0 right-0 z-30 h-5 w-5 cursor-se-resize"
+              style={{ touchAction: "none" }}
+              onMouseDown={(e) => {
+                e.stopPropagation()
+                floatingResizeRef.current = { startX: e.clientX, startY: e.clientY, origW: floatingSize.w, origH: floatingSize.h }
+                const rect = e.currentTarget.closest<HTMLElement>(".fixed")!.getBoundingClientRect()
+                if (!floatingPos) setFloatingPos({ x: rect.left, y: rect.top })
+                const onMove = (mv: MouseEvent) => {
+                  if (!floatingResizeRef.current) return
+                  const nw = Math.max(110, floatingResizeRef.current.origW + mv.clientX - floatingResizeRef.current.startX)
+                  const nh = Math.max(150, floatingResizeRef.current.origH + mv.clientY - floatingResizeRef.current.startY)
+                  setFloatingSize({ w: Math.min(nw, 320), h: Math.min(nh, 500) })
+                }
+                const onUp = () => { floatingResizeRef.current = null; window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp) }
+                window.addEventListener("mousemove", onMove)
+                window.addEventListener("mouseup", onUp)
+              }}
+              onTouchStart={(e) => {
+                e.stopPropagation()
+                const t = e.touches[0]
+                floatingResizeRef.current = { startX: t.clientX, startY: t.clientY, origW: floatingSize.w, origH: floatingSize.h }
+                const rect = e.currentTarget.closest<HTMLElement>(".fixed")!.getBoundingClientRect()
+                if (!floatingPos) setFloatingPos({ x: rect.left, y: rect.top })
+                const onMove = (mv: TouchEvent) => {
+                  if (!floatingResizeRef.current) return
+                  const tc = mv.touches[0]
+                  const nw = Math.max(110, floatingResizeRef.current.origW + tc.clientX - floatingResizeRef.current.startX)
+                  const nh = Math.max(150, floatingResizeRef.current.origH + tc.clientY - floatingResizeRef.current.startY)
+                  setFloatingSize({ w: Math.min(nw, 320), h: Math.min(nh, 500) })
+                }
+                const onEnd = () => { floatingResizeRef.current = null; window.removeEventListener("touchmove", onMove); window.removeEventListener("touchend", onEnd) }
+                window.addEventListener("touchmove", onMove, { passive: false })
+                window.addEventListener("touchend", onEnd)
+              }}
+            >
+              <svg width="12" height="12" viewBox="0 0 12 12" className="absolute bottom-1 right-1 text-white/30 pointer-events-none">
+                <path d="M10 2L2 10M10 6L6 10M10 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+              </svg>
+            </div>
           </div>
         ) : (
-          /* Audio pill — incoming / outgoing / audio-only active */
+          /* Audio pill — draggable */
           <div
-            className="z-[300] flex items-center gap-3 rounded-2xl bg-[#181818] px-3 py-2.5 shadow-2xl border border-white/[0.08] pointer-events-auto fixed bottom-24 left-4 right-4 sm:left-auto sm:right-4 sm:w-[248px]"
+            className="z-[300] flex items-center gap-3 rounded-2xl bg-[#181818] px-3 py-2.5 shadow-2xl border border-white/[0.08] pointer-events-auto select-none"
+            style={{
+              position: "fixed",
+              ...(floatingPos
+                ? { left: floatingPos.x, top: floatingPos.y, right: "auto", bottom: "auto", width: 248 }
+                : { bottom: 96, left: 16, right: 16 }),
+            }}
+            onMouseDown={(e) => {
+              const rect = e.currentTarget.getBoundingClientRect()
+              floatingDragRef.current = { startX: e.clientX, startY: e.clientY, origX: rect.left, origY: rect.top }
+              const onMove = (mv: MouseEvent) => {
+                if (!floatingDragRef.current) return
+                const nx = floatingDragRef.current.origX + mv.clientX - floatingDragRef.current.startX
+                const ny = floatingDragRef.current.origY + mv.clientY - floatingDragRef.current.startY
+                setFloatingPos({ x: Math.max(0, Math.min(nx, window.innerWidth - 248)), y: Math.max(0, Math.min(ny, window.innerHeight - 60)) })
+              }
+              const onUp = () => { floatingDragRef.current = null; window.removeEventListener("mousemove", onMove); window.removeEventListener("mouseup", onUp) }
+              window.addEventListener("mousemove", onMove)
+              window.addEventListener("mouseup", onUp)
+            }}
+            onTouchStart={(e) => {
+              const t = e.touches[0]
+              const rect = e.currentTarget.getBoundingClientRect()
+              floatingDragRef.current = { startX: t.clientX, startY: t.clientY, origX: rect.left, origY: rect.top }
+              const onMove = (mv: TouchEvent) => {
+                if (!floatingDragRef.current) return
+                const tc = mv.touches[0]
+                const nx = floatingDragRef.current.origX + tc.clientX - floatingDragRef.current.startX
+                const ny = floatingDragRef.current.origY + tc.clientY - floatingDragRef.current.startY
+                setFloatingPos({ x: Math.max(0, Math.min(nx, window.innerWidth - 248)), y: Math.max(0, Math.min(ny, window.innerHeight - 60)) })
+              }
+              const onEnd = () => { floatingDragRef.current = null; window.removeEventListener("touchmove", onMove); window.removeEventListener("touchend", onEnd) }
+              window.addEventListener("touchmove", onMove, { passive: true })
+              window.addEventListener("touchend", onEnd)
+            }}
             role="button"
             tabIndex={0}
             onClick={() => setCallViewMode(visible ? "panel" : "fullscreen")}
