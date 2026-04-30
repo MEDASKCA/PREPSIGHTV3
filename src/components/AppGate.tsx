@@ -10,6 +10,7 @@ import { hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboa
 import AdminUnlocker from "./AdminUnlocker"
 import MedaskcaLoadingScreen from "./MedaskcaLoadingScreen"
 import PersistentCommsLayer from "./PersistentCommsLayer"
+import DesktopCommsFAB from "./DesktopCommsFAB"
 
 const PUBLIC_ROUTES    = ["/", "/login", "/privacy", "/terms"]
 const ONBOARDING_ROUTE = "/onboarding"
@@ -225,6 +226,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       </div>
       <AdminUnlocker />
       <PersistentCommsLayer />
+      <DesktopCommsFAB />
     </div>
   )
 }

@@ -517,27 +517,25 @@ export default function AppTopBar({
           </div>
 
           <div className="relative flex items-center gap-2">
-            <button
-              type="button"
-              onClick={toggleDesktopCommsPreference}
-              className="hidden h-9 w-9 items-center justify-center text-white/95 transition-opacity hover:text-white hover:opacity-100 lg:inline-flex"
-              aria-label={commsRailOpen ? "Hide PrepSight Comms panel" : "Show PrepSight Comms panel"}
-              title={commsRailOpen ? "Hide PrepSight Comms" : "Show PrepSight Comms"}
-            >
-              <img
-                src="/image3.png"
-                alt=""
-                aria-hidden="true"
-                className="h-[580px] w-[580px] shrink-0 object-contain opacity-[0.98] [filter:drop-shadow(0_0_0.25px_rgba(255,255,255,0.6))]"
-              />
-            </button>
-            <button
-              type="button"
-              className="hidden h-9 w-9 items-center justify-center text-white/95 transition-opacity hover:text-white hover:opacity-100 lg:inline-flex"
-              aria-label="Activity"
-            >
-              <Bell size={17} />
-            </button>
+            {/* Comms toggle — only shown on desktop when comms panel is open (teal active state).
+                When closed, DesktopCommsFAB floating button handles opening it. */}
+            {commsRailOpen && (
+              <button
+                type="button"
+                onClick={toggleDesktopCommsPreference}
+                className="hidden h-9 w-9 items-center justify-center rounded-[10px] bg-[#0096C7]/15 text-[#0096C7] ring-1 ring-[#0096C7]/30 transition-colors hover:bg-[#0096C7]/25 lg:inline-flex"
+                aria-label="Hide PrepSight Comms panel"
+                title="Hide PrepSight Comms"
+              >
+                <img
+                  src="/image3.png"
+                  alt=""
+                  aria-hidden="true"
+                  className="h-[580px] w-[580px] shrink-0 object-contain opacity-[0.98] [filter:drop-shadow(0_0_2px_rgba(0,150,199,0.7))]"
+                />
+              </button>
+            )}
+            {/* Mobile profile/menu — keep on mobile only; desktop profile is now in WorkspaceNavRail */}
             <button
               type="button"
               onClick={() => {
@@ -546,16 +544,11 @@ export default function AppTopBar({
                 setAccountError(null)
                 setAccountMenuOpen((current) => !current)
               }}
-              className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full text-white/80 hover:text-white lg:border lg:border-[#0F4C5C] lg:bg-white/88 lg:text-[#22425C] lg:hover:text-[#22425C]"
+              className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full text-white/80 hover:text-white lg:hidden"
               aria-label="Profile"
               aria-expanded={accountMenuOpen}
             >
-              <span className="hidden h-full w-full items-center justify-center bg-[#0f8fb8] text-[14px] font-medium text-white lg:flex">
-                {profileInitial}
-              </span>
-              <span className="flex lg:hidden">
-                <MoreVertical size={22} />
-              </span>
+              <MoreVertical size={22} />
             </button>
 
             {accountMenuOpen ? (
