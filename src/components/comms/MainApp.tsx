@@ -23,6 +23,7 @@ import { auth, db, storage } from "@/lib/firebase"
 import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
 import { clearCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
 import type {
+  CommsAttachment,
   CommsOrg,
   CommsThread,
   CommsMessage,
@@ -284,6 +285,16 @@ function blobToDataUrl(blob: Blob) {
     reader.onerror = () => reject(reader.error ?? new Error("Unable to prepare voice note."))
     reader.readAsDataURL(blob)
   })
+}
+
+function getAttachmentPreviewLabel(
+  attachments?: { name: string; type: "image" | "file" | "audio" }[] | CommsAttachment[],
+) {
+  const firstAttachment = attachments?.[0]
+  if (!firstAttachment) return "attachment"
+  if (firstAttachment.type === "audio") return "voice note"
+  if (firstAttachment.type === "image") return "photo"
+  return "attachment"
 }
 
 function normalizeTomText(value: string) {
@@ -1007,8 +1018,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       .sort((left, right) => right.createdAt - left.createdAt)[0]
 
     if (latest?.text?.trim()) return latest.text.trim()
+    if (latest?.attachments?.length) return getAttachmentPreviewLabel(latest.attachments)
     if (thread.type === "direct" && thread.memberUids.includes(TOM_UID)) return "Ask me anything"
     if (thread.type === "channel" && isGroupLocked(thread)) return "Enter code to join"
+    if (thread.lastMessage?.includes("Attachment")) return "attachment"
     return thread.lastMessage?.trim() || (thread.type === "channel" ? "Group" : "")
   }
 
@@ -1252,8 +1265,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (replyTo) msg.replyTo = { messageId: replyTo.id, uid: replyTo.uid, displayName: replyTo.displayName, text: replyTo.text }
     if (attachments?.length) msg.attachments = attachments
     await addDoc(collection(firestore, "comms_v5_messages"), msg)
+    const previewText = content || getAttachmentPreviewLabel(attachments)
     await updateDoc(doc(firestore, "comms_v5_threads", selectedThread.id), {
       updatedAt: Date.now(), lastMessage: content || "ðŸ“Ž Attachment",
+    })
+    await updateDoc(doc(firestore, "comms_v5_threads", selectedThread.id), {
+      updatedAt: Date.now(),
+      lastMessage: previewText,
     })
     if (selectedThread.type === "direct" && selectedThread.memberUids.includes(TOM_UID)) {
       setTomTyping(true)
