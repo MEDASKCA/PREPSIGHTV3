@@ -3,6 +3,7 @@
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
+import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
 import { Bell, Clock, LogOut, Menu, Mic, MicOff, MoreVertical, PhoneIncoming, PhoneOff, Search, Settings2, UserCircle2, UserRound, Video, X } from "lucide-react"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
 import { getDesktopCommsPreference, getDesktopCommsWidth, subscribeDesktopCommsPreference, toggleDesktopCommsPreference } from "@/lib/desktop-comms"
@@ -138,6 +139,7 @@ export default function AppTopBar({
   const [query, setQuery] = useState("")
   const [highlightedIndex, setHighlightedIndex] = useState(0)
   const [searchOpen, setSearchOpen] = useState(false)
+  const [mobileGlobalSearchOpen, setMobileGlobalSearchOpen] = useState(false)
   const [recentSearches, setRecentSearches] = useState<RecentSearch[]>(() => loadRecents())
   const [accountMenuOpen, setAccountMenuOpen] = useState(false)
   const [accountBusy, setAccountBusy] = useState(false)
@@ -235,6 +237,7 @@ export default function AppTopBar({
     setQuery("")
     setSearchOpen(false)
     setHighlightedIndex(0)
+    setMobileGlobalSearchOpen(false)
     setAccountMenuOpen(false)
     setAccountError(null)
   }, [pathname])
@@ -340,6 +343,7 @@ export default function AppTopBar({
   const displayName = user?.displayName ?? user?.email ?? profile?.name ?? "Your account"
   const displayEmail = user?.email ?? ""
   const profileInitial = (displayName.trim()[0] ?? "P").toUpperCase()
+  const mobileSectionLabel = navBreadcrumb?.label ?? sectionLabel
 
   return (
     <div ref={rootRef} className="prepsight-app-topbar sticky top-0 z-30" style={commsRailOpen ? { paddingRight: commsRailWidth } : undefined}>
@@ -360,14 +364,11 @@ export default function AppTopBar({
               <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
               <span>
                 <span className="app-display-font text-[0.86em] tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
-                {hideMobileMenu && sectionLabel && (
-                  <em
-                    className="ml-1 text-[0.84em] leading-none tracking-[-0.05em] text-white"
-                    style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-                  >
-                    {" "}{sectionLabel}
-                  </em>
-                )}
+                {mobileSectionLabel ? (
+                  <span className="ml-1 text-[0.84em] leading-none tracking-[-0.05em] text-white">
+                    {" "}{mobileSectionLabel}
+                  </span>
+                ) : null}
               </span>
             </Link>
             {(navBreadcrumb ?? sectionLabel) && (
@@ -517,6 +518,17 @@ export default function AppTopBar({
           </div>
 
           <div className="relative flex items-center gap-2">
+            <button
+              type="button"
+              onClick={() => {
+                setAccountMenuOpen(false)
+                setMobileGlobalSearchOpen(true)
+              }}
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white/80 hover:text-white lg:hidden"
+              aria-label="Open global search"
+            >
+              <Search size={20} />
+            </button>
             {/* Comms toggle — only shown on desktop when comms panel is open (teal active state).
                 When closed, DesktopCommsFAB floating button handles opening it. */}
             {commsRailOpen && (
@@ -600,96 +612,7 @@ export default function AppTopBar({
           </div>
         ) : null}
       </header>
-
-      <div className="relative bg-black px-3 py-3 lg:hidden">
-        <label className="flex min-w-0 items-center gap-3 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-4 py-2.5">
-          <Search size={15} className="shrink-0 text-[#888888]" />
-          <input
-            value={query}
-            onChange={(event) => {
-              setQuery(event.target.value)
-              setSearchOpen(true)
-            }}
-            onFocus={() => setSearchOpen(true)}
-            onKeyDown={(event) => {
-              if (!activeItems.length) return
-              if (event.key === "ArrowDown") {
-                event.preventDefault()
-                setHighlightedIndex((current) => (current + 1) % activeItems.length)
-              } else if (event.key === "ArrowUp") {
-                event.preventDefault()
-                setHighlightedIndex((current) => (current - 1 + activeItems.length) % activeItems.length)
-              } else if (event.key === "Enter") {
-                event.preventDefault()
-                const target = activeItems[highlightedIndex] ?? activeItems[0]
-                if (target) handleSelect(target)
-              }
-            }}
-            placeholder="Search anywhere..."
-            className="min-w-0 flex-1 bg-transparent text-[14px] text-[#e0e0e0] outline-none placeholder:text-[#555555]"
-          />
-        </label>
-
-        {searchOpen && query.trim() ? (
-          <div className="absolute inset-x-3 top-[calc(100%+6px)] z-50 overflow-hidden rounded-[16px] border border-[#2d2d2d] bg-[#111111] shadow-[0_18px_40px_rgba(0,0,0,0.5)]">
-            {results.length > 0 ? (
-              <div className="max-h-[min(60vh,28rem)] overflow-y-auto py-2">
-                {results.map((item, index) => (
-                  <button
-                    key={item.id}
-                    type="button"
-                    onClick={() => handleSelect(item)}
-                    className={`flex w-full items-start justify-between gap-3 px-4 py-3 text-left ${index === highlightedIndex ? "bg-[#1c1c1c]" : "hover:bg-[#1c1c1c]"}`}
-                  >
-                    <span className="min-w-0">
-                      <span className="block truncate text-[14px] text-[#e0e0e0]">{item.title}</span>
-                      <span className="mt-0.5 block truncate text-[12px] text-[#888888]">{item.subtitle}</span>
-                    </span>
-                    <span className="shrink-0 rounded-full bg-[#1c1c1c] px-2 py-1 text-[11px] text-[#0096C7]">
-                      {item.kind === "page" ? "Page" : item.kind === "library" ? "Library" : "Guide"}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            ) : (
-              <div className="px-4 py-4 text-[13px] text-[#888888]">
-                No matches for "{query}".
-              </div>
-            )}
-          </div>
-        ) : searchOpen && !query.trim() && recentSearches.length > 0 ? (
-          <div className="absolute inset-x-3 top-[calc(100%+6px)] z-50 overflow-hidden rounded-[16px] border border-[#2d2d2d] bg-[#111111] shadow-[0_18px_40px_rgba(0,0,0,0.5)]">
-            <div className="flex items-center justify-between border-b border-[#2d2d2d] px-4 py-2">
-              <span className="text-[11px] font-medium uppercase tracking-wide text-[#555555]">Recent</span>
-              <button type="button" onClick={clearRecents} className="text-[11px] text-[#888888] hover:text-[#0096C7]">
-                Clear all
-              </button>
-            </div>
-            <div className="max-h-[min(60vh,28rem)] overflow-y-auto py-2">
-              {recentSearches.map((item, index) => (
-                <div
-                  key={item.id}
-                  onClick={() => handleSelect(item)}
-                  className={`flex cursor-pointer items-center gap-3 px-4 py-2.5 ${index === highlightedIndex ? "bg-[#1c1c1c]" : "hover:bg-[#1a1a1a]"}`}
-                >
-                  <Clock size={14} className="shrink-0 text-[#555555]" />
-                  <span className="min-w-0 flex-1">
-                    <span className="block truncate text-[14px] text-[#e0e0e0]">{item.title}</span>
-                    <span className="mt-0.5 block truncate text-[12px] text-[#888888]">{item.subtitle}</span>
-                  </span>
-                  <button
-                    type="button"
-                    onClick={(e) => { e.stopPropagation(); removeRecent(item.id) }}
-                    className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full text-[#555555] hover:bg-[#2d2d2d] hover:text-[#888888]"
-                  >
-                    <X size={11} />
-                  </button>
-                </div>
-              ))}
-            </div>
-          </div>
-        ) : null}
-      </div>
+      <MobileGlobalSearchOverlay open={mobileGlobalSearchOpen} onClose={() => setMobileGlobalSearchOpen(false)} />
     </div>
   )
 }

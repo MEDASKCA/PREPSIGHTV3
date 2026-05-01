@@ -20,6 +20,7 @@ import {
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage"
 import { signOut, type User } from "firebase/auth"
 import { auth, db, storage } from "@/lib/firebase"
+import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
 import { clearCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
 import type {
   CommsOrg,
@@ -41,6 +42,7 @@ import {
   Mic,
   MicOff,
   MoreVertical,
+  Pause,
   Paperclip,
   Phone,
   PhoneIncoming,
@@ -49,6 +51,7 @@ import {
   PhoneOutgoing,
   Pin,
   Plus,
+  Play,
   Reply,
   Search,
   Send,
@@ -63,12 +66,13 @@ import {
   Maximize2,
   Minimize2,
   PanelRight,
+  Square,
   X,
 } from "lucide-react"
 
-// ─── Emoji data ────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Emoji data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-const QUICK_REACT = ["👍","❤️","😂","😮","😢","🙏","🔥","✅"]
+const QUICK_REACT = ["ðŸ‘","â¤ï¸","ðŸ˜‚","ðŸ˜®","ðŸ˜¢","ðŸ™","ðŸ”¥","âœ…"]
 const DEFAULT_THEATRE_GROUPS = [
   "Trauma and Orthopaedics",
   "General Surgery",
@@ -105,17 +109,17 @@ type TomWatchTask = {
 }
 
 const EMOJI_CATS: { icon: string; emojis: string[] }[] = [
-  { icon: "😀", emojis: ["😀","😃","😄","😁","😆","😅","🤣","😂","🙂","🙃","😉","😊","😇","🥰","😍","🤩","😘","😚","😙","😋","😛","😜","🤪","😝","🤑","🤗","🤭","🤫","🤔","🤐","🤨","😐","😶","😏","😒","🙄","😬","🤥","😌","😔","😪","🤤","😴","😷","🤒","🤕","🤢","🤧","🥵","🥶","🥴","😵","🤯","🤠","🥳","🥸","😎","🤓","😕","😟","🙁","☹️","😮","😲","😳","🥺","😦","😧","😨","😰","😥","😢","😭","😱","😖","😣","😞","😓","😩","😫","🥱","😤","😡","😠","🤬","😈","👿","💀","💩","🤡","👹","👺","👻","👽","🤖"] },
-  { icon: "👍", emojis: ["👍","👎","👋","🤚","🖐️","✋","🖖","👌","🤌","🤏","✌️","🤞","🤟","🤘","🤙","👈","👉","👆","👇","☝️","✊","👊","🤛","🤜","👏","🙌","👐","🤲","🤝","🙏","✍️","💅","💪","🦾","👀","👅","👄","💋","🫂"] },
-  { icon: "❤️", emojis: ["❤️","🧡","💛","💚","💙","💜","🖤","🤍","🤎","💔","❣️","💕","💞","💓","💗","💖","💘","💝","💟","🫶","💏","💑","🥂","🎉","🎊","🎈","🎁","🎀","🎗️","🏆","🥇","🥈","🥉","🎖️","🏅"] },
-  { icon: "🐶", emojis: ["🐶","🐱","🐭","🐹","🐰","🦊","🐻","🐼","🐨","🐯","🦁","🐮","🐷","🐸","🐵","🙈","🙉","🙊","🐒","🐔","🐧","🐦","🦆","🦅","🦉","🦇","🐺","🐴","🦄","🐝","🦋","🐌","🐞","🐜","🐢","🐍","🦎","🦕","🦖","🐙","🐡","🐠","🐟","🐬","🐳","🦈","🐊","🐘","🦛","🦏","🦒","🐎","🐕","🐈","🐓","🦚","🦜","🐇","🦝","🦔"] },
-  { icon: "🍕", emojis: ["🍎","🍊","🍋","🍇","🍓","🫐","🍒","🍑","🥭","🍍","🥥","🥝","🍅","🍆","🥑","🥦","🌽","🥕","🧄","🥔","🍳","🥚","🧀","🥩","🍗","🍖","🌭","🍔","🍟","🍕","🌮","🌯","🥗","🍝","🍜","🍲","🍛","🍣","🥟","🍤","🍙","🍚","🍘","🍥","🍰","🎂","🍮","🍭","🍬","🍫","🍿","🍩","🍪","🍯","🧃","🥤","🧋","🍵","☕","🍺","🥂","🍷","🍸","🍹","🍾","🥃"] },
-  { icon: "⚽", emojis: ["⚽","🏀","🏈","⚾","🥎","🎾","🏐","🏉","🥏","🎱","🏓","🏸","🥊","🥋","🎽","🛹","⛸️","🥅","⛳","🎯","🎮","🎲","♟️","🎭","🎨","🎬","🎤","🎧","🎼","🎹","🥁","🎷","🎺","🎸","🎻","🎙️","📻","🎚️","🎛️"] },
-  { icon: "🚗", emojis: ["🚗","🚕","🚙","🚌","🏎️","🚓","🚑","🚒","🚐","🛻","🚚","🚛","🚜","🏍️","🛵","🚲","✈️","🛫","🛬","🪂","💺","🚁","🛸","🚀","🛶","⛵","🚤","🛥️","🚢","⚓","🗺️","🧭","🏔️","⛰️","🌋","🏕️","🏖️","🏜️","🏝️","🏞️","🏟️","🏛️","🏗️","🏠","🏡","🏢","🏥","🏦","🏨","🏪","🏫","🏬","🏭","🏯","🏰","💒","🗼","🗽","⛪","🕌","🕍","🕋"] },
-  { icon: "💡", emojis: ["💡","🔦","🕯️","🪔","💰","💴","💵","💶","💷","💸","💳","🪙","💹","📈","📉","📊","📋","📌","📍","📎","🖇️","📏","📐","✂️","🗃️","🗄️","🗑️","🔒","🔓","🔑","🗝️","🔨","🪓","⛏️","⚒️","🛠️","🔧","🪛","🔩","⚙️","🗜️","⚖️","🔗","⛓️","🪝","🧲","🪜","🧰","💊","🩺","🩹","🩻","💉","🩸","🧬","🔬","🔭","📡","🧫","🧪"] },
+  { icon: "ðŸ˜€", emojis: ["ðŸ˜€","ðŸ˜ƒ","ðŸ˜„","ðŸ˜","ðŸ˜†","ðŸ˜…","ðŸ¤£","ðŸ˜‚","ðŸ™‚","ðŸ™ƒ","ðŸ˜‰","ðŸ˜Š","ðŸ˜‡","ðŸ¥°","ðŸ˜","ðŸ¤©","ðŸ˜˜","ðŸ˜š","ðŸ˜™","ðŸ˜‹","ðŸ˜›","ðŸ˜œ","ðŸ¤ª","ðŸ˜","ðŸ¤‘","ðŸ¤—","ðŸ¤­","ðŸ¤«","ðŸ¤”","ðŸ¤","ðŸ¤¨","ðŸ˜","ðŸ˜¶","ðŸ˜","ðŸ˜’","ðŸ™„","ðŸ˜¬","ðŸ¤¥","ðŸ˜Œ","ðŸ˜”","ðŸ˜ª","ðŸ¤¤","ðŸ˜´","ðŸ˜·","ðŸ¤’","ðŸ¤•","ðŸ¤¢","ðŸ¤§","ðŸ¥µ","ðŸ¥¶","ðŸ¥´","ðŸ˜µ","ðŸ¤¯","ðŸ¤ ","ðŸ¥³","ðŸ¥¸","ðŸ˜Ž","ðŸ¤“","ðŸ˜•","ðŸ˜Ÿ","ðŸ™","â˜¹ï¸","ðŸ˜®","ðŸ˜²","ðŸ˜³","ðŸ¥º","ðŸ˜¦","ðŸ˜§","ðŸ˜¨","ðŸ˜°","ðŸ˜¥","ðŸ˜¢","ðŸ˜­","ðŸ˜±","ðŸ˜–","ðŸ˜£","ðŸ˜ž","ðŸ˜“","ðŸ˜©","ðŸ˜«","ðŸ¥±","ðŸ˜¤","ðŸ˜¡","ðŸ˜ ","ðŸ¤¬","ðŸ˜ˆ","ðŸ‘¿","ðŸ’€","ðŸ’©","ðŸ¤¡","ðŸ‘¹","ðŸ‘º","ðŸ‘»","ðŸ‘½","ðŸ¤–"] },
+  { icon: "ðŸ‘", emojis: ["ðŸ‘","ðŸ‘Ž","ðŸ‘‹","ðŸ¤š","ðŸ–ï¸","âœ‹","ðŸ––","ðŸ‘Œ","ðŸ¤Œ","ðŸ¤","âœŒï¸","ðŸ¤ž","ðŸ¤Ÿ","ðŸ¤˜","ðŸ¤™","ðŸ‘ˆ","ðŸ‘‰","ðŸ‘†","ðŸ‘‡","â˜ï¸","âœŠ","ðŸ‘Š","ðŸ¤›","ðŸ¤œ","ðŸ‘","ðŸ™Œ","ðŸ‘","ðŸ¤²","ðŸ¤","ðŸ™","âœï¸","ðŸ’…","ðŸ’ª","ðŸ¦¾","ðŸ‘€","ðŸ‘…","ðŸ‘„","ðŸ’‹","ðŸ«‚"] },
+  { icon: "â¤ï¸", emojis: ["â¤ï¸","ðŸ§¡","ðŸ’›","ðŸ’š","ðŸ’™","ðŸ’œ","ðŸ–¤","ðŸ¤","ðŸ¤Ž","ðŸ’”","â£ï¸","ðŸ’•","ðŸ’ž","ðŸ’“","ðŸ’—","ðŸ’–","ðŸ’˜","ðŸ’","ðŸ’Ÿ","ðŸ«¶","ðŸ’","ðŸ’‘","ðŸ¥‚","ðŸŽ‰","ðŸŽŠ","ðŸŽˆ","ðŸŽ","ðŸŽ€","ðŸŽ—ï¸","ðŸ†","ðŸ¥‡","ðŸ¥ˆ","ðŸ¥‰","ðŸŽ–ï¸","ðŸ…"] },
+  { icon: "ðŸ¶", emojis: ["ðŸ¶","ðŸ±","ðŸ­","ðŸ¹","ðŸ°","ðŸ¦Š","ðŸ»","ðŸ¼","ðŸ¨","ðŸ¯","ðŸ¦","ðŸ®","ðŸ·","ðŸ¸","ðŸµ","ðŸ™ˆ","ðŸ™‰","ðŸ™Š","ðŸ’","ðŸ”","ðŸ§","ðŸ¦","ðŸ¦†","ðŸ¦…","ðŸ¦‰","ðŸ¦‡","ðŸº","ðŸ´","ðŸ¦„","ðŸ","ðŸ¦‹","ðŸŒ","ðŸž","ðŸœ","ðŸ¢","ðŸ","ðŸ¦Ž","ðŸ¦•","ðŸ¦–","ðŸ™","ðŸ¡","ðŸ ","ðŸŸ","ðŸ¬","ðŸ³","ðŸ¦ˆ","ðŸŠ","ðŸ˜","ðŸ¦›","ðŸ¦","ðŸ¦’","ðŸŽ","ðŸ•","ðŸˆ","ðŸ“","ðŸ¦š","ðŸ¦œ","ðŸ‡","ðŸ¦","ðŸ¦”"] },
+  { icon: "ðŸ•", emojis: ["ðŸŽ","ðŸŠ","ðŸ‹","ðŸ‡","ðŸ“","ðŸ«","ðŸ’","ðŸ‘","ðŸ¥­","ðŸ","ðŸ¥¥","ðŸ¥","ðŸ…","ðŸ†","ðŸ¥‘","ðŸ¥¦","ðŸŒ½","ðŸ¥•","ðŸ§„","ðŸ¥”","ðŸ³","ðŸ¥š","ðŸ§€","ðŸ¥©","ðŸ—","ðŸ–","ðŸŒ­","ðŸ”","ðŸŸ","ðŸ•","ðŸŒ®","ðŸŒ¯","ðŸ¥—","ðŸ","ðŸœ","ðŸ²","ðŸ›","ðŸ£","ðŸ¥Ÿ","ðŸ¤","ðŸ™","ðŸš","ðŸ˜","ðŸ¥","ðŸ°","ðŸŽ‚","ðŸ®","ðŸ­","ðŸ¬","ðŸ«","ðŸ¿","ðŸ©","ðŸª","ðŸ¯","ðŸ§ƒ","ðŸ¥¤","ðŸ§‹","ðŸµ","â˜•","ðŸº","ðŸ¥‚","ðŸ·","ðŸ¸","ðŸ¹","ðŸ¾","ðŸ¥ƒ"] },
+  { icon: "âš½", emojis: ["âš½","ðŸ€","ðŸˆ","âš¾","ðŸ¥Ž","ðŸŽ¾","ðŸ","ðŸ‰","ðŸ¥","ðŸŽ±","ðŸ“","ðŸ¸","ðŸ¥Š","ðŸ¥‹","ðŸŽ½","ðŸ›¹","â›¸ï¸","ðŸ¥…","â›³","ðŸŽ¯","ðŸŽ®","ðŸŽ²","â™Ÿï¸","ðŸŽ­","ðŸŽ¨","ðŸŽ¬","ðŸŽ¤","ðŸŽ§","ðŸŽ¼","ðŸŽ¹","ðŸ¥","ðŸŽ·","ðŸŽº","ðŸŽ¸","ðŸŽ»","ðŸŽ™ï¸","ðŸ“»","ðŸŽšï¸","ðŸŽ›ï¸"] },
+  { icon: "ðŸš—", emojis: ["ðŸš—","ðŸš•","ðŸš™","ðŸšŒ","ðŸŽï¸","ðŸš“","ðŸš‘","ðŸš’","ðŸš","ðŸ›»","ðŸšš","ðŸš›","ðŸšœ","ðŸï¸","ðŸ›µ","ðŸš²","âœˆï¸","ðŸ›«","ðŸ›¬","ðŸª‚","ðŸ’º","ðŸš","ðŸ›¸","ðŸš€","ðŸ›¶","â›µ","ðŸš¤","ðŸ›¥ï¸","ðŸš¢","âš“","ðŸ—ºï¸","ðŸ§­","ðŸ”ï¸","â›°ï¸","ðŸŒ‹","ðŸ•ï¸","ðŸ–ï¸","ðŸœï¸","ðŸï¸","ðŸžï¸","ðŸŸï¸","ðŸ›ï¸","ðŸ—ï¸","ðŸ ","ðŸ¡","ðŸ¢","ðŸ¥","ðŸ¦","ðŸ¨","ðŸª","ðŸ«","ðŸ¬","ðŸ­","ðŸ¯","ðŸ°","ðŸ’’","ðŸ—¼","ðŸ—½","â›ª","ðŸ•Œ","ðŸ•","ðŸ•‹"] },
+  { icon: "ðŸ’¡", emojis: ["ðŸ’¡","ðŸ”¦","ðŸ•¯ï¸","ðŸª”","ðŸ’°","ðŸ’´","ðŸ’µ","ðŸ’¶","ðŸ’·","ðŸ’¸","ðŸ’³","ðŸª™","ðŸ’¹","ðŸ“ˆ","ðŸ“‰","ðŸ“Š","ðŸ“‹","ðŸ“Œ","ðŸ“","ðŸ“Ž","ðŸ–‡ï¸","ðŸ“","ðŸ“","âœ‚ï¸","ðŸ—ƒï¸","ðŸ—„ï¸","ðŸ—‘ï¸","ðŸ”’","ðŸ”“","ðŸ”‘","ðŸ—ï¸","ðŸ”¨","ðŸª“","â›ï¸","âš’ï¸","ðŸ› ï¸","ðŸ”§","ðŸª›","ðŸ”©","âš™ï¸","ðŸ—œï¸","âš–ï¸","ðŸ”—","â›“ï¸","ðŸª","ðŸ§²","ðŸªœ","ðŸ§°","ðŸ’Š","ðŸ©º","ðŸ©¹","ðŸ©»","ðŸ’‰","ðŸ©¸","ðŸ§¬","ðŸ”¬","ðŸ”­","ðŸ“¡","ðŸ§«","ðŸ§ª"] },
 ]
 
-// ─── Helpers ───────────────────────────────────────────────────────────────────
+// â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 const AVATAR_COLORS = [
   "from-sky-400 to-blue-500",
@@ -225,7 +229,7 @@ function formatTime(ts: number) {
 
 function isEmojiOnly(text: string): boolean {
   if (!text.trim()) return false
-  const remainder = text.replace(/\p{Extended_Pictographic}/gu, "").replace(/[\s‍️]/g, "")
+  const remainder = text.replace(/\p{Extended_Pictographic}/gu, "").replace(/[\sâ€ï¸]/g, "")
   return remainder.length === 0
 }
 
@@ -240,7 +244,7 @@ function segmentEmoji(text: string): string[] {
 }
 
 function emojiToNotoUrl(emoji: string): string {
-  // Skip variation selectors (FE0F, FE0E) — they don't appear in CDN paths
+  // Skip variation selectors (FE0F, FE0E) â€” they don't appear in CDN paths
   const SKIP = new Set([0xFE0F, 0xFE0E])
   const cps: string[] = []
   for (const char of emoji) {
@@ -256,6 +260,30 @@ function emojiToNotoUrl(emoji: string): string {
 function formatCallDuration(sec: number) {
   if (sec < 60) return `${sec}s`
   return `${Math.floor(sec / 60)}m ${sec % 60}s`
+}
+
+function formatRecordingDuration(sec: number) {
+  const minutes = Math.floor(sec / 60)
+  const seconds = sec % 60
+  return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+}
+
+const MAX_INLINE_VOICE_NOTE_BYTES = 450_000
+const MAX_INLINE_VOICE_NOTE_SECONDS = 45
+
+function blobToDataUrl(blob: Blob) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onloadend = () => {
+      if (typeof reader.result === "string") {
+        resolve(reader.result)
+        return
+      }
+      reject(new Error("Unable to prepare voice note."))
+    }
+    reader.onerror = () => reject(reader.error ?? new Error("Unable to prepare voice note."))
+    reader.readAsDataURL(blob)
+  })
 }
 
 function normalizeTomText(value: string) {
@@ -289,7 +317,102 @@ function TypingDots({ tone = "default" }: { tone?: "default" | "tom" }) {
   )
 }
 
-// ─── Call button helper ────────────────────────────────────────────────────────
+const VOICE_NOTE_WAVE = [6, 8, 19, 7, 6, 10, 6, 17, 8, 6, 10, 21, 7, 6, 18, 8, 6, 7, 15, 8, 6]
+
+function VoiceNoteAttachment({ url, isOwn }: { url: string; isOwn: boolean }) {
+  const audioRef = useRef<HTMLAudioElement>(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const [duration, setDuration] = useState(0)
+  const [currentTime, setCurrentTime] = useState(0)
+
+  useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    const syncDuration = () => setDuration(Number.isFinite(audio.duration) ? audio.duration : 0)
+    const syncTime = () => setCurrentTime(audio.currentTime)
+    const handlePlay = () => setIsPlaying(true)
+    const handlePause = () => setIsPlaying(false)
+    const handleEnded = () => {
+      setIsPlaying(false)
+      setCurrentTime(audio.duration || 0)
+    }
+
+    syncDuration()
+    syncTime()
+    audio.addEventListener("loadedmetadata", syncDuration)
+    audio.addEventListener("timeupdate", syncTime)
+    audio.addEventListener("play", handlePlay)
+    audio.addEventListener("pause", handlePause)
+    audio.addEventListener("ended", handleEnded)
+
+    return () => {
+      audio.removeEventListener("loadedmetadata", syncDuration)
+      audio.removeEventListener("timeupdate", syncTime)
+      audio.removeEventListener("play", handlePlay)
+      audio.removeEventListener("pause", handlePause)
+      audio.removeEventListener("ended", handleEnded)
+    }
+  }, [url])
+
+  const progress = duration > 0 ? Math.min(currentTime / duration, 1) : 0
+  const activeBars = Math.max(1, Math.round(progress * VOICE_NOTE_WAVE.length))
+
+  async function togglePlayback() {
+    const audio = audioRef.current
+    if (!audio) return
+    if (audio.paused) {
+      await audio.play()
+      return
+    }
+    audio.pause()
+  }
+
+  return (
+    <div className="flex w-[248px] max-w-full items-center gap-2 py-0.5">
+      <audio ref={audioRef} src={url} preload="metadata" className="hidden" />
+      <button
+        type="button"
+        onClick={() => void togglePlayback()}
+        className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#eef2f4] text-[#091116] shadow-[0_6px_12px_rgba(0,0,0,0.18)] transition-all duration-200 hover:scale-[1.03] hover:bg-white"
+        aria-label={isPlaying ? "Pause voice note" : "Play voice note"}
+      >
+        {isPlaying ? <Pause size={12} fill="currentColor" /> : <Play size={12} fill="currentColor" className="translate-x-[1px]" />}
+      </button>
+      <div className="min-w-0 flex-1">
+        {isPlaying ? (
+          <div className="flex h-3 items-center gap-[3px]">
+            {VOICE_NOTE_WAVE.map((height, index) => (
+              <span
+                key={index}
+                className={`block w-[3px] rounded-full transition-all duration-300 ${index < activeBars ? (isOwn ? "bg-[#52e1ff] shadow-[0_0_10px_rgba(82,225,255,0.3)]" : "bg-[#1fd4ff] shadow-[0_0_10px_rgba(31,212,255,0.22)]") : (isOwn ? "bg-[#315766]" : "bg-[#2b353b]")}`}
+                style={{
+                  height: Math.max(3, Math.round(height * 0.38)),
+                  animation: index < activeBars ? `voiceWavePulse 1.2s ease-in-out ${index * 0.05}s infinite` : undefined,
+                }}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="flex h-3 items-center">
+            <div className={`relative h-px w-full ${isOwn ? "bg-[#315766]" : "bg-[#41494f]"}`}>
+              <div className={`absolute left-0 top-0 h-px transition-[width] duration-200 ${isOwn ? "bg-[#52e1ff]" : "bg-[#b8c1c6]"}`} style={{ width: `${progress * 100}%` }} />
+              <span
+                className={`absolute top-1/2 h-1.5 w-1.5 -translate-y-1/2 rounded-full transition-[left] duration-200 ${isOwn ? "bg-[#52e1ff] shadow-[0_0_0_2px_rgba(82,225,255,0.12)]" : "bg-white shadow-[0_0_0_2px_rgba(255,255,255,0.06)]"}`}
+                style={{ left: `calc(${progress * 100}% - 3px)` }}
+              />
+            </div>
+          </div>
+        )}
+      </div>
+      <span className={`shrink-0 text-[10px] tabular-nums ${isOwn ? "text-[#bfe6ee]" : "text-[#8e9ca3]"}`}>
+        {formatRecordingDuration(Math.round(duration || currentTime))}
+      </span>
+    </div>
+  )
+}
+
+// â”€â”€â”€ Call button helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function CallButton({ icon, onClick, danger, active, "aria-label": ariaLabel }: {
   icon: React.ReactNode
@@ -315,7 +438,7 @@ function CallButton({ icon, onClick, danger, active, "aria-label": ariaLabel }: 
   )
 }
 
-// ─── Main component ────────────────────────────────────────────────────────────
+// â”€â”€â”€ Main component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 interface Props {
   user: User
@@ -334,7 +457,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const firestore = db!
   const firebaseAuth = auth!
   const firebaseStorage = storage!
-  // ── State ──
+  // â”€â”€ State â”€â”€
   const [threads, setThreads] = useState<CommsThread[]>([])
   const [messages, setMessages] = useState<CommsMessage[]>([])
   const [inboxMessages, setInboxMessages] = useState<CommsMessage[]>([])
@@ -353,10 +476,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [showContacts, setShowContacts] = useState(false)
   const [embeddedContactsBounds, setEmbeddedContactsBounds] = useState<{ top: number; left: number; height: number } | null>(null)
   const [showProfile, setShowProfile] = useState(false)
-  const [showCommsSearch, setShowCommsSearch] = useState(false)
+  const [showGlobalSearch, setShowGlobalSearch] = useState(false)
   const [showNewDM, setShowNewDM] = useState(false)
   const [filterTab, setFilterTab] = useState<"chats" | "pinned" | "groups">("chats")
-  const [searchQuery, setSearchQuery] = useState("")
+  const [isRecordingVoice, setIsRecordingVoice] = useState(false)
+  const [recordingElapsed, setRecordingElapsed] = useState(0)
+  const [recordedVoiceBlob, setRecordedVoiceBlob] = useState<Blob | null>(null)
+  const [recordedVoiceUrl, setRecordedVoiceUrl] = useState<string | null>(null)
+  const [isVoicePreviewPlaying, setIsVoicePreviewPlaying] = useState(false)
   const [permissionWarning, setPermissionWarning] = useState("")
   const [joinCodeThread, setJoinCodeThread] = useState<CommsThread | null>(null)
   const [joinCodeInput, setJoinCodeInput] = useState("")
@@ -384,7 +511,31 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }, [embedded, showContacts])
 
-  // ── Call state ──
+  useEffect(() => {
+    return () => {
+      stopVoiceTimer()
+      if (voiceRecorderRef.current && voiceRecorderRef.current.state !== "inactive") {
+        voiceRecorderRef.current.stream.getTracks().forEach((track) => track.stop())
+        voiceRecorderRef.current.stop()
+      }
+      if (recordedVoiceUrl) URL.revokeObjectURL(recordedVoiceUrl)
+    }
+  }, [recordedVoiceUrl])
+
+  useEffect(() => {
+    const audio = voicePreviewRef.current
+    if (!audio) return
+
+    const handleEnded = () => {
+      setIsVoicePreviewPlaying(false)
+      audio.currentTime = 0
+    }
+
+    audio.addEventListener("ended", handleEnded)
+    return () => audio.removeEventListener("ended", handleEnded)
+  }, [recordedVoiceUrl])
+
+  // â”€â”€ Call state â”€â”€
   const [callState, setCallState] = useState<"idle" | "outgoing" | "incoming" | "active">("idle")
   const [activeCall, setActiveCall] = useState<CommsCall | null>(null)
   const [callerInfo, setCallerInfo] = useState<CommsUser | null>(null)
@@ -415,8 +566,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [camFacingMode, setCamFacingMode] = useState<"user" | "environment">("user")
   const [tomTyping, setTomTyping] = useState(false)
   const [tomTasks, setTomTasks] = useState<TomWatchTask[]>([])
+  const voiceRecorderRef = useRef<MediaRecorder | null>(null)
+  const voiceChunksRef = useRef<Blob[]>([])
+  const voiceTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
+  const voicePreviewRef = useRef<HTMLAudioElement | null>(null)
 
-  // ── Refs ──
+  // â”€â”€ Refs â”€â”€
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const seededGroupNamesRef = useRef<Record<string, true>>({})
@@ -449,8 +604,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }, [tomTaskStorageKey, tomTasks])
 
-  // ── Clear stale calls on mount (page refresh leaves Firestore calls open) ──
-  // Uses single-field queries only — Firestore auto-indexes these, no composite index needed.
+  // â”€â”€ Clear stale calls on mount (page refresh leaves Firestore calls open) â”€â”€
+  // Uses single-field queries only â€” Firestore auto-indexes these, no composite index needed.
   useEffect(() => {
     async function clearStaleCalls() {
       try {
@@ -468,14 +623,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     clearStaleCalls()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Sync local video stream to ref once call UI mounts ──
+  // â”€â”€ Sync local video stream to ref once call UI mounts â”€â”€
   useEffect(() => {
     if (callState !== "idle" && localStreamRef.current && localVideoRef.current) {
       localVideoRef.current.srcObject = localStreamRef.current
     }
   }, [callState, callViewMode])
 
-  // ── Re-apply remote stream when video element mounts/unmounts (callState or view mode changes) ──
+  // â”€â”€ Re-apply remote stream when video element mounts/unmounts (callState or view mode changes) â”€â”€
   useEffect(() => {
     if (!remoteStreamRef.current) return
     if (remoteVideoRef.current) {
@@ -488,17 +643,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }, [callState, callViewMode])
 
-  // ── Auto-minimise to floating only when panel becomes invisible (not fullscreen — that's intentional) ──
+  // â”€â”€ Auto-minimise to floating only when panel becomes invisible (not fullscreen â€” that's intentional) â”€â”€
   useEffect(() => {
     if (!visible && callState !== "idle" && callViewMode === "panel") setCallViewMode("floating")
   }, [visible, callState, callViewMode])
 
-  // ── Reset floating position when entering floating mode ──
+  // â”€â”€ Reset floating position when entering floating mode â”€â”€
   useEffect(() => {
     if (callViewMode === "floating") setFloatingPos(null)
   }, [callViewMode])
 
-  // ── Register stable action callbacks in global store (mount only) ──
+  // â”€â”€ Register stable action callbacks in global store (mount only) â”€â”€
   useEffect(() => {
     publishCallStatus({
       end: () => callActionsRef.current.endCall(),
@@ -511,7 +666,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => clearCallStatus()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // ── Sync call state changes to global store ──
+  // â”€â”€ Sync call state changes to global store â”€â”€
   useEffect(() => {
     publishCallStatus({ state: callState, mediaMode: callMediaMode, muted: callMuted, minimized: callViewMode === "floating" })
   }, [callState, callMediaMode, callMuted, callViewMode])
@@ -528,7 +683,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     publishCallStatus({ calleeName: calleeInfo?.displayName ?? "", calleeUid: calleeInfo?.uid ?? "" })
   }, [calleeInfo])
 
-  // ── Vibrate on incoming call ──
+  // â”€â”€ Vibrate on incoming call â”€â”€
   useEffect(() => {
     if (callState !== "incoming" || !("vibrate" in navigator)) return
     // Ring pattern: 400ms on, 200ms off, repeat
@@ -536,7 +691,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => { clearInterval(interval); navigator.vibrate(0) }
   }, [callState])
 
-  // ── Call elapsed timer ──
+  // â”€â”€ Call elapsed timer â”€â”€
   useEffect(() => {
     if (callState !== "active") { setCallElapsed(0); return }
     const interval = setInterval(() => {
@@ -545,7 +700,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => clearInterval(interval)
   }, [callState])
 
-  // ── Presence heartbeat ──
+  // â”€â”€ Presence heartbeat â”€â”€
   useEffect(() => {
     async function setOnline() {
       try {
@@ -572,7 +727,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => { clearInterval(interval); window.removeEventListener("beforeunload", handleUnload) }
   }, [user.uid, org.id])
 
-  // ── Load members ──
+  // â”€â”€ Load members â”€â”€
   useEffect(() => {
     const q = query(collection(firestore, "comms_v5_memberships"), where("orgId", "==", org.id), where("status", "==", "active"))
     return onSnapshot(q, async snap => {
@@ -593,7 +748,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     })
   }, [org.id])
 
-  // ── Load presence ──
+  // â”€â”€ Load presence â”€â”€
   useEffect(() => {
     const q = query(collection(firestore, "comms_v5_presence"), where("organizationId", "==", org.id))
     return onSnapshot(q, snap => {
@@ -610,7 +765,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     })
   }, [org.id])
 
-  // ── Load threads ──
+  // â”€â”€ Load threads â”€â”€
   useEffect(() => {
     const q = query(
       collection(firestore, "comms_v5_threads"),
@@ -650,7 +805,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     })
   }, [org.id, user.uid])
 
-  // ── Load messages ──
+  // â”€â”€ Load messages â”€â”€
   useEffect(() => {
     if (!selectedThread) { setMessages([]); return }
     const q = query(
@@ -678,7 +833,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
 
-  // ── Incoming call listener ──
+  // â”€â”€ Incoming call listener â”€â”€
   useEffect(() => {
     const q = query(
       collection(firestore, "comms_v5_calls"),
@@ -711,7 +866,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     })
   }, [user.uid, org.id, callState])
 
-  // ── Thread helpers ──
+  // â”€â”€ Thread helpers â”€â”€
   function selectThread(thread: CommsThread) {
     if (isGroupLocked(thread)) {
       setJoinCodeThread(thread)
@@ -974,7 +1129,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (t.type === "channel" && ((t.name || "").trim().toLowerCase() === "general" || (t.description || "").trim().toLowerCase() === "general discussion")) {
       return false
     }
-    if (searchQuery && !getThreadName(t).toLowerCase().includes(searchQuery.toLowerCase())) return false
     return true
   })
 
@@ -1080,8 +1234,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }, [inputText, selectedThread?.id, org.id, user.uid])
 
-  // ── Send message ──
-  async function sendMessage(text?: string, attachments?: { name: string; url: string; type: "image" | "file"; size: number }[]) {
+  // â”€â”€ Send message â”€â”€
+  async function sendMessage(text?: string, attachments?: { name: string; url: string; type: "image" | "file" | "audio"; size: number }[]) {
     const content = text ?? inputText.trim()
     if (!content && !attachments?.length) return
     if (!selectedThread) return
@@ -1099,7 +1253,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (attachments?.length) msg.attachments = attachments
     await addDoc(collection(firestore, "comms_v5_messages"), msg)
     await updateDoc(doc(firestore, "comms_v5_threads", selectedThread.id), {
-      updatedAt: Date.now(), lastMessage: content || "📎 Attachment",
+      updatedAt: Date.now(), lastMessage: content || "ðŸ“Ž Attachment",
     })
     if (selectedThread.type === "direct" && selectedThread.memberUids.includes(TOM_UID)) {
       setTomTyping(true)
@@ -1127,7 +1281,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           setTomTasks(current => [...current, task])
           await sendTomMessage(
             selectedThread,
-            `Understood. I’ll text you when ${watchSubject} has finished.`,
+            `Understood. Iâ€™ll text you when ${watchSubject} has finished.`,
           )
           return
         }
@@ -1187,6 +1341,110 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     await sendMessage("", [{ name: file.name, url, type: isImage ? "image" : "file", size: file.size }])
   }
 
+  function clearRecordedVoice() {
+    if (voicePreviewRef.current) {
+      voicePreviewRef.current.pause()
+      voicePreviewRef.current.currentTime = 0
+    }
+    if (recordedVoiceUrl) URL.revokeObjectURL(recordedVoiceUrl)
+    setRecordedVoiceBlob(null)
+    setRecordedVoiceUrl(null)
+    setRecordingElapsed(0)
+    setIsVoicePreviewPlaying(false)
+  }
+
+  function stopVoiceTimer() {
+    if (voiceTimerRef.current) {
+      clearInterval(voiceTimerRef.current)
+      voiceTimerRef.current = null
+    }
+  }
+
+  async function startVoiceRecording() {
+    if (!selectedThread || isRecordingVoice || recordedVoiceBlob) return
+
+    try {
+      setPermissionWarning("")
+      const stream = await navigator.mediaDevices.getUserMedia({ audio: true })
+      const recorder = new MediaRecorder(stream)
+      voiceChunksRef.current = []
+      recorder.ondataavailable = (event) => {
+        if (event.data.size > 0) voiceChunksRef.current.push(event.data)
+      }
+      recorder.onstop = () => {
+        const blob = new Blob(voiceChunksRef.current, { type: recorder.mimeType || "audio/webm" })
+        stream.getTracks().forEach((track) => track.stop())
+        setRecordedVoiceBlob(blob)
+        setRecordedVoiceUrl(URL.createObjectURL(blob))
+        setIsRecordingVoice(false)
+        stopVoiceTimer()
+      }
+      recorder.start()
+      voiceRecorderRef.current = recorder
+      setIsRecordingVoice(true)
+      setRecordingElapsed(0)
+      stopVoiceTimer()
+      voiceTimerRef.current = setInterval(() => {
+        setRecordingElapsed((current) => current + 1)
+      }, 1000)
+    } catch {
+      setPermissionWarning("Microphone access is required to record a voice message.")
+    }
+  }
+
+  function stopVoiceRecording() {
+    if (!voiceRecorderRef.current || voiceRecorderRef.current.state === "inactive") return
+    voiceRecorderRef.current.stop()
+    voiceRecorderRef.current = null
+  }
+
+  function cancelVoiceRecording() {
+    if (voiceRecorderRef.current && voiceRecorderRef.current.state !== "inactive") {
+      voiceRecorderRef.current.onstop = () => {
+        voiceRecorderRef.current = null
+      }
+      voiceRecorderRef.current.stream.getTracks().forEach((track) => track.stop())
+      voiceRecorderRef.current.stop()
+    }
+    stopVoiceTimer()
+    setIsRecordingVoice(false)
+    clearRecordedVoice()
+  }
+
+  async function sendVoiceMessage() {
+    if (!selectedThread || !recordedVoiceBlob) return
+
+    if (recordingElapsed > MAX_INLINE_VOICE_NOTE_SECONDS || recordedVoiceBlob.size > MAX_INLINE_VOICE_NOTE_BYTES) {
+      setPermissionWarning("Voice notes are currently limited to short clips. Keep them under 45 seconds.")
+      return
+    }
+
+    const ext = recordedVoiceBlob.type.includes("mp4") ? "m4a" : "webm"
+    const filename = `voice-note-${Date.now()}.${ext}`
+    try {
+      const url = await blobToDataUrl(recordedVoiceBlob)
+      await sendMessage("", [{ name: filename, url, type: "audio", size: recordedVoiceBlob.size }])
+      setPermissionWarning("")
+      clearRecordedVoice()
+    } catch {
+      setPermissionWarning("Voice note could not be attached. Try a shorter recording.")
+    }
+  }
+
+  async function toggleVoicePreviewPlayback() {
+    const audio = voicePreviewRef.current
+    if (!audio || !recordedVoiceUrl) return
+
+    if (audio.paused) {
+      await audio.play()
+      setIsVoicePreviewPlaying(true)
+      return
+    }
+
+    audio.pause()
+    setIsVoicePreviewPlaying(false)
+  }
+
   async function forwardMessageToThread(thread: CommsThread, original: CommsMessage) {
     const forwardedText = original.text?.trim()
       ? `Forwarded from ${original.displayName}: ${original.text}`
@@ -1242,7 +1500,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setShowContacts(false); setShowNewDM(false)
   }
 
-  // ── WebRTC ──
+  // â”€â”€ WebRTC â”€â”€
   function createPC() {
     const pc = new RTCPeerConnection({
       iceServers: [
@@ -1494,7 +1752,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   async function postCallMessage(threadId: string, answered: boolean, duration: number, mode: "audio" | "video") {
-    const text = answered ? `📞 Voice call · ${formatCallDuration(duration)}` : "📞 Missed call"
+    const text = answered ? `ðŸ“ž Voice call Â· ${formatCallDuration(duration)}` : "ðŸ“ž Missed call"
     const thread = threads.find(t => t.id === threadId)
     if (!thread) return
     await addDoc(collection(firestore, "comms_v5_messages"), {
@@ -1602,9 +1860,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   const displayName = currentUserRecord?.displayName || user.displayName || user.email || "U"
 
-  // ─────────────────────────────────────────────────────────────────────────────
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   // RENDER
-  // ─────────────────────────────────────────────────────────────────────────────
+  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
   return (
     <div
@@ -1617,11 +1875,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           0%, 80%, 100% { transform: translateY(0); opacity: 0.35; }
           40% { transform: translateY(-2px); opacity: 1; }
         }
+        @keyframes voiceWavePulse {
+          0%, 100% { transform: scaleY(0.92); opacity: 0.82; }
+          50% { transform: scaleY(1.18); opacity: 1; }
+        }
       `}</style>
-      {/* Hidden audio for remote stream — video refs live in call UI only to avoid ref conflicts */}
+      {/* Hidden audio for remote stream â€” video refs live in call UI only to avoid ref conflicts */}
       <audio ref={remoteAudioRef} autoPlay playsInline className="hidden" />
 
-      {/* ── Header ── */}
+      {/* â”€â”€ Header â”€â”€ */}
       <div
         className={`px-5 pb-3 shrink-0 ${embedded ? "bg-black pt-3" : "bg-black"}`}
         style={embedded ? undefined : { paddingTop: "calc(env(safe-area-inset-top) + 14px)" }}
@@ -1663,11 +1925,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <button
               type="button"
               onClick={() => {
-                if (showCommsSearch) { setSearchQuery("") }
-                setShowCommsSearch(v => !v)
+                setShowGlobalSearch(true)
               }}
               aria-label="Toggle search"
-              className={showCommsSearch ? "text-white" : "text-white/70 hover:text-white"}
+              className={showGlobalSearch ? "text-white" : "text-white/70 hover:text-white"}
             >
               <Search size={20} />
             </button>
@@ -1689,24 +1950,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           {groupLabel ? <span>{groupLabel}</span> : null}
         </div>
 
-        {showCommsSearch && (
-          <div className="mt-3 flex items-center gap-3 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-4 py-2">
-            <Search size={14} className="shrink-0 text-[#888888]" />
-            <input
-              autoFocus
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-              placeholder="Search Comms"
-              className="flex-1 bg-transparent text-[15px] text-[#e0e0e0] placeholder-[#555555] outline-none"
-            />
-            {searchQuery ? (
-              <button onClick={() => setSearchQuery("")} className="text-[#888888]">
-                <X size={14} />
-              </button>
-            ) : null}
-          </div>
-        )}
-
         {permissionWarning ? (
           <div className="mb-4 rounded-2xl border border-[#0096C7]/30 bg-[#001a26] px-4 py-3 text-[13px] leading-5 text-[#e0e0e0]">
             {permissionWarning}
@@ -1714,7 +1957,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         ) : null}
       </div>
 
-      {/* ── Filter row ── */}
+      {/* â”€â”€ Filter row â”€â”€ */}
       <div className="border-b border-black bg-black px-4 py-2.5 flex items-center gap-3 shrink-0">
         <button onClick={() => setShowContacts(true)} className="shrink-0">
           <Image src="/contacts-icon.png" alt="Contacts" width={28} height={28} />
@@ -1736,7 +1979,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       </div>
 
-      {/* ── Thread list ── */}
+      {/* â”€â”€ Thread list â”€â”€ */}
       <div className="flex-1 overflow-y-auto bg-black">
         {visibleThreads.length === 0 && (
           <p className="mt-20 text-center text-sm text-[var(--mob-text-2,#888888)]">No conversations yet</p>
@@ -1803,19 +2046,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         })}
       </div>
 
-      {/* ── Bottom nav ── */}
+      {/* â”€â”€ Bottom nav â”€â”€ */}
 
-      {/* ═══════════════════ THREAD VIEW ═══════════════════ */}
-      {!selectedThread ? (
-        <button
-          type="button"
-          onClick={() => setShowNewDM(true)}
-          className="absolute bottom-[calc(env(safe-area-inset-bottom)+84px)] right-5 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-[#0096C7] text-white shadow-[0_14px_30px_rgba(0,150,199,0.34)] lg:hidden"
-          aria-label="New chat"
-        >
-          <Plus size={24} />
-        </button>
-      ) : null}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• THREAD VIEW â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      <MobileGlobalSearchOverlay open={showGlobalSearch} onClose={() => setShowGlobalSearch(false)} />
       {joinCodeThread ? (
         <div className="absolute inset-0 z-20 flex items-end justify-center bg-[rgba(19,66,83,0.28)] px-4 pb-[calc(env(safe-area-inset-bottom)+24px)] lg:items-center lg:pb-0">
           <div className="w-full max-w-sm rounded-[28px] border border-[#A7D9E8] bg-[#DDF3FA] p-5 shadow-[0_24px_60px_rgba(14,77,103,0.18)]">
@@ -1875,7 +2109,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
               {selectedThread.type === "direct" && (
                 <p className="text-sm text-[#888888]">
-                  {showTomTyping || otherIsTyping ? "typing…" : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
+                  {showTomTyping || otherIsTyping ? "typingâ€¦" : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
                 </p>
               )}
               {selectedThread.type === "channel" && selectedThread.description && (
@@ -1885,7 +2119,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex items-center gap-2">
               {selectedThread.type === "direct" && (
                 <>
-                  {/* Audio call button — red hang-up when audio call active, grey when video call active, blue otherwise */}
+                  {/* Audio call button â€” red hang-up when audio call active, grey when video call active, blue otherwise */}
                   <button
                     onClick={
                       callState === "active" && callMediaMode === "audio" ? () => void endCall()
@@ -1896,14 +2130,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
                       callState === "active" && callMediaMode === "audio"
                         ? "bg-[#ef4444]"
-                        : callState !== "idle"
-                        ? "cursor-not-allowed bg-white/10 opacity-40"
-                        : "bg-white/10 hover:bg-white/20"
+                      : callState !== "idle"
+                        ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
+                        : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
                     }`}
                   >
                     {callState === "active" && callMediaMode === "audio"
                       ? <PhoneOff size={17} className="text-white" />
-                      : <Phone size={17} className="text-white/70" />}
+                      : <Phone size={17} className="text-white" />}
                   </button>
                   <button
                     onClick={
@@ -1915,14 +2149,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
                       callState === "active" && callMediaMode === "video"
                         ? "bg-[#ef4444]"
-                        : callState !== "idle"
-                        ? "cursor-not-allowed bg-white/10 opacity-40"
-                        : "bg-white/10 hover:bg-white/20"
+                      : callState !== "idle"
+                        ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
+                        : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
                     }`}
                   >
                     {callState === "active" && callMediaMode === "video"
                       ? <PhoneOff size={17} className="text-white" />
-                      : <Video size={17} className="text-white/70" />}
+                      : <Video size={17} className="text-white" />}
                   </button>
                 </>
               )}
@@ -1947,7 +2181,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
               const emojiOnly = !msg.attachments?.length && !msg.deleted && isEmojiOnly(msg.text)
 
-              if (msg.type === "call" || (isSystem && msg.text?.startsWith("📞"))) {
+              if (msg.type === "call" || (isSystem && msg.text?.startsWith("ðŸ“ž"))) {
                 const answered = msg.callAnswered ?? msg.text?.includes("Voice call")
                 const isOutgoing = msg.uid === user.uid
                 const missed = !answered
@@ -1961,8 +2195,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <div className={`flex items-center gap-2 rounded-full border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 ${iconColor}`}>
                       <IconComp size={13} strokeWidth={2} className="shrink-0" />
                       <span className="text-[12px] font-medium text-[#e0e0e0]">{label}</span>
-                      <span className="text-[12px] text-[#555]">·</span>
-                      <span className="text-[12px] text-[#666]">{callTime}{durationStr ? ` · ${durationStr}` : ""}</span>
+                      <span className="text-[12px] text-[#555]">Â·</span>
+                      <span className="text-[12px] text-[#666]">{callTime}{durationStr ? ` Â· ${durationStr}` : ""}</span>
                     </div>
                   </div>
                 )
@@ -1995,7 +2229,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
                     {msg.replyTo && (
                       <div className={`text-sm text-[#888888] bg-[#1c1c1c] rounded-t-xl px-3 py-2 border-l-2 border-[#29b6d8] mb-0.5 max-w-full ${isOwn ? "rounded-bl-xl" : "rounded-br-xl"}`}>
-                        <span className="text-[#29b6d8]">{msg.replyTo.displayName}</span>: {msg.replyTo.text.slice(0, 60)}{msg.replyTo.text.length > 60 ? "…" : ""}
+                        <span className="text-[#29b6d8]">{msg.replyTo.displayName}</span>: {msg.replyTo.text.slice(0, 60)}{msg.replyTo.text.length > 60 ? "â€¦" : ""}
                       </div>
                     )}
 
@@ -2012,9 +2246,27 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         <button onClick={() => { setEditingMessage(null); setEditText("") }}><X size={18} className="text-gray-400" /></button>
                       </div>
                     ) : (
-                      <button
-                        type="button"
+                      <div
+                        role="button"
+                        tabIndex={0}
                         onClick={event => {
+                          const containerRect = appRef.current?.getBoundingClientRect()
+                          const bubbleRect = event.currentTarget.getBoundingClientRect()
+                          const boxWidth = 228
+                          const preferredLeft = isOwn
+                            ? bubbleRect.right - (containerRect?.left ?? 0) - boxWidth
+                            : bubbleRect.left - (containerRect?.left ?? 0)
+                          const maxLeft = ((containerRect?.width ?? 320) - boxWidth - 12)
+                          setActionBoxPosition({
+                            top: Math.max(16, bubbleRect.bottom - (containerRect?.top ?? 0) + 8),
+                            left: Math.max(12, Math.min(preferredLeft, maxLeft)),
+                          })
+                          setActionMessage(msg)
+                          setShowEmojiPicker(null)
+                        }}
+                        onKeyDown={event => {
+                          if (event.key !== "Enter" && event.key !== " ") return
+                          event.preventDefault()
                           const containerRect = appRef.current?.getBoundingClientRect()
                           const bubbleRect = event.currentTarget.getBoundingClientRect()
                           const boxWidth = 228
@@ -2040,6 +2292,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           <div key={ai} className="mb-2">
                             {att.type === "image" ? (
                               <img src={att.url} alt={att.name} className="rounded-xl max-w-full max-h-48 object-cover" />
+                            ) : att.type === "audio" ? (
+                              <VoiceNoteAttachment url={att.url} isOwn={isOwn} />
                             ) : (
                               <a href={att.url} target="_blank" rel="noopener noreferrer"
                                 className={`flex items-center gap-2 text-sm underline ${isOwn ? "text-white/80" : "text-[#29b6d8]"}`}>
@@ -2080,7 +2334,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           )
                         })() : msg.text}
                         {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white/50" : "text-white/50"}`}>(edited)</span>}
-                      </button>
+                      </div>
                     )}
 
                     {msg.reactions && Object.entries(msg.reactions).filter(([, uids]) => uids.length > 0).length > 0 && (
@@ -2117,7 +2371,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Emoji overlay — z-[25] sits above the z-20 action backdrop so category buttons are clickable */}
+          {/* Emoji overlay â€” z-[25] sits above the z-20 action backdrop so category buttons are clickable */}
           {(showEmojiPicker === "drawer" || showEmojiPicker === "input") && (
             <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col">
               <EmojiPicker
@@ -2169,25 +2423,106 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               </button>
               <input type="file" ref={fileInputRef} className="hidden"
                 onChange={e => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); e.target.value = "" }} />
-              <input
-                value={inputText}
-                onChange={e => setInputText(e.target.value)}
-                onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage() } }}
-                placeholder="Message…"
-                className="min-w-0 flex-1 bg-transparent text-[15px] text-[#e0e0e0] placeholder-[#555555] outline-none"
-              />
-              <button onClick={() => setShowEmojiPicker(showEmojiPicker === "input" ? null : "input")}
-                className="text-[#888888] text-lg shrink-0">😊</button>
-              <button onClick={() => sendMessage()} disabled={!inputText.trim()}
-                className="h-8 w-8 bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] disabled:opacity-40 rounded-full flex items-center justify-center shrink-0">
-                <Send size={13} className="text-white" />
-              </button>
+              {isRecordingVoice || recordedVoiceBlob ? (
+                <div className="flex min-w-0 flex-1 items-center gap-2">
+                  <button
+                    type="button"
+                    onClick={cancelVoiceRecording}
+                    className="shrink-0 px-1 text-[13px] text-[#777777] transition-colors hover:text-white"
+                  >
+                    cancel
+                  </button>
+                  <div className="flex min-w-0 flex-1 items-center gap-3 rounded-[18px] border border-[#26343a] bg-[#0f1315] px-3 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+                    {isRecordingVoice ? (
+                      <>
+                        <div className="flex min-w-0 flex-1 items-center gap-3">
+                          <span className="h-2 w-2 shrink-0 rounded-full bg-[#ef4444] animate-pulse" />
+                          <div className="min-w-0 flex-1">
+                            <p className="text-[12px] tracking-[0.08em] text-[#6fa8b6]">recording</p>
+                            <div className="mt-1 flex items-center gap-1.5">
+                              <span className="h-1.5 w-2.5 rounded-full bg-[#1e6376]/45" />
+                              <span className="h-2 w-3 rounded-full bg-[#2586a1]/65" />
+                              <span className="h-3 w-3.5 rounded-full bg-[#29b6d8]" />
+                              <span className="h-2 w-3 rounded-full bg-[#2586a1]/65" />
+                              <span className="h-1.5 w-2.5 rounded-full bg-[#1e6376]/45" />
+                            </div>
+                          </div>
+                        </div>
+                        <span className="shrink-0 font-mono text-[12px] text-[#d2d8db]">{formatRecordingDuration(recordingElapsed)}</span>
+                        <button
+                          type="button"
+                          onClick={stopVoiceRecording}
+                          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#304047] bg-[#151b1d] text-white transition-colors hover:border-[#3d5964] hover:bg-[#1b2326]"
+                          aria-label="Stop recording"
+                        >
+                          <Square size={11} fill="currentColor" />
+                        </button>
+                      </>
+                    ) : (
+                      <>
+                        <button
+                          type="button"
+                          onClick={() => void toggleVoicePreviewPlayback()}
+                          className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#304047] bg-[#151b1d] text-white transition-colors hover:border-[#3d5964] hover:bg-[#1b2326]"
+                          aria-label={isVoicePreviewPlaying ? "Pause voice note preview" : "Play voice note preview"}
+                        >
+                          {isVoicePreviewPlaying ? <Pause size={13} fill="currentColor" /> : <Play size={13} fill="currentColor" />}
+                        </button>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-[13px] text-[#f2f4f5]">voice note ready</p>
+                          <p className="mt-0.5 text-[12px] text-[#6fa8b6]">{formatRecordingDuration(recordingElapsed)}</p>
+                        </div>
+                        <audio ref={voicePreviewRef} src={recordedVoiceUrl ?? undefined} preload="metadata" className="hidden" />
+                      </>
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <input
+                  value={inputText}
+                  onChange={e => setInputText(e.target.value)}
+                  onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage() } }}
+                  placeholder="Message…"
+                  className="min-w-0 flex-1 bg-transparent text-[15px] text-[#e0e0e0] placeholder-[#555555] outline-none"
+                />
+              )}
+              {!isRecordingVoice && !recordedVoiceBlob ? (
+                <button onClick={() => setShowEmojiPicker(showEmojiPicker === "input" ? null : "input")}
+                  className="text-[#888888] shrink-0">
+                  <Smile size={17} />
+                </button>
+              ) : null}
+              {recordedVoiceBlob ? (
+                <button
+                  type="button"
+                  onClick={() => void sendVoiceMessage()}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)]"
+                  aria-label="Send voice message"
+                >
+                  <Send size={13} className="text-white" />
+                </button>
+              ) : inputText.trim() ? (
+                <button onClick={() => sendMessage()} disabled={!inputText.trim()}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] disabled:opacity-40">
+                  <Send size={13} className="text-white" />
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={() => void startVoiceRecording()}
+                  disabled={isRecordingVoice}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] disabled:opacity-40"
+                  aria-label="Record voice message"
+                >
+                  <Mic size={13} className="text-white" />
+                </button>
+              )}
             </div>
           </div>
         </div>
       )}
 
-      {/* ═══════════════════ MESSAGE ACTION OVERLAY (tap-hold bubble) ═══════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• MESSAGE ACTION OVERLAY (tap-hold bubble) â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       {actionMessage && (
         <div className="absolute inset-0 z-20">
           <div className="absolute inset-0" onClick={() => { setActionMessage(null); setActionBoxPosition(null); setShowEmojiPicker(null) }} />
@@ -2466,7 +2801,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </>
       ) : null}
 
-      {/* ═══════════════════ NEW DM OVERLAY ═══════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• NEW DM OVERLAY â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       {showNewDM && (
         <div className="absolute inset-0 bg-[#0d1b2a] z-20 flex flex-col">
           <div
@@ -2498,9 +2833,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       )}
 
-      {/* ═══════════════════ NEW CHANNEL MODAL ═══════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• NEW CHANNEL MODAL â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
 
-      {/* ═══════════════════ PROFILE DRAWER ═══════════════════ */}
+      {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• PROFILE DRAWER â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       {showProfile && (
         <div className="absolute inset-0 z-30">
           <div className="absolute inset-0 bg-black/50" onClick={() => setShowProfile(false)} />
@@ -2583,7 +2918,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       )}
 
-      {/* ═══ CALL OVERLAY — panel or fullscreen ═══ */}
+      {/* â•â•â• CALL OVERLAY â€” panel or fullscreen â•â•â• */}
       {callState !== "idle" && callViewMode !== "floating" && (
         <div
           className={`z-[200] flex flex-col bg-[#0c0c0c] pointer-events-auto ${callViewMode === "fullscreen" ? "fixed inset-0" : "absolute inset-0"}`}
@@ -2606,10 +2941,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             </div>
           )}
 
-          {/* Top bar — single size toggle + panel switcher (desktop) + timer */}
+          {/* Top bar â€” single size toggle + panel switcher (desktop) + timer */}
           <div className="relative z-20 flex items-center justify-between px-4 pt-4">
             <div className="flex items-center gap-2">
-              {/* Minimise to floating — expand again by tapping the floating window */}
+              {/* Minimise to floating â€” expand again by tapping the floating window */}
               <button
                 onClick={() => setCallViewMode("floating")}
                 className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white/60 backdrop-blur-sm transition-colors hover:bg-black/60 hover:text-white"
@@ -2638,7 +2973,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="w-[72px]" />
           </div>
 
-          {/* Identity block — hidden during active video */}
+          {/* Identity block â€” hidden during active video */}
           <div className={`relative z-10 flex flex-1 flex-col items-center justify-center gap-4 px-6
             ${callState === "active" && callMediaMode === "video" && !tomVoiceMode ? "pointer-events-none opacity-0" : ""}`}
           >
@@ -2743,10 +3078,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       )}
 
-      {/* ═══ FLOATING WINDOW ═══ */}
+      {/* â•â•â• FLOATING WINDOW â•â•â• */}
       {callState !== "idle" && callViewMode === "floating" && (
         callState === "active" && callMediaMode === "video" && !tomVoiceMode ? (
-          /* Video PiP — draggable + resizable */
+          /* Video PiP â€” draggable + resizable */
           <div
             className="fixed z-[300] overflow-hidden rounded-2xl shadow-2xl border border-white/[0.08] pointer-events-auto select-none"
             style={{
@@ -2825,7 +3160,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <PhoneOff size={12} className="text-white" />
               </button>
             </div>
-            {/* Resize handle — bottom-right corner */}
+            {/* Resize handle â€” bottom-right corner */}
             <div
               data-resize="1"
               className="absolute bottom-0 right-0 z-30 h-5 w-5 cursor-se-resize"
@@ -2869,7 +3204,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             </div>
           </div>
         ) : (
-          /* Audio pill — draggable */
+          /* Audio pill â€” draggable */
           <div
             className="z-[300] flex items-center gap-3 rounded-2xl bg-[#181818] px-3 py-2.5 shadow-2xl border border-white/[0.08] pointer-events-auto select-none"
             style={{

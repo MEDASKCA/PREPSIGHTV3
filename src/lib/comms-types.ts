@@ -48,7 +48,7 @@ export interface CommsThread {
 export interface CommsAttachment {
   name: string
   url: string
-  type: "image" | "file"
+  type: "image" | "file" | "audio"
   size: number             // bytes
 }
 
