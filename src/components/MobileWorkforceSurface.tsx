@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic"
 import type { ReactNode } from "react"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import {
   ArrowRightLeft,
   CalendarClock,
@@ -167,42 +167,322 @@ const TASKS = [
 
 // ── Panels ─────────────────────────────────────────────────────────────────
 
+type AllocationFilterMode = "Area" | "Specialty" | "Consultant"
+
+type AllocationCard = {
+  theatre: string
+  area: string
+  specialty: string
+  consultant: string
+  consultantSurgeon: string
+  consultantAnaesthetist: string
+  sessionTime: string
+  staff: Array<{ name: string; role: string; shiftTime: string }>
+}
+
+const MOBILE_ALLOCATION_CARDS: AllocationCard[] = Array.from({ length: 12 }, (_, index) => {
+  const theatreNumber = index + 1
+  const area = theatreNumber % 3 === 0 ? "Day Surgery" : theatreNumber % 2 === 0 ? "DSU" : "Main Theatres"
+  const specialty =
+    theatreNumber % 5 === 0
+      ? "Neurosurgery"
+      : theatreNumber % 4 === 0
+        ? "General Surgery"
+        : theatreNumber % 3 === 0
+          ? "ENT"
+          : "Trauma and Orthopaedics"
+  const consultant =
+    specialty === "Neurosurgery"
+      ? "Ms Clarke"
+      : specialty === "General Surgery"
+        ? "Mr Shah"
+        : specialty === "ENT"
+          ? "Mr Patel"
+          : "Mr Walker"
+  const sessionTime =
+    theatreNumber % 4 === 0
+      ? "10:00 - 22:00"
+      : theatreNumber % 3 === 0
+        ? "09:00 - 21:00"
+        : theatreNumber % 2 === 0
+          ? "08:00 - 20:00"
+          : "07:30 - 19:30"
+
+  return {
+    theatre: `Theatre ${theatreNumber}`,
+    area,
+    specialty,
+    consultant,
+    consultantSurgeon: consultant,
+    consultantAnaesthetist:
+      specialty === "Neurosurgery"
+        ? "Dr Ahmed"
+        : specialty === "General Surgery"
+          ? "Dr Collins"
+          : specialty === "ENT"
+            ? "Dr Farah"
+            : "Dr Bennett",
+    sessionTime,
+    staff: [
+      {
+        name: theatreNumber === 1 ? "Skye and Cali" : `Staff ${theatreNumber}A`,
+        role: specialty === "Trauma and Orthopaedics" ? "Scrub Practitioner" : "Senior Scrub Nurse",
+        shiftTime: sessionTime,
+      },
+      {
+        name: `Staff ${theatreNumber}B`,
+        role: "Circulating Nurse",
+        shiftTime: theatreNumber % 2 === 0 ? "08:00 - 16:00" : "12:00 - 20:00",
+      },
+      {
+        name: `Staff ${theatreNumber}C`,
+        role: theatreNumber % 2 === 0 ? "Specialty Manager" : "Operating Department Practitioner",
+        shiftTime: theatreNumber % 5 === 0 ? "07:30 - 15:30" : "10:00 - 18:00",
+      },
+    ],
+  }
+})
+
+function startOfWeek(date: Date) {
+  const next = new Date(date)
+  const day = next.getDay()
+  const diff = day === 0 ? -6 : 1 - day
+  next.setDate(next.getDate() + diff)
+  next.setHours(0, 0, 0, 0)
+  return next
+}
+
+function addDays(date: Date, days: number) {
+  const next = new Date(date)
+  next.setDate(next.getDate() + days)
+  return next
+}
+
+function startOfMonth(date: Date) {
+  return new Date(date.getFullYear(), date.getMonth(), 1)
+}
+
+function endOfMonth(date: Date) {
+  return new Date(date.getFullYear(), date.getMonth() + 1, 0)
+}
+
+function endOfWeek(date: Date) {
+  return addDays(startOfWeek(date), 6)
+}
+
+function buildMonthCalendar(date: Date) {
+  const monthStart = startOfMonth(date)
+  const monthEnd = endOfMonth(date)
+  const gridStart = startOfWeek(monthStart)
+  const gridEnd = endOfWeek(monthEnd)
+  const days: Array<{ key: string; date: Date; day: string; inMonth: boolean }> = []
+
+  for (let cursor = new Date(gridStart); cursor <= gridEnd; cursor = addDays(cursor, 1)) {
+    days.push({
+      key: cursor.toISOString().slice(0, 10),
+      date: new Date(cursor),
+      day: cursor.toLocaleDateString("en-GB", { day: "2-digit" }),
+      inMonth: cursor.getMonth() === date.getMonth(),
+    })
+  }
+
+  return days
+}
+
+function matchesAllocationFilter(card: AllocationCard, filterMode: AllocationFilterMode, selectedFilter: string) {
+  if (selectedFilter === "All") return true
+  if (filterMode === "Area") return card.area === selectedFilter
+  if (filterMode === "Specialty") return card.specialty === selectedFilter
+  return card.consultant === selectedFilter
+}
+
+function MobileMonthCalendarBlock() {
+  const [selectedDate, setSelectedDate] = useState(() => new Date("2026-02-01T00:00:00"))
+  const [monthInput, setMonthInput] = useState("February 2026")
+  const monthDays = useMemo(() => buildMonthCalendar(selectedDate).filter((day) => day.inMonth), [selectedDate])
+  const selectedDateKey = selectedDate.toISOString().slice(0, 10)
+
+  function jumpToDate(nextDate: Date) {
+    setSelectedDate(nextDate)
+    setMonthInput(nextDate.toLocaleDateString("en-GB", { month: "long", year: "numeric" }))
+  }
+
+  function moveMonth(direction: -1 | 1) {
+    jumpToDate(new Date(selectedDate.getFullYear(), selectedDate.getMonth() + direction, 1))
+  }
+
+  function commitMonthInput() {
+    const parsed = new Date(`1 ${monthInput}`)
+    if (Number.isNaN(parsed.getTime())) {
+      setMonthInput(selectedDate.toLocaleDateString("en-GB", { month: "long", year: "numeric" }))
+      return
+    }
+    jumpToDate(parsed)
+  }
+
+  return (
+    <div className="border-b border-black px-4 py-3 -mx-4">
+      <div className="flex items-center justify-center gap-3">
+        <button type="button" onClick={() => moveMonth(-1)} className="text-[#67CFCF]">
+          <TriangleIcon direction="left" size={12} />
+        </button>
+        <input
+          value={monthInput}
+          onChange={(event) => setMonthInput(event.target.value)}
+          onBlur={commitMonthInput}
+          onKeyDown={(event) => {
+            if (event.key === "Enter") {
+              event.preventDefault()
+              commitMonthInput()
+            }
+          }}
+          aria-label="Edit month and year"
+          className="min-w-[150px] rounded-[10px] border border-white/10 bg-[#151515] px-3 py-1.5 text-center text-[14px] text-white outline-none"
+        />
+        <button type="button" onClick={() => moveMonth(1)} className="text-[#67CFCF]">
+          <TriangleIcon direction="right" size={12} />
+        </button>
+      </div>
+
+      <div className="mt-3 overflow-x-auto pb-1">
+        <div className="flex min-w-max items-start gap-2 px-1 py-1">
+          {monthDays.map((day) => {
+            const active = day.key === selectedDateKey
+            const weekdayLabel = day.date.toLocaleDateString("en-GB", { weekday: "short" })
+              .replace("Tue", "T")
+              .replace("Wed", "W")
+              .replace("Thu", "TH")
+              .replace("Mon", "M")
+              .replace("Fri", "F")
+              .replace("Sat", "Sa")
+              .replace("Sun", "Sun")
+            return (
+              <div key={day.key} className="flex w-[28px] shrink-0 flex-col items-center gap-1.5">
+                <span className="text-[10px] uppercase leading-none text-white">{weekdayLabel}</span>
+                <button
+                  type="button"
+                  onClick={() => jumpToDate(day.date)}
+                  className={`w-full rounded-[11px] px-0.5 py-2.5 text-center text-[13px] leading-none transition-all ${
+                    active
+                      ? "scale-[1.2] bg-[#0096C7] font-semibold text-white shadow-[0_10px_24px_rgba(0,150,199,0.38)]"
+                      : "bg-[#67CFCF] text-[#0F2D38]"
+                  }`}
+                >
+                  {day.day}
+                </button>
+              </div>
+            )
+          })}
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function RotaPanel() {
+  const [filterMode, setFilterMode] = useState<AllocationFilterMode>("Area")
+  const [selectedFilter, setSelectedFilter] = useState("All")
+  const [expandedCard, setExpandedCard] = useState<string | null>("Theatre 1")
+  const filterOptions = useMemo(() => {
+    const values =
+      filterMode === "Area"
+        ? Array.from(new Set(MOBILE_ALLOCATION_CARDS.map((card) => card.area)))
+        : filterMode === "Specialty"
+          ? Array.from(new Set(MOBILE_ALLOCATION_CARDS.map((card) => card.specialty)))
+          : Array.from(new Set(MOBILE_ALLOCATION_CARDS.map((card) => card.consultant)))
+    return ["All", ...values]
+  }, [filterMode])
+  const filteredCards = useMemo(
+    () => MOBILE_ALLOCATION_CARDS.filter((card) => matchesAllocationFilter(card, filterMode, selectedFilter)),
+    [filterMode, selectedFilter],
+  )
+
   return (
     <div>
-      {ROTA_ITEMS.map((item) => (
-        <div key={`${item.day}-${item.area}`} className="border-b border-[#1e1e1e] px-4 py-4">
-          <div className="flex flex-wrap items-center gap-2">
-            <h3 className="text-[16px] tracking-[-0.03em] text-[#e0e0e0]">{item.day}</h3>
-            <span className="text-[12px] text-[#888888]">{item.time}</span>
-          </div>
-          <p className="mt-2 text-[15px] text-[#e0e0e0]">{item.area}</p>
-          <p className="mt-1 text-[13px] text-[#888888]">{item.specialty}</p>
-          <p className="mt-2 text-[13px] text-[#888888]">{item.detail}</p>
-          <div className="mt-3 border-t border-[#1e1e1e] pt-3">
-            <p className="text-[12px] text-[#555555]">Allocation contact</p>
-            <p className="mt-1 text-[14px] text-[#e0e0e0]">{item.contact}</p>
-            <div className="mt-1 flex items-center gap-2 text-[12px] text-[#888888]">
-              <Phone size={13} className="text-[#0096C7]" />
-              {item.phone}
-            </div>
-          </div>
+      <MobileMonthCalendarBlock />
+
+      <div className="border-b border-black px-4 py-3 -mx-4">
+        <div className="flex items-center gap-2">
+          <h2 className="text-[19px] text-white">Team</h2>
+          <select
+            value={filterMode}
+            onChange={(event) => {
+              setFilterMode(event.target.value as AllocationFilterMode)
+              setSelectedFilter("All")
+            }}
+            className="w-[124px] shrink-0 rounded-[12px] border border-[#2d2d2d] bg-[#181818] px-3 py-2 text-[13px] text-white outline-none"
+          >
+            <option value="Area">Filter by: Area</option>
+            <option value="Specialty">Filter by: Specialty</option>
+            <option value="Consultant">Filter by: Consultant</option>
+          </select>
+          <select
+            value={selectedFilter}
+            onChange={(event) => setSelectedFilter(event.target.value)}
+            className="min-w-0 flex-1 rounded-[12px] border border-[#2d2d2d] bg-[#181818] px-3 py-2 text-[13px] text-white outline-none"
+          >
+            {filterOptions.map((filter) => (
+              <option key={filter} value={filter}>
+                {filterMode}: {filter}
+              </option>
+            ))}
+          </select>
         </div>
-      ))}
-      <div className="px-4 py-3">
-        <p className="mb-2 text-[11px] uppercase tracking-widest text-[#555555]">Rota actions</p>
-        {ROTA_ACTIONS.map((action) => {
-          const Icon = action.icon
-          return (
-            <button key={action.title} className="flex w-full items-center gap-3 border-b border-[#1e1e1e] py-3 text-left last:border-b-0">
-              <Icon size={16} className="shrink-0 text-[#0096C7]" />
-              <span>
-                <span className="block text-[14px] text-[#e0e0e0]">{action.title}</span>
-                <span className="mt-0.5 block text-[12px] text-[#888888]">{action.description}</span>
-              </span>
+      </div>
+
+      <div className="space-y-0 py-3 -mx-4">
+        {filteredCards.map((card) => (
+          <div key={card.theatre} className="overflow-hidden border-b border-black bg-black">
+            <button
+              type="button"
+              onClick={() => setExpandedCard((current) => (current === card.theatre ? null : card.theatre))}
+              className="flex w-full items-start justify-between gap-3 bg-[#0096C7] px-4 py-3 text-left"
+            >
+              <div className="min-w-0">
+                <p className="text-[15px] leading-[1.2] text-white">{card.theatre}</p>
+                <p className="mt-0.5 text-[12px] leading-[1.25] text-white">{card.specialty}</p>
+                <p className="mt-1 text-[11px] leading-[1.25] text-white">
+                  {card.area} · {card.consultant}
+                </p>
+              </div>
+              <div className="flex shrink-0 items-start gap-2">
+                <p className="pt-0.5 text-[11px] leading-none text-white">{card.sessionTime}</p>
+                <span className="pt-0.5 text-white">
+                  <TriangleIcon direction={expandedCard === card.theatre ? "up" : "down"} size={11} />
+                </span>
+              </div>
             </button>
-          )
-        })}
+
+            {expandedCard === card.theatre ? (
+              <div className="border-t border-black bg-[#111111] px-4 pb-3 pt-2.5">
+                <div className="space-y-0.5 text-[11px] leading-[1.25] text-[#c8c8c8]">
+                  <p>
+                    <span className="text-[#7f7f7f]">Consultant Surgeon</span>{" "}
+                    {card.consultantSurgeon}
+                  </p>
+                  <p>
+                    <span className="text-[#7f7f7f]">Consultant Anaesthetist</span>{" "}
+                    {card.consultantAnaesthetist}
+                  </p>
+                </div>
+
+                <div className="mt-2 space-y-1">
+                  {card.staff.map((member) => (
+                    <div key={`${card.theatre}-${member.name}`} className="rounded-[8px] bg-[#151515] px-2 py-1.5">
+                      <div className="flex items-start justify-between gap-3">
+                        <div className="min-w-0">
+                          <p className="text-[12px] leading-[1.2] text-white">{member.name}</p>
+                          <p className="mt-0.5 text-[11px] leading-[1.2] text-[#8f8f8f]">{member.role}</p>
+                        </div>
+                        <p className="shrink-0 pt-0.5 text-[10px] leading-none text-[#b7b7b7]">{member.shiftTime}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ) : null}
+          </div>
+        ))}
       </div>
     </div>
   )
@@ -359,24 +639,55 @@ function PlaceholderPanel({ title, body }: { title: string; body: string }) {
   )
 }
 
+function MobileResourcePlaceholderSurface({
+  resource,
+  title,
+  body,
+}: {
+  resource: "equipment" | "supplies"
+  title: string
+  body: string
+}) {
+  return (
+    <div className="pb-28">
+      <div className="border-y border-black bg-black">
+        <div className="border-b border-black px-4 py-3">
+          <div className="relative">
+            <select
+              value={resource}
+              disabled
+              className="w-full appearance-none rounded-[12px] border border-[#2d2d2d] bg-[#111111] px-3 py-2.5 pr-10 text-[13px] text-white outline-none"
+            >
+              <option value={resource}>{resource === "equipment" ? "Equipment" : "Supplies"}</option>
+            </select>
+            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#0096C7]">
+              <TriangleIcon direction="down" size={12} />
+            </span>
+          </div>
+        </div>
+
+        <MobileMonthCalendarBlock />
+      </div>
+
+      <PlaceholderPanel title={title} body={body} />
+    </div>
+  )
+}
+
 // ── Main export ────────────────────────────────────────────────────────────
 
 type ResourceTab = "workforce" | "equipment" | "supplies"
-type WorkforceTab = "rota" | "shifts" | "skills" | "tasks"
+type WorkforceTab = "allocation" | "shifts" | "skills" | "tasks"
 
 export default function MobileResourcesSurface({ embedded = false }: { embedded?: boolean } = {}) {
   const [resourceTab, setResourceTab] = useState<ResourceTab>("workforce")
-  const [activeTab, setActiveTab] = useState<WorkforceTab | null>(null)
+  const [activeTab, setActiveTab] = useState<WorkforceTab>("allocation")
   const [showSearch, setShowSearch] = useState(false)
   const [searchValue, setSearchValue] = useState("")
 
   const profile = getProfile()
   const hospitalLabel = profile?.hospital?.trim() || "Royal Free Hospital"
   const departmentLabel = (profile ? getRelevantSettings(profile) : [])[0] ?? "Operating Theatres"
-
-  function toggle(tab: WorkforceTab) {
-    setActiveTab((current) => (current === tab ? null : tab))
-  }
 
   function toggleSearch() {
     if (showSearch) setSearchValue("")
@@ -435,7 +746,7 @@ export default function MobileResourcesSurface({ embedded = false }: { embedded?
           <button
             key={tab}
             type="button"
-            onClick={() => { setResourceTab(tab); setActiveTab(null) }}
+            onClick={() => { setResourceTab(tab); setActiveTab("allocation") }}
             className={`shrink-0 rounded-full px-4 py-1.5 text-sm capitalize transition-colors ${
               resourceTab === tab
                 ? "bg-[#0096C7] text-white"
@@ -448,63 +759,57 @@ export default function MobileResourcesSurface({ embedded = false }: { embedded?
       </div>
 
       <div className="px-4 pt-1 pb-2">
-        <h1 className="text-[28px] font-semibold capitalize tracking-[-0.03em] text-white">
-          {resourceTab}
-        </h1>
+        {resourceTab === "workforce" ? (
+          <div className="flex items-center gap-3">
+            <h1 className="text-[28px] font-semibold capitalize tracking-[-0.03em] text-white">
+              {resourceTab}
+            </h1>
+            <div className="relative min-w-0 flex-1">
+              <select
+                value={activeTab}
+                onChange={(event) => setActiveTab(event.target.value as WorkforceTab)}
+                className="w-full appearance-none rounded-[12px] border border-[#2d2d2d] bg-[#111111] px-3 py-2.5 pr-10 text-[13px] text-white outline-none"
+              >
+                <option value="allocation">Allocation</option>
+                <option value="shifts">Shifts</option>
+                <option value="skills">Skills</option>
+                <option value="tasks">Tasks</option>
+              </select>
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#0096C7]">
+                <TriangleIcon direction="down" size={12} />
+              </span>
+            </div>
+          </div>
+        ) : (
+          <h1 className="text-[28px] font-semibold capitalize tracking-[-0.03em] text-white">
+            {resourceTab}
+          </h1>
+        )}
       </div>
 
       {resourceTab === "workforce" ? (
-        <div className="space-y-0.5 pb-28">
-          <MobileAccordionSection
-            label="Rota"
-            summary="Department allocation, assigned sessions, and rota actions."
-            open={activeTab === "rota"}
-            onToggle={() => toggle("rota")}
-          >
-            <RotaPanel />
-          </MobileAccordionSection>
-
-          <MobileAccordionSection
-            label="Shifts"
-            summary="Internal and external opportunities, maps, and live shift status."
-            open={activeTab === "shifts"}
-            onToggle={() => toggle("shifts")}
-          >
-            <ShiftsPanel />
-          </MobileAccordionSection>
-
-          <MobileAccordionSection
-            label="Skills"
-            summary="Current sign-off status, passport view, and eligibility."
-            open={activeTab === "skills"}
-            onToggle={() => toggle("skills")}
-          >
-            <SkillsPanel />
-          </MobileAccordionSection>
-
-          <MobileAccordionSection
-            label="Tasks"
-            summary="Short actions tied to my shift, role, and access needs."
-            open={activeTab === "tasks"}
-            onToggle={() => toggle("tasks")}
-          >
-            <TasksPanel />
-          </MobileAccordionSection>
+        <div className="pb-28">
+          <div className="border-y border-black bg-black">
+            <div className="min-w-0 bg-black">
+              {activeTab === "allocation" ? <RotaPanel /> : null}
+              {activeTab === "shifts" ? <ShiftsPanel /> : null}
+              {activeTab === "skills" ? <SkillsPanel /> : null}
+              {activeTab === "tasks" ? <TasksPanel /> : null}
+            </div>
+          </div>
         </div>
       ) : resourceTab === "equipment" ? (
-        <div className="pb-28">
-          <PlaceholderPanel
-            title="Equipment"
-            body="Equipment is being prepared. This page will become the place for kit readiness, tray availability, and item-level prompts that matter to the individual."
-          />
-        </div>
+        <MobileResourcePlaceholderSurface
+          resource="equipment"
+          title="Equipment"
+          body="Equipment is being prepared. This page will become the place for kit readiness, tray availability, and item-level prompts that matter to the individual."
+        />
       ) : (
-        <div className="pb-28">
-          <PlaceholderPanel
-            title="Supplies"
-            body="Supplies is being prepared. This page will become the place for stock prompts, consumable readiness, and what you need to know before or during a shift."
-          />
-        </div>
+        <MobileResourcePlaceholderSurface
+          resource="supplies"
+          title="Supplies"
+          body="Supplies is being prepared. This page will become the place for stock prompts, consumable readiness, and what you need to know before or during a shift."
+        />
       )}
     </div>
   )

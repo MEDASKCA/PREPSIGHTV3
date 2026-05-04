@@ -13,7 +13,7 @@ export default function EquipmentPage() {
     <WorkspaceDesktopShell currentNav="equipment">
       <div className="space-y-5 px-2 py-2 lg:px-4 lg:py-4">
         <section>
-          <h1 className="hidden text-[22px] font-medium tracking-[-0.03em] text-white lg:block">Equipment</h1>
+          <h1 className="hidden text-[21px] font-medium tracking-[-0.03em] text-white lg:block">Equipment</h1>
           <p className="mt-2 max-w-[760px] text-[15px] leading-7 text-[#9a9a9a]">
             Track room-critical devices without decorative panels or wasted white space.
           </p>

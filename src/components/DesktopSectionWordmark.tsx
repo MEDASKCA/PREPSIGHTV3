@@ -12,7 +12,7 @@ export default function DesktopSectionWordmark({
       {group ? (
         <>
           <span
-            className="shrink-0 text-[22px] text-[#67CFCF]"
+            className="shrink-0 text-[21px] text-[#67CFCF]"
             style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
           >
             {group}
@@ -21,7 +21,7 @@ export default function DesktopSectionWordmark({
         </>
       ) : null}
       <span
-        className="truncate text-[22px] text-[#67CFCF]"
+        className="truncate text-[21px] text-[#67CFCF]"
         style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
       >
         {label}

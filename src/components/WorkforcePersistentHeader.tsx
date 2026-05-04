@@ -95,7 +95,7 @@ export default function WorkforcePersistentHeader({
   return (
     <section className="shrink-0 space-y-3">
       <div className="space-y-4">
-        <h1 className="hidden text-[22px] font-medium tracking-[-0.03em] text-white lg:block">Workforce</h1>
+        <h1 className="hidden text-[21px] font-medium tracking-[-0.03em] text-white lg:block">Workforce</h1>
         <WorkforceSectionNav current={current} />
       </div>
 

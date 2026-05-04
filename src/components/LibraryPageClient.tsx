@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link"
-import { useMemo, useState, useSyncExternalStore, type ReactNode } from "react"
+import { useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from "react"
 import TriangleIcon from "@/components/TriangleIcon"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
@@ -381,7 +381,7 @@ function TreeGroupContent({
                 <button
                   type="button"
                   onClick={() => toggleBranch(branch.id)}
-                  className="flex w-full items-center justify-between gap-3 py-1 text-left font-normal"
+                  className={`flex w-full items-center gap-3 text-left font-normal ${compact ? "justify-between py-1" : "justify-between py-1"}`}
                 >
                   <div className="flex items-center gap-2">
                     <FolderBadge tone={folderTone} open={isBranchExpanded(branch.id)} size="md" />
@@ -389,10 +389,7 @@ function TreeGroupContent({
                       {branch.label}
                     </p>
                   </div>
-                  <span className="lg:hidden">
-                    <MobileTriangle open={isBranchExpanded(branch.id)} />
-                  </span>
-                  <TriangleIcon direction={isBranchExpanded(branch.id) ? "up" : "down"} size={10} className="hidden shrink-0 text-[#0096C7] lg:block" />
+                  {!compact ? <TriangleIcon direction={isBranchExpanded(branch.id) ? "up" : "down"} size={10} className="hidden shrink-0 text-[#0096C7] lg:block" /> : null}
                 </button>
 
                 {isBranchExpanded(branch.id) ? (
@@ -467,7 +464,7 @@ function TreeBranchContent({
               <button
               type="button"
               onClick={() => toggleBranch(child.id)}
-              className="flex w-full items-center justify-between gap-3 py-1 text-left font-normal"
+              className={`flex w-full items-center gap-3 text-left font-normal ${compact ? "justify-between py-1" : "justify-between py-1"}`}
             >
                 <div className="flex items-center gap-2">
                   <FolderBadge tone={folderTone} open={expanded} size="md" />
@@ -475,10 +472,7 @@ function TreeBranchContent({
                     {child.label}
                   </p>
                 </div>
-                <span className="lg:hidden">
-                  <MobileTriangle open={expanded} />
-                </span>
-                <TriangleIcon direction={expanded ? "up" : "down"} size={10} className="hidden shrink-0 text-[#0096C7] lg:block" />
+                {!compact ? <TriangleIcon direction={expanded ? "up" : "down"} size={10} className="hidden shrink-0 text-[#0096C7] lg:block" /> : null}
               </button>
 
               {expanded ? (
@@ -505,12 +499,77 @@ function TreeBranchContent({
   )
 }
 
+function TreeSelectedGroupContent({
+  group,
+  libraryId,
+  isBranchExpanded,
+  toggleBranch,
+  folderTone,
+}: {
+  group: TreeGroup
+  libraryId: string
+  isBranchExpanded: (branchId: string) => boolean
+  toggleBranch: (branchId: string) => void
+  folderTone: "global" | "local"
+}) {
+  const directRows = [
+    ...group.branches.map((branch) => ({ type: "branch" as const, branch })),
+    ...(group.cards.length > 0 ? [{ type: "cards" as const }] : []),
+  ]
+
+  return (
+    <div className="border-t border-[#1e1e1e] px-4 py-2">
+      <div className="ml-3">
+        {directRows.map((row, index) => {
+          const isLast = index === directRows.length - 1
+
+          if (row.type === "branch") {
+            const { branch } = row
+
+            return (
+              <div key={branch.id}>
+                <button
+                  type="button"
+                  onClick={() => toggleBranch(branch.id)}
+                  className="flex w-full items-center justify-between gap-3 py-1 text-left font-normal"
+                >
+                  <div className="flex items-center gap-2">
+                    <FolderBadge tone={folderTone} open={isBranchExpanded(branch.id)} size="md" />
+                    <p className="text-[14px] leading-5 font-normal text-[#e0e0e0]">
+                      {branch.label}
+                    </p>
+                  </div>
+                </button>
+
+                {isBranchExpanded(branch.id) ? (
+                  <TreeBranchContent
+                    branch={branch}
+                    libraryId={libraryId}
+                    isBranchExpanded={isBranchExpanded}
+                    toggleBranch={toggleBranch}
+                    folderTone={folderTone}
+                    compact
+                  />
+                ) : null}
+              </div>
+            )
+          }
+
+          return null
+        })}
+      </div>
+    </div>
+  )
+}
+
 export default function LibraryPageClient({
   libraryId,
   embedded = false,
+  hideEmbeddedHeader = false,
 }: {
   libraryId: string
   embedded?: boolean
+  hideEmbeddedHeader?: boolean
 }) {
   const libraries = useSyncExternalStore(
     subscribeLibraries,
@@ -540,6 +599,7 @@ export default function LibraryPageClient({
   const [mobileExpandedGroups, setMobileExpandedGroups] = useState<Record<string, boolean>>({})
   const [mobileExpandedBranches, setMobileExpandedBranches] = useState<Record<string, boolean>>({})
   const [mobileExpandedUpdates, setMobileExpandedUpdates] = useState<Record<string, boolean>>({})
+  const [selectedMobileGroupId, setSelectedMobileGroupId] = useState<string | null>(null)
   const displayName = library ? getLibraryDisplayName(library.name) : ""
   const ownerLabel = getLibraryOwnerLabel(library)
   const showOwnerName = Boolean(ownerLabel) && ownerLabel.trim().toLowerCase() !== "prepsight"
@@ -597,6 +657,13 @@ export default function LibraryPageClient({
   const updateEmptyMessage = library?.libraryType === "shared"
     ? "No community updates have been recorded for this collection yet."
     : "No My Team updates have been recorded for this collection yet."
+  const selectedMobileGroup = selectedMobileGroupId
+    ? tree.find((group) => group.id === selectedMobileGroupId) ?? null
+    : null
+
+  useEffect(() => {
+    setMobileExpandedBranches({})
+  }, [selectedMobileGroupId])
 
   function totalForBranch(branch: TreeBranch): number {
     return branch.cards.length + branch.branches.reduce((sum, child) => sum + totalForBranch(child), 0)
@@ -690,75 +757,104 @@ export default function LibraryPageClient({
   if (embedded) {
     return (
       <div className="space-y-0 pb-[calc(env(safe-area-inset-bottom,0px)+168px)]">
-        <section className="space-y-2 px-4 pt-3 pb-2">
-          <div>
-            {showOwnerName ? <p className="text-[13px] text-[#888888]">{ownerLabel}</p> : null}
-            <h1 className="mt-1 text-[26px] tracking-[-0.04em] text-white">{displayName}</h1>
-          </div>
+        <section className={`space-y-2 px-4 ${hideEmbeddedHeader ? "pt-0 pb-2" : "pt-3 pb-2"}`}>
+          {!hideEmbeddedHeader ? (
+            <div>
+              {showOwnerName ? <p className="text-[13px] text-[#888888]">{ownerLabel}</p> : null}
+              <h1 className="mt-1 text-[26px] tracking-[-0.04em] text-white">{displayName}</h1>
+            </div>
+          ) : null}
 
-          <nav className="flex items-center gap-6 overflow-x-auto border-b border-[#2d2d2d] text-[14px]">
-            <button
-              type="button"
-              onClick={() => setActiveTab("procedures")}
-              className={`border-b-2 pb-1 pt-3 transition-colors ${
-                activeTab === "procedures"
-                  ? "border-[#0096C7] font-semibold text-[#0096C7]"
-                  : "border-transparent text-[#888888] hover:text-[#e0e0e0]"
-              }`}
-            >
-              Procedures {cards.length}
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab("updates")}
-              className={`border-b-2 pb-1 pt-3 transition-colors ${
-                activeTab === "updates"
-                  ? "border-[#0096C7] font-semibold text-[#0096C7]"
-                  : "border-transparent text-[#888888] hover:text-[#e0e0e0]"
-              }`}
-            >
-              Updates {updates.length}
-            </button>
-          </nav>
+          {hideEmbeddedHeader ? null : (
+            <nav className="flex items-center gap-6 overflow-x-auto border-b border-[#2d2d2d] text-[14px]">
+              <button
+                type="button"
+                onClick={() => setActiveTab("procedures")}
+                className={`border-b-2 pb-1 pt-3 transition-colors ${
+                  activeTab === "procedures"
+                    ? "border-[#0096C7] font-semibold text-[#0096C7]"
+                    : "border-transparent text-[#888888] hover:text-[#e0e0e0]"
+                }`}
+              >
+                Procedures {cards.length}
+              </button>
+              <button
+                type="button"
+                onClick={() => setActiveTab("updates")}
+                className={`border-b-2 pb-1 pt-3 transition-colors ${
+                  activeTab === "updates"
+                    ? "border-[#0096C7] font-semibold text-[#0096C7]"
+                    : "border-transparent text-[#888888] hover:text-[#e0e0e0]"
+                }`}
+              >
+                Updates {updates.length}
+              </button>
+            </nav>
+          )}
         </section>
 
-        {activeTab === "procedures" ? (
+        {hideEmbeddedHeader || activeTab === "procedures" ? (
           <section className="space-y-0">
-            <div className="bg-black px-4 py-3 text-[14px] font-medium text-[#888888]">Specialty hierarchy</div>
             {tree.length === 0 ? (
-              <div className="px-4 py-5 text-[14px] text-[#888888]">{emptyProcedureMessage}</div>
+              <>
+                <div className="bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
+                  <span className="whitespace-nowrap">
+                    {selectedMobileGroup ? selectedMobileGroup.label : "Specialty hierarchy"} procedures {selectedMobileGroup ? totalForGroup(selectedMobileGroup) : cards.length}
+                  </span>
+                </div>
+                <div className="px-4 py-5 text-[14px] text-[#888888]">{emptyProcedureMessage}</div>
+              </>
             ) : (
-              <div className="border-y border-[#1e1e1e] bg-black">
-                {tree.map((group) => (
-                  <section key={group.id} className="border-b border-[#1e1e1e] last:border-b-0">
-                    <button
-                      type="button"
-                      onClick={() => toggleMobileGroup(group.id)}
-                      className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px_18px] items-center gap-x-2 bg-black px-3 py-2 text-left font-normal transition-colors hover:bg-[#111111]"
-                    >
-                      <div className="flex items-center justify-center">
-                        <FolderBadge tone={folderTone} open={isMobileGroupExpanded(group.id)} size="lg" />
-                      </div>
-                      <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#e0e0e0]">{group.label}</p>
-                      <span className="text-right text-[15px] font-normal text-[#888888]">{totalForGroup(group)}</span>
-                      <span className="flex justify-end text-[#555555]">
-                        <MobileTriangle open={isMobileGroupExpanded(group.id)} />
-                      </span>
-                    </button>
-
-                    {isMobileGroupExpanded(group.id) ? (
-                      <TreeGroupContent
-                        group={group}
-                        libraryId={library.id}
-                        isBranchExpanded={isMobileBranchExpanded}
-                        toggleBranch={toggleMobileBranch}
-                        folderTone={folderTone}
-                        compact
-                      />
-                    ) : null}
-                  </section>
-                ))}
-              </div>
+              selectedMobileGroup ? (
+                <div className="border-y border-[#1e1e1e] bg-black">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setSelectedMobileGroupId(null)
+                      setMobileExpandedBranches({})
+                    }}
+                    className="border-b border-[#1e1e1e] px-4 py-3 text-[13px] text-[#0096C7]"
+                  >
+                    Back to specialties
+                  </button>
+                  <div className="border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
+                    <span className="whitespace-nowrap">
+                      {selectedMobileGroup.label} procedures {totalForGroup(selectedMobileGroup)}
+                    </span>
+                  </div>
+                  <TreeSelectedGroupContent
+                    group={selectedMobileGroup}
+                    libraryId={library.id}
+                    isBranchExpanded={isMobileBranchExpanded}
+                    toggleBranch={toggleMobileBranch}
+                    folderTone={folderTone}
+                  />
+                </div>
+              ) : (
+                <div className="border-y border-[#1e1e1e] bg-black">
+                  <div className="border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
+                    <span className="whitespace-nowrap">Specialty hierarchy procedures {cards.length}</span>
+                  </div>
+                  {tree.map((group) => (
+                    <section key={group.id} className="border-b border-[#1e1e1e] last:border-b-0">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setSelectedMobileGroupId(group.id)
+                          setMobileExpandedBranches({})
+                        }}
+                        className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px] items-center gap-x-2 bg-black px-3 py-2 text-left font-normal transition-colors hover:bg-[#111111]"
+                      >
+                        <div className="flex items-center justify-center">
+                          <FolderBadge tone={folderTone} open size="lg" />
+                        </div>
+                        <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#e0e0e0]">{group.label}</p>
+                        <span className="text-right text-[15px] font-normal text-[#888888]">{totalForGroup(group)}</span>
+                      </button>
+                    </section>
+                  ))}
+                </div>
+              )
             )}
           </section>
         ) : (
@@ -881,16 +977,13 @@ export default function LibraryPageClient({
                       <button
                         type="button"
                         onClick={() => toggleMobileGroup(group.id)}
-                        className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px_18px] items-center gap-x-2 bg-[#EAF7FD] px-3 py-2 text-left font-normal text-[#10243E]"
+                        className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px] items-center gap-x-2 bg-[#EAF7FD] px-3 py-2 text-left font-normal text-[#10243E]"
                       >
                         <div className="flex items-center justify-center">
                           <FolderBadge tone={folderTone} open={isMobileGroupExpanded(group.id)} size="lg" />
                         </div>
                         <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#10243E]">{group.label}</p>
                         <span className="text-right text-[15px] font-normal text-[#10243E]">{totalForGroup(group)}</span>
-                        <span className="flex justify-end">
-                          <MobileTriangle open={isMobileGroupExpanded(group.id)} />
-                        </span>
                       </button>
 
                       {isMobileGroupExpanded(group.id) ? (
@@ -1072,5 +1165,3 @@ export default function LibraryPageClient({
     </div>
   )
 }
-
-
