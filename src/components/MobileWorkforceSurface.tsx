@@ -398,10 +398,12 @@ function RotaPanel() {
   )
 
   return (
-    <div>
-      <MobileMonthCalendarBlock />
+    <div className="flex h-full min-h-0 flex-col">
+      <div className="shrink-0">
+        <MobileMonthCalendarBlock />
+      </div>
 
-      <div className="border-b border-black px-4 py-3 -mx-4">
+      <div className="shrink-0 border-b border-black px-4 py-3 -mx-4">
         <div className="flex items-center gap-2">
           <h2 className="text-[19px] text-white">Team</h2>
           <select
@@ -430,7 +432,7 @@ function RotaPanel() {
         </div>
       </div>
 
-      <div className="space-y-0 py-3 -mx-4">
+      <div className="min-h-0 flex-1 overflow-y-auto py-3 -mx-4">
         {filteredCards.map((card) => (
           <div key={card.theatre} className="overflow-hidden border-b border-black bg-black">
             <button
@@ -695,7 +697,7 @@ export default function MobileResourcesSurface({ embedded = false }: { embedded?
   }
 
   return (
-    <div className={embedded ? "" : "min-h-[100dvh] bg-black"}>
+    <div className={`${embedded ? "h-full min-h-0" : "min-h-[100dvh] bg-black"}`}>
       {!embedded ? (
         <MobileSurfaceHeader
           title="Resources"
@@ -761,7 +763,7 @@ export default function MobileResourcesSurface({ embedded = false }: { embedded?
       <div className="px-4 pt-1 pb-2">
         {resourceTab === "workforce" ? (
           <div className="flex items-center gap-3">
-            <h1 className="text-[28px] font-semibold capitalize tracking-[-0.03em] text-white">
+            <h1 className="text-[24px] font-semibold capitalize tracking-[-0.03em] text-white">
               {resourceTab}
             </h1>
             <div className="relative min-w-0 flex-1">
@@ -781,16 +783,16 @@ export default function MobileResourcesSurface({ embedded = false }: { embedded?
             </div>
           </div>
         ) : (
-          <h1 className="text-[28px] font-semibold capitalize tracking-[-0.03em] text-white">
+          <h1 className="text-[24px] font-semibold capitalize tracking-[-0.03em] text-white">
             {resourceTab}
           </h1>
         )}
       </div>
 
       {resourceTab === "workforce" ? (
-        <div className="pb-28">
-          <div className="border-y border-black bg-black">
-            <div className="min-w-0 bg-black">
+        <div className="flex h-full min-h-0 flex-col pb-28">
+          <div className="flex min-h-0 flex-1 flex-col border-y border-black bg-black">
+            <div className="min-w-0 flex min-h-0 flex-1 flex-col bg-black">
               {activeTab === "allocation" ? <RotaPanel /> : null}
               {activeTab === "shifts" ? <ShiftsPanel /> : null}
               {activeTab === "skills" ? <SkillsPanel /> : null}

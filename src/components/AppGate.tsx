@@ -33,10 +33,14 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
 
   function hasPendingAuth() {
     if (typeof window === "undefined") return false
-    const pending =
-      window.localStorage.getItem(PENDING_AUTH_KEY) ??
-      window.sessionStorage.getItem(PENDING_AUTH_KEY)
-    return pending === "google" || pending === "microsoft"
+    try {
+      const pending =
+        window.localStorage.getItem(PENDING_AUTH_KEY) ??
+        window.sessionStorage.getItem(PENDING_AUTH_KEY)
+      return pending === "google" || pending === "microsoft"
+    } catch {
+      return false
+    }
   }
 
   useEffect(() => {

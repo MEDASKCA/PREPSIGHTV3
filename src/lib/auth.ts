@@ -21,11 +21,20 @@ import {
 import { NHSMAIL_PROVIDER_HINT, NHSMAIL_TENANT_ID } from "./identity-config"
 
 const googleProvider = new GoogleAuthProvider()
-const microsoftProvider = new OAuthProvider("microsoft.com")
-microsoftProvider.setCustomParameters({
+
+const microsoftNHSProvider = new OAuthProvider("microsoft.com")
+microsoftNHSProvider.setCustomParameters({
   prompt: "select_account",
   tenant: NHSMAIL_TENANT_ID,
   domain_hint: NHSMAIL_PROVIDER_HINT,
+})
+
+const microsoftProvider = microsoftNHSProvider
+
+const microsoftGeneralProvider = new OAuthProvider("microsoft.com")
+microsoftGeneralProvider.setCustomParameters({
+  prompt: "select_account",
+  tenant: "common",
 })
 const LOCAL_DEV_AUTH_KEY = "prepsight_local_dev_auth"
 type LocalDevSession = {
@@ -152,6 +161,11 @@ function isMobile() {
   return /iPhone|iPad|iPod|Android/i.test(navigator.userAgent)
 }
 
+function isIOS() {
+  if (typeof navigator === "undefined") return false
+  return /iPhone|iPad|iPod/i.test(navigator.userAgent || "")
+}
+
 function isEmbeddedBrowser() {
   if (typeof navigator === "undefined") return false
   const ua = navigator.userAgent || ""
@@ -171,11 +185,11 @@ function canUseSessionStorage() {
 }
 
 function shouldPreferRedirect() {
-  // Redirect is unreliable on mobile: Chrome for Android partitions sessionStorage/IndexedDB
-  // across navigations, causing auth/missing-initial-state and infinite loading screens.
-  // Always use popup — if Android shows the account chooser, the user picks Chrome/browser
-  // and the OAuth completes normally.
-  return false
+  // Embedded browsers (Facebook, Instagram, Messenger in-app WebViews) can't complete OAuth
+  // popups, so redirect is the only option there. iOS Safari with ITP partitions storage
+  // across navigations which breaks the redirect flow (auth/missing-initial-state), so iOS
+  // must use popup too.
+  return isEmbeddedBrowser()
 }
 
 async function prepareAuth() {
@@ -242,6 +256,33 @@ export async function signInWithMicrosoft() {
     }
     if (code === "auth/popup-blocked") {
       throw new Error("Microsoft sign-in popup was blocked. Allow popups for localhost and try again.")
+    }
+    throw e
+  }
+}
+
+export async function signInWithMicrosoftGeneral() {
+  const authInstance = await prepareAuth()
+  if (shouldPreferRedirect()) {
+    await signInWithRedirect(authInstance, microsoftGeneralProvider)
+    return { method: "redirect" as const }
+  }
+  try {
+    const result = await signInWithPopup(authInstance, microsoftGeneralProvider)
+    return { method: "popup" as const, result }
+  } catch (e: unknown) {
+    const code = (e as { code?: string }).code ?? ""
+    if (
+      (code === "auth/popup-blocked" ||
+        code === "auth/operation-not-supported-in-this-environment" ||
+        code === "auth/cancelled-popup-request") &&
+      shouldPreferRedirect()
+    ) {
+      await signInWithRedirect(authInstance, microsoftGeneralProvider)
+      return { method: "redirect" as const }
+    }
+    if (code === "auth/popup-blocked") {
+      throw new Error("Microsoft sign-in popup was blocked. Allow popups and try again.")
     }
     throw e
   }

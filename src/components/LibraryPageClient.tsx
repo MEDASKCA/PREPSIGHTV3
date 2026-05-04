@@ -665,6 +665,12 @@ export default function LibraryPageClient({
     setMobileExpandedBranches({})
   }, [selectedMobileGroupId])
 
+  useEffect(() => {
+    setSelectedMobileGroupId(null)
+    setMobileExpandedBranches({})
+    setMobileExpandedGroups({})
+  }, [libraryId])
+
   function totalForBranch(branch: TreeBranch): number {
     return branch.cards.length + branch.branches.reduce((sum, child) => sum + totalForBranch(child), 0)
   }
@@ -756,8 +762,8 @@ export default function LibraryPageClient({
 
   if (embedded) {
     return (
-      <div className="space-y-0 pb-[calc(env(safe-area-inset-bottom,0px)+168px)]">
-        <section className={`space-y-2 px-4 ${hideEmbeddedHeader ? "pt-0 pb-2" : "pt-3 pb-2"}`}>
+      <div className="flex h-full min-h-0 flex-col">
+        <section className={`shrink-0 space-y-2 px-4 ${hideEmbeddedHeader ? "pt-0 pb-2" : "pt-3 pb-2"}`}>
           {!hideEmbeddedHeader ? (
             <div>
               {showOwnerName ? <p className="text-[13px] text-[#888888]">{ownerLabel}</p> : null}
@@ -794,10 +800,10 @@ export default function LibraryPageClient({
         </section>
 
         {hideEmbeddedHeader || activeTab === "procedures" ? (
-          <section className="space-y-0">
+          <section className="flex min-h-0 flex-1 flex-col">
             {tree.length === 0 ? (
               <>
-                <div className="bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
+                <div className="shrink-0 bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
                   <span className="whitespace-nowrap">
                     {selectedMobileGroup ? selectedMobileGroup.label : "Specialty hierarchy"} procedures {selectedMobileGroup ? totalForGroup(selectedMobileGroup) : cards.length}
                   </span>
@@ -806,53 +812,57 @@ export default function LibraryPageClient({
               </>
             ) : (
               selectedMobileGroup ? (
-                <div className="border-y border-[#1e1e1e] bg-black">
+                <div className="flex min-h-0 flex-1 flex-col border-y border-[#1e1e1e] bg-black">
                   <button
                     type="button"
                     onClick={() => {
                       setSelectedMobileGroupId(null)
                       setMobileExpandedBranches({})
                     }}
-                    className="border-b border-[#1e1e1e] px-4 py-3 text-[13px] text-[#0096C7]"
+                    className="shrink-0 border-b border-[#1e1e1e] px-4 py-3 text-[13px] text-[#0096C7]"
                   >
                     Back to specialties
                   </button>
-                  <div className="border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
+                  <div className="shrink-0 border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
                     <span className="whitespace-nowrap">
                       {selectedMobileGroup.label} procedures {totalForGroup(selectedMobileGroup)}
                     </span>
                   </div>
-                  <TreeSelectedGroupContent
-                    group={selectedMobileGroup}
-                    libraryId={library.id}
-                    isBranchExpanded={isMobileBranchExpanded}
-                    toggleBranch={toggleMobileBranch}
-                    folderTone={folderTone}
-                  />
+                  <div className="min-h-0 flex-1 overflow-y-auto pb-[calc(env(safe-area-inset-bottom,0px)+88px)]">
+                    <TreeSelectedGroupContent
+                      group={selectedMobileGroup}
+                      libraryId={library.id}
+                      isBranchExpanded={isMobileBranchExpanded}
+                      toggleBranch={toggleMobileBranch}
+                      folderTone={folderTone}
+                    />
+                  </div>
                 </div>
               ) : (
-                <div className="border-y border-[#1e1e1e] bg-black">
-                  <div className="border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
+                <div className="flex min-h-0 flex-1 flex-col border-y border-[#1e1e1e] bg-black">
+                  <div className="shrink-0 border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
                     <span className="whitespace-nowrap">Specialty hierarchy procedures {cards.length}</span>
                   </div>
-                  {tree.map((group) => (
-                    <section key={group.id} className="border-b border-[#1e1e1e] last:border-b-0">
-                      <button
-                        type="button"
-                        onClick={() => {
-                          setSelectedMobileGroupId(group.id)
-                          setMobileExpandedBranches({})
-                        }}
-                        className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px] items-center gap-x-2 bg-black px-3 py-2 text-left font-normal transition-colors hover:bg-[#111111]"
-                      >
-                        <div className="flex items-center justify-center">
-                          <FolderBadge tone={folderTone} open size="lg" />
-                        </div>
-                        <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#e0e0e0]">{group.label}</p>
-                        <span className="text-right text-[15px] font-normal text-[#888888]">{totalForGroup(group)}</span>
-                      </button>
-                    </section>
-                  ))}
+                  <div className="min-h-0 flex-1 overflow-y-auto pb-[calc(env(safe-area-inset-bottom,0px)+88px)]">
+                    {tree.map((group) => (
+                      <section key={group.id} className="border-b border-[#1e1e1e] last:border-b-0">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            setSelectedMobileGroupId(group.id)
+                            setMobileExpandedBranches({})
+                          }}
+                          className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px] items-center gap-x-2 bg-black px-3 py-2 text-left font-normal transition-colors hover:bg-[#111111]"
+                        >
+                          <div className="flex items-center justify-center">
+                            <FolderBadge tone={folderTone} open size="lg" />
+                          </div>
+                          <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#e0e0e0]">{group.label}</p>
+                          <span className="text-right text-[15px] font-normal text-[#888888]">{totalForGroup(group)}</span>
+                        </button>
+                      </section>
+                    ))}
+                  </div>
                 </div>
               )
             )}

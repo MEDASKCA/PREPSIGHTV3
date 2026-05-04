@@ -7,6 +7,7 @@ import { Power } from "lucide-react"
 import {
   signInWithGoogle,
   signInWithMicrosoft,
+  signInWithMicrosoftGeneral,
   getLoginRedirectResult,
   onAuthChange,
   signOut,
@@ -82,10 +83,10 @@ function readPendingProvider() {
   const value =
     readStorageValue(window.localStorage, PENDING_PROVIDER_KEY) ??
     readStorageValue(window.sessionStorage, PENDING_PROVIDER_KEY)
-  return value === "google" || value === "microsoft" ? value : null
+  return value === "google" || value === "microsoft" || value === "microsoft-general" ? value : null
 }
 
-function writePendingProvider(provider: "google" | "microsoft") {
+function writePendingProvider(provider: "google" | "microsoft" | "microsoft-general") {
   if (typeof window === "undefined") return
   writeStorageValue(window.localStorage, PENDING_PROVIDER_KEY, provider)
   writeStorageValue(window.sessionStorage, PENDING_PROVIDER_KEY, provider)
@@ -121,7 +122,7 @@ export default function LoginPage() {
   const handledInitialAuthRef = useRef(false)
 
   const [lit,           setLit]           = useState(() => pendingProvider !== null)
-  const [loading,       setLoading]       = useState<"google" | "microsoft" | null>(() => pendingProvider)
+  const [loading,       setLoading]       = useState<"google" | "microsoft" | "microsoft-general" | null>(() => pendingProvider)
   const [error,         setError]         = useState<string | null>(null)
   const [authenticated, setAuthenticated] = useState(false)
   const [authResolved,  setAuthResolved]  = useState(() => !authConfigured)
@@ -355,7 +356,7 @@ export default function LoginPage() {
             : ""
         appendDebug(`redirect result error code=${code || "(none)"} message=${e instanceof Error ? e.message : "unknown"}`)
         if (code === "auth/missing-initial-state") {
-          setError("Sign-in could not be resumed. Open PrepSight in Safari, Chrome, or Edge and try again.")
+          setError("Sign-in could not be completed. Please try again — if the issue persists, try a different browser.")
           setLoading(null)
           setAuthResolved(true)
           return
@@ -442,6 +443,37 @@ export default function LoginPage() {
     } catch (e: unknown) {
       clearPendingProvider()
       appendDebug(`microsoft sign-in error message=${e instanceof Error ? e.message : "unknown"}`)
+      const msg = e instanceof Error ? e.message : "Sign-in failed"
+      if (!msg.includes("popup-closed")) setError(msg)
+      setLoading(null)
+    }
+  }
+
+  async function handleMicrosoftGeneral() {
+    if (!authConfigured) {
+      setError("Local Firebase auth is not configured. Add a real .env.local to test login on localhost.")
+      return
+    }
+    appendDebug("microsoft general sign-in clicked")
+    allowAutoResumeRef.current = true
+    setSessionConflictNotice(null)
+    setPendingSessionTakeover(null)
+    setSessionUser(null)
+    setError(null); setLoading("microsoft-general")
+    try {
+      writePendingProvider("microsoft-general")
+      appendDebug("pending provider set to microsoft-general")
+      const signIn = await signInWithMicrosoftGeneral()
+      appendDebug(`microsoft general sign-in method=${signIn.method}`)
+      if (signIn.method === "redirect") {
+        return
+      }
+      if (signIn.result?.user) {
+        void beginAuthenticatedSession(signIn.result.user)
+      }
+    } catch (e: unknown) {
+      clearPendingProvider()
+      appendDebug(`microsoft general sign-in error message=${e instanceof Error ? e.message : "unknown"}`)
       const msg = e instanceof Error ? e.message : "Sign-in failed"
       if (!msg.includes("popup-closed")) setError(msg)
       setLoading(null)
@@ -765,10 +797,19 @@ export default function LoginPage() {
                 <button
                   onClick={handleMicrosoft}
                   disabled={loading !== null || authenticated}
-                  className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40"
+                  className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40 mb-3"
                 >
                   {loading === "microsoft" ? <BtnSpinner /> : <MicrosoftIcon />}
                   Continue with NHSmail
+                </button>
+
+                <button
+                  onClick={handleMicrosoftGeneral}
+                  disabled={loading !== null || authenticated}
+                  className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40"
+                >
+                  {loading === "microsoft-general" ? <BtnSpinner /> : <MicrosoftIcon />}
+                  Continue with Microsoft
                 </button>
 
                 <button

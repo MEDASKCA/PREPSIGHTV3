@@ -382,8 +382,8 @@ function MobileLibrariesTabbedContent({
   )
 
   return (
-    <div className="space-y-3">
-      <section>
+    <div className="flex h-full min-h-0 flex-col overflow-hidden">
+      <section className="shrink-0 space-y-3 pb-3">
         <div className="flex items-center gap-3 px-1">
           <h2 className="whitespace-nowrap text-[24px] font-medium tracking-[-0.03em] text-white">Collections</h2>
           <div className="relative min-w-0 flex-1">
@@ -427,9 +427,14 @@ function MobileLibrariesTabbedContent({
       </section>
 
       {activeTab === "community" ? (
-        <section className="px-1">
+        <section className="min-h-0 flex-1 overflow-hidden px-1">
           {filteredGlobalLibraries.length > 0 ? (
-            <LibraryPageClient libraryId={selectedSharedLibraryId} embedded hideEmbeddedHeader />
+            <LibraryPageClient
+              key={`${selectedSharedLibraryId}:${selectedWorkspace}`}
+              libraryId={selectedSharedLibraryId}
+              embedded
+              hideEmbeddedHeader
+            />
           ) : (
             <div className="rounded-[12px] border border-[#2d2d2d] bg-[#1c1c1c] px-3 py-3 shadow-[0_10px_24px_rgba(0,0,0,0.3)]">
               <p className="py-2 text-[14px] text-[#888888]">
@@ -441,7 +446,7 @@ function MobileLibrariesTabbedContent({
       ) : null}
 
       {activeTab === "group" ? (
-        <section className="px-1">
+        <section className="min-h-0 flex-1 overflow-y-auto px-1">
           <div className="rounded-[12px] border border-[#2d2d2d] bg-[#1c1c1c] px-3 py-3 shadow-[0_10px_24px_rgba(0,0,0,0.3)]">
             <div className="ml-[4px] pl-1.5">
               <LibraryTreeContent
@@ -458,7 +463,7 @@ function MobileLibrariesTabbedContent({
       ) : null}
 
       {activeTab === "bookmarks" ? (
-        <section className="px-1">
+        <section className="min-h-0 flex-1 overflow-y-auto px-1">
           <BookmarkList bookmarks={bookmarks} hideDescription />
         </section>
       ) : null}
@@ -610,7 +615,7 @@ export default function LibrariesDashboard() {
       />
 
       <main className="w-full px-4 pt-0 pb-4 lg:px-0 lg:pb-0">
-        <div className="space-y-4 lg:hidden">
+        <div className="flex h-[calc(100dvh-var(--app-topbar-height,0px))] min-h-0 flex-col lg:hidden">
           <MobileLibrariesTabbedContent
             bookmarks={bookmarks}
             libraries={libraries}

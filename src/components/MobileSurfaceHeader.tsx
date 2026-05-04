@@ -20,7 +20,7 @@ export default function MobileSurfaceHeader({
   return (
     <div className={`shrink-0 bg-black px-5 ${compact ? "pb-2" : "pb-3"}`} style={{ paddingTop: "calc(env(safe-area-inset-top) + 14px)" }}>
       <div className="mb-0 flex items-center justify-between">
-        <span className="inline-flex items-center gap-1 text-[28px] tracking-tight">
+        <span className="inline-flex items-center gap-1 text-[24px] tracking-tight">
           <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
           <span>
             <span className="app-display-font text-[0.86em] tracking-[-0.05em] text-[#0096C7]">PrepSight</span>{" "}

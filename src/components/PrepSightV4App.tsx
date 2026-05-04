@@ -1039,14 +1039,12 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             When not on comms tab it collapses to 0×0. The call UI inside uses
             position:fixed z-[200] so it floats above everything including the nav. */}
         <main
-          className={`min-h-0 flex-1 bg-black ${
+          className={`min-h-0 flex-1 bg-black overflow-hidden ${
             mobileTab === "comms" ? "pb-0" : "pb-28"
-          } ${
-            mobileTab === "comms" ? "flex flex-col overflow-hidden" : "overflow-y-auto"
           }`}
         >
           {mobileUtilityPage === "calendar" ? (
-            <div className="space-y-4">
+            <div className="flex h-full min-h-0 flex-col">
               <MobileSectionHeader
                 title={mobileSurfaceTitle}
                 hospital={mobileHospitalLabel}
@@ -1058,10 +1056,12 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 inlineSearchEnabled={false}
                 onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
               />
-              <MobileCalendarSurface view={mobileCalendarView} onChangeView={setMobileCalendarView} />
+              <div className="min-h-0 flex-1 overflow-y-auto">
+                <MobileCalendarSurface view={mobileCalendarView} onChangeView={setMobileCalendarView} />
+              </div>
             </div>
           ) : mobileUtilityPage === "connectors" ? (
-            <div className="space-y-4">
+            <div className="flex h-full min-h-0 flex-col">
               <MobileSectionHeader
                 title={mobileSurfaceTitle}
                 hospital={mobileHospitalLabel}
@@ -1073,7 +1073,9 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 inlineSearchEnabled={false}
                 onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
               />
-              <MobileConnectorsSurface />
+              <div className="min-h-0 flex-1 overflow-y-auto">
+                <MobileConnectorsSurface />
+              </div>
             </div>
           ) : mobileTab === "comms" ? (
             <div className="h-full min-h-0 flex-1 overflow-hidden">
@@ -1081,7 +1083,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             </div>
           )
           : mobileTab === "library" ? (
-            <div className="space-y-4">
+            <div className="flex h-full min-h-0 flex-col">
               <MobileSectionHeader
                 title={mobileSurfaceTitle}
                 hospital={mobileHospitalLabel}
@@ -1093,25 +1095,27 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 inlineSearchEnabled={false}
                 onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
               />
-              <div className="space-y-4 bg-black px-4 pb-4">
+              <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-4">
                 {selectedLibraryId ? (
-                  <>
+                  <div className="flex h-full min-h-0 flex-col space-y-4">
                     <button
                       type="button"
                       onClick={() => setSelectedLibraryId(null)}
-                      className="rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
+                      className="shrink-0 self-start rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
                     >
                       Back to collections
                     </button>
-                    <LibraryPageClient libraryId={selectedLibraryId} embedded />
-                  </>
+                    <div className="min-h-0 flex-1 overflow-hidden">
+                      <LibraryPageClient libraryId={selectedLibraryId} embedded />
+                    </div>
+                  </div>
                 ) : (
                   <EmbeddedLibrariesDashboardMobile query={searchValue} onSelectLibrary={setSelectedLibraryId} />
                 )}
               </div>
             </div>
           ) : (
-            <div className="space-y-4">
+            <div className="flex h-full min-h-0 flex-col">
               <MobileSectionHeader
                 title={mobileSurfaceTitle}
                 hospital={mobileHospitalLabel}
@@ -1123,7 +1127,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 inlineSearchEnabled={false}
                 onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
               />
-              <div className="px-4 pb-4">
+              <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-4">
                 <UpdatesPanel activeKey={activeUpdateKey} onSelect={setActiveUpdateKey} surfaceLabel="Insights" />
               </div>
             </div>

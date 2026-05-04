@@ -112,13 +112,17 @@ export default function MobileWorkspaceChildShell({
         </div>
       ) : null}
 
-      <main className="min-h-0 flex-1 overflow-y-auto bg-black px-4 pb-28">
-        {childTitle ? (
-          <div className="pb-4 pt-1">
-            <h1 className="text-[24px] text-white">{childTitle}</h1>
+      <main className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-28">
+        <div className="flex h-full min-h-0 flex-col">
+          {childTitle ? (
+            <div className="shrink-0 pb-4 pt-1">
+              <h1 className="text-[24px] text-white">{childTitle}</h1>
+            </div>
+          ) : null}
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            {children}
           </div>
-        ) : null}
-        {children}
+        </div>
       </main>
       <MobileGlobalSearchOverlay
         open={mobileGlobalSearchOpen}
