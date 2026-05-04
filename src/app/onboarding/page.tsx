@@ -6,14 +6,23 @@ import { useRouter } from "next/navigation"
 import { Check, ChevronDown, ChevronRight, X } from "lucide-react"
 import {
   clearProfile,
+  clearOnboardingCompleteFlag,
+  hasOnboardingCompleteFlag,
+  isCompleteProfile,
   markOnboardingComplete,
   resolveProfile,
   saveProfile,
 } from "@/lib/profile"
-import { getFirestoreHospitals } from "@/lib/firestore"
+import { deleteUserAccountData, getFirestoreHospitals } from "@/lib/firestore"
 import { PrepSightProfile, USER_ROLE_LABEL, type UserRole } from "@/lib/types"
 import { ONBOARDING_SETTING_SPECIALTIES } from "@/lib/settings"
-import { onAuthChange, signOut, type User } from "@/lib/auth"
+import {
+  deleteAuthenticatedAccount,
+  onAuthChange,
+  promoteAuthenticatedSessionPersistence,
+  signOut,
+  type User,
+} from "@/lib/auth"
 import hospitalsData from "@/lib/hospitals.json"
 import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
 
@@ -269,6 +278,7 @@ export default function OnboardingPage() {
   const [step, setStep] = useState(1)
   const [animKey, setAnimKey] = useState(0)
   const [hasStartedOnboarding, setHasStartedOnboarding] = useState(false)
+  const [hadCompletedRegistration, setHadCompletedRegistration] = useState(false)
 
   const [hospital, setHospital] = useState("")
   const [hospitals, setHospitals] = useState(SEEDED_HOSPITALS)
@@ -328,6 +338,9 @@ export default function OnboardingPage() {
 
   useEffect(() => {
     if (!user) return
+    if (hasOnboardingCompleteFlag(user.uid)) {
+      setHadCompletedRegistration(true)
+    }
     setDisplayName((current) => current || normalizeDisplayName(user.displayName ?? ""))
 
     const saved = loadProgress(user.uid)
@@ -345,6 +358,9 @@ export default function OnboardingPage() {
     resolveProfile(user.uid)
       .then((profile) => {
         if (!profile) return
+        if (isCompleteProfile(profile)) {
+          setHadCompletedRegistration(true)
+        }
         setHospital((current) => current || profile.hospital || "")
         setDepartments((current) => (current.length > 0 ? current : profile.departments))
         setJobTitle((current) => current || profile.jobTitle || "")
@@ -357,6 +373,20 @@ export default function OnboardingPage() {
       })
       .catch(() => null)
   }, [user])
+
+  async function discardIncompleteRegistration() {
+    if (!user || hadCompletedRegistration) return
+
+    const remoteProfile = await resolveProfile(user.uid).catch(() => null)
+    if (isCompleteProfile(remoteProfile) || hasOnboardingCompleteFlag(user.uid)) {
+      setHadCompletedRegistration(true)
+      return
+    }
+
+    clearOnboardingCompleteFlag(user.uid)
+    await deleteUserAccountData(user.uid).catch(() => undefined)
+    await deleteAuthenticatedAccount().catch(() => undefined)
+  }
 
   useEffect(() => {
     if (!user?.uid || !hasStartedOnboarding) return
@@ -484,6 +514,7 @@ export default function OnboardingPage() {
     if (!confirmed) return
     if (user?.uid) clearProgress(user.uid)
     clearProfile()
+    await discardIncompleteRegistration()
     await signOut().catch(() => undefined)
     if (typeof window !== "undefined") {
       window.location.replace("/login")
@@ -517,6 +548,7 @@ export default function OnboardingPage() {
         markOnboardingComplete(user.uid)
         clearProgress(user.uid)
       }
+      await promoteAuthenticatedSessionPersistence()
       if (typeof window !== "undefined") {
         window.location.replace("/")
         return

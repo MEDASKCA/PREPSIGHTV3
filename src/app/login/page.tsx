@@ -10,6 +10,7 @@ import {
   signInWithMicrosoftGeneral,
   getLoginRedirectResult,
   onAuthChange,
+  promoteAuthenticatedSessionPersistence,
   signOut,
   type User,
 } from "@/lib/auth"
@@ -185,6 +186,7 @@ export default function LoginPage() {
       appendDebug(`profile complete=${String(profileComplete)}`)
 
       if (profileComplete) {
+        await promoteAuthenticatedSessionPersistence()
         setWelcomeTitle(resolveWelcomeTitle(user.displayName ?? user.email))
         setPostLoginMessage("Loading your PrepSight workspace...")
         showPostLoginLoadingScreen("/")
@@ -195,6 +197,7 @@ export default function LoginPage() {
         `profile resolution failed=${profileError instanceof Error ? profileError.message : "unknown"}`,
       )
       if (hasCompleteProfile() || hasOnboardingCompleteFlag(user.uid)) {
+        await promoteAuthenticatedSessionPersistence()
         setWelcomeTitle(resolveWelcomeTitle(user.displayName ?? user.email))
         setPostLoginMessage("Loading your PrepSight workspace...")
         showPostLoginLoadingScreen("/")

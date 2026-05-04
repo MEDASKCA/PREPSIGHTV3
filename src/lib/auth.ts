@@ -13,6 +13,7 @@ import {
   signInWithRedirect,
   getRedirectResult,
   browserLocalPersistence,
+  browserSessionPersistence,
   setPersistence,
   signOut as firebaseSignOut,
   onAuthStateChanged,
@@ -192,14 +193,19 @@ function shouldPreferRedirect() {
   return isEmbeddedBrowser()
 }
 
-async function prepareAuth() {
+type AuthPersistenceMode = "local" | "session"
+
+async function prepareAuth(persistence: AuthPersistenceMode = "session") {
   if (!auth) throw new Error("Firebase not configured")
-  await setPersistence(auth, browserLocalPersistence).catch(() => {})
+  await setPersistence(
+    auth,
+    persistence === "local" ? browserLocalPersistence : browserSessionPersistence,
+  ).catch(() => {})
   return auth
 }
 
 export async function signInWithGoogle() {
-  const authInstance = await prepareAuth()
+  const authInstance = await prepareAuth("session")
   if (shouldPreferRedirect()) {
     await signInWithRedirect(authInstance, googleProvider)
     return { method: "redirect" as const }
@@ -235,7 +241,7 @@ export async function signInLocally(email: string) {
 }
 
 export async function signInWithMicrosoft() {
-  const authInstance = await prepareAuth()
+  const authInstance = await prepareAuth("session")
   if (shouldPreferRedirect()) {
     await signInWithRedirect(authInstance, microsoftProvider)
     return { method: "redirect" as const }
@@ -262,7 +268,7 @@ export async function signInWithMicrosoft() {
 }
 
 export async function signInWithMicrosoftGeneral() {
-  const authInstance = await prepareAuth()
+  const authInstance = await prepareAuth("session")
   if (shouldPreferRedirect()) {
     await signInWithRedirect(authInstance, microsoftGeneralProvider)
     return { method: "redirect" as const }
@@ -289,7 +295,7 @@ export async function signInWithMicrosoftGeneral() {
 }
 
 export async function signInWithPrepSightAccount(email: string, password: string) {
-  const authInstance = await prepareAuth()
+  const authInstance = await prepareAuth("session")
   const result = await signInWithEmailAndPassword(authInstance, email.trim(), password)
   return { method: "password" as const, result }
 }
@@ -299,12 +305,17 @@ export async function signUpWithPrepSightAccount(input: {
   password: string
   displayName: string
 }) {
-  const authInstance = await prepareAuth()
+  const authInstance = await prepareAuth("session")
   const result = await createUserWithEmailAndPassword(authInstance, input.email.trim(), input.password)
   if (result.user && input.displayName.trim()) {
     await updateProfile(result.user, { displayName: input.displayName.trim() })
   }
   return { method: "password" as const, result }
+}
+
+export async function promoteAuthenticatedSessionPersistence() {
+  if (!auth) return
+  await setPersistence(auth, browserLocalPersistence).catch(() => {})
 }
 
 export async function getLoginRedirectResult() {
