@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
-import { readDeviceSession, setSessionConflictNotice } from "@/lib/device-session"
-import { subscribeToActiveUserSession } from "@/lib/firestore"
+import { getOrCreateDeviceSession, readDeviceSession, setSessionConflictNotice } from "@/lib/device-session"
+import { claimActiveUserSession, subscribeToActiveUserSession } from "@/lib/firestore"
 import { hasCompleteProfile, hasOnboardingCompleteFlag, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import AdminUnlocker from "./AdminUnlocker"
 import MedaskcaLoadingScreen from "./MedaskcaLoadingScreen"
@@ -82,16 +82,25 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       if (sessionTakeoverHandledRef.current) return
 
       sessionTakeoverHandledRef.current = true
+      const otherDevice = activeSession.deviceLabel
       const confirmed = window.confirm(
-        `This account is active on another device (${activeSession.deviceLabel}).\n\nWould you like to sign out of that device and continue here?`,
+        `This account is active on another device (${otherDevice}).\n\nSign out of that device and continue here?`,
       )
       if (confirmed) {
-        // Claim session on this device — the other device's listener will detect
-        // the change and sign itself out automatically.
+        // Overwrite Firestore with this device's session — the other device's
+        // listener detects the change and signs itself out automatically.
+        const localSession = getOrCreateDeviceSession()
+        if (localSession) {
+          void claimActiveUserSession(user.uid, {
+            sessionId: localSession.sessionId,
+            deviceLabel: localSession.deviceLabel,
+            updatedAt: new Date().toISOString(),
+          })
+        }
         return
       }
       setSessionConflictNotice(
-        `Signed out — session remains active on ${activeSession.deviceLabel}.`,
+        `Signed out — session remains active on ${otherDevice}.`,
       )
       void signOut().finally(() => {
         router.replace("/login")
