@@ -5,7 +5,7 @@ import { useRouter, usePathname } from "next/navigation"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
 import { readDeviceSession, setSessionConflictNotice } from "@/lib/device-session"
 import { subscribeToActiveUserSession } from "@/lib/firestore"
-import { hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
+import { hasCompleteProfile, hasOnboardingCompleteFlag, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import AdminUnlocker from "./AdminUnlocker"
 import MedaskcaLoadingScreen from "./MedaskcaLoadingScreen"
 import PersistentCommsLayer from "./PersistentCommsLayer"
@@ -37,7 +37,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       const pending =
         window.localStorage.getItem(PENDING_AUTH_KEY) ??
         window.sessionStorage.getItem(PENDING_AUTH_KEY)
-      return pending === "google" || pending === "microsoft"
+      return pending === "google" || pending === "microsoft" || pending === "microsoft-general"
     } catch {
       return false
     }
@@ -82,8 +82,16 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       if (sessionTakeoverHandledRef.current) return
 
       sessionTakeoverHandledRef.current = true
+      const confirmed = window.confirm(
+        `This account is active on another device (${activeSession.deviceLabel}).\n\nWould you like to sign out of that device and continue here?`,
+      )
+      if (confirmed) {
+        // Claim session on this device — the other device's listener will detect
+        // the change and sign itself out automatically.
+        return
+      }
       setSessionConflictNotice(
-        `This account was opened on ${activeSession.deviceLabel}. Sign in again to continue.`,
+        `Signed out — session remains active on ${activeSession.deviceLabel}.`,
       )
       void signOut().finally(() => {
         router.replace("/login")
@@ -117,12 +125,12 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     void resolveProfile(user.uid)
       .then((profile) => {
         if (cancelled) return
-        setProfileComplete(isCompleteProfile(profile) || hasCompleteProfile())
+        setProfileComplete(isCompleteProfile(profile) || hasCompleteProfile() || hasOnboardingCompleteFlag(user.uid))
         setProfileReady(true)
       })
       .catch(() => {
         if (cancelled) return
-        setProfileComplete(hasCompleteProfile())
+        setProfileComplete(hasCompleteProfile() || hasOnboardingCompleteFlag(user.uid))
         setProfileReady(true)
       })
 
