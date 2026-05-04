@@ -3,8 +3,8 @@
 import { useEffect, useRef, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
-import { getOrCreateDeviceSession, readDeviceSession, setSessionConflictNotice } from "@/lib/device-session"
-import { claimActiveUserSession, subscribeToActiveUserSession } from "@/lib/firestore"
+import { readDeviceSession, setSessionConflictNotice } from "@/lib/device-session"
+import { subscribeToActiveUserSession } from "@/lib/firestore"
 import { hasCompleteProfile, hasOnboardingCompleteFlag, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import AdminUnlocker from "./AdminUnlocker"
 import MedaskcaLoadingScreen from "./MedaskcaLoadingScreen"
@@ -71,36 +71,20 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       return
     }
 
-    const currentSession = readDeviceSession()
-    if (!currentSession) return
-
     return subscribeToActiveUserSession(user.uid, (activeSession) => {
-      if (!activeSession || activeSession.sessionId === currentSession.sessionId) {
+      // Read fresh each time — the session in localStorage may have been updated
+      // by claimSessionAndContinue since this effect first ran.
+      const currentSession = readDeviceSession()
+      if (!activeSession || !currentSession || activeSession.sessionId === currentSession.sessionId) {
         sessionTakeoverHandledRef.current = false
         return
       }
       if (sessionTakeoverHandledRef.current) return
 
+      // Another device signed in and replaced this session. Sign out silently.
       sessionTakeoverHandledRef.current = true
-      const otherDevice = activeSession.deviceLabel
-      const confirmed = window.confirm(
-        `This account is active on another device (${otherDevice}).\n\nSign out of that device and continue here?`,
-      )
-      if (confirmed) {
-        // Overwrite Firestore with this device's session — the other device's
-        // listener detects the change and signs itself out automatically.
-        const localSession = getOrCreateDeviceSession()
-        if (localSession) {
-          void claimActiveUserSession(user.uid, {
-            sessionId: localSession.sessionId,
-            deviceLabel: localSession.deviceLabel,
-            updatedAt: new Date().toISOString(),
-          })
-        }
-        return
-      }
       setSessionConflictNotice(
-        `Signed out — session remains active on ${otherDevice}.`,
+        `Your session was resumed on another device (${activeSession.deviceLabel}).`,
       )
       void signOut().finally(() => {
         router.replace("/login")

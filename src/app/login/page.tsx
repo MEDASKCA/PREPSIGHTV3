@@ -15,7 +15,7 @@ import {
 } from "@/lib/auth"
 import { auth } from "@/lib/firebase"
 import { claimActiveUserSession, getActiveUserSession, getPrepSightNativeAccount } from "@/lib/firestore"
-import { consumeSessionConflictNotice, getOrCreateDeviceSession, type ActiveUserSessionRecord } from "@/lib/device-session"
+import { clearDeviceSession, consumeSessionConflictNotice, getOrCreateDeviceSession, type ActiveUserSessionRecord } from "@/lib/device-session"
 import { clearProfile, hasCompleteProfile, hasOnboardingCompleteFlag, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import AuthSessionControl from "@/components/AuthSessionControl"
 import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
@@ -207,6 +207,9 @@ export default function LoginPage() {
   }
 
   async function claimSessionAndContinue(user: User) {
+    // Always create a fresh session on sign-in so AppGate's conflict detection
+    // never sees a stale session ID from a previous sign-in on this device.
+    clearDeviceSession()
     const localSession = getOrCreateDeviceSession()
     if (localSession) {
       await claimActiveUserSession(user.uid, {
@@ -257,21 +260,9 @@ export default function LoginPage() {
     if (!(await ensureNativeAccountAccess(user))) {
       return
     }
-
-    const localSession = getOrCreateDeviceSession()
-    const activeSession = await getActiveUserSession(user.uid)
-
-    if (
-      localSession &&
-      activeSession &&
-      activeSession.sessionId !== localSession.sessionId
-    ) {
-      setPendingSessionTakeover({ user, activeSession })
-      setLoading(null)
-      setError(null)
-      return
-    }
-
+    // Always claim this device's session immediately. Any other device that had
+    // an active session will detect the Firestore change via their listener and
+    // sign out automatically — no prompt needed.
     await claimSessionAndContinue(user)
   }
 
