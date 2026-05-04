@@ -120,6 +120,7 @@ export default function LoginPage() {
   const redirectTimerRef = useRef<number | null>(null)
   const allowAutoResumeRef = useRef(pendingProvider !== null)
   const handledInitialAuthRef = useRef(false)
+  const sessionClaimedRef = useRef(false)
 
   const [lit,           setLit]           = useState(() => pendingProvider !== null)
   const [loading,       setLoading]       = useState<"google" | "microsoft" | "microsoft-general" | null>(() => pendingProvider)
@@ -257,12 +258,16 @@ export default function LoginPage() {
   }
 
   async function beginAuthenticatedSession(user: User) {
+    // Guard against double-invocation: popup result AND onAuthChange both fire
+    // for the same sign-in. The first caller wins; the second is a no-op.
+    // Without this, two concurrent claimSessionAndContinue calls race in Firestore
+    // and can leave Firestore/localStorage with different session IDs → sign-out loop.
+    if (sessionClaimedRef.current) return
+    sessionClaimedRef.current = true
     if (!(await ensureNativeAccountAccess(user))) {
+      sessionClaimedRef.current = false
       return
     }
-    // Always claim this device's session immediately. Any other device that had
-    // an active session will detect the Firestore change via their listener and
-    // sign out automatically — no prompt needed.
     await claimSessionAndContinue(user)
   }
 
@@ -368,6 +373,7 @@ export default function LoginPage() {
       }
       if (!user) {
         setSessionUser(null)
+        sessionClaimedRef.current = false
         return
       }
       void beginAuthenticatedSession(user)
