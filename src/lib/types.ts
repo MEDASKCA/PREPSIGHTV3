@@ -277,6 +277,7 @@ export interface OrganizationMembershipRecord {
   uid: string
   /** Internal display name shown inside the owning organisation context. */
   displayName?: string
+  jobTitle?: string
   internalRole: UserRole
   platformRole: PlatformRole
   departments: string[]
@@ -300,6 +301,7 @@ export interface PortalMembershipRecord {
   role: PortalMembershipRole
   status: MembershipStatus
   displayName?: string
+  jobTitle?: string
   publicAlias?: string
   departments: string[]
   specialtiesOfInterest: string[]
@@ -329,4 +331,43 @@ export interface OperatorMembershipRecord {
   requestedAt: string
   approvedAt?: string
   approvedBy?: string
+}
+
+export interface StaffingReportRowRecord {
+  sourceMatchKey: string
+  name: string
+  classification: string
+  shiftTime?: string
+}
+
+export interface StaffingReportRecord {
+  id: string
+  organizationId: string
+  sourceSystem: "optima"
+  fileName: string
+  reportDate?: string
+  weekLabel?: string
+  source?: string
+  fulfilmentType?: string
+  rowCount: number
+  rows: StaffingReportRowRecord[]
+  uploadedAt: string
+  uploadedBy?: string
+}
+
+export interface StaffingStaffPoolRecord {
+  id: string
+  organizationId: string
+  sourceSystem: "optima"
+  sourceMatchKey: string
+  sourceName: string
+  sourceClassification: string
+  sourceTitle?: string
+  sourceBand?: string
+  latestShiftTime?: string
+  firstSeenAt: string
+  lastSeenAt: string
+  lastReportDate?: string
+  lastReportId?: string
+  occurrenceCount: number
 }

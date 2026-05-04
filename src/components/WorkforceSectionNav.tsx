@@ -1,22 +1,39 @@
 "use client"
 
+import { useEffect, useState } from "react"
 import Link from "next/link"
+import { getProfile } from "@/lib/profile"
 
-const ITEMS = [
-  { key: "overview", label: "rota", href: "/resources/workforce" },
-  { key: "shifts", label: "shifts", href: "/resources/workforce/shifts" },
-  { key: "skills", label: "skills", href: "/resources/workforce/skills" },
-  { key: "tasks", label: "tasks", href: "/resources/workforce/tasks" },
+type WorkforceNavItem = {
+  key: "builder" | "overview" | "shifts" | "skills" | "tasks"
+  label: string
+  href: string
+  managerOnly?: boolean
+}
+
+const ITEMS: WorkforceNavItem[] = [
+  { key: "builder", label: "Builder", href: "/resources/workforce/builder", managerOnly: true },
+  { key: "overview", label: "Allocation", href: "/resources/workforce" },
+  { key: "shifts", label: "Shifts", href: "/resources/workforce/shifts" },
+  { key: "skills", label: "Skills", href: "/resources/workforce/skills" },
+  { key: "tasks", label: "Tasks", href: "/resources/workforce/tasks" },
 ] as const
 
 export default function WorkforceSectionNav({
   current,
 }: {
-  current: (typeof ITEMS)[number]["key"]
+  current: WorkforceNavItem["key"]
 }) {
+  const [showManagerItems, setShowManagerItems] = useState(false)
+
+  useEffect(() => {
+    const profile = getProfile()
+    setShowManagerItems(profile?.role === "manager" || profile?.role === "senior_manager")
+  }, [])
+
   return (
     <div className="mt-5 flex flex-wrap gap-2">
-      {ITEMS.map((item) => {
+      {ITEMS.filter((item) => !item.managerOnly || showManagerItems).map((item) => {
         const active = item.key === current
         return (
           <Link

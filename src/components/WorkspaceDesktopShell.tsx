@@ -30,6 +30,7 @@ export default function WorkspaceDesktopShell({
   )
   const { min: minCommsWidth, max: maxCommsWidth } = getDesktopCommsWidthBounds()
   const navBreadcrumb = getNavBreadcrumb(currentNav)
+  const resolvedSectionLabel = sectionLabel ?? navBreadcrumb.label
   const showRightAside = commsRailOpen || Boolean(rightRail)
 
   useEffect(() => {
@@ -68,7 +69,7 @@ export default function WorkspaceDesktopShell({
 
   return (
     <div
-      className="hidden min-h-screen overflow-x-hidden bg-black lg:grid lg:min-h-screen"
+      className="hidden h-screen overflow-hidden bg-black lg:grid lg:h-screen"
       style={navGridStyle}
     >
       <WorkspaceNavRail
@@ -77,25 +78,25 @@ export default function WorkspaceDesktopShell({
         onToggleCollapsed={() => setDesktopNavOpen((v) => !v)}
       />
 
-      <div className="flex min-w-0 flex-col">
+      <div className="flex min-h-0 min-w-0 flex-col overflow-hidden">
         <div className="flex min-h-0 flex-1">
           {/* Sub-column: AppTopBar + main content — sized to exclude the comms aside */}
-          <div className="flex min-w-0 flex-1 flex-col">
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
             <AppTopBar
               menuOpen={desktopNavOpen}
               onToggleMenu={() => setDesktopNavOpen((v) => !v)}
+              reserveCommsSpace={false}
               searchPlaceholder="Search anywhere..."
-              sectionLabel={sectionLabel}
-              navBreadcrumb={navBreadcrumb}
+              sectionLabel={resolvedSectionLabel}
             />
-            <main className="min-w-0 flex-1 px-6 py-5">
+            <main className="min-h-0 min-w-0 flex-1 overflow-hidden px-6 pt-2 pb-5">
               {children}
             </main>
           </div>
 
           {showRightAside ? (
             <aside
-              className="relative flex-shrink-0 border-l-[3px] border-[#2d2d2d]"
+              className="relative flex-shrink-0 overflow-hidden border-l-[3px] border-[#2d2d2d]"
               style={{ width: commsRailWidth }}
             >
               {commsRailOpen ? (

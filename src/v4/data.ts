@@ -1,5 +1,4 @@
 import type {
-  LogisticsSummary,
   TabKey,
   UpdateSummary,
 } from "@/v4/types"
@@ -10,44 +9,11 @@ import InsightsIcon from "@/components/icons/InsightsIcon"
 
 type TabIcon = LucideIcon | React.ComponentType<{ size?: number; strokeWidth?: number; className?: string }>
 
-export const TAB_ITEMS: Array<{ key: TabKey; label: string; icon: TabIcon }> = [
-  { key: "comms",    label: "Comms",     icon: MessageCircle   },
-  { key: "library",  label: "Library",   icon: LibraryBig      },
-  { key: "logistics",label: "Resources", icon: ResourcesIcon   },
-  { key: "updates",  label: "Updates",   icon: InsightsIcon    },
-]
-
-export const LOGISTICS_SECTIONS: LogisticsSummary[] = [
-  {
-    key: "members",
-    title: "Members",
-    detail: "42 active across 6 groups",
-    tone: "#D7F2FB",
-    rows: [
-      { title: "Royal London Ortho", meta: "12 members · 3 online now" },
-      { title: "Endoscopy North Wing", meta: "8 members · 2 pending invites" },
-    ],
-  },
-  {
-    key: "access",
-    title: "Access requests",
-    detail: "5 pending approval",
-    tone: "#E5F7ED",
-    rows: [
-      { title: "2 requests awaiting review", meta: "Royal London Ortho" },
-      { title: "3 requests awaiting review", meta: "Endoscopy North Wing" },
-    ],
-  },
-  {
-    key: "equipment",
-    title: "Equipment readiness",
-    detail: "3 items flagged for review",
-    tone: "#EAF0FF",
-    rows: [
-      { title: "Revision knee tray note", meta: "Pinned to group thread" },
-      { title: "Shoulder scope tower", meta: "Service check due tomorrow" },
-    ],
-  },
+export const TAB_ITEMS: Array<{ key: TabKey; label: string; icon: TabIcon; href?: string }> = [
+  { key: "comms",     label: "Comms",     icon: MessageCircle, href: "/comms" },
+  { key: "library",   label: "Library",   icon: LibraryBig,    href: "/library" },
+  { key: "resources", label: "Resources", icon: ResourcesIcon, href: "/resources" },
+  { key: "updates",   label: "Updates",   icon: InsightsIcon,  href: "/insights" },
 ]
 
 export const UPDATES: UpdateSummary[] = [

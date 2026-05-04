@@ -32,6 +32,29 @@ service cloud.firestore {
         get(/databases/$(database)/documents/organization_memberships/$(membershipDocId(organizationId))).data.status == "active";
     }
 
+    function portalMembershipDocId(organizationId) {
+      return request.auth.uid + "__" + organizationId;
+    }
+
+    function isActivePortalMember(organizationId) {
+      return isSignedIn() &&
+        exists(/databases/$(database)/documents/portal_memberships/$(portalMembershipDocId(organizationId))) &&
+        get(/databases/$(database)/documents/portal_memberships/$(portalMembershipDocId(organizationId))).data.status == "active";
+    }
+
+    function isOrganizationManager(organizationId) {
+      return (
+        isActiveOrganizationMember(organizationId) &&
+        (
+          get(/databases/$(database)/documents/organization_memberships/$(membershipDocId(organizationId))).data.internalRole == "manager" ||
+          get(/databases/$(database)/documents/organization_memberships/$(membershipDocId(organizationId))).data.internalRole == "senior_manager"
+        )
+      ) || (
+        isActivePortalMember(organizationId) &&
+        get(/databases/$(database)/documents/portal_memberships/$(portalMembershipDocId(organizationId))).data.role == "manager"
+      );
+    }
+
     function isMembershipOwnerCreate() {
       return isSignedIn() &&
         request.resource.data.uid == request.auth.uid &&
@@ -93,6 +116,22 @@ service cloud.firestore {
           )
         );
       allow update: if isMembershipOwnerUpdate() || isMembershipApprovalUpdate();
+      allow delete: if false;
+    }
+
+    match /portal_memberships/{membershipId} {
+      allow read: if true;
+      allow create: if isSignedIn() &&
+        request.resource.data.uid == request.auth.uid &&
+        request.resource.data.organizationId is string &&
+        request.resource.data.organizationId.size() > 0;
+      allow update: if isSignedIn() && (
+        resource.data.uid == request.auth.uid ||
+        (
+          resource.data.organizationId is string &&
+          isOrganizationManager(resource.data.organizationId)
+        )
+      );
       allow delete: if false;
     }
 
@@ -162,6 +201,18 @@ service cloud.firestore {
           resource.data.uid == request.auth.uid
         );
       allow update, delete: if false;
+    }
+
+    match /staffing_reports/{reportId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update, delete: if false;
+    }
+
+    match /staffing_staff_pool/{poolId} {
+      allow read: if isSignedIn();
+      allow create, update: if isSignedIn();
+      allow delete: if false;
     }
 
     match /admin_content/{docId} {

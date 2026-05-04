@@ -11,9 +11,8 @@ import {
   type WorkspaceNavGroupKey,
   type WorkspaceNavKey,
 } from "@/lib/workspace-nav"
-import { clearProfile, getProfile } from "@/lib/profile"
+import { clearProfile, getProfile, subscribeProfile } from "@/lib/profile"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
-import { clearDemoSession } from "@/lib/demo-access"
 
 export type { WorkspaceNavKey } from "@/lib/workspace-nav"
 
@@ -29,13 +28,14 @@ export default function WorkspaceNavRail({
   onToggleCollapsed?: () => void
 }) {
   const router = useRouter()
-  const profile = getProfile()
+  const [profile, setProfile] = useState(() => getProfile())
   const canManage = MANAGEMENT_ROLES.has(profile?.role ?? "")
   const [user, setUser] = useState<User | null>(null)
   const [profileMenuOpen, setProfileMenuOpen] = useState(false)
   const profileMenuRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => onAuthChange(setUser), [])
+  useEffect(() => subscribeProfile(setProfile), [])
 
   useEffect(() => {
     function handleClick(e: MouseEvent) {
@@ -50,14 +50,12 @@ export default function WorkspaceNavRail({
   async function handleSignOut() {
     setProfileMenuOpen(false)
     clearProfile()
-    clearDemoSession()
     await signOut()
     router.replace("/login")
   }
 
   const displayName = profile?.name ?? user?.displayName ?? user?.email ?? "Account"
   const profileInitial = (displayName.trim()[0] ?? "P").toUpperCase()
-
   const visibleGroups = WORKSPACE_NAV_GROUPS.filter(
     (group) => group.key !== "management" || canManage,
   )
@@ -79,38 +77,52 @@ export default function WorkspaceNavRail({
 
   return (
     <aside
-      className={`hidden min-w-0 self-stretch border-r border-[#2d2d2d] bg-[#202020] pt-4 lg:flex lg:min-h-screen lg:flex-col ${
+      className={`hidden min-w-0 overflow-hidden border-r border-[#2d2d2d] bg-[#202020] pt-4 lg:sticky lg:top-0 lg:flex lg:h-screen lg:flex-col ${
         collapsed ? "px-2 pb-3" : "px-3 pb-3"
       }`}
     >
       {/* ── Top: logo + collapse toggle ── */}
-      <div className={`flex pb-2 ${collapsed ? "flex-col items-center gap-2" : "items-center justify-between gap-4 px-1"}`}>
+      <div className={`pb-2 ${collapsed ? "flex flex-col items-center gap-0.5" : "px-1"}`}>
         {collapsed ? (
-          <Link href="/" className="flex items-center justify-center">
-            <img src="/PrepSight%20logo.png" alt="PrepSight" className="h-[54px] w-auto" />
-          </Link>
+          <>
+            <div className="flex w-full justify-center">
+              <button
+                type="button"
+                onClick={onToggleCollapsed}
+                className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/70 transition-all hover:bg-white/20 hover:text-white"
+                aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              >
+                <ChevronRight size={15} strokeWidth={2.2} />
+              </button>
+            </div>
+            <Link href="/" className="-mt-10 flex items-center justify-center">
+              <img src="/PrepSight%20logo.png" alt="PrepSight" className="h-[54px] w-auto" />
+            </Link>
+          </>
         ) : (
-          <Link href="/" className="app-display-font flex items-center gap-1 text-[26px] tracking-[-0.05em] text-[#0096C7]">
-            <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
-            PrepSight
-          </Link>
+          <>
+            <div className="flex w-full justify-end pb-0">
+              <button
+                type="button"
+                onClick={onToggleCollapsed}
+                className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/70 transition-all hover:bg-white/20 hover:text-white"
+                aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+                title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              >
+                <ChevronLeft size={15} strokeWidth={2.2} />
+              </button>
+            </div>
+            <Link href="/" className="-mt-10 app-display-font flex min-w-0 items-center gap-1 text-[26px] tracking-[-0.05em] text-[#0096C7]">
+              <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto shrink-0" />
+              <span className="block min-w-0 truncate">PrepSight</span>
+            </Link>
+          </>
         )}
-        <button
-          type="button"
-          onClick={onToggleCollapsed}
-          className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/70 transition-all hover:bg-white/20 hover:text-white"
-          aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-          title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
-        >
-          {collapsed
-            ? <ChevronRight size={15} strokeWidth={2.2} />
-            : <ChevronLeft  size={15} strokeWidth={2.2} />
-          }
-        </button>
       </div>
 
       {/* ── Nav items (scrollable middle section) ── */}
-      <div className="min-h-0 flex-1 overflow-y-auto">
+      <div className="min-h-0 flex-1 overflow-y-auto overflow-x-hidden">
         {collapsed ? (
           <div className="space-y-1">
             {visibleFlatItems.map((item) => {

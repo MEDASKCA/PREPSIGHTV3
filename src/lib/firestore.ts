@@ -1,4 +1,5 @@
 import {
+  addDoc,
   doc, getDoc, setDoc, deleteDoc,
   collection, getDocs, query, where, onSnapshot,
 } from "firebase/firestore"
@@ -13,19 +14,54 @@ import {
   PortalMembershipRecord,
   PrepSightProfile,
   Section,
+  StaffingReportRecord,
+  StaffingReportRowRecord,
+  StaffingStaffPoolRecord,
   USER_ROLE_TO_PLATFORM_ROLE,
   UserRole,
 } from "./types"
 import { buildMemberPublicAlias, buildOrganizationPublicAlias } from "./identity"
 import { type ActiveUserSessionRecord } from "./device-session"
+import { type PrepSightNativeAccountRecord } from "./native-accounts"
+import { type TeamsMirrorPayload, type TeamsWorkspaceMirrorConfig } from "./teams-mirroring"
 
 const ORGANIZATION_ALIAS_ROTATION_DAYS = 30
 const PORTAL_MEMBERSHIPS_COLLECTION = "portal_memberships"
 const GOVERNANCE_MEMBERSHIPS_COLLECTION = "governance_memberships"
 const OPERATOR_MEMBERSHIPS_COLLECTION = "operator_memberships"
+const VNEXT_NATIVE_ACCOUNTS_COLLECTION = "vnext_native_accounts"
+const VNEXT_TEAMS_WORKSPACE_CONFIGS_COLLECTION = "vnext_teams_workspace_configs"
+const VNEXT_TEAMS_MIRROR_LOG_COLLECTION = "vnext_teams_mirror_log"
+const STAFFING_REPORTS_COLLECTION = "staffing_reports"
+const STAFFING_STAFF_POOL_COLLECTION = "staffing_staff_pool"
 
 function slugify(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
+}
+
+function normalizeStaffingMatchKey(value: string): string {
+  return value.toLowerCase().replace(/[^a-z0-9]+/g, " ").replace(/\s+/g, " ").trim()
+}
+
+function normalizePoolClassification(classification: string): string {
+  return classification.replace(/Sp\s*$/i, "").trim()
+}
+
+function parsePoolClassification(classification: string): { title?: string; band?: string; normalized: string } {
+  const normalized = normalizePoolClassification(classification)
+  const match = normalized.match(/^(.*?)(Band\s*\d+[A-Za-z]*)$/i)
+  if (!match) {
+    return { normalized, title: normalized || undefined, band: undefined }
+  }
+  return {
+    normalized,
+    title: match[1].trim() || undefined,
+    band: match[2].replace(/\s+/g, " ").trim() || undefined,
+  }
+}
+
+function staffingPoolDocId(organizationId: string, sourceMatchKey: string): string {
+  return `${organizationId}__${sourceMatchKey.replace(/[^a-z0-9]+/g, "-")}`
 }
 
 function addDaysIso(date: Date, days: number): string {
@@ -54,6 +90,19 @@ function operatorMembershipDoc(uid: string) {
   return doc(db!, OPERATOR_MEMBERSHIPS_COLLECTION, operatorMembershipDocId(uid))
 }
 
+function vnextNativeAccountDoc(uid: string) {
+  return doc(db!, VNEXT_NATIVE_ACCOUNTS_COLLECTION, uid)
+}
+
+function vnextTeamsWorkspaceConfigDoc(workspaceId: string) {
+  return doc(db!, VNEXT_TEAMS_WORKSPACE_CONFIGS_COLLECTION, workspaceId)
+}
+
+function vnextTeamsMirrorLogDoc(payload: TeamsMirrorPayload) {
+  const suffix = payload.messageId?.trim() || `${Date.now()}`
+  return doc(db!, VNEXT_TEAMS_MIRROR_LOG_COLLECTION, `${payload.workspaceId}__${payload.threadId}__${suffix}`)
+}
+
 function mapLegacyMembershipToPortalMembership(
   membership: OrganizationMembershipRecord,
 ): PortalMembershipRecord {
@@ -67,6 +116,7 @@ function mapLegacyMembershipToPortalMembership(
         : "user",
     status: membership.status,
     displayName: membership.displayName,
+    jobTitle: membership.jobTitle,
     publicAlias: membership.publicAlias,
     departments: membership.departments,
     specialtiesOfInterest: membership.specialtiesOfInterest,
@@ -83,6 +133,52 @@ export async function getPortalMemberships(uid: string): Promise<PortalMembershi
     return snap.docs.map((entry) => ({ id: entry.id, ...entry.data() } as PortalMembershipRecord))
   } catch (err) {
     console.warn("[PrepSight] Firestore getPortalMemberships failed:", err)
+    return []
+  }
+}
+
+export async function getPortalMembershipsByOrganization(
+  organizationId: string,
+  options?: { strict?: boolean },
+): Promise<PortalMembershipRecord[]> {
+  if (!db) return []
+  try {
+    let portalSnap: Awaited<ReturnType<typeof getDocs>> | null = null
+    let legacySnap: Awaited<ReturnType<typeof getDocs>> | null = null
+
+    try {
+      portalSnap = await getDocs(
+        query(collection(db, PORTAL_MEMBERSHIPS_COLLECTION), where("organizationId", "==", organizationId)),
+      )
+    } catch (err) {
+      console.warn("[PrepSight] Firestore portal_memberships read failed, falling back to legacy memberships:", err)
+    }
+
+    try {
+      legacySnap = await getDocs(
+        query(collection(db, "organization_memberships"), where("organizationId", "==", organizationId)),
+      )
+    } catch (err) {
+      console.warn("[PrepSight] Firestore organization_memberships read failed:", err)
+      if (options?.strict) throw err
+    }
+
+    const merged = new Map<string, PortalMembershipRecord>()
+
+    legacySnap?.docs.forEach((entry) => {
+      const membership = { id: entry.id, ...(entry.data() as Record<string, unknown>) } as OrganizationMembershipRecord
+      merged.set(membership.uid, mapLegacyMembershipToPortalMembership(membership))
+    })
+
+    portalSnap?.docs.forEach((entry) => {
+      const membership = { id: entry.id, ...(entry.data() as Record<string, unknown>) } as PortalMembershipRecord
+      merged.set(membership.uid, membership)
+    })
+
+    return Array.from(merged.values())
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getPortalMembershipsByOrganization failed:", err)
+    if (options?.strict) throw err
     return []
   }
 }
@@ -152,6 +248,7 @@ export async function upsertPortalMembership(
     role: profile.role === "manager" || profile.role === "senior_manager" ? "manager" : "user",
     status: requestedStatus,
     displayName: options?.displayName ?? profile.name,
+    jobTitle: profile.jobTitle,
     publicAlias:
       existing.exists() && typeof existing.data().publicAlias === "string"
         ? (existing.data().publicAlias as string)
@@ -201,6 +298,58 @@ export async function saveOperatorMembership(membership: OperatorMembershipRecor
 
 // ── User profile ──────────────────────────────────────────────────────────────
 
+export async function getPrepSightNativeAccount(uid: string): Promise<PrepSightNativeAccountRecord | null> {
+  if (!db) return null
+  try {
+    const snap = await getDoc(vnextNativeAccountDoc(uid))
+    return snap.exists() ? (snap.data() as PrepSightNativeAccountRecord) : null
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getPrepSightNativeAccount failed:", err)
+    return null
+  }
+}
+
+export async function savePrepSightNativeAccount(record: PrepSightNativeAccountRecord): Promise<void> {
+  if (!db) return
+  try {
+    await setDoc(vnextNativeAccountDoc(record.uid), record, { merge: true })
+  } catch (err) {
+    console.warn("[PrepSight] Firestore savePrepSightNativeAccount failed:", err)
+  }
+}
+
+export async function getTeamsWorkspaceMirrorConfig(workspaceId: string): Promise<TeamsWorkspaceMirrorConfig | null> {
+  if (!db) return null
+  try {
+    const snap = await getDoc(vnextTeamsWorkspaceConfigDoc(workspaceId))
+    return snap.exists() ? (snap.data() as TeamsWorkspaceMirrorConfig) : null
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getTeamsWorkspaceMirrorConfig failed:", err)
+    return null
+  }
+}
+
+export async function saveTeamsWorkspaceMirrorConfig(config: TeamsWorkspaceMirrorConfig): Promise<void> {
+  if (!db) return
+  try {
+    await setDoc(vnextTeamsWorkspaceConfigDoc(config.workspaceId), config, { merge: true })
+  } catch (err) {
+    console.warn("[PrepSight] Firestore saveTeamsWorkspaceMirrorConfig failed:", err)
+  }
+}
+
+export async function appendTeamsMirrorLogEntry(payload: TeamsMirrorPayload): Promise<void> {
+  if (!db) return
+  try {
+    await setDoc(vnextTeamsMirrorLogDoc(payload), {
+      ...payload,
+      mirroredAt: new Date().toISOString(),
+    })
+  } catch (err) {
+    console.warn("[PrepSight] Firestore appendTeamsMirrorLogEntry failed:", err)
+  }
+}
+
 export async function getUserProfile(uid: string): Promise<PrepSightProfile | null> {
   if (!db) return null
   try {
@@ -221,6 +370,95 @@ export async function saveUserProfile(uid: string, profile: PrepSightProfile): P
   }
 }
 
+export async function saveStaffingReport(
+  input: Omit<StaffingReportRecord, "id" | "uploadedAt">,
+): Promise<StaffingReportRecord | null> {
+  if (!db) return null
+  try {
+    const uploadedAt = new Date().toISOString()
+    const reportPayload = {
+      ...input,
+      uploadedAt,
+    }
+    const reportRef = await addDoc(collection(db, STAFFING_REPORTS_COLLECTION), reportPayload)
+    const savedReport: StaffingReportRecord = {
+      id: reportRef.id,
+      ...reportPayload,
+    }
+
+    for (const row of input.rows) {
+      const poolClassification = parsePoolClassification(row.classification)
+      const poolMatchKey = normalizeStaffingMatchKey(`${row.name} ${poolClassification.normalized}`)
+      const poolId = staffingPoolDocId(input.organizationId, poolMatchKey)
+      const poolRef = doc(db, STAFFING_STAFF_POOL_COLLECTION, poolId)
+      const existing = await getDoc(poolRef)
+      const previous = existing.exists() ? (existing.data() as StaffingStaffPoolRecord) : null
+      const nextRecord: StaffingStaffPoolRecord = {
+        id: poolId,
+        organizationId: input.organizationId,
+        sourceSystem: "optima",
+        sourceMatchKey: poolMatchKey,
+        sourceName: row.name,
+        sourceClassification: poolClassification.normalized,
+        sourceTitle: poolClassification.title,
+        sourceBand: poolClassification.band,
+        latestShiftTime: row.shiftTime,
+        firstSeenAt: previous?.firstSeenAt ?? uploadedAt,
+        lastSeenAt: uploadedAt,
+        lastReportDate: input.reportDate,
+        lastReportId: reportRef.id,
+        occurrenceCount: (previous?.occurrenceCount ?? 0) + 1,
+      }
+      await setDoc(poolRef, nextRecord, { merge: true })
+    }
+
+    return savedReport
+  } catch (err) {
+    console.warn("[PrepSight] Firestore saveStaffingReport failed:", err)
+    return null
+  }
+}
+
+export async function getStaffingStaffPoolByOrganization(
+  organizationId: string,
+): Promise<StaffingStaffPoolRecord[]> {
+  if (!db) return []
+  try {
+    const snap = await getDocs(
+      query(collection(db, STAFFING_STAFF_POOL_COLLECTION), where("organizationId", "==", organizationId)),
+    )
+    return snap.docs
+      .map((entry) => {
+        const data = entry.data() as StaffingStaffPoolRecord
+        return { ...data, id: data.id || entry.id }
+      })
+      .sort((left, right) => left.sourceName.localeCompare(right.sourceName))
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getStaffingStaffPoolByOrganization failed:", err)
+    return []
+  }
+}
+
+export async function getStaffingReportsByOrganization(
+  organizationId: string,
+): Promise<StaffingReportRecord[]> {
+  if (!db) return []
+  try {
+    const snap = await getDocs(
+      query(collection(db, STAFFING_REPORTS_COLLECTION), where("organizationId", "==", organizationId)),
+    )
+    return snap.docs
+      .map((entry) => {
+        const data = entry.data() as StaffingReportRecord
+        return { ...data, id: data.id || entry.id }
+      })
+      .sort((left, right) => (right.reportDate ?? right.uploadedAt).localeCompare(left.reportDate ?? left.uploadedAt))
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getStaffingReportsByOrganization failed:", err)
+    return []
+  }
+}
+
 export async function getUsersByHospital(hospitalName: string): Promise<Array<PrepSightProfile & { uid: string }>> {
   if (!db) return []
   try {
@@ -228,6 +466,98 @@ export async function getUsersByHospital(hospitalName: string): Promise<Array<Pr
     return snap.docs.map((d) => ({ uid: d.id, ...(d.data() as PrepSightProfile) }))
   } catch (err) {
     console.warn("[PrepSight] Firestore getUsersByHospital failed:", err)
+    return []
+  }
+}
+
+export async function getPortalUsersByOrganization(
+  organizationId: string,
+  hospitalName?: string,
+  options?: { strict?: boolean },
+): Promise<Array<PrepSightProfile & { uid: string }>> {
+  if (!db) return []
+  const firestore = db
+  try {
+    const memberships = await getPortalMembershipsByOrganization(organizationId, options)
+    const mergedUsers = new Map<string, PrepSightProfile & { uid: string }>()
+
+    const membershipUsers = await Promise.all(
+      memberships.map(async (membership) => {
+        let userProfile: PrepSightProfile | null = null
+        try {
+          const userSnap = await getDoc(doc(firestore, "users", membership.uid))
+          userProfile = userSnap.exists() ? (userSnap.data() as PrepSightProfile) : null
+        } catch {
+          // User profile documents are owner-readable only in current rules.
+          // Fall back to membership-visible data so management screens still render.
+          userProfile = null
+        }
+        const inferredRole: UserRole = membership.role === "manager" ? "manager" : "viewer"
+
+        return {
+          uid: membership.uid,
+          hospital: userProfile?.hospital ?? "",
+          departments: membership.departments.length ? membership.departments : (userProfile?.departments ?? []),
+          role: userProfile?.role ?? inferredRole,
+          platformRole: userProfile?.platformRole ?? USER_ROLE_TO_PLATFORM_ROLE[userProfile?.role ?? inferredRole],
+          accountType: userProfile?.accountType,
+          surfaces: userProfile?.surfaces,
+          activeOrganizationId: userProfile?.activeOrganizationId ?? membership.organizationId,
+          organizationIds: userProfile?.organizationIds ?? [membership.organizationId],
+          jobTitle: userProfile?.jobTitle,
+          name: userProfile?.name ?? membership.displayName,
+          email: userProfile?.email,
+          specialtiesOfInterest:
+            membership.specialtiesOfInterest.length
+              ? membership.specialtiesOfInterest
+              : (userProfile?.specialtiesOfInterest ?? []),
+          completedAt: userProfile?.completedAt ?? membership.approvedAt ?? membership.requestedAt,
+        } satisfies PrepSightProfile & { uid: string }
+      }),
+    )
+
+    membershipUsers.forEach((user) => {
+      mergedUsers.set(user.uid, user)
+    })
+
+    const supplementalQueries = [
+      query(collection(firestore, "users"), where("activeOrganizationId", "==", organizationId)),
+      query(collection(firestore, "users"), where("organizationIds", "array-contains", organizationId)),
+      ...(hospitalName?.trim()
+        ? [query(collection(firestore, "users"), where("hospital", "==", hospitalName.trim()))]
+        : []),
+    ]
+
+    for (const usersQuery of supplementalQueries) {
+      try {
+        const snap = await getDocs(usersQuery)
+        snap.docs.forEach((entry) => {
+          const profile = entry.data() as PrepSightProfile
+          const existing = mergedUsers.get(entry.id)
+          mergedUsers.set(entry.id, {
+            uid: entry.id,
+            ...profile,
+            departments: existing?.departments?.length ? existing.departments : profile.departments,
+            role: existing?.role ?? profile.role,
+            platformRole: existing?.platformRole ?? profile.platformRole,
+            activeOrganizationId: existing?.activeOrganizationId ?? profile.activeOrganizationId ?? organizationId,
+            organizationIds: existing?.organizationIds ?? profile.organizationIds ?? [organizationId],
+            specialtiesOfInterest:
+              existing?.specialtiesOfInterest?.length ? existing.specialtiesOfInterest : profile.specialtiesOfInterest,
+            completedAt: existing?.completedAt ?? profile.completedAt,
+          })
+        })
+      } catch (err) {
+        console.warn("[PrepSight] Firestore supplemental users query failed:", err)
+      }
+    }
+
+    return Array.from(mergedUsers.values()).sort((left, right) =>
+      (left.name ?? "").localeCompare(right.name ?? ""),
+    )
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getPortalUsersByOrganization failed:", err)
+    if (options?.strict) throw err
     return []
   }
 }
@@ -500,6 +830,7 @@ export async function upsertOrganizationMembership(
     organizationId: organization.id,
     uid,
     displayName: options?.displayName ?? profile.name,
+    jobTitle: profile.jobTitle,
     internalRole,
     platformRole,
     departments: profile.departments,

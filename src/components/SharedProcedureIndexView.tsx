@@ -20,7 +20,8 @@ import {
 } from "@/lib/libraries"
 import { formatProcedureHierarchy } from "@/lib/procedure-hierarchy"
 import { getDesktopCommsPreference, getDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
-import { getProfile } from "@/lib/profile"
+import { getProfile, getRelevantSettings } from "@/lib/profile"
+import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import { buildSystemCardSections } from "@/lib/system-card"
 import { getActiveTeamSnapshot } from "@/lib/team-workspaces"
 import type { Procedure } from "@/lib/types"
@@ -430,6 +431,9 @@ export default function SharedProcedureIndexView({
     getDesktopCommsWidth,
     getDesktopCommsWidth,
   )
+  const profile = getProfile()
+  const hospitalLabel = profile?.hospital?.trim() || "Royal Free Hospital"
+  const departmentLabel = (profile ? getRelevantSettings(profile) : [])[0] ?? "Operating Theatres"
   const [composerOpen, setComposerOpen] = useState(false)
   const [selectedBranchId, setSelectedBranchId] = useState("")
   const [selectedVersionId, setSelectedVersionId] = useState("")
@@ -444,7 +448,6 @@ export default function SharedProcedureIndexView({
   const [message, setMessage] = useState("")
   const [isCreating, setIsCreating] = useState(false)
   const hierarchyLabel = formatProcedureHierarchy(procedure)
-  const profile = getProfile()
   const activeTeam = getActiveTeamSnapshot(profile)
   const localOrganization = activeTeam?.internalName ?? profile?.hospital
   useSyncExternalStore(subscribeLibraries, getLibrariesSnapshot, getLibrariesSnapshot)
@@ -649,14 +652,10 @@ export default function SharedProcedureIndexView({
   return (
     <div className="min-h-screen bg-black text-[#e0e0e0]">
       <div className="lg:hidden">
-        <AppTopBar
-          menuOpen={mobileMenuOpen}
-          onToggleMenu={handleToggleNavigation}
-          menuContent={<AppMenuContent />}
-          searchPlaceholder="Search anywhere..."
-          sectionLabel="Library"
-          mobileMenuOnly
-          hideMobileMenu
+        <MobileSurfaceHeader
+          title="Library"
+          hospital={hospitalLabel}
+          department={departmentLabel}
         />
       </div>
 

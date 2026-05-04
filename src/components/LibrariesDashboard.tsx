@@ -366,13 +366,6 @@ export function EmbeddedLibrariesDashboardMobile({
 
   return (
     <div className="space-y-4">
-      <section className="px-1">
-        <p className="text-[14px] text-[#888888]">Workspace</p>
-        <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-white">{workspaceLabel}</h1>
-        <p className="mt-2 text-[15px] text-[#888888]">
-          {libraries.length} collections · {totalCards} procedure cards
-        </p>
-      </section>
 
       <section>
         <div className="px-1">
@@ -502,13 +495,6 @@ export default function LibrariesDashboard() {
 
       <main className="w-full px-4 pt-0 pb-4 lg:px-0 lg:pb-0">
         <div className="space-y-4 lg:hidden">
-          <section className="px-1">
-            <p className="text-[14px] text-[#888888]">Workspace</p>
-            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-white">{workspaceLabel}</h1>
-            <p className="mt-2 text-[15px] text-[#888888]">
-              {libraries.length} collections · {totalCards} procedure cards
-            </p>
-          </section>
 
           <section>
             <div className="px-1">
@@ -559,15 +545,9 @@ export default function LibrariesDashboard() {
           <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
           <div className="min-w-0 space-y-2">
-            <section className="px-1">
-              <p className="text-[14px] text-[#888888]">Workspace</p>
-              <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-white">{workspaceLabel}</h1>
-              <p className="mt-2 text-[15px] text-[#888888]">{libraries.length} collections · {totalCards} procedure cards</p>
-            </section>
-
             <section>
               <div className="mb-3 flex items-center justify-between gap-4">
-                <h2 className="text-[24px] font-medium tracking-[-0.03em] text-white">Collections</h2>
+                <h2 className="text-[22px] font-medium tracking-[-0.03em] text-white">Collections</h2>
               </div>
 
               <div className="px-1 py-1">

@@ -3,14 +3,17 @@ import {
   getPortalMemberships,
   ensureOrganizationForHospital,
   saveUserProfile,
+  upsertOrganizationMembership,
   upsertPortalMembership,
   getUserProfile,
 } from "./firestore"
 
 const STORAGE_KEY = "prepsight_profile"
+const STORAGE_UID_KEY = "prepsight_profile_uid"
 const FORCE_ONBOARDING_KEY = "prepsight_force_onboarding"
 export const PLATFORM_ROLE_COOKIE_KEY = "prepsight_platform_role"
 export const SPECIALTY_PREFERENCES_COOKIE_KEY = "prepsight_specialties"
+const PROFILE_CHANGE_EVENT = "prepsight:profile-changed"
 const ROLE_COOKIE_MAX_AGE = 60 * 60 * 24 * 30
 function slugify(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
@@ -53,6 +56,11 @@ function setSpecialtyPreferencesCookie(specialties: string[]): void {
 function clearSpecialtyPreferencesCookie(): void {
   if (typeof document === "undefined") return
   document.cookie = `${SPECIALTY_PREFERENCES_COOKIE_KEY}=; path=/; max-age=0; samesite=lax`
+}
+
+function publishProfileChange(profile: PrepSightProfile | null): void {
+  if (typeof window === "undefined") return
+  window.dispatchEvent(new CustomEvent<PrepSightProfile | null>(PROFILE_CHANGE_EVENT, { detail: profile }))
 }
 
 function normalizeProfile(profile: unknown): PrepSightProfile | null {
@@ -148,19 +156,41 @@ export function getProfile(): PrepSightProfile | null {
   }
 }
 
+function getStoredProfileOwnerUid(): string | null {
+  if (typeof window === "undefined") return null
+  try {
+    const raw = localStorage.getItem(STORAGE_UID_KEY)
+    return raw?.trim() || null
+  } catch {
+    return null
+  }
+}
+
+function getProfileForUid(uid: string): PrepSightProfile | null {
+  const local = getProfile()
+  if (!local) return null
+  const ownerUid = getStoredProfileOwnerUid()
+  if (ownerUid === uid) return local
+  return null
+}
+
 export function hasCompleteProfile(): boolean {
   return isCompleteProfile(getProfile())
 }
 
-export function saveProfileLocal(profile: PrepSightProfile): void {
+export function saveProfileLocal(profile: PrepSightProfile, uid?: string): void {
   if (typeof window === "undefined") return
   const normalized = normalizeProfile(profile)
   if (!normalized) return
   const hydrated = ensureLocalOrganizationContext(ensurePortalSurfaceProfile(normalized))
   localStorage.setItem(STORAGE_KEY, JSON.stringify(hydrated))
+  if (uid?.trim()) {
+    localStorage.setItem(STORAGE_UID_KEY, uid.trim())
+  }
   window.localStorage.removeItem(FORCE_ONBOARDING_KEY)
   setPlatformRoleCookie(hydrated.platformRole!)
   setSpecialtyPreferencesCookie(hydrated.specialtiesOfInterest)
+  publishProfileChange(hydrated)
 }
 
 export function syncProfileRoleCookie(): void {
@@ -172,8 +202,10 @@ export function syncProfileRoleCookie(): void {
 export function clearProfile(): void {
   if (typeof window === "undefined") return
   localStorage.removeItem(STORAGE_KEY)
+  localStorage.removeItem(STORAGE_UID_KEY)
   clearPlatformRoleCookie()
   clearSpecialtyPreferencesCookie()
+  publishProfileChange(null)
 }
 
 export function hasProfile(): boolean {
@@ -192,7 +224,7 @@ export function setActiveOrganizationId(organizationId: string): PrepSightProfil
     organizationIds: Array.from(new Set([...(profile.organizationIds ?? []), normalized])),
   }
 
-  saveProfileLocal(next)
+  saveProfileLocal(next, getStoredProfileOwnerUid() ?? undefined)
   return next
 }
 
@@ -208,8 +240,36 @@ export function addOrganizationMembershipToProfile(organizationId: string): Prep
     organizationIds: Array.from(new Set([...(profile.organizationIds ?? []), normalized])),
   }
 
-  saveProfileLocal(next)
+  saveProfileLocal(next, getStoredProfileOwnerUid() ?? undefined)
   return next
+}
+
+export function subscribeProfile(onChange: (profile: PrepSightProfile | null) => void): () => void {
+  if (typeof window === "undefined") return () => {}
+
+  const handleProfileChange = (event: Event) => {
+    const customEvent = event as CustomEvent<PrepSightProfile | null>
+    onChange(customEvent.detail ?? null)
+  }
+
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key === STORAGE_KEY || event.key === STORAGE_UID_KEY) {
+      onChange(getProfile())
+    }
+  }
+
+  window.addEventListener(PROFILE_CHANGE_EVENT, handleProfileChange as EventListener)
+  window.addEventListener("storage", handleStorage)
+
+  return () => {
+    window.removeEventListener(PROFILE_CHANGE_EVENT, handleProfileChange as EventListener)
+    window.removeEventListener("storage", handleStorage)
+  }
+}
+
+export function getPrimaryWorkspaceLabel(profile: PrepSightProfile | null): string | null {
+  const value = profile?.departments?.find((entry) => entry.trim())
+  return value?.trim() || null
 }
 
 export function shouldForceOnboarding(): boolean {
@@ -227,12 +287,15 @@ export async function saveProfile(profile: PrepSightProfile, uid?: string): Prom
   const normalized = normalizeProfile(profile)
   if (!normalized) return
   const portalProfile = ensurePortalSurfaceProfile(normalized)
-  saveProfileLocal(portalProfile)
+  saveProfileLocal(portalProfile, uid)
   if (!uid) return
 
   try {
+    const legacyMembership = await upsertOrganizationMembership(uid, portalProfile)
     const membership = await upsertPortalMembership(uid, portalProfile)
-    const approvedOrganizationId = membership?.status === "active" ? membership.organizationId : undefined
+    const approvedOrganizationId =
+      (membership?.status === "active" ? membership.organizationId : undefined) ??
+      (legacyMembership?.status === "active" ? legacyMembership.organizationId : undefined)
     const profileForStorage: PrepSightProfile = {
       ...portalProfile,
       activeOrganizationId: approvedOrganizationId ?? normalized.activeOrganizationId,
@@ -241,7 +304,7 @@ export async function saveProfile(profile: PrepSightProfile, uid?: string): Prom
         : portalProfile.organizationIds,
     }
 
-    saveProfileLocal(profileForStorage)
+    saveProfileLocal(profileForStorage, uid)
     await saveUserProfile(uid, profileForStorage)
   } catch (error) {
     console.warn("[PrepSight] Falling back to local profile save:", error)
@@ -250,8 +313,11 @@ export async function saveProfile(profile: PrepSightProfile, uid?: string): Prom
 
 export async function resolveProfile(uid: string): Promise<PrepSightProfile | null> {
   if (shouldForceOnboarding()) return null
-  const local = getProfile()
+  const local = getProfileForUid(uid)
   if (local) return local
+  if (getProfile() && !getStoredProfileOwnerUid()) {
+    clearProfile()
+  }
 
   const remote = await getUserProfile(uid)
   if (remote) {
@@ -273,10 +339,19 @@ export async function resolveProfile(uid: string): Promise<PrepSightProfile | nu
           ? Array.from(new Set([...portalProfile.organizationIds, ...activePortalMembershipIds]))
           : Array.from(new Set(activePortalMembershipIds)),
     }
-    saveProfileLocal(hydrated)
+    try {
+      await upsertOrganizationMembership(uid, hydrated)
+      await upsertPortalMembership(uid, hydrated)
+    } catch (error) {
+      console.warn("[PrepSight] Membership metadata sync failed during resolveProfile:", error)
+    }
+    saveProfileLocal(hydrated, uid)
     return hydrated
   }
 
+  if (getStoredProfileOwnerUid() && getStoredProfileOwnerUid() !== uid) {
+    clearProfile()
+  }
   return null
 }
 
@@ -297,7 +372,14 @@ export async function syncMembershipsIntoProfile(uid: string): Promise<PrepSight
     ),
   }
 
-  saveProfileLocal(next)
+  try {
+    await upsertOrganizationMembership(uid, next)
+    await upsertPortalMembership(uid, next)
+  } catch (error) {
+    console.warn("[PrepSight] Membership metadata sync failed during syncMembershipsIntoProfile:", error)
+  }
+
+  saveProfileLocal(next, uid)
   return next
 }
 

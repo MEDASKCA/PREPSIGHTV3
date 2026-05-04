@@ -2,10 +2,13 @@ import { auth } from "./firebase"
 import { clearActiveUserSession } from "./firestore"
 import { clearDeviceSession, readDeviceSession } from "./device-session"
 import {
+  createUserWithEmailAndPassword,
+  updateProfile,
   GoogleAuthProvider,
   OAuthProvider,
   deleteUser,
   reauthenticateWithPopup,
+  signInWithEmailAndPassword,
   signInWithPopup,
   signInWithRedirect,
   getRedirectResult,
@@ -15,10 +18,15 @@ import {
   onAuthStateChanged,
   type User,
 } from "firebase/auth"
+import { NHSMAIL_PROVIDER_HINT, NHSMAIL_TENANT_ID } from "./identity-config"
 
 const googleProvider = new GoogleAuthProvider()
 const microsoftProvider = new OAuthProvider("microsoft.com")
-microsoftProvider.setCustomParameters({ prompt: "select_account", tenant: "common" })
+microsoftProvider.setCustomParameters({
+  prompt: "select_account",
+  tenant: NHSMAIL_TENANT_ID,
+  domain_hint: NHSMAIL_PROVIDER_HINT,
+})
 const LOCAL_DEV_AUTH_KEY = "prepsight_local_dev_auth"
 type LocalDevSession = {
   email: string
@@ -237,6 +245,25 @@ export async function signInWithMicrosoft() {
     }
     throw e
   }
+}
+
+export async function signInWithPrepSightAccount(email: string, password: string) {
+  const authInstance = await prepareAuth()
+  const result = await signInWithEmailAndPassword(authInstance, email.trim(), password)
+  return { method: "password" as const, result }
+}
+
+export async function signUpWithPrepSightAccount(input: {
+  email: string
+  password: string
+  displayName: string
+}) {
+  const authInstance = await prepareAuth()
+  const result = await createUserWithEmailAndPassword(authInstance, input.email.trim(), input.password)
+  if (result.user && input.displayName.trim()) {
+    await updateProfile(result.user, { displayName: input.displayName.trim() })
+  }
+  return { method: "password" as const, result }
 }
 
 export async function getLoginRedirectResult() {

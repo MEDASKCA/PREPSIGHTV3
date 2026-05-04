@@ -3,7 +3,6 @@
 import { useEffect, useRef, useState } from "react"
 import { useRouter, usePathname } from "next/navigation"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
-import { clearDemoSession, isDemoSessionActive } from "@/lib/demo-access"
 import { readDeviceSession, setSessionConflictNotice } from "@/lib/device-session"
 import { subscribeToActiveUserSession } from "@/lib/firestore"
 import { hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
@@ -30,7 +29,6 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   const [authReady, setAuthReady] = useState(false)
   const [profileReady, setProfileReady] = useState(false)
   const [profileComplete, setProfileComplete] = useState(false)
-  const [demoSessionActive, setDemoSessionActive] = useState(() => isDemoSessionActive())
   const sessionTakeoverHandledRef = useRef(false)
 
   function hasPendingAuth() {
@@ -64,10 +62,6 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   }, [])
 
   useEffect(() => {
-    setDemoSessionActive(isDemoSessionActive())
-  }, [pathname])
-
-  useEffect(() => {
     if (!authReady || !user) {
       sessionTakeoverHandledRef.current = false
       return
@@ -87,7 +81,6 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       setSessionConflictNotice(
         `This account was opened on ${activeSession.deviceLabel}. Sign in again to continue.`,
       )
-      clearDemoSession()
       void signOut().finally(() => {
         router.replace("/login")
       })
@@ -141,8 +134,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     const pendingAuth = hasPendingAuth()
 
     if (!user && isAdmin && !pendingAuth) { router.replace("/login"); return }
-    if (!user && demoSessionActive && (pathname === "/" || pathname === "/login")) { router.replace("/onboarding"); return }
-    if (!user && !demoSessionActive && !isPublic && !pendingAuth) { router.replace("/login"); return }
+    if (!user && !isPublic && !pendingAuth) { router.replace("/login"); return }
     if (user && isPublic && !isLegalPage && !isLandingPage) {
       router.replace((!profileComplete || forceOnboarding) ? "/onboarding" : "/")
       return
@@ -171,7 +163,6 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
     isOnboarding,
     isAdmin,
     isLegalPage,
-    demoSessionActive,
   ])
 
   if (!authReady || user === undefined || !profileReady) {
@@ -179,17 +170,6 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   }
 
   if (!user) {
-    if (demoSessionActive && !isAdmin) {
-      return (
-        <div className="min-h-screen bg-[#F4F7FA]">
-          <div className="min-w-0 flex min-h-screen flex-col">
-            <main className="flex-1">{children}</main>
-          </div>
-          <AdminUnlocker />
-        </div>
-      )
-    }
-
     return isPublic
       ? <><AdminUnlocker />{children}</>
       : <MedaskcaLoadingScreen message="Loading..." />

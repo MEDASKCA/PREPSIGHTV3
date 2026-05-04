@@ -915,7 +915,6 @@ export default function ReviewPage() {
 
       <WorkspaceDesktopShell
         currentNav="review"
-        sectionLabel="library review"
         rightRail={
           <div className="space-y-3">
             <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-3 py-3">
@@ -967,8 +966,7 @@ export default function ReviewPage() {
       >
         <div className="space-y-4">
           <section className="px-1">
-            <p className="text-[13px] text-[#7f7f7f] lg:hidden">review</p>
-            <h1 className="mt-1 text-[32px] tracking-[-0.04em] text-white lg:hidden">validate system records</h1>
+            <h1 className="hidden text-[22px] font-medium tracking-[-0.03em] text-white lg:block">Review</h1>
             <p className="mt-2 text-[14px] text-[#8f8f8f]">
               Help confirm supplier system data for theatre use.
             </p>

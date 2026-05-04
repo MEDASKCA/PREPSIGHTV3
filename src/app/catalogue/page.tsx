@@ -270,7 +270,7 @@ export default function CataloguePage() {
   const catalogueBody = (
     <div className="space-y-5">
       <section>
-        <h1 className="text-[32px] tracking-[-0.04em] text-white">catalogue</h1>
+        <h1 className="hidden text-[22px] font-medium tracking-[-0.03em] text-white lg:block">Catalogue</h1>
         <p className="mt-2 max-w-[760px] text-[15px] leading-7 text-[#9a9a9a]">
           Search supplier-fixed systems, trays, implants, consumables, and equipment in one minimal surface.
         </p>
@@ -416,7 +416,6 @@ export default function CataloguePage() {
 
       <WorkspaceDesktopShell
         currentNav="catalogue"
-        sectionLabel="library catalogue"
         rightRail={
           selected ? (
             <section className="h-full overflow-y-auto border-l border-[#252525] bg-[#111111]">

@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "next/navigation"
 import { Power } from "lucide-react"
 import {
   signInWithGoogle,
@@ -12,9 +12,8 @@ import {
   signOut,
   type User,
 } from "@/lib/auth"
-import { DEMO_PASSWORD, DEMO_USERNAME, clearDemoSession, enableDemoSession, isDemoSessionActive } from "@/lib/demo-access"
 import { auth } from "@/lib/firebase"
-import { claimActiveUserSession, getActiveUserSession } from "@/lib/firestore"
+import { claimActiveUserSession, getActiveUserSession, getPrepSightNativeAccount } from "@/lib/firestore"
 import { consumeSessionConflictNotice, getOrCreateDeviceSession, type ActiveUserSessionRecord } from "@/lib/device-session"
 import { clearProfile, hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import AuthSessionControl from "@/components/AuthSessionControl"
@@ -104,10 +103,17 @@ function isEmbeddedBrowser() {
   return /FBAN|FBAV|Instagram|Messenger/i.test(ua) || (/\bwv\b/i.test(ua) && /Android/i.test(ua))
 }
 
+function resolveOperatorLoginUrl() {
+  if (typeof window === "undefined") return "/login"
+  if (window.location.port === "3000") {
+    return `${window.location.protocol}//${window.location.hostname}:3002/login`
+  }
+  return "/login"
+}
+
 // ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ Component ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬
 export default function LoginPage() {
   const router = useRouter()
-  const searchParams = useSearchParams()
   const authConfigured = Boolean(auth)
   const pendingProvider = readPendingProvider()
   const redirectTimerRef = useRef<number | null>(null)
@@ -124,23 +130,13 @@ export default function LoginPage() {
   const [sessionUser, setSessionUser] = useState<User | null>(null)
   const [debugLines,    setDebugLines]    = useState<string[]>([])
   const [showDebug,     setShowDebug]     = useState(false)
-  const [showDemoForm, setShowDemoForm] = useState(false)
-  const [demoUsername, setDemoUsername] = useState("")
-  const [demoPassword, setDemoPassword] = useState("")
-  const [demoError, setDemoError] = useState<string | null>(null)
-  const [demoSessionActive, setDemoSessionActive] = useState(() => isDemoSessionActive())
+  const [nativeNotice, setNativeNotice] = useState<string | null>(null)
   const [embeddedBrowser, setEmbeddedBrowser] = useState(false)
   const [sessionConflictNotice, setSessionConflictNotice] = useState<string | null>(null)
   const [pendingSessionTakeover, setPendingSessionTakeover] = useState<{
     user: User
     activeSession: ActiveUserSessionRecord
   } | null>(null)
-
-  useEffect(() => {
-    if (searchParams.get("demo") === "1") {
-      setShowDemoForm(true)
-    }
-  }, [searchParams])
 
   function appendDebug(message: string) {
     if (!showDebug) return
@@ -221,7 +217,46 @@ export default function LoginPage() {
     await finalizeAuthenticatedUser(user)
   }
 
+  function usesNativePasswordProvider(user: User) {
+    return user.providerData.some((provider) => provider.providerId === "password")
+  }
+
+  async function ensureNativeAccountAccess(user: User) {
+    if (!usesNativePasswordProvider(user)) {
+      return true
+    }
+
+    const account = await getPrepSightNativeAccount(user.uid)
+
+    if (!account) {
+      setNativeNotice("This PrepSight account has not been approved yet. Contact support if this should already be active.")
+      setLoading(null)
+      await signOut().catch(() => undefined)
+      return false
+    }
+
+    if (account.approvalStatus === "pending_review") {
+      setNativeNotice("Account request submitted. Access will be enabled after review.")
+      setLoading(null)
+      await signOut().catch(() => undefined)
+      return false
+    }
+
+    if (account.approvalStatus === "suspended") {
+      setNativeNotice("This PrepSight account is suspended. Contact support to restore access.")
+      setLoading(null)
+      await signOut().catch(() => undefined)
+      return false
+    }
+
+    return true
+  }
+
   async function beginAuthenticatedSession(user: User) {
+    if (!(await ensureNativeAccountAccess(user))) {
+      return
+    }
+
     const localSession = getOrCreateDeviceSession()
     const activeSession = await getActiveUserSession(user.uid)
 
@@ -242,7 +277,6 @@ export default function LoginPage() {
   async function handleExistingSessionSignOut() {
     clearPendingProvider()
     clearProfile()
-    clearDemoSession()
     setSessionUser(null)
     setLoading(null)
     setError(null)
@@ -272,15 +306,9 @@ export default function LoginPage() {
   useEffect(() => {
     if (typeof window === "undefined") return
     setShowDebug(window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1")
-    setDemoSessionActive(isDemoSessionActive())
     setEmbeddedBrowser(isEmbeddedBrowser())
     setSessionConflictNotice(consumeSessionConflictNotice())
   }, [])
-
-  useEffect(() => {
-    if (!demoSessionActive) return
-    router.replace("/onboarding")
-  }, [demoSessionActive, router])
 
   useEffect(() => {
     if (!showDebug) return
@@ -420,19 +448,6 @@ export default function LoginPage() {
     }
   }
 
-  function handleDemoMode() {
-    const normalizedUsername = demoUsername.trim().toLowerCase()
-    if (normalizedUsername !== DEMO_USERNAME || demoPassword !== DEMO_PASSWORD) {
-      setDemoError("Incorrect demo login or password.")
-      return
-    }
-
-    enableDemoSession()
-    setDemoSessionActive(true)
-    setDemoError(null)
-    router.replace("/onboarding")
-  }
-
   const ledFill = authenticated ? "#ffffff" : (lit ? "#fffde7" : "#1a1a1a")
   function ledTransition(i: number) {
     return authenticated
@@ -457,8 +472,6 @@ export default function LoginPage() {
       />
     )
   }
-
-  if (demoSessionActive) return null
 
   return (
     <div
@@ -606,7 +619,7 @@ export default function LoginPage() {
 
       {/* ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ Login content ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â€šÂ¬Ã‚Â slides in when lit ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â€šÂ¬Ã‚ÂÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ */}
       <div
-        className="w-full max-w-sm px-6 pb-10 flex flex-col items-center z-10"
+        className="z-10 flex w-full max-w-sm flex-col items-center px-6 pb-10"
         style={{
           opacity: lit ? 1 : 0,
           transform: lit ? "translateY(0)" : "translateY(16px)",
@@ -615,15 +628,23 @@ export default function LoginPage() {
         }}
       >
         {/* PrepSight */}
-        <h1
-          className="text-5xl font-extrabold text-[#00B4D8] tracking-tight mb-1"
+        <div
+          className="mb-1 flex w-full items-center justify-center gap-2 -translate-x-4"
           style={{
             opacity: lit ? 1 : 0,
             transition: "opacity 0.5s ease 1180ms",
           }}
         >
-          PrepSight
-        </h1>
+          <img
+            src="/PrepSight%20logo.png"
+            alt=""
+            aria-hidden="true"
+            className="h-20 w-auto shrink-0"
+          />
+          <h1 className="-ml-4 text-5xl font-extrabold tracking-tight text-[#00B4D8]">
+            PrepSight
+          </h1>
+        </div>
 
         {/* Tagline + description */}
         <div
@@ -747,45 +768,16 @@ export default function LoginPage() {
                   className="w-full flex items-center justify-center gap-3 px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors disabled:opacity-40"
                 >
                   {loading === "microsoft" ? <BtnSpinner /> : <MicrosoftIcon />}
-                  Continue with Microsoft
+                  Continue with NHSmail
                 </button>
 
                 <button
-                  onClick={() => {
-                    setShowDemoForm((current) => !current)
-                    setDemoError(null)
-                  }}
+                  onClick={() => window.location.assign(resolveOperatorLoginUrl())}
                   className="mt-3 w-full flex items-center justify-center px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors"
                 >
-                  Demo mode
+                  PrepSight account
                 </button>
 
-                {showDemoForm ? (
-                  <div className="mt-3 space-y-3 rounded-xl border border-[#282828] bg-[#111] p-3">
-                    <input
-                      value={demoUsername}
-                      onChange={(event) => setDemoUsername(event.target.value)}
-                      placeholder="Demo login"
-                      className="w-full rounded-lg border border-[#282828] bg-black px-3 py-2.5 text-sm text-white outline-none placeholder:text-[#666]"
-                    />
-                    <input
-                      type="password"
-                      value={demoPassword}
-                      onChange={(event) => setDemoPassword(event.target.value)}
-                      placeholder="Demo password"
-                      className="w-full rounded-lg border border-[#282828] bg-black px-3 py-2.5 text-sm text-white outline-none placeholder:text-[#666]"
-                    />
-                    {demoError ? (
-                      <p className="text-xs text-red-400">{demoError}</p>
-                    ) : null}
-                    <button
-                      onClick={handleDemoMode}
-                      className="w-full rounded-lg bg-[#0096C7] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#0085B2] active:bg-[#0077B6] transition-colors"
-                    >
-                      Enter demo mode
-                    </button>
-                  </div>
-                ) : null}
               </>
             )}
 

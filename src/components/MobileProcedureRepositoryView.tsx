@@ -31,6 +31,8 @@ import {
 } from "@/lib/libraries"
 import { getDesktopCommsPreference, getDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
 import { formatProcedureHierarchy } from "@/lib/procedure-hierarchy"
+import { getProfile, getRelevantSettings } from "@/lib/profile"
+import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import type { ItemDisplayInfo, Procedure, Section } from "@/lib/types"
 
 type MatchOption = {
@@ -301,6 +303,9 @@ export default function MobileProcedureRepositoryView({
     getDesktopCommsWidth,
     getDesktopCommsWidth,
   )
+  const profile = getProfile()
+  const hospitalLabel = profile?.hospital?.trim() || "Royal Free Hospital"
+  const departmentLabel = (profile ? getRelevantSettings(profile) : [])[0] ?? "Operating Theatres"
   const [mobileMetaOpen, setMobileMetaOpen] = useState(false)
   const [mode, setMode] = useState<"browse" | "collect">("browse")
   const [createNoticeOpen, setCreateNoticeOpen] = useState(false)
@@ -1145,13 +1150,10 @@ export default function MobileProcedureRepositoryView({
   return (
     <div className="min-h-screen bg-black text-[#e0e0e0]">
       <div className="lg:hidden">
-        <AppTopBar
-          menuOpen={mobileMenuOpen}
-          onToggleMenu={handleToggleNavigation}
-          menuContent={<AppMenuContent />}
-          sectionLabel="Library"
-          mobileMenuOnly
-          hideMobileMenu
+        <MobileSurfaceHeader
+          title="Library"
+          hospital={hospitalLabel}
+          department={departmentLabel}
         />
       </div>
 

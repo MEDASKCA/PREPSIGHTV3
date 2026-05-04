@@ -8,7 +8,7 @@ export default function PublicLanding() {
       <header className="landing-header">
         <div className="landing-brand">
           <div className="landing-brand-mark">
-            <img src="/ps-mark.png" alt="PrepSight logo" />
+            <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" />
           </div>
           <div className="landing-brand-text">
             <span>PrepSight</span>
@@ -97,7 +97,7 @@ export default function PublicLanding() {
         .landing-header {
           width: min(1200px, 92%);
           margin: 0 auto;
-          padding: 22px 0 14px;
+          padding: 22px 0 6px;
           display: flex;
           justify-content: space-between;
           align-items: center;
@@ -106,26 +106,31 @@ export default function PublicLanding() {
         .landing-brand {
           display: flex;
           align-items: center;
-          gap: 12px;
+          justify-content: center;
+          gap: 8px;
+          transform: translateX(-16px);
         }
 
         .landing-brand-mark img {
-          height: 34px;
+          height: 118px;
           width: auto;
+          display: block;
         }
 
         .landing-brand-text span {
-          font-size: 28px;
-          letter-spacing: -0.02em;
+          font-size: 30px;
+          letter-spacing: -0.05em;
           color: var(--blue);
-          font-weight: 400;
+          font-weight: 800;
+          margin-left: -18px;
+          line-height: 1;
           display: inline-block;
           animation: landingBrandIntro 3s ease-out forwards;
         }
 
         .landing-hero {
           width: min(1200px, 92%);
-          margin: 8px auto 22px;
+          margin: 0 auto 22px;
           display: grid;
           grid-template-columns: 1fr 1fr;
           gap: 60px;

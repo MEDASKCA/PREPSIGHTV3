@@ -1,7 +1,7 @@
 "use client"
 
-import { ArrowLeft, FileText, FolderSearch, MessageSquareText, Search, Stethoscope, UserRound } from "lucide-react"
-import { useEffect, useMemo, useRef, useState } from "react"
+import { Search, X } from "lucide-react"
+import { Fragment, useEffect, useMemo, useRef, useState } from "react"
 
 type SearchGroupKey = "messages" | "procedures" | "people" | "resources"
 
@@ -17,7 +17,6 @@ type SearchResult = {
 type SearchGroup = {
   key: SearchGroupKey
   title: string
-  icon: typeof MessageSquareText
   results: SearchResult[]
 }
 
@@ -30,17 +29,18 @@ const DEFAULT_RECENTS = [
 ]
 
 const CATEGORY_CARDS = [
-  { key: "messages", title: "Messages", subtitle: "Chats and discussions", icon: MessageSquareText },
-  { key: "procedures", title: "Procedures", subtitle: "SOPs and techniques", icon: Stethoscope },
-  { key: "people", title: "People", subtitle: "Staff and contacts", icon: UserRound },
-  { key: "resources", title: "Resources", subtitle: "Files and documents", icon: FolderSearch },
+  { key: "messages", title: "Messages", subtitle: "Chats and discussions" },
+  { key: "procedures", title: "Procedures", subtitle: "SOPs and techniques" },
+  { key: "people", title: "People", subtitle: "Staff and contacts" },
+  { key: "resources", title: "Resources", subtitle: "Files and documents" },
 ] as const
+
+const DEFAULT_CATEGORY_FILTERS: SearchGroupKey[] = ["messages", "procedures", "people", "resources"]
 
 const SEARCH_GROUPS: SearchGroup[] = [
   {
     key: "procedures",
     title: "Procedures",
-    icon: Stethoscope,
     results: [
       {
         id: "procedure-lap-chole",
@@ -68,26 +68,25 @@ const SEARCH_GROUPS: SearchGroup[] = [
   {
     key: "messages",
     title: "Messages",
-    icon: MessageSquareText,
     results: [
       {
         id: "message-tom-lap-chole",
         title: "TOM",
-        line1: "“Lap chole set missing clips for 5mm.”",
+        line1: "\"Lap chole set missing clips for 5mm.\"",
         line2: "Theatres Chat · 19:46",
         keywords: ["lap chole", "clips", "5mm", "tom", "theatres chat"],
       },
       {
         id: "message-skye-cali-lap-chole",
         title: "Skye and Cali",
-        line1: "“Voice call · Lap chole case discussion”",
+        line1: "\"Voice call · Lap chole case discussion\"",
         line2: "19:06 · 21s",
         keywords: ["lap chole", "voice call", "case discussion", "skye", "cali"],
       },
       {
         id: "message-theatre-3-schedule",
         title: "Theatre Coordination",
-        line1: "“Theatre 3 schedule updated for the afternoon list.”",
+        line1: "\"Theatre 3 schedule updated for the afternoon list.\"",
         line2: "Theatres Chat · 08:15",
         keywords: ["theatre 3 schedule", "theatre 3", "schedule", "afternoon list"],
       },
@@ -96,7 +95,6 @@ const SEARCH_GROUPS: SearchGroup[] = [
   {
     key: "people",
     title: "People",
-    icon: UserRound,
     results: [
       {
         id: "person-ahmed-khan",
@@ -124,11 +122,10 @@ const SEARCH_GROUPS: SearchGroup[] = [
   {
     key: "resources",
     title: "Resources",
-    icon: FileText,
     results: [
       {
         id: "resource-lap-chole-checklist",
-        title: "Laparoscopic Cholecystectomy – Checklist",
+        title: "Laparoscopic Cholecystectomy checklist",
         line1: "PrepSight Library · Updated 3w ago",
         line2: "Royal Free Hospital",
         keywords: ["lap chole", "laparoscopic cholecystectomy checklist", "checklist", "pdf"],
@@ -166,6 +163,32 @@ function matchesQuery(query: string, result: SearchResult) {
   return tokens.every((token) => haystack.includes(token))
 }
 
+function escapeRegExp(value: string) {
+  return value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")
+}
+
+function renderHighlightedText(text: string, query: string) {
+  const tokens = Array.from(new Set(normalize(query).split(" ").filter(Boolean))).sort((left, right) => right.length - left.length)
+  if (tokens.length === 0) return text
+
+  const pattern = tokens.map(escapeRegExp).join("|")
+  if (!pattern) return text
+
+  const regex = new RegExp(`(${pattern})`, "gi")
+  const parts = text.split(regex)
+
+  return parts.map((part, index) => {
+    const matched = tokens.some((token) => part.toLowerCase() === token.toLowerCase())
+    return matched ? (
+      <span key={`${part}-${index}`} className="text-[#67CFCF]">
+        {part}
+      </span>
+    ) : (
+      <Fragment key={`${part}-${index}`}>{part}</Fragment>
+    )
+  })
+}
+
 export default function MobileGlobalSearchOverlay({
   open,
   onClose,
@@ -175,11 +198,13 @@ export default function MobileGlobalSearchOverlay({
 }) {
   const [query, setQuery] = useState("")
   const [recentSearches, setRecentSearches] = useState<string[]>(DEFAULT_RECENTS)
+  const [activeCategoryFilters, setActiveCategoryFilters] = useState<SearchGroupKey[]>(DEFAULT_CATEGORY_FILTERS)
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   useEffect(() => {
     if (!open) return
     setQuery("")
+    setActiveCategoryFilters(DEFAULT_CATEGORY_FILTERS)
     const timeout = window.setTimeout(() => inputRef.current?.focus(), 120)
     return () => window.clearTimeout(timeout)
   }, [open])
@@ -187,12 +212,19 @@ export default function MobileGlobalSearchOverlay({
   const filteredGroups = useMemo(() => {
     if (!query.trim()) return []
     return SEARCH_GROUPS
+      .filter((group) => activeCategoryFilters.includes(group.key))
       .map((group) => ({
         ...group,
         results: group.results.filter((result) => matchesQuery(query, result)),
       }))
       .filter((group) => group.results.length > 0)
-  }, [query])
+  }, [activeCategoryFilters, query])
+
+  function toggleCategoryFilter(key: SearchGroupKey) {
+    setActiveCategoryFilters((current) =>
+      current.includes(key) ? current.filter((item) => item !== key) : [...current, key],
+    )
+  }
 
   if (!open) return null
 
@@ -203,92 +235,52 @@ export default function MobileGlobalSearchOverlay({
           from { opacity: 0; }
           to { opacity: 1; }
         }
-        @keyframes mobileGlobalSearchRiseIn {
-          from { opacity: 0; transform: translateY(10px); }
-          to { opacity: 1; transform: translateY(0); }
+        @keyframes mobileGlobalSearchDrawerIn {
+          from { transform: translateX(-28px) scale(0.985); opacity: 0; }
+          to { transform: translateX(0) scale(1); opacity: 1; }
         }
       `}</style>
 
       <div
-        className="fixed inset-0 z-[35] overflow-y-auto bg-black text-white"
-        style={{
-          animation: "mobileGlobalSearchFadeIn 220ms ease-out both",
-          paddingTop: "calc(env(safe-area-inset-top,0px) + 10px)",
-          paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 108px)",
-        }}
+        className="fixed inset-0 z-[35] bg-black/58 text-white lg:hidden"
+        style={{ animation: "mobileGlobalSearchFadeIn 260ms ease-out both" }}
+        onClick={onClose}
       >
         <div
-          className="px-3"
-          style={{ animation: "mobileGlobalSearchRiseIn 240ms ease-out both" }}
+          className="h-full w-[min(88vw,29rem)] overflow-y-auto rounded-r-[32px] rounded-tl-[24px] border-r border-t border-[#2d2d2d] bg-[linear-gradient(180deg,#111111_0%,#0a0a0a_100%)] px-4 shadow-[18px_0_44px_rgba(0,0,0,0.5)]"
+          style={{
+            animation: "mobileGlobalSearchDrawerIn 300ms cubic-bezier(0.22,1,0.36,1) both",
+            paddingTop: "calc(env(safe-area-inset-top,0px) + 12px)",
+            paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 108px)",
+          }}
+          onClick={(event) => event.stopPropagation()}
         >
-          <div className="flex items-center gap-2">
+          <div className="mb-2 flex items-start justify-end">
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-white transition-colors hover:bg-[#1a1a1a]"
-              aria-label="Back"
+              className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[#d8d8d8] transition-colors hover:bg-[#1a1a1a] hover:text-white"
+              aria-label="Close search"
             >
-              <ArrowLeft size={20} />
+              <X size={18} />
             </button>
+          </div>
 
-            <label className="flex min-w-0 flex-1 items-center gap-2 rounded-full border border-[#2d2d2d] bg-[#161616] px-4 py-3">
-              <Search size={16} className="shrink-0 text-[#0096C7]" />
+          <div className="flex items-center">
+            <label className="flex min-w-0 flex-1 items-center rounded-full border border-[#2d2d2d] bg-[#161616] px-4 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
               <input
                 ref={inputRef}
                 value={query}
                 onChange={(event) => setQuery(event.target.value)}
-                placeholder="Search procedures, messages, people…"
+                placeholder="Search anything"
                 className="min-w-0 flex-1 bg-transparent text-[15px] text-white outline-none placeholder:text-[#6f6f6f]"
               />
             </label>
-
-            <button
-              type="button"
-              onClick={onClose}
-              className="shrink-0 px-1 text-[15px] text-[#d8d8d8] transition-colors hover:text-white"
-            >
-              Cancel
-            </button>
           </div>
 
           {!query.trim() ? (
-            <div className="pt-10">
-              <div className="mx-auto flex max-w-[320px] flex-col items-center text-center">
-                <div className="flex h-20 w-20 items-center justify-center rounded-full border border-[#2d2d2d] bg-[#151515] text-[#0096C7]">
-                  <Search size={32} />
-                </div>
-                <h1 className="mt-6 text-[30px] tracking-[-0.04em] text-white">Search everything</h1>
-                <p className="mt-3 text-[15px] leading-7 text-[#8f8f8f]">
-                  Find procedures, messages, people, resources and more across PrepSight.
-                </p>
-              </div>
-
-              <section className="mt-10">
-                <div className="mb-4 flex items-center justify-between">
-                  <h2 className="text-[16px] text-white">Search by category</h2>
-                </div>
-                <div className="grid grid-cols-2 gap-3">
-                  {CATEGORY_CARDS.map((card) => {
-                    const Icon = card.icon
-                    return (
-                      <button
-                        key={card.key}
-                        type="button"
-                        onClick={() => setQuery(card.title)}
-                        className="rounded-[20px] border border-[#2d2d2d] bg-[#171717] p-4 text-left transition-colors hover:border-[#3a3a3a] hover:bg-[#1d1d1d]"
-                      >
-                        <div className="mb-4 flex h-11 w-11 items-center justify-center rounded-2xl bg-[#111111] text-[#0096C7]">
-                          <Icon size={18} />
-                        </div>
-                        <p className="text-[15px] text-white">{card.title}</p>
-                        <p className="mt-1 text-[13px] leading-5 text-[#8f8f8f]">{card.subtitle}</p>
-                      </button>
-                    )
-                  })}
-                </div>
-              </section>
-
-              <section className="mt-10">
+            <div className="pt-5">
+              <section className="mt-2">
                 <div className="mb-4 flex items-center justify-between">
                   <h2 className="text-[16px] text-white">Recent searches</h2>
                   {recentSearches.length > 0 ? (
@@ -301,13 +293,13 @@ export default function MobileGlobalSearchOverlay({
                     </button>
                   ) : null}
                 </div>
-                <div className="overflow-hidden rounded-[20px] border border-[#2d2d2d] bg-[#161616]">
+                <div>
                   {recentSearches.map((item) => (
                     <button
                       key={item}
                       type="button"
                       onClick={() => setQuery(item)}
-                      className="flex w-full items-center gap-3 border-b border-[#252525] px-4 py-4 text-left last:border-b-0 hover:bg-[#1d1d1d]"
+                      className="flex w-full items-center gap-3 px-1 py-3 text-left hover:bg-[#141414]"
                     >
                       <Search size={14} className="shrink-0 text-[#6f6f6f]" />
                       <span className="text-[14px] text-[#d8d8d8]">{item}</span>
@@ -319,37 +311,31 @@ export default function MobileGlobalSearchOverlay({
           ) : (
             <div className="pt-6">
               {filteredGroups.length > 0 ? (
-                <div className="space-y-7">
+                <div className="space-y-6">
                   {filteredGroups.map((group) => {
-                    const Icon = group.icon
                     return (
                       <section key={group.key}>
                         <div className="mb-3 flex items-center justify-between">
-                          <div className="flex items-center gap-2">
-                            <span className="flex h-9 w-9 items-center justify-center rounded-full bg-[#151515] text-[#0096C7]">
-                              <Icon size={16} />
-                            </span>
-                            <h2 className="text-[16px] text-white">{group.title}</h2>
-                          </div>
+                          <h2 className="text-[16px] text-white">{group.title}</h2>
                           <button type="button" className="text-[13px] text-[#0096C7] hover:text-[#67cfcf]">
                             View all
                           </button>
                         </div>
 
-                        <div className="space-y-3">
+                        <div>
                           {group.results.map((result) => (
                             <article
                               key={result.id}
-                              className="rounded-[20px] border border-[#2d2d2d] bg-[#171717] px-4 py-4"
+                              className="border-b border-[#181818] px-1 py-3 last:border-b-0"
                             >
                               <div className="flex items-start justify-between gap-3">
                                 <div className="min-w-0">
-                                  <p className="text-[15px] text-white">{result.title}</p>
-                                  <p className="mt-1 text-[13px] text-[#b0b0b0]">{result.line1}</p>
-                                  <p className="mt-1 text-[12px] text-[#7f7f7f]">{result.line2}</p>
+                                  <p className="text-[14px] text-white">{renderHighlightedText(result.title, query)}</p>
+                                  <p className="mt-0.5 text-[12px] text-[#b0b0b0]">{renderHighlightedText(result.line1, query)}</p>
+                                  <p className="mt-0.5 text-[11px] text-[#7f7f7f]">{renderHighlightedText(result.line2, query)}</p>
                                 </div>
                                 {result.badge ? (
-                                  <span className="shrink-0 rounded-full border border-[#2d2d2d] bg-[#101010] px-2.5 py-1 text-[11px] text-[#0096C7]">
+                                  <span className="shrink-0 rounded-full border border-[#1f1f1f] bg-[#101010] px-2 py-0.5 text-[10px] text-[#0096C7]">
                                     {result.badge}
                                   </span>
                                 ) : null}

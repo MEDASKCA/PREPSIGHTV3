@@ -14,7 +14,7 @@ import {
   Sparkles,
   X,
 } from "lucide-react"
-import WorkforceSectionNav from "@/components/WorkforceSectionNav"
+import WorkforcePersistentHeader from "@/components/WorkforcePersistentHeader"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
 import type { WorkforceHospitalPin } from "@/components/WorkforceShiftMap"
 
@@ -285,16 +285,11 @@ export default function WorkforceShiftsPage() {
 
   return (
     <WorkspaceDesktopShell currentNav="workforce" sectionLabel="Resources Workforce">
-      <div className="px-5 py-4 lg:px-6 lg:py-5">
-        <p className="mt-3 max-w-[800px] text-[15px] leading-7 text-[#486579]">
-          Shifts should feel like discovery and booking, not a rota dump. Internal shows opportunities inside
-          the staff member&apos;s normal organisation. External opens the wider market. The map should answer a
-          simple question first: which hospitals are inside my radius?
-        </p>
+      <div className="flex h-full min-h-0 flex-col px-5 py-4 lg:px-6 lg:py-5">
+        <WorkforcePersistentHeader current="shifts" />
 
-        <WorkforceSectionNav current="shifts" />
-
-        <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1.35fr)_minmax(340px,0.92fr)]">
+        <div className="mt-4 min-h-0 flex-1 overflow-y-auto pr-1">
+        <div className="grid gap-5 xl:grid-cols-[minmax(0,1.35fr)_minmax(340px,0.92fr)]">
           <div className="space-y-5">
             <section className="overflow-hidden rounded-[32px] border border-[#CFE3EA] bg-[linear-gradient(135deg,#FFFFFF_0%,#F5FCFE_100%)] shadow-[0_18px_46px_rgba(16,36,62,0.08)]">
               <div className="flex flex-col gap-5 p-6 lg:flex-row lg:items-end lg:justify-between">
@@ -565,6 +560,8 @@ export default function WorkforceShiftsPage() {
               </div>
             </section>
           </div>
+        </div>
+
         </div>
 
         {selectedHospital ? (

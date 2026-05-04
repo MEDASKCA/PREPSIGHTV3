@@ -1,12 +1,13 @@
 "use client"
 
-import dynamic from "next/dynamic"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
+import { usePathname, useRouter } from "next/navigation"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type CSSProperties } from "react"
-import { ArrowLeft, ArrowRightLeft, CalendarClock, ChevronDown, Clock3, Link2, LogOut, MapPinned, Maximize2, Mic, MicOff, MoreVertical, Moon, Phone, PhoneIncoming, PhoneOff, Search, Settings, ShieldCheck, Sun, Video, Wrench, X } from "lucide-react"
+import { ArrowLeft, CalendarClock, ChevronDown, Link2, LogOut, Maximize2, Mic, MicOff, MoreVertical, Moon, Phone, PhoneIncoming, PhoneOff, Search, Settings, Sun, Video, X } from "lucide-react"
 import AppMenuContent from "@/components/AppMenuContent"
 import MobileCommsShell from "@/components/MobileCommsShell"
+import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
+import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import { MobileThemeProvider, useMobileTheme } from "@/lib/mobile-theme"
 import AppTopBar from "@/components/AppTopBar"
 import {
@@ -16,27 +17,20 @@ import {
 } from "@/components/LibrariesDashboard"
 import LibraryPageClient from "@/components/LibraryPageClient"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
-import type { WorkforceHospitalPin } from "@/components/WorkforceShiftMap"
 import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
 import { getDesktopCommsPreference, getDesktopCommsWidth, getDesktopCommsWidthBounds, setDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { clearProfile, getProfile, getRelevantSettings } from "@/lib/profile"
-import { clearDemoSession } from "@/lib/demo-access"
 import { subscribeTeams } from "@/lib/team-workspaces"
-import { LOGISTICS_SECTIONS, TAB_ITEMS, UPDATES } from "@/v4/data"
-import type { LogisticsKey, TabKey, UpdateKey } from "@/v4/types"
+import { TAB_ITEMS, UPDATES } from "@/v4/data"
+import type { TabKey, UpdateKey } from "@/v4/types"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
 import { useCallStatus } from "@/lib/call-state"
 
-type MobileResourcesTab = "workforce" | "equipment" | "supplies"
-type MobileWorkforceTab = "rota" | "shifts" | "skills" | "tasks"
 type MobileUtilityPage = "calendar" | "connectors" | null
 type MobileCalendarView = "daily" | "weekly" | "monthly" | "quarterly"
 type MobileCalendarSource = "all" | "library" | "resources" | "insights"
 type MobileConnectorFilter = "connected" | "available"
-
-const MOBILE_SOFT_SURFACE = "rounded-[20px] border border-[var(--mob-border,#BFE3EE)] bg-[var(--mob-surface,#D4EEF8)] shadow-[0_10px_24px_rgba(16,36,62,0.05)]"
-const MobileWorkforceShiftMap = dynamic(() => import("@/components/WorkforceShiftMap"), { ssr: false })
 
 function CommsFilledIcon({ size = 23 }: { size?: number }) {
   return (
@@ -126,6 +120,8 @@ function MobileSectionHeader({
   searchValue,
   onSearchChange,
   searchPlaceholder,
+  onSearchButtonClick,
+  inlineSearchEnabled = true,
 }: {
   title: string
   hospital: string
@@ -134,10 +130,16 @@ function MobileSectionHeader({
   searchValue: string
   onSearchChange: (value: string) => void
   searchPlaceholder: string
+  onSearchButtonClick?: () => void
+  inlineSearchEnabled?: boolean
 }) {
   const [showSearch, setShowSearch] = useState(false)
 
   function toggleSearch() {
+    if (onSearchButtonClick) {
+      onSearchButtonClick()
+      return
+    }
     if (showSearch) {
       onSearchChange("")
     }
@@ -145,18 +147,12 @@ function MobileSectionHeader({
   }
 
   return (
-    <div className="shrink-0 bg-black px-5 pb-3" style={{ paddingTop: "calc(env(safe-area-inset-top) + 18px)" }}>
-      <div className="mb-0.5 flex items-center justify-between">
-        <span className="inline-flex items-center gap-1 text-2xl tracking-tight">
-          <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
-          <span className="text-[var(--mob-accent)]">PrepSight{" "}
-            <em
-              className="text-[0.9em] leading-none tracking-[-0.05em] text-[var(--mob-text)]"
-              style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-            >{title}</em>
-          </span>
-        </span>
-        <div className="flex items-center gap-3">
+    <MobileSurfaceHeader
+      title={title}
+      hospital={hospital}
+      department={department}
+      rightControls={(
+        <>
           <button
             type="button"
             onClick={toggleSearch}
@@ -173,14 +169,10 @@ function MobileSectionHeader({
           >
             <MoreVertical size={22} />
           </button>
-        </div>
-      </div>
-      <div className="mt-1 flex items-center gap-2 text-[13px] text-[#888888]">
-        <span>{hospital}</span>
-        <span className="text-[#2d2d2d]">|</span>
-        <span>{department}</span>
-      </div>
-      {showSearch && (
+        </>
+      )}
+    >
+      {inlineSearchEnabled && showSearch ? (
         <div className="mt-3 flex items-center gap-3 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-4 py-2">
           <Search size={14} className="shrink-0 text-[#888888]" />
           <input
@@ -196,8 +188,8 @@ function MobileSectionHeader({
             </button>
           ) : null}
         </div>
-      )}
-    </div>
+      ) : null}
+    </MobileSurfaceHeader>
   )
 }
 
@@ -260,488 +252,6 @@ function MobileLabeledPills<T extends string>({
   )
 }
 
-function MobileLabeledSelect<T extends string>({
-  label,
-  items,
-  value,
-  onChange,
-}: {
-  label: string
-  items: Array<{ key: T; label: string }>
-  value: T
-  onChange: (key: T) => void
-}) {
-  return (
-    <div className="flex items-center justify-between gap-3 px-5 py-1">
-      <span className="shrink-0 text-[13px] text-[var(--mob-text-2)]">{label}</span>
-      <div className="relative min-w-[160px]">
-        <select
-          value={value}
-          onChange={(event) => onChange(event.target.value as T)}
-          className="w-full appearance-none rounded-full border border-[var(--mob-border)] bg-[var(--mob-surface)] px-4 py-2 pr-10 text-sm text-[var(--mob-text)] outline-none"
-        >
-          {items.map((item) => (
-            <option key={item.key} value={item.key}>
-              {item.label}
-            </option>
-          ))}
-        </select>
-        <ChevronDown size={16} className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-[#6C8A99]" />
-      </div>
-    </div>
-  )
-}
-
-function MobileWorkforcePanel() {
-  const rotaItems = [
-    {
-      day: "Today",
-      time: "07:30 - 18:00",
-      area: "Theatre 1",
-      specialty: "Trauma and orthopaedics",
-      detail: "Primary knee replacement list • scrub cover",
-      contact: "Lisa Warren",
-      phone: "020 7794 0500",
-    },
-    {
-      day: "Tomorrow",
-      time: "08:00 - 16:30",
-      area: "Recovery",
-      specialty: "General surgery",
-      detail: "Late list support and handover cover",
-      contact: "Daniel Shah",
-      phone: "020 7794 0555",
-    },
-  ]
-
-  const rotaActions = [
-    { title: "Offer a shift swap", description: "Swap an assigned rota slot with another substantive member.", icon: ArrowRightLeft },
-    { title: "Request leave", description: "Submit leave against the rota and staffing view.", icon: CalendarClock },
-    { title: "Update availability", description: "Tell the rota team when you cannot be allocated.", icon: Clock3 },
-  ]
-
-  return (
-    <div className="space-y-4 px-4 pb-4">
-      <section className="rounded-[22px] border border-[#D6E7EE] bg-white/92 p-5 shadow-[0_16px_34px_rgba(16,36,62,0.08)]">
-        <p className="text-[14px] text-[#5B7A8A]">Resources</p>
-        <h2 className="mt-1 text-[28px] tracking-[-0.04em] text-[#10243E]">Workforce</h2>
-        <p className="mt-3 text-[14px] leading-7 text-[#61758B]">
-          See where you are working, who allocated you, and what can be changed in your rota.
-        </p>
-      </section>
-
-      <div className="space-y-3">
-        {rotaItems.map((item) => (
-          <div key={`${item.day}-${item.area}`} className="rounded-[22px] border border-[#D6E7EE] bg-white/92 p-4 shadow-[0_16px_34px_rgba(16,36,62,0.08)]">
-            <div className="flex flex-wrap items-center gap-2">
-              <h3 className="text-[20px] tracking-[-0.04em] text-[#10243E]">{item.day}</h3>
-              <span className="rounded-full bg-[#EEF8FF] px-3 py-1.5 text-[12px] text-[#1B86AE]">{item.time}</span>
-            </div>
-            <p className="mt-3 text-[17px] text-[#15364D]">{item.area}</p>
-            <p className="mt-1 text-[14px] text-[#61758B]">{item.specialty}</p>
-            <p className="mt-3 text-[14px] leading-7 text-[#486579]">{item.detail}</p>
-            <div className="mt-4 rounded-[18px] border border-[#E8F0F4] bg-[#FBFDFF] p-4">
-              <div className="flex items-center gap-2">
-                <MapPinned size={15} className="text-[#1b86ae]" />
-                <p className="text-[13px] text-[#7A98AA]">Allocation contact</p>
-              </div>
-              <p className="mt-3 text-[15px] text-[#15364D]">{item.contact}</p>
-              <div className="mt-2 flex items-center gap-2 text-[13px] text-[#61758B]">
-                <Phone size={14} className="text-[#1b86ae]" />
-                {item.phone}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <section className="rounded-[22px] border border-[#D6E7EE] bg-white/92 p-4 shadow-[0_16px_34px_rgba(16,36,62,0.08)]">
-        <h3 className="text-[20px] tracking-[-0.04em] text-[#10243E]">Rota actions</h3>
-        <div className="mt-4 space-y-3">
-          {rotaActions.map((action) => {
-            const Icon = action.icon
-            return (
-              <button key={action.title} className="flex w-full items-start gap-3 rounded-[18px] border border-[#E8F0F4] bg-[#FBFDFF] px-4 py-4 text-left">
-                <span className="mt-0.5 rounded-full bg-[#EEF8FF] p-2 text-[#1b86ae]">
-                  <Icon size={16} />
-                </span>
-                <span>
-                  <span className="block text-[15px] text-[#15364D]">{action.title}</span>
-                  <span className="mt-1 block text-[13px] leading-6 text-[#61758B]">{action.description}</span>
-                </span>
-              </button>
-            )
-          })}
-        </div>
-      </section>
-    </div>
-  )
-}
-
-function MobileWorkforceRotaPanel() {
-  const rotaItems = [
-    {
-      day: "Today",
-      time: "07:30 - 18:00",
-      area: "Theatre 1",
-      specialty: "Trauma and orthopaedics",
-      detail: "Primary knee replacement list • scrub cover",
-      contact: "Lisa Warren",
-      phone: "020 7794 0500",
-    },
-    {
-      day: "Tomorrow",
-      time: "08:00 - 16:30",
-      area: "Recovery",
-      specialty: "General surgery",
-      detail: "Late list support and handover cover",
-      contact: "Daniel Shah",
-      phone: "020 7794 0555",
-    },
-  ]
-
-  const rotaActions = [
-    { title: "Offer a shift swap", description: "Swap an assigned rota slot with another substantive member.", icon: ArrowRightLeft },
-    { title: "Request leave", description: "Submit leave against the rota and staffing view.", icon: CalendarClock },
-    { title: "Update availability", description: "Tell the rota team when you cannot be allocated.", icon: Clock3 },
-  ]
-
-  return (
-    <div className="space-y-4">
-      <section className={`${MOBILE_SOFT_SURFACE} p-4`}>
-        <h2 className="text-[24px] tracking-[-0.04em] text-[#10243E]">Rota</h2>
-      </section>
-
-      <div className="space-y-3">
-        {rotaItems.map((item) => (
-          <div key={`${item.day}-${item.area}`} className={`${MOBILE_SOFT_SURFACE} p-4`}>
-            <div className="flex flex-wrap items-center gap-2">
-              <h3 className="text-[18px] tracking-[-0.04em] text-[#10243E]">{item.day}</h3>
-              <span className="rounded-full bg-[#EEF8FF] px-3 py-1.5 text-[12px] text-[#1B86AE]">{item.time}</span>
-            </div>
-            <p className="mt-2 text-[16px] text-[#15364D]">{item.area}</p>
-            <p className="mt-1 text-[13px] text-[#61758B]">{item.specialty}</p>
-            <p className="mt-2 text-[13px] leading-6 text-[#486579]">{item.detail}</p>
-            <div className="mt-3 rounded-[16px] border border-[#BFE3EE] bg-[#E3F4FB] p-3">
-              <div className="flex items-center gap-2">
-                <MapPinned size={15} className="text-[#1b86ae]" />
-                <p className="text-[13px] text-[#7A98AA]">Allocation contact</p>
-              </div>
-              <p className="mt-3 text-[15px] text-[#15364D]">{item.contact}</p>
-              <div className="mt-2 flex items-center gap-2 text-[13px] text-[#61758B]">
-                <Phone size={14} className="text-[#1b86ae]" />
-                {item.phone}
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      <section className={`${MOBILE_SOFT_SURFACE} p-4`}>
-        <h3 className="text-[18px] tracking-[-0.04em] text-[#10243E]">Rota actions</h3>
-        <div className="mt-3 space-y-2">
-          {rotaActions.map((action) => {
-            const Icon = action.icon
-            return (
-              <button key={action.title} className="flex w-full items-start gap-3 rounded-[16px] border border-[#BFE3EE] bg-[#E3F4FB] px-3 py-3 text-left">
-                <span className="mt-0.5 rounded-full bg-[#EEF8FF] p-2 text-[#1b86ae]">
-                  <Icon size={16} />
-                </span>
-                <span>
-                  <span className="block text-[15px] text-[#15364D]">{action.title}</span>
-                  <span className="mt-1 block text-[12px] leading-5 text-[#61758B]">{action.description}</span>
-                </span>
-              </button>
-            )
-          })}
-        </div>
-      </section>
-    </div>
-  )
-}
-
-function MobileWorkforceShiftsPanel() {
-  const shiftTypeFilters = ["Internal", "External"] as const
-  const shiftModeFilters = ["Map", "Feed"] as const
-  const [shiftType, setShiftType] = useState<(typeof shiftTypeFilters)[number]>("Internal")
-  const [shiftMode, setShiftMode] = useState<(typeof shiftModeFilters)[number]>("Map")
-  const [selectedHospitalId, setSelectedHospitalId] = useState<string | null>(null)
-  const [hoveredHospitalId, setHoveredHospitalId] = useState<string | null>(null)
-
-  const shiftHospitals = [
-    {
-      id: "royal-free-hospital",
-      type: "Internal" as const,
-      hospital: "Royal Free Hospital",
-      distanceMiles: 2.5,
-      contactNumber: "020 7794 0500",
-      position: [51.5539, -0.1644] as [number, number],
-      shifts: [
-        { title: "Saturday trauma list", state: "Booked", contact: "Approved by Lisa Warren", phone: "020 7794 0500" },
-        { title: "Late recovery support", state: "Shift offer", contact: "Offered by Nina Clarke", phone: "020 7794 0555" },
-      ],
-    },
-    {
-      id: "barnet-hospital",
-      type: "External" as const,
-      hospital: "Barnet Hospital",
-      distanceMiles: 8.1,
-      contactNumber: "020 8216 4600",
-      position: [51.6507, -0.2002] as [number, number],
-      shifts: [
-        { title: "Endoscopy support", state: "Awaiting confirmation", contact: "Pending with Daniel Shah", phone: "020 8216 4600" },
-      ],
-    },
-    {
-      id: "uch-hospital",
-      type: "External" as const,
-      hospital: "University College Hospital",
-      distanceMiles: 5.6,
-      contactNumber: "020 3456 7890",
-      position: [51.5246, -0.134] as [number, number],
-      shifts: [
-        { title: "Orthopaedic late cover", state: "Requested", contact: "Requested to rota team", phone: "020 3456 7890" },
-      ],
-    },
-    {
-      id: "whittington-hospital",
-      type: "External" as const,
-      hospital: "Whittington Hospital",
-      distanceMiles: 4.2,
-      contactNumber: "020 7272 3070",
-      position: [51.5686, -0.1361] as [number, number],
-      shifts: [],
-    },
-  ]
-
-  const visibleHospitals = shiftHospitals.filter((hospital) => hospital.type === shiftType)
-  const pins: WorkforceHospitalPin[] = visibleHospitals.map((hospital) => ({
-    id: hospital.id,
-    hospital: hospital.hospital,
-    distanceMiles: hospital.distanceMiles,
-    contactNumber: hospital.contactNumber,
-    shiftCount: hospital.shifts.length,
-    strongestFit:
-      hospital.shifts.length === 0
-        ? "none"
-        : hospital.type === "Internal"
-          ? "strong fit"
-          : "good fit",
-    position: hospital.position,
-  }))
-  const selectedHospital = selectedHospitalId
-    ? visibleHospitals.find((hospital) => hospital.id === selectedHospitalId) ?? null
-    : null
-  const statuses = [
-    {
-      state: "Booked",
-      hospital: "Royal London Hospital",
-      shift: "Bank theatre support • 07:00 - 15:30",
-      contact: "Approved by Farah Khan",
-      phone: "020 7794 0612",
-    },
-    {
-      state: "Awaiting confirmation",
-      hospital: "St George's Hospital",
-      shift: "Anaesthetics cover • 19:00 - 07:00",
-      contact: "Waiting on Michael Reed",
-      phone: "020 7794 0840",
-    },
-    {
-      state: "Shift offer",
-      hospital: "Royal Free Hospital",
-      shift: "Weekend list support • 08:00 - 14:00",
-      contact: "Offered by Priya Patel",
-      phone: "020 7794 0991",
-    },
-  ]
-
-  return (
-    <div className="space-y-4">
-      <div className="space-y-0">
-        <MobileLabeledSelect
-          label="Shift Type"
-          items={shiftTypeFilters.map((item) => ({ key: item, label: item }))}
-          value={shiftType}
-          onChange={(value) => {
-            setShiftType(value)
-            setSelectedHospitalId(null)
-            setHoveredHospitalId(null)
-          }}
-        />
-        <MobileLabeledSelect
-          label="View"
-          items={shiftModeFilters.map((item) => ({ key: item, label: item }))}
-          value={shiftMode}
-          onChange={(value) => setShiftMode(value)}
-        />
-      </div>
-
-      {shiftMode === "Map" ? (
-        <div className="space-y-3">
-          <section className={`${MOBILE_SOFT_SURFACE} overflow-hidden p-0`}>
-            <div className="flex items-center justify-between gap-3 px-4 pt-4 pb-3">
-              <div>
-                <h3 className="text-[18px] tracking-[-0.03em] text-[#10243E]">Hospital map</h3>
-                <p className="mt-1 text-[12px] text-[#61758B]">Start with the hospital. Then open the shifts inside it.</p>
-              </div>
-              <span className="shrink-0 rounded-full bg-[#EEF8FF] px-3 py-1.5 text-[12px] text-[#1B86AE]">
-                {visibleHospitals.length} {visibleHospitals.length === 1 ? "hospital" : "hospitals"}
-              </span>
-            </div>
-            <div className="border-t border-[#BFE3EE] [&_.leaflet-container]:h-[380px]">
-              <MobileWorkforceShiftMap
-                hospitals={pins}
-                radiusMiles={20}
-                selectedHospitalId={selectedHospitalId}
-                hoveredHospitalId={hoveredHospitalId}
-                center={[51.5539, -0.1644]}
-                onSelectHospital={setSelectedHospitalId}
-                onHoverHospital={setHoveredHospitalId}
-              />
-            </div>
-          </section>
-
-          <div className="space-y-2">
-            {(selectedHospital ? [selectedHospital] : visibleHospitals).map((hospital) => (
-              <div key={hospital.id} className={`${MOBILE_SOFT_SURFACE} p-4`}>
-                <div className="flex items-start justify-between gap-3">
-                  <div className="min-w-0">
-                    <h3 className="text-[16px] text-[#15364D]">{hospital.hospital}</h3>
-                    <p className="mt-1 text-[12px] text-[#61758B]">{hospital.distanceMiles} miles away</p>
-                  </div>
-                  <span
-                    className={`shrink-0 rounded-full px-3 py-1.5 text-[12px] ${
-                      hospital.shifts.length > 0 ? "bg-[#E8FBF6] text-[#138a73]" : "bg-[#EFF3F6] text-[#6E7E8B]"
-                    }`}
-                  >
-                    {hospital.shifts.length > 0 ? `${hospital.shifts.length} shifts` : "No shifts"}
-                  </span>
-                </div>
-                <div className="mt-3 space-y-2">
-                  {hospital.shifts.length > 0 ? (
-                    hospital.shifts.map((shift) => (
-                      <div key={`${hospital.id}-${shift.title}`} className="rounded-[16px] border border-[#BFE3EE] bg-[#E3F4FB] px-3 py-3">
-                        <div className="flex items-start justify-between gap-3">
-                          <div className="min-w-0">
-                            <p className="text-[14px] text-[#15364D]">{shift.title}</p>
-                            <p className="mt-1 text-[12px] text-[#61758B]">{shift.contact}</p>
-                          </div>
-                          <span className="shrink-0 text-[11px] text-[#7A98AA]">{shift.state}</span>
-                        </div>
-                        <div className="mt-2 flex items-center gap-2 text-[12px] text-[#61758B]">
-                          <Phone size={13} className="text-[#1b86ae]" />
-                          {shift.phone}
-                        </div>
-                      </div>
-                    ))
-                  ) : (
-                    <div className="rounded-[16px] border border-dashed border-[#BFE3EE] px-3 py-3 text-[13px] text-[#6E7E8B]">
-                      No available shifts here right now.
-                    </div>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      ) : null}
-
-      <div className={`space-y-3 ${shiftMode === "Feed" ? "" : "hidden"}`}>
-        {statuses.map((item) => (
-          <div key={`${item.state}-${item.hospital}`} className={`${MOBILE_SOFT_SURFACE} p-4`}>
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-[16px] tracking-[-0.03em] text-[#10243E]">{item.state}</h3>
-              <span className="rounded-full bg-[#EEF8FF] px-3 py-1.5 text-[12px] text-[#1B86AE]">{item.hospital}</span>
-            </div>
-            <p className="mt-2 text-[14px] text-[#15364D]">{item.shift}</p>
-            <p className="mt-1 text-[12px] text-[#61758B]">{item.contact}</p>
-            <div className="mt-2 flex items-center gap-2 text-[13px] text-[#61758B]">
-              <Phone size={14} className="text-[#1b86ae]" />
-              {item.phone}
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function MobileWorkforceSkillsPanel() {
-  const skills = [
-    { title: "Trauma and orthopaedics", level: "Signed off", detail: "Eligible for matched bank shifts" },
-    { title: "General surgery", level: "Current", detail: "Can be booked into routine list support" },
-    { title: "Vascular", level: "Supervised", detail: "Visible but requires allocation review" },
-  ]
-
-  return (
-    <div className="space-y-4">
-      <section className={`${MOBILE_SOFT_SURFACE} p-4`}>
-        <h2 className="text-[24px] tracking-[-0.04em] text-[#10243E]">Skills</h2>
-      </section>
-
-      <div className="space-y-3">
-        {skills.map((skill) => (
-          <div key={skill.title} className={`${MOBILE_SOFT_SURFACE} p-4`}>
-            <div className="flex items-center justify-between gap-3">
-              <h3 className="text-[16px] tracking-[-0.03em] text-[#10243E]">{skill.title}</h3>
-              <span className="rounded-full bg-[#EEF8FF] px-3 py-1.5 text-[12px] text-[#1B86AE]">{skill.level}</span>
-            </div>
-            <p className="mt-2 text-[13px] leading-6 text-[#61758B]">{skill.detail}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function MobileWorkforceTasksPanel() {
-  const tasks = [
-    { title: "Acknowledge airway card update", meta: "Requested by theatre education lead • due today" },
-    { title: "Confirm weekend availability", meta: "Needed for rota planning • due 18:00" },
-    { title: "Review bank shift offer", meta: "Royal London Hospital • expires tomorrow" },
-  ]
-
-  return (
-    <div className="space-y-4">
-      <section className={`${MOBILE_SOFT_SURFACE} p-4`}>
-        <h2 className="text-[24px] tracking-[-0.04em] text-[#10243E]">Tasks</h2>
-      </section>
-
-      <div className="space-y-3">
-        {tasks.map((task) => (
-          <div key={task.title} className={`${MOBILE_SOFT_SURFACE} p-4`}>
-            <h3 className="text-[16px] tracking-[-0.03em] text-[#10243E]">{task.title}</h3>
-            <p className="mt-2 text-[13px] leading-6 text-[#61758B]">{task.meta}</p>
-          </div>
-        ))}
-      </div>
-    </div>
-  )
-}
-
-function MobilePreparedPanel({
-  title,
-  body,
-  icon,
-}: {
-  title: string
-  body: string
-  icon: "equipment" | "supplies"
-}) {
-  const Icon = icon === "equipment" ? Wrench : ShieldCheck
-  return (
-    <div className="space-y-4 px-4 pb-4">
-      <section className="rounded-[22px] border border-[#D6E7EE] bg-white/92 p-5 shadow-[0_16px_34px_rgba(16,36,62,0.08)]">
-        <div className="flex items-center gap-2">
-          <Icon size={17} className="text-[#1b86ae]" />
-          <p className="text-[14px] text-[#5B7A8A]">Resources</p>
-        </div>
-        <h2 className="mt-2 text-[28px] tracking-[-0.04em] text-[#10243E]">{title}</h2>
-      </section>
-    </div>
-  )
-}
 
 const MOBILE_CALENDAR_EVENTS = [
   { id: "cal-1", title: "Morning shift", meta: "Royal Free Hospital • 07:30 - 16:00", day: "25", month: "Apr", source: "resources" as const },
@@ -1048,54 +558,53 @@ function MobileSharedProfileDrawer({
 
   return (
     <div className="absolute inset-0 z-30 lg:hidden">
-      <div className="absolute inset-0 bg-[rgba(145,182,196,0.22)]" onClick={onClose} />
+      <div className="absolute inset-0 bg-black/58" onClick={onClose} />
       <div
-        className="fixed inset-y-0 right-0 z-30 flex h-[100dvh] w-72 flex-col rounded-l-[34px] rounded-r-none border-l border-[rgba(126,196,214,0.78)] bg-[linear-gradient(180deg,rgba(188,228,239,0.98)_0%,rgba(207,236,245,0.96)_46%,rgba(196,231,241,0.99)_100%)] shadow-[-12px_0_28px_rgba(23,109,140,0.12)] backdrop-blur-[12px]"
+        className="fixed inset-y-0 right-0 z-30 flex h-[100dvh] w-[min(88vw,29rem)] flex-col rounded-l-[32px] rounded-r-none border-l border-t border-[#3a3a3d] bg-[linear-gradient(180deg,#262628_0%,#1d1d1f_100%)] text-white shadow-[-18px_0_44px_rgba(0,0,0,0.5)]"
         style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}
       >
-        <div className="border-b border-[rgba(137,193,210,0.34)] px-5 pt-12 pb-6">
-          <div className="mb-6 flex items-center justify-between">
-            <span className="text-[#176d8c]">Profile</span>
+        <div className="border-b border-[#343437] px-5 pt-6 pb-6">
+          <div className="mb-6 flex items-start justify-end">
             <button
               type="button"
               onClick={onClose}
-              className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-[#0085B2] bg-[#0096C7] text-white shadow-[0_10px_24px_rgba(0,150,199,0.24)] transition-colors hover:bg-[#0085B2]"
+              className="inline-flex h-10 w-10 items-center justify-center rounded-full text-[#d8d8d8] transition-colors hover:bg-[#2e2e31] hover:text-white"
               aria-label="Close profile"
             >
-              <X size={22} strokeWidth={2.2} />
+              <X size={18} />
             </button>
           </div>
           <div className="flex flex-col items-center">
             <SharedMobileAvatar label={profileInitial} photoURL={photoURL} size={70} />
-            <p className="mt-3 text-[15px] text-[#154b5f]">{displayName}</p>
-            <p className="mt-1 text-sm text-[#1b86ae]">{roleLabel}</p>
-            <p className="mt-1 text-sm text-[#7a9aa8]">{email}</p>
+            <p className="mt-3 text-[15px] text-white">{displayName}</p>
+            <p className="mt-1 text-sm text-[#67CFCF]">{roleLabel}</p>
+            <p className="mt-1 text-sm text-[#8f8f8f]">{email}</p>
             <div className="mt-2 flex items-center gap-2">
               <div className="h-2 w-2 rounded-full bg-emerald-400" />
               <span className="text-sm text-emerald-400">Online</span>
             </div>
           </div>
         </div>
-        <div className="border-b border-[rgba(137,193,210,0.34)] px-5 py-4">
-          <p className="mb-3 text-xs tracking-widest text-[#7fa9b8]">workspace</p>
-          <p className="text-[15px] text-[#154b5f]">{hospital}</p>
-          <p className="mt-1 text-sm text-[#5d8797]">{department}</p>
+        <div className="border-b border-[#343437] px-5 py-4">
+          <p className="mb-3 text-xs tracking-widest text-[#6f6f6f]">workspace</p>
+          <p className="text-[15px] text-white">{hospital}</p>
+          <p className="mt-1 text-sm text-[#8f8f8f]">{department}</p>
         </div>
         <div className="flex flex-1 flex-col gap-1 px-5 py-4">
-          <button onClick={onOpenCalendar} className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
+          <button onClick={onOpenCalendar} className="flex items-center gap-3 py-3.5 text-[15px] text-[#d8d8d8]">
             <CalendarClock size={18} /> Calendar
           </button>
-          <button onClick={onOpenConnectors} className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
+          <button onClick={onOpenConnectors} className="flex items-center gap-3 py-3.5 text-[15px] text-[#d8d8d8]">
             <Link2 size={18} /> Connectors
           </button>
-          <button className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
+          <button className="flex items-center gap-3 py-3.5 text-[15px] text-[#d8d8d8]">
             <Settings size={18} /> Settings
           </button>
-          <button type="button" onClick={toggle} className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
+          <button type="button" onClick={toggle} className="flex items-center gap-3 py-3.5 text-[15px] text-[#d8d8d8]">
             {theme === "dark" ? <Sun size={18} /> : <Moon size={18} />}
             {theme === "dark" ? "Light mode" : "Dark mode"}
           </button>
-          <button type="button" onClick={onSwitchWorkspace} className="flex items-center gap-3 py-3.5 text-[15px] text-[#527786]">
+          <button type="button" onClick={onSwitchWorkspace} className="flex items-center gap-3 py-3.5 text-[15px] text-[#d8d8d8]">
             <ChevronDown size={18} /> Switch workspace
           </button>
           <button onClick={() => void onSignOut()} className="mt-2 flex items-center gap-3 py-3.5 text-[15px] text-red-400">
@@ -1119,77 +628,6 @@ function formatLibraryOwnerLabel(library: {
   return library.libraryType === "shared"
     ? library.ownerPublicAlias?.trim() || library.ownerName
     : library.ownerName
-}
-
-function ResourcesPanel({
-  activeKey,
-  onSelect,
-}: {
-  activeKey: LogisticsKey | null
-  onSelect: (key: LogisticsKey) => void
-}) {
-  const activeSection = LOGISTICS_SECTIONS.find((section) => section.key === activeKey) ?? LOGISTICS_SECTIONS[0]
-
-  return (
-    <div className="grid gap-4 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)]">
-      <section className="rounded-[20px] border border-[#D6E7EE] bg-white p-4 shadow-[0_16px_34px_rgba(16,36,62,0.08)]">
-        <p className="text-[14px] text-[#5B7A8A]">Resources</p>
-        <h2 className="mt-1 text-[28px] tracking-[-0.04em] text-[#10243E]">Operational workspace</h2>
-        <div className="mt-4 space-y-3">
-          {LOGISTICS_SECTIONS.map((section) => {
-            const selected = section.key === activeSection.key
-            return (
-              <button
-                key={section.key}
-                type="button"
-                onClick={() => onSelect(section.key)}
-                className={`w-full rounded-[18px] border px-4 py-4 text-left transition-colors ${
-                  selected
-                    ? "border-[#8BCBE5] bg-[#F2FBFE]"
-                    : "border-[#E3EDF2] bg-[#FBFDFF] hover:bg-[#F5FAFC]"
-                }`}
-              >
-                <div className="flex items-start justify-between gap-3">
-                  <div>
-                    <p className="text-[17px] font-medium tracking-[-0.02em] text-[#10243E]">{section.title}</p>
-                    <p className="mt-1 text-[14px] text-[#61758B]">{section.detail}</p>
-                  </div>
-                  {selected ? (
-                    <span className="rounded-full bg-[#0096C7] px-2.5 py-1 text-[11px] font-medium text-white">
-                      Open
-                    </span>
-                  ) : null}
-                </div>
-              </button>
-            )
-          })}
-        </div>
-      </section>
-
-      <section className="rounded-[20px] border border-[#D6E7EE] bg-white p-4 shadow-[0_16px_34px_rgba(16,36,62,0.08)]">
-        <div
-          className="rounded-[18px] px-4 py-4"
-          style={{ background: `linear-gradient(180deg, ${activeSection.tone} 0%, #F7FCFE 100%)` }}
-        >
-          <p className="text-[13px] uppercase tracking-[0.16em] text-[#4F6980]">Current focus</p>
-          <h3 className="mt-2 text-[24px] tracking-[-0.04em] text-[#10243E]">{activeSection.title}</h3>
-          <p className="mt-2 text-[15px] leading-6 text-[#35516A]">{activeSection.detail}</p>
-        </div>
-
-        <div className="mt-4 space-y-3">
-          {activeSection.rows.map((row) => (
-            <div
-              key={row.title}
-              className="rounded-[18px] border border-[#E3EDF2] bg-[#FBFDFF] px-4 py-4"
-            >
-              <p className="text-[16px] font-medium text-[#10243E]">{row.title}</p>
-              <p className="mt-1 text-[14px] leading-6 text-[#61758B]">{row.meta}</p>
-            </div>
-          ))}
-        </div>
-      </section>
-    </div>
-  )
 }
 
 function UpdatesPanel({
@@ -1278,6 +716,16 @@ function LibraryOverview({
 
   const [globalOpen, setGlobalOpen] = useState(true)
   const [localOpen, setLocalOpen] = useState(true)
+  const [isDesktopViewport, setIsDesktopViewport] = useState(false)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const mediaQuery = window.matchMedia("(min-width: 1024px)")
+    const syncViewport = () => setIsDesktopViewport(mediaQuery.matches)
+    syncViewport()
+    mediaQuery.addEventListener("change", syncViewport)
+    return () => mediaQuery.removeEventListener("change", syncViewport)
+  }, [])
 
   const { filteredLibraries, totalCards } = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase()
@@ -1329,17 +777,19 @@ function LibraryOverview({
 
   return (
     <div className="space-y-4">
-      <section className="p-4">
+      {false ? (
+        <section className="p-4">
         <p className="text-[11px] text-[#888888]">Workspace</p>
         <h1 className="mt-1 text-[20px] tracking-[-0.03em] text-white">{workspaceLabel}</h1>
         <p className="mt-1 text-[13px] text-[#888888]">
-          {libraries.length} collections · {totalCards} procedure cards
+          {libraries.length} collections Â· {totalCards} procedure cards
         </p>
-      </section>
+        </section>
+      ) : null}
 
       <section className="p-4">
         <div className="mb-3 flex items-center justify-between gap-4">
-          <h2 className="text-[16px] font-medium tracking-[-0.02em] text-white">Collections</h2>
+          <h2 className="text-[22px] font-medium tracking-[-0.03em] text-white">Collections</h2>
           <Link href="/" className="text-[14px] text-[#0096C7]">
             Request access
           </Link>
@@ -1377,25 +827,24 @@ function LibraryOverview({
   )
 }
 
-export default function PrepSightV4App() {
+export default function PrepSightV4App({ initialSurface = "library" }: { initialSurface?: TabKey }) {
   const router = useRouter()
+  const pathname = usePathname()
   const [menuOpen, setMenuOpen] = useState(false)
   const [desktopNavOpen, setDesktopNavOpen] = useState(true)
   const [searchValue, setSearchValue] = useState("")
+  const [showMobileGlobalSearch, setShowMobileGlobalSearch] = useState(false)
   const [mobileUser, setMobileUser] = useState<User | null>(null)
   const [showMobileProfile, setShowMobileProfile] = useState(false)
-  const [mobileResourcesTab, setMobileResourcesTab] = useState<MobileResourcesTab>("workforce")
-  const [mobileWorkforceTab, setMobileWorkforceTab] = useState<MobileWorkforceTab>("rota")
   const [mobileUtilityPage, setMobileUtilityPage] = useState<MobileUtilityPage>(null)
   const [mobileCalendarView, setMobileCalendarView] = useState<MobileCalendarView>("monthly")
-  const [activeTab, setActiveTab] = useState<TabKey>("library")
-  const [mobileTab, setMobileTab] = useState<TabKey>("comms")
+  const [activeTab, setActiveTab] = useState<TabKey>(initialSurface === "updates" ? "updates" : "library")
+  const [mobileTab, setMobileTab] = useState<TabKey>(initialSurface)
   const callStatus = useCallStatus()
   const pipVideoRef = useRef<HTMLVideoElement>(null)
   const desktopPipVideoRef = useRef<HTMLVideoElement>(null)
   const [desktopPipPos, setDesktopPipPos] = useState({ x: -1, y: -1 }) // -1 = not yet positioned
   const desktopPipDragOrigin = useRef({ clientX: 0, clientY: 0, x: 0, y: 0 })
-  const [activeResourceKey, setActiveResourceKey] = useState<LogisticsKey | null>(LOGISTICS_SECTIONS[0]?.key ?? null)
   const [activeUpdateKey, setActiveUpdateKey] = useState<UpdateKey | null>(UPDATES[0]?.key ?? null)
   const [selectedLibraryId, setSelectedLibraryId] = useState<string | null>(null)
   const commsRailOpen = useSyncExternalStore(
@@ -1429,7 +878,7 @@ export default function PrepSightV4App() {
       ? "Comms"
       : mobileTab === "library"
         ? "Library"
-        : mobileTab === "logistics"
+        : mobileTab === "resources"
           ? "Resources"
           : "Insights"
 
@@ -1443,9 +892,25 @@ export default function PrepSightV4App() {
       ? "Search Comms"
       : mobileTab === "library"
         ? "Search Library"
-        : mobileTab === "logistics"
+        : mobileTab === "resources"
           ? "Search Resources"
           : "Search Insights"
+
+  useEffect(() => {
+    const routeSurface =
+      pathname === "/comms"
+        ? "comms"
+        : pathname === "/insights"
+          ? "updates"
+          : pathname === "/resources"
+            ? "resources"
+            : "library"
+
+    setMobileUtilityPage(null)
+    setMobileTab(routeSurface)
+    setActiveTab(routeSurface === "updates" ? "updates" : "library")
+    if (routeSurface !== "library") setSelectedLibraryId(null)
+  }, [pathname])
 
   useEffect(() => {
     if (!commsRailOpen) return
@@ -1541,7 +1006,6 @@ export default function PrepSightV4App() {
 
   async function handleMobileSignOut() {
     clearProfile()
-    clearDemoSession()
     await signOut().catch(() => undefined)
     setShowMobileProfile(false)
   }
@@ -1556,7 +1020,7 @@ export default function PrepSightV4App() {
 <div className="min-h-screen bg-black">
 
       <MobileThemeProvider>
-<div id="mobile-app-root" data-mobile-theme="dark" className="lg:hidden min-h-[100dvh] bg-[var(--mob-bg,#000000)]">        <MobileSharedProfileDrawer
+<div id="mobile-app-root" data-mobile-theme="dark" className="lg:hidden flex h-[100dvh] flex-col overflow-hidden bg-[var(--mob-bg,#000000)]">        <MobileSharedProfileDrawer
           open={showMobileProfile}
           onClose={() => setShowMobileProfile(false)}
           profileInitial={mobileProfileInitial}
@@ -1574,16 +1038,13 @@ export default function PrepSightV4App() {
         {/* Comms shell — always mounted so the call listener survives page switches.
             When not on comms tab it collapses to 0×0. The call UI inside uses
             position:fixed z-[200] so it floats above everything including the nav. */}
-        <div
-          className="fixed left-0 right-0 top-0 z-[40] overflow-hidden bg-black"
-          style={mobileTab === "comms" && !mobileUtilityPage
-            ? { height: "calc(100dvh - 56px)" }
-            : { width: 0, height: 0, pointerEvents: "none" }}
+        <main
+          className={`min-h-0 flex-1 bg-black ${
+            mobileTab === "comms" ? "pb-0" : "pb-28"
+          } ${
+            mobileTab === "comms" ? "flex flex-col overflow-hidden" : "overflow-y-auto"
+          }`}
         >
-          <MobileCommsShell visible={mobileTab === "comms" && !mobileUtilityPage} />
-        </div>
-
-        <main className={`bg-black ${mobileTab === "comms" ? "h-[calc(100dvh-56px)] overflow-hidden" : "min-h-screen pb-28"}`}>
           {mobileUtilityPage === "calendar" ? (
             <div className="space-y-4">
               <MobileSectionHeader
@@ -1594,6 +1055,8 @@ export default function PrepSightV4App() {
                 searchValue={searchValue}
                 onSearchChange={setSearchValue}
                 searchPlaceholder={mobileSearchPlaceholder}
+                inlineSearchEnabled={false}
+                onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
               />
               <MobileCalendarSurface view={mobileCalendarView} onChangeView={setMobileCalendarView} />
             </div>
@@ -1607,10 +1070,16 @@ export default function PrepSightV4App() {
                 searchValue={searchValue}
                 onSearchChange={setSearchValue}
                 searchPlaceholder={mobileSearchPlaceholder}
+                inlineSearchEnabled={false}
+                onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
               />
               <MobileConnectorsSurface />
             </div>
-          ) : mobileTab === "comms" ? null
+          ) : mobileTab === "comms" ? (
+            <div className="h-full min-h-0 flex-1 overflow-hidden">
+              <MobileCommsShell visible />
+            </div>
+          )
           : mobileTab === "library" ? (
             <div className="space-y-4">
               <MobileSectionHeader
@@ -1621,6 +1090,8 @@ export default function PrepSightV4App() {
                 searchValue={searchValue}
                 onSearchChange={setSearchValue}
                 searchPlaceholder={mobileSearchPlaceholder}
+                inlineSearchEnabled={false}
+                onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
               />
               <div className="space-y-4 bg-black px-4 pb-4">
                 {selectedLibraryId ? (
@@ -1639,64 +1110,6 @@ export default function PrepSightV4App() {
                 )}
               </div>
             </div>
-          ) : mobileTab === "logistics" ? (
-            <div className="space-y-4">
-              <MobileSectionHeader
-                title={mobileSurfaceTitle}
-                hospital={mobileHospitalLabel}
-                department={mobileDepartmentLabel}
-                onOpenProfile={() => setShowMobileProfile(true)}
-                searchValue={searchValue}
-                onSearchChange={setSearchValue}
-                searchPlaceholder={mobileSearchPlaceholder}
-              />
-              <MobileSubpagePills
-                items={[
-                  { key: "workforce", label: "Workforce" },
-                  { key: "equipment", label: "Equipment" },
-                  { key: "supplies", label: "Supplies" },
-                ]}
-                active={mobileResourcesTab}
-                onChange={setMobileResourcesTab}
-              />
-              {mobileResourcesTab === "workforce" ? (
-                <>
-                  <MobileSubpagePills
-                    items={[
-                      { key: "rota", label: "Rota" },
-                      { key: "shifts", label: "Shifts" },
-                      { key: "skills", label: "Skills" },
-                      { key: "tasks", label: "Tasks" },
-                    ]}
-                    active={mobileWorkforceTab}
-                    onChange={setMobileWorkforceTab}
-                  />
-                  <div className="px-4 pb-8">
-                    {mobileWorkforceTab === "rota" ? (
-                      <MobileWorkforceRotaPanel />
-                    ) : mobileWorkforceTab === "shifts" ? (
-                      <MobileWorkforceShiftsPanel />
-                    ) : mobileWorkforceTab === "skills" ? (
-                      <MobileWorkforceSkillsPanel />
-                    ) : (
-                      <MobileWorkforceTasksPanel />
-                    )}
-                  </div>
-                </>
-              ) : mobileResourcesTab === "equipment" ? (
-                <MobilePreparedPanel
-                  title="Equipment"
-                  body="Equipment is being prepared. This mobile page will become the user-facing place for kit readiness, tray availability, and item-level prompts that matter to the individual."
-                  icon="equipment"
-                />
-              ) : (
-                <MobilePreparedPanel
-                  title="Supplies"
-                  body="Supplies is being prepared. This mobile page will become the user-facing place for stock prompts, consumable readiness, and what the user actually needs to know before or during a shift."
-                  icon="supplies"
-                />
-              )}
-            </div>
           ) : (
             <div className="space-y-4">
               <MobileSectionHeader
@@ -1707,6 +1120,8 @@ export default function PrepSightV4App() {
                 searchValue={searchValue}
                 onSearchChange={setSearchValue}
                 searchPlaceholder={mobileSearchPlaceholder}
+                inlineSearchEnabled={false}
+                onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
               />
               <div className="px-4 pb-4">
                 <UpdatesPanel activeKey={activeUpdateKey} onSelect={setActiveUpdateKey} surfaceLabel="Insights" />
@@ -1714,6 +1129,10 @@ export default function PrepSightV4App() {
             </div>
           )}
         </main>
+        <MobileGlobalSearchOverlay
+          open={showMobileGlobalSearch}
+          onClose={() => setShowMobileGlobalSearch(false)}
+        />
 
         <div className="fixed inset-x-0 bottom-0 z-50">
           <div className="bg-black border-t border-black px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
@@ -1723,13 +1142,21 @@ export default function PrepSightV4App() {
             >
               {TAB_ITEMS.map((item) => {
                 const Icon = item.icon
-                const isActive = item.key === mobileTab
+                const isActive = item.href
+                  ? pathname.startsWith(item.href)
+                  : item.key === mobileTab
 
                 return (
                   <button
                     key={item.key}
                     type="button"
                     onClick={() => {
+                      if (item.href) {
+                        setMobileUtilityPage(null)
+                        if (item.key !== "library") setSelectedLibraryId(null)
+                        router.push(item.href)
+                        return
+                      }
                       setMobileUtilityPage(null)
                       setMobileTab(item.key)
                       if (item.key !== "comms") setSelectedLibraryId(null)
@@ -1784,8 +1211,6 @@ export default function PrepSightV4App() {
                   onSelectLibrary={setSelectedLibraryId}
                   onBackToCollections={() => setSelectedLibraryId(null)}
                 />
-              ) : activeTab === "logistics" ? (
-                <ResourcesPanel activeKey={activeResourceKey} onSelect={setActiveResourceKey} />
               ) : (
                 <UpdatesPanel activeKey={activeUpdateKey} onSelect={setActiveUpdateKey} />
               )}

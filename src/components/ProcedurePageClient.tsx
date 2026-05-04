@@ -3,8 +3,7 @@
 import { useCallback, useEffect, useRef, useState, useSyncExternalStore, useTransition, type CSSProperties } from "react"
 import Link from "next/link"
 import { House, Plus } from "lucide-react"
-import AppMenuContent from "./AppMenuContent"
-import AppTopBar from "./AppTopBar"
+import MobileSurfaceHeader from "./MobileSurfaceHeader"
 import DesktopCommsPanel from "./DesktopCommsPanel"
 import KardexSection from "./KardexSection"
 import CollectionPanel from "./CollectionPanel"
@@ -15,7 +14,7 @@ import WorkspaceNavRail from "./WorkspaceNavRail"
 import { Procedure, Section, ItemDisplayInfo, SectionType } from "@/lib/types"
 import { getMockWalkthroughs } from "@/lib/video-mocks"
 import { SECTION_TYPE_CATALOGUE, SETTING_COLOUR } from "@/lib/settings"
-import { getProfile } from "@/lib/profile"
+import { getProfile, getRelevantSettings } from "@/lib/profile"
 import { getCardCustomSections, saveCardCustomSections } from "@/lib/firestore"
 import { onAuthChange } from "@/lib/auth"
 import { buildDraftSection } from "@/lib/procedure-library"
@@ -65,6 +64,9 @@ export default function ProcedurePageClient({
   implantSystem,
 }: Props) {
   const isSharedPublishedCard = procedure.cardScope === "shared" && procedure.publishState === "published"
+  const profile = getProfile()
+  const hospitalLabel = profile?.hospital?.trim() || "Royal Free Hospital"
+  const departmentLabel = (profile ? getRelevantSettings(profile) : [])[0] ?? "Operating Theatres"
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [desktopNavOpen, setDesktopNavOpen] = useState(true)
   const [lastEdit, setLastEdit] = useState<LastEdit | null>(null)
@@ -312,13 +314,13 @@ export default function ProcedurePageClient({
 
   return (
     <div className="procedure-route-theme app-shell-bg min-h-screen bg-[#F4F7FA] lg:h-screen lg:flex lg:flex-col lg:overflow-hidden">
-      <AppTopBar
-        menuOpen={mobileMenuOpen}
-        onToggleMenu={handleToggleNavigation}
-        menuContent={<AppMenuContent />}
-        searchPlaceholder="Search anywhere..."
-        mobileMenuOnly
-      />
+      <div className="lg:hidden">
+        <MobileSurfaceHeader
+          title="Library"
+          hospital={hospitalLabel}
+          department={departmentLabel}
+        />
+      </div>
 
       <div
         style={desktopGridStyle}

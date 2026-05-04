@@ -1,7 +1,6 @@
 "use client"
 
 import { useEffect, useRef, useState, useCallback } from "react"
-import Image from "next/image"
 import {
   addDoc,
   arrayUnion,
@@ -21,7 +20,9 @@ import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage
 import { signOut, type User } from "firebase/auth"
 import { auth, db, storage } from "@/lib/firebase"
 import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
+import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import { clearCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
+import { toggleDesktopCommsPreference } from "@/lib/desktop-comms"
 import type {
   CommsAttachment,
   CommsOrg,
@@ -73,7 +74,7 @@ import {
 
 // â”€â”€â”€ Emoji data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
-const QUICK_REACT = ["ðŸ‘","â¤ï¸","ðŸ˜‚","ðŸ˜®","ðŸ˜¢","ðŸ™","ðŸ”¥","âœ…"]
+const QUICK_REACT = ["👍", "❤️", "😂", "😮", "😢", "🙏", "🔥", "✅"]
 const DEFAULT_THEATRE_GROUPS = [
   "Trauma and Orthopaedics",
   "General Surgery",
@@ -110,14 +111,12 @@ type TomWatchTask = {
 }
 
 const EMOJI_CATS: { icon: string; emojis: string[] }[] = [
-  { icon: "ðŸ˜€", emojis: ["ðŸ˜€","ðŸ˜ƒ","ðŸ˜„","ðŸ˜","ðŸ˜†","ðŸ˜…","ðŸ¤£","ðŸ˜‚","ðŸ™‚","ðŸ™ƒ","ðŸ˜‰","ðŸ˜Š","ðŸ˜‡","ðŸ¥°","ðŸ˜","ðŸ¤©","ðŸ˜˜","ðŸ˜š","ðŸ˜™","ðŸ˜‹","ðŸ˜›","ðŸ˜œ","ðŸ¤ª","ðŸ˜","ðŸ¤‘","ðŸ¤—","ðŸ¤­","ðŸ¤«","ðŸ¤”","ðŸ¤","ðŸ¤¨","ðŸ˜","ðŸ˜¶","ðŸ˜","ðŸ˜’","ðŸ™„","ðŸ˜¬","ðŸ¤¥","ðŸ˜Œ","ðŸ˜”","ðŸ˜ª","ðŸ¤¤","ðŸ˜´","ðŸ˜·","ðŸ¤’","ðŸ¤•","ðŸ¤¢","ðŸ¤§","ðŸ¥µ","ðŸ¥¶","ðŸ¥´","ðŸ˜µ","ðŸ¤¯","ðŸ¤ ","ðŸ¥³","ðŸ¥¸","ðŸ˜Ž","ðŸ¤“","ðŸ˜•","ðŸ˜Ÿ","ðŸ™","â˜¹ï¸","ðŸ˜®","ðŸ˜²","ðŸ˜³","ðŸ¥º","ðŸ˜¦","ðŸ˜§","ðŸ˜¨","ðŸ˜°","ðŸ˜¥","ðŸ˜¢","ðŸ˜­","ðŸ˜±","ðŸ˜–","ðŸ˜£","ðŸ˜ž","ðŸ˜“","ðŸ˜©","ðŸ˜«","ðŸ¥±","ðŸ˜¤","ðŸ˜¡","ðŸ˜ ","ðŸ¤¬","ðŸ˜ˆ","ðŸ‘¿","ðŸ’€","ðŸ’©","ðŸ¤¡","ðŸ‘¹","ðŸ‘º","ðŸ‘»","ðŸ‘½","ðŸ¤–"] },
-  { icon: "ðŸ‘", emojis: ["ðŸ‘","ðŸ‘Ž","ðŸ‘‹","ðŸ¤š","ðŸ–ï¸","âœ‹","ðŸ––","ðŸ‘Œ","ðŸ¤Œ","ðŸ¤","âœŒï¸","ðŸ¤ž","ðŸ¤Ÿ","ðŸ¤˜","ðŸ¤™","ðŸ‘ˆ","ðŸ‘‰","ðŸ‘†","ðŸ‘‡","â˜ï¸","âœŠ","ðŸ‘Š","ðŸ¤›","ðŸ¤œ","ðŸ‘","ðŸ™Œ","ðŸ‘","ðŸ¤²","ðŸ¤","ðŸ™","âœï¸","ðŸ’…","ðŸ’ª","ðŸ¦¾","ðŸ‘€","ðŸ‘…","ðŸ‘„","ðŸ’‹","ðŸ«‚"] },
-  { icon: "â¤ï¸", emojis: ["â¤ï¸","ðŸ§¡","ðŸ’›","ðŸ’š","ðŸ’™","ðŸ’œ","ðŸ–¤","ðŸ¤","ðŸ¤Ž","ðŸ’”","â£ï¸","ðŸ’•","ðŸ’ž","ðŸ’“","ðŸ’—","ðŸ’–","ðŸ’˜","ðŸ’","ðŸ’Ÿ","ðŸ«¶","ðŸ’","ðŸ’‘","ðŸ¥‚","ðŸŽ‰","ðŸŽŠ","ðŸŽˆ","ðŸŽ","ðŸŽ€","ðŸŽ—ï¸","ðŸ†","ðŸ¥‡","ðŸ¥ˆ","ðŸ¥‰","ðŸŽ–ï¸","ðŸ…"] },
-  { icon: "ðŸ¶", emojis: ["ðŸ¶","ðŸ±","ðŸ­","ðŸ¹","ðŸ°","ðŸ¦Š","ðŸ»","ðŸ¼","ðŸ¨","ðŸ¯","ðŸ¦","ðŸ®","ðŸ·","ðŸ¸","ðŸµ","ðŸ™ˆ","ðŸ™‰","ðŸ™Š","ðŸ’","ðŸ”","ðŸ§","ðŸ¦","ðŸ¦†","ðŸ¦…","ðŸ¦‰","ðŸ¦‡","ðŸº","ðŸ´","ðŸ¦„","ðŸ","ðŸ¦‹","ðŸŒ","ðŸž","ðŸœ","ðŸ¢","ðŸ","ðŸ¦Ž","ðŸ¦•","ðŸ¦–","ðŸ™","ðŸ¡","ðŸ ","ðŸŸ","ðŸ¬","ðŸ³","ðŸ¦ˆ","ðŸŠ","ðŸ˜","ðŸ¦›","ðŸ¦","ðŸ¦’","ðŸŽ","ðŸ•","ðŸˆ","ðŸ“","ðŸ¦š","ðŸ¦œ","ðŸ‡","ðŸ¦","ðŸ¦”"] },
-  { icon: "ðŸ•", emojis: ["ðŸŽ","ðŸŠ","ðŸ‹","ðŸ‡","ðŸ“","ðŸ«","ðŸ’","ðŸ‘","ðŸ¥­","ðŸ","ðŸ¥¥","ðŸ¥","ðŸ…","ðŸ†","ðŸ¥‘","ðŸ¥¦","ðŸŒ½","ðŸ¥•","ðŸ§„","ðŸ¥”","ðŸ³","ðŸ¥š","ðŸ§€","ðŸ¥©","ðŸ—","ðŸ–","ðŸŒ­","ðŸ”","ðŸŸ","ðŸ•","ðŸŒ®","ðŸŒ¯","ðŸ¥—","ðŸ","ðŸœ","ðŸ²","ðŸ›","ðŸ£","ðŸ¥Ÿ","ðŸ¤","ðŸ™","ðŸš","ðŸ˜","ðŸ¥","ðŸ°","ðŸŽ‚","ðŸ®","ðŸ­","ðŸ¬","ðŸ«","ðŸ¿","ðŸ©","ðŸª","ðŸ¯","ðŸ§ƒ","ðŸ¥¤","ðŸ§‹","ðŸµ","â˜•","ðŸº","ðŸ¥‚","ðŸ·","ðŸ¸","ðŸ¹","ðŸ¾","ðŸ¥ƒ"] },
-  { icon: "âš½", emojis: ["âš½","ðŸ€","ðŸˆ","âš¾","ðŸ¥Ž","ðŸŽ¾","ðŸ","ðŸ‰","ðŸ¥","ðŸŽ±","ðŸ“","ðŸ¸","ðŸ¥Š","ðŸ¥‹","ðŸŽ½","ðŸ›¹","â›¸ï¸","ðŸ¥…","â›³","ðŸŽ¯","ðŸŽ®","ðŸŽ²","â™Ÿï¸","ðŸŽ­","ðŸŽ¨","ðŸŽ¬","ðŸŽ¤","ðŸŽ§","ðŸŽ¼","ðŸŽ¹","ðŸ¥","ðŸŽ·","ðŸŽº","ðŸŽ¸","ðŸŽ»","ðŸŽ™ï¸","ðŸ“»","ðŸŽšï¸","ðŸŽ›ï¸"] },
-  { icon: "ðŸš—", emojis: ["ðŸš—","ðŸš•","ðŸš™","ðŸšŒ","ðŸŽï¸","ðŸš“","ðŸš‘","ðŸš’","ðŸš","ðŸ›»","ðŸšš","ðŸš›","ðŸšœ","ðŸï¸","ðŸ›µ","ðŸš²","âœˆï¸","ðŸ›«","ðŸ›¬","ðŸª‚","ðŸ’º","ðŸš","ðŸ›¸","ðŸš€","ðŸ›¶","â›µ","ðŸš¤","ðŸ›¥ï¸","ðŸš¢","âš“","ðŸ—ºï¸","ðŸ§­","ðŸ”ï¸","â›°ï¸","ðŸŒ‹","ðŸ•ï¸","ðŸ–ï¸","ðŸœï¸","ðŸï¸","ðŸžï¸","ðŸŸï¸","ðŸ›ï¸","ðŸ—ï¸","ðŸ ","ðŸ¡","ðŸ¢","ðŸ¥","ðŸ¦","ðŸ¨","ðŸª","ðŸ«","ðŸ¬","ðŸ­","ðŸ¯","ðŸ°","ðŸ’’","ðŸ—¼","ðŸ—½","â›ª","ðŸ•Œ","ðŸ•","ðŸ•‹"] },
-  { icon: "ðŸ’¡", emojis: ["ðŸ’¡","ðŸ”¦","ðŸ•¯ï¸","ðŸª”","ðŸ’°","ðŸ’´","ðŸ’µ","ðŸ’¶","ðŸ’·","ðŸ’¸","ðŸ’³","ðŸª™","ðŸ’¹","ðŸ“ˆ","ðŸ“‰","ðŸ“Š","ðŸ“‹","ðŸ“Œ","ðŸ“","ðŸ“Ž","ðŸ–‡ï¸","ðŸ“","ðŸ“","âœ‚ï¸","ðŸ—ƒï¸","ðŸ—„ï¸","ðŸ—‘ï¸","ðŸ”’","ðŸ”“","ðŸ”‘","ðŸ—ï¸","ðŸ”¨","ðŸª“","â›ï¸","âš’ï¸","ðŸ› ï¸","ðŸ”§","ðŸª›","ðŸ”©","âš™ï¸","ðŸ—œï¸","âš–ï¸","ðŸ”—","â›“ï¸","ðŸª","ðŸ§²","ðŸªœ","ðŸ§°","ðŸ’Š","ðŸ©º","ðŸ©¹","ðŸ©»","ðŸ’‰","ðŸ©¸","ðŸ§¬","ðŸ”¬","ðŸ”­","ðŸ“¡","ðŸ§«","ðŸ§ª"] },
+  { icon: "😀", emojis: ["😀", "😃", "😄", "😁", "😆", "😂", "🤣", "🙂", "🙃", "😉", "😊", "😍", "🥰", "😘", "😎", "🤓", "🤔", "😐", "😶", "🙄", "😴", "😷", "🤒", "🤕", "🤯", "😮", "😢", "😭", "😡", "🤬"] },
+  { icon: "👍", emojis: ["👍", "👎", "👏", "🙌", "🙏", "👋", "👌", "✌️", "🤞", "🤝", "💪", "🫶", "👀", "💋"] },
+  { icon: "❤️", emojis: ["❤️", "💙", "💚", "💛", "🧡", "💜", "🖤", "🤍", "🤎", "💔", "💕", "💖", "💯", "🔥", "✨", "⭐", "🎉", "🎊"] },
+  { icon: "🐶", emojis: ["🐶", "🐱", "🐭", "🐰", "🦊", "🐻", "🐼", "🐨", "🐯", "🦁", "🐮", "🐷", "🐸", "🐵", "🐔", "🐧", "🐢", "🐬"] },
+  { icon: "🍎", emojis: ["🍎", "🍊", "🍇", "🍓", "🍍", "🥭", "🥑", "🍕", "🍔", "🌮", "🍣", "🍜", "🍰", "🍫", "☕", "🍵", "🍺", "🥂"] },
+  { icon: "⚽", emojis: ["⚽", "🏀", "🏈", "🎾", "🏐", "🎯", "🎮", "🎲", "🎵", "🎤", "🎬", "🚗", "✈️", "🚀", "📚", "💡", "🩺", "🔬"] },
 ]
 
 // â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
@@ -166,11 +165,38 @@ function Avatar({ name, size = 40, uid }: { name: string; size?: number; uid?: s
 function DesktopCommsWordmark() {
   return (
     <span
-      className="app-display-font block text-[22px] leading-none text-[#67CFCF]"
+      className="app-display-font block text-[22px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+      style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
     >
       Comms
     </span>
   )
+}
+
+function normalizeContactIdentity(value?: string) {
+  return (value || "").trim().toLowerCase()
+}
+
+function dedupeDisplayedContacts(entries: CommsUser[]) {
+  const deduped = new Map<string, CommsUser>()
+
+  for (const entry of entries) {
+    const emailKey = normalizeContactIdentity(entry.email)
+    const displayNameKey = normalizeContactIdentity(entry.displayName)
+    const key = entry.uid === TOM_UID
+      ? TOM_UID
+      : emailKey || displayNameKey || entry.uid
+
+    if (!deduped.has(key)) {
+      deduped.set(key, entry)
+    }
+  }
+
+  return Array.from(deduped.values())
+}
+
+function getFirstName(name: string) {
+  return name.trim().split(/\s+/)[0] || name
 }
 
 function EmojiPicker({
@@ -230,7 +256,7 @@ function formatTime(ts: number) {
 
 function isEmojiOnly(text: string): boolean {
   if (!text.trim()) return false
-  const remainder = text.replace(/\p{Extended_Pictographic}/gu, "").replace(/[\sâ€ï¸]/g, "")
+  const remainder = text.replace(/\p{Extended_Pictographic}/gu, "").replace(/[\s\u200D\uFE0F]/g, "")
   return remainder.length === 0
 }
 
@@ -295,6 +321,85 @@ function getAttachmentPreviewLabel(
   if (firstAttachment.type === "audio") return "voice note"
   if (firstAttachment.type === "image") return "photo"
   return "attachment"
+}
+
+function sanitizeThreadPreviewText(value?: string) {
+  const normalized = value?.replace(/\s+/g, " ").trim() ?? ""
+  if (!normalized) return ""
+  if (/attachment/i.test(normalized)) return "attachment"
+  if (/[ÃÂðÅ]/.test(normalized) && normalized.length < 40) return "attachment"
+  return normalized
+}
+
+function repairMojibake(value?: string) {
+  if (!value) return ""
+  if (!/[ÃÂâðÅ]/.test(value)) return value
+  try {
+    const bytes = Uint8Array.from(Array.from(value), (char) => char.charCodeAt(0) & 0xff)
+    const decoded = new TextDecoder("utf-8").decode(bytes)
+    return decoded.includes("�") ? value : decoded
+  } catch {
+    return value
+  }
+}
+
+function readFileAsDataUrl(file: File) {
+  return new Promise<string>((resolve, reject) => {
+    const reader = new FileReader()
+    reader.onload = () => {
+      if (typeof reader.result === "string") {
+        resolve(reader.result)
+        return
+      }
+      reject(new Error("Unable to read image."))
+    }
+    reader.onerror = () => reject(reader.error ?? new Error("Unable to read image."))
+    reader.readAsDataURL(file)
+  })
+}
+
+function loadImageFromFile(file: File) {
+  return new Promise<HTMLImageElement>((resolve, reject) => {
+    const objectUrl = URL.createObjectURL(file)
+    const image = new Image()
+    image.onload = () => {
+      URL.revokeObjectURL(objectUrl)
+      resolve(image)
+    }
+    image.onerror = () => {
+      URL.revokeObjectURL(objectUrl)
+      reject(new Error("Unable to process image."))
+    }
+    image.src = objectUrl
+  })
+}
+
+async function buildInlineImageAttachment(file: File) {
+  const image = await loadImageFromFile(file)
+  const maxDimension = 1600
+  const scale = Math.min(1, maxDimension / Math.max(image.width, image.height))
+  const canvas = document.createElement("canvas")
+  canvas.width = Math.max(1, Math.round(image.width * scale))
+  canvas.height = Math.max(1, Math.round(image.height * scale))
+  const context = canvas.getContext("2d")
+
+  if (!context) {
+    return {
+      name: file.name,
+      url: await readFileAsDataUrl(file),
+      type: "image" as const,
+      size: file.size,
+    }
+  }
+
+  context.drawImage(image, 0, 0, canvas.width, canvas.height)
+  const dataUrl = canvas.toDataURL("image/jpeg", 0.82)
+  return {
+    name: file.name.replace(/\.[^.]+$/, "") + ".jpg",
+    url: dataUrl,
+    type: "image" as const,
+    size: Math.round((dataUrl.length * 3) / 4),
+  }
 }
 
 function normalizeTomText(value: string) {
@@ -461,9 +566,10 @@ interface Props {
   visible?: boolean   // false = this page is hidden; auto-minimise active calls
   profileHospital?: string
   profileDepartment?: string
+  hideMobileHeader?: boolean
 }
 
-export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment }: Props) {
+export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false }: Props) {
   const appRef = useRef<HTMLDivElement>(null)
   const firestore = db!
   const firebaseAuth = auth!
@@ -477,6 +583,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>({})
   const [selectedThread, setSelectedThread] = useState<CommsThread | null>(null)
   const [inputText, setInputText] = useState("")
+  const [composerError, setComposerError] = useState("")
   const [replyTo, setReplyTo] = useState<CommsMessage | null>(null)
   const [editingMessage, setEditingMessage] = useState<CommsMessage | null>(null)
   const [editText, setEditText] = useState("")
@@ -499,6 +606,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [joinCodeThread, setJoinCodeThread] = useState<CommsThread | null>(null)
   const [joinCodeInput, setJoinCodeInput] = useState("")
   const [joinCodeError, setJoinCodeError] = useState("")
+  const messageLongPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  const suppressMessageTapRef = useRef(false)
 
   useEffect(() => {
     if (!embedded || !showContacts) return
@@ -659,6 +768,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (!visible && callState !== "idle" && callViewMode === "panel") setCallViewMode("floating")
   }, [visible, callState, callViewMode])
 
+  useEffect(() => () => clearMessageLongPress(), [])
+
   // â”€â”€ Reset floating position when entering floating mode â”€â”€
   useEffect(() => {
     if (callViewMode === "floating") setFloatingPos(null)
@@ -742,7 +853,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   useEffect(() => {
     const q = query(collection(firestore, "comms_v5_memberships"), where("orgId", "==", org.id), where("status", "==", "active"))
     return onSnapshot(q, async snap => {
-      const uids = snap.docs.map(d => d.data().uid as string)
+      const uids = Array.from(
+        new Set(
+          snap.docs
+            .map(d => d.data().uid as string)
+            .filter((uid): uid is string => typeof uid === "string" && uid.trim().length > 0),
+        ),
+      )
       const users: CommsUser[] = []
       for (const uid of uids) {
         const ud = await getDoc(doc(firestore, "comms_v5_users", uid))
@@ -1021,8 +1138,38 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (latest?.attachments?.length) return getAttachmentPreviewLabel(latest.attachments)
     if (thread.type === "direct" && thread.memberUids.includes(TOM_UID)) return "Ask me anything"
     if (thread.type === "channel" && isGroupLocked(thread)) return "Enter code to join"
-    if (thread.lastMessage?.includes("Attachment")) return "attachment"
-    return thread.lastMessage?.trim() || (thread.type === "channel" ? "Group" : "")
+    const sanitizedLastMessage = sanitizeThreadPreviewText(thread.lastMessage)
+    if (sanitizedLastMessage) return sanitizedLastMessage
+    return thread.type === "channel" ? "Group" : ""
+  }
+
+  function clearMessageLongPress() {
+    if (messageLongPressTimerRef.current) {
+      clearTimeout(messageLongPressTimerRef.current)
+      messageLongPressTimerRef.current = null
+    }
+  }
+
+  function openMessageActions(target: HTMLElement, msg: CommsMessage, isOwnMessage: boolean) {
+    const containerRect = appRef.current?.getBoundingClientRect()
+    const bubbleRect = target.getBoundingClientRect()
+    const boxWidth = 228
+    const preferredLeft = isOwnMessage
+      ? bubbleRect.right - (containerRect?.left ?? 0) - boxWidth
+      : bubbleRect.left - (containerRect?.left ?? 0)
+    const maxLeft = (containerRect?.width ?? 320) - boxWidth - 12
+    setActionBoxPosition({
+      top: Math.max(16, bubbleRect.bottom - (containerRect?.top ?? 0) + 8),
+      left: Math.max(12, Math.min(preferredLeft, maxLeft)),
+    })
+    setActionMessage(msg)
+    setShowEmojiPicker(null)
+  }
+
+  function isNestedInteractiveTarget(target: EventTarget | null, currentTarget: HTMLElement) {
+    if (!(target instanceof HTMLElement)) return false
+    if (target === currentTarget) return false
+    return Boolean(target.closest("button,a,input,textarea,select,summary,[data-no-long-press='true']"))
   }
 
   function isOnline(uid: string) {
@@ -1034,6 +1181,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const currentUserRecord = members.find(member => member.uid === user.uid) || null
   const allMembers = [TOM_USER, ...members.filter(member => member.uid !== TOM_UID)]
   const contactMembers = allMembers.filter(member => member.uid !== user.uid)
+  const displayedContactMembers = dedupeDisplayedContacts(contactMembers)
   const hospitalLabel = profileHospital || currentUserRecord?.hospital?.trim() || org.name
   const departmentLabel = profileDepartment || currentUserRecord?.department?.trim() || ""
   const groupLabel = currentUserRecord?.groupLabel?.trim() || departmentLabel
@@ -1252,6 +1400,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const content = text ?? inputText.trim()
     if (!content && !attachments?.length) return
     if (!selectedThread) return
+    setComposerError("")
     const msg: Record<string, unknown> = {
       threadId: selectedThread.id,
       uid: user.uid,
@@ -1266,9 +1415,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (attachments?.length) msg.attachments = attachments
     await addDoc(collection(firestore, "comms_v5_messages"), msg)
     const previewText = content || getAttachmentPreviewLabel(attachments)
-    await updateDoc(doc(firestore, "comms_v5_threads", selectedThread.id), {
-      updatedAt: Date.now(), lastMessage: content || "ðŸ“Ž Attachment",
-    })
     await updateDoc(doc(firestore, "comms_v5_threads", selectedThread.id), {
       updatedAt: Date.now(),
       lastMessage: previewText,
@@ -1350,13 +1496,43 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   async function handleFileUpload(file: File) {
     if (!selectedThread) return
+    setComposerError("")
     const ext = file.name.split(".").pop()?.toLowerCase()
-    const isImage = ["jpg","jpeg","png","gif","webp","svg"].includes(ext || "")
-    const path = `comms/${org.id}/${selectedThread.id}/${Date.now()}_${file.name}`
-    const r = storageRef(firebaseStorage, path)
-    await uploadBytes(r, file)
-    const url = await getDownloadURL(r)
-    await sendMessage("", [{ name: file.name, url, type: isImage ? "image" : "file", size: file.size }])
+    const isImage = ["jpg", "jpeg", "png", "gif", "webp", "svg"].includes(ext || "")
+
+    if (isImage) {
+      try {
+        if (storage) {
+          const path = `comms/${org.id}/${selectedThread.id}/${Date.now()}_${file.name}`
+          const r = storageRef(firebaseStorage, path)
+          await uploadBytes(r, file)
+          const url = await getDownloadURL(r)
+          await sendMessage("", [{ name: file.name, url, type: "image", size: file.size }])
+          return
+        }
+      } catch {
+        // Fall back to inline image attachments if Storage is unavailable or blocked.
+      }
+
+      const inlineAttachment = await buildInlineImageAttachment(file)
+      await sendMessage("", [inlineAttachment])
+      return
+    }
+
+    if (!storage) {
+      setComposerError("File attachments need Firebase Storage. Image sending still works.")
+      return
+    }
+
+    try {
+      const path = `comms/${org.id}/${selectedThread.id}/${Date.now()}_${file.name}`
+      const r = storageRef(firebaseStorage, path)
+      await uploadBytes(r, file)
+      const url = await getDownloadURL(r)
+      await sendMessage("", [{ name: file.name, url, type: "file", size: file.size }])
+    } catch {
+      setComposerError("Unable to upload this file right now.")
+    }
   }
 
   function clearRecordedVoice() {
@@ -1770,7 +1946,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   async function postCallMessage(threadId: string, answered: boolean, duration: number, mode: "audio" | "video") {
-    const text = answered ? `ðŸ“ž Voice call Â· ${formatCallDuration(duration)}` : "ðŸ“ž Missed call"
+    const text = answered ? `📞 Voice call · ${formatCallDuration(duration)}` : "📞 Missed call"
     const thread = threads.find(t => t.id === threadId)
     if (!thread) return
     await addDoc(collection(firestore, "comms_v5_messages"), {
@@ -1903,35 +2079,56 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
       {/* â”€â”€ Header â”€â”€ */}
       <div
-        className={`px-5 pb-3 shrink-0 ${embedded ? "bg-black pt-3" : "bg-black"}`}
-        style={embedded ? undefined : { paddingTop: "calc(env(safe-area-inset-top) + 14px)" }}
+        className={`shrink-0 ${embedded ? "bg-black" : "bg-black px-5 pb-0"}`}
+        style={embedded ? undefined : { paddingTop: "calc(env(safe-area-inset-top) + 8px)" }}
       >
-        <div className="flex items-center justify-between">
-          {embedded ? (
-            <>
-              <div className="hidden lg:block">
-                <DesktopCommsWordmark />
-              </div>
-              <span className="inline-flex items-center gap-1 text-[28px] tracking-tight lg:hidden">
-                <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
-                <span>
-                  <span className="text-[0.86em] text-[#0096C7]">PrepSight</span>{" "}
-                  <em
-                    className="text-[0.84em] leading-none tracking-[-0.05em] text-white"
-                    style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+        {embedded && hideMobileHeader ? null : (
+          <div className="lg:hidden">
+            <MobileSurfaceHeader
+              title="Comms"
+              hospital={hospitalLabel}
+              department={groupLabel}
+              compact
+              rightControls={(
+                <>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setShowGlobalSearch(true)
+                    }}
+                    aria-label="Toggle search"
+                    className="text-white/70 hover:text-white"
                   >
-                    Comms
-                  </em>
-                </span>
-              </span>
-            </>
+                    <Search size={20} />
+                  </button>
+                  {(showProfileButton || !embedded) ? (
+                    <button
+                      type="button"
+                      onClick={() => setShowProfile(true)}
+                      aria-label="More"
+                      className="text-white/80 hover:text-white"
+                    >
+                      <MoreVertical size={22} />
+                    </button>
+                  ) : null}
+                </>
+              )}
+            />
+          </div>
+        )}
+        <div className={`hidden lg:block ${embedded ? "px-5 pt-3 pb-2" : "px-5 pb-2"}`}>
+        <div className="mb-0.5 flex items-center justify-between">
+          {embedded ? (
+            <div className="mt-2">
+              <DesktopCommsWordmark />
+            </div>
           ) : (
             <span className="inline-flex items-center gap-1 text-[28px] tracking-tight">
               <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
               <span>
-                <span className="text-[0.86em] text-[#0096C7]">PrepSight</span>{" "}
+                <span className="app-display-font text-[0.86em] tracking-[-0.05em] text-[#0096C7]">PrepSight</span>{" "}
                 <em
-                  className="text-[0.84em] leading-none tracking-[-0.05em] text-white"
+                  className="text-[0.84em] leading-none tracking-[-0.05em] text-[#67CFCF]"
                   style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
                 >
                   Comms
@@ -1939,16 +2136,31 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               </span>
             </span>
           )}
-          <div className="flex items-center gap-3">
+          <div
+            className={`items-center gap-2 lg:gap-3 ${
+              (showProfileButton || !embedded) ? "flex" : "hidden lg:flex"
+            }`}
+          >
             <button
               type="button"
               onClick={() => {
                 setShowGlobalSearch(true)
               }}
               aria-label="Toggle search"
-              className={showGlobalSearch ? "text-white" : "text-white/70 hover:text-white"}
+              className="text-white/70 hover:text-white lg:hidden"
             >
               <Search size={20} />
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                toggleDesktopCommsPreference()
+              }}
+              aria-label="Close PrepSight Comms"
+              title="Close PrepSight Comms"
+              className="hidden text-white/70 hover:text-white lg:block"
+            >
+              <X size={20} />
             </button>
             {(showProfileButton || !embedded) ? (
               <button
@@ -1962,10 +2174,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             ) : null}
           </div>
         </div>
-        <div className="mt-1 flex items-center gap-2 text-[13px] text-[#888888]">
+        <div className="ml-1 mt-[-2px] flex items-center gap-2 overflow-hidden text-[14px] text-white">
           <span>{hospitalLabel}</span>
-          {groupLabel ? <span className="text-[#2d2d2d]">|</span> : null}
-          {groupLabel ? <span>{groupLabel}</span> : null}
+          {groupLabel ? <span className="shrink-0 text-[#5f5f5f]">|</span> : null}
+          {groupLabel ? <span className="truncate">{groupLabel}</span> : null}
+        </div>
         </div>
 
         {permissionWarning ? (
@@ -1976,19 +2189,39 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       </div>
 
       {/* â”€â”€ Filter row â”€â”€ */}
-      <div className="border-b border-black bg-black px-4 py-2.5 flex items-center gap-3 shrink-0">
-        <button onClick={() => setShowContacts(true)} className="shrink-0">
-          <Image src="/contacts-icon.png" alt="Contacts" width={28} height={28} />
-        </button>
-        <div className="flex gap-5 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div className="border-b border-black bg-black px-4 pt-0 pb-3 shrink-0">
+        <div className="-mx-4 mb-3 bg-[#101012] px-4 pt-0.5 pb-2">
+          <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          {displayedContactMembers.map(member => (
+            <button
+              key={member.uid}
+              type="button"
+              onClick={() => startDM(member.uid)}
+              aria-label={`Message ${member.displayName}`}
+              className="flex w-[52px] shrink-0 flex-col items-center gap-0.5 text-center"
+            >
+              <div className="relative">
+                <Avatar name={member.displayName} size={48} uid={member.uid} />
+                {isOnline(member.uid) ? (
+                  <div className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border border-black bg-emerald-400" />
+                ) : null}
+              </div>
+              <span className="w-full truncate text-[10px] leading-tight text-[var(--mob-text-2,#b5b5b5)]">
+                {getFirstName(member.displayName)}
+              </span>
+            </button>
+          ))}
+          </div>
+        </div>
+        <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {(["chats","pinned","groups"] as const).map(tab => (
             <button
               key={tab}
               onClick={() => setFilterTab(tab)}
-              className={`border-b-2 pb-1 text-[14px] transition-colors ${
+              className={`shrink-0 rounded-full px-4 py-1.5 text-sm transition-colors ${
                 filterTab === tab
-                  ? "border-[#0096C7] font-semibold text-[#0096C7]"
-                  : "border-transparent text-[var(--mob-text-2,#888888)] hover:text-[var(--mob-text,#111111)]"
+                  ? "bg-[#0096C7] text-white"
+                  : "text-[var(--mob-text-2,#888888)] hover:text-[var(--mob-text,#e0e0e0)]"
               }`}
             >
               {tab === "chats" ? "Chats" : tab === "pinned" ? "Pinned" : "Groups"}
@@ -1999,69 +2232,69 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
       {/* â”€â”€ Thread list â”€â”€ */}
       <div className="flex-1 overflow-y-auto bg-black">
-        {visibleThreads.length === 0 && (
-          <p className="mt-20 text-center text-sm text-[var(--mob-text-2,#888888)]">No conversations yet</p>
-        )}
+          {visibleThreads.length === 0 && (
+            <p className="mt-20 text-center text-sm text-[var(--mob-text-2,#888888)]">No conversations yet</p>
+          )}
 
-        {visibleThreads.map(thread => {
-          const unread = unreadCounts[thread.id] || 0
-          const avatar = getThreadAvatar(thread)
-          const otherUid = thread.type === "direct" ? getOtherUid(thread) : ""
-          const online = otherUid ? isOnline(otherUid) : false
-          const name = getThreadName(thread)
+          {visibleThreads.map(thread => {
+            const unread = unreadCounts[thread.id] || 0
+            const avatar = getThreadAvatar(thread)
+            const otherUid = thread.type === "direct" ? getOtherUid(thread) : ""
+            const online = otherUid ? isOnline(otherUid) : false
+            const name = getThreadName(thread)
 
-          return (
-            <button
-              key={thread.id}
-              onClick={() => selectThread(thread)}
-              className={`w-full flex items-center gap-3 px-4 py-3 border-b border-black active:bg-[#111111] ${
-                selectedThread?.id === thread.id ? "bg-[var(--mob-accent-bg,rgba(0,180,216,0.08))]" : ""
-              }`}
-            >
-              <div className="relative shrink-0">
-                {thread.type === "channel" ? (
-                  <Avatar name={name} size={48} uid={thread.id} />
-                ) : avatar ? (
-                  <Avatar name={avatar.displayName} size={48} uid={avatar.uid} />
-                ) : (
-                  <Avatar name="?" size={48} />
-                )}
-                {online && (
-                  <div className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-emerald-400 border-2 border-black rounded-full" />
-                )}
-                {thread.type === "channel" && isGroupLocked(thread) && (
-                  <div className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--mob-surface,#111111)] text-[var(--mob-text-2,#888888)]">
-                    <LockKeyhole size={10} />
-                  </div>
-                )}
-              </div>
-
-              <div className="flex-1 min-w-0 text-left">
-                <div className="flex items-start justify-between gap-3">
-                  <span className={`truncate text-[15px] ${unread ? "font-semibold text-[var(--mob-text,#e0e0e0)]" : "font-medium text-[var(--mob-text,#e0e0e0)]"}`}>
-                    {name}
-                  </span>
-                  <div className="flex shrink-0 items-center gap-2">
-                    {isThreadPinned(thread.id) ? <Pin size={12} className="fill-[var(--mob-text-2,#888888)] text-[var(--mob-text-2,#888888)]" /> : null}
-                    <span className="text-[11px] text-[var(--mob-text-2,#888888)]">
-                      {thread.updatedAt ? formatTime(thread.updatedAt) : ""}
-                    </span>
-                  </div>
-                </div>
-                <div className="mt-0.5 flex items-center justify-between gap-3">
-                  <span className="truncate text-[13px] text-[var(--mob-text-2,#888888)]">
-                    {getLastMessagePreview(thread)}
-                  </span>
-                  {unread > 0 && (
-                    <span className="ml-2 flex h-[20px] min-w-[20px] shrink-0 items-center justify-center rounded-full bg-[#0096C7] px-1.5 text-[11px] font-semibold text-white">
-                      {unread > 99 ? "99+" : unread}
-                    </span>
+            return (
+              <button
+                key={thread.id}
+                onClick={() => selectThread(thread)}
+                className={`w-full flex items-center gap-3 px-4 py-2 border-b border-black active:bg-[#111111] ${
+                  selectedThread?.id === thread.id ? "bg-[var(--mob-accent-bg,rgba(0,180,216,0.08))]" : ""
+                }`}
+              >
+                <div className="relative shrink-0">
+                  {thread.type === "channel" ? (
+                    <Avatar name={name} size={48} uid={thread.id} />
+                  ) : avatar ? (
+                    <Avatar name={avatar.displayName} size={48} uid={avatar.uid} />
+                  ) : (
+                    <Avatar name="?" size={48} />
+                  )}
+                  {online && (
+                    <div className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-emerald-400 border-2 border-black rounded-full" />
+                  )}
+                  {thread.type === "channel" && isGroupLocked(thread) && (
+                    <div className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--mob-surface,#111111)] text-[var(--mob-text-2,#888888)]">
+                      <LockKeyhole size={10} />
+                    </div>
                   )}
                 </div>
-              </div>
-            </button>
-          )
-        })}
+
+                <div className="flex-1 min-w-0 text-left leading-tight">
+                  <div className="flex items-start justify-between gap-3 leading-tight">
+                    <span className={`truncate text-[15px] leading-tight ${unread ? "font-semibold text-[var(--mob-text,#e0e0e0)]" : "font-medium text-[var(--mob-text,#e0e0e0)]"}`}>
+                      {name}
+                    </span>
+                    <div className="flex shrink-0 items-center gap-2">
+                      {isThreadPinned(thread.id) ? <Pin size={12} className="fill-[var(--mob-text-2,#888888)] text-[var(--mob-text-2,#888888)]" /> : null}
+                      <span className="text-[11px] text-[var(--mob-text-2,#888888)]">
+                        {thread.updatedAt ? formatTime(thread.updatedAt) : ""}
+                      </span>
+                    </div>
+                  </div>
+                  <div className="mt-px flex items-center justify-between gap-3 leading-tight">
+                    <span className="truncate text-[13px] leading-tight text-[var(--mob-text-2,#888888)]">
+                      {getLastMessagePreview(thread)}
+                    </span>
+                    {unread > 0 && (
+                      <span className="ml-2 flex h-[20px] min-w-[20px] shrink-0 items-center justify-center rounded-full bg-[#0096C7] px-1.5 text-[11px] font-semibold text-white">
+                        {unread > 99 ? "99+" : unread}
+                      </span>
+                    )}
+                  </div>
+                </div>
+              </button>
+            )
+          })}
       </div>
 
       {/* â”€â”€ Bottom nav â”€â”€ */}
@@ -2108,11 +2341,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       ) : null}
       {selectedThread && (
-        <div className="absolute inset-0 z-10 flex flex-col bg-black">
+        <div
+          className="absolute inset-x-0 top-0 z-10 flex flex-col bg-black"
+          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 82px)" }}
+        >
           {/* Thread header */}
           <div
-            className="bg-black px-5 pb-4 flex items-center gap-3 shrink-0"
-            style={{ paddingTop: "calc(env(safe-area-inset-top) + 16px)" }}
+            className="bg-black px-5 pb-3 flex items-center gap-3 shrink-0"
+            style={{ paddingTop: "calc(env(safe-area-inset-top) + 10px)" }}
           >
             <button onClick={() => setSelectedThread(null)} className="mr-1">
               <ArrowLeft size={22} className="text-white" />
@@ -2127,7 +2363,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
               {selectedThread.type === "direct" && (
                 <p className="text-sm text-[#888888]">
-                  {showTomTyping || otherIsTyping ? "typingâ€¦" : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
+                  {showTomTyping || otherIsTyping ? "typing..." : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
                 </p>
               )}
               {selectedThread.type === "channel" && selectedThread.description && (
@@ -2197,10 +2433,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const isSystem = msg.type === "system"
               const prevMsg = messages[idx - 1]
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
-              const emojiOnly = !msg.attachments?.length && !msg.deleted && isEmojiOnly(msg.text)
+              const messageText = repairMojibake(msg.text)
+              const emojiOnly = !msg.attachments?.length && !msg.deleted && isEmojiOnly(messageText)
 
-              if (msg.type === "call" || (isSystem && msg.text?.startsWith("ðŸ“ž"))) {
-                const answered = msg.callAnswered ?? msg.text?.includes("Voice call")
+              if (msg.type === "call" || (isSystem && messageText.startsWith("📞"))) {
+                const answered = msg.callAnswered ?? messageText.includes("Voice call")
                 const isOutgoing = msg.uid === user.uid
                 const missed = !answered
                 const callTime = new Date(msg.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
@@ -2213,15 +2450,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <div className={`flex items-center gap-2 rounded-full border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 ${iconColor}`}>
                       <IconComp size={13} strokeWidth={2} className="shrink-0" />
                       <span className="text-[12px] font-medium text-[#e0e0e0]">{label}</span>
-                      <span className="text-[12px] text-[#555]">Â·</span>
-                      <span className="text-[12px] text-[#666]">{callTime}{durationStr ? ` Â· ${durationStr}` : ""}</span>
+                      <span className="text-[12px] text-[#555]">·</span>
+                      <span className="text-[12px] text-[#666]">{callTime}{durationStr ? ` · ${durationStr}` : ""}</span>
                     </div>
                   </div>
                 )
               }
               if (isSystem) return (
                 <div key={msg.id} className="flex justify-center my-3">
-                  <span className="bg-[#1c1c1c] text-[#888888] text-sm px-4 py-1.5 rounded-full">{msg.text}</span>
+                  <span className="bg-[#1c1c1c] text-[#888888] text-sm px-4 py-1.5 rounded-full">{messageText}</span>
                 </div>
               )
               if (msg.deleted) return (
@@ -2247,7 +2484,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
                     {msg.replyTo && (
                       <div className={`text-sm text-[#888888] bg-[#1c1c1c] rounded-t-xl px-3 py-2 border-l-2 border-[#29b6d8] mb-0.5 max-w-full ${isOwn ? "rounded-bl-xl" : "rounded-br-xl"}`}>
-                        <span className="text-[#29b6d8]">{msg.replyTo.displayName}</span>: {msg.replyTo.text.slice(0, 60)}{msg.replyTo.text.length > 60 ? "â€¦" : ""}
+                        <span className="text-[#29b6d8]">{msg.replyTo.displayName}</span>: {repairMojibake(msg.replyTo.text).slice(0, 60)}{msg.replyTo.text.length > 60 ? "..." : ""}
                       </div>
                     )}
 
@@ -2268,37 +2505,33 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         role="button"
                         tabIndex={0}
                         onClick={event => {
-                          const containerRect = appRef.current?.getBoundingClientRect()
-                          const bubbleRect = event.currentTarget.getBoundingClientRect()
-                          const boxWidth = 228
-                          const preferredLeft = isOwn
-                            ? bubbleRect.right - (containerRect?.left ?? 0) - boxWidth
-                            : bubbleRect.left - (containerRect?.left ?? 0)
-                          const maxLeft = ((containerRect?.width ?? 320) - boxWidth - 12)
-                          setActionBoxPosition({
-                            top: Math.max(16, bubbleRect.bottom - (containerRect?.top ?? 0) + 8),
-                            left: Math.max(12, Math.min(preferredLeft, maxLeft)),
-                          })
-                          setActionMessage(msg)
-                          setShowEmojiPicker(null)
+                          if (!suppressMessageTapRef.current) return
+                          suppressMessageTapRef.current = false
+                          event.preventDefault()
                         }}
                         onKeyDown={event => {
                           if (event.key !== "Enter" && event.key !== " ") return
                           event.preventDefault()
-                          const containerRect = appRef.current?.getBoundingClientRect()
-                          const bubbleRect = event.currentTarget.getBoundingClientRect()
-                          const boxWidth = 228
-                          const preferredLeft = isOwn
-                            ? bubbleRect.right - (containerRect?.left ?? 0) - boxWidth
-                            : bubbleRect.left - (containerRect?.left ?? 0)
-                          const maxLeft = ((containerRect?.width ?? 320) - boxWidth - 12)
-                          setActionBoxPosition({
-                            top: Math.max(16, bubbleRect.bottom - (containerRect?.top ?? 0) + 8),
-                            left: Math.max(12, Math.min(preferredLeft, maxLeft)),
-                          })
-                          setActionMessage(msg)
-                          setShowEmojiPicker(null)
+                          openMessageActions(event.currentTarget, msg, isOwn)
                         }}
+                        onContextMenu={event => {
+                          event.preventDefault()
+                          openMessageActions(event.currentTarget, msg, isOwn)
+                        }}
+                        onPointerDown={event => {
+                          if (event.pointerType === "mouse") return
+                          if (isNestedInteractiveTarget(event.target, event.currentTarget)) return
+                          suppressMessageTapRef.current = false
+                          clearMessageLongPress()
+                          const target = event.currentTarget
+                          messageLongPressTimerRef.current = setTimeout(() => {
+                            suppressMessageTapRef.current = true
+                            openMessageActions(target, msg, isOwn)
+                          }, 420)
+                        }}
+                        onPointerUp={() => clearMessageLongPress()}
+                        onPointerCancel={() => clearMessageLongPress()}
+                        onPointerLeave={() => clearMessageLongPress()}
                         className={`relative text-left text-[14px] leading-snug ${
                           emojiOnly
                             ? ""
@@ -2321,7 +2554,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           </div>
                         ))}
                         {emojiOnly ? (() => {
-                          const segs = segmentEmoji(msg.text)
+                          const segs = segmentEmoji(messageText)
                           const sz = segs.length === 1 ? 64 : segs.length <= 3 ? 52 : 44
                           return (
                             <div className="flex flex-wrap gap-1 py-1">
@@ -2350,7 +2583,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                               })}
                             </div>
                           )
-                        })() : msg.text}
+                        })() : messageText}
                         {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white/50" : "text-white/50"}`}>(edited)</span>}
                       </div>
                     )}
@@ -2417,7 +2650,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex items-center gap-3 px-4 py-2.5 bg-[#0d1a22] border-t border-[#2d2d2d] shrink-0">
               <div className="flex-1 min-w-0">
                 <span className="text-sm text-[#29b6d8]">{replyTo.displayName}</span>
-                <p className="text-sm text-[#888888] truncate">{replyTo.text}</p>
+                <p className="text-sm text-[#888888] truncate">{repairMojibake(replyTo.text)}</p>
               </div>
               <button onClick={() => setReplyTo(null)}><X size={16} className="text-[#888888]" /></button>
             </div>
@@ -2426,8 +2659,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           {/* Input */}
           <div
             className="bg-black shrink-0 relative px-4 pt-2"
-            style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 48px)" }}
+            style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)" }}
           >
+            {composerError ? (
+              <div className="mb-2 rounded-xl border border-[#5a3d08] bg-[#2c1f05] px-3 py-2 text-[12px] text-[#f7c873]">
+                {composerError}
+              </div>
+            ) : null}
             <div className="flex items-center gap-2 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-3 py-1.5 pr-2">
               <button onClick={() => fileInputRef.current?.click()} className="text-white shrink-0">
                 <Paperclip size={17} />
@@ -2627,10 +2865,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
             {/* List */}
             <div className="flex-1 overflow-y-auto px-6 py-2">
-              {contactMembers.filter(m => isOnline(m.uid)).length > 0 && (
+              {displayedContactMembers.filter(m => isOnline(m.uid)).length > 0 && (
                 <>
                   <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-[#888888]">available</p>
-                  {contactMembers.filter(m => isOnline(m.uid)).map(m => (
+                  {displayedContactMembers.filter(m => isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
                       className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
                       <div className="relative">
@@ -2645,10 +2883,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ))}
                 </>
               )}
-              {contactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
+              {displayedContactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
                 <>
                   <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-[#888888]">offline</p>
-                  {contactMembers.filter(m => !isOnline(m.uid)).map(m => (
+                  {displayedContactMembers.filter(m => !isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
                       className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
                       <div className="relative">
@@ -2663,7 +2901,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ))}
                 </>
               )}
-              {contactMembers.length === 0 && (
+              {displayedContactMembers.length === 0 && (
                 <p className="mt-20 text-center text-sm text-[#888888]">
                   No members yet.<br />Code: <span className="tracking-widest text-[#0096C7]">{org.joinCode}</span>
                 </p>
@@ -2706,10 +2944,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             </div>
 
             <div className="flex-1 overflow-y-auto px-6 py-2">
-              {contactMembers.filter(m => isOnline(m.uid)).length > 0 && (
+              {displayedContactMembers.filter(m => isOnline(m.uid)).length > 0 && (
                 <>
                   <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-[#888888]">available</p>
-                  {contactMembers.filter(m => isOnline(m.uid)).map(m => (
+                  {displayedContactMembers.filter(m => isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
                       className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
                       <div className="relative">
@@ -2724,10 +2962,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ))}
                 </>
               )}
-              {contactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
+              {displayedContactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
                 <>
                   <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-[#888888]">offline</p>
-                  {contactMembers.filter(m => !isOnline(m.uid)).map(m => (
+                  {displayedContactMembers.filter(m => !isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
                       className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
                       <div className="relative">
@@ -2742,7 +2980,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ))}
                 </>
               )}
-              {contactMembers.length === 0 && (
+              {displayedContactMembers.length === 0 && (
                 <p className="mt-20 text-center text-sm text-[#888888]">
                   No members yet.<br />Code: <span className="tracking-widest text-[#0096C7]">{org.joinCode}</span>
                 </p>
@@ -2772,10 +3010,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             </div>
 
             <div className="flex-1 overflow-y-auto px-5 py-3">
-              {contactMembers.filter(m => isOnline(m.uid)).length > 0 && (
+              {displayedContactMembers.filter(m => isOnline(m.uid)).length > 0 && (
                 <>
                   <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-[#67a7ba]">available</p>
-                  {contactMembers.filter(m => isOnline(m.uid)).map(m => (
+                  {displayedContactMembers.filter(m => isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
                       className="flex w-full items-center gap-4 border-b border-[rgba(137,193,210,0.22)] py-2.5">
                       <div className="relative">
@@ -2790,10 +3028,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ))}
                 </>
               )}
-              {contactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
+              {displayedContactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
                 <>
                   <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-[#67a7ba]">offline</p>
-                  {contactMembers.filter(m => !isOnline(m.uid)).map(m => (
+                  {displayedContactMembers.filter(m => !isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
                       className="flex w-full items-center gap-4 border-b border-[rgba(137,193,210,0.22)] py-2.5">
                       <div className="relative">
@@ -2808,7 +3046,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ))}
                 </>
               )}
-              {contactMembers.length === 0 && (
+              {displayedContactMembers.length === 0 && (
                 <p className="text-[#7aa8b7] text-sm text-center mt-20">
                   No members yet.<br />Code: <span className="text-[#176d8c] tracking-widest">{org.joinCode}</span>
                 </p>
@@ -2830,7 +3068,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <button onClick={() => setShowNewDM(false)}><X size={22} className="text-white/60" /></button>
           </div>
           <div className="flex-1 overflow-y-auto px-5 py-5">
-            {contactMembers.map(m => (
+            {displayedContactMembers.map(m => (
               <button key={m.uid} onClick={() => startDM(m.uid)}
                 className="w-full flex items-center gap-4 py-3.5 border-b border-white/5">
                 <div className="relative">

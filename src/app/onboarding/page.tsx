@@ -9,7 +9,6 @@ import {
   resolveProfile,
   saveProfile,
 } from "@/lib/profile"
-import { clearDemoSession, isDemoSessionActive } from "@/lib/demo-access"
 import { getFirestoreHospitals } from "@/lib/firestore"
 import { PrepSightProfile, USER_ROLE_LABEL, type UserRole } from "@/lib/types"
 import { ONBOARDING_SETTING_SPECIALTIES } from "@/lib/settings"
@@ -232,7 +231,6 @@ function CompactSpecialtyToggle({
 export default function OnboardingPage() {
   const router = useRouter()
   const [user, setUser] = useState<User | null | undefined>(undefined)
-  const [demoSessionActive, setDemoSessionActive] = useState(() => isDemoSessionActive())
   const [step, setStep] = useState(1)
   const [animKey, setAnimKey] = useState(0)
   const [hasStartedOnboarding, setHasStartedOnboarding] = useState(false)
@@ -256,10 +254,6 @@ export default function OnboardingPage() {
   const hospitalWrapRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => onAuthChange((u) => setUser(u ?? null)), [])
-
-  useEffect(() => {
-    setDemoSessionActive(isDemoSessionActive())
-  }, [])
 
   useEffect(() => {
     let cancelled = false
@@ -437,7 +431,6 @@ export default function OnboardingPage() {
     const confirmed = window.confirm("Cancel registration? You will be signed out and returned to the login page.")
     if (!confirmed) return
     clearProfile()
-    clearDemoSession()
     await signOut().catch(() => undefined)
     if (typeof window !== "undefined") {
       window.location.replace("/login")
@@ -491,7 +484,7 @@ export default function OnboardingPage() {
 
   return (
     <div className="onboarding-stage min-h-screen flex flex-col overflow-x-clip">
-      {user || demoSessionActive ? (
+      {user ? (
         <div className="absolute right-4 top-4 z-20 md:right-6 md:top-6">
           <button
             type="button"
@@ -840,10 +833,10 @@ export default function OnboardingPage() {
           {step === 7 && (
             <div className="animate-step-in">
               <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
-                Are you a user or a manager?
+                How will you use PrepSight?
               </h2>
               <p className="mb-6 max-w-2xl text-base leading-7 text-[#0F4C5C] lg:text-xl lg:leading-9">
-                Most clinical staff are Users. Select Manager only if you are responsible for overseeing your department's PrepSight library.
+                Select the option that best matches your access needs.
               </p>
               <div className="grid gap-3">
                 {ROLE_OPTIONS.map((option) => (

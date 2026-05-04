@@ -6,13 +6,12 @@ import DesktopSectionWordmark from "@/components/DesktopSectionWordmark"
 import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
 import { Bell, Clock, LogOut, Menu, Mic, MicOff, MoreVertical, PhoneIncoming, PhoneOff, Search, Settings2, UserCircle2, UserRound, Video, X } from "lucide-react"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
-import { getDesktopCommsPreference, getDesktopCommsWidth, subscribeDesktopCommsPreference, toggleDesktopCommsPreference } from "@/lib/desktop-comms"
+import { getDesktopCommsPreference, getDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
 import { useCallStatus } from "@/lib/call-state"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { getProcedureLibrarySnapshot, subscribeProcedureLibrary } from "@/lib/procedure-library"
 import { onAuthChange, signOut, type User } from "@/lib/auth"
-import { clearProfile, getProfile } from "@/lib/profile"
-import { clearDemoSession } from "@/lib/demo-access"
+import { clearProfile, getPrimaryWorkspaceLabel, getProfile, subscribeProfile } from "@/lib/profile"
 import type { Procedure } from "@/lib/types"
 import type { PrepSightProfile } from "@/lib/types"
 import type { ReactNode } from "react"
@@ -111,6 +110,7 @@ export default function AppTopBar({
   menuContent,
   mobileMenuOnly = false,
   hideMobileMenu = false,
+  reserveCommsSpace = true,
   searchValue,
   onSearchChange,
   searchPlaceholder = "Search",
@@ -122,6 +122,7 @@ export default function AppTopBar({
   menuContent?: ReactNode
   mobileMenuOnly?: boolean
   hideMobileMenu?: boolean
+  reserveCommsSpace?: boolean
   searchValue?: string
   onSearchChange?: (value: string) => void
   searchPlaceholder?: string
@@ -254,6 +255,8 @@ export default function AppTopBar({
     return unsub
   }, [])
 
+  useEffect(() => subscribeProfile(setProfile), [])
+
   useEffect(() => {
     function handlePointerDown(event: MouseEvent) {
       if (!rootRef.current?.contains(event.target as Node)) {
@@ -329,7 +332,6 @@ export default function AppTopBar({
     setAccountError(null)
     try {
       clearProfile()
-      clearDemoSession()
       await signOut()
       setAccountMenuOpen(false)
       router.replace("/login")
@@ -343,13 +345,25 @@ export default function AppTopBar({
   const displayName = user?.displayName ?? user?.email ?? profile?.name ?? "Your account"
   const displayEmail = user?.email ?? ""
   const profileInitial = (displayName.trim()[0] ?? "P").toUpperCase()
-  const mobileSectionLabel = navBreadcrumb?.label ?? sectionLabel
+  const resolvedSectionLabel = sectionLabel ?? navBreadcrumb?.label ?? ""
+  const desktopSectionLabel = resolvedSectionLabel.startsWith("Library ")
+    ? "Library"
+    : resolvedSectionLabel.startsWith("Resources ")
+      ? "Resources"
+      : resolvedSectionLabel
+  const mobileSectionLabel = resolvedSectionLabel
+  const workspaceLabel = getPrimaryWorkspaceLabel(profile)
+  const contextLabel = [profile?.hospital?.trim(), workspaceLabel].filter(Boolean).join(" | ")
 
   return (
-    <div ref={rootRef} className="prepsight-app-topbar sticky top-0 z-30" style={commsRailOpen ? { paddingRight: commsRailWidth } : undefined}>
+    <div
+      ref={rootRef}
+      className="prepsight-app-topbar sticky top-0 z-30"
+      style={reserveCommsSpace && commsRailOpen ? { paddingRight: commsRailWidth } : undefined}
+    >
       <header className="relative border-b border-black bg-black px-3 pt-[calc(env(safe-area-inset-top,0px)+12px)] pb-3">
-        <div className="flex items-center justify-between gap-3">
-          <div className="flex items-center gap-3">
+        <div className="relative flex items-center gap-3 lg:min-h-[56px]" style={{ paddingRight: "560px" }}>
+          <div className="flex min-w-0 flex-1 items-center gap-3">
             {!hideMobileMenu && (
               <button
                 type="button"
@@ -360,28 +374,44 @@ export default function AppTopBar({
                 {menuOpen ? <X size={18} /> : <Menu size={18} />}
               </button>
             )}
-            <Link href="/" className="inline-flex items-center gap-1 text-[28px] tracking-tight lg:hidden">
+            <Link href="/" className="inline-flex min-w-0 items-center gap-1 text-[28px] tracking-tight lg:hidden">
               <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
-              <span>
+              <span className="min-w-0">
                 <span className="app-display-font text-[0.86em] tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
                 {mobileSectionLabel ? (
-                  <span className="ml-1 text-[0.84em] leading-none tracking-[-0.05em] text-white">
+                  <span
+                    className="ml-1 text-[0.84em] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                    style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                  >
                     {" "}{mobileSectionLabel}
+                  </span>
+                ) : null}
+                {contextLabel ? (
+                  <span className="mt-0.5 block truncate text-[10px] tracking-[0.08em] text-white/40">
+                    {contextLabel}
                   </span>
                 ) : null}
               </span>
             </Link>
-            {(navBreadcrumb ?? sectionLabel) && (
-              <span className="hidden lg:block">
+            {desktopSectionLabel && (
+              <div className="hidden min-w-0 lg:block">
                 <DesktopSectionWordmark
-                  group={navBreadcrumb?.group}
-                  label={navBreadcrumb?.label ?? sectionLabel ?? ""}
+                  group={null}
+                  label={desktopSectionLabel}
                 />
-              </span>
+              </div>
             )}
           </div>
 
-          <div className="ml-auto hidden lg:flex lg:items-center lg:gap-3">
+          <div
+            className="hidden shrink-0 lg:flex lg:items-center lg:gap-3"
+            style={{
+              position: "absolute",
+              right: 0,
+              top: "50%",
+              transform: "translateY(-50%)",
+            }}
+          >
             {/* Call status bar — shown on desktop when comms panel is closed */}
             {showCallControls && (
               <div className="flex items-center gap-2 rounded-full border border-white/10 bg-black/80 px-3 py-1.5"
@@ -426,7 +456,7 @@ export default function AppTopBar({
                 </button>
               </div>
             )}
-            <div className="relative w-[440px] xl:w-[520px]">
+            <div className="relative" style={{ width: 520 }}>
             <label className="flex min-w-0 items-center gap-2 rounded-[12px] border border-[#0F4C5C] bg-white/96 px-3 py-2.5">
               <Search size={16} className="shrink-0 text-[#0F4C5C]" />
               <input
@@ -529,24 +559,6 @@ export default function AppTopBar({
             >
               <Search size={20} />
             </button>
-            {/* Comms toggle — only shown on desktop when comms panel is open (teal active state).
-                When closed, DesktopCommsFAB floating button handles opening it. */}
-            {commsRailOpen && (
-              <button
-                type="button"
-                onClick={toggleDesktopCommsPreference}
-                className="hidden h-9 w-9 items-center justify-center rounded-[10px] bg-[#0096C7]/15 text-[#0096C7] ring-1 ring-[#0096C7]/30 transition-colors hover:bg-[#0096C7]/25 lg:inline-flex"
-                aria-label="Hide PrepSight Comms panel"
-                title="Hide PrepSight Comms"
-              >
-                <img
-                  src="/image3.png"
-                  alt=""
-                  aria-hidden="true"
-                  className="h-[580px] w-[580px] shrink-0 object-contain opacity-[0.98] [filter:drop-shadow(0_0_2px_rgba(0,150,199,0.7))]"
-                />
-              </button>
-            )}
             {/* Mobile profile/menu — keep on mobile only; desktop profile is now in WorkspaceNavRail */}
             <button
               type="button"
@@ -564,37 +576,37 @@ export default function AppTopBar({
             </button>
 
             {accountMenuOpen ? (
-              <div className="absolute right-0 top-[calc(100%+10px)] z-50 w-[15rem] overflow-hidden rounded-[24px] border border-[rgba(145,214,230,0.72)] bg-[rgba(222,247,252,0.88)] shadow-[0_28px_80px_rgba(31,124,150,0.18)] backdrop-blur-[24px]">
-                <div className="border-b border-[rgba(137,193,210,0.42)] px-4 py-3">
-                  <div className="text-[14px] font-medium text-[#154b5f]">{displayName}</div>
-                  {displayEmail ? <div className="mt-0.5 text-[12px] text-[#5e8ea0]">{displayEmail}</div> : null}
+              <div className="absolute right-0 top-[calc(100%+10px)] z-50 w-[15rem] overflow-hidden rounded-[24px] border border-[#3a3a3d] bg-[linear-gradient(180deg,#262628_0%,#1d1d1f_100%)] shadow-[0_28px_80px_rgba(0,0,0,0.42)]">
+                <div className="border-b border-[#343437] px-4 py-3">
+                  <div className="text-[14px] font-medium text-white">{displayName}</div>
+                  {displayEmail ? <div className="mt-0.5 text-[12px] text-[#8f8f8f]">{displayEmail}</div> : null}
                 </div>
 
                 <div className="p-2">
                   <button
                     type="button"
                     onClick={() => openAccountPage("/settings/profile")}
-                    className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#154b5f] hover:bg-[rgba(255,255,255,0.52)]"
+                    className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#d8d8d8] hover:bg-[#2e2e31]"
                   >
-                    <UserRound size={16} className="text-[#4B6478]" />
+                    <UserRound size={16} className="text-[#8f8f8f]" />
                     <span>Profile</span>
                   </button>
                   <button
                     type="button"
                     onClick={() => openAccountPage("/settings/access")}
-                    className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#154b5f] hover:bg-[rgba(255,255,255,0.52)]"
+                    className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#d8d8d8] hover:bg-[#2e2e31]"
                   >
-                    <Settings2 size={16} className="text-[#4B6478]" />
+                    <Settings2 size={16} className="text-[#8f8f8f]" />
                     <span>Settings</span>
                   </button>
-                  <div className="my-2 border-t border-[rgba(137,193,210,0.32)]" />
+                  <div className="my-2 border-t border-[#343437]" />
                   <button
                     type="button"
                     onClick={() => void handleSignOut()}
                     disabled={accountBusy}
-                    className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#154b5f] hover:bg-[rgba(255,255,255,0.52)] disabled:cursor-not-allowed disabled:opacity-60"
+                    className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#d8d8d8] hover:bg-[#2e2e31] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    <LogOut size={16} className="text-[#4B6478]" />
+                    <LogOut size={16} className="text-[#8f8f8f]" />
                     <span>Sign out</span>
                   </button>
                   {accountError ? (

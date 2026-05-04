@@ -20,8 +20,7 @@ function BookmarksPageContent({
   return (
     <div className="px-1 py-4 lg:px-8 lg:pt-4">
       <section>
-        <p className="text-[13px] text-[#7f7f7f] lg:hidden">my team</p>
-        <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-white lg:hidden lg:text-[30px]">bookmarks</h1>
+        <h1 className="hidden text-[22px] font-medium tracking-[-0.03em] text-white lg:block">Bookmarks</h1>
         <p className="mt-0 text-[15px] leading-7 text-[#9a9a9a] lg:text-[16px]">
           Keep quick links to community procedures and versions you want to return to.
         </p>
@@ -80,18 +79,29 @@ function BookmarksPageContent({
   )
 }
 
-export default function BookmarksPageClient({ embedded = false }: { embedded?: boolean }) {
-  const [query, setQuery] = useState("")
+export default function BookmarksPageClient({
+  embedded = false,
+  queryOverride,
+  filteredBookmarksOverride,
+}: {
+  embedded?: boolean
+  queryOverride?: string
+  filteredBookmarksOverride?: ReturnType<typeof getBookmarksSnapshot>
+}) {
+  const [localQuery, setLocalQuery] = useState("")
   const bookmarks = useSyncExternalStore(subscribeBookmarks, getBookmarksSnapshot, getBookmarksSnapshot)
+  const query = queryOverride ?? localQuery
 
   const filteredBookmarks = useMemo(() => {
+    if (filteredBookmarksOverride) return filteredBookmarksOverride
+
     const normalizedQuery = normalizeText(query)
     if (!normalizedQuery) return bookmarks
 
     return bookmarks.filter((bookmark) =>
       normalizeText(`${bookmark.title} ${bookmark.subtitle}`).includes(normalizedQuery),
     )
-  }, [bookmarks, query])
+  }, [bookmarks, filteredBookmarksOverride, query])
 
   const content = <BookmarksPageContent query={query} filteredBookmarks={filteredBookmarks} />
 
@@ -101,9 +111,8 @@ export default function BookmarksPageClient({ embedded = false }: { embedded?: b
     <LibraryAppShell
       currentNav="bookmarks"
       searchValue={query}
-      onSearchChange={setQuery}
+      onSearchChange={setLocalQuery}
       searchPlaceholder="Search bookmarks..."
-      sectionLabel="Library Bookmarks"
     >
       {content}
     </LibraryAppShell>

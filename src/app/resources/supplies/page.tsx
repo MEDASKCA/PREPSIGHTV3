@@ -10,10 +10,10 @@ const supplyRows = [
 
 export default function SuppliesPage() {
   return (
-    <WorkspaceDesktopShell currentNav="supplies" sectionLabel="Resources Supplies">
+    <WorkspaceDesktopShell currentNav="supplies">
       <div className="space-y-5 px-2 py-2 lg:px-4 lg:py-4">
         <section>
-          <h1 className="text-[32px] tracking-[-0.04em] text-white">supplies</h1>
+          <h1 className="hidden text-[22px] font-medium tracking-[-0.03em] text-white lg:block">Supplies</h1>
           <p className="mt-2 max-w-[760px] text-[15px] leading-7 text-[#9a9a9a]">
             Supplies should focus on what is short, what is stable, and what will block cases.
           </p>

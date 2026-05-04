@@ -38,6 +38,7 @@ export default function LibraryAppShell({
   )
   const { min: minCommsWidth, max: maxCommsWidth } = getDesktopCommsWidthBounds()
   const navBreadcrumb = getNavBreadcrumb(currentNav ?? "collections")
+  const resolvedSectionLabel = sectionLabel ?? navBreadcrumb.label
   // PersistentCommsLayer (at AppGate level) renders the actual comms content as a fixed overlay.
   // LibraryAppShell only needs a spacer aside to reserve the layout column.
   const showRightAside = commsRailOpen || Boolean(rightRail)
@@ -105,11 +106,11 @@ export default function LibraryAppShell({
                 <AppTopBar
                   menuOpen={desktopNavOpen}
                   onToggleMenu={() => setDesktopNavOpen((v) => !v)}
+                  reserveCommsSpace={false}
                   searchValue={searchValue}
                   onSearchChange={onSearchChange}
                   searchPlaceholder={searchPlaceholder}
-                  sectionLabel={sectionLabel}
-                  navBreadcrumb={navBreadcrumb}
+                  sectionLabel={resolvedSectionLabel}
                 />
               </div>
               <main className="min-w-0 flex-1 px-4 pb-4 lg:px-6 lg:py-5">

@@ -1,7 +1,7 @@
 "use client"
 
 import { GraduationCap, ShieldCheck, Sparkles } from "lucide-react"
-import WorkforceSectionNav from "@/components/WorkforceSectionNav"
+import WorkforcePersistentHeader from "@/components/WorkforcePersistentHeader"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
 
 const skills = [
@@ -33,15 +33,16 @@ function pillTone(value: string) {
 export default function WorkforceSkillsPage() {
   return (
     <WorkspaceDesktopShell currentNav="workforce" sectionLabel="Resources Workforce">
-      <div className="px-5 py-4 lg:px-6 lg:py-5">
-        <p className="mt-3 max-w-[760px] text-[15px] leading-7 text-[#486579]">
-          Skills should feel like a passport and eligibility view. It should be obvious what I am signed off
-          to do and what kind of shifts should be surfaced to me.
-        </p>
+      <div className="flex h-full min-h-0 flex-col px-5 py-4 lg:px-6 lg:py-5">
+        <WorkforcePersistentHeader current="skills" />
 
-        <WorkforceSectionNav current="skills" />
+        <div className="mt-4 min-h-0 flex-1 overflow-y-auto pr-1">
+          <p className="max-w-[760px] text-[15px] leading-7 text-[#486579]">
+            Skills should feel like a passport and eligibility view. It should be obvious what I am signed off
+            to do and what kind of shifts should be surfaced to me.
+          </p>
 
-        <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1.15fr)_minmax(340px,0.95fr)]">
+          <div className="mt-5 grid gap-5 xl:grid-cols-[minmax(0,1.15fr)_minmax(340px,0.95fr)]">
           <section className="rounded-[30px] border border-[#D6E7EE] bg-white/92 p-5 shadow-[0_18px_46px_rgba(16,36,62,0.08)]">
             <div className="flex items-center gap-2">
               <GraduationCap size={17} className="text-[#1b86ae]" />
@@ -89,6 +90,7 @@ export default function WorkforceSkillsPage() {
                 between skills and available shifts should feel immediate.
               </p>
             </section>
+          </div>
           </div>
         </div>
       </div>
