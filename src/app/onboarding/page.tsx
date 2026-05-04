@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation"
 import { Check, ChevronDown, ChevronRight, X } from "lucide-react"
 import {
   clearProfile,
+  markOnboardingComplete,
   resolveProfile,
   saveProfile,
 } from "@/lib/profile"
@@ -187,6 +188,40 @@ function normalizeDisplayName(value: string): string {
   return value.replace(/\s+/g, " ").trim()
 }
 
+const PROGRESS_KEY = "prepsight_ob_progress"
+
+type SavedProgress = {
+  step: number
+  hospital: string
+  departments: string[]
+  role: UserRole
+  jobTitle: string
+  specialties: string[]
+  displayName: string
+}
+
+function saveProgress(uid: string, progress: SavedProgress): void {
+  try {
+    window.localStorage.setItem(`${PROGRESS_KEY}_${uid}`, JSON.stringify(progress))
+  } catch {}
+}
+
+function loadProgress(uid: string): SavedProgress | null {
+  try {
+    const raw = window.localStorage.getItem(`${PROGRESS_KEY}_${uid}`)
+    if (!raw) return null
+    return JSON.parse(raw) as SavedProgress
+  } catch {
+    return null
+  }
+}
+
+function clearProgress(uid: string): void {
+  try {
+    window.localStorage.removeItem(`${PROGRESS_KEY}_${uid}`)
+  } catch {}
+}
+
 function isProfessionalDisplayName(value: string): boolean {
   const normalized = normalizeDisplayName(value)
   if (normalized.length < 3 || normalized.length > 60) return false
@@ -294,10 +329,22 @@ export default function OnboardingPage() {
   useEffect(() => {
     if (!user) return
     setDisplayName((current) => current || normalizeDisplayName(user.displayName ?? ""))
+
+    const saved = loadProgress(user.uid)
+    if (saved) {
+      setStep(saved.step)
+      setHospital(saved.hospital || "")
+      setDepartments(saved.departments || [])
+      setRole(saved.role || "viewer")
+      setJobTitle(saved.jobTitle || "")
+      setSpecialties(saved.specialties || [])
+      if (saved.displayName) setDisplayName(saved.displayName)
+      return
+    }
+
     resolveProfile(user.uid)
       .then((profile) => {
         if (!profile) return
-
         setHospital((current) => current || profile.hospital || "")
         setDepartments((current) => (current.length > 0 ? current : profile.departments))
         setJobTitle((current) => current || profile.jobTitle || "")
@@ -310,6 +357,11 @@ export default function OnboardingPage() {
       })
       .catch(() => null)
   }, [user])
+
+  useEffect(() => {
+    if (!user?.uid || !hasStartedOnboarding) return
+    saveProgress(user.uid, { step, hospital, departments, role, jobTitle, specialties, displayName })
+  }, [step, user?.uid, hasStartedOnboarding, hospital, departments, role, jobTitle, specialties, displayName])
 
   useEffect(() => {
     function handler(event: MouseEvent) {
@@ -430,6 +482,7 @@ export default function OnboardingPage() {
   async function handleSignOut() {
     const confirmed = window.confirm("Cancel registration? You will be signed out and returned to the login page.")
     if (!confirmed) return
+    if (user?.uid) clearProgress(user.uid)
     clearProfile()
     await signOut().catch(() => undefined)
     if (typeof window !== "undefined") {
@@ -460,6 +513,10 @@ export default function OnboardingPage() {
 
     try {
       await saveProfile(profile, user?.uid)
+      if (user?.uid) {
+        markOnboardingComplete(user.uid)
+        clearProgress(user.uid)
+      }
       if (typeof window !== "undefined") {
         window.location.replace("/")
         return

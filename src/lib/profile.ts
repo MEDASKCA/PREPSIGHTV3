@@ -11,6 +11,7 @@ import {
 const STORAGE_KEY = "prepsight_profile"
 const STORAGE_UID_KEY = "prepsight_profile_uid"
 const FORCE_ONBOARDING_KEY = "prepsight_force_onboarding"
+const ONBOARDING_COMPLETE_PREFIX = "prepsight_ob_done_"
 export const PLATFORM_ROLE_COOKIE_KEY = "prepsight_platform_role"
 export const SPECIALTY_PREFERENCES_COOKIE_KEY = "prepsight_specialties"
 const PROFILE_CHANGE_EVENT = "prepsight:profile-changed"
@@ -210,6 +211,29 @@ export function clearProfile(): void {
 
 export function hasProfile(): boolean {
   return getProfile() !== null
+}
+
+export function markOnboardingComplete(uid: string): void {
+  if (typeof window === "undefined") return
+  try {
+    localStorage.setItem(`${ONBOARDING_COMPLETE_PREFIX}${uid}`, "1")
+  } catch {}
+}
+
+export function hasOnboardingCompleteFlag(uid: string): boolean {
+  if (typeof window === "undefined") return false
+  try {
+    return localStorage.getItem(`${ONBOARDING_COMPLETE_PREFIX}${uid}`) === "1"
+  } catch {
+    return false
+  }
+}
+
+export function clearOnboardingCompleteFlag(uid: string): void {
+  if (typeof window === "undefined") return
+  try {
+    localStorage.removeItem(`${ONBOARDING_COMPLETE_PREFIX}${uid}`)
+  } catch {}
 }
 
 export function setActiveOrganizationId(organizationId: string): PrepSightProfile | null {

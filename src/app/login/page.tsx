@@ -16,7 +16,7 @@ import {
 import { auth } from "@/lib/firebase"
 import { claimActiveUserSession, getActiveUserSession, getPrepSightNativeAccount } from "@/lib/firestore"
 import { consumeSessionConflictNotice, getOrCreateDeviceSession, type ActiveUserSessionRecord } from "@/lib/device-session"
-import { clearProfile, hasCompleteProfile, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
+import { clearProfile, hasCompleteProfile, hasOnboardingCompleteFlag, isCompleteProfile, resolveProfile, shouldForceOnboarding } from "@/lib/profile"
 import AuthSessionControl from "@/components/AuthSessionControl"
 import MedaskcaLoadingScreen from "@/components/MedaskcaLoadingScreen"
 
@@ -180,7 +180,7 @@ export default function LoginPage() {
 
     try {
       const profile = await resolveProfile(user.uid)
-      const profileComplete = isCompleteProfile(profile) || hasCompleteProfile()
+      const profileComplete = isCompleteProfile(profile) || hasCompleteProfile() || hasOnboardingCompleteFlag(user.uid)
       appendDebug(`profile complete=${String(profileComplete)}`)
 
       if (profileComplete) {
@@ -193,7 +193,7 @@ export default function LoginPage() {
       appendDebug(
         `profile resolution failed=${profileError instanceof Error ? profileError.message : "unknown"}`,
       )
-      if (hasCompleteProfile()) {
+      if (hasCompleteProfile() || hasOnboardingCompleteFlag(user.uid)) {
         setWelcomeTitle(resolveWelcomeTitle(user.displayName ?? user.email))
         setPostLoginMessage("Loading your PrepSight workspace...")
         showPostLoginLoadingScreen("/")
