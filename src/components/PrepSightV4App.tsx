@@ -1107,7 +1107,14 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           onSwitchWorkspace={handleMobileSwitchWorkspace}
         />
         {isFoldableMobileViewport ? (
-          <div className="pointer-events-none fixed inset-y-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[#2d2d2d] lg:hidden" />
+          mobileTab === "comms" ? (
+            <div className="pointer-events-none fixed inset-y-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[#2d2d2d] lg:hidden" />
+          ) : (
+            <div
+              className="pointer-events-none fixed bottom-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[#2d2d2d] lg:hidden"
+              style={{ top: "calc(env(safe-area-inset-top) + 74px)" }}
+            />
+          )
         ) : null}
         {isFoldableMobileViewport && mobileTab !== "comms" ? (
           <>
