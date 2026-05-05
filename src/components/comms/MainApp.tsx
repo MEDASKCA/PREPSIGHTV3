@@ -19,6 +19,7 @@ import {
 import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage"
 import { signOut, type User } from "firebase/auth"
 import { auth, db, storage } from "@/lib/firebase"
+import { isFoldableMobileViewport as detectFoldableMobileViewport } from "@/lib/foldable"
 import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
 import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import { clearCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
@@ -647,7 +648,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   useEffect(() => {
     const syncFoldableSplitView = () => {
-      setIsFoldableSplitView(allowFoldableSplitView && window.innerWidth >= 700 && window.innerWidth < 1024)
+      setIsFoldableSplitView(allowFoldableSplitView && detectFoldableMobileViewport())
     }
 
     syncFoldableSplitView()
@@ -2709,7 +2710,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       </div>
 
       {/* â”€â”€ Filter row â”€â”€ */}
-      <div className={`border-b border-black bg-black px-4 pt-0 pb-3 shrink-0 ${isFoldableSplitView ? "max-w-[340px]" : ""}`}>
+      <div className={`border-b border-black bg-black px-4 pt-0 pb-3 shrink-0 ${isFoldableSplitView ? "w-1/2" : ""}`}>
         <div className="-mx-4 mb-3 bg-[#101012] px-4 pt-0.5 pb-2">
           <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {displayedContactMembers.map(member => (
@@ -2751,7 +2752,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       </div>
 
       {/* â”€â”€ Thread list â”€â”€ */}
-      <div className={`flex-1 overflow-y-auto bg-black ${isFoldableSplitView ? "max-w-[340px]" : ""}`}>
+      <div className={`flex-1 overflow-y-auto bg-black ${isFoldableSplitView ? "w-1/2" : ""}`}>
           {visibleThreads.length === 0 && (
             <p className="mt-20 text-center text-sm text-[var(--mob-text-2,#888888)]">No conversations yet</p>
           )}
@@ -2861,7 +2862,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       ) : null}
       {selectedThread && isFoldableSplitView ? (
-        <div className="absolute inset-y-0 right-0 left-[340px] z-10 bg-black">
+        <div className="absolute inset-y-0 right-0 left-1/2 z-10 bg-black">
           {renderMobileThreadPane(true)}
         </div>
       ) : null}

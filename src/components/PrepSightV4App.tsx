@@ -20,6 +20,7 @@ import LibraryPageClient from "@/components/LibraryPageClient"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
 import { getDesktopCommsPreference, getDesktopCommsWidth, getDesktopCommsWidthBounds, setDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
+import { isFoldableMobileViewport as detectFoldableMobileViewport } from "@/lib/foldable"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { clearProfile, getProfile, getRelevantSettings } from "@/lib/profile"
 import { subscribeTeams } from "@/lib/team-workspaces"
@@ -873,7 +874,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   useEffect(() => {
     if (typeof window === "undefined") return
     const syncFoldableViewport = () => {
-      setIsFoldableMobileViewport(window.innerWidth >= 700 && window.innerWidth < 1024)
+      setIsFoldableMobileViewport(detectFoldableMobileViewport())
     }
 
     syncFoldableViewport()
@@ -1106,7 +1107,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           onSwitchWorkspace={handleMobileSwitchWorkspace}
         />
         {isFoldableMobileViewport ? (
-          <div className="pointer-events-none fixed inset-y-0 left-[340px] z-[60] w-px bg-[#2d2d2d] lg:hidden" />
+          <div className="pointer-events-none fixed inset-y-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[#2d2d2d] lg:hidden" />
         ) : null}
         {isFoldableMobileViewport && mobileTab !== "comms" ? (
           <>
@@ -1162,7 +1163,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               </div>
             </div>
             <main className="relative min-h-0 flex-1 overflow-hidden bg-black">
-              <div className="grid h-full min-h-0 grid-cols-[340px_minmax(0,1fr)]">
+              <div className="grid h-full min-h-0 grid-cols-2">
                 <div className="min-h-0 pb-28">
                   <MobileCommsShell visible hideHeader allowFoldableSplitView={false} />
                 </div>
@@ -1293,7 +1294,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           onClose={() => setShowMobileGlobalSearch(false)}
         />
 
-        <div className={`fixed bottom-0 z-50 ${dockPinnedToCommsPane ? "left-0 w-[340px] max-w-full" : "inset-x-0"}`}>
+        <div className={`fixed bottom-0 z-50 ${dockPinnedToCommsPane ? "left-0 w-1/2 max-w-full" : "inset-x-0"}`}>
           <div className="bg-black border-t border-black px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
             <div
               className="grid gap-1"
