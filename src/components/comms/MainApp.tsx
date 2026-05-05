@@ -24,6 +24,7 @@ import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
 import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import { clearCallStatus, getCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
 import { toggleDesktopCommsPreference } from "@/lib/desktop-comms"
+import { createVideoBackgroundBlurProcessor, type VideoBackgroundBlurProcessor } from "@/lib/video-background-blur"
 import type {
   CommsAttachment,
   CommsOrg,
@@ -35,6 +36,7 @@ import type {
 } from "@/lib/comms-types"
 import {
   ArrowLeft,
+  ArrowLeftRight,
   ArrowRight,
   Check,
   ChevronDown,
@@ -57,6 +59,7 @@ import {
   Play,
   Reply,
   Search,
+  ScanFace,
   Send,
   Settings,
   Smile,
@@ -675,13 +678,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [activeCall, setActiveCall] = useState<CommsCall | null>(null)
   const [callerInfo, setCallerInfo] = useState<CommsUser | null>(null)
   const [callMediaMode, setCallMediaMode] = useState<"audio" | "video">("audio")
+  const [videoBlurEnabled, setVideoBlurEnabled] = useState(false)
   const pcRef = useRef<RTCPeerConnection | null>(null)
   const localStreamRef = useRef<MediaStream | null>(null)
+  const localPreviewStreamRef = useRef<MediaStream | null>(null)
   const remoteAudioRef = useRef<HTMLAudioElement | null>(null)
   const remoteVideoRef = useRef<HTMLVideoElement | null>(null)
   const localVideoRef = useRef<HTMLVideoElement | null>(null)
   const floatingVideoRef = useRef<HTMLVideoElement | null>(null)
   const remoteStreamRef = useRef<MediaStream | null>(null)
+  const blurProcessorRef = useRef<VideoBackgroundBlurProcessor | null>(null)
   const callStartTimeRef = useRef<number>(0)
   const callThreadIdRef = useRef<string>("")
   const callUnsubRef = useRef<(() => void) | null>(null)
@@ -694,6 +700,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [callMuted, setCallMuted] = useState(false)
   const [callSpeaker, setCallSpeaker] = useState(false)
   const [callViewMode, setCallViewMode] = useState<"panel" | "fullscreen" | "floating">("panel")
+  const [showLocalAsPrimary, setShowLocalAsPrimary] = useState(false)
   const [floatingPos, setFloatingPos] = useState<{ x: number; y: number } | null>(null)
   const [floatingSize, setFloatingSize] = useState({ w: 130, h: 190 })
   const floatingDragRef = useRef<{ startX: number; startY: number; origX: number; origY: number } | null>(null)
@@ -762,8 +769,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   // â”€â”€ Sync local video stream to ref once call UI mounts â”€â”€
   useEffect(() => {
-    if (callState !== "idle" && localStreamRef.current && localVideoRef.current) {
-      localVideoRef.current.srcObject = localStreamRef.current
+    if (callState !== "idle" && localVideoRef.current) {
+      localVideoRef.current.srcObject = localPreviewStreamRef.current ?? localStreamRef.current
+      localVideoRef.current.play().catch(() => {})
     }
   }, [callState, callViewMode])
 
@@ -807,8 +815,83 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   // â”€â”€ Sync call state changes to global store â”€â”€
   useEffect(() => {
-    publishCallStatus({ state: callState, mediaMode: callMediaMode, muted: callMuted, minimized: callViewMode === "floating" })
-  }, [callState, callMediaMode, callMuted, callViewMode])
+    publishCallStatus({
+      state: callState,
+      mediaMode: callMediaMode,
+      videoBlurEnabled,
+      muted: callMuted,
+      minimized: callViewMode === "floating",
+    })
+  }, [callState, callMediaMode, videoBlurEnabled, callMuted, callViewMode])
+
+  function setLocalPreviewStream(stream: MediaStream | null) {
+    localPreviewStreamRef.current = stream
+    if (localVideoRef.current) {
+      localVideoRef.current.srcObject = stream
+      if (stream) {
+        localVideoRef.current.play().catch(() => {})
+      }
+    }
+  }
+
+  async function replaceOutgoingVideoTrack(track: MediaStreamTrack | null) {
+    const sender = pcRef.current?.getSenders().find((candidate) => candidate.track?.kind === "video")
+    if (!sender) return
+    await sender.replaceTrack(track).catch((error) => {
+      console.warn("replace outgoing video track:", error)
+    })
+  }
+
+  function teardownBlurProcessor() {
+    blurProcessorRef.current?.destroy()
+    blurProcessorRef.current = null
+  }
+
+  async function disableBackgroundBlur(updateState = true) {
+    teardownBlurProcessor()
+    const rawTrack = localStreamRef.current?.getVideoTracks()[0] ?? null
+    if (rawTrack) {
+      await replaceOutgoingVideoTrack(rawTrack)
+      setLocalPreviewStream(localStreamRef.current)
+    } else {
+      setLocalPreviewStream(null)
+    }
+    if (updateState) {
+      setVideoBlurEnabled(false)
+    }
+  }
+
+  async function enableBackgroundBlur() {
+    if (callMediaMode !== "video" || !localStreamRef.current) return
+    const rawTrack = localStreamRef.current.getVideoTracks()[0]
+    if (!rawTrack) return
+    teardownBlurProcessor()
+    try {
+      const processor = await createVideoBackgroundBlurProcessor(rawTrack)
+      const processedTrack = processor.outputStream.getVideoTracks()[0]
+      if (!processedTrack) {
+        processor.destroy()
+        return
+      }
+      blurProcessorRef.current = processor
+      setLocalPreviewStream(processor.outputStream)
+      await replaceOutgoingVideoTrack(processedTrack)
+      setVideoBlurEnabled(true)
+      setShowLocalAsPrimary(true)
+    } catch (error) {
+      console.warn("enable background blur:", error)
+      setLocalPreviewStream(localStreamRef.current)
+      setVideoBlurEnabled(false)
+    }
+  }
+
+  async function toggleBackgroundBlur() {
+    if (videoBlurEnabled) {
+      await disableBackgroundBlur()
+      return
+    }
+    await enableBackgroundBlur()
+  }
 
   useEffect(() => {
     publishCallStatus({ elapsed: callElapsed })
@@ -2374,9 +2457,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       return
     }
     localStreamRef.current = stream
-    if (localVideoRef.current) {
-      localVideoRef.current.srcObject = stream
-    }
+    setLocalPreviewStream(stream)
     const pc = createPC()
     attachRemoteAudio(pc)
     stream.getTracks().forEach(t => pc.addTrack(t, stream))
@@ -2451,9 +2532,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       return
     }
     localStreamRef.current = stream
-    if (localVideoRef.current) {
-      localVideoRef.current.srcObject = stream
-    }
+    setLocalPreviewStream(stream)
     const pc = createPC()
     attachRemoteAudio(pc)
     stream.getTracks().forEach(t => pc.addTrack(t, stream))
@@ -2542,15 +2621,18 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
     callUnsubRef.current?.(); callUnsubRef.current = null
     callSignalUnsubRef.current?.(); callSignalUnsubRef.current = null
+    teardownBlurProcessor()
     pcRef.current?.close(); pcRef.current = null
     localStreamRef.current?.getTracks().forEach(t => t.stop()); localStreamRef.current = null
     if (remoteAudioRef.current) { remoteAudioRef.current.srcObject = null }
     if (remoteVideoRef.current) { remoteVideoRef.current.srcObject = null }
-    if (localVideoRef.current) { localVideoRef.current.srcObject = null }
+    setLocalPreviewStream(null)
     remoteStreamRef.current = null
     setTomVoiceMode(false)
     setCallState("idle"); setActiveCall(null); setCallerInfo(null); setCalleeInfo(null)
     setCallElapsed(0); setCallMuted(false); setCallSpeaker(false)
+    setVideoBlurEnabled(false)
+    setShowLocalAsPrimary(false)
     setCallViewMode("panel")
     resetCallStatus()
   }
@@ -2560,14 +2642,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setCallMuted(v => !v)
   }
 
-  function switchToAudio() {
+  async function switchToAudio() {
     if (!localStreamRef.current || callState !== "active") return
+    if (videoBlurEnabled) {
+      await disableBackgroundBlur()
+    }
     localStreamRef.current.getVideoTracks().forEach(track => {
       track.stop()
       const sender = pcRef.current?.getSenders().find(s => s.track === track)
       if (sender) pcRef.current?.removeTrack(sender)
     })
-    if (localVideoRef.current) localVideoRef.current.srcObject = null
+    setLocalPreviewStream(null)
     setCallMediaMode("audio")
   }
 
@@ -2581,7 +2666,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       if (pcRef.current && localStreamRef.current) {
         pcRef.current.addTrack(track, localStreamRef.current)
       }
-      if (localVideoRef.current) localVideoRef.current.srcObject = localStreamRef.current
+      setLocalPreviewStream(localStreamRef.current)
       setCallMediaMode("video")
     } catch (e) {
       console.warn("switch to video:", e)
@@ -2590,6 +2675,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   async function switchCamera() {
     if (!localStreamRef.current || callMediaMode !== "video") return
+    const shouldRestoreBlur = videoBlurEnabled
+    if (shouldRestoreBlur) {
+      await disableBackgroundBlur(false)
+    }
     const currentTrack = localStreamRef.current.getVideoTracks()[0]
     const nextFacing: "user" | "environment" = camFacingMode === "user" ? "environment" : "user"
     try {
@@ -2600,10 +2689,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       currentTrack?.stop()
       if (currentTrack) localStreamRef.current.removeTrack(currentTrack)
       localStreamRef.current.addTrack(newTrack)
-      if (localVideoRef.current) localVideoRef.current.srcObject = localStreamRef.current
+      setLocalPreviewStream(localStreamRef.current)
       setCamFacingMode(nextFacing)
+      if (shouldRestoreBlur) {
+        await enableBackgroundBlur()
+      }
     } catch (e) {
       console.warn("switch camera:", e)
+      if (shouldRestoreBlur) {
+        await enableBackgroundBlur()
+      }
     }
   }
 
@@ -3869,20 +3964,60 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           className={`z-[200] flex flex-col bg-[#0c0c0c] pointer-events-auto ${callViewMode === "fullscreen" ? "fixed inset-0" : "absolute inset-0"}`}
           style={callViewMode === "fullscreen" ? { paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" } : undefined}
         >
-          {/* Remote video background */}
+          {/* Primary remote video */}
           {callMediaMode === "video" && !tomVoiceMode && callState === "active" && (
-            <div className="absolute inset-0 overflow-hidden bg-black">
-              <video ref={remoteVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
+            <div
+              className={`absolute overflow-hidden bg-black transition-all ${
+                showLocalAsPrimary
+                  ? "bottom-28 right-3 z-20 rounded-xl border border-white/15 shadow-lg"
+                  : "inset-0"
+              }`}
+              style={showLocalAsPrimary
+                ? { width: callViewMode === "fullscreen" ? 90 : 68, height: callViewMode === "fullscreen" ? 126 : 96 }
+                : undefined}
+            >
+              <video
+                ref={remoteVideoRef}
+                autoPlay
+                playsInline
+                className="h-full w-full object-cover"
+              />
+              {showLocalAsPrimary ? (
+                <button
+                  onClick={() => setShowLocalAsPrimary(false)}
+                  className="absolute inset-0"
+                  aria-label="Show colleague camera as main view"
+                />
+              ) : null}
             </div>
           )}
 
-          {/* Local PIP */}
+          {/* Local video */}
           {callMediaMode === "video" && !tomVoiceMode && (callState === "active" || callState === "outgoing") && (
             <div
-              className="absolute bottom-28 right-3 z-20 overflow-hidden rounded-xl border border-white/15 shadow-lg"
-              style={{ width: callViewMode === "fullscreen" ? 90 : 68, height: callViewMode === "fullscreen" ? 126 : 96 }}
+              className={`absolute overflow-hidden transition-all ${
+                callState === "active" && showLocalAsPrimary
+                  ? "inset-0 bg-black"
+                  : "bottom-28 right-3 z-20 rounded-xl border border-white/15 shadow-lg"
+              }`}
+              style={callState === "active" && showLocalAsPrimary
+                ? undefined
+                : { width: callViewMode === "fullscreen" ? 90 : 68, height: callViewMode === "fullscreen" ? 126 : 96 }}
             >
-              <video ref={localVideoRef} autoPlay playsInline muted className="h-full w-full object-cover" />
+              <video
+                ref={localVideoRef}
+                autoPlay
+                playsInline
+                muted
+                className="h-full w-full object-cover"
+              />
+              {callState === "active" && !showLocalAsPrimary ? (
+                <button
+                  onClick={() => setShowLocalAsPrimary(true)}
+                  className="absolute inset-0"
+                  aria-label="Show my camera as main view"
+                />
+              ) : null}
             </div>
           )}
 
@@ -3965,6 +4100,22 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             }`}>
               {callMediaMode === "video" && !tomVoiceMode && (
                 <CallButton icon={<SwitchCamera size={20} />} onClick={() => void switchCamera()} aria-label="Flip camera" />
+              )}
+              {callMediaMode === "video" && !tomVoiceMode && callState === "active" && (
+                <CallButton
+                  icon={<ArrowLeftRight size={18} className={showLocalAsPrimary ? "text-[#67CFCF]" : ""} />}
+                  onClick={() => setShowLocalAsPrimary((value) => !value)}
+                  active={showLocalAsPrimary}
+                  aria-label={showLocalAsPrimary ? "Show colleague camera as main view" : "Show my camera as main view"}
+                />
+              )}
+              {callMediaMode === "video" && !tomVoiceMode && (
+                <CallButton
+                  icon={<ScanFace size={18} className={videoBlurEnabled ? "text-[#67CFCF]" : ""} />}
+                  onClick={() => void toggleBackgroundBlur()}
+                  active={videoBlurEnabled}
+                  aria-label={videoBlurEnabled ? "Disable background blur" : "Enable background blur"}
+                />
               )}
               <CallButton
                 icon={callMuted ? <MicOff size={20} className="text-red-400" /> : <Mic size={20} />}
@@ -4067,7 +4218,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               window.addEventListener("touchend", onEnd)
             }}
           >
-            <video ref={floatingVideoRef} autoPlay playsInline className="absolute inset-0 h-full w-full object-cover bg-black" />
+            <video
+              ref={floatingVideoRef}
+              autoPlay
+              playsInline
+              className="absolute inset-0 h-full w-full object-cover bg-black"
+            />
             {/* Gradient scrim + controls */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />
             {/* Tap anywhere to expand */}

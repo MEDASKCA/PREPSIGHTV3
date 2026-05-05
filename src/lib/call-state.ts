@@ -5,6 +5,7 @@ import { useEffect, useState } from "react"
 export type CallStatusState = {
   state: "idle" | "incoming" | "outgoing" | "active"
   mediaMode: "audio" | "video"
+  videoBlurEnabled: boolean
   elapsed: number
   muted: boolean
   minimized: boolean
@@ -27,6 +28,7 @@ export type CallStatusState = {
 const IDLE: CallStatusState = {
   state: "idle",
   mediaMode: "audio",
+  videoBlurEnabled: false,
   elapsed: 0,
   muted: false,
   minimized: false,
