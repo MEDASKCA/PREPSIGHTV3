@@ -843,11 +843,16 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const [activeTab, setActiveTab] = useState<TabKey>(initialSurface === "updates" ? "updates" : "library")
   const [mobileTab, setMobileTab] = useState<TabKey>(initialSurface)
   const [isFoldableMobileViewport, setIsFoldableMobileViewport] = useState(false)
+  const [isMixedSplitDirectThreadActive, setIsMixedSplitDirectThreadActive] = useState(false)
   const callStatus = useCallStatus()
   const pipVideoRef = useRef<HTMLVideoElement>(null)
   const desktopPipVideoRef = useRef<HTMLVideoElement>(null)
+  const mobilePipRef = useRef<HTMLDivElement>(null)
   const [desktopPipPos, setDesktopPipPos] = useState({ x: -1, y: -1 }) // -1 = not yet positioned
+  const [mobilePipPos, setMobilePipPos] = useState<{ x: number; y: number } | null>(null)
+  const [isMobilePipDragging, setIsMobilePipDragging] = useState(false)
   const desktopPipDragOrigin = useRef({ clientX: 0, clientY: 0, x: 0, y: 0 })
+  const mobilePipDragOrigin = useRef({ clientX: 0, clientY: 0, x: 0, y: 0 })
   const [activeUpdateKey, setActiveUpdateKey] = useState<UpdateKey | null>(UPDATES[0]?.key ?? null)
   const [selectedLibraryId, setSelectedLibraryId] = useState<string | null>(null)
   const commsRailOpen = useSyncExternalStore(
@@ -911,6 +916,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           : "Search Insights"
 
   const dockPinnedToCommsPane = isFoldableMobileViewport
+  const shiftMixedSplitChromeToRight = isFoldableMobileViewport && mobileTab !== "comms" && isMixedSplitDirectThreadActive
 
   useEffect(() => {
     const routeSurface =
@@ -924,6 +930,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
 
     setMobileUtilityPage(null)
     setMobileTab(routeSurface)
+    setIsMixedSplitDirectThreadActive(false)
     setActiveTab(routeSurface === "updates" ? "updates" : "library")
     if (routeSurface !== "library") setSelectedLibraryId(null)
   }, [pathname])
@@ -988,6 +995,10 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     if (callStatus.state === "idle") setDesktopPipPos({ x: -1, y: -1 })
   }, [callStatus.state])
 
+  useEffect(() => {
+    if (callStatus.state === "idle") setMobilePipPos(null)
+  }, [callStatus.state])
+
   function fmtDur(s: number) {
     const m = Math.floor(s / 60)
     const ss = s % 60
@@ -1004,6 +1015,34 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     const nx = Math.max(8, Math.min(window.innerWidth - 160, desktopPipDragOrigin.current.x + e.clientX - desktopPipDragOrigin.current.clientX))
     const ny = Math.max(8, Math.min(window.innerHeight - 220, desktopPipDragOrigin.current.y + e.clientY - desktopPipDragOrigin.current.clientY))
     setDesktopPipPos({ x: nx, y: ny })
+  }
+
+  function onMobilePipPointerDown(e: React.PointerEvent<HTMLDivElement>) {
+    const rect = e.currentTarget.getBoundingClientRect()
+    e.currentTarget.setPointerCapture(e.pointerId)
+    setIsMobilePipDragging(true)
+    mobilePipDragOrigin.current = {
+      clientX: e.clientX,
+      clientY: e.clientY,
+      x: mobilePipPos?.x ?? rect.left,
+      y: mobilePipPos?.y ?? rect.top,
+    }
+  }
+
+  function onMobilePipPointerMove(e: React.PointerEvent<HTMLDivElement>) {
+    if (!isMobilePipDragging) return
+    const pipWidth = 128
+    const pipHeight = 210
+    const nx = Math.max(8, Math.min(window.innerWidth - pipWidth - 8, mobilePipDragOrigin.current.x + e.clientX - mobilePipDragOrigin.current.clientX))
+    const ny = Math.max(8, Math.min(window.innerHeight - pipHeight - 8, mobilePipDragOrigin.current.y + e.clientY - mobilePipDragOrigin.current.clientY))
+    setMobilePipPos({ x: nx, y: ny })
+  }
+
+  function onMobilePipPointerEnd(e: React.PointerEvent<HTMLDivElement>) {
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId)
+    }
+    setIsMobilePipDragging(false)
   }
 
   const desktopGridStyle: CSSProperties | undefined = commsRailOpen
@@ -1108,74 +1147,143 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
         />
         {isFoldableMobileViewport ? (
           mobileTab === "comms" ? (
-            <div className="pointer-events-none fixed inset-y-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[#2d2d2d] lg:hidden" />
+            <div className="pointer-events-none fixed inset-y-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[rgba(255,255,255,0.12)] lg:hidden" />
           ) : (
             <div
-              className="pointer-events-none fixed bottom-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[#2d2d2d] lg:hidden"
+              className="pointer-events-none fixed bottom-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[rgba(255,255,255,0.12)] lg:hidden"
               style={{ top: "calc(env(safe-area-inset-top) + 74px)" }}
             />
           )
         ) : null}
         {isFoldableMobileViewport && mobileTab !== "comms" ? (
           <>
-            <div
-              className="shrink-0 border-b border-black bg-black px-4 pb-3"
-              style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
-            >
-              <div className="grid grid-cols-[40px_minmax(0,1fr)_40px] items-start gap-4">
-                <div />
-                <div className="min-w-0 justify-self-center text-center">
-                  <div className="inline-flex items-center gap-1 text-[22px] tracking-tight">
-                    <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
-                    <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
+            {!shiftMixedSplitChromeToRight ? (
+              <div
+                className="shrink-0 border-b border-black bg-black px-4 pb-3"
+                style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
+              >
+                <div className="grid grid-cols-[40px_minmax(0,1fr)_40px] items-start gap-4">
+                  <div />
+                  <div className="min-w-0 justify-self-center text-center">
+                    <div className="inline-flex items-center gap-1 text-[22px] tracking-tight">
+                      <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
+                      <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
+                    </div>
+                    <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
+                      <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
+                      <span className="shrink-0 text-[#5f5f5f]">|</span>
+                      <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
+                    </div>
                   </div>
-                  <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
-                    <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
-                    <span className="shrink-0 text-[#5f5f5f]">|</span>
-                    <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
+                  <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
+                    <button
+                      type="button"
+                      onClick={() => setShowMobileGlobalSearch(true)}
+                      aria-label="Open search"
+                      className="text-white/70 hover:text-white"
+                    >
+                      <Search size={20} />
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => setShowMobileProfile(true)}
+                      aria-label="Open menu"
+                      className="text-white/80 hover:text-white"
+                    >
+                      <MoreVertical size={22} />
+                    </button>
                   </div>
                 </div>
-                <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
-                  <button
-                    type="button"
-                    onClick={() => setShowMobileGlobalSearch(true)}
-                    aria-label="Open search"
-                    className="text-white/70 hover:text-white"
+                <div className="mt-3 grid grid-cols-2 items-center gap-4">
+                  <div
+                    className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                    style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
                   >
-                    <Search size={20} />
-                  </button>
-                  <button
-                    type="button"
-                    onClick={() => setShowMobileProfile(true)}
-                    aria-label="Open menu"
-                    className="text-white/80 hover:text-white"
+                    Comms
+                  </div>
+                  <div
+                    className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                    style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
                   >
-                    <MoreVertical size={22} />
-                  </button>
+                    {mobileSurfaceTitle}
+                  </div>
                 </div>
               </div>
-              <div className="mt-3 grid grid-cols-2 items-center gap-4">
-                <div
-                  className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
-                  style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-                >
-                  Comms
-                </div>
-                <div
-                  className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
-                  style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-                >
-                  {mobileSurfaceTitle}
-                </div>
-              </div>
-            </div>
+            ) : null}
             <main className="relative min-h-0 flex-1 overflow-hidden bg-black">
-              <div className="grid h-full min-h-0 grid-cols-2">
-                <div className="min-h-0 pb-28">
-                  <MobileCommsShell visible hideHeader allowFoldableSplitView={false} />
+              {!shiftMixedSplitChromeToRight ? (
+                <div className="grid h-full min-h-0 grid-cols-2">
+                  <div className="min-h-0 pb-28">
+                    <MobileCommsShell
+                      visible
+                      hideHeader
+                      allowFoldableSplitView={false}
+                      onDirectThreadActiveChange={setIsMixedSplitDirectThreadActive}
+                    />
+                  </div>
+                  <div className="min-h-0 overflow-hidden bg-black">{renderFoldRightPaneContent()}</div>
                 </div>
-                <div className="min-h-0 overflow-hidden bg-black">{renderFoldRightPaneContent()}</div>
-              </div>
+              ) : (
+                <div className="grid h-full min-h-0 grid-cols-2">
+                  <div className="min-h-0">
+                    <MobileCommsShell
+                      visible
+                      hideHeader
+                      allowFoldableSplitView={false}
+                      onDirectThreadActiveChange={setIsMixedSplitDirectThreadActive}
+                    />
+                  </div>
+                  <div className="flex min-h-0 flex-col overflow-hidden bg-black pb-28">
+                    <div
+                      className="shrink-0 border-b border-black bg-black px-4 pb-3"
+                      style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
+                    >
+                      <div className="grid grid-cols-[minmax(0,1fr)_40px] items-start gap-4">
+                        <div className="min-w-0 text-center">
+                          <div className="inline-flex items-center gap-1 text-[22px] tracking-tight">
+                            <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
+                            <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
+                          </div>
+                          <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
+                            <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
+                            <span className="shrink-0 text-[#5f5f5f]">|</span>
+                            <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
+                          </div>
+                        </div>
+                        <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
+                          <button
+                            type="button"
+                            onClick={() => setShowMobileGlobalSearch(true)}
+                            aria-label="Open search"
+                            className="text-white/70 hover:text-white"
+                          >
+                            <Search size={20} />
+                          </button>
+                          <button
+                            type="button"
+                            onClick={() => setShowMobileProfile(true)}
+                            aria-label="Open menu"
+                            className="text-white/80 hover:text-white"
+                          >
+                            <MoreVertical size={22} />
+                          </button>
+                        </div>
+                      </div>
+                      <div className="mt-3">
+                        <div
+                          className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                          style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                        >
+                          {mobileSurfaceTitle}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="min-h-0 flex-1 overflow-hidden bg-black">
+                      {renderFoldRightPaneContent()}
+                    </div>
+                  </div>
+                </div>
+              )}
             </main>
           </>
         ) : null}
@@ -1301,7 +1409,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           onClose={() => setShowMobileGlobalSearch(false)}
         />
 
-        <div className={`fixed bottom-0 z-50 ${dockPinnedToCommsPane ? "left-0 w-1/2 max-w-full" : "inset-x-0"}`}>
+        <div className={`fixed bottom-0 z-50 ${dockPinnedToCommsPane ? (shiftMixedSplitChromeToRight ? "right-0 w-1/2 max-w-full" : "left-0 w-1/2 max-w-full") : "inset-x-0"}`}>
           <div className="bg-black border-t border-black px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
             <div
               className="grid gap-1"
@@ -1418,14 +1526,26 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
       {/* ── Mobile: floating video pip — only for ACTIVE video calls (remote stream is flowing) ── */}
       {callStatus.state === "active" && callStatus.minimized && callStatus.mediaMode === "video" && (
         <div
-          className="fixed z-[200] lg:hidden overflow-hidden rounded-[18px] select-none"
+          ref={mobilePipRef}
+          className={`fixed z-[200] overflow-hidden rounded-[18px] select-none lg:hidden ${isMobilePipDragging ? "scale-[1.02]" : ""}`}
           style={{
-            bottom: 76, right: 12,
+            ...(mobilePipPos
+              ? { left: mobilePipPos.x, top: mobilePipPos.y, right: "auto", bottom: "auto" }
+              : { bottom: 76, right: 12 }),
             width: 128, height: 210,
             background: "#000",
-            boxShadow: "0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08)",
+            boxShadow: isMobilePipDragging
+              ? "0 14px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.16)"
+              : "0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08)",
             pointerEvents: "auto",
+            touchAction: "none",
+            cursor: isMobilePipDragging ? "grabbing" : "grab",
+            transition: isMobilePipDragging ? "none" : "transform 160ms ease, box-shadow 160ms ease",
           }}
+          onPointerDown={onMobilePipPointerDown}
+          onPointerMove={onMobilePipPointerMove}
+          onPointerUp={onMobilePipPointerEnd}
+          onPointerCancel={onMobilePipPointerEnd}
         >
           <video ref={pipVideoRef} autoPlay playsInline className="h-full w-full object-cover" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />

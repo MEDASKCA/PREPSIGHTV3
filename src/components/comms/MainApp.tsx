@@ -22,7 +22,7 @@ import { auth, db, storage } from "@/lib/firebase"
 import { isFoldableMobileViewport as detectFoldableMobileViewport } from "@/lib/foldable"
 import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
 import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
-import { clearCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
+import { clearCallStatus, getCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
 import { toggleDesktopCommsPreference } from "@/lib/desktop-comms"
 import type {
   CommsAttachment,
@@ -569,9 +569,10 @@ interface Props {
   profileDepartment?: string
   hideMobileHeader?: boolean
   allowFoldableSplitView?: boolean
+  onDirectThreadActiveChange?: (active: boolean) => void
 }
 
-export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true }: Props) {
+export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true, onDirectThreadActiveChange }: Props) {
   const appRef = useRef<HTMLDivElement>(null)
   const firestore = db!
   const firebaseAuth = auth!
@@ -741,6 +742,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   // â”€â”€ Clear stale calls on mount (page refresh leaves Firestore calls open) â”€â”€
   // Uses single-field queries only â€” Firestore auto-indexes these, no composite index needed.
   useEffect(() => {
+    if (getCallStatus().state !== "idle") return
+
     async function clearStaleCalls() {
       try {
         const [s1, s2] = await Promise.all([
@@ -1024,6 +1027,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setActionMessage(null)
     setActionBoxPosition(null)
     setShowEmojiPicker(null)
+    onDirectThreadActiveChange?.(thread.type === "direct")
   }
 
   async function togglePinThread(threadId: string) {
@@ -1369,7 +1373,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     void markThreadRead(tomDefaultThread.id)
   }, [isFoldableSplitView, selectedThread, tomDefaultThread])
 
-  function renderMobileThreadPane(splitView: boolean) {
+  function renderMobileThreadPane(splitView: boolean, minimalHeader = false) {
     if (!selectedThread) return null
 
     return (
@@ -1377,62 +1381,64 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         className={splitView ? "flex h-full min-h-0 flex-col bg-black" : "absolute inset-x-0 top-0 z-10 flex flex-col bg-black"}
         style={splitView ? undefined : { bottom: "calc(env(safe-area-inset-bottom, 0px) + 82px)" }}
       >
-        <div
-          className={`bg-black px-5 pb-3 flex items-center gap-3 shrink-0 ${splitView ? "pt-3" : ""}`}
-          style={splitView ? undefined : { paddingTop: "calc(env(safe-area-inset-top) + 10px)" }}
-        >
-          {!splitView ? (
-            <button onClick={() => setSelectedThread(null)} className="mr-1">
+        {minimalHeader ? (
+          <div
+            className="bg-black px-5 pb-3 flex items-center gap-3 shrink-0"
+            style={{ paddingTop: "calc(env(safe-area-inset-top) + 10px)" }}
+          >
+            <button onClick={() => {
+              setSelectedThread(null)
+              onDirectThreadActiveChange?.(false)
+            }} className="mr-1">
               <ArrowLeft size={22} className="text-white" />
             </button>
-          ) : null}
-          {selectedThread.type === "channel" ? (
-            <Avatar name={getThreadName(selectedThread)} size={40} uid={selectedThread.id} />
-          ) : (() => {
-            const av = getThreadAvatar(selectedThread)
-            return av ? <Avatar name={av.displayName} size={40} uid={av.uid} /> : <Avatar name="?" size={40} />
-          })()}
-          <button
-            type="button"
-            onClick={() => {
-              if (selectedThread.type === "direct" && selectedDirectContact) {
-                setShowDirectContactSheet(true)
-              }
-            }}
-            className={`min-w-0 flex-1 text-left ${selectedThread.type === "direct" ? "cursor-pointer" : "cursor-default"}`}
-          >
-            <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
-            {selectedThread.type === "direct" && (
-              <p className="text-sm text-[#888888]">
-                {showTomTyping || otherIsTyping ? "typing..." : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
-              </p>
-            )}
-            {selectedThread.type === "channel" && selectedThread.description && (
-              <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
-            )}
-          </button>
+            {selectedThread.type === "channel" ? (
+              <Avatar name={getThreadName(selectedThread)} size={40} uid={selectedThread.id} />
+            ) : (() => {
+              const av = getThreadAvatar(selectedThread)
+              return av ? <Avatar name={av.displayName} size={40} uid={av.uid} /> : <Avatar name="?" size={40} />
+            })()}
+            <button
+              type="button"
+              onClick={() => {
+                if (selectedThread.type === "direct" && selectedDirectContact) {
+                  setShowDirectContactSheet(true)
+                }
+              }}
+              className={`min-w-0 flex-1 text-left ${selectedThread.type === "direct" ? "cursor-pointer" : "cursor-default"}`}
+            >
+              <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
+              {selectedThread.type === "direct" && (
+                <p className="text-sm text-[#888888]">
+                  {showTomTyping || otherIsTyping ? "typing..." : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
+                </p>
+              )}
+              {selectedThread.type === "channel" && selectedThread.description && (
+                <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
+              )}
+            </button>
             <div className="flex items-center gap-2">
               {selectedThread.type === "direct" && (
                 <>
                   <button
-                  onClick={
-                    callState === "active" && callMediaMode === "audio" ? () => void endCall()
-                    : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "audio")
-                    : undefined
-                  }
-                  disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "audio")}
-                  className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
-                    callState === "active" && callMediaMode === "audio"
-                      ? "bg-[#ef4444]"
-                    : callState !== "idle"
-                      ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
-                      : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
-                  }`}
-                >
-                  {callState === "active" && callMediaMode === "audio"
-                    ? <PhoneOff size={17} className="text-white" />
-                    : <Phone size={17} className="text-white" />}
-                </button>
+                    onClick={
+                      callState === "active" && callMediaMode === "audio" ? () => void endCall()
+                      : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "audio")
+                      : undefined
+                    }
+                    disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "audio")}
+                    className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
+                      callState === "active" && callMediaMode === "audio"
+                        ? "bg-[#ef4444]"
+                      : callState !== "idle"
+                        ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
+                        : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
+                    }`}
+                  >
+                    {callState === "active" && callMediaMode === "audio"
+                      ? <PhoneOff size={17} className="text-white" />
+                      : <Phone size={17} className="text-white" />}
+                  </button>
                   {!isTomConversation ? (
                     <button
                       onClick={
@@ -1456,16 +1462,110 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ) : null}
                 </>
               )}
+              <button
+                type="button"
+                onClick={() => setShowProfile(true)}
+                className="text-white hover:text-white/70"
+                aria-label="More options"
+              >
+                <MoreVertical size={22} />
+              </button>
+            </div>
+          </div>
+        ) : (
+          <div
+            className={`bg-black px-5 pb-3 flex items-center gap-3 shrink-0 ${splitView ? "pt-3" : ""}`}
+            style={splitView ? undefined : { paddingTop: "calc(env(safe-area-inset-top) + 10px)" }}
+          >
+            {!splitView ? (
+              <button onClick={() => {
+                setSelectedThread(null)
+                onDirectThreadActiveChange?.(false)
+              }} className="mr-1">
+                <ArrowLeft size={22} className="text-white" />
+              </button>
+            ) : null}
+            {selectedThread.type === "channel" ? (
+              <Avatar name={getThreadName(selectedThread)} size={40} uid={selectedThread.id} />
+            ) : (() => {
+              const av = getThreadAvatar(selectedThread)
+              return av ? <Avatar name={av.displayName} size={40} uid={av.uid} /> : <Avatar name="?" size={40} />
+            })()}
             <button
               type="button"
-              onClick={() => setShowProfile(true)}
-              className="text-white hover:text-white/70"
-              aria-label="More options"
+              onClick={() => {
+                if (selectedThread.type === "direct" && selectedDirectContact) {
+                  setShowDirectContactSheet(true)
+                }
+              }}
+              className={`min-w-0 flex-1 text-left ${selectedThread.type === "direct" ? "cursor-pointer" : "cursor-default"}`}
             >
-              <MoreVertical size={22} />
+              <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
+              {selectedThread.type === "direct" && (
+                <p className="text-sm text-[#888888]">
+                  {showTomTyping || otherIsTyping ? "typing..." : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
+                </p>
+              )}
+              {selectedThread.type === "channel" && selectedThread.description && (
+                <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
+              )}
             </button>
+              <div className="flex items-center gap-2">
+                {selectedThread.type === "direct" && (
+                  <>
+                    <button
+                    onClick={
+                      callState === "active" && callMediaMode === "audio" ? () => void endCall()
+                      : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "audio")
+                      : undefined
+                    }
+                    disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "audio")}
+                    className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
+                      callState === "active" && callMediaMode === "audio"
+                        ? "bg-[#ef4444]"
+                      : callState !== "idle"
+                        ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
+                        : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
+                    }`}
+                  >
+                    {callState === "active" && callMediaMode === "audio"
+                      ? <PhoneOff size={17} className="text-white" />
+                      : <Phone size={17} className="text-white" />}
+                  </button>
+                    {!isTomConversation ? (
+                      <button
+                        onClick={
+                          callState === "active" && callMediaMode === "video" ? switchToAudio
+                          : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
+                          : undefined
+                        }
+                        disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "video")}
+                        className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
+                          callState === "active" && callMediaMode === "video"
+                            ? "bg-[#ef4444]"
+                          : callState !== "idle"
+                            ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
+                            : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
+                        }`}
+                      >
+                        {callState === "active" && callMediaMode === "video"
+                          ? <PhoneOff size={17} className="text-white" />
+                          : <Video size={17} className="text-white" />}
+                      </button>
+                    ) : null}
+                  </>
+                )}
+              <button
+                type="button"
+                onClick={() => setShowProfile(true)}
+                className="text-white hover:text-white/70"
+                aria-label="More options"
+              >
+                <MoreVertical size={22} />
+              </button>
+            </div>
           </div>
-        </div>
+        )}
 
         <div className="relative flex-1 min-h-0">
           <div className="absolute inset-0 overflow-y-auto bg-black px-4 py-4 space-y-1">
@@ -1697,7 +1797,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
         <div
           className="bg-black shrink-0 relative px-4 pt-2"
-          style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)" }}
+          style={{ paddingBottom: minimalHeader ? "calc(env(safe-area-inset-bottom, 0px) + 8px)" : "calc(env(safe-area-inset-bottom, 0px) + 16px)" }}
         >
           {composerError ? (
             <div className="mb-2 rounded-xl border border-[#5a3d08] bg-[#2c1f05] px-3 py-2 text-[12px] text-[#f7c873]">
@@ -2866,7 +2966,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           {renderMobileThreadPane(true)}
         </div>
       ) : null}
-      {selectedThread && !isFoldableSplitView && (
+      {selectedThread && !isFoldableSplitView && embedded && hideMobileHeader && !allowFoldableSplitView ? (
+        <div className="absolute inset-0 z-10 bg-black">
+          {renderMobileThreadPane(true, true)}
+        </div>
+      ) : null}
+      {selectedThread && !isFoldableSplitView && !(embedded && hideMobileHeader && !allowFoldableSplitView) && (
         <div
           className="absolute inset-x-0 top-0 z-10 flex flex-col bg-black"
           style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 82px)" }}
@@ -2876,7 +2981,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             className="bg-black px-5 pb-3 flex items-center gap-3 shrink-0"
             style={{ paddingTop: "calc(env(safe-area-inset-top) + 10px)" }}
           >
-            <button onClick={() => setSelectedThread(null)} className="mr-1">
+            <button onClick={() => {
+              setSelectedThread(null)
+              onDirectThreadActiveChange?.(false)
+            }} className="mr-1">
               <ArrowLeft size={22} className="text-white" />
             </button>
             {selectedThread.type === "channel" ? (
@@ -3916,7 +4024,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       )}
 
       {/* â•â•â• FLOATING WINDOW â•â•â• */}
-      {callState !== "idle" && callViewMode === "floating" && (
+      {callState !== "idle" && callViewMode === "floating" && !embedded && (
         callState === "active" && callMediaMode === "video" && !tomVoiceMode ? (
           /* Video PiP â€” draggable + resizable */
           <div
