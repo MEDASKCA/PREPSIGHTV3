@@ -31,7 +31,15 @@ function generateJoinCode() {
   return Math.random().toString(36).slice(2, 8).toUpperCase()
 }
 
-export default function MobileCommsShell({ visible = true }: { visible?: boolean }) {
+export default function MobileCommsShell({
+  visible = true,
+  hideHeader = false,
+  allowFoldableSplitView = true,
+}: {
+  visible?: boolean
+  hideHeader?: boolean
+  allowFoldableSplitView?: boolean
+}) {
   const [user, setUser]         = useState<User | null>(null)
   const [org, setOrg]           = useState<CommsOrg | null>(null)
   const [errorText, setErrorText] = useState("")
@@ -191,6 +199,8 @@ export default function MobileCommsShell({ visible = true }: { visible?: boolean
         embedded
         showProfileButton
         visible={visible}
+        hideMobileHeader={hideHeader}
+        allowFoldableSplitView={allowFoldableSplitView}
       />
     </div>
   )

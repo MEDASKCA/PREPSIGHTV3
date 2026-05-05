@@ -2,7 +2,8 @@
 
 import dynamic from "next/dynamic"
 import type { ReactNode } from "react"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { useRouter } from "next/navigation"
 import {
   ArrowRightLeft,
   CalendarClock,
@@ -296,15 +297,19 @@ function matchesAllocationFilter(card: AllocationCard, filterMode: AllocationFil
   return card.consultant === selectedFilter
 }
 
-function MobileMonthCalendarBlock() {
+function MobileMonthCalendarBlock({ leadingControl }: { leadingControl?: ReactNode } = {}) {
   const [selectedDate, setSelectedDate] = useState(() => new Date("2026-02-01T00:00:00"))
-  const [monthInput, setMonthInput] = useState("February 2026")
+  const [monthInput, setMonthInput] = useState("Feb 2026")
   const monthDays = useMemo(() => buildMonthCalendar(selectedDate).filter((day) => day.inMonth), [selectedDate])
   const selectedDateKey = selectedDate.toISOString().slice(0, 10)
 
+  function formatMonthLabel(date: Date) {
+    return date.toLocaleDateString("en-GB", { month: "short", year: "numeric" })
+  }
+
   function jumpToDate(nextDate: Date) {
     setSelectedDate(nextDate)
-    setMonthInput(nextDate.toLocaleDateString("en-GB", { month: "long", year: "numeric" }))
+    setMonthInput(formatMonthLabel(nextDate))
   }
 
   function moveMonth(direction: -1 | 1) {
@@ -314,34 +319,37 @@ function MobileMonthCalendarBlock() {
   function commitMonthInput() {
     const parsed = new Date(`1 ${monthInput}`)
     if (Number.isNaN(parsed.getTime())) {
-      setMonthInput(selectedDate.toLocaleDateString("en-GB", { month: "long", year: "numeric" }))
+      setMonthInput(formatMonthLabel(selectedDate))
       return
     }
     jumpToDate(parsed)
   }
 
   return (
-    <div className="border-b border-black px-4 py-3 -mx-4">
-      <div className="flex items-center justify-center gap-3">
-        <button type="button" onClick={() => moveMonth(-1)} className="text-[#67CFCF]">
-          <TriangleIcon direction="left" size={12} />
-        </button>
-        <input
-          value={monthInput}
-          onChange={(event) => setMonthInput(event.target.value)}
-          onBlur={commitMonthInput}
-          onKeyDown={(event) => {
-            if (event.key === "Enter") {
-              event.preventDefault()
-              commitMonthInput()
-            }
-          }}
-          aria-label="Edit month and year"
-          className="min-w-[150px] rounded-[10px] border border-white/10 bg-[#151515] px-3 py-1.5 text-center text-[14px] text-white outline-none"
-        />
-        <button type="button" onClick={() => moveMonth(1)} className="text-[#67CFCF]">
-          <TriangleIcon direction="right" size={12} />
-        </button>
+    <div className="border-b border-black px-4 py-3">
+      <div className="flex items-center gap-2">
+        <div className="w-[126px] shrink-0">{leadingControl ?? <div />}</div>
+        <div className="flex min-w-0 flex-1 items-center justify-end gap-2">
+          <button type="button" onClick={() => moveMonth(-1)} className="text-[#67CFCF]">
+            <TriangleIcon direction="left" size={12} />
+          </button>
+          <input
+            value={monthInput}
+            onChange={(event) => setMonthInput(event.target.value)}
+            onBlur={commitMonthInput}
+            onKeyDown={(event) => {
+              if (event.key === "Enter") {
+                event.preventDefault()
+                commitMonthInput()
+              }
+            }}
+            aria-label="Edit month and year"
+            className="w-[116px] min-w-0 rounded-[10px] border border-white/10 bg-[#151515] px-2 py-1.5 text-center text-[13px] text-white outline-none"
+          />
+          <button type="button" onClick={() => moveMonth(1)} className="text-[#67CFCF]">
+            <TriangleIcon direction="right" size={12} />
+          </button>
+        </div>
       </div>
 
       <div className="mt-3 overflow-x-auto pb-1">
@@ -380,9 +388,12 @@ function MobileMonthCalendarBlock() {
 }
 
 function RotaPanel() {
+  const router = useRouter()
   const [filterMode, setFilterMode] = useState<AllocationFilterMode>("Area")
   const [selectedFilter, setSelectedFilter] = useState("All")
   const [expandedCard, setExpandedCard] = useState<string | null>("Theatre 1")
+  const [teamActionMember, setTeamActionMember] = useState<{ theatre: string; memberName: string } | null>(null)
+  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const filterOptions = useMemo(() => {
     const values =
       filterMode === "Area"
@@ -397,13 +408,37 @@ function RotaPanel() {
     [filterMode, selectedFilter],
   )
 
+  useEffect(() => {
+    return () => {
+      if (longPressTimerRef.current) {
+        clearTimeout(longPressTimerRef.current)
+      }
+    }
+  }, [])
+
+  function clearLongPressTimer() {
+    if (longPressTimerRef.current) {
+      clearTimeout(longPressTimerRef.current)
+      longPressTimerRef.current = null
+    }
+  }
+
+  function startLongPress(theatre: string, memberName: string) {
+    clearLongPressTimer()
+    longPressTimerRef.current = setTimeout(() => {
+      setTeamActionMember({ theatre, memberName })
+      longPressTimerRef.current = null
+    }, 420)
+  }
+
+  function openCommsAction() {
+    setTeamActionMember(null)
+    router.push("/comms")
+  }
+
   return (
     <div className="flex h-full min-h-0 flex-col">
-      <div className="shrink-0">
-        <MobileMonthCalendarBlock />
-      </div>
-
-      <div className="shrink-0 border-b border-black px-4 py-3 -mx-4">
+      <div className="shrink-0 border-b border-black px-4 py-3">
         <div className="flex items-center gap-2">
           <h2 className="text-[19px] text-white">Team</h2>
           <select
@@ -432,7 +467,7 @@ function RotaPanel() {
         </div>
       </div>
 
-      <div className="min-h-0 flex-1 overflow-y-auto py-3 -mx-4">
+      <div className="min-h-0 flex-1 overflow-y-auto py-3">
         {filteredCards.map((card) => (
           <div key={card.theatre} className="overflow-hidden border-b border-black bg-black">
             <button
@@ -470,7 +505,19 @@ function RotaPanel() {
 
                 <div className="mt-2 space-y-1">
                   {card.staff.map((member) => (
-                    <div key={`${card.theatre}-${member.name}`} className="rounded-[8px] bg-[#151515] px-2 py-1.5">
+                    <button
+                      key={`${card.theatre}-${member.name}`}
+                      type="button"
+                      onContextMenu={(event) => {
+                        event.preventDefault()
+                        setTeamActionMember({ theatre: card.theatre, memberName: member.name })
+                      }}
+                      onTouchStart={() => startLongPress(card.theatre, member.name)}
+                      onTouchEnd={clearLongPressTimer}
+                      onTouchMove={clearLongPressTimer}
+                      onTouchCancel={clearLongPressTimer}
+                      className="block w-full rounded-[8px] bg-[#151515] px-2 py-1.5 text-left"
+                    >
                       <div className="flex items-start justify-between gap-3">
                         <div className="min-w-0">
                           <p className="text-[12px] leading-[1.2] text-white">{member.name}</p>
@@ -478,7 +525,7 @@ function RotaPanel() {
                         </div>
                         <p className="shrink-0 pt-0.5 text-[10px] leading-none text-[#b7b7b7]">{member.shiftTime}</p>
                       </div>
-                    </div>
+                    </button>
                   ))}
                 </div>
               </div>
@@ -486,6 +533,43 @@ function RotaPanel() {
           </div>
         ))}
       </div>
+      {teamActionMember ? (
+        <div className="fixed inset-0 z-50 flex items-end bg-black/60" onClick={() => setTeamActionMember(null)}>
+          <div
+            className="w-full rounded-t-[22px] border-t border-[#1f1f1f] bg-[#111111] px-4 pb-[calc(env(safe-area-inset-bottom,0px)+14px)] pt-3"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-[#2a2a2a]" />
+            <div className="border-b border-[#232323] pb-3">
+              <p className="text-[14px] text-white">{teamActionMember.memberName}</p>
+              <p className="mt-1 text-[11px] text-[#8f8f8f]">{teamActionMember.theatre}</p>
+            </div>
+            <div className="pt-2">
+              <button
+                type="button"
+                onClick={openCommsAction}
+                className="flex w-full items-center justify-between rounded-[12px] px-3 py-3 text-left text-[14px] text-white transition-colors hover:bg-[#1a1a1a]"
+              >
+                <span>Message - Comms</span>
+              </button>
+              <button
+                type="button"
+                onClick={openCommsAction}
+                className="flex w-full items-center justify-between rounded-[12px] px-3 py-3 text-left text-[14px] text-white transition-colors hover:bg-[#1a1a1a]"
+              >
+                <span>Offer swap</span>
+              </button>
+              <button
+                type="button"
+                onClick={openCommsAction}
+                className="flex w-full items-center justify-between rounded-[12px] px-3 py-3 text-left text-[14px] text-white transition-colors hover:bg-[#1a1a1a]"
+              >
+                <span>Send for break</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   )
 }
@@ -632,46 +716,43 @@ function TasksPanel() {
 
 // ── Placeholder panel ──────────────────────────────────────────────────────
 
-function PlaceholderPanel({ title, body }: { title: string; body: string }) {
+function PlaceholderPanel({ body }: { body: string }) {
   return (
     <div className="px-4 py-8 text-center">
-      <p className="text-[15px] font-medium text-[#e0e0e0]">{title}</p>
-      <p className="mt-2 text-[13px] leading-6 text-[#888888]">{body}</p>
+      <p className="text-[13px] leading-6 text-[#888888]">{body}</p>
     </div>
   )
 }
 
 function MobileResourcePlaceholderSurface({
   resource,
-  title,
   body,
 }: {
   resource: "equipment" | "supplies"
-  title: string
   body: string
 }) {
   return (
     <div className="pb-28">
       <div className="border-y border-black bg-black">
-        <div className="border-b border-black px-4 py-3">
-          <div className="relative">
-            <select
-              value={resource}
-              disabled
-              className="w-full appearance-none rounded-[12px] border border-[#2d2d2d] bg-[#111111] px-3 py-2.5 pr-10 text-[13px] text-white outline-none"
-            >
-              <option value={resource}>{resource === "equipment" ? "Equipment" : "Supplies"}</option>
-            </select>
-            <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#0096C7]">
-              <TriangleIcon direction="down" size={12} />
-            </span>
-          </div>
-        </div>
-
-        <MobileMonthCalendarBlock />
+        <MobileMonthCalendarBlock
+          leadingControl={
+            <div className="relative w-[126px]">
+              <select
+                value={resource}
+                disabled
+                className="w-full appearance-none rounded-[12px] border border-[#2d2d2d] bg-[#111111] px-3 py-2 pr-9 text-[13px] text-white outline-none"
+              >
+                <option value={resource}>{resource === "equipment" ? "Equipment" : "Supplies"}</option>
+              </select>
+              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#0096C7]">
+                <TriangleIcon direction="down" size={12} />
+              </span>
+            </div>
+          }
+        />
       </div>
 
-      <PlaceholderPanel title={title} body={body} />
+      <PlaceholderPanel body={body} />
     </div>
   )
 }
@@ -760,38 +841,30 @@ export default function MobileResourcesSurface({ embedded = false }: { embedded?
         ))}
       </div>
 
-      <div className="px-4 pt-1 pb-2">
-        {resourceTab === "workforce" ? (
-          <div className="flex items-center gap-3">
-            <h1 className="text-[24px] font-semibold capitalize tracking-[-0.03em] text-white">
-              {resourceTab}
-            </h1>
-            <div className="relative min-w-0 flex-1">
-              <select
-                value={activeTab}
-                onChange={(event) => setActiveTab(event.target.value as WorkforceTab)}
-                className="w-full appearance-none rounded-[12px] border border-[#2d2d2d] bg-[#111111] px-3 py-2.5 pr-10 text-[13px] text-white outline-none"
-              >
-                <option value="allocation">Allocation</option>
-                <option value="shifts">Shifts</option>
-                <option value="skills">Skills</option>
-                <option value="tasks">Tasks</option>
-              </select>
-              <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#0096C7]">
-                <TriangleIcon direction="down" size={12} />
-              </span>
-            </div>
-          </div>
-        ) : (
-          <h1 className="text-[24px] font-semibold capitalize tracking-[-0.03em] text-white">
-            {resourceTab}
-          </h1>
-        )}
-      </div>
-
       {resourceTab === "workforce" ? (
         <div className="flex h-full min-h-0 flex-col pb-28">
           <div className="flex min-h-0 flex-1 flex-col border-y border-black bg-black">
+            <div className="shrink-0">
+              <MobileMonthCalendarBlock
+                leadingControl={
+                  <div className="relative w-[126px]">
+                    <select
+                      value={activeTab}
+                      onChange={(event) => setActiveTab(event.target.value as WorkforceTab)}
+                      className="w-full appearance-none rounded-[12px] border border-[#2d2d2d] bg-[#111111] px-3 py-2 pr-9 text-[13px] text-white outline-none"
+                    >
+                      <option value="allocation">Allocation</option>
+                      <option value="shifts">Shifts</option>
+                      <option value="skills">Skills</option>
+                      <option value="tasks">Tasks</option>
+                    </select>
+                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#0096C7]">
+                      <TriangleIcon direction="down" size={12} />
+                    </span>
+                  </div>
+                }
+              />
+            </div>
             <div className="min-w-0 flex min-h-0 flex-1 flex-col bg-black">
               {activeTab === "allocation" ? <RotaPanel /> : null}
               {activeTab === "shifts" ? <ShiftsPanel /> : null}
@@ -803,13 +876,11 @@ export default function MobileResourcesSurface({ embedded = false }: { embedded?
       ) : resourceTab === "equipment" ? (
         <MobileResourcePlaceholderSurface
           resource="equipment"
-          title="Equipment"
           body="Equipment is being prepared. This page will become the place for kit readiness, tray availability, and item-level prompts that matter to the individual."
         />
       ) : (
         <MobileResourcePlaceholderSurface
           resource="supplies"
-          title="Supplies"
           body="Supplies is being prepared. This page will become the place for stock prompts, consumable readiness, and what you need to know before or during a shift."
         />
       )}

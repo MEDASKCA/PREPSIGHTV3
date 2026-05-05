@@ -21,6 +21,10 @@ export default function RootEntry({ initialSurface }: { initialSurface?: TabKey 
 
   useEffect(() => {
     if (user && pathname === "/" && !initialSurface) {
+      if (typeof window !== "undefined" && !window.matchMedia("(min-width: 1024px)").matches) {
+        router.replace("/comms")
+        return
+      }
       router.replace("/library")
     }
   }, [initialSurface, pathname, router, user])

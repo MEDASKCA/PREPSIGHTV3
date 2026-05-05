@@ -567,9 +567,10 @@ interface Props {
   profileHospital?: string
   profileDepartment?: string
   hideMobileHeader?: boolean
+  allowFoldableSplitView?: boolean
 }
 
-export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false }: Props) {
+export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true }: Props) {
   const appRef = useRef<HTMLDivElement>(null)
   const firestore = db!
   const firebaseAuth = auth!
@@ -594,9 +595,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [showContacts, setShowContacts] = useState(false)
   const [embeddedContactsBounds, setEmbeddedContactsBounds] = useState<{ top: number; left: number; height: number } | null>(null)
   const [showProfile, setShowProfile] = useState(false)
+  const [showDirectContactSheet, setShowDirectContactSheet] = useState(false)
   const [showGlobalSearch, setShowGlobalSearch] = useState(false)
   const [showNewDM, setShowNewDM] = useState(false)
   const [filterTab, setFilterTab] = useState<"chats" | "pinned" | "groups">("chats")
+  const [isFoldableSplitView, setIsFoldableSplitView] = useState(false)
   const [isRecordingVoice, setIsRecordingVoice] = useState(false)
   const [recordingElapsed, setRecordingElapsed] = useState(0)
   const [recordedVoiceBlob, setRecordedVoiceBlob] = useState<Blob | null>(null)
@@ -641,6 +644,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       if (recordedVoiceUrl) URL.revokeObjectURL(recordedVoiceUrl)
     }
   }, [recordedVoiceUrl])
+
+  useEffect(() => {
+    const syncFoldableSplitView = () => {
+      setIsFoldableSplitView(allowFoldableSplitView && window.innerWidth >= 700 && window.innerWidth < 1024)
+    }
+
+    syncFoldableSplitView()
+    window.addEventListener("resize", syncFoldableSplitView)
+    return () => window.removeEventListener("resize", syncFoldableSplitView)
+  }, [allowFoldableSplitView])
 
   useEffect(() => {
     const audio = voicePreviewRef.current
@@ -1332,6 +1345,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   })
 
   const selectedOtherUid = selectedThread?.type === "direct" ? getOtherUid(selectedThread) : ""
+  const selectedDirectContact = selectedThread?.type === "direct" ? getThreadAvatar(selectedThread) : null
+  const isTomConversation = !!selectedThread && selectedThread.type === "direct" && selectedThread.memberUids.includes(TOM_UID)
   const otherPresence = selectedOtherUid ? presence[selectedOtherUid] : null
   const otherIsTyping =
     !!selectedThread &&
@@ -1342,6 +1357,464 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     typeof otherPresence.typingUpdatedAt === "number" &&
     Date.now() - otherPresence.typingUpdatedAt < 6000
   const showTomTyping = !!selectedThread && selectedThread.type === "direct" && selectedOtherUid === TOM_UID && tomTyping
+  const tomDefaultThread = visibleThreads.find(
+    (thread) => thread.type === "direct" && thread.memberUids.includes(TOM_UID),
+  ) ?? null
+
+  useEffect(() => {
+    if (!isFoldableSplitView || selectedThread || !tomDefaultThread) return
+    setSelectedThread(tomDefaultThread)
+    setUnreadCounts(prev => ({ ...prev, [tomDefaultThread.id]: 0 }))
+    void markThreadRead(tomDefaultThread.id)
+  }, [isFoldableSplitView, selectedThread, tomDefaultThread])
+
+  function renderMobileThreadPane(splitView: boolean) {
+    if (!selectedThread) return null
+
+    return (
+      <div
+        className={splitView ? "flex h-full min-h-0 flex-col bg-black" : "absolute inset-x-0 top-0 z-10 flex flex-col bg-black"}
+        style={splitView ? undefined : { bottom: "calc(env(safe-area-inset-bottom, 0px) + 82px)" }}
+      >
+        <div
+          className={`bg-black px-5 pb-3 flex items-center gap-3 shrink-0 ${splitView ? "pt-3" : ""}`}
+          style={splitView ? undefined : { paddingTop: "calc(env(safe-area-inset-top) + 10px)" }}
+        >
+          {!splitView ? (
+            <button onClick={() => setSelectedThread(null)} className="mr-1">
+              <ArrowLeft size={22} className="text-white" />
+            </button>
+          ) : null}
+          {selectedThread.type === "channel" ? (
+            <Avatar name={getThreadName(selectedThread)} size={40} uid={selectedThread.id} />
+          ) : (() => {
+            const av = getThreadAvatar(selectedThread)
+            return av ? <Avatar name={av.displayName} size={40} uid={av.uid} /> : <Avatar name="?" size={40} />
+          })()}
+          <button
+            type="button"
+            onClick={() => {
+              if (selectedThread.type === "direct" && selectedDirectContact) {
+                setShowDirectContactSheet(true)
+              }
+            }}
+            className={`min-w-0 flex-1 text-left ${selectedThread.type === "direct" ? "cursor-pointer" : "cursor-default"}`}
+          >
+            <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
+            {selectedThread.type === "direct" && (
+              <p className="text-sm text-[#888888]">
+                {showTomTyping || otherIsTyping ? "typing..." : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
+              </p>
+            )}
+            {selectedThread.type === "channel" && selectedThread.description && (
+              <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
+            )}
+          </button>
+            <div className="flex items-center gap-2">
+              {selectedThread.type === "direct" && (
+                <>
+                  <button
+                  onClick={
+                    callState === "active" && callMediaMode === "audio" ? () => void endCall()
+                    : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "audio")
+                    : undefined
+                  }
+                  disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "audio")}
+                  className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
+                    callState === "active" && callMediaMode === "audio"
+                      ? "bg-[#ef4444]"
+                    : callState !== "idle"
+                      ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
+                      : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
+                  }`}
+                >
+                  {callState === "active" && callMediaMode === "audio"
+                    ? <PhoneOff size={17} className="text-white" />
+                    : <Phone size={17} className="text-white" />}
+                </button>
+                  {!isTomConversation ? (
+                    <button
+                      onClick={
+                        callState === "active" && callMediaMode === "video" ? switchToAudio
+                        : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
+                        : undefined
+                      }
+                      disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "video")}
+                      className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
+                        callState === "active" && callMediaMode === "video"
+                          ? "bg-[#ef4444]"
+                        : callState !== "idle"
+                          ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
+                          : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
+                      }`}
+                    >
+                      {callState === "active" && callMediaMode === "video"
+                        ? <PhoneOff size={17} className="text-white" />
+                        : <Video size={17} className="text-white" />}
+                    </button>
+                  ) : null}
+                </>
+              )}
+            <button
+              type="button"
+              onClick={() => setShowProfile(true)}
+              className="text-white hover:text-white/70"
+              aria-label="More options"
+            >
+              <MoreVertical size={22} />
+            </button>
+          </div>
+        </div>
+
+        <div className="relative flex-1 min-h-0">
+          <div className="absolute inset-0 overflow-y-auto bg-black px-4 py-4 space-y-1">
+            {messages.map((msg, idx) => {
+              const isOwn = msg.uid === user.uid
+              const isSystem = msg.type === "system"
+              const prevMsg = messages[idx - 1]
+              const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
+              const messageText = repairMojibake(msg.text)
+              const emojiOnly = !msg.attachments?.length && !msg.deleted && isEmojiOnly(messageText)
+
+              if (msg.type === "call" || (isSystem && messageText.startsWith("📞"))) {
+                const answered = msg.callAnswered ?? messageText.includes("Voice call")
+                const isOutgoing = msg.uid === user.uid
+                const missed = !answered
+                const callTime = new Date(msg.createdAt).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })
+                const durationStr = msg.callDuration ? formatCallDuration(msg.callDuration) : null
+                const IconComp = missed ? PhoneMissed : isOutgoing ? PhoneOutgoing : PhoneIncoming
+                const iconColor = missed ? "text-red-400" : isOutgoing ? "text-[#0096C7]" : "text-emerald-400"
+                const label = missed ? "Missed call" : isOutgoing ? "Outgoing call" : "Incoming call"
+                return (
+                  <div key={msg.id} className="flex justify-center my-2">
+                    <div className={`flex items-center gap-2 rounded-full border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 ${iconColor}`}>
+                      <IconComp size={13} strokeWidth={2} className="shrink-0" />
+                      <span className="text-[12px] font-medium text-[#e0e0e0]">{label}</span>
+                      <span className="text-[12px] text-[#555]">·</span>
+                      <span className="text-[12px] text-[#666]">{callTime}{durationStr ? ` · ${durationStr}` : ""}</span>
+                    </div>
+                  </div>
+                )
+              }
+              if (isSystem) return (
+                <div key={msg.id} className="flex justify-center my-3">
+                  <span className="bg-[#1c1c1c] text-[#888888] text-sm px-4 py-1.5 rounded-full">{messageText}</span>
+                </div>
+              )
+              if (msg.deleted) return (
+                <div key={msg.id} className={`flex ${isOwn ? "justify-end" : "justify-start"}`}>
+                  <span className="text-sm text-[var(--mob-text-2,#888888)] italic px-3 py-1">This message was deleted</span>
+                </div>
+              )
+
+              return (
+                <div key={msg.id}
+                  className={`flex ${isOwn ? "flex-row-reverse" : "flex-row"} items-end ${showSenderName ? "gap-2" : "gap-0.5"} group`}
+                >
+                  {!isOwn ? (
+                    <div className={`shrink-0 ${showSenderName ? "w-8" : "w-1"}`}>
+                      {showSenderName && <Avatar name={msg.displayName} size={32} uid={msg.uid} />}
+                    </div>
+                  ) : null}
+
+                  <div className={`flex flex-col ${isOwn ? "items-end" : "items-start"} max-w-[84%]`}>
+                    {!isOwn && showSenderName && (
+                      <span className="text-sm text-[#0096C7] mb-1 ml-1">{msg.displayName}</span>
+                    )}
+
+                    {msg.replyTo && (
+                      <div className={`text-sm text-[#888888] bg-[#1c1c1c] rounded-t-xl px-3 py-2 border-l-2 border-[#29b6d8] mb-0.5 max-w-full ${isOwn ? "rounded-bl-xl" : "rounded-br-xl"}`}>
+                        <span className="text-[#29b6d8]">{msg.replyTo.displayName}</span>: {repairMojibake(msg.replyTo.text).slice(0, 60)}{msg.replyTo.text.length > 60 ? "..." : ""}
+                      </div>
+                    )}
+
+                    {editingMessage?.id === msg.id ? (
+                      <div className="flex items-center gap-2 w-full">
+                        <input
+                          autoFocus
+                          value={editText}
+                          onChange={e => setEditText(e.target.value)}
+                          onKeyDown={e => { if (e.key === "Enter") saveEdit(); if (e.key === "Escape") { setEditingMessage(null); setEditText("") } }}
+                          className="flex-1 bg-[#111111] border border-[#29b6d8] rounded-xl px-3 py-2 text-[16px] text-[#e0e0e0] outline-none"
+                        />
+                        <button onClick={saveEdit}><Check size={18} className="text-[#29b6d8]" /></button>
+                        <button onClick={() => { setEditingMessage(null); setEditText("") }}><X size={18} className="text-gray-400" /></button>
+                      </div>
+                    ) : (
+                      <div
+                        role="button"
+                        tabIndex={0}
+                        onClick={event => {
+                          if (!suppressMessageTapRef.current) return
+                          suppressMessageTapRef.current = false
+                          event.preventDefault()
+                        }}
+                        onKeyDown={event => {
+                          if (event.key !== "Enter" && event.key !== " ") return
+                          event.preventDefault()
+                          openMessageActions(event.currentTarget, msg, isOwn)
+                        }}
+                        onContextMenu={event => {
+                          event.preventDefault()
+                          openMessageActions(event.currentTarget, msg, isOwn)
+                        }}
+                        onPointerDown={event => {
+                          if (event.pointerType === "mouse") return
+                          if (isNestedInteractiveTarget(event.target, event.currentTarget)) return
+                          suppressMessageTapRef.current = false
+                          clearMessageLongPress()
+                          const target = event.currentTarget
+                          messageLongPressTimerRef.current = setTimeout(() => {
+                            suppressMessageTapRef.current = true
+                            openMessageActions(target, msg, isOwn)
+                          }, 420)
+                        }}
+                        onPointerUp={() => clearMessageLongPress()}
+                        onPointerCancel={() => clearMessageLongPress()}
+                        onPointerLeave={() => clearMessageLongPress()}
+                        className={`relative text-left text-[14px] leading-snug ${
+                          emojiOnly
+                            ? ""
+                            : isOwn
+                              ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
+                              : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
+                        }`}>
+                        {msg.attachments?.map((att, ai) => (
+                          <div key={ai} className="mb-2">
+                            {att.type === "image" ? (
+                              <img src={att.url} alt={att.name} className="rounded-xl max-w-full max-h-48 object-cover" />
+                            ) : att.type === "audio" ? (
+                              <VoiceNoteAttachment url={att.url} isOwn={isOwn} />
+                            ) : (
+                              <a href={att.url} target="_blank" rel="noopener noreferrer"
+                                className={`flex items-center gap-2 text-sm underline ${isOwn ? "text-white/80" : "text-[#29b6d8]"}`}>
+                                <Paperclip size={13} /> {att.name}
+                              </a>
+                            )}
+                          </div>
+                        ))}
+                        {emojiOnly ? (() => {
+                          const segs = segmentEmoji(messageText)
+                          const sz = segs.length === 1 ? 64 : segs.length <= 3 ? 52 : 44
+                          return (
+                            <div className="flex flex-wrap gap-1 py-1">
+                              {segs.map((em, i) => {
+                                const url = emojiToNotoUrl(em)
+                                return url ? (
+                                  <img
+                                    key={i}
+                                    src={url}
+                                    alt={em}
+                                    width={sz}
+                                    height={sz}
+                                    className="object-contain"
+                                    onError={(e) => {
+                                      const t = e.currentTarget
+                                      const span = document.createElement("span")
+                                      span.textContent = em
+                                      span.style.fontSize = `${sz}px`
+                                      span.style.lineHeight = "1"
+                                      t.replaceWith(span)
+                                    }}
+                                  />
+                                ) : (
+                                  <span key={i} style={{ fontSize: sz, lineHeight: 1 }}>{em}</span>
+                                )
+                              })}
+                            </div>
+                          )
+                        })() : messageText}
+                        {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white/50" : "text-white/50"}`}>(edited)</span>}
+                      </div>
+                    )}
+
+                    {msg.reactions && Object.entries(msg.reactions).filter(([, uids]) => uids.length > 0).length > 0 && (
+                      <div className="mt-1 flex flex-wrap gap-1.5">
+                        {Object.entries(msg.reactions).map(([emoji, uids]) =>
+                          uids.length > 0 && (
+                            <button key={emoji} onClick={() => toggleReaction(msg.id, emoji)}
+                              className={`flex items-center gap-1 rounded-full border px-2.5 py-1 text-sm leading-none ${
+                                uids.includes(user.uid) ? "border-[#0096C7]/60 bg-[#003d54] text-white" : "border-[#2d2d2d] bg-[#1c1c1c] text-[#e0e0e0]"
+                              }`}>
+                              {emoji} {uids.length}
+                            </button>
+                          )
+                        )}
+                      </div>
+                    )}
+
+                    <span className="text-xs text-[var(--mob-text-2,#888888)] mt-1 mx-1">{formatTime(msg.createdAt)}</span>
+                  </div>
+
+                </div>
+              )
+            })}
+            {(otherIsTyping || showTomTyping) && (
+              <div className="flex items-end gap-0.5">
+                <div className="w-1 shrink-0" />
+                <div className="flex max-w-[84%] flex-col items-start">
+                  <div className="rounded-2xl rounded-bl-sm bg-[#003d54] px-3 py-1.5 text-left text-[14px] leading-snug text-white/70">
+                    <TypingDots tone={showTomTyping ? "tom" : "default"} />
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          {(showEmojiPicker === "drawer" || showEmojiPicker === "input") && (
+            <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col">
+              <EmojiPicker
+                variant="drawer"
+                onSelect={e => {
+                  if (showEmojiPicker === "input") {
+                    setInputText(prev => prev + e)
+                    setShowEmojiPicker(null)
+                    return
+                  }
+                  if (!actionMessage) return
+                  void toggleReaction(actionMessage.id, e)
+                  setShowEmojiPicker(null)
+                  setActionMessage(null)
+                  setActionBoxPosition(null)
+                }}
+                onClose={() => setShowEmojiPicker(null)}
+              />
+            </div>
+          )}
+        </div>
+
+        {replyTo && (
+          <div className="flex items-center gap-3 px-4 py-2.5 bg-[#0d1a22] border-t border-[#2d2d2d] shrink-0">
+            <div className="flex-1 min-w-0">
+              <span className="text-sm text-[#29b6d8]">{replyTo.displayName}</span>
+              <p className="text-sm text-[#888888] truncate">{repairMojibake(replyTo.text)}</p>
+            </div>
+            <button onClick={() => setReplyTo(null)}><X size={16} className="text-[#888888]" /></button>
+          </div>
+        )}
+
+        <div
+          className="bg-black shrink-0 relative px-4 pt-2"
+          style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)" }}
+        >
+          {composerError ? (
+            <div className="mb-2 rounded-xl border border-[#5a3d08] bg-[#2c1f05] px-3 py-2 text-[12px] text-[#f7c873]">
+              {composerError}
+            </div>
+          ) : null}
+          <div className="flex items-center gap-2 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-3 py-1.5 pr-2">
+            <button onClick={() => fileInputRef.current?.click()} className="text-white shrink-0">
+              <Paperclip size={17} />
+            </button>
+            <button
+              onClick={() => selectedThread && void togglePinThread(selectedThread.id)}
+              className="shrink-0"
+              aria-label="Pin thread"
+            >
+              <Sun size={17} strokeWidth={2} className={selectedThread && isThreadPinned(selectedThread.id) ? "text-[#00e5ff]" : "text-[#00b8d4]"} />
+            </button>
+            <input type="file" ref={fileInputRef} className="hidden"
+              onChange={e => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); e.target.value = "" }} />
+            {isRecordingVoice || recordedVoiceBlob ? (
+              <div className="flex min-w-0 flex-1 items-center gap-2">
+                <button
+                  type="button"
+                  onClick={cancelVoiceRecording}
+                  className="shrink-0 px-1 text-[13px] text-[#777777] transition-colors hover:text-white"
+                >
+                  cancel
+                </button>
+                <div className="flex min-w-0 flex-1 items-center gap-3 rounded-[18px] border border-[#26343a] bg-[#0f1315] px-3 py-2.5 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]">
+                  {isRecordingVoice ? (
+                    <>
+                      <div className="flex min-w-0 flex-1 items-center gap-3">
+                        <span className="h-2 w-2 shrink-0 rounded-full bg-[#ef4444] animate-pulse" />
+                        <div className="min-w-0 flex-1">
+                          <p className="text-[12px] tracking-[0.08em] text-[#6fa8b6]">recording</p>
+                          <div className="mt-1 flex items-center gap-1.5">
+                            <span className="h-1.5 w-2.5 rounded-full bg-[#1e6376]/45" />
+                            <span className="h-2 w-3 rounded-full bg-[#2586a1]/65" />
+                            <span className="h-3 w-3.5 rounded-full bg-[#29b6d8]" />
+                            <span className="h-2 w-3 rounded-full bg-[#2586a1]/65" />
+                            <span className="h-1.5 w-2.5 rounded-full bg-[#1e6376]/45" />
+                          </div>
+                        </div>
+                      </div>
+                      <span className="shrink-0 font-mono text-[12px] text-[#d2d8db]">{formatRecordingDuration(recordingElapsed)}</span>
+                      <button
+                        type="button"
+                        onClick={stopVoiceRecording}
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#304047] bg-[#151b1d] text-white transition-colors hover:border-[#3d5964] hover:bg-[#1b2326]"
+                        aria-label="Stop recording"
+                      >
+                        <Square size={11} fill="currentColor" />
+                      </button>
+                    </>
+                  ) : (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => void toggleVoicePreviewPlayback()}
+                        className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-[#304047] bg-[#151b1d] text-white transition-colors hover:border-[#3d5964] hover:bg-[#1b2326]"
+                        aria-label={isVoicePreviewPlaying ? "Pause voice note preview" : "Play voice note preview"}
+                      >
+                        {isVoicePreviewPlaying ? <Pause size={13} fill="currentColor" /> : <Play size={13} fill="currentColor" />}
+                      </button>
+                      <div className="min-w-0 flex-1">
+                        <p className="truncate text-[13px] text-[#f2f4f5]">voice note ready</p>
+                        <p className="mt-0.5 text-[12px] text-[#6fa8b6]">{formatRecordingDuration(recordingElapsed)}</p>
+                      </div>
+                      <audio ref={voicePreviewRef} src={recordedVoiceUrl ?? undefined} preload="metadata" className="hidden" />
+                    </>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <input
+                value={inputText}
+                onChange={e => setInputText(e.target.value)}
+                onKeyDown={e => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); sendMessage() } }}
+                placeholder="Message…"
+                className="min-w-0 flex-1 bg-transparent text-[15px] text-[#e0e0e0] placeholder-[#555555] outline-none"
+              />
+            )}
+            {!isRecordingVoice && !recordedVoiceBlob ? (
+              <button onClick={() => setShowEmojiPicker(showEmojiPicker === "input" ? null : "input")}
+                className="text-[#888888] shrink-0">
+                <Smile size={17} />
+              </button>
+            ) : null}
+              {recordedVoiceBlob ? (
+                <button
+                  type="button"
+                  onClick={() => void sendVoiceMessage()}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)]"
+                  aria-label="Send voice message"
+                >
+                  <Send size={13} className="text-white" />
+                </button>
+              ) : inputText.trim() || isTomConversation ? (
+                <button onClick={() => sendMessage()} disabled={!inputText.trim()}
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] disabled:opacity-40">
+                  <Send size={13} className="text-white" />
+                </button>
+              ) : (
+              <button
+                type="button"
+                onClick={() => void startVoiceRecording()}
+                disabled={isRecordingVoice}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] disabled:opacity-40"
+                aria-label="Record voice message"
+              >
+                <Mic size={13} className="text-white" />
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   useEffect(() => {
     const threadMap = new Map(threads.map(thread => [thread.id, thread]))
@@ -2084,36 +2557,83 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       >
         {embedded && hideMobileHeader ? null : (
           <div className="lg:hidden">
-            <MobileSurfaceHeader
-              title="Comms"
-              hospital={hospitalLabel}
-              department={groupLabel}
-              compact
-              rightControls={(
-                <>
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setShowGlobalSearch(true)
-                    }}
-                    aria-label="Toggle search"
-                    className="text-white/70 hover:text-white"
-                  >
-                    <Search size={20} />
-                  </button>
-                  {(showProfileButton || !embedded) ? (
+            {isFoldableSplitView ? (
+              <div
+                className="shrink-0 bg-black px-5 pb-2"
+                style={{ paddingTop: "calc(env(safe-area-inset-top) + 14px)" }}
+              >
+                <div className="mb-0 flex items-center justify-between">
+                  <span className="inline-flex items-center gap-1 text-[24px] tracking-tight">
+                    <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[54px] w-auto" />
+                    <span>
+                      <span className="app-display-font text-[0.86em] tracking-[-0.05em] text-[#0096C7]">PrepSight</span>{" "}
+                      <em
+                        className="text-[0.84em] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                        style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                      >
+                        Comms
+                      </em>
+                    </span>
+                  </span>
+                  <div className="flex items-center gap-2">
                     <button
                       type="button"
-                      onClick={() => setShowProfile(true)}
-                      aria-label="More"
-                      className="text-white/80 hover:text-white"
+                      onClick={() => {
+                        setShowGlobalSearch(true)
+                      }}
+                      aria-label="Toggle search"
+                      className="text-white/70 hover:text-white"
                     >
-                      <MoreVertical size={22} />
+                      <Search size={20} />
                     </button>
-                  ) : null}
-                </>
-              )}
-            />
+                    {(showProfileButton || !embedded) ? (
+                      <button
+                        type="button"
+                        onClick={() => setShowProfile(true)}
+                        aria-label="More"
+                        className="text-white/80 hover:text-white"
+                      >
+                        <MoreVertical size={22} />
+                      </button>
+                    ) : null}
+                  </div>
+                </div>
+                <div className="mt-[-2px] text-[14px] text-white">
+                  <span className="block truncate whitespace-nowrap">{groupLabel ? `${hospitalLabel} | ${groupLabel}` : hospitalLabel}</span>
+                </div>
+              </div>
+            ) : (
+              <MobileSurfaceHeader
+                title="Comms"
+                hospital={hospitalLabel}
+                department={groupLabel}
+                compact
+                rightControls={(
+                  <>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setShowGlobalSearch(true)
+                      }}
+                      aria-label="Toggle search"
+                      className="text-white/70 hover:text-white"
+                    >
+                      <Search size={20} />
+                    </button>
+                    {(showProfileButton || !embedded) ? (
+                      <button
+                        type="button"
+                        onClick={() => setShowProfile(true)}
+                        aria-label="More"
+                        className="text-white/80 hover:text-white"
+                      >
+                        <MoreVertical size={22} />
+                      </button>
+                    ) : null}
+                  </>
+                )}
+              />
+            )}
           </div>
         )}
         <div className={`hidden lg:block ${embedded ? "px-5 pt-3 pb-2" : "px-5 pb-2"}`}>
@@ -2189,7 +2709,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       </div>
 
       {/* â”€â”€ Filter row â”€â”€ */}
-      <div className="border-b border-black bg-black px-4 pt-0 pb-3 shrink-0">
+      <div className={`border-b border-black bg-black px-4 pt-0 pb-3 shrink-0 ${isFoldableSplitView ? "max-w-[340px]" : ""}`}>
         <div className="-mx-4 mb-3 bg-[#101012] px-4 pt-0.5 pb-2">
           <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {displayedContactMembers.map(member => (
@@ -2231,7 +2751,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       </div>
 
       {/* â”€â”€ Thread list â”€â”€ */}
-      <div className="flex-1 overflow-y-auto bg-black">
+      <div className={`flex-1 overflow-y-auto bg-black ${isFoldableSplitView ? "max-w-[340px]" : ""}`}>
           {visibleThreads.length === 0 && (
             <p className="mt-20 text-center text-sm text-[var(--mob-text-2,#888888)]">No conversations yet</p>
           )}
@@ -2340,7 +2860,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           </div>
         </div>
       ) : null}
-      {selectedThread && (
+      {selectedThread && isFoldableSplitView ? (
+        <div className="absolute inset-y-0 right-0 left-[340px] z-10 bg-black">
+          {renderMobileThreadPane(true)}
+        </div>
+      ) : null}
+      {selectedThread && !isFoldableSplitView && (
         <div
           className="absolute inset-x-0 top-0 z-10 flex flex-col bg-black"
           style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 82px)" }}
@@ -2359,7 +2884,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const av = getThreadAvatar(selectedThread)
               return av ? <Avatar name={av.displayName} size={40} uid={av.uid} /> : <Avatar name="?" size={40} />
             })()}
-            <div className="flex-1 min-w-0">
+            <button
+              type="button"
+              onClick={() => {
+                if (selectedThread.type === "direct" && selectedDirectContact) {
+                  setShowDirectContactSheet(true)
+                }
+              }}
+              className={`min-w-0 flex-1 text-left ${selectedThread.type === "direct" ? "cursor-pointer" : "cursor-default"}`}
+            >
               <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
               {selectedThread.type === "direct" && (
                 <p className="text-sm text-[#888888]">
@@ -2369,7 +2902,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               {selectedThread.type === "channel" && selectedThread.description && (
                 <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
               )}
-            </div>
+            </button>
             <div className="flex items-center gap-2">
               {selectedThread.type === "direct" && (
                 <>
@@ -2393,25 +2926,27 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       ? <PhoneOff size={17} className="text-white" />
                       : <Phone size={17} className="text-white" />}
                   </button>
-                  <button
-                    onClick={
-                      callState === "active" && callMediaMode === "video" ? switchToAudio
-                      : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
-                      : undefined
-                    }
-                    disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "video")}
-                    className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
-                      callState === "active" && callMediaMode === "video"
-                        ? "bg-[#ef4444]"
-                      : callState !== "idle"
-                        ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
-                        : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
-                    }`}
-                  >
-                    {callState === "active" && callMediaMode === "video"
-                      ? <PhoneOff size={17} className="text-white" />
-                      : <Video size={17} className="text-white" />}
-                  </button>
+                  {!isTomConversation ? (
+                    <button
+                      onClick={
+                        callState === "active" && callMediaMode === "video" ? switchToAudio
+                        : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
+                        : undefined
+                      }
+                      disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "video")}
+                      className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
+                        callState === "active" && callMediaMode === "video"
+                          ? "bg-[#ef4444]"
+                        : callState !== "idle"
+                          ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
+                          : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
+                      }`}
+                    >
+                      {callState === "active" && callMediaMode === "video"
+                        ? <PhoneOff size={17} className="text-white" />
+                        : <Video size={17} className="text-white" />}
+                    </button>
+                  ) : null}
                 </>
               )}
               <button
@@ -2757,7 +3292,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 >
                   <Send size={13} className="text-white" />
                 </button>
-              ) : inputText.trim() ? (
+              ) : inputText.trim() || isTomConversation ? (
                 <button onClick={() => sendMessage()} disabled={!inputText.trim()}
                   className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] disabled:opacity-40">
                   <Send size={13} className="text-white" />
@@ -2777,6 +3312,51 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           </div>
         </div>
       )}
+      {showDirectContactSheet && selectedDirectContact ? (
+        <div className="absolute inset-0 z-30 flex items-end bg-black/60" onClick={() => setShowDirectContactSheet(false)}>
+          <div
+            className="w-full rounded-t-[24px] border-t border-white/10 bg-[#0f0f0f] px-5 pb-[calc(env(safe-area-inset-bottom,0px)+18px)] pt-4"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="mx-auto mb-4 h-1.5 w-12 rounded-full bg-[#2a2a2a]" />
+            <div className="flex items-center gap-3 border-b border-white/10 pb-4">
+              <Avatar name={selectedDirectContact.displayName} size={52} uid={selectedDirectContact.uid} />
+              <div className="min-w-0">
+                <p className="truncate text-[18px] text-white">{selectedDirectContact.displayName}</p>
+                <p className="mt-1 text-[12px] text-[#8a8a8a]">
+                  {isOnline(selectedDirectContact.uid) ? "Online" : "Offline"}
+                </p>
+              </div>
+            </div>
+            <div className="space-y-3 pt-4">
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.16em] text-[#6f6f6f]">Role</p>
+                <p className="mt-1 text-[14px] text-white">{selectedDirectContact.clinicalRole?.trim() || "Not set"}</p>
+              </div>
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.16em] text-[#6f6f6f]">Band / Grade</p>
+                <p className="mt-1 text-[14px] text-white">{selectedDirectContact.groupLabel?.trim() || "Not set"}</p>
+              </div>
+              <div>
+                <p className="text-[11px] uppercase tracking-[0.16em] text-[#6f6f6f]">Email</p>
+                <p className="mt-1 break-all text-[14px] text-white">{selectedDirectContact.email?.trim() || "Not set"}</p>
+              </div>
+              {selectedDirectContact.department?.trim() ? (
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-[#6f6f6f]">Department</p>
+                  <p className="mt-1 text-[14px] text-white">{selectedDirectContact.department.trim()}</p>
+                </div>
+              ) : null}
+              {selectedDirectContact.hospital?.trim() ? (
+                <div>
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-[#6f6f6f]">Hospital</p>
+                  <p className="mt-1 text-[14px] text-white">{selectedDirectContact.hospital.trim()}</p>
+                </div>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• MESSAGE ACTION OVERLAY (tap-hold bubble) â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       {actionMessage && (

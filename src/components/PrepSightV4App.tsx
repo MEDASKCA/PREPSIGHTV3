@@ -7,6 +7,7 @@ import { ArrowLeft, CalendarClock, ChevronDown, Link2, LogOut, Maximize2, Mic, M
 import AppMenuContent from "@/components/AppMenuContent"
 import MobileCommsShell from "@/components/MobileCommsShell"
 import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
+import MobileResourcesSurface from "@/components/MobileWorkforceSurface"
 import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import { MobileThemeProvider, useMobileTheme } from "@/lib/mobile-theme"
 import AppTopBar from "@/components/AppTopBar"
@@ -840,6 +841,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const [mobileCalendarView, setMobileCalendarView] = useState<MobileCalendarView>("monthly")
   const [activeTab, setActiveTab] = useState<TabKey>(initialSurface === "updates" ? "updates" : "library")
   const [mobileTab, setMobileTab] = useState<TabKey>(initialSurface)
+  const [isFoldableMobileViewport, setIsFoldableMobileViewport] = useState(false)
   const callStatus = useCallStatus()
   const pipVideoRef = useRef<HTMLVideoElement>(null)
   const desktopPipVideoRef = useRef<HTMLVideoElement>(null)
@@ -868,6 +870,17 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const mobileEmail = mobileUser?.email || ""
   const mobilePhotoURL = mobileUser?.photoURL || null
 
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const syncFoldableViewport = () => {
+      setIsFoldableMobileViewport(window.innerWidth >= 700 && window.innerWidth < 1024)
+    }
+
+    syncFoldableViewport()
+    window.addEventListener("resize", syncFoldableViewport)
+    return () => window.removeEventListener("resize", syncFoldableViewport)
+  }, [])
+
   const mobileSurfaceTitle =
     mobileUtilityPage === "calendar"
       ? "Calendar"
@@ -895,6 +908,8 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
         : mobileTab === "resources"
           ? "Search Resources"
           : "Search Insights"
+
+  const dockPinnedToCommsPane = isFoldableMobileViewport
 
   useEffect(() => {
     const routeSurface =
@@ -1016,11 +1031,66 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     router.push("/onboarding")
   }
 
+  function renderFoldRightPaneContent() {
+    if (mobileUtilityPage === "calendar") {
+      return (
+        <div className="min-h-0 flex-1 overflow-y-auto bg-black">
+          <MobileCalendarSurface view={mobileCalendarView} onChangeView={setMobileCalendarView} />
+        </div>
+      )
+    }
+
+    if (mobileUtilityPage === "connectors") {
+      return (
+        <div className="min-h-0 flex-1 overflow-y-auto bg-black">
+          <MobileConnectorsSurface />
+        </div>
+      )
+    }
+
+    if (mobileTab === "library") {
+      return (
+        <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-4">
+          {selectedLibraryId ? (
+            <div className="flex h-full min-h-0 flex-col space-y-4">
+              <button
+                type="button"
+                onClick={() => setSelectedLibraryId(null)}
+                className="shrink-0 self-start rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
+              >
+                Back to collections
+              </button>
+              <div className="min-h-0 flex-1 overflow-hidden">
+                <LibraryPageClient libraryId={selectedLibraryId} embedded />
+              </div>
+            </div>
+          ) : (
+            <EmbeddedLibrariesDashboardMobile query={searchValue} onSelectLibrary={setSelectedLibraryId} />
+          )}
+        </div>
+      )
+    }
+
+    if (mobileTab === "resources") {
+      return (
+        <div className="min-h-0 flex-1 overflow-hidden bg-black">
+          <MobileResourcesSurface embedded />
+        </div>
+      )
+    }
+
+    return (
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-4">
+        <UpdatesPanel activeKey={activeUpdateKey} onSelect={setActiveUpdateKey} surfaceLabel="Insights" />
+      </div>
+    )
+  }
+
   return (
 <div className="min-h-screen bg-black">
 
       <MobileThemeProvider>
-<div id="mobile-app-root" data-mobile-theme="dark" className="lg:hidden flex h-[100dvh] flex-col overflow-hidden bg-[var(--mob-bg,#000000)]">        <MobileSharedProfileDrawer
+<div id="mobile-app-root" data-mobile-theme="dark" className="relative lg:hidden flex h-[100dvh] flex-col overflow-hidden bg-[var(--mob-bg,#000000)]">        <MobileSharedProfileDrawer
           open={showMobileProfile}
           onClose={() => setShowMobileProfile(false)}
           profileInitial={mobileProfileInitial}
@@ -1035,9 +1105,76 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           onOpenConnectors={() => openMobileUtilityPage("connectors")}
           onSwitchWorkspace={handleMobileSwitchWorkspace}
         />
+        {isFoldableMobileViewport ? (
+          <div className="pointer-events-none fixed inset-y-0 left-[340px] z-[60] w-px bg-[#2d2d2d] lg:hidden" />
+        ) : null}
+        {isFoldableMobileViewport && mobileTab !== "comms" ? (
+          <>
+            <div
+              className="shrink-0 border-b border-black bg-black px-4 pb-3"
+              style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
+            >
+              <div className="grid grid-cols-[40px_minmax(0,1fr)_40px] items-start gap-4">
+                <div />
+                <div className="min-w-0 justify-self-center text-center">
+                  <div className="inline-flex items-center gap-1 text-[22px] tracking-tight">
+                    <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
+                    <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
+                  </div>
+                  <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
+                    <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
+                    <span className="shrink-0 text-[#5f5f5f]">|</span>
+                    <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
+                  </div>
+                </div>
+                <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
+                  <button
+                    type="button"
+                    onClick={() => setShowMobileGlobalSearch(true)}
+                    aria-label="Open search"
+                    className="text-white/70 hover:text-white"
+                  >
+                    <Search size={20} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowMobileProfile(true)}
+                    aria-label="Open menu"
+                    className="text-white/80 hover:text-white"
+                  >
+                    <MoreVertical size={22} />
+                  </button>
+                </div>
+              </div>
+              <div className="mt-3 grid grid-cols-2 items-center gap-4">
+                <div
+                  className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                  style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                >
+                  Comms
+                </div>
+                <div
+                  className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                  style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                >
+                  {mobileSurfaceTitle}
+                </div>
+              </div>
+            </div>
+            <main className="relative min-h-0 flex-1 overflow-hidden bg-black">
+              <div className="grid h-full min-h-0 grid-cols-[340px_minmax(0,1fr)]">
+                <div className="min-h-0 pb-28">
+                  <MobileCommsShell visible hideHeader allowFoldableSplitView={false} />
+                </div>
+                <div className="min-h-0 overflow-hidden bg-black">{renderFoldRightPaneContent()}</div>
+              </div>
+            </main>
+          </>
+        ) : null}
         {/* Comms shell — always mounted so the call listener survives page switches.
             When not on comms tab it collapses to 0×0. The call UI inside uses
             position:fixed z-[200] so it floats above everything including the nav. */}
+        {!(isFoldableMobileViewport && mobileTab !== "comms") ? (
         <main
           className={`min-h-0 flex-1 bg-black overflow-hidden ${
             mobileTab === "comms" ? "pb-0" : "pb-28"
@@ -1114,6 +1251,23 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 )}
               </div>
             </div>
+          ) : mobileTab === "resources" ? (
+            <div className="flex h-full min-h-0 flex-col">
+              <MobileSectionHeader
+                title={mobileSurfaceTitle}
+                hospital={mobileHospitalLabel}
+                department={mobileDepartmentLabel}
+                onOpenProfile={() => setShowMobileProfile(true)}
+                searchValue={searchValue}
+                onSearchChange={setSearchValue}
+                searchPlaceholder={mobileSearchPlaceholder}
+                inlineSearchEnabled={false}
+                onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
+              />
+              <div className="min-h-0 flex-1 overflow-hidden bg-black">
+                <MobileResourcesSurface embedded />
+              </div>
+            </div>
           ) : (
             <div className="flex h-full min-h-0 flex-col">
               <MobileSectionHeader
@@ -1133,12 +1287,13 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             </div>
           )}
         </main>
+        ) : null}
         <MobileGlobalSearchOverlay
           open={showMobileGlobalSearch}
           onClose={() => setShowMobileGlobalSearch(false)}
         />
 
-        <div className="fixed inset-x-0 bottom-0 z-50">
+        <div className={`fixed bottom-0 z-50 ${dockPinnedToCommsPane ? "left-0 w-[340px] max-w-full" : "inset-x-0"}`}>
           <div className="bg-black border-t border-black px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
             <div
               className="grid gap-1"
@@ -1146,15 +1301,23 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             >
               {TAB_ITEMS.map((item) => {
                 const Icon = item.icon
-                const isActive = item.href
-                  ? pathname.startsWith(item.href)
-                  : item.key === mobileTab
+                const isActive = isFoldableMobileViewport
+                  ? item.key === mobileTab
+                  : item.href
+                    ? pathname.startsWith(item.href)
+                    : item.key === mobileTab
 
                 return (
                   <button
                     key={item.key}
                     type="button"
                     onClick={() => {
+                      if (isFoldableMobileViewport) {
+                        setMobileUtilityPage(null)
+                        setMobileTab(item.key)
+                        if (item.key !== "library") setSelectedLibraryId(null)
+                        return
+                      }
                       if (item.href) {
                         setMobileUtilityPage(null)
                         if (item.key !== "library") setSelectedLibraryId(null)

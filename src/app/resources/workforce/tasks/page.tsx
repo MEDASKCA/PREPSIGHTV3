@@ -1,5 +1,7 @@
 "use client"
 
+import { useEffect, useState } from "react"
+import { useRouter } from "next/navigation"
 import { CheckCircle2, Clock3, Layers3 } from "lucide-react"
 import WorkforcePersistentHeader from "@/components/WorkforcePersistentHeader"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
@@ -23,6 +25,30 @@ const tasks = [
 ]
 
 export default function WorkforceTasksPage() {
+  const router = useRouter()
+  const [isDesktopViewport, setIsDesktopViewport] = useState<boolean | null>(null)
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const mediaQuery = window.matchMedia("(min-width: 1024px)")
+    const syncViewport = () => {
+      const nextIsDesktop = mediaQuery.matches
+      setIsDesktopViewport(nextIsDesktop)
+      if (!nextIsDesktop) {
+        router.replace("/resources")
+      }
+    }
+
+    syncViewport()
+    mediaQuery.addEventListener("change", syncViewport)
+    return () => mediaQuery.removeEventListener("change", syncViewport)
+  }, [router])
+
+  if (isDesktopViewport === false) {
+    return null
+  }
+
   return (
     <WorkspaceDesktopShell currentNav="workforce" sectionLabel="Resources Workforce">
       <div className="flex h-full min-h-0 flex-col px-5 py-4 lg:px-6 lg:py-5">

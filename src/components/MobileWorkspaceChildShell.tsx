@@ -42,6 +42,7 @@ export default function MobileWorkspaceChildShell({
   searchValue,
   onSearchChange,
   searchPlaceholder,
+  flushChildren = false,
   children,
 }: {
   parentTitle: string
@@ -50,6 +51,7 @@ export default function MobileWorkspaceChildShell({
   searchValue: string
   onSearchChange: (value: string) => void
   searchPlaceholder: string
+  flushChildren?: boolean
   children: ReactNode
 }) {
   const [mobileGlobalSearchOpen, setMobileGlobalSearchOpen] = useState(false)
@@ -112,7 +114,7 @@ export default function MobileWorkspaceChildShell({
         </div>
       ) : null}
 
-      <main className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-28">
+      <main className={`min-h-0 flex-1 overflow-hidden bg-black pb-28 ${flushChildren ? "px-0" : "px-4"}`}>
         <div className="flex h-full min-h-0 flex-col">
           {childTitle ? (
             <div className="shrink-0 pb-4 pt-1">

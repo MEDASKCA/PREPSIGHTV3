@@ -2,7 +2,7 @@
 
 import { useEffect } from "react"
 import { useRouter } from "next/navigation"
-import MobileResourcesPage from "@/components/MobileResourcesPage"
+import RootEntry from "@/components/RootEntry"
 
 export default function ResourcesPage() {
   const router = useRouter()
@@ -15,7 +15,7 @@ export default function ResourcesPage() {
 
   return (
     <div className="lg:hidden">
-      <MobileResourcesPage />
+      <RootEntry initialSurface="resources" />
     </div>
   )
 }

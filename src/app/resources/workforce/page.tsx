@@ -1,6 +1,6 @@
 "use client"
 
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
 import TriangleIcon from "@/components/TriangleIcon"
 import WorkforceSectionNav from "@/components/WorkforceSectionNav"
@@ -277,6 +277,7 @@ function matchesFilter(
 
 export default function WorkforcePage() {
   const router = useRouter()
+  const [isDesktopViewport, setIsDesktopViewport] = useState<boolean | null>(null)
   const [weekOffset, setWeekOffset] = useState(0)
   const [sortKey, setSortKey] = useState<AllocationSortKey>("area")
   const [sortDirection, setSortDirection] = useState<"asc" | "desc">("asc")
@@ -374,6 +375,27 @@ export default function WorkforcePage() {
     })
     return rows
   }, [coordinatorRows, filterMode, selectedFilter, sortDirection, sortKey])
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const mediaQuery = window.matchMedia("(min-width: 1024px)")
+    const syncViewport = () => {
+      const nextIsDesktop = mediaQuery.matches
+      setIsDesktopViewport(nextIsDesktop)
+      if (!nextIsDesktop) {
+        router.replace("/resources")
+      }
+    }
+
+    syncViewport()
+    mediaQuery.addEventListener("change", syncViewport)
+    return () => mediaQuery.removeEventListener("change", syncViewport)
+  }, [router])
+
+  if (isDesktopViewport === false) {
+    return null
+  }
 
   function toggleSort(nextKey: AllocationSortKey) {
     if (sortKey === nextKey) {

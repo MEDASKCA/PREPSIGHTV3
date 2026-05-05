@@ -1,7 +1,8 @@
 "use client"
 
 import dynamic from "next/dynamic"
-import { useMemo, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
+import { useRouter } from "next/navigation"
 import {
   CalendarClock,
   ChevronRight,
@@ -213,6 +214,8 @@ function strongestFit(
 }
 
 export default function WorkforceShiftsPage() {
+  const router = useRouter()
+  const [isDesktopViewport, setIsDesktopViewport] = useState<boolean | null>(null)
   const [shiftType, setShiftType] = useState<(typeof typeFilters)[number]>("Internal")
   const [mode, setMode] = useState<(typeof modeFilters)[number]>("Map")
   const [radiusMiles, setRadiusMiles] = useState(30)
@@ -282,6 +285,27 @@ export default function WorkforceShiftsPage() {
 
   const selectedHospital =
     selectedHospitalId ? hospitals.find((hospital) => hospital.id === selectedHospitalId) ?? null : null
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+
+    const mediaQuery = window.matchMedia("(min-width: 1024px)")
+    const syncViewport = () => {
+      const nextIsDesktop = mediaQuery.matches
+      setIsDesktopViewport(nextIsDesktop)
+      if (!nextIsDesktop) {
+        router.replace("/resources")
+      }
+    }
+
+    syncViewport()
+    mediaQuery.addEventListener("change", syncViewport)
+    return () => mediaQuery.removeEventListener("change", syncViewport)
+  }, [router])
+
+  if (isDesktopViewport === false) {
+    return null
+  }
 
   return (
     <WorkspaceDesktopShell currentNav="workforce" sectionLabel="Resources Workforce">

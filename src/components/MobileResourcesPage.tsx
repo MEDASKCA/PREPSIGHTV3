@@ -15,6 +15,7 @@ export default function MobileResourcesPage() {
         searchValue={searchValue}
         onSearchChange={setSearchValue}
         searchPlaceholder="Search Resources"
+        flushChildren
     >
       <MobileResourcesSurface embedded />
     </MobileWorkspaceChildShell>
