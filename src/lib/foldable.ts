@@ -4,6 +4,10 @@ function matchesMediaQuery(query: string) {
   return typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia(query).matches
 }
 
+function matchesFoldableUserAgent(userAgent: string) {
+  return /\bSM-F(?:7|9)\d{2}\b/i.test(userAgent) || /Pixel Fold|Pixel 9 Pro Fold|Surface Duo/i.test(userAgent)
+}
+
 export function isFoldableMobileViewport() {
   if (typeof window === "undefined") return false
 
@@ -22,11 +26,23 @@ export function isFoldableMobileViewport() {
 
   if (!isAndroidMobile || !isTouchViewport) return false
 
-  const width = window.innerWidth
-  const height = window.innerHeight
-  const shortestSide = Math.min(width, height)
-  const longestSide = Math.max(width, height)
-  const aspectRatio = longestSide / Math.max(shortestSide, 1)
+  if (matchesFoldableUserAgent(userAgent)) return true
 
-  return shortestSide >= 560 && longestSide >= 720 && aspectRatio <= 1.85
+  const viewportWidth = window.innerWidth
+  const viewportHeight = window.innerHeight
+  const viewportShortestSide = Math.min(viewportWidth, viewportHeight)
+  const viewportLongestSide = Math.max(viewportWidth, viewportHeight)
+  const viewportAspectRatio = viewportLongestSide / Math.max(viewportShortestSide, 1)
+
+  if (viewportShortestSide >= 520 && viewportLongestSide >= 680 && viewportAspectRatio <= 1.9) {
+    return true
+  }
+
+  const screenWidth = typeof window.screen !== "undefined" ? window.screen.width : viewportWidth
+  const screenHeight = typeof window.screen !== "undefined" ? window.screen.height : viewportHeight
+  const screenShortestSide = Math.min(screenWidth, screenHeight)
+  const screenLongestSide = Math.max(screenWidth, screenHeight)
+  const screenAspectRatio = screenLongestSide / Math.max(screenShortestSide, 1)
+
+  return screenShortestSide >= 520 && screenAspectRatio <= 1.7
 }
