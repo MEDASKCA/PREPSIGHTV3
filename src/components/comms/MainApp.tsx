@@ -930,11 +930,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     import("@/lib/fcm").then(({ requestNotificationPermission, onForegroundMessage }) => {
       requestNotificationPermission(user.uid)
       return onForegroundMessage((payload) => {
-        const { title, body } = payload.notification || {}
         const data = payload.data || {}
+        const title = data.title || payload.notification?.title || ""
+        const body = data.body || payload.notification?.body || ""
         if (data.type === "message" && data.threadId === selectedThread?.id) return
         if (title || body) {
-          new Notification(title || "PrepSight", { body: body || "", icon: "/pwabig.png" })
+          new Notification(title || "PrepSight", { body, icon: "/logo.png" })
         }
       })
     }).catch(() => {})

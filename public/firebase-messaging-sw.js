@@ -12,15 +12,20 @@ firebase.initializeApp({
 
 const messaging = firebase.messaging()
 
-// Background message handler — FCM delivers here when app is closed/backgrounded
-messaging.onBackgroundMessage((payload) => {
-  const notification = payload.notification || {}
-  const data = payload.data || {}
+// Force new SW to take control immediately so tokens re-register on next app load
+self.addEventListener("install", () => self.skipWaiting())
+self.addEventListener("activate", () => self.clients.claim())
 
-  self.registration.showNotification(notification.title || "PrepSight", {
-    body: notification.body || "",
-    icon: "/pwabig.png",
-    badge: "/pwabig.png",
+// Handles push when app is closed or backgrounded
+messaging.onBackgroundMessage((payload) => {
+  const data = payload.data || {}
+  const title = data.title || payload.notification?.title || "PrepSight"
+  const body = data.body || payload.notification?.body || ""
+
+  self.registration.showNotification(title, {
+    body,
+    icon: "/logo.png",
+    badge: "/logo.png",
     vibrate: [200, 100, 200],
     requireInteraction: data.type === "call",
     data,
@@ -37,7 +42,6 @@ messaging.onBackgroundMessage((payload) => {
 self.addEventListener("notificationclick", (event) => {
   event.notification.close()
   const data = event.notification.data || {}
-
   event.waitUntil(
     clients
       .matchAll({ type: "window", includeUncontrolled: true })

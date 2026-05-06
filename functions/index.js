@@ -13,36 +13,29 @@ async function getUserFcmTokens(uid) {
   return doc.data()?.fcmTokens || []
 }
 
-async function sendPush(tokens, notification, data = {}) {
-  if (!tokens.length) return
+// Data-only messages — onBackgroundMessage in the SW always fires regardless of app state.
+// Notification-field messages are intercepted by FCM and never reach onBackgroundMessage.
+async function sendPush(tokens, title, body, data = {}) {
+  if (!tokens.length) return []
   const messaging = getMessaging()
   const results = await Promise.allSettled(
     tokens.map(token =>
       messaging.send({
         token,
-        notification,
-        data,
+        // All payload goes in data so the SW has full control over display
+        data: { ...data, title, body },
         webpush: {
-          notification: {
-            ...notification,
-            icon: "/pwabig.png",
-            badge: "/pwabig.png",
-            vibrate: [200, 100, 200],
-            requireInteraction: true,
-          },
-          fcmOptions: { link: "/comms" },
+          headers: { Urgency: "high" },
+          fcmOptions: { link: "/" },
         },
-        android: {
-          priority: "high",
-          notification: { sound: "default", channelId: "prepsight_comms" },
-        },
+        android: { priority: "high" },
         apns: {
-          payload: { aps: { sound: "default", badge: 1 } },
+          headers: { "apns-priority": "10" },
+          payload: { aps: { "content-available": 1 } },
         },
       })
     )
   )
-  // Collect stale tokens to prune
   const staleTokens = []
   results.forEach((r, i) => {
     if (r.status === "rejected") {
@@ -58,47 +51,38 @@ async function sendPush(tokens, notification, data = {}) {
 async function pruneTokens(uid, staleTokens) {
   if (!staleTokens.length) return
   const ref = db.collection("comms_v5_users").doc(uid)
-  const doc = await ref.get()
-  if (!doc.exists) return
-  const current = doc.data()?.fcmTokens || []
-  const pruned = current.filter(t => !staleTokens.includes(t))
-  await ref.update({ fcmTokens: pruned })
+  const snap = await ref.get()
+  if (!snap.exists) return
+  const current = snap.data()?.fcmTokens || []
+  await ref.update({ fcmTokens: current.filter(t => !staleTokens.includes(t)) })
 }
 
-// Notify on new message
 exports.onNewCommsMessage = onDocumentCreated(
   "comms_v5_messages/{messageId}",
   async (event) => {
     const msg = event.data.data()
-    if (!msg) return
+    if (!msg || msg.type === "call") return
 
     const senderUid = msg.uid
     const memberUids = msg.memberUids || []
     const recipients = memberUids.filter(uid => uid !== senderUid)
     if (!recipients.length) return
 
-    const isCall = msg.type === "call"
-    if (isCall) return // calls handled separately below
-
-    const senderName = msg.displayName || "Someone"
-    const text = msg.text?.slice(0, 120) || (msg.attachments?.length ? "Sent an attachment" : "")
+    const senderName = msg.displayName || "PrepSight"
+    const body = msg.text?.slice(0, 120) || (msg.attachments?.length ? "Sent an attachment" : "New message")
 
     for (const uid of recipients) {
       const tokens = await getUserFcmTokens(uid)
-      const stale = await sendPush(tokens, {
-        title: senderName,
-        body: text,
-      }, {
+      const stale = await sendPush(tokens, senderName, body, {
         type: "message",
         threadId: msg.threadId || "",
         senderUid,
       })
-      if (stale) await pruneTokens(uid, stale)
+      if (stale?.length) await pruneTokens(uid, stale)
     }
   }
 )
 
-// Notify on incoming call
 exports.onNewCommsCall = onDocumentCreated(
   "comms_v5_calls/{callId}",
   async (event) => {
@@ -106,19 +90,21 @@ exports.onNewCommsCall = onDocumentCreated(
     if (!call || call.status !== "ringing") return
 
     const calleeUid = call.calleeUid
-    const callerName = call.callerName || "Someone"
+    const callerName = call.callerName || "PrepSight"
     const mode = call.mode === "video" ? "Video call" : "Voice call"
 
     const tokens = await getUserFcmTokens(calleeUid)
-    const stale = await sendPush(tokens, {
-      title: `Incoming ${mode}`,
-      body: `${callerName} is calling you`,
-    }, {
-      type: "call",
-      callId: event.params.callId,
-      callerUid: call.callerUid,
-      mode: call.mode || "audio",
-    })
-    if (stale) await pruneTokens(calleeUid, stale)
+    const stale = await sendPush(
+      tokens,
+      `Incoming ${mode}`,
+      `${callerName} is calling you`,
+      {
+        type: "call",
+        callId: event.params.callId,
+        callerUid: call.callerUid,
+        mode: call.mode || "audio",
+      }
+    )
+    if (stale?.length) await pruneTokens(calleeUid, stale)
   }
 )

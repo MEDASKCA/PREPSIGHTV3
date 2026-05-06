@@ -4,45 +4,34 @@ function matchesMediaQuery(query: string) {
   return typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia(query).matches
 }
 
-function matchesFoldableUserAgent(userAgent: string) {
-  return /\bSM-F(?:7|9)\d{2}\b/i.test(userAgent) || /Pixel Fold|Pixel 9 Pro Fold|Surface Duo/i.test(userAgent)
-}
-
 export function isFoldableMobileViewport() {
   if (typeof window === "undefined") return false
 
+  // Desktop — always use desktop layout
   if (matchesMediaQuery("(min-width: 1024px)")) return false
 
-  if (matchesMediaQuery("(spanning: single-fold-vertical)") || matchesMediaQuery("(spanning: single-fold-horizontal)")) {
-    return true
-  }
-
   const userAgent = typeof navigator !== "undefined" ? navigator.userAgent || "" : ""
-  const isAndroidMobile = /Android/i.test(userAgent) && /Mobile/i.test(userAgent)
-  const isTouchViewport =
+  const isAndroid = /Android/i.test(userAgent)
+  const isMobile = /Mobile/i.test(userAgent)
+  const isTouch =
     (typeof navigator !== "undefined" && navigator.maxTouchPoints > 0) ||
-    matchesMediaQuery("(pointer: coarse)") ||
-    matchesMediaQuery("(hover: none)")
+    matchesMediaQuery("(pointer: coarse)")
 
-  if (!isAndroidMobile || !isTouchViewport) return false
+  // Must be Android mobile touch device
+  if (!isAndroid || !isMobile || !isTouch) return false
 
-  if (matchesFoldableUserAgent(userAgent)) return true
+  // Explicit foldable model names
+  if (
+    /SM-F[79]\d{2}/i.test(userAgent) ||          // Samsung Z Fold/Flip all generations
+    /Pixel[ _](?:Fold|9 Pro Fold)/i.test(userAgent) ||
+    /Surface Duo/i.test(userAgent)
+  ) return true
 
-  const viewportWidth = window.innerWidth
-  const viewportHeight = window.innerHeight
-  const viewportShortestSide = Math.min(viewportWidth, viewportHeight)
-  const viewportLongestSide = Math.max(viewportWidth, viewportHeight)
-  const viewportAspectRatio = viewportLongestSide / Math.max(viewportShortestSide, 1)
+  // Dimension fallback: regular Android phones max out at ~430px CSS width in portrait.
+  // Unfolded foldables are 700-900px. Anything >= 560px is a foldable or wide tablet.
+  const vw = window.innerWidth
+  const vh = window.innerHeight
+  const shorterSide = Math.min(vw, vh)
 
-  if (viewportShortestSide >= 520 && viewportLongestSide >= 680 && viewportAspectRatio <= 1.9) {
-    return true
-  }
-
-  const screenWidth = typeof window.screen !== "undefined" ? window.screen.width : viewportWidth
-  const screenHeight = typeof window.screen !== "undefined" ? window.screen.height : viewportHeight
-  const screenShortestSide = Math.min(screenWidth, screenHeight)
-  const screenLongestSide = Math.max(screenWidth, screenHeight)
-  const screenAspectRatio = screenLongestSide / Math.max(screenShortestSide, 1)
-
-  return screenShortestSide >= 520 && screenAspectRatio <= 1.7
+  return shorterSide >= 560
 }
