@@ -20,6 +20,7 @@ import { ref as storageRef, uploadBytes, getDownloadURL } from "firebase/storage
 import { signOut, type User } from "firebase/auth"
 import { auth, db, storage } from "@/lib/firebase"
 import { isFoldableMobileViewport as detectFoldableMobileViewport } from "@/lib/foldable"
+import { setFoldCommsThread, getFoldCommsThread } from "@/lib/fold-comms-thread"
 import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
 import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import { clearCallStatus, getCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
@@ -76,7 +77,7 @@ import {
   X,
 } from "lucide-react"
 
-// â”€â”€â”€ Emoji data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â"€â"€â"€ Emoji data â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 
 const QUICK_REACT = ["👍", "❤️", "😂", "😮", "😢", "🙏", "🔥", "✅"]
 const DEFAULT_THEATRE_GROUPS = [
@@ -123,7 +124,7 @@ const EMOJI_CATS: { icon: string; emojis: string[] }[] = [
   { icon: "⚽", emojis: ["⚽", "🏀", "🏈", "🎾", "🏐", "🎯", "🎮", "🎲", "🎵", "🎤", "🎬", "🚗", "✈️", "🚀", "📚", "💡", "🩺", "🔬"] },
 ]
 
-// â”€â”€â”€ Helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â"€â"€â"€ Helpers â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 
 const AVATAR_COLORS = [
   "from-sky-400 to-blue-500",
@@ -275,7 +276,7 @@ function segmentEmoji(text: string): string[] {
 }
 
 function emojiToNotoUrl(emoji: string): string {
-  // Skip variation selectors (FE0F, FE0E) â€” they don't appear in CDN paths
+  // Skip variation selectors (FE0F, FE0E) â€" they don't appear in CDN paths
   const SKIP = new Set([0xFE0F, 0xFE0E])
   const cps: string[] = []
   for (const char of emoji) {
@@ -532,7 +533,7 @@ function VoiceNoteAttachment({ url, isOwn }: { url: string; isOwn: boolean }) {
   )
 }
 
-// â”€â”€â”€ Call button helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â"€â"€â"€ Call button helper â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 
 function CallButton({ icon, onClick, danger, active, "aria-label": ariaLabel }: {
   icon: React.ReactNode
@@ -558,7 +559,7 @@ function CallButton({ icon, onClick, danger, active, "aria-label": ariaLabel }: 
   )
 }
 
-// â”€â”€â”€ Main component â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+// â"€â"€â"€ Main component â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 
 interface Props {
   user: User
@@ -580,14 +581,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const firestore = db!
   const firebaseAuth = auth!
   const firebaseStorage = storage!
-  // â”€â”€ State â”€â”€
+  // â"€â"€ State â"€â"€
   const [threads, setThreads] = useState<CommsThread[]>([])
   const [messages, setMessages] = useState<CommsMessage[]>([])
   const [inboxMessages, setInboxMessages] = useState<CommsMessage[]>([])
   const [members, setMembers] = useState<CommsUser[]>([])
   const [presence, setPresence] = useState<Record<string, CommsPresence>>({})
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>({})
-  const [selectedThread, setSelectedThread] = useState<CommsThread | null>(null)
+  const [selectedThread, setSelectedThread] = useState<CommsThread | null>(() =>
+    !allowFoldableSplitView && hideMobileHeader ? getFoldCommsThread() : null
+  )
   const [inputText, setInputText] = useState("")
   const [composerError, setComposerError] = useState("")
   const [replyTo, setReplyTo] = useState<CommsMessage | null>(null)
@@ -673,7 +676,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => audio.removeEventListener("ended", handleEnded)
   }, [recordedVoiceUrl])
 
-  // â”€â”€ Call state â”€â”€
+  // â"€â"€ Call state â"€â"€
   const [callState, setCallState] = useState<"idle" | "outgoing" | "incoming" | "active">("idle")
   const [activeCall, setActiveCall] = useState<CommsCall | null>(null)
   const [callerInfo, setCallerInfo] = useState<CommsUser | null>(null)
@@ -713,7 +716,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const voiceTimerRef = useRef<ReturnType<typeof setInterval> | null>(null)
   const voicePreviewRef = useRef<HTMLAudioElement | null>(null)
 
-  // â”€â”€ Refs â”€â”€
+  // â"€â"€ Refs â"€â"€
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const fileInputRef = useRef<HTMLInputElement>(null)
   const seededGroupNamesRef = useRef<Record<string, true>>({})
@@ -746,8 +749,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }, [tomTaskStorageKey, tomTasks])
 
-  // â”€â”€ Clear stale calls on mount (page refresh leaves Firestore calls open) â”€â”€
-  // Uses single-field queries only â€” Firestore auto-indexes these, no composite index needed.
+  // â"€â"€ Clear stale calls on mount (page refresh leaves Firestore calls open) â"€â"€
+  // Uses single-field queries only â€" Firestore auto-indexes these, no composite index needed.
   useEffect(() => {
     if (getCallStatus().state !== "idle") return
 
@@ -767,7 +770,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     clearStaleCalls()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // â”€â”€ Sync local video stream to ref once call UI mounts â”€â”€
+  // â"€â"€ Sync local video stream to ref once call UI mounts â"€â"€
   useEffect(() => {
     if (callState !== "idle" && localVideoRef.current) {
       localVideoRef.current.srcObject = localPreviewStreamRef.current ?? localStreamRef.current
@@ -775,7 +778,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }, [callState, callViewMode])
 
-  // â”€â”€ Re-apply remote stream when video element mounts/unmounts (callState or view mode changes) â”€â”€
+  // â"€â"€ Re-apply remote stream when video element mounts/unmounts (callState or view mode changes) â"€â"€
   useEffect(() => {
     if (!remoteStreamRef.current) return
     if (remoteVideoRef.current) {
@@ -788,19 +791,19 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }, [callState, callViewMode])
 
-  // â”€â”€ Auto-minimise to floating only when panel becomes invisible (not fullscreen â€” that's intentional) â”€â”€
+  // â"€â"€ Auto-minimise to floating only when panel becomes invisible (not fullscreen â€" that's intentional) â"€â"€
   useEffect(() => {
     if (!visible && callState !== "idle" && callViewMode === "panel") setCallViewMode("floating")
   }, [visible, callState, callViewMode])
 
   useEffect(() => () => clearMessageLongPress(), [])
 
-  // â”€â”€ Reset floating position when entering floating mode â”€â”€
+  // â"€â"€ Reset floating position when entering floating mode â"€â"€
   useEffect(() => {
     if (callViewMode === "floating") setFloatingPos(null)
   }, [callViewMode])
 
-  // â”€â”€ Register stable action callbacks in global store (mount only) â”€â”€
+  // â"€â"€ Register stable action callbacks in global store (mount only) â"€â"€
   useEffect(() => {
     publishCallStatus({
       end: () => callActionsRef.current.endCall(),
@@ -813,7 +816,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => clearCallStatus()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
-  // â”€â”€ Sync call state changes to global store â”€â”€
+  // â"€â"€ Sync call state changes to global store â"€â"€
   useEffect(() => {
     publishCallStatus({
       state: callState,
@@ -905,7 +908,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     publishCallStatus({ calleeName: calleeInfo?.displayName ?? "", calleeUid: calleeInfo?.uid ?? "" })
   }, [calleeInfo])
 
-  // â”€â”€ Vibrate on incoming call â”€â”€
+  // â"€â"€ Vibrate on incoming call â"€â"€
   useEffect(() => {
     if (callState !== "incoming" || !("vibrate" in navigator)) return
     // Ring pattern: 400ms on, 200ms off, repeat
@@ -913,7 +916,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => { clearInterval(interval); navigator.vibrate(0) }
   }, [callState])
 
-  // â”€â”€ Call elapsed timer â”€â”€
+  // â"€â"€ Call elapsed timer â"€â"€
   useEffect(() => {
     if (callState !== "active") { setCallElapsed(0); return }
     const interval = setInterval(() => {
@@ -922,7 +925,22 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => clearInterval(interval)
   }, [callState])
 
-  // â”€â”€ Presence heartbeat â”€â”€
+  // â"€â"€ FCM push notifications â"€â"€
+  useEffect(() => {
+    import("@/lib/fcm").then(({ requestNotificationPermission, onForegroundMessage }) => {
+      requestNotificationPermission(user.uid)
+      return onForegroundMessage((payload) => {
+        const { title, body } = payload.notification || {}
+        const data = payload.data || {}
+        if (data.type === "message" && data.threadId === selectedThread?.id) return
+        if (title || body) {
+          new Notification(title || "PrepSight", { body: body || "", icon: "/pwabig.png" })
+        }
+      })
+    }).catch(() => {})
+  }, [user.uid])
+
+  // â"€â"€ Presence heartbeat â"€â"€
   useEffect(() => {
     async function setOnline() {
       try {
@@ -949,7 +967,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => { clearInterval(interval); window.removeEventListener("beforeunload", handleUnload) }
   }, [user.uid, org.id])
 
-  // â”€â”€ Load members â”€â”€
+  // â"€â"€ Load members â"€â"€
   useEffect(() => {
     const q = query(collection(firestore, "comms_v5_memberships"), where("orgId", "==", org.id), where("status", "==", "active"))
     return onSnapshot(q, async snap => {
@@ -976,7 +994,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     })
   }, [org.id])
 
-  // â”€â”€ Load presence â”€â”€
+  // â"€â"€ Load presence â"€â"€
   useEffect(() => {
     const q = query(collection(firestore, "comms_v5_presence"), where("organizationId", "==", org.id))
     return onSnapshot(q, snap => {
@@ -993,17 +1011,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     })
   }, [org.id])
 
-  // â”€â”€ Load threads â”€â”€
+  // â"€â"€ Load threads â"€â"€
   useEffect(() => {
     const q = query(
       collection(firestore, "comms_v5_threads"),
-      where("organizationId", "==", org.id),
       where("memberUids", "array-contains", user.uid),
+      orderBy("updatedAt", "desc"),
     )
     return onSnapshot(q, snap => {
-      const updated = snap.docs.map(d => ({ id: d.id, ...d.data() } as CommsThread))
-        .sort((a, b) => b.updatedAt - a.updatedAt)
-      setThreads(updated)
+      setThreads(snap.docs.map(d => ({ id: d.id, ...d.data() } as CommsThread)))
     }, error => {
       if ((error.message || "").toLowerCase().includes("permission")) {
         setPermissionWarning("Live Comms access is limited until Firestore permissions are updated.")
@@ -1012,17 +1028,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       }
       console.error(error)
     })
-  }, [org.id, user.uid])
+  }, [user.uid])
 
   useEffect(() => {
     const q = query(
       collection(firestore, "comms_v5_messages"),
-      where("organizationId", "==", org.id),
       where("memberUids", "array-contains", user.uid),
+      orderBy("createdAt", "desc"),
     )
     return onSnapshot(q, snap => {
-      const nextMessages = snap.docs.map(d => ({ id: d.id, ...d.data() } as CommsMessage))
-      setInboxMessages(nextMessages)
+      setInboxMessages(snap.docs.map(d => ({ id: d.id, ...d.data() } as CommsMessage)))
     }, error => {
       if ((error.message || "").toLowerCase().includes("permission")) {
         setPermissionWarning("Live Comms access is limited until Firestore permissions are updated.")
@@ -1031,22 +1046,18 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       }
       console.error(error)
     })
-  }, [org.id, user.uid])
+  }, [user.uid])
 
-  // â”€â”€ Load messages â”€â”€
+  // â"€â"€ Load messages â"€â"€
   useEffect(() => {
     if (!selectedThread) { setMessages([]); return }
     const q = query(
       collection(firestore, "comms_v5_messages"),
       where("threadId", "==", selectedThread.id),
-      where("organizationId", "==", org.id),
-      where("memberUids", "array-contains", user.uid),
+      orderBy("createdAt", "asc"),
     )
     return onSnapshot(q, snap => {
-      const nextMessages = snap.docs
-        .map(d => ({ id: d.id, ...d.data() } as CommsMessage))
-        .sort((a, b) => a.createdAt - b.createdAt)
-      setMessages(nextMessages)
+      setMessages(snap.docs.map(d => ({ id: d.id, ...d.data() } as CommsMessage)))
     }, error => {
       if ((error.message || "").toLowerCase().includes("permission")) {
         setPermissionWarning("Live Comms access is limited until Firestore permissions are updated.")
@@ -1061,7 +1072,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
 
-  // â”€â”€ Incoming call listener â”€â”€
+  // â"€â"€ Incoming call listener â"€â"€
   useEffect(() => {
     const q = query(
       collection(firestore, "comms_v5_calls"),
@@ -1094,7 +1105,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     })
   }, [user.uid, org.id, callState])
 
-  // â”€â”€ Thread helpers â”€â”€
+  // â"€â"€ Thread helpers â"€â"€
   function selectThread(thread: CommsThread) {
     if (isGroupLocked(thread)) {
       setJoinCodeThread(thread)
@@ -1111,6 +1122,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setActionBoxPosition(null)
     setShowEmojiPicker(null)
     onDirectThreadActiveChange?.(thread.type === "direct")
+    setFoldCommsThread(thread)
   }
 
   async function togglePinThread(threadId: string) {
@@ -1471,6 +1483,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           >
             <button onClick={() => {
               setSelectedThread(null)
+              setFoldCommsThread(null)
               onDirectThreadActiveChange?.(false)
             }} className="mr-1">
               <ArrowLeft size={22} className="text-white" />
@@ -1545,14 +1558,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ) : null}
                 </>
               )}
-              <button
-                type="button"
-                onClick={() => setShowProfile(true)}
-                className="text-white hover:text-white/70"
-                aria-label="More options"
-              >
-                <MoreVertical size={22} />
-              </button>
+              {(!minimalHeader && (showProfileButton || !embedded)) ? (
+                <button
+                  type="button"
+                  onClick={() => setShowProfile(true)}
+                  className="text-white hover:text-white/70"
+                  aria-label="More options"
+                >
+                  <MoreVertical size={22} />
+                </button>
+              ) : null}
             </div>
           </div>
         ) : (
@@ -1563,6 +1578,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             {!splitView ? (
               <button onClick={() => {
                 setSelectedThread(null)
+                setFoldCommsThread(null)
                 onDirectThreadActiveChange?.(false)
               }} className="mr-1">
                 <ArrowLeft size={22} className="text-white" />
@@ -1638,14 +1654,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     ) : null}
                   </>
                 )}
-              <button
-                type="button"
-                onClick={() => setShowProfile(true)}
-                className="text-white hover:text-white/70"
-                aria-label="More options"
-              >
-                <MoreVertical size={22} />
-              </button>
+              {(!minimalHeader && (showProfileButton || !embedded)) ? (
+                <button
+                  type="button"
+                  onClick={() => setShowProfile(true)}
+                  className="text-white hover:text-white/70"
+                  aria-label="More options"
+                >
+                  <MoreVertical size={22} />
+                </button>
+              ) : null}
             </div>
           </div>
         )}
@@ -2052,7 +2070,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }, [inputText, selectedThread?.id, org.id, user.uid])
 
-  // â”€â”€ Send message â”€â”€
+  // â"€â"€ Send message â"€â"€
   async function sendMessage(text?: string, attachments?: { name: string; url: string; type: "image" | "file" | "audio"; size: number }[]) {
     const content = text ?? inputText.trim()
     if (!content && !attachments?.length) return
@@ -2351,7 +2369,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setShowContacts(false); setShowNewDM(false)
   }
 
-  // â”€â”€ WebRTC â”€â”€
+  // â"€â"€ WebRTC â"€â"€
   function createPC() {
     const pc = new RTCPeerConnection({
       iceServers: [
@@ -2723,9 +2741,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   const displayName = currentUserRecord?.displayName || user.displayName || user.email || "U"
 
-  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
   // RENDER
-  // â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+  // â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 
   return (
     <div
@@ -2743,10 +2761,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           50% { transform: scaleY(1.18); opacity: 1; }
         }
       `}</style>
-      {/* Hidden audio for remote stream â€” video refs live in call UI only to avoid ref conflicts */}
+      {/* Hidden audio for remote stream â€" video refs live in call UI only to avoid ref conflicts */}
       <audio ref={remoteAudioRef} autoPlay playsInline className="hidden" />
 
-      {/* â”€â”€ Header â”€â”€ */}
+      {/* â"€â"€ Header â"€â"€ */}
       <div
         className={`shrink-0 ${embedded ? "bg-black" : "bg-black px-5 pb-0"}`}
         style={embedded ? undefined : { paddingTop: "calc(env(safe-area-inset-top) + 8px)" }}
@@ -2904,7 +2922,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         ) : null}
       </div>
 
-      {/* â”€â”€ Filter row â”€â”€ */}
+      {/* â"€â"€ Filter row â"€â"€ */}
       <div className={`border-b border-black bg-black px-4 pt-0 pb-3 shrink-0 ${isFoldableSplitView ? "w-1/2" : ""}`}>
         <div className="-mx-4 mb-3 bg-[#101012] px-4 pt-0.5 pb-2">
           <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -2946,7 +2964,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       </div>
 
-      {/* â”€â”€ Thread list â”€â”€ */}
+      {/* â"€â"€ Thread list â"€â"€ */}
       <div className={`flex-1 overflow-y-auto bg-black ${isFoldableSplitView ? "w-1/2" : ""}`}>
           {visibleThreads.length === 0 && (
             <p className="mt-20 text-center text-sm text-[var(--mob-text-2,#888888)]">No conversations yet</p>
@@ -3013,7 +3031,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           })}
       </div>
 
-      {/* â”€â”€ Bottom nav â”€â”€ */}
+      {/* â"€â"€ Bottom nav â"€â"€ */}
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• THREAD VIEW â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       <MobileGlobalSearchOverlay open={showGlobalSearch} onClose={() => setShowGlobalSearch(false)} />
@@ -3078,6 +3096,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           >
             <button onClick={() => {
               setSelectedThread(null)
+              setFoldCommsThread(null)
               onDirectThreadActiveChange?.(false)
             }} className="mr-1">
               <ArrowLeft size={22} className="text-white" />
@@ -3110,7 +3129,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex items-center gap-2">
               {selectedThread.type === "direct" && (
                 <>
-                  {/* Audio call button â€” red hang-up when audio call active, grey when video call active, blue otherwise */}
+                  {/* Audio call button â€" red hang-up when audio call active, grey when video call active, blue otherwise */}
                   <button
                     onClick={
                       callState === "active" && callMediaMode === "audio" ? () => void endCall()
@@ -3361,7 +3380,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Emoji overlay â€” z-[25] sits above the z-20 action backdrop so category buttons are clickable */}
+          {/* Emoji overlay â€" z-[25] sits above the z-20 action backdrop so category buttons are clickable */}
           {(showEmojiPicker === "drawer" || showEmojiPicker === "input") && (
             <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col">
               <EmojiPicker
@@ -3958,7 +3977,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       )}
 
-      {/* â•â•â• CALL OVERLAY â€” panel or fullscreen â•â•â• */}
+      {/* â•â•â• CALL OVERLAY â€" panel or fullscreen â•â•â• */}
       {callState !== "idle" && callViewMode !== "floating" && (
         <div
           className={`z-[200] flex flex-col bg-[#0c0c0c] pointer-events-auto ${callViewMode === "fullscreen" ? "fixed inset-0" : "absolute inset-0"}`}
@@ -4021,10 +4040,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             </div>
           )}
 
-          {/* Top bar â€” single size toggle + panel switcher (desktop) + timer */}
+          {/* Top bar â€" single size toggle + panel switcher (desktop) + timer */}
           <div className="relative z-20 flex items-center justify-between px-4 pt-4">
             <div className="flex items-center gap-2">
-              {/* Minimise to floating â€” expand again by tapping the floating window */}
+              {/* Minimise to floating â€" expand again by tapping the floating window */}
               <button
                 onClick={() => setCallViewMode("floating")}
                 className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white/60 backdrop-blur-sm transition-colors hover:bg-black/60 hover:text-white"
@@ -4045,15 +4064,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <PanelRight size={14} />
               </button>
             </div>
-            {callState === "active" && (
+            {callState === "active" ? (
               <span className="tabular-nums text-[13px] text-white/50">
                 {formatCallDuration(callElapsed)}
               </span>
+            ) : (
+              <img src="/prepsight-logo.png" alt="PrepSight" className="h-6 object-contain" style={{ filter: "brightness(0) invert(1)", opacity: 0.85 }} />
             )}
             <div className="w-[72px]" />
           </div>
 
-          {/* Identity block â€” hidden during active video */}
+          {/* Identity block â€" hidden during active video */}
           <div className={`relative z-10 flex flex-1 flex-col items-center justify-center gap-4 px-6
             ${callState === "active" && callMediaMode === "video" && !tomVoiceMode ? "pointer-events-none opacity-0" : ""}`}
           >
@@ -4177,7 +4198,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* â•â•â• FLOATING WINDOW â•â•â• */}
       {callState !== "idle" && callViewMode === "floating" && !embedded && (
         callState === "active" && callMediaMode === "video" && !tomVoiceMode ? (
-          /* Video PiP â€” draggable + resizable */
+          /* Video PiP â€" draggable + resizable */
           <div
             className="fixed z-[300] overflow-hidden rounded-2xl shadow-2xl border border-white/[0.08] pointer-events-auto select-none"
             style={{
@@ -4261,7 +4282,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <PhoneOff size={12} className="text-white" />
               </button>
             </div>
-            {/* Resize handle â€” bottom-right corner */}
+            {/* Resize handle â€" bottom-right corner */}
             <div
               data-resize="1"
               className="absolute bottom-0 right-0 z-30 h-5 w-5 cursor-se-resize"
@@ -4305,7 +4326,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             </div>
           </div>
         ) : (
-          /* Audio pill â€” draggable */
+          /* Audio pill â€" draggable */
           <div
             className="z-[300] flex items-center gap-3 rounded-2xl bg-[#181818] px-3 py-2.5 shadow-2xl border border-white/[0.08] pointer-events-auto select-none"
             style={{

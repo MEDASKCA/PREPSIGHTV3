@@ -21,6 +21,7 @@ import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
 import { getDesktopCommsPreference, getDesktopCommsWidth, getDesktopCommsWidthBounds, setDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
 import { isFoldableMobileViewport as detectFoldableMobileViewport } from "@/lib/foldable"
+import { getFoldCommsThread, setFoldCommsThread, subscribeFoldCommsThread } from "@/lib/fold-comms-thread"
 import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { clearProfile, getProfile, getRelevantSettings } from "@/lib/profile"
 import { subscribeTeams } from "@/lib/team-workspaces"
@@ -843,7 +844,8 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const [activeTab, setActiveTab] = useState<TabKey>(initialSurface === "updates" ? "updates" : "library")
   const [mobileTab, setMobileTab] = useState<TabKey>(initialSurface)
   const [isFoldableMobileViewport, setIsFoldableMobileViewport] = useState(false)
-  const [isMixedSplitDirectThreadActive, setIsMixedSplitDirectThreadActive] = useState(false)
+  const foldCommsThread = useSyncExternalStore(subscribeFoldCommsThread, getFoldCommsThread, getFoldCommsThread)
+  const isMixedSplitDirectThreadActive = foldCommsThread?.type === "direct"
   const [isFoldSplitSwapped, setIsFoldSplitSwapped] = useState(false)
   const callStatus = useCallStatus()
   const pipVideoRef = useRef<HTMLVideoElement>(null)
@@ -934,7 +936,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
 
     setMobileUtilityPage(null)
     setMobileTab(routeSurface)
-    setIsMixedSplitDirectThreadActive(false)
+    setFoldCommsThread(null)
     setIsFoldSplitSwapped(false)
     setActiveTab(routeSurface === "updates" ? "updates" : "library")
     if (routeSurface !== "library") setSelectedLibraryId(null)
@@ -1233,7 +1235,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                           visible
                           hideHeader
                           allowFoldableSplitView={false}
-                          onDirectThreadActiveChange={setIsMixedSplitDirectThreadActive}
+                          onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
                         />
                       </div>
                       <div
@@ -1256,7 +1258,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                           visible
                           hideHeader
                           allowFoldableSplitView={false}
-                          onDirectThreadActiveChange={setIsMixedSplitDirectThreadActive}
+                          onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
                         />
                       </div>
                     </>
@@ -1271,7 +1273,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                           visible
                           hideHeader
                           allowFoldableSplitView={false}
-                          onDirectThreadActiveChange={setIsMixedSplitDirectThreadActive}
+                          onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
                         />
                       </div>
                       <div className="flex min-h-0 flex-col overflow-hidden bg-black pb-28">
@@ -1386,7 +1388,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                           visible
                           hideHeader
                           allowFoldableSplitView={false}
-                          onDirectThreadActiveChange={setIsMixedSplitDirectThreadActive}
+                          onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
                         />
                       </div>
                     </>

@@ -38,4 +38,4 @@ if (apiKey && projectId && storageBucket && messagingSenderId && appId) {
   }
 }
 
-export { auth, db, storage }
+export { app, auth, db, storage }
