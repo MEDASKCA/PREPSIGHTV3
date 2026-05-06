@@ -814,14 +814,8 @@ export default function LoginPage() {
                   Continue with Microsoft
                 </button>
 
-                <button
-                  onClick={() => window.location.assign(resolveOperatorLoginUrl())}
-                  className="mt-3 w-full flex items-center justify-center px-4 py-3 border border-[#282828] rounded-xl text-sm font-semibold text-[#bbb] hover:bg-[#181818] active:bg-[#222] transition-colors"
-                >
-                  PrepSight account
-                </button>
 
-              </>
+</>
             )}
 
             {error ? (
