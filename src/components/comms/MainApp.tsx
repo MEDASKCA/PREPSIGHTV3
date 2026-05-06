@@ -3984,58 +3984,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           className={`z-[200] flex flex-col bg-[#0c0c0c] pointer-events-auto ${callViewMode === "fullscreen" ? "fixed inset-0" : "absolute inset-0"}`}
           style={callViewMode === "fullscreen" ? { paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" } : undefined}
         >
-          {/* Growing branch animation — incoming calls only */}
-          {callState === "incoming" && (
-            <>
-              <style>{`
-                @keyframes ps-grow-stem {
-                  from { stroke-dashoffset: 500; opacity: 0; }
-                  8%   { opacity: 1; }
-                  to   { stroke-dashoffset: 0; }
-                }
-                @keyframes ps-sway {
-                  0%, 100% { transform: rotate(-2.5deg); }
-                  50%      { transform: rotate(2.5deg); }
-                }
-              `}</style>
-              <div className="absolute inset-0 z-[1] flex items-end justify-center overflow-hidden pointer-events-none pb-32">
-                <svg viewBox="0 0 120 240" fill="none" xmlns="http://www.w3.org/2000/svg"
-                  style={{ width: 220, height: "auto", opacity: 0.22, transformOrigin: "bottom center", animation: "ps-sway 4s ease-in-out infinite 1.6s" }}>
-                  <defs>
-                    <linearGradient id="psPlantGrad" x1="0.5" y1="1" x2="0.5" y2="0" gradientUnits="objectBoundingBox">
-                      <stop offset="0%" stopColor="#0096C7" />
-                      <stop offset="100%" stopColor="#00D4E0" />
-                    </linearGradient>
-                  </defs>
-                  {/* Main stem */}
-                  <path d="M 60 240 C 59 210 57 178 54 148 C 51 116 49 88 51 58 C 52 42 54 30 57 18"
-                    stroke="url(#psPlantGrad)" strokeWidth="2.8" strokeLinecap="round" fill="none"
-                    strokeDasharray="500"
-                    style={{ animation: "ps-grow-stem 1.4s ease-out forwards" }} />
-                  {/* Left branch — lower */}
-                  <path d="M 54 168 C 43 156 28 148 12 144"
-                    stroke="url(#psPlantGrad)" strokeWidth="2.2" strokeLinecap="round" fill="none"
-                    strokeDasharray="500"
-                    style={{ strokeDashoffset: 500, opacity: 0, animation: "ps-grow-stem 0.9s ease-out forwards 0.7s" }} />
-                  {/* Right branch — middle */}
-                  <path d="M 52 122 C 65 111 82 106 100 103"
-                    stroke="url(#psPlantGrad)" strokeWidth="2" strokeLinecap="round" fill="none"
-                    strokeDasharray="500"
-                    style={{ strokeDashoffset: 500, opacity: 0, animation: "ps-grow-stem 0.9s ease-out forwards 1.0s" }} />
-                  {/* Left branch — upper */}
-                  <path d="M 54 76 C 41 63 26 53 12 47"
-                    stroke="url(#psPlantGrad)" strokeWidth="1.8" strokeLinecap="round" fill="none"
-                    strokeDasharray="500"
-                    style={{ strokeDashoffset: 500, opacity: 0, animation: "ps-grow-stem 0.8s ease-out forwards 1.2s" }} />
-                  {/* Right branch — upper */}
-                  <path d="M 55 56 C 67 45 80 40 92 37"
-                    stroke="url(#psPlantGrad)" strokeWidth="1.5" strokeLinecap="round" fill="none"
-                    strokeDasharray="500"
-                    style={{ strokeDashoffset: 500, opacity: 0, animation: "ps-grow-stem 0.7s ease-out forwards 1.4s" }} />
-                </svg>
-              </div>
-            </>
-          )}
 
           {/* Primary remote video */}
           {callMediaMode === "video" && !tomVoiceMode && callState === "active" && (
