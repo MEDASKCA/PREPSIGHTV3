@@ -931,12 +931,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       requestNotificationPermission(user.uid)
       return onForegroundMessage((payload) => {
         const data = payload.data || {}
-        const title = data.title || payload.notification?.title || ""
-        const body = data.body || payload.notification?.body || ""
+        const title = payload.notification?.title || data.title || ""
+        const body = payload.notification?.body || data.body || ""
         if (data.type === "message" && data.threadId === selectedThread?.id) return
-        if (title || body) {
-          new Notification(title || "PrepSight", { body, icon: "/logo.png" })
-        }
+        if (title || body) new Notification(title || "PrepSight", { body, icon: "/logo.png" })
       })
     }).catch(() => {})
   }, [user.uid])

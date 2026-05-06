@@ -10,35 +10,15 @@ firebase.initializeApp({
   appId: "1:488061514416:web:9d48027607701c06c00175",
 })
 
-const messaging = firebase.messaging()
+// Initialise messaging — FCM uses webpush.notification from Cloud Function to auto-display
+// background notifications without needing onBackgroundMessage
+firebase.messaging()
 
-// Force new SW to take control immediately so tokens re-register on next app load
+// Force new SW to activate immediately so fresh FCM tokens are registered on next load
 self.addEventListener("install", () => self.skipWaiting())
 self.addEventListener("activate", () => self.clients.claim())
 
-// Handles push when app is closed or backgrounded
-messaging.onBackgroundMessage((payload) => {
-  const data = payload.data || {}
-  const title = data.title || payload.notification?.title || "PrepSight"
-  const body = data.body || payload.notification?.body || ""
-
-  self.registration.showNotification(title, {
-    body,
-    icon: "/logo.png",
-    badge: "/logo.png",
-    vibrate: [200, 100, 200],
-    requireInteraction: data.type === "call",
-    data,
-    actions:
-      data.type === "call"
-        ? [
-            { action: "answer", title: "Answer" },
-            { action: "decline", title: "Decline" },
-          ]
-        : [],
-  })
-})
-
+// Open app (or focus existing tab) when notification is tapped
 self.addEventListener("notificationclick", (event) => {
   event.notification.close()
   const data = event.notification.data || {}
@@ -52,7 +32,7 @@ self.addEventListener("notificationclick", (event) => {
           existing.postMessage({ type: "NOTIFICATION_CLICK", data })
           return
         }
-        return clients.openWindow("/comms")
+        return clients.openWindow("/")
       })
   )
 })

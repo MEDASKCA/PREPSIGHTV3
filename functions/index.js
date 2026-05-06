@@ -8,30 +8,47 @@ initializeApp()
 const db = getFirestore()
 
 async function getUserFcmTokens(uid) {
-  const doc = await db.collection("comms_v5_users").doc(uid).get()
-  if (!doc.exists) return []
-  return doc.data()?.fcmTokens || []
+  const snap = await db.collection("comms_v5_users").doc(uid).get()
+  if (!snap.exists) return []
+  return snap.data()?.fcmTokens || []
 }
 
-// Data-only messages — onBackgroundMessage in the SW always fires regardless of app state.
-// Notification-field messages are intercepted by FCM and never reach onBackgroundMessage.
-async function sendPush(tokens, title, body, data = {}) {
+async function sendPush(tokens, title, body, data = {}, isCall = false) {
   if (!tokens.length) return []
   const messaging = getMessaging()
   const results = await Promise.allSettled(
     tokens.map(token =>
       messaging.send({
         token,
-        // All payload goes in data so the SW has full control over display
+        // Notification field = OS delivers even when app/browser is fully closed
+        notification: { title, body },
+        // Data field = available to foreground handler and notificationclick
         data: { ...data, title, body },
         webpush: {
-          headers: { Urgency: "high" },
+          notification: {
+            title,
+            body,
+            icon: "/logo.png",
+            badge: "/logo.png",
+            requireInteraction: isCall,
+            vibrate: [200, 100, 200],
+            ...(isCall ? {
+              actions: [
+                { action: "answer", title: "Answer" },
+                { action: "decline", title: "Decline" },
+              ],
+            } : {}),
+          },
           fcmOptions: { link: "/" },
+          headers: { Urgency: "high" },
         },
-        android: { priority: "high" },
+        android: {
+          priority: "high",
+          notification: { sound: "default", channelId: "prepsight_comms", icon: "ic_notification" },
+        },
         apns: {
+          payload: { aps: { sound: "default", badge: 1 } },
           headers: { "apns-priority": "10" },
-          payload: { aps: { "content-available": 1 } },
         },
       })
     )
@@ -68,12 +85,12 @@ exports.onNewCommsMessage = onDocumentCreated(
     const recipients = memberUids.filter(uid => uid !== senderUid)
     if (!recipients.length) return
 
-    const senderName = msg.displayName || "PrepSight"
+    const title = msg.displayName || "PrepSight"
     const body = msg.text?.slice(0, 120) || (msg.attachments?.length ? "Sent an attachment" : "New message")
 
     for (const uid of recipients) {
       const tokens = await getUserFcmTokens(uid)
-      const stale = await sendPush(tokens, senderName, body, {
+      const stale = await sendPush(tokens, title, body, {
         type: "message",
         threadId: msg.threadId || "",
         senderUid,
@@ -98,12 +115,8 @@ exports.onNewCommsCall = onDocumentCreated(
       tokens,
       `Incoming ${mode}`,
       `${callerName} is calling you`,
-      {
-        type: "call",
-        callId: event.params.callId,
-        callerUid: call.callerUid,
-        mode: call.mode || "audio",
-      }
+      { type: "call", callId: event.params.callId, callerUid: call.callerUid, mode: call.mode || "audio" },
+      true
     )
     if (stale?.length) await pruneTokens(calleeUid, stale)
   }
