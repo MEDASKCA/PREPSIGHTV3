@@ -1,37 +1,20 @@
 "use client"
 
-function matchesMediaQuery(query: string) {
-  return typeof window !== "undefined" && typeof window.matchMedia === "function" && window.matchMedia(query).matches
-}
-
-export function isFoldableMobileViewport() {
+export function isFoldableMobileViewport(): boolean {
   if (typeof window === "undefined") return false
 
-  // Desktop — always use desktop layout
-  if (matchesMediaQuery("(min-width: 1024px)")) return false
+  // Anything 1024px+ wide gets the desktop layout
+  if (window.innerWidth >= 1024) return false
 
-  const userAgent = typeof navigator !== "undefined" ? navigator.userAgent || "" : ""
-  const isAndroid = /Android/i.test(userAgent)
-  const isMobile = /Mobile/i.test(userAgent)
+  // Must be a touch device — rules out desktop browsers at any window size
   const isTouch =
     (typeof navigator !== "undefined" && navigator.maxTouchPoints > 0) ||
-    matchesMediaQuery("(pointer: coarse)")
+    window.matchMedia("(pointer: coarse)").matches
 
-  // Must be Android mobile touch device
-  if (!isAndroid || !isMobile || !isTouch) return false
+  if (!isTouch) return false
 
-  // Explicit foldable model names
-  if (
-    /SM-F[79]\d{2}/i.test(userAgent) ||          // Samsung Z Fold/Flip all generations
-    /Pixel[ _](?:Fold|9 Pro Fold)/i.test(userAgent) ||
-    /Surface Duo/i.test(userAgent)
-  ) return true
-
-  // Dimension fallback: regular Android phones max out at ~430px CSS width in portrait.
-  // Unfolded foldables are 700-900px. Anything >= 560px is a foldable or wide tablet.
-  const vw = window.innerWidth
-  const vh = window.innerHeight
-  const shorterSide = Math.min(vw, vh)
-
-  return shorterSide >= 560
+  // Touch device with viewport shorter side >= 560px is a foldable or tablet.
+  // Regular phones max out at ~430px. All unfolded foldables are 650px+.
+  const shorter = Math.min(window.innerWidth, window.innerHeight)
+  return shorter >= 560
 }
