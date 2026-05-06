@@ -1053,6 +1053,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (!selectedThread) { setMessages([]); return }
     const q = query(
       collection(firestore, "comms_v5_messages"),
+      where("memberUids", "array-contains", user.uid),
       where("threadId", "==", selectedThread.id),
       orderBy("createdAt", "asc"),
     )
