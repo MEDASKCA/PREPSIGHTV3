@@ -925,17 +925,23 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => clearInterval(interval)
   }, [callState])
 
-  // â"€â"€ FCM push notifications â"€â"€
+  // â"€â"€ Push notifications (native Capacitor or web FCM) â"€â"€
   useEffect(() => {
-    import("@/lib/fcm").then(({ requestNotificationPermission, onForegroundMessage }) => {
-      requestNotificationPermission(user.uid)
-      return onForegroundMessage((payload) => {
-        const data = payload.data || {}
-        const title = payload.notification?.title || data.title || ""
-        const body = payload.notification?.body || data.body || ""
-        if (data.type === "message" && data.threadId === selectedThread?.id) return
-        if (title || body) new Notification(title || "PrepSight", { body, icon: "/logo.png" })
-      })
+    import("@/lib/capacitor-push").then(({ isNativeApp, setupCapacitorPush }) => {
+      if (isNativeApp()) {
+        setupCapacitorPush(user.uid)
+        return
+      }
+      import("@/lib/fcm").then(({ requestNotificationPermission, onForegroundMessage }) => {
+        requestNotificationPermission(user.uid)
+        return onForegroundMessage((payload) => {
+          const data = payload.data || {}
+          const title = payload.notification?.title || data.title || ""
+          const body = payload.notification?.body || data.body || ""
+          if (data.type === "message" && data.threadId === selectedThread?.id) return
+          if (title || body) new Notification(title || "PrepSight", { body, icon: "/logo.png" })
+        })
+      }).catch(() => {})
     }).catch(() => {})
   }, [user.uid])
 
