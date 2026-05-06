@@ -101,6 +101,8 @@ function clearPendingProvider() {
 
 function isEmbeddedBrowser() {
   if (typeof navigator === "undefined") return false
+  // Capacitor native app uses a WebView but it IS the app — never treat it as embedded
+  if (typeof window !== "undefined" && (window as any).Capacitor?.isNativePlatform?.()) return false
   const ua = navigator.userAgent || ""
   return /FBAN|FBAV|Instagram|Messenger/i.test(ua) || (/\bwv\b/i.test(ua) && /Android/i.test(ua))
 }

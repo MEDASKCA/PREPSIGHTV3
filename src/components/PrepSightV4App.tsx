@@ -974,6 +974,14 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
 
   useEffect(() => onAuthChange((nextUser) => setMobileUser(nextUser)), [])
 
+  // Native Capacitor push — register as soon as user is authenticated
+  useEffect(() => {
+    if (!mobileUser?.uid) return
+    import("@/lib/capacitor-push").then(({ isNativeApp, setupCapacitorPush }) => {
+      if (isNativeApp()) setupCapacitorPush(mobileUser.uid)
+    }).catch(() => {})
+  }, [mobileUser?.uid])
+
   // ── Sync remote stream to floating video pip elements ──
   useEffect(() => {
     if (pipVideoRef.current) {
