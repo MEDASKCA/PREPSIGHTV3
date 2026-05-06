@@ -167,8 +167,18 @@ function isIOS() {
   return /iPhone|iPad|iPod/i.test(navigator.userAgent || "")
 }
 
+function isNativeApp(): boolean {
+  if (typeof window === "undefined") return false
+  try {
+    return !!(window as any).Capacitor?.isNativePlatform?.()
+  } catch {
+    return false
+  }
+}
+
 function isEmbeddedBrowser() {
   if (typeof navigator === "undefined") return false
+  if (isNativeApp()) return false
   const ua = navigator.userAgent || ""
   return /FBAN|FBAV|Instagram|Messenger/i.test(ua) || (/\bwv\b/i.test(ua) && /Android/i.test(ua))
 }
@@ -205,6 +215,16 @@ async function prepareAuth(persistence: AuthPersistenceMode = "session") {
 }
 
 export async function signInWithGoogle() {
+  if (isNativeApp()) {
+    const { FirebaseAuthentication } = await import("@capacitor-firebase/authentication")
+    const { GoogleAuthProvider, signInWithCredential } = await import("firebase/auth")
+    const authInstance = await prepareAuth("local")
+    const result = await FirebaseAuthentication.signInWithGoogle()
+    if (!result.credential?.idToken) throw new Error("Google sign-in failed: no credential returned")
+    const credential = GoogleAuthProvider.credential(result.credential.idToken)
+    await signInWithCredential(authInstance, credential)
+    return { method: "native" as const }
+  }
   const authInstance = await prepareAuth("session")
   if (shouldPreferRedirect()) {
     await signInWithRedirect(authInstance, googleProvider)
@@ -241,6 +261,24 @@ export async function signInLocally(email: string) {
 }
 
 export async function signInWithMicrosoft() {
+  if (isNativeApp()) {
+    const { FirebaseAuthentication } = await import("@capacitor-firebase/authentication")
+    const { OAuthProvider, signInWithCredential } = await import("firebase/auth")
+    const authInstance = await prepareAuth("local")
+    const result = await FirebaseAuthentication.signInWithMicrosoft({
+      scopes: ["openid", "email", "profile"],
+      customParameters: [
+        { key: "tenant", value: NHSMAIL_TENANT_ID },
+        { key: "domain_hint", value: NHSMAIL_PROVIDER_HINT },
+        { key: "prompt", value: "select_account" },
+      ],
+    })
+    if (!result.credential?.idToken && !result.credential?.accessToken) throw new Error("Microsoft sign-in failed: no credential returned")
+    const provider = new OAuthProvider("microsoft.com")
+    const credential = provider.credential({ idToken: result.credential?.idToken, accessToken: result.credential?.accessToken })
+    await signInWithCredential(authInstance, credential)
+    return { method: "native" as const }
+  }
   const authInstance = await prepareAuth("session")
   if (shouldPreferRedirect()) {
     await signInWithRedirect(authInstance, microsoftProvider)
@@ -268,6 +306,23 @@ export async function signInWithMicrosoft() {
 }
 
 export async function signInWithMicrosoftGeneral() {
+  if (isNativeApp()) {
+    const { FirebaseAuthentication } = await import("@capacitor-firebase/authentication")
+    const { OAuthProvider, signInWithCredential } = await import("firebase/auth")
+    const authInstance = await prepareAuth("local")
+    const result = await FirebaseAuthentication.signInWithMicrosoft({
+      scopes: ["openid", "email", "profile"],
+      customParameters: [
+        { key: "tenant", value: "common" },
+        { key: "prompt", value: "select_account" },
+      ],
+    })
+    if (!result.credential?.idToken && !result.credential?.accessToken) throw new Error("Microsoft sign-in failed: no credential returned")
+    const provider = new OAuthProvider("microsoft.com")
+    const credential = provider.credential({ idToken: result.credential?.idToken, accessToken: result.credential?.accessToken })
+    await signInWithCredential(authInstance, credential)
+    return { method: "native" as const }
+  }
   const authInstance = await prepareAuth("session")
   if (shouldPreferRedirect()) {
     await signInWithRedirect(authInstance, microsoftGeneralProvider)
