@@ -763,7 +763,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         ])
         const stale = [...s1.docs, ...s2.docs].filter(d => {
           const data = d.data()
-          return data.organizationId === org.id && ["ringing", "active"].includes(data.status)
+          if (data.organizationId !== org.id) return false
+          if (data.status === "active") return true
+          // Only clear ringing calls that are genuinely stale — a fresh ringing call
+          // means the callee just tapped Answer from a notification (page reload).
+          if (data.status === "ringing") return Date.now() - (data.createdAt || 0) > 30_000
+          return false
         })
         await Promise.all(stale.map(d => updateDoc(d.ref, { status: "ended", endedAt: Date.now() })))
       } catch (e) { console.warn("stale call cleanup:", e) }
@@ -783,14 +788,38 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   useEffect(() => {
     if (!remoteStreamRef.current) return
     if (remoteVideoRef.current) {
+      remoteVideoRef.current.muted = true
       remoteVideoRef.current.srcObject = remoteStreamRef.current
       remoteVideoRef.current.play().catch(() => {})
     }
     if (floatingVideoRef.current) {
+      floatingVideoRef.current.muted = true
       floatingVideoRef.current.srcObject = remoteStreamRef.current
       floatingVideoRef.current.play().catch(() => {})
     }
   }, [callState, callViewMode, callMediaMode])
+
+  // â"€â"€ Auto-switch camera when remote party switches to video mode â"€â"€
+  // When the other party presses video, Firestore mode becomes "video". If we
+  // haven't added a video track yet, enable our camera automatically.
+  useEffect(() => {
+    if (callState !== "active" || callMediaMode !== "video") return
+    if (localStreamRef.current?.getVideoTracks().length) return // already sending video
+    let cancelled = false
+    const trySwitch = async () => {
+      // Give any in-flight reoffer/reanswer up to 3 s to finish before we add our track
+      for (let i = 0; i < 6; i++) {
+        await new Promise(r => setTimeout(r, 500))
+        if (cancelled) return
+        if (pcRef.current?.signalingState === "stable" && !localStreamRef.current?.getVideoTracks().length) {
+          await callActionsRef.current.switchToVideo()
+          return
+        }
+      }
+    }
+    void trySwitch()
+    return () => { cancelled = true }
+  }, [callMediaMode, callState]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // â"€â"€ Auto-minimise to floating only when panel becomes invisible (not fullscreen â€" that's intentional) â"€â"€
   useEffect(() => {
@@ -2437,6 +2466,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         remoteAudioRef.current.play().catch(() => {})
       }
       if (remoteVideoRef.current) {
+        remoteVideoRef.current.muted = true
         remoteVideoRef.current.srcObject = e.streams[0]
         remoteVideoRef.current.play().catch(() => {})
       }
@@ -2590,9 +2620,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     pc.onicecandidate = e => {
       if (e.candidate) addDoc(collection(firestore, "comms_v5_calls", callRef.id, "caller_candidates"), e.candidate.toJSON())
     }
-
-    // Listen for answer + status changes
-    subscribeToCallStatus(callRef.id, threadId)
 
     // Buffer callee ICE candidates until the answer SDP is applied — candidates
     // arrive before the answer write because they're written first during answerCall().
