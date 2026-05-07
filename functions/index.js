@@ -21,7 +21,6 @@ async function sendPush(tokens, title, body, data = {}) {
     tokens.map(token =>
       messaging.send({
         token,
-        notification: { title, body },
         data: { ...data, title, body },
         webpush: {
           notification: {
