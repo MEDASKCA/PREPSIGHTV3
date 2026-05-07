@@ -21,18 +21,8 @@ async function sendPush(tokens, title, body, data = {}) {
     tokens.map(token =>
       messaging.send({
         token,
+        notification: { title, body },
         data: { ...data, title, body },
-        webpush: {
-          notification: {
-            title,
-            body,
-            icon: "/logo.png",
-            badge: "/logo.png",
-            vibrate: [200, 100, 200],
-          },
-          fcmOptions: { link: "/" },
-          headers: { Urgency: "high" },
-        },
         android: { priority: "high" },
         apns: {
           payload: { aps: { sound: "default", badge: 1, contentAvailable: 1 } },
@@ -61,8 +51,6 @@ async function sendCallPush(tokens, callerName, mode, callId, callerUid) {
     tokens.map(token =>
       messaging.send({
         token,
-        // Data-only for Android — our PrepSightMessagingService shows the
-        // notification with Answer/Decline action buttons
         data: {
           type: "call",
           callId,

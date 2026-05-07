@@ -986,10 +986,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => { clearInterval(interval); navigator.vibrate(0) }
   }, [callState])
 
-  // â"€â"€ Desktop ringtone on incoming call (web only — Capacitor uses CallRingtoneService) â"€â"€
+  // â"€â"€ Ringtone on incoming call (web + Capacitor foreground — CallRingtoneService handles background) â"€â"€
   useEffect(() => {
     if (callState !== "incoming") return
-    if (typeof window !== "undefined" && !!(window as unknown as { Capacitor?: unknown }).Capacitor) return
     const audio = new Audio("/call-ringtone.mp3")
     audio.loop = true
     void audio.play().catch(() => {})
