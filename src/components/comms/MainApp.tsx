@@ -2501,6 +2501,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
     const callData = {
       callerUid: user.uid,
+      callerName: user.displayName || user.email || "",
       calleeUid,
       organizationId: org.id,
       mode,
@@ -3422,8 +3423,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
           {/* Input */}
           <div
-            className="bg-black shrink-0 relative px-4 pt-2"
-            style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 16px)" }}
+            className="bg-black shrink-0 relative px-4 pt-2 pb-2"
           >
             {composerError ? (
               <div className="mb-2 rounded-xl border border-[#5a3d08] bg-[#2c1f05] px-3 py-2 text-[12px] text-[#f7c873]">

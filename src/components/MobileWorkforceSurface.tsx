@@ -727,12 +727,14 @@ function PlaceholderPanel({ body }: { body: string }) {
 function MobileResourcePlaceholderSurface({
   resource,
   body,
+  embedded = false,
 }: {
   resource: "equipment" | "supplies"
   body: string
+  embedded?: boolean
 }) {
   return (
-    <div className="pb-28">
+    <div className={embedded ? "" : "pb-28"}>
       <div className="border-y border-black bg-black">
         <MobileMonthCalendarBlock
           leadingControl={
@@ -842,7 +844,7 @@ export default function MobileResourcesSurface({ embedded = false }: { embedded?
       </div>
 
       {resourceTab === "workforce" ? (
-        <div className="flex h-full min-h-0 flex-col pb-28">
+        <div className={`flex h-full min-h-0 flex-col ${embedded ? "" : "pb-28"}`}>
           <div className="flex min-h-0 flex-1 flex-col border-y border-black bg-black">
             <div className="shrink-0">
               <MobileMonthCalendarBlock
@@ -877,11 +879,13 @@ export default function MobileResourcesSurface({ embedded = false }: { embedded?
         <MobileResourcePlaceholderSurface
           resource="equipment"
           body="Equipment is being prepared. This page will become the place for kit readiness, tray availability, and item-level prompts that matter to the individual."
+          embedded={embedded}
         />
       ) : (
         <MobileResourcePlaceholderSurface
           resource="supplies"
           body="Supplies is being prepared. This page will become the place for stock prompts, consumable readiness, and what you need to know before or during a shift."
+          embedded={embedded}
         />
       )}
     </div>
