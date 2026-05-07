@@ -781,12 +781,19 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Ref callbacks — set srcObject immediately when element mounts so Android WebView plays without gesture
+  function playVideo(el: HTMLVideoElement) {
+    el.muted = true
+    el.play().catch(() => {
+      setTimeout(() => el.play().catch(() => {}), 300)
+    })
+  }
+
   const setRemoteVideoRef = useCallback((el: HTMLVideoElement | null) => {
     remoteVideoRef.current = el
     if (el && remoteStreamRef.current) {
       el.muted = true
       el.srcObject = remoteStreamRef.current
-      el.play().catch(() => {})
+      playVideo(el)
     }
   }, [])
 
@@ -795,7 +802,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (el && remoteStreamRef.current) {
       el.muted = true
       el.srcObject = remoteStreamRef.current
-      el.play().catch(() => {})
+      playVideo(el)
+    }
+  }, [])
+
+  const setLocalVideoRef = useCallback((el: HTMLVideoElement | null) => {
+    localVideoRef.current = el
+    if (el) {
+      const stream = localPreviewStreamRef.current ?? localStreamRef.current
+      if (stream) { el.muted = true; el.srcObject = stream; playVideo(el) }
     }
   }, [])
 
@@ -803,9 +818,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   useEffect(() => {
     if (callState !== "idle" && localVideoRef.current) {
       localVideoRef.current.srcObject = localPreviewStreamRef.current ?? localStreamRef.current
-      localVideoRef.current.play().catch(() => {})
+      playVideo(localVideoRef.current)
     }
-  }, [callState, callViewMode])
+  }, [callState, callViewMode, callMediaMode])
 
   // â"€â"€ Re-apply remote stream when video element mounts/unmounts (callState or view mode changes) â"€â"€
   useEffect(() => {
@@ -4198,6 +4213,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             >
               <video
                 ref={setRemoteVideoRef}
+                autoPlay
                 playsInline
                 muted
                 className="h-full w-full object-cover"
@@ -4226,7 +4242,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 : { width: callViewMode === "fullscreen" ? 90 : 68, height: callViewMode === "fullscreen" ? 126 : 96 }}
             >
               <video
-                ref={localVideoRef}
+                ref={setLocalVideoRef}
                 autoPlay
                 playsInline
                 muted
@@ -4448,6 +4464,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           >
             <video
               ref={setFloatingVideoRef}
+              autoPlay
               playsInline
               muted
               className="absolute inset-0 h-full w-full object-cover bg-black"
