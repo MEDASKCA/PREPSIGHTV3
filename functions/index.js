@@ -1,7 +1,8 @@
-const { onDocumentCreated } = require("firebase-functions/v2/firestore")
+const { onDocumentCreated, onDocumentUpdated } = require("firebase-functions/v2/firestore")
 const { initializeApp } = require("firebase-admin/app")
 const { getFirestore } = require("firebase-admin/firestore")
 const { getMessaging } = require("firebase-admin/messaging")
+const { getAuth } = require("firebase-admin/auth")
 
 initializeApp()
 
@@ -13,16 +14,13 @@ async function getUserFcmTokens(uid) {
   return snap.data()?.fcmTokens || []
 }
 
-async function sendPush(tokens, title, body, data = {}, isCall = false) {
+async function sendPush(tokens, title, body, data = {}) {
   if (!tokens.length) return []
   const messaging = getMessaging()
   const results = await Promise.allSettled(
     tokens.map(token =>
       messaging.send({
         token,
-        // Notification field = OS delivers even when app/browser is fully closed
-        notification: { title, body },
-        // Data field = available to foreground handler and notificationclick
         data: { ...data, title, body },
         webpush: {
           notification: {
@@ -30,24 +28,53 @@ async function sendPush(tokens, title, body, data = {}, isCall = false) {
             body,
             icon: "/logo.png",
             badge: "/logo.png",
-            requireInteraction: isCall,
             vibrate: [200, 100, 200],
-            ...(isCall ? {
-              actions: [
-                { action: "answer", title: "Answer" },
-                { action: "decline", title: "Decline" },
-              ],
-            } : {}),
           },
           fcmOptions: { link: "/" },
           headers: { Urgency: "high" },
         },
-        android: {
-          priority: "high",
-          notification: { sound: "default", channelId: "prepsight_comms", icon: "ic_notification" },
-        },
+        android: { priority: "high" },
         apns: {
-          payload: { aps: { sound: "default", badge: 1 } },
+          payload: { aps: { sound: "default", badge: 1, contentAvailable: 1 } },
+          headers: { "apns-priority": "10" },
+        },
+      })
+    )
+  )
+  const staleTokens = []
+  results.forEach((r, i) => {
+    if (r.status === "rejected") {
+      const code = r.reason?.errorInfo?.code || ""
+      if (code.includes("registration-token-not-registered") || code.includes("invalid-argument")) {
+        staleTokens.push(tokens[i])
+      }
+    }
+  })
+  return staleTokens
+}
+
+async function sendCallPush(tokens, callerName, mode, callId, callerUid) {
+  if (!tokens.length) return []
+  const messaging = getMessaging()
+  const modeLabel = mode === "video" ? "Video" : "Voice"
+  const results = await Promise.allSettled(
+    tokens.map(token =>
+      messaging.send({
+        token,
+        // Data-only for Android — our PrepSightMessagingService shows the
+        // notification with Answer/Decline action buttons
+        data: {
+          type: "call",
+          callId,
+          callerUid,
+          callerName,
+          mode: mode || "audio",
+          title: `Incoming ${modeLabel} Call`,
+          body: `${callerName} is calling you`,
+        },
+        android: { priority: "high" },
+        apns: {
+          payload: { aps: { sound: "default", badge: 1, contentAvailable: 1 } },
           headers: { "apns-priority": "10" },
         },
       })
@@ -94,7 +121,9 @@ exports.onNewCommsMessage = onDocumentCreated(
         type: "message",
         threadId: msg.threadId || "",
         senderUid,
+        memberUids: (msg.memberUids || []).join(","),
       })
+
       if (stale?.length) await pruneTokens(uid, stale)
     }
   }
@@ -107,17 +136,60 @@ exports.onNewCommsCall = onDocumentCreated(
     if (!call || call.status !== "ringing") return
 
     const calleeUid = call.calleeUid
-    const callerName = call.callerName || "PrepSight"
-    const mode = call.mode === "video" ? "Video call" : "Voice call"
+    const callerUid = call.callerUid
+    const mode = call.mode || "audio"
+
+    // Resolve caller name: prefer Firestore field, fall back to Firebase Auth record
+    let callerName = call.callerName && call.callerName.trim() ? call.callerName.trim() : null
+    if (!callerName && callerUid) {
+      try {
+        const authUser = await getAuth().getUser(callerUid)
+        callerName = authUser.displayName || authUser.email || null
+      } catch (_) {}
+    }
+    if (!callerName) callerName = "Someone"
 
     const tokens = await getUserFcmTokens(calleeUid)
-    const stale = await sendPush(
-      tokens,
-      `Incoming ${mode}`,
-      `${callerName} is calling you`,
-      { type: "call", callId: event.params.callId, callerUid: call.callerUid, mode: call.mode || "audio" },
-      true
-    )
+    const stale = await sendCallPush(tokens, callerName, mode, event.params.callId, callerUid)
     if (stale?.length) await pruneTokens(calleeUid, stale)
+  }
+)
+
+exports.onCommsCallUpdated = onDocumentUpdated(
+  "comms_v5_calls/{callId}",
+  async (event) => {
+    const before = event.data.before.data()
+    const after = event.data.after.data()
+    if (!before || !after) return
+
+    // Only act when moving out of ringing — dismiss the incoming call notification
+    if (before.status !== "ringing") return
+    const ended = ["ended", "declined", "missed"].includes(after.status)
+    const answered = after.status === "active"
+    if (!ended && !answered) return
+
+    const callId = event.params.callId
+    const calleeUid = after.calleeUid
+    const callerUid = after.callerUid
+
+    const messaging = getMessaging()
+    const dismissData = { type: "call_dismiss", callId }
+
+    // Send dismiss to both parties so the notification clears on both sides
+    const [calleeTokens, callerTokens] = await Promise.all([
+      getUserFcmTokens(calleeUid),
+      getUserFcmTokens(callerUid),
+    ])
+    const allTokens = [...new Set([...calleeTokens, ...callerTokens])]
+
+    await Promise.allSettled(
+      allTokens.map(token =>
+        messaging.send({
+          token,
+          data: dismissData,
+          android: { priority: "high" },
+        })
+      )
+    )
   }
 )

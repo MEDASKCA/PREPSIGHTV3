@@ -1,6 +1,6 @@
 import { initializeApp, getApps, type FirebaseApp } from "firebase/app"
 import { getAuth, type Auth } from "firebase/auth"
-import { getFirestore, type Firestore } from "firebase/firestore"
+import { initializeFirestore, getFirestore, type Firestore } from "firebase/firestore"
 import { getStorage, type FirebaseStorage } from "firebase/storage"
 
 const apiKey = process.env.NEXT_PUBLIC_FIREBASE_API_KEY
@@ -28,7 +28,11 @@ if (apiKey && projectId && storageBucket && messagingSenderId && appId) {
   try {
     app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
     auth = getAuth(app)
-    db = getFirestore(app)
+    try {
+      db = initializeFirestore(app, {})
+    } catch {
+      db = getFirestore(app)
+    }
     storage = getStorage(app)
   } catch {
     app = null

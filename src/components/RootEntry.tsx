@@ -14,9 +14,20 @@ export default function RootEntry({ initialSurface }: { initialSurface?: TabKey 
   const router = useRouter()
 
   useEffect(() => {
-    return onAuthChange((nextUser) => {
+    let active = true
+    const fallback = setTimeout(() => {
+      if (active) setUser((prev) => prev === undefined ? null : prev)
+    }, 10000)
+    const unsub = onAuthChange((nextUser) => {
+      if (!active) return
+      clearTimeout(fallback)
       setUser(nextUser)
     })
+    return () => {
+      active = false
+      clearTimeout(fallback)
+      unsub()
+    }
   }, [])
 
   useEffect(() => {

@@ -695,6 +695,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const callThreadIdRef = useRef<string>("")
   const callUnsubRef = useRef<(() => void) | null>(null)
   const callSignalUnsubRef = useRef<(() => void) | null>(null)
+  const autoAnswerCallIdRef = useRef<string | null>(null)
   const tomAnswerTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const tomTypingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [tomVoiceMode, setTomVoiceMode] = useState(false)
@@ -789,7 +790,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       floatingVideoRef.current.srcObject = remoteStreamRef.current
       floatingVideoRef.current.play().catch(() => {})
     }
-  }, [callState, callViewMode])
+  }, [callState, callViewMode, callMediaMode])
 
   // â"€â"€ Auto-minimise to floating only when panel becomes invisible (not fullscreen â€" that's intentional) â"€â"€
   useEffect(() => {
@@ -908,12 +909,37 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     publishCallStatus({ calleeName: calleeInfo?.displayName ?? "", calleeUid: calleeInfo?.uid ?? "" })
   }, [calleeInfo])
 
+  // Read autoAnswer URL param on mount — set by Android when Answer button tapped on notification
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search)
+    const autoAnswer = params.get("autoAnswer")
+    if (autoAnswer) autoAnswerCallIdRef.current = autoAnswer
+  }, [])
+
+  // Auto-answer when the call arrives and matches the notification tap
+  useEffect(() => {
+    if (callState === "incoming" && activeCall && autoAnswerCallIdRef.current === activeCall.id) {
+      autoAnswerCallIdRef.current = null
+      callActionsRef.current.answerCall()
+    }
+  }, [callState, activeCall]) // eslint-disable-line react-hooks/exhaustive-deps
+
   // â"€â"€ Vibrate on incoming call â"€â"€
   useEffect(() => {
     if (callState !== "incoming" || !("vibrate" in navigator)) return
     // Ring pattern: 400ms on, 200ms off, repeat
     const interval = setInterval(() => navigator.vibrate([400, 200, 400, 200, 400]), 1400)
     return () => { clearInterval(interval); navigator.vibrate(0) }
+  }, [callState])
+
+  // â"€â"€ Desktop ringtone on incoming call (web only — Capacitor uses CallRingtoneService) â"€â"€
+  useEffect(() => {
+    if (callState !== "incoming") return
+    if (typeof window !== "undefined" && !!(window as unknown as { Capacitor?: unknown }).Capacitor) return
+    const audio = new Audio("/call-ringtone.mp3")
+    audio.loop = true
+    void audio.play().catch(() => {})
+    return () => { audio.pause(); audio.src = "" }
   }, [callState])
 
   // â"€â"€ Call elapsed timer â"€â"€
@@ -1545,14 +1571,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <button
                       onClick={
                         callState === "active" && callMediaMode === "video" ? switchToAudio
+                        : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
                         : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                         : undefined
                       }
-                      disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "video")}
+                      disabled={callState === "incoming" || callState === "outgoing"}
                       className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
                         callState === "active" && callMediaMode === "video"
                           ? "bg-[#ef4444]"
-                        : callState !== "idle"
+                        : (callState === "incoming" || callState === "outgoing")
                           ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
                           : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
                       }`}
@@ -1564,22 +1591,28 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ) : null}
                 </>
               )}
-              {(!minimalHeader && (showProfileButton || !embedded)) ? (
-                <button
-                  type="button"
-                  onClick={() => setShowProfile(true)}
-                  className="text-white hover:text-white/70"
-                  aria-label="More options"
-                >
-                  <MoreVertical size={22} />
-                </button>
-              ) : null}
+              <button
+                type="button"
+                onClick={() => setShowGlobalSearch(true)}
+                className="text-white/70 hover:text-white"
+                aria-label="Search"
+              >
+                <Search size={20} />
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowProfile(true)}
+                className="text-white hover:text-white/70"
+                aria-label="More options"
+              >
+                <MoreVertical size={22} />
+              </button>
             </div>
           </div>
         ) : (
           <div
-            className={`bg-black px-5 pb-3 flex items-center gap-3 shrink-0 ${splitView ? "pt-3" : ""}`}
-            style={splitView ? undefined : { paddingTop: "calc(env(safe-area-inset-top) + 10px)" }}
+            className="bg-black px-5 pb-3 flex items-center gap-3 shrink-0"
+            style={{ paddingTop: "calc(env(safe-area-inset-top) + 10px)" }}
           >
             {!splitView ? (
               <button onClick={() => {
@@ -1641,14 +1674,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       <button
                         onClick={
                           callState === "active" && callMediaMode === "video" ? switchToAudio
+                          : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
                           : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                           : undefined
                         }
-                        disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "video")}
+                        disabled={callState === "incoming" || callState === "outgoing"}
                         className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
                           callState === "active" && callMediaMode === "video"
                             ? "bg-[#ef4444]"
-                          : callState !== "idle"
+                          : (callState === "incoming" || callState === "outgoing")
                             ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
                             : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
                         }`}
@@ -1660,16 +1694,22 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     ) : null}
                   </>
                 )}
-              {(!minimalHeader && (showProfileButton || !embedded)) ? (
-                <button
-                  type="button"
-                  onClick={() => setShowProfile(true)}
-                  className="text-white hover:text-white/70"
-                  aria-label="More options"
-                >
-                  <MoreVertical size={22} />
-                </button>
-              ) : null}
+              <button
+                type="button"
+                onClick={() => setShowGlobalSearch(true)}
+                className="text-white/70 hover:text-white"
+                aria-label="Search"
+              >
+                <Search size={20} />
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowProfile(true)}
+                className="text-white hover:text-white/70"
+                aria-label="More options"
+              >
+                <MoreVertical size={22} />
+              </button>
             </div>
           </div>
         )}
@@ -2403,32 +2443,61 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }
 
-  function subscribeToCallStatus(callId: string, threadId?: string) {
+  function subscribeToCallStatus(
+    callId: string,
+    threadId?: string,
+    onAnswer?: (sdp: RTCSessionDescriptionInit) => Promise<void>,
+  ) {
     callUnsubRef.current?.()
+    let answerProcessed = false
+
     const unsub = onSnapshot(doc(firestore, "comms_v5_calls", callId), async snap => {
       const data = snap.data()
-      if (!data) {
-        cleanupCall()
-        return
-      }
+      if (!data) { cleanupCall(); return }
 
       const nextCall = { id: snap.id, ...data } as CommsCall
       setActiveCall(nextCall)
 
-      if (data.status === "active") {
-        setCallState("active")
+      // Sync mode so callee UI updates when caller switches audio↔video
+      if (nextCall.mode) setCallMediaMode(nextCall.mode as "audio" | "video")
+
+      // Process answer SDP once (caller side only — callee has stable state)
+      if (onAnswer && data.answer && !answerProcessed) {
+        answerProcessed = true
+        await onAnswer(data.answer as RTCSessionDescriptionInit)
       }
 
+      if (data.status === "active") setCallState("active")
+
       if (data.status === "declined" || data.status === "missed") {
-        if (threadId) {
-          await postCallMessage(threadId, false, 0, nextCall.mode || "audio")
-        }
+        if (threadId) await postCallMessage(threadId, false, 0, nextCall.mode || "audio")
         cleanupCall()
         return
       }
 
-      if (data.status === "ended") {
-        cleanupCall()
+      if (data.status === "ended") { cleanupCall(); return }
+
+      // Mid-call renegotiation (e.g. one party switched audio→video)
+      const pc = pcRef.current
+      if (!pc) return
+      if (data.reofferSdp && pc.signalingState === "stable") {
+        try {
+          await pc.setRemoteDescription(new RTCSessionDescription(data.reofferSdp))
+          const reAnswer = await pc.createAnswer()
+          await pc.setLocalDescription(reAnswer)
+          await updateDoc(doc(firestore, "comms_v5_calls", callId), {
+            reanswerSdp: { type: reAnswer.type, sdp: reAnswer.sdp },
+            reofferSdp: deleteField(),
+          })
+        } catch (e) { console.warn("reoffer failed:", e) }
+      }
+      if (data.reanswerSdp && pc.signalingState === "have-local-offer") {
+        try {
+          await pc.setRemoteDescription(new RTCSessionDescription(data.reanswerSdp))
+          await updateDoc(doc(firestore, "comms_v5_calls", callId), {
+            reanswerSdp: deleteField(),
+          })
+        } catch (e) { console.warn("reanswer failed:", e) }
       }
     })
     callUnsubRef.current = unsub
@@ -2525,25 +2594,39 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     // Listen for answer + status changes
     subscribeToCallStatus(callRef.id, threadId)
 
-    callSignalUnsubRef.current?.()
-    const answerUnsub = onSnapshot(doc(firestore, "comms_v5_calls", callRef.id), async snap => {
-      const data = snap.data()
-      if (!data) return
-      if (data.answer && pc.signalingState === "have-local-offer") {
-        await pc.setRemoteDescription(new RTCSessionDescription(data.answer))
-        callStartTimeRef.current = Date.now()
-        setCallState("active")
-      }
-    })
-    callSignalUnsubRef.current = answerUnsub
+    // Buffer callee ICE candidates until the answer SDP is applied — candidates
+    // arrive before the answer write because they're written first during answerCall().
+    // Applying addIceCandidate before setRemoteDescription silently drops them.
+    let remoteReady = false
+    const bufferedCalleeCandidates: RTCIceCandidateInit[] = []
 
-    // Listen for callee ICE candidates
+    // Listen for callee ICE candidates — buffer until answer SDP is applied
     onSnapshot(collection(firestore, "comms_v5_calls", callRef.id, "callee_candidates"), snap => {
       snap.docChanges().forEach(change => {
         if (change.type === "added") {
-          pc.addIceCandidate(new RTCIceCandidate(change.doc.data())).catch(() => {})
+          const c = change.doc.data() as RTCIceCandidateInit
+          if (remoteReady) {
+            pc.addIceCandidate(new RTCIceCandidate(c)).catch(() => {})
+          } else {
+            bufferedCalleeCandidates.push(c)
+          }
         }
       })
+    })
+
+    // Listen for answer + all status changes via a single listener (eliminates two-listener race)
+    subscribeToCallStatus(callRef.id, threadId, async (answerSdp) => {
+      if (pc.signalingState !== "have-local-offer") return
+      try {
+        await pc.setRemoteDescription(new RTCSessionDescription(answerSdp))
+        remoteReady = true
+        for (const c of bufferedCalleeCandidates) {
+          pc.addIceCandidate(new RTCIceCandidate(c)).catch(() => {})
+        }
+        bufferedCalleeCandidates.length = 0
+      } catch (e) { console.warn("setRemoteDescription(answer) failed:", e) }
+      callStartTimeRef.current = Date.now()
+      setCallState("active")
     })
   }
 
@@ -2569,12 +2652,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
     await pc.setRemoteDescription(new RTCSessionDescription(offerData))
 
-    const answer = await pc.createAnswer()
-    await pc.setLocalDescription(answer)
-
+    // Set handler BEFORE setLocalDescription — ICE gathering starts on setLocalDescription,
+    // and any candidates fired before the handler is attached are silently dropped.
     pc.onicecandidate = e => {
       if (e.candidate) addDoc(collection(firestore, "comms_v5_calls", activeCall.id, "callee_candidates"), e.candidate.toJSON())
     }
+
+    const answer = await pc.createAnswer()
+    await pc.setLocalDescription(answer)
 
     await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
       answer: { type: answer.type, sdp: answer.sdp },
@@ -2672,28 +2757,51 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (videoBlurEnabled) {
       await disableBackgroundBlur()
     }
+    const pc = pcRef.current
     localStreamRef.current.getVideoTracks().forEach(track => {
       track.stop()
-      const sender = pcRef.current?.getSenders().find(s => s.track === track)
-      if (sender) pcRef.current?.removeTrack(sender)
+      const sender = pc?.getSenders().find(s => s.track === track)
+      if (sender) pc?.removeTrack(sender)
     })
     setLocalPreviewStream(null)
     setCallMediaMode("audio")
+    // Renegotiate so remote peer knows video track was removed
+    if (pc && activeCall) {
+      try {
+        const offer = await pc.createOffer()
+        await pc.setLocalDescription(offer)
+        await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
+          reofferSdp: { type: offer.type, sdp: offer.sdp },
+          mode: "audio",
+        })
+      } catch (e) { console.warn("renegotiate audio:", e) }
+    }
   }
 
   async function switchToVideo() {
     if (callState !== "active") return
+    const pc = pcRef.current
     try {
       const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacingMode }, audio: false })
       const track = stream.getVideoTracks()[0]
       if (!track) return
       localStreamRef.current?.addTrack(track)
-      if (pcRef.current && localStreamRef.current) {
-        pcRef.current.addTrack(track, localStreamRef.current)
+      if (pc && localStreamRef.current) {
+        pc.addTrack(track, localStreamRef.current)
       }
       setLocalPreviewStream(localStreamRef.current)
       setCallMediaMode("video")
+      // Renegotiate so remote peer receives the new video track
+      if (pc && activeCall) {
+        const offer = await pc.createOffer()
+        await pc.setLocalDescription(offer)
+        await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
+          reofferSdp: { type: offer.type, sdp: offer.sdp },
+          mode: "video",
+        })
+      }
     } catch (e) {
+      alert("Could not access camera. Please check camera permissions.")
       console.warn("switch to video:", e)
     }
   }
@@ -2796,18 +2904,18 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       </em>
                     </span>
                   </span>
-                  <div className="flex items-center gap-2">
-                    <button
-                      type="button"
-                      onClick={() => {
-                        setShowGlobalSearch(true)
-                      }}
-                      aria-label="Toggle search"
-                      className="text-white/70 hover:text-white"
-                    >
-                      <Search size={20} />
-                    </button>
-                    {(showProfileButton || !embedded) ? (
+                  {!selectedThread && (
+                    <div className="flex items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => {
+                          setShowGlobalSearch(true)
+                        }}
+                        aria-label="Toggle search"
+                        className="text-white/70 hover:text-white"
+                      >
+                        <Search size={20} />
+                      </button>
                       <button
                         type="button"
                         onClick={() => setShowProfile(true)}
@@ -2816,8 +2924,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       >
                         <MoreVertical size={22} />
                       </button>
-                    ) : null}
-                  </div>
+                    </div>
+                  )}
                 </div>
                 <div className="mt-[-2px] text-[14px] text-white">
                   <span className="block truncate whitespace-nowrap">{groupLabel ? `${hospitalLabel} | ${groupLabel}` : hospitalLabel}</span>
@@ -2841,16 +2949,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     >
                       <Search size={20} />
                     </button>
-                    {(showProfileButton || !embedded) ? (
-                      <button
-                        type="button"
-                        onClick={() => setShowProfile(true)}
-                        aria-label="More"
-                        className="text-white/80 hover:text-white"
-                      >
-                        <MoreVertical size={22} />
-                      </button>
-                    ) : null}
+                    <button
+                      type="button"
+                      onClick={() => setShowProfile(true)}
+                      aria-label="More"
+                      className="text-white/80 hover:text-white"
+                    >
+                      <MoreVertical size={22} />
+                    </button>
                   </>
                 )}
               />
@@ -3160,14 +3266,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <button
                       onClick={
                         callState === "active" && callMediaMode === "video" ? switchToAudio
+                        : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
                         : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                         : undefined
                       }
-                      disabled={callState !== "idle" && !(callState === "active" && callMediaMode === "video")}
+                      disabled={callState === "incoming" || callState === "outgoing"}
                       className={`flex h-9 w-9 items-center justify-center rounded-full transition-colors ${
                         callState === "active" && callMediaMode === "video"
                           ? "bg-[#ef4444]"
-                        : callState !== "idle"
+                        : (callState === "incoming" || callState === "outgoing")
                           ? "cursor-not-allowed bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] opacity-40"
                           : "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_12px_26px_rgba(0,150,199,0.28)] hover:bg-[#0085B2]"
                       }`}
@@ -3179,6 +3286,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ) : null}
                 </>
               )}
+              <button
+                type="button"
+                onClick={() => setShowGlobalSearch(true)}
+                className="text-white/70 hover:text-white"
+                aria-label="Search"
+              >
+                <Search size={20} />
+              </button>
               <button
                 type="button"
                 onClick={() => setShowProfile(true)}
@@ -4006,6 +4121,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 ref={remoteVideoRef}
                 autoPlay
                 playsInline
+                muted
                 className="h-full w-full object-cover"
               />
               {showLocalAsPrimary ? (
@@ -4090,31 +4206,38 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   <div className="absolute rounded-full bg-white/[0.04] animate-ping" style={{ inset: -40, animationDelay: "0.35s" }} />
                 </>
               )}
-              <Avatar
-                name={(callState === "incoming" ? callerInfo?.displayName : calleeInfo?.displayName) ?? "?"}
-                size={callViewMode === "fullscreen" ? 88 : 68}
-                uid={callState === "incoming" ? callerInfo?.uid : calleeInfo?.uid}
-              />
+              {/* Show the OTHER party's info regardless of caller/callee role */}
+              {(() => {
+                const remote = activeCall?.callerUid === user.uid ? calleeInfo : callerInfo
+                return (
+                  <Avatar
+                    name={remote?.displayName ?? "?"}
+                    size={callViewMode === "fullscreen" ? 88 : 68}
+                    uid={remote?.uid}
+                  />
+                )
+              })()}
             </div>
-            <div className="text-center">
-              <p className={`tracking-[-0.02em] text-white ${callViewMode === "fullscreen" ? "text-[24px]" : "text-[19px]"}`}>
-                {callState === "incoming"
-                  ? (callerInfo?.displayName ?? "Incoming call")
-                  : (calleeInfo?.displayName ?? (selectedThread ? getThreadName(selectedThread) : ""))}
-              </p>
-              {(callState === "incoming" ? callerInfo?.clinicalRole : calleeInfo?.clinicalRole) && (
-                <p className="mt-1 text-[12px] text-white/40">
-                  {callState === "incoming" ? callerInfo!.clinicalRole : calleeInfo!.clinicalRole}
-                </p>
-              )}
-              <p className="mt-2 text-[12px] text-white/30">
-                {callState === "outgoing"
-                  ? (callMediaMode === "video" ? "Video calling" : "Calling")
-                  : callState === "incoming"
-                    ? (callMediaMode === "video" ? "Incoming video call" : "Incoming call")
-                    : (tomVoiceMode ? "TOM voice" : "Connected")}
-              </p>
-            </div>
+            {(() => {
+              const remote = activeCall?.callerUid === user.uid ? calleeInfo : callerInfo
+              return (
+                <div className="text-center">
+                  <p className={`tracking-[-0.02em] text-white ${callViewMode === "fullscreen" ? "text-[24px]" : "text-[19px]"}`}>
+                    {remote?.displayName ?? (callState === "incoming" ? "Incoming call" : (selectedThread ? getThreadName(selectedThread) : ""))}
+                  </p>
+                  {remote?.clinicalRole && (
+                    <p className="mt-1 text-[12px] text-white/40">{remote.clinicalRole}</p>
+                  )}
+                  <p className="mt-2 text-[12px] text-white/30">
+                    {callState === "outgoing"
+                      ? (callMediaMode === "video" ? "Video calling" : "Calling")
+                      : callState === "incoming"
+                        ? (callMediaMode === "video" ? "Incoming video call" : "Incoming call")
+                        : (tomVoiceMode ? "TOM voice" : "Connected")}
+                  </p>
+                </div>
+              )
+            })()}
           </div>
 
           {/* Active call controls */}
@@ -4248,6 +4371,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               ref={floatingVideoRef}
               autoPlay
               playsInline
+              muted
               className="absolute inset-0 h-full w-full object-cover bg-black"
             />
             {/* Gradient scrim + controls */}
@@ -4375,9 +4499,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             aria-label="Expand call"
           >
             <Avatar
-              name={(callState === "incoming" ? callerInfo?.displayName : calleeInfo?.displayName) ?? "?"}
+              name={((activeCall?.callerUid === user.uid) ? calleeInfo?.displayName : callerInfo?.displayName) ?? "?"}
               size={34}
-              uid={callState === "incoming" ? callerInfo?.uid : calleeInfo?.uid}
+              uid={(activeCall?.callerUid === user.uid) ? calleeInfo?.uid : callerInfo?.uid}
             />
             <div className="min-w-0 flex-1">
               <p className="truncate text-[13px] text-white">

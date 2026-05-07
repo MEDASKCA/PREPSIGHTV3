@@ -182,10 +182,15 @@ export default function LoginPage() {
       return
     }
 
+    const isNative = typeof window !== "undefined" && Boolean((window as any).Capacitor?.isNativePlatform?.())
+
     try {
-      const profile = await resolveProfile(user.uid)
+      const profile = await Promise.race([
+        resolveProfile(user.uid),
+        new Promise<null>((resolve) => setTimeout(() => resolve(null), isNative ? 8000 : 30000)),
+      ])
       const profileComplete = isCompleteProfile(profile) || hasCompleteProfile() || hasOnboardingCompleteFlag(user.uid)
-      appendDebug(`profile complete=${String(profileComplete)}`)
+      appendDebug(`profile complete=${String(profileComplete)} isNative=${String(isNative)}`)
 
       if (profileComplete) {
         await promoteAuthenticatedSessionPersistence()
@@ -207,6 +212,14 @@ export default function LoginPage() {
       }
     }
 
+    if (isNative) {
+      await promoteAuthenticatedSessionPersistence().catch(() => {})
+      setWelcomeTitle(resolveWelcomeTitle(user.displayName ?? user.email))
+      setPostLoginMessage("Loading your PrepSight workspace...")
+      showPostLoginLoadingScreen("/")
+      return
+    }
+
     setWelcomeTitle("LetÃƒÆ’Ã‚Â¢ÃƒÂ¢Ã¢â‚¬Å¡Ã‚Â¬ÃƒÂ¢Ã¢â‚¬Å¾Ã‚Â¢s set up your workspace")
     setPostLoginMessage("Preparing onboarding...")
     showPostLoginLoadingScreen("/onboarding")
@@ -218,11 +231,15 @@ export default function LoginPage() {
     clearDeviceSession()
     const localSession = getOrCreateDeviceSession()
     if (localSession) {
-      await claimActiveUserSession(user.uid, {
-        sessionId: localSession.sessionId,
-        deviceLabel: localSession.deviceLabel,
-        updatedAt: new Date().toISOString(),
-      })
+      // 5-second timeout guards against Firestore WebChannel hang on first native launch
+      await Promise.race([
+        claimActiveUserSession(user.uid, {
+          sessionId: localSession.sessionId,
+          deviceLabel: localSession.deviceLabel,
+          updatedAt: new Date().toISOString(),
+        }),
+        new Promise<void>((resolve) => setTimeout(resolve, 5000)),
+      ])
     }
     await finalizeAuthenticatedUser(user)
   }

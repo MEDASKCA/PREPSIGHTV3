@@ -1,6 +1,8 @@
 .git
 .next
 node_modules
+android
+out
 .claude
 chrome-headless
 chrome-headless-2

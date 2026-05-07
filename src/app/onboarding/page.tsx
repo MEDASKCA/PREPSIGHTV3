@@ -531,6 +531,17 @@ export default function OnboardingPage() {
     setSaving(true)
     setSaveError("")
 
+    // Request mic + camera + notifications now so they're granted before first call
+    if (typeof window !== "undefined" && navigator.mediaDevices?.getUserMedia) {
+      try {
+        const s = await navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+        s.getTracks().forEach(t => t.stop())
+      } catch { /* user declined — they'll be asked again at call time */ }
+    }
+    if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "default") {
+      try { await Notification.requestPermission() } catch { /* ignore */ }
+    }
+
     const profile: PrepSightProfile = {
       hospital: hospital.trim(),
       departments,
