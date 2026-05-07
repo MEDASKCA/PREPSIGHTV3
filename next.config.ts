@@ -1,12 +1,15 @@
 import path from "path"
 import type { NextConfig } from "next"
 
+const isNativeBuild = process.env.CAPACITOR_BUILD === "true"
+
 const nextConfig: NextConfig = {
+  output: isNativeBuild ? "export" : undefined,
+  trailingSlash: isNativeBuild ? true : undefined,
   outputFileTracingRoot: path.join(__dirname),
-  turbopack: {
-    root: path.join(__dirname),
-  },
+  ...(isNativeBuild ? {} : { turbopack: { root: path.join(__dirname) } }),
   async rewrites() {
+    if (isNativeBuild) return []
     return [
       {
         source: "/__/auth/:path*",

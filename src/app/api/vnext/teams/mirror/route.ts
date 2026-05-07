@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server"
+﻿import { NextResponse } from "next/server"
 import { canMirrorWorkspaceToTeams } from "@/lib/teams-mirroring"
 import { appendTeamsMirrorLogEntry, getTeamsWorkspaceMirrorConfig } from "@/lib/firestore"
 

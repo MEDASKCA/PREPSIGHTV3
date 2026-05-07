@@ -1,6 +1,8 @@
 import LibraryCardRouteClient from "@/components/LibraryCardRouteClient"
 import V4LibraryRouteShell from "@/components/V4LibraryRouteShell"
 
+export async function generateStaticParams() { return [{ id: "_", cardId: "_" }] }
+
 interface Props {
   params: Promise<{ id: string; cardId: string }>
 }

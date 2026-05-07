@@ -1,5 +1,7 @@
 "use client"
 
+export const dynamic = "force-static"
+
 import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
 import { ArrowLeft, Check, CircleAlert, X } from "lucide-react"

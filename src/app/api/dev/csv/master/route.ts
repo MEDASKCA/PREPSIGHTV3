@@ -1,10 +1,10 @@
-import { NextRequest, NextResponse } from "next/server"
+﻿import { NextRequest, NextResponse } from "next/server"
 import { promises as fs } from "fs"
 import path from "path"
 
 const ROOT = process.cwd()
 
-// ── Slug ↔ directory mapping ────────────────────────────────────────────────
+// â”€â”€ Slug â†” directory mapping â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const SPEC_ID_TO_SLUG: Record<string, string> = {
   SPEC_TRAUMA_ORTHOPAEDICS:             "trauma_and_orthopaedics",
   SPEC_GENERAL_SURGERY:                 "general_surgery",
@@ -28,7 +28,7 @@ const SPEC_ID_TO_SLUG: Record<string, string> = {
 const SLUG_DIR: Record<string, string> = { ophthalmology: "opthalmology" }
 function dirSlug(csvSlug: string): string { return SLUG_DIR[csvSlug] ?? csvSlug }
 
-// ── CSV helpers ────────────────────────────────────────────────────────────
+// â”€â”€ CSV helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 const MASTER_HEADERS = [
   "specialty_group_id","specialty_group_name",
   "specialty_id","specialty_name","specialty_slug",
@@ -75,7 +75,7 @@ function parseMasterCSV(text: string): Record<string, string>[] {
   })
 }
 
-// ── Value helpers ─────────────────────────────────────────────────────────
+// â”€â”€ Value helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function isNA(v: string | undefined): boolean { return !v || v === "N/A" || v === "" }
 function parseAliases(v: string): string[] {
   if (isNA(v)) return []
@@ -89,7 +89,7 @@ function parseIntSafe(v: string): number | undefined {
 function na(v: string | undefined): string { return (!v || v === "") ? "N/A" : v }
 function aliasStr(arr: string[] | undefined): string { return arr?.length ? arr.join("|") : "N/A" }
 
-// ── Entity types ───────────────────────────────────────────────────────────
+// â”€â”€ Entity types â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 interface SpecialtyRecord    { id: string; name: string; category: string }
 interface ServiceLineRecord  { id: string; name: string; specialty_id: string }
 interface AnatomyRecord      { id: string; name: string; specialty_id: string; parent_id: string | null; sort_order: number; tags?: string[] }
@@ -100,13 +100,13 @@ interface SystemRecord       { id: string; name: string; supplier_id?: string; s
 interface VariantSystemMapRecord { id: string; procedure_variant_id: string; system_id: string; is_default: boolean; status: string }
 interface SupplierRecord     { id: string; name: string; aliases: string[]; status: string }
 
-// ── Read JSON helper (returns [] on missing file) ──────────────────────────
+// â”€â”€ Read JSON helper (returns [] on missing file) â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function readJSON<T>(filePath: string): Promise<T[]> {
   try { return JSON.parse(await fs.readFile(path.join(ROOT, filePath), "utf-8")) }
   catch { return [] }
 }
 
-// ── Merge helpers (CSV record wins on conflict, existing records kept) ─────
+// â”€â”€ Merge helpers (CSV record wins on conflict, existing records kept) â”€â”€â”€â”€â”€
 function mergeById<T extends { id: string }>(existing: T[], incoming: T[]): T[] {
   const map = new Map<string, T>(existing.map((r) => [r.id, r]))
   for (const rec of incoming) map.set(rec.id, rec) // CSV wins
@@ -137,7 +137,7 @@ function mergeSystems(existing: SystemRecord[], incoming: SystemRecord[]): Syste
   return [...map.values()]
 }
 
-// ── Extract entities from parsed CSV rows ──────────────────────────────────
+// â”€â”€ Extract entities from parsed CSV rows â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 function extractEntities(rows: Record<string, string>[]) {
   const specialties    = new Map<string, SpecialtyRecord>()
   const serviceLines   = new Map<string, ServiceLineRecord>()
@@ -259,13 +259,13 @@ function extractEntities(rows: Record<string, string>[]) {
   return { specialties: [...specialties.values()], serviceLines: [...serviceLines.values()], anatomyNew: [...anatomyNew.values()], specialtyGroups, proceduresBySlug, variantsBySlug, systems: finalSystems, variantSystemMap: [...variantSystemMap.values()], suppliers: [...suppliers.values()] }
 }
 
-// ── Write helper ──────────────────────────────────────────────────────────
+// â”€â”€ Write helper â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function writeJSON(filePath: string, data: unknown): Promise<void> {
   await fs.mkdir(path.dirname(filePath), { recursive: true })
   await fs.writeFile(filePath, JSON.stringify(data, null, 2) + "\n", "utf-8")
 }
 
-// ── EXPORT: build master CSV from current JSONs ────────────────────────────
+// â”€â”€ EXPORT: build master CSV from current JSONs â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 async function exportMasterCSV(): Promise<string> {
   const specialties   = await readJSON<SpecialtyRecord>("data/taxonomy/specialties.json")
   const serviceLines  = await readJSON<ServiceLineRecord>("data/taxonomy/service_lines.json")
@@ -284,7 +284,7 @@ async function exportMasterCSV(): Promise<string> {
   for (const sg of sgRaw)
     for (const s of sg.specialties) sgBySpecId.set(s.specialty_id, sg)
 
-  // variant → systems map
+  // variant â†’ systems map
   const variantSystems = new Map<string, Array<{ map: VariantSystemMapRecord; sys: SystemRecord }>>()
   for (const row of vsMap) {
     const sys = sysById.get(row.system_id)
@@ -354,10 +354,10 @@ async function exportMasterCSV(): Promise<string> {
   return rows.join("\n")
 }
 
-// ── Preview line type ──────────────────────────────────────────────────────
+// â”€â”€ Preview line type â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 type PreviewLine = { entity: string; count: number; path: string; new: number; updated: number }
 
-// ── GET — export current data as master CSV ────────────────────────────────
+// â”€â”€ GET â€” export current data as master CSV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export async function GET() {
   if (process.env.NODE_ENV === "production")
     return NextResponse.json({ error: "Not available in production" }, { status: 403 })
@@ -369,7 +369,7 @@ export async function GET() {
   }
 }
 
-// ── POST — import (merge) master CSV ──────────────────────────────────────
+// â”€â”€ POST â€” import (merge) master CSV â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 export async function POST(req: NextRequest) {
   if (process.env.NODE_ENV === "production")
     return NextResponse.json({ error: "Not available in production" }, { status: 403 })
@@ -387,7 +387,7 @@ export async function POST(req: NextRequest) {
 
   const ext = extractEntities(rows)
 
-  // ── Merge all entities with existing data ──────────────────────────────
+  // â”€â”€ Merge all entities with existing data â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   const existingAnatomy    = await readJSON<AnatomyRecord>("data/taxonomy/anatomy.json")
   const existingSpecialties = await readJSON<SpecialtyRecord>("data/taxonomy/specialties.json")
   const existingServiceLines = await readJSON<ServiceLineRecord>("data/taxonomy/service_lines.json")
@@ -420,7 +420,7 @@ export async function POST(req: NextRequest) {
     variantWrites.push({ filePath, data: merged })
   }
 
-  // ── Build preview ────────────────────────────────────────────────────────
+  // â”€â”€ Build preview â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   function countChanges<T extends { id: string }>(existing: T[], merged: T[]): { total: number; newCount: number; updated: number } {
     const exIds = new Set(existing.map((r) => r.id))
     return { total: merged.length, newCount: merged.filter((r) => !exIds.has(r.id)).length, updated: merged.filter((r) => exIds.has(r.id)).length }
@@ -447,7 +447,7 @@ export async function POST(req: NextRequest) {
 
   if (dryRun) return NextResponse.json({ dryRun: true, rows: rows.length, preview })
 
-  // ── Write all ────────────────────────────────────────────────────────────
+  // â”€â”€ Write all â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   try {
     await Promise.all([
       writeJSON(path.join(ROOT, "data/taxonomy/anatomy.json"),         mergedAnatomy),

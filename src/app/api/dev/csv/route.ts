@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server"
+﻿import { NextRequest, NextResponse } from "next/server"
 import { promises as fs } from "fs"
 import path from "path"
 
@@ -13,7 +13,7 @@ interface EntityConfig {
 }
 
 const ENTITIES: Record<string, EntityConfig> = {
-  // ── Taxonomy ─────────────────────────────────────────────────────────────
+  // â”€â”€ Taxonomy â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   "taxonomy/specialties": {
     jsonPath: "data/taxonomy/specialties.json",
     arrayFields: [], intFields: [], boolFields: [],
@@ -26,7 +26,7 @@ const ENTITIES: Record<string, EntityConfig> = {
     jsonPath: "data/taxonomy/anatomy.json",
     arrayFields: ["tags"], intFields: ["sort_order"], boolFields: [],
   },
-  // ── Procedures ────────────────────────────────────────────────────────────
+  // â”€â”€ Procedures â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   "procedures/trauma_and_orthopaedics": {
     jsonPath: "data/procedures/trauma_and_orthopaedics/procedures_trauma_and_orthopaedics.json",
     arrayFields: ["aliases"], intFields: [], boolFields: [],
@@ -91,12 +91,12 @@ const ENTITIES: Record<string, EntityConfig> = {
     jsonPath: "data/procedures/anaesthesia/procedures_anaesthesia.json",
     arrayFields: ["aliases"], intFields: [], boolFields: [],
   },
-  // ── Procedure variants ────────────────────────────────────────────────────
+  // â”€â”€ Procedure variants â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   "procedure_variants/trauma_and_orthopaedics": {
     jsonPath: "data/procedure_variants/trauma_and_orthopaedics/procedure_variants_trauma_and_orthopaedics.json",
     arrayFields: [], intFields: ["sort_order"], boolFields: [],
   },
-  // ── Systems & suppliers ────────────────────────────────────────────────────
+  // â”€â”€ Systems & suppliers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
   "systems": {
     jsonPath: "data/systems/systems.json",
     arrayFields: ["service_line_ids", "anatomy_ids", "aliases"], intFields: [], boolFields: [],
@@ -111,7 +111,7 @@ const ENTITIES: Record<string, EntityConfig> = {
   },
 }
 
-// ── CSV helpers ────────────────────────────────────────────────────────────
+// â”€â”€ CSV helpers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 function csvQuote(value: string): string {
   if (value.includes(",") || value.includes('"') || value.includes("\n")) {
@@ -180,7 +180,7 @@ function csvToJSON(csv: string, config: EntityConfig): Record<string, unknown>[]
   })
 }
 
-// ── Route handlers ─────────────────────────────────────────────────────────
+// â”€â”€ Route handlers â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 export async function GET(req: NextRequest) {
   if (process.env.NODE_ENV === "production") {
@@ -241,7 +241,7 @@ export async function POST(req: NextRequest) {
   }
 
   if (parsed.length === 0) {
-    return NextResponse.json({ error: "CSV produced 0 rows — refusing to overwrite" }, { status: 400 })
+    return NextResponse.json({ error: "CSV produced 0 rows â€” refusing to overwrite" }, { status: 400 })
   }
 
   try {

@@ -1,3 +1,5 @@
+export const dynamic = "force-static"
+
 import { redirect } from "next/navigation"
 import { cookies } from "next/headers"
 import { PLATFORM_ROLE_COOKIE_KEY } from "@/lib/profile"

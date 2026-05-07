@@ -1,3 +1,5 @@
+export const dynamic = "force-static"
+
 import { notFound } from "next/navigation"
 import { getProcedureById, procedures } from "@/lib/data"
 import ProcedurePageClient from "@/components/ProcedurePageClient"
