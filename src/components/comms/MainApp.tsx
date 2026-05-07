@@ -699,6 +699,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const deepLinkThreadIdRef = useRef<string | null>(null)
   const deepLinkCallSenderRef = useRef<string | null>(null)
   const [remoteVideoActive, setRemoteVideoActive] = useState(false)
+  const [showConnectingOverlay, setShowConnectingOverlay] = useState(false)
   const tomAnswerTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const tomTypingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [tomVoiceMode, setTomVoiceMode] = useState(false)
@@ -778,6 +779,25 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
     clearStaleCalls()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Ref callbacks — set srcObject immediately when element mounts so Android WebView plays without gesture
+  const setRemoteVideoRef = useCallback((el: HTMLVideoElement | null) => {
+    remoteVideoRef.current = el
+    if (el && remoteStreamRef.current) {
+      el.muted = true
+      el.srcObject = remoteStreamRef.current
+      el.play().catch(() => {})
+    }
+  }, [])
+
+  const setFloatingVideoRef = useCallback((el: HTMLVideoElement | null) => {
+    floatingVideoRef.current = el
+    if (el && remoteStreamRef.current) {
+      el.muted = true
+      el.srcObject = remoteStreamRef.current
+      el.play().catch(() => {})
+    }
+  }, [])
 
   // â"€â"€ Sync local video stream to ref once call UI mounts â"€â"€
   useEffect(() => {
@@ -935,7 +955,20 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (threadId) deepLinkThreadIdRef.current = threadId
     const callSender = params.get("callSender")
     if (callSender) deepLinkCallSenderRef.current = callSender
+    if (autoAnswer || callSender) setShowConnectingOverlay(true)
   }, [])
+
+  // Hide connecting overlay once call state is established
+  useEffect(() => {
+    if (showConnectingOverlay && callState !== "idle") setShowConnectingOverlay(false)
+  }, [callState, showConnectingOverlay])
+
+  // Safety: dismiss overlay after 8s even if call never arrives
+  useEffect(() => {
+    if (!showConnectingOverlay) return
+    const t = setTimeout(() => setShowConnectingOverlay(false), 8000)
+    return () => clearTimeout(t)
+  }, [showConnectingOverlay])
 
   // Auto-answer when the call arrives and matches the notification tap
   useEffect(() => {
@@ -2919,6 +2952,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* Hidden audio for remote stream â€" video refs live in call UI only to avoid ref conflicts */}
       <audio ref={remoteAudioRef} autoPlay playsInline className="hidden" />
 
+      {/* Connecting overlay — shown when app opens from a call notification */}
+      {showConnectingOverlay && (
+        <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black pointer-events-none">
+          <img src="/logo.png" alt="PrepSight" className="mb-6 h-20 w-20 rounded-2xl opacity-90" />
+          <p className="animate-pulse text-base font-medium text-white/80 tracking-wide">Connecting…</p>
+        </div>
+      )}
+
       {/* â"€â"€ Header â"€â"€ */}
       <div
         className={`shrink-0 ${embedded ? "bg-black" : "bg-black px-5 pb-0"}`}
@@ -4158,7 +4199,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 : undefined}
             >
               <video
-                ref={remoteVideoRef}
+                ref={setRemoteVideoRef}
                 playsInline
                 muted
                 className="h-full w-full object-cover"
@@ -4408,7 +4449,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             }}
           >
             <video
-              ref={floatingVideoRef}
+              ref={setFloatingVideoRef}
               playsInline
               muted
               className="absolute inset-0 h-full w-full object-cover bg-black"
