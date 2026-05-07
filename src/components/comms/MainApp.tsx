@@ -696,6 +696,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const callUnsubRef = useRef<(() => void) | null>(null)
   const callSignalUnsubRef = useRef<(() => void) | null>(null)
   const autoAnswerCallIdRef = useRef<string | null>(null)
+  const deepLinkThreadIdRef = useRef<string | null>(null)
+  const deepLinkCallSenderRef = useRef<string | null>(null)
+  const [remoteVideoActive, setRemoteVideoActive] = useState(false)
   const tomAnswerTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const tomTypingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [tomVoiceMode, setTomVoiceMode] = useState(false)
@@ -787,39 +790,24 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   // â"€â"€ Re-apply remote stream when video element mounts/unmounts (callState or view mode changes) â"€â"€
   useEffect(() => {
     if (!remoteStreamRef.current) return
-    if (remoteVideoRef.current) {
-      remoteVideoRef.current.muted = true
-      remoteVideoRef.current.srcObject = remoteStreamRef.current
-      remoteVideoRef.current.play().catch(() => {})
-    }
-    if (floatingVideoRef.current) {
-      floatingVideoRef.current.muted = true
-      floatingVideoRef.current.srcObject = remoteStreamRef.current
-      floatingVideoRef.current.play().catch(() => {})
+    const hasVideo = remoteStreamRef.current.getVideoTracks().some(t => t.readyState === "live")
+    setRemoteVideoActive(hasVideo)
+    if (hasVideo) {
+      if (remoteVideoRef.current) {
+        remoteVideoRef.current.muted = true
+        remoteVideoRef.current.srcObject = remoteStreamRef.current
+        remoteVideoRef.current.play().catch(() => {})
+      }
+      if (floatingVideoRef.current) {
+        floatingVideoRef.current.muted = true
+        floatingVideoRef.current.srcObject = remoteStreamRef.current
+        floatingVideoRef.current.play().catch(() => {})
+      }
+    } else {
+      if (remoteVideoRef.current) remoteVideoRef.current.srcObject = null
+      if (floatingVideoRef.current) floatingVideoRef.current.srcObject = null
     }
   }, [callState, callViewMode, callMediaMode])
-
-  // â"€â"€ Auto-switch camera when remote party switches to video mode â"€â"€
-  // When the other party presses video, Firestore mode becomes "video". If we
-  // haven't added a video track yet, enable our camera automatically.
-  useEffect(() => {
-    if (callState !== "active" || callMediaMode !== "video") return
-    if (localStreamRef.current?.getVideoTracks().length) return // already sending video
-    let cancelled = false
-    const trySwitch = async () => {
-      // Give any in-flight reoffer/reanswer up to 3 s to finish before we add our track
-      for (let i = 0; i < 6; i++) {
-        await new Promise(r => setTimeout(r, 500))
-        if (cancelled) return
-        if (pcRef.current?.signalingState === "stable" && !localStreamRef.current?.getVideoTracks().length) {
-          await callActionsRef.current.switchToVideo()
-          return
-        }
-      }
-    }
-    void trySwitch()
-    return () => { cancelled = true }
-  }, [callMediaMode, callState]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // â"€â"€ Auto-minimise to floating only when panel becomes invisible (not fullscreen â€" that's intentional) â"€â"€
   useEffect(() => {
@@ -938,11 +926,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     publishCallStatus({ calleeName: calleeInfo?.displayName ?? "", calleeUid: calleeInfo?.uid ?? "" })
   }, [calleeInfo])
 
-  // Read autoAnswer URL param on mount — set by Android when Answer button tapped on notification
+  // Read URL params on mount — set by Android when tapping call/message notifications
   useEffect(() => {
     const params = new URLSearchParams(window.location.search)
     const autoAnswer = params.get("autoAnswer")
     if (autoAnswer) autoAnswerCallIdRef.current = autoAnswer
+    const threadId = params.get("threadId")
+    if (threadId) deepLinkThreadIdRef.current = threadId
+    const callSender = params.get("callSender")
+    if (callSender) deepLinkCallSenderRef.current = callSender
   }, [])
 
   // Auto-answer when the call arrives and matches the notification tap
@@ -1522,8 +1514,29 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     (thread) => thread.type === "direct" && thread.memberUids.includes(TOM_UID),
   ) ?? null
 
+  // Navigate to deep-linked thread once threads have loaded from Firestore
+  useEffect(() => {
+    if (!threads.length) return
+    const threadId = deepLinkThreadIdRef.current
+    if (threadId) {
+      deepLinkThreadIdRef.current = null
+      const target = threads.find(t => t.id === threadId)
+      if (target) { selectThread(target); return }
+    }
+    const senderUid = deepLinkCallSenderRef.current
+    if (senderUid) {
+      deepLinkCallSenderRef.current = null
+      const target = threads.find(t =>
+        t.type === "direct" && t.memberUids.includes(senderUid) && !t.memberUids.includes(TOM_UID)
+      )
+      if (target) selectThread(target)
+    }
+  }, [threads]) // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (!isFoldableSplitView || selectedThread || !tomDefaultThread) return
+    // Don't override a pending notification deep-link
+    if (deepLinkThreadIdRef.current || deepLinkCallSenderRef.current) return
     setSelectedThread(tomDefaultThread)
     setUnreadCounts(prev => ({ ...prev, [tomDefaultThread.id]: 0 }))
     void markThreadRead(tomDefaultThread.id)
@@ -2465,10 +2478,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         remoteAudioRef.current.srcObject = e.streams[0]
         remoteAudioRef.current.play().catch(() => {})
       }
-      if (remoteVideoRef.current) {
+      const hasVideo = e.streams[0].getVideoTracks().some(t => t.readyState === "live")
+      setRemoteVideoActive(hasVideo)
+      if (hasVideo && remoteVideoRef.current) {
         remoteVideoRef.current.muted = true
         remoteVideoRef.current.srcObject = e.streams[0]
         remoteVideoRef.current.play().catch(() => {})
+      } else if (!hasVideo && remoteVideoRef.current) {
+        remoteVideoRef.current.srcObject = null
       }
     }
   }
@@ -2487,9 +2504,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
       const nextCall = { id: snap.id, ...data } as CommsCall
       setActiveCall(nextCall)
-
-      // Sync mode so callee UI updates when caller switches audio↔video
-      if (nextCall.mode) setCallMediaMode(nextCall.mode as "audio" | "video")
 
       // Process answer SDP once (caller side only — callee has stable state)
       if (onAnswer && data.answer && !answerProcessed) {
@@ -2770,6 +2784,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setCallElapsed(0); setCallMuted(false); setCallSpeaker(false)
     setVideoBlurEnabled(false)
     setShowLocalAsPrimary(false)
+    setRemoteVideoActive(false)
     setCallViewMode("panel")
     resetCallStatus()
   }
@@ -2799,7 +2814,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         await pc.setLocalDescription(offer)
         await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
           reofferSdp: { type: offer.type, sdp: offer.sdp },
-          mode: "audio",
         })
       } catch (e) { console.warn("renegotiate audio:", e) }
     }
@@ -2824,7 +2838,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         await pc.setLocalDescription(offer)
         await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
           reofferSdp: { type: offer.type, sdp: offer.sdp },
-          mode: "video",
         })
       }
     } catch (e) {
@@ -4132,8 +4145,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           style={callViewMode === "fullscreen" ? { paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" } : undefined}
         >
 
-          {/* Primary remote video */}
-          {callMediaMode === "video" && !tomVoiceMode && callState === "active" && (
+          {/* Primary remote video — only render when remote party has an active video track */}
+          {remoteVideoActive && !tomVoiceMode && callState === "active" && (
             <div
               className={`absolute overflow-hidden bg-black transition-all ${
                 showLocalAsPrimary
@@ -4146,7 +4159,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             >
               <video
                 ref={remoteVideoRef}
-                autoPlay
                 playsInline
                 muted
                 className="h-full w-full object-cover"
@@ -4396,7 +4408,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           >
             <video
               ref={floatingVideoRef}
-              autoPlay
               playsInline
               muted
               className="absolute inset-0 h-full w-full object-cover bg-black"
