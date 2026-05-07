@@ -807,7 +807,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       if (remoteVideoRef.current) remoteVideoRef.current.srcObject = null
       if (floatingVideoRef.current) floatingVideoRef.current.srcObject = null
     }
-  }, [callState, callViewMode, callMediaMode])
+  }, [callState, callViewMode, callMediaMode, remoteVideoActive])
 
   // â"€â"€ Auto-minimise to floating only when panel becomes invisible (not fullscreen â€" that's intentional) â"€â"€
   useEffect(() => {
@@ -4162,6 +4162,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 playsInline
                 muted
                 className="h-full w-full object-cover"
+                onCanPlay={e => void (e.target as HTMLVideoElement).play()}
               />
               {showLocalAsPrimary ? (
                 <button
@@ -4411,6 +4412,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               playsInline
               muted
               className="absolute inset-0 h-full w-full object-cover bg-black"
+              onCanPlay={e => void (e.target as HTMLVideoElement).play()}
             />
             {/* Gradient scrim + controls */}
             <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent pointer-events-none" />

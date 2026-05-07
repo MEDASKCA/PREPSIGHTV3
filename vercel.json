@@ -1,0 +1,16 @@
+{
+  "headers": [
+    {
+      "source": "/(.*).html",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    },
+    {
+      "source": "/",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    },
+    {
+      "source": "/((?!_next/static|_next/image|favicon|logo|icons|.*\\.mp3|.*\\.png|.*\\.jpg|.*\\.webp).*)",
+      "headers": [{ "key": "Cache-Control", "value": "no-store" }]
+    }
+  ]
+}
