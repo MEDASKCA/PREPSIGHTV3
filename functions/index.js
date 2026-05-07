@@ -21,12 +21,8 @@ async function sendPush(tokens, title, body, data = {}) {
     tokens.map(token =>
       messaging.send({
         token,
-        notification: { title, body },
         data: { ...data, title, body },
-        android: {
-          priority: "high",
-          notification: { channelId: "prepsight_messages" },
-        },
+        android: { priority: "high" },
         apns: {
           payload: { aps: { sound: "default", badge: 1, contentAvailable: 1 } },
           headers: { "apns-priority": "10" },

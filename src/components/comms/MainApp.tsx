@@ -714,6 +714,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const floatingDragRef = useRef<{ startX: number; startY: number; origX: number; origY: number } | null>(null)
   const floatingResizeRef = useRef<{ startX: number; startY: number; origW: number; origH: number } | null>(null)
   const [camFacingMode, setCamFacingMode] = useState<"user" | "environment">("user")
+  const [awaitingVideoAccept, setAwaitingVideoAccept] = useState(false)
+  const [incomingVideoRequest, setIncomingVideoRequest] = useState<{ uid: string; name: string } | null>(null)
+  const awaitingVideoAcceptRef = useRef(false)
+  const isVideoAcceptorRef = useRef(false)
   const [tomTyping, setTomTyping] = useState(false)
   const [tomTasks, setTomTasks] = useState<TomWatchTask[]>([])
   const voiceRecorderRef = useRef<MediaRecorder | null>(null)
@@ -735,7 +739,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     toggleMute: () => void
     switchToAudio: () => void
     switchToVideo: () => void
-  }>({ endCall: () => {}, answerCall: () => {}, declineCall: () => {}, toggleMute: () => {}, switchToAudio: () => {}, switchToVideo: () => {} })
+    requestVideo: () => void
+    acceptVideoRequest: () => void
+    declineVideoRequest: () => void
+  }>({ endCall: () => {}, answerCall: () => {}, declineCall: () => {}, toggleMute: () => {}, switchToAudio: () => {}, switchToVideo: () => {}, requestVideo: () => {}, acceptVideoRequest: () => {}, declineVideoRequest: () => {} })
 
   useEffect(() => {
     try {
@@ -1660,7 +1667,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <button
                       onClick={
                         callState === "active" && callMediaMode === "video" ? switchToAudio
-                        : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
+                        : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
                         : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                         : undefined
                       }
@@ -1763,7 +1770,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       <button
                         onClick={
                           callState === "active" && callMediaMode === "video" ? switchToAudio
-                          : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
+                          : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
                           : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                           : undefined
                         }
@@ -2568,6 +2575,31 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
       if (data.status === "ended") { cleanupCall(); return }
 
+      // Video request signalling
+      if (data.videoRequestFrom && data.videoRequestFrom !== user.uid) {
+        // Remote party is requesting to switch to video — show Accept/Decline modal
+        if (!incomingVideoRequest) {
+          const requesterName = data.videoRequestName || "Other person"
+          setIncomingVideoRequest({ uid: data.videoRequestFrom as string, name: requesterName as string })
+        }
+      } else if (!data.videoRequestFrom) {
+        // Request was cleared (accepted or declined)
+        setIncomingVideoRequest(null)
+      }
+
+      if (data.videoAccepted === true && awaitingVideoAcceptRef.current) {
+        // Remote accepted our video request — we go first with the reoffer
+        awaitingVideoAcceptRef.current = false
+        setAwaitingVideoAccept(false)
+        // Clear signal fields before renegotiating so the listener doesn't fire again
+        await updateDoc(doc(firestore, "comms_v5_calls", callId), {
+          videoRequestFrom: deleteField(),
+          videoRequestName: deleteField(),
+          videoAccepted: deleteField(),
+        })
+        void callActionsRef.current.switchToVideo()
+      }
+
       // Mid-call renegotiation (e.g. one party switched audio→video)
       const pc = pcRef.current
       if (!pc) return
@@ -2580,6 +2612,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             reanswerSdp: { type: reAnswer.type, sdp: reAnswer.sdp },
             reofferSdp: deleteField(),
           })
+          // Acceptor: after answering the requester's reoffer, add own video track (second renegotiation)
+          if (isVideoAcceptorRef.current) {
+            isVideoAcceptorRef.current = false
+            void callActionsRef.current.switchToVideo()
+          }
         } catch (e) { console.warn("reoffer failed:", e) }
       }
       if (data.reanswerSdp && pc.signalingState === "have-local-offer") {
@@ -2893,6 +2930,38 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }
 
+  async function requestVideo() {
+    if (callState !== "active" || callMediaMode === "video" || !activeCall || awaitingVideoAccept) return
+    const myName = user.displayName || user.email || "Caller"
+    awaitingVideoAcceptRef.current = true
+    setAwaitingVideoAccept(true)
+    await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
+      videoRequestFrom: user.uid,
+      videoRequestName: myName,
+      videoAccepted: deleteField(),
+    })
+  }
+
+  async function acceptVideoRequest() {
+    if (!activeCall || !incomingVideoRequest) return
+    setIncomingVideoRequest(null)
+    // Signal acceptance only — requester goes first with reoffer; acceptor adds video after answering
+    isVideoAcceptorRef.current = true
+    await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
+      videoAccepted: true,
+    })
+  }
+
+  async function declineVideoRequest() {
+    if (!activeCall || !incomingVideoRequest) return
+    setIncomingVideoRequest(null)
+    await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
+      videoRequestFrom: deleteField(),
+      videoRequestName: deleteField(),
+      videoAccepted: deleteField(),
+    })
+  }
+
   async function switchCamera() {
     if (!localStreamRef.current || callMediaMode !== "video") return
     const shouldRestoreBlur = videoBlurEnabled
@@ -2923,7 +2992,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   // Keep callActionsRef current every render so stable store callbacks always invoke latest functions
-  callActionsRef.current = { endCall, answerCall, declineCall, toggleMute, switchToAudio, switchToVideo }
+  callActionsRef.current = { endCall, answerCall, declineCall, toggleMute, switchToAudio, switchToVideo, requestVideo, acceptVideoRequest, declineVideoRequest }
 
   const handleSignOut = useCallback(async () => {
     await setDoc(doc(firestore, "comms_v5_presence", user.uid), {
@@ -2970,6 +3039,29 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {showConnectingOverlay && (
         <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black pointer-events-none">
           <p className="animate-pulse text-base font-medium text-white/80 tracking-wide">Connecting…</p>
+        </div>
+      )}
+
+      {/* Incoming video request modal */}
+      {incomingVideoRequest && callState === "active" && (
+        <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/60">
+          <div className="mx-6 w-full max-w-xs rounded-2xl bg-[#1a1a2e] p-6 text-center shadow-2xl">
+            <div className="mb-1 flex justify-center">
+              <Video size={32} className="text-[#29b6d8]" />
+            </div>
+            <p className="mt-2 text-base font-semibold text-white">Video request</p>
+            <p className="mt-1 text-sm text-white/60">{incomingVideoRequest.name} wants to switch to video</p>
+            <div className="mt-5 flex gap-3">
+              <button
+                onClick={() => void declineVideoRequest()}
+                className="flex-1 rounded-xl bg-white/10 py-3 text-sm font-medium text-white hover:bg-white/20 transition-colors"
+              >Decline</button>
+              <button
+                onClick={() => void acceptVideoRequest()}
+                className="flex-1 rounded-xl bg-[#29b6d8] py-3 text-sm font-medium text-white hover:bg-[#1a96b8] transition-colors"
+              >Accept</button>
+            </div>
+          </div>
         </div>
       )}
 
@@ -3241,7 +3333,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* â"€â"€ Bottom nav â"€â"€ */}
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• THREAD VIEW â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
-      <MobileGlobalSearchOverlay open={showGlobalSearch} onClose={() => setShowGlobalSearch(false)} />
+      <MobileGlobalSearchOverlay open={showGlobalSearch} onClose={() => setShowGlobalSearch(false)} halfScreen={isFoldableSplitView} />
       {joinCodeThread ? (
         <div className="absolute inset-0 z-20 flex items-end justify-center bg-[rgba(19,66,83,0.28)] px-4 pb-[calc(env(safe-area-inset-bottom)+24px)] lg:items-center lg:pb-0">
           <div className="w-full max-w-sm rounded-[28px] border border-[#A7D9E8] bg-[#DDF3FA] p-5 shadow-[0_24px_60px_rgba(14,77,103,0.18)]">
@@ -3360,7 +3452,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <button
                       onClick={
                         callState === "active" && callMediaMode === "video" ? switchToAudio
-                        : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
+                        : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
                         : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                         : undefined
                       }
@@ -4376,9 +4468,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     aria-label="Speaker"
                   />
                   <CallButton
-                    icon={<Video size={20} />}
-                    onClick={() => void switchToVideo()}
-                    aria-label="Switch to video"
+                    icon={awaitingVideoAccept
+                      ? <Video size={20} className="animate-pulse text-[#29b6d8]" />
+                      : <Video size={20} />}
+                    onClick={() => { if (!awaitingVideoAccept) void requestVideo() }}
+                    active={awaitingVideoAccept}
+                    aria-label={awaitingVideoAccept ? "Waiting for video accept…" : "Switch to video"}
                   />
                 </>
               ) : (
