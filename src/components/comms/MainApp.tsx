@@ -2954,7 +2954,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* Connecting overlay — shown when app opens from a call notification */}
       {showConnectingOverlay && (
         <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black pointer-events-none">
-          <img src="/logo.png" alt="PrepSight" className="mb-6 h-20 w-20 rounded-2xl opacity-90" />
           <p className="animate-pulse text-base font-medium text-white/80 tracking-wide">Connecting…</p>
         </div>
       )}
