@@ -810,7 +810,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   // â"€â"€ Re-apply remote stream when video element mounts/unmounts (callState or view mode changes) â"€â"€
   useEffect(() => {
     if (!remoteStreamRef.current) return
-    const hasVideo = remoteStreamRef.current.getVideoTracks().some(t => t.readyState === "live")
+    const hasVideo = remoteStreamRef.current.getVideoTracks().some(t => t.readyState !== "ended")
     setRemoteVideoActive(hasVideo)
     if (hasVideo) {
       if (remoteVideoRef.current) {
@@ -2510,7 +2510,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         remoteAudioRef.current.srcObject = e.streams[0]
         remoteAudioRef.current.play().catch(() => {})
       }
-      const hasVideo = e.streams[0].getVideoTracks().some(t => t.readyState === "live")
+      const hasVideo = e.streams[0].getVideoTracks().some(t => t.readyState !== "ended")
       setRemoteVideoActive(hasVideo)
       if (hasVideo && remoteVideoRef.current) {
         remoteVideoRef.current.muted = true

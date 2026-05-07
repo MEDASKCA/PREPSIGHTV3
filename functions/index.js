@@ -25,7 +25,7 @@ async function sendPush(tokens, title, body, data = {}) {
         data: { ...data, title, body },
         android: {
           priority: "high",
-          notification: { channelId: "prepsight_comms" },
+          notification: { channelId: "prepsight_messages" },
         },
         apns: {
           payload: { aps: { sound: "default", badge: 1, contentAvailable: 1 } },
