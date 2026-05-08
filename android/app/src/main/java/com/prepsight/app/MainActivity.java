@@ -15,6 +15,7 @@ import android.os.Looper;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import androidx.core.app.ActivityCompat;
+import android.widget.Toast;
 import com.getcapacitor.BridgeActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,6 +40,7 @@ public class MainActivity extends BridgeActivity {
 
     private void startRingPlayer() {
         if (ringPlayer != null) return; // already ringing
+        Toast.makeText(this, "PrepSight: RING START", Toast.LENGTH_SHORT).show();
         try {
             Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.outgoing_call);
             ringPlayer = new MediaPlayer();
@@ -51,6 +53,7 @@ public class MainActivity extends BridgeActivity {
             ringPlayer.prepare();
             ringPlayer.start();
         } catch (Exception e) {
+            Toast.makeText(this, "Ring error: " + e.getMessage(), Toast.LENGTH_LONG).show();
             ringPlayer = null;
         }
     }
@@ -66,13 +69,21 @@ public class MainActivity extends BridgeActivity {
     private void startCallRingListener() {
         if (callRingListener != null) return;
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        if (user == null) return;
+        if (user == null) {
+            Toast.makeText(this, "PrepSight ring: no auth user", Toast.LENGTH_LONG).show();
+            return;
+        }
         String myUid = user.getUid();
+        Toast.makeText(this, "PrepSight ring: listening uid=" + myUid.substring(0, 6), Toast.LENGTH_SHORT).show();
         callRingListener = FirebaseFirestore.getInstance()
             .collection("comms_v5_calls")
             .whereEqualTo("callerUid", myUid)
             .addSnapshotListener((snapshot, error) -> {
-                if (error != null || snapshot == null) return;
+                if (error != null) {
+                    runOnUiThread(() -> Toast.makeText(this, "Ring listener error: " + error.getMessage(), Toast.LENGTH_LONG).show());
+                    return;
+                }
+                if (snapshot == null) return;
                 long fiveMinutesAgo = System.currentTimeMillis() - 5 * 60 * 1000;
                 boolean ringing = false;
                 for (DocumentSnapshot doc : snapshot.getDocuments()) {
@@ -85,6 +96,7 @@ public class MainActivity extends BridgeActivity {
                 }
                 final boolean shouldRing = ringing;
                 runOnUiThread(() -> {
+                    Toast.makeText(this, "Ring snapshot: docs=" + snapshot.size() + " ringing=" + shouldRing, Toast.LENGTH_SHORT).show();
                     if (shouldRing) startRingPlayer();
                     else stopRingPlayer();
                 });
@@ -139,6 +151,11 @@ public class MainActivity extends BridgeActivity {
             ActivityCompat.requestPermissions(this, permsNeeded.toArray(new String[0]), 101);
         handleCallIntent(getIntent());
         handleCommsIntent(getIntent());
+        // Start ring listener as soon as auth state is available
+        FirebaseAuth.getInstance().addAuthStateListener(auth -> {
+            if (auth.getCurrentUser() != null) startCallRingListener();
+            else stopCallRingListener();
+        });
     }
 
     @Override
