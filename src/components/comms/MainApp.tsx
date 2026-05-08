@@ -2553,8 +2553,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       publishCallStatus({ remoteStream: remoteStreamRef.current })
 
       if (remoteAudioRef.current) {
-        remoteAudioRef.current.pause()
-        remoteAudioRef.current.src = ""           // stop any outgoing ring
+        stopOutgoingRing()                        // stop web-side ring if any
         remoteAudioRef.current.srcObject = remoteStreamRef.current
         remoteAudioRef.current.play().catch(() => {})
       }
@@ -2632,7 +2631,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       }
 
       if (data.status === "active") {
-        if (remoteAudioRef.current) { remoteAudioRef.current.pause(); remoteAudioRef.current.src = "" }
+        stopOutgoingRing()
         setCallState("active")
       }
 
@@ -2706,6 +2705,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   function startOutgoingRing() {
+    const win = window as any
+    if (win.Capacitor?.isNativePlatform?.()) {
+      // On Android, play natively through USAGE_NOTIFICATION_RINGTONE (speaker, not earpiece)
+      // so the ring is audible even though getUserMedia has put audio in MODE_IN_COMMUNICATION
+      win.Capacitor.Plugins?.RingPlugin?.startRing?.().catch(() => {})
+      return
+    }
+    // Web fallback
     const el = remoteAudioRef.current
     if (!el) return
     el.pause()
@@ -2713,6 +2720,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     el.src = "/outgoing-call.mp3"
     el.loop = true
     void el.play().catch(e => console.warn("outgoing ring blocked:", e))
+  }
+
+  function stopOutgoingRing() {
+    const win = window as any
+    if (win.Capacitor?.isNativePlatform?.()) {
+      win.Capacitor.Plugins?.RingPlugin?.stopRing?.().catch(() => {})
+      return
+    }
+    const el = remoteAudioRef.current
+    if (el) { el.pause(); el.src = "" }
   }
 
   async function initiateCall(calleeUid: string, threadId: string, mode: "audio" | "video" = "audio") {
@@ -2941,7 +2958,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   function cleanupCall() {
-    if (remoteAudioRef.current) { remoteAudioRef.current.pause(); remoteAudioRef.current.src = "" }
+    stopOutgoingRing()
     if (tomAnswerTimeoutRef.current) {
       clearTimeout(tomAnswerTimeoutRef.current)
       tomAnswerTimeoutRef.current = null
