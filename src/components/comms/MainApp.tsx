@@ -2703,16 +2703,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return unsub
   }
 
+  function startOutgoingRing() {
+    outgoingRingRef.current?.pause()
+    const a = new Audio("/outgoing-call.mp3")
+    a.loop = true
+    outgoingRingRef.current = a
+    void a.play().catch(e => console.warn("outgoing ring blocked:", e))
+  }
+
   async function initiateCall(calleeUid: string, threadId: string, mode: "audio" | "video" = "audio") {
     if (callState !== "idle") return
     setCallMediaMode(mode)
-    // Start ringback tone immediately — must be inside the user-gesture call stack
-    // (before any await) so the browser's autoplay policy allows it
-    outgoingRingRef.current?.pause()
-    const ringAudio = new Audio("/outgoing-call.mp3")
-    ringAudio.loop = true
-    outgoingRingRef.current = ringAudio
-    void ringAudio.play().catch(() => {})
     if (calleeUid === TOM_UID) {
       callThreadIdRef.current = threadId
       callStartTimeRef.current = 0
@@ -2727,6 +2728,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       setCallerInfo(TOM_USER)
       setTomVoiceMode(false)
       setCallState("outgoing")
+      startOutgoingRing()
       if (tomAnswerTimeoutRef.current) {
         clearTimeout(tomAnswerTimeoutRef.current)
       }
@@ -2755,6 +2757,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       alert(mode === "video" ? "Camera or microphone permission denied" : "Microphone permission denied")
       return
     }
+    // Start ring AFTER getUserMedia — Android sets audio mode to VOICE_CALL during getUserMedia,
+    // and any audio started before that gets ducked/muted. Starting after ensures the ring
+    // plays on the correct audio stream. Chrome allows this since the page has had prior interaction.
+    startOutgoingRing()
     localStreamRef.current = stream
     setLocalPreviewStream(stream)
     const pc = createPC()
