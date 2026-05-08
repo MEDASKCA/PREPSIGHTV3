@@ -2706,8 +2706,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   function startOutgoingRing() {
     const win = window as any
+    alert("startOutgoingRing: PSRing=" + (!!win.PSRing))
     if (win.PSRing) {
-      // Direct @JavascriptInterface bridge — bypasses Capacitor plugin system entirely
       win.PSRing.start()
       return
     }
