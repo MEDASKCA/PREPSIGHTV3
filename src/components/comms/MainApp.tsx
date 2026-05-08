@@ -2704,12 +2704,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return unsub
   }
 
-  function startOutgoingRing() {
+  async function startOutgoingRing() {
     const win = window as any
     if (win.Capacitor?.isNativePlatform?.()) {
-      // On Android, play natively through USAGE_NOTIFICATION_RINGTONE (speaker, not earpiece)
-      // so the ring is audible even though getUserMedia has put audio in MODE_IN_COMMUNICATION
-      win.Capacitor.Plugins?.RingPlugin?.startRing?.().catch(() => {})
+      try {
+        // registerPlugin creates the JS-side bridge proxy that Capacitor 3+ requires
+        const { registerPlugin } = await import("@capacitor/core")
+        const RingPlugin = registerPlugin<{ startRing(): Promise<void> }>("RingPlugin")
+        await RingPlugin.startRing()
+      } catch (e) {
+        console.warn("native ring failed:", e)
+      }
       return
     }
     // Web fallback
@@ -2722,10 +2727,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     void el.play().catch(e => console.warn("outgoing ring blocked:", e))
   }
 
-  function stopOutgoingRing() {
+  async function stopOutgoingRing() {
     const win = window as any
     if (win.Capacitor?.isNativePlatform?.()) {
-      win.Capacitor.Plugins?.RingPlugin?.stopRing?.().catch(() => {})
+      try {
+        const { registerPlugin } = await import("@capacitor/core")
+        const RingPlugin = registerPlugin<{ stopRing(): Promise<void> }>("RingPlugin")
+        await RingPlugin.stopRing()
+      } catch {}
       return
     }
     const el = remoteAudioRef.current
