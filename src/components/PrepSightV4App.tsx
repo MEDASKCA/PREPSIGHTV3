@@ -1424,6 +1424,11 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             mobileTab === "comms" ? "pb-0" : "pb-28"
           }`}
         >
+          {/* Always keep MobileCommsShell mounted — call WebRTC survives tab switches.
+              Floating call UI escapes via position:fixed z-[300]. */}
+          <div className={!mobileUtilityPage && mobileTab === "comms" ? "h-full min-h-0 flex-1 overflow-hidden" : "h-0 overflow-hidden pointer-events-none"}>
+            <MobileCommsShell visible={!mobileUtilityPage && mobileTab === "comms"} />
+          </div>
           {mobileUtilityPage === "calendar" ? (
             <div className="flex h-full min-h-0 flex-col">
               <MobileSectionHeader
@@ -1458,12 +1463,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 <MobileConnectorsSurface />
               </div>
             </div>
-          ) : mobileTab === "comms" ? (
-            <div className="h-full min-h-0 flex-1 overflow-hidden">
-              <MobileCommsShell visible />
-            </div>
-          )
-          : mobileTab === "library" ? (
+          ) : mobileTab === "library" ? (
             <div className="flex h-full min-h-0 flex-col">
               <MobileSectionHeader
                 title={mobileSurfaceTitle}
@@ -1512,7 +1512,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 <MobileResourcesSurface embedded />
               </div>
             </div>
-          ) : (
+          ) : mobileTab !== "comms" ? (
             <div className="flex h-full min-h-0 flex-col">
               <MobileSectionHeader
                 title={mobileSurfaceTitle}
@@ -1529,7 +1529,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 <UpdatesPanel activeKey={activeUpdateKey} onSelect={setActiveUpdateKey} surfaceLabel="Insights" />
               </div>
             </div>
-          )}
+          ) : null}
         </main>
         ) : null}
         <MobileGlobalSearchOverlay

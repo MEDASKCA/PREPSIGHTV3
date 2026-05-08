@@ -1702,7 +1702,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ) : null}
                 </>
               )}
-              {!splitView && (
+              {(!splitView || !minimalHeader) && (
                 <>
                   <button
                     type="button"
@@ -1809,7 +1809,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     ) : null}
                   </>
                 )}
-              {!splitView && (
+              {(!splitView || !minimalHeader) && (
                 <>
                   <button
                     type="button"
@@ -3071,11 +3071,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const myName = user.displayName || user.email || "Caller"
     awaitingVideoAcceptRef.current = true
     setAwaitingVideoAccept(true)
-    await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
-      videoRequestFrom: user.uid,
-      videoRequestName: myName,
-      videoAccepted: deleteField(),
-    })
+    try {
+      await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
+        videoRequestFrom: user.uid,
+        videoRequestName: myName,
+        videoAccepted: deleteField(),
+      })
+    } catch (e) {
+      awaitingVideoAcceptRef.current = false
+      setAwaitingVideoAccept(false)
+      console.warn("requestVideo failed:", e)
+    }
   }
 
   async function acceptVideoRequest() {
@@ -3179,7 +3185,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       )}
 
       {/* Incoming video request modal */}
-      {incomingVideoRequest && callState === "active" && (
+      {incomingVideoRequest && (
         <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/60">
           <div className="mx-6 w-full max-w-xs rounded-2xl bg-[#1a1a2e] p-6 text-center shadow-2xl">
             <div className="mb-1 flex justify-center">
