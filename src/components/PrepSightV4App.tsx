@@ -919,7 +919,9 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           : "Search Insights"
 
   const dockPinnedToCommsPane = isFoldableMobileViewport
-  const shiftMixedSplitChromeToRight = isFoldableMobileViewport && mobileTab !== "comms" && isMixedSplitDirectThreadActive
+  // Shift header + dock to the surface pane when a DM thread is open alongside a surface,
+  // OR when a call is active — so the comms/call pane is always full-height with no chrome.
+  const shiftMixedSplitChromeToRight = isFoldableMobileViewport && mobileTab !== "comms" && (isMixedSplitDirectThreadActive || callStatus.state !== "idle")
   const isMixedSplitCommsPaneOnLeft = !isFoldSplitSwapped
   const mixedSplitPrimaryLeftTitle = isFoldSplitSwapped ? mobileSurfaceTitle : "Comms"
   const mixedSplitPrimaryRightTitle = isFoldSplitSwapped ? "Comms" : mobileSurfaceTitle
