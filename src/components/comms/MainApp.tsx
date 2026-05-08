@@ -2732,6 +2732,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   async function initiateCall(calleeUid: string, threadId: string, mode: "audio" | "video" = "audio") {
+    alert("initiateCall fired")
     if (callState !== "idle") return
     setCallMediaMode(mode)
     if (calleeUid === TOM_UID) {
@@ -2764,6 +2765,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       }, 1400)
       return
     }
+    // Ring starts before any awaits — within the user gesture, ensures autoplay works
+    // and the native PSRing.start() fires immediately on button tap
+    startOutgoingRing()
     // Fetch callee profile for call UI
     try {
       const calleeDoc = await getDoc(doc(firestore, "comms_v5_users", calleeUid))
@@ -2774,13 +2778,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     try {
       stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: mode === "video" })
     } catch {
+      stopOutgoingRing()
       alert(mode === "video" ? "Camera or microphone permission denied" : "Microphone permission denied")
       return
     }
-    // Start ring AFTER getUserMedia — Android sets audio mode to VOICE_CALL during getUserMedia,
-    // and any audio started before that gets ducked/muted. Starting after ensures the ring
-    // plays on the correct audio stream. Chrome allows this since the page has had prior interaction.
-    startOutgoingRing()
     localStreamRef.current = stream
     setLocalPreviewStream(stream)
     const pc = createPC()

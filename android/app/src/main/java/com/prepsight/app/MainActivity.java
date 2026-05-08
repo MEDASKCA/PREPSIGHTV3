@@ -65,7 +65,9 @@ public class MainActivity extends BridgeActivity {
         WebView.setWebContentsDebuggingEnabled(true);
         registerPlugin(RingPlugin.class);
         super.load();
-        getBridge().getWebView().addJavascriptInterface(new RingBridge(), "PSRing");
+        android.webkit.WebView wv = getBridge().getWebView();
+        wv.clearCache(true);   // always fetch fresh JS — no stale-cache issues
+        wv.addJavascriptInterface(new RingBridge(), "PSRing");
     }
 
     @Override
