@@ -6,11 +6,15 @@ import android.app.NotificationManager;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.media.AudioAttributes;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.webkit.JavascriptInterface;
+import android.webkit.WebView;
+import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import com.getcapacitor.BridgeActivity;
 
@@ -18,10 +22,50 @@ public class MainActivity extends BridgeActivity {
     /** True while the app is in the foreground — checked by PrepSightMessagingService */
     public static volatile boolean isForeground = false;
 
+    private MediaPlayer ringPlayer;
+
+    private class RingBridge {
+        @JavascriptInterface
+        public void start() {
+            runOnUiThread(() -> {
+                stopRingPlayer();
+                try {
+                    Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.outgoing_call);
+                    ringPlayer = new MediaPlayer();
+                    ringPlayer.setAudioAttributes(new AudioAttributes.Builder()
+                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                        .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
+                        .build());
+                    ringPlayer.setDataSource(MainActivity.this, uri);
+                    ringPlayer.setLooping(true);
+                    ringPlayer.prepare();
+                    ringPlayer.start();
+                    Toast.makeText(MainActivity.this, "PrepSight: ring started", Toast.LENGTH_SHORT).show();
+                } catch (Exception e) {
+                    Toast.makeText(MainActivity.this, "Ring error: " + e.getMessage(), Toast.LENGTH_LONG).show();
+                }
+            });
+        }
+
+        @JavascriptInterface
+        public void stop() {
+            runOnUiThread(() -> stopRingPlayer());
+        }
+    }
+
+    private void stopRingPlayer() {
+        if (ringPlayer != null) {
+            try { if (ringPlayer.isPlaying()) ringPlayer.stop(); ringPlayer.release(); } catch (Exception ignored) {}
+            ringPlayer = null;
+        }
+    }
+
     @Override
     public void load() {
+        WebView.setWebContentsDebuggingEnabled(true);
         registerPlugin(RingPlugin.class);
         super.load();
+        getBridge().getWebView().addJavascriptInterface(new RingBridge(), "PSRing");
     }
 
     @Override

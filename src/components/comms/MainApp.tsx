@@ -2704,17 +2704,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return unsub
   }
 
-  async function startOutgoingRing() {
+  function startOutgoingRing() {
     const win = window as any
-    if (win.Capacitor?.isNativePlatform?.()) {
-      try {
-        // registerPlugin creates the JS-side bridge proxy that Capacitor 3+ requires
-        const { registerPlugin } = await import("@capacitor/core")
-        const RingPlugin = registerPlugin<{ startRing(): Promise<void> }>("RingPlugin")
-        await RingPlugin.startRing()
-      } catch (e) {
-        console.warn("native ring failed:", e)
-      }
+    if (win.PSRing) {
+      // Direct @JavascriptInterface bridge — bypasses Capacitor plugin system entirely
+      win.PSRing.start()
       return
     }
     // Web fallback
@@ -2727,14 +2721,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     void el.play().catch(e => console.warn("outgoing ring blocked:", e))
   }
 
-  async function stopOutgoingRing() {
+  function stopOutgoingRing() {
     const win = window as any
-    if (win.Capacitor?.isNativePlatform?.()) {
-      try {
-        const { registerPlugin } = await import("@capacitor/core")
-        const RingPlugin = registerPlugin<{ stopRing(): Promise<void> }>("RingPlugin")
-        await RingPlugin.stopRing()
-      } catch {}
+    if (win.PSRing) {
+      win.PSRing.stop()
       return
     }
     const el = remoteAudioRef.current
