@@ -58,6 +58,17 @@ export default function PersistentCommsLayer() {
   const [org, setOrg] = useState<CommsOrg | null>(null)
   const [profileHospital, setProfileHospital] = useState("")
   const [profileDepartment, setProfileDepartment] = useState("")
+  // Only mount MainApp on desktop — on mobile, MobileCommsShell is the sole MainApp instance.
+  // Without this guard the hidden-but-mounted desktop MainApp fights MobileCommsShell over
+  // call-state.ts (auto-minimising calls, toggling callStatus.minimized) causing flicker.
+  const [isDesktop, setIsDesktop] = useState(false)
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)")
+    setIsDesktop(mq.matches)
+    const handler = (e: MediaQueryListEvent) => setIsDesktop(e.matches)
+    mq.addEventListener("change", handler)
+    return () => mq.removeEventListener("change", handler)
+  }, [])
 
   const commsRailOpen = useSyncExternalStore(
     subscribeDesktopCommsPreference,
@@ -216,11 +227,11 @@ export default function PersistentCommsLayer() {
     return () => { cancelled = true }
   }, [user])
 
-  if (!user || !org) return null
+  if (!user || !org || !isDesktop) return null
 
   return (
     <div
-      className={`hidden lg:block fixed right-0 z-[200] overflow-hidden transition-none ${commsRailOpen ? "border-l-[3px] border-[#2d2d2d] bg-black" : ""}`}
+      className={`fixed right-0 z-[200] overflow-hidden transition-none ${commsRailOpen ? "border-l-[3px] border-[#2d2d2d] bg-black" : ""}`}
       style={{
         width: commsRailOpen ? commsRailWidth : 0,
         top: 0,
