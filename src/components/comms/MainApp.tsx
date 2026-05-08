@@ -2558,8 +2558,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         remoteAudioRef.current.play().catch(() => {})
       }
 
-      // Only count unmuted (actively streaming) video tracks — pre-negotiated tracks are
-      // muted until the sender calls replaceTrack, so don't show video UI prematurely
       const hasVideo = !!remoteStreamRef.current?.getVideoTracks().some(t => t.readyState !== "ended" && !t.muted)
       setRemoteVideoActive(hasVideo)
 
@@ -2591,12 +2589,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           if (floatingVideoRef.current) {
             floatingVideoRef.current.srcObject = remoteStreamRef.current
             floatingVideoRef.current.play().catch(() => {})
-          }
-          const weAlreadySendVideo = pc.getSenders().some(
-            s => s.track?.kind === "video" && s.track?.readyState !== "ended"
-          )
-          if (!weAlreadySendVideo) {
-            setTimeout(() => void callActionsRef.current.switchToVideo(), 300)
           }
         }
         e.track.onmute = () => {
@@ -2681,14 +2673,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             reanswerSdp: { type: reAnswer.type, sdp: reAnswer.sdp },
             reofferSdp: deleteField(),
           })
-          // If remote switched to video and we're still audio-only, trigger our own
-          // video switch after the answer completes — two-round negotiation, avoids
-          // the addTrack-before-createAnswer race on mobile WebViews
-          const weAlreadySendVideo = pc.getSenders().some(s => s.track?.kind === "video" && s.track?.readyState !== "ended")
-          const offerHasVideo = typeof offerSdp.sdp === "string" && offerSdp.sdp.includes("m=video")
-          if (offerHasVideo && !weAlreadySendVideo) {
-            setTimeout(() => void callActionsRef.current.switchToVideo(), 500)
-          }
         } catch (e) { console.warn("reoffer failed:", e) }
       }
       if (data.reanswerSdp && pc.signalingState === "have-local-offer") {
@@ -2785,9 +2769,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const pc = createPC()
     attachRemoteAudio(pc)
     stream.getTracks().forEach(t => pc.addTrack(t, stream))
-    // Pre-negotiate a video transceiver so switching audio→video reuses the existing
-    // ICE transport (no new STUN hole-punch needed — replaceTrack() just activates it)
-    if (mode === "audio") pc.addTransceiver("video", { direction: "sendrecv" })
 
     const callRef = doc(collection(firestore, "comms_v5_calls"))
     callThreadIdRef.current = threadId
@@ -2882,10 +2863,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (!offerData) return
 
     await pc.setRemoteDescription(new RTCSessionDescription(offerData))
-    // If caller pre-negotiated a video transceiver, open our side to sendrecv so either
-    // party can activate video later with replaceTrack — no renegotiation needed
-    const preVt = pc.getTransceivers().find(t => t.receiver.track.kind === "video")
-    if (preVt) preVt.direction = "sendrecv"
 
     // Set handler BEFORE setLocalDescription — ICE gathering starts on setLocalDescription,
     // and any candidates fired before the handler is attached are silently dropped.
