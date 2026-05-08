@@ -2553,6 +2553,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       publishCallStatus({ remoteStream: remoteStreamRef.current })
 
       if (remoteAudioRef.current) {
+        remoteAudioRef.current.pause()
+        remoteAudioRef.current.src = ""           // stop any outgoing ring
         remoteAudioRef.current.srcObject = remoteStreamRef.current
         remoteAudioRef.current.play().catch(() => {})
       }
@@ -2630,7 +2632,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       }
 
       if (data.status === "active") {
-        outgoingRingRef.current?.pause(); outgoingRingRef.current = null
+        if (remoteAudioRef.current) { remoteAudioRef.current.pause(); remoteAudioRef.current.src = "" }
         setCallState("active")
       }
 
@@ -2704,11 +2706,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   function startOutgoingRing() {
-    outgoingRingRef.current?.pause()
-    const a = new Audio("/outgoing-call.mp3")
-    a.loop = true
-    outgoingRingRef.current = a
-    void a.play().catch(e => console.warn("outgoing ring blocked:", e))
+    const el = remoteAudioRef.current
+    if (!el) return
+    el.pause()
+    el.srcObject = null
+    el.src = "/outgoing-call.mp3"
+    el.loop = true
+    void el.play().catch(e => console.warn("outgoing ring blocked:", e))
   }
 
   async function initiateCall(calleeUid: string, threadId: string, mode: "audio" | "video" = "audio") {
@@ -2937,7 +2941,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   function cleanupCall() {
-    outgoingRingRef.current?.pause(); outgoingRingRef.current = null
+    if (remoteAudioRef.current) { remoteAudioRef.current.pause(); remoteAudioRef.current.src = "" }
     if (tomAnswerTimeoutRef.current) {
       clearTimeout(tomAnswerTimeoutRef.current)
       tomAnswerTimeoutRef.current = null
@@ -3018,20 +3022,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
       localStreamRef.current?.addTrack(track)
 
-      // Prefer pre-negotiated transceiver: replaceTrack activates it with zero renegotiation
+      // Pre-negotiated transceiver: replaceTrack activates it with zero renegotiation
       // and zero new ICE — the video just starts flowing on the existing bundled transport.
       const vt = pc.getTransceivers().find(t => t.receiver.track.kind === "video")
-      if (vt) {
-        await vt.sender.replaceTrack(track)
-      } else if (localStreamRef.current && activeCall) {
-        // Fallback for calls that didn't pre-negotiate video (older session)
-        pc.addTrack(track, localStreamRef.current)
-        const offer = await pc.createOffer()
-        await pc.setLocalDescription(offer)
-        await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
-          reofferSdp: { type: offer.type, sdp: offer.sdp },
-        })
-      }
+      if (!vt) { console.warn("switchToVideo: no pre-negotiated video transceiver"); return }
+      await vt.sender.replaceTrack(track)
 
       setLocalPreviewStream(localStreamRef.current)
       setCallMediaMode("video")
