@@ -921,7 +921,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const dockPinnedToCommsPane = isFoldableMobileViewport
   // Shift header + dock to the surface pane when a DM thread is open alongside a surface,
   // OR when a call is active — so the comms/call pane is always full-height with no chrome.
-  const shiftMixedSplitChromeToRight = isFoldableMobileViewport && mobileTab !== "comms" && (isMixedSplitDirectThreadActive || callStatus.state !== "idle")
+  const shiftMixedSplitChromeToRight = isFoldableMobileViewport && mobileTab !== "comms" && (isMixedSplitDirectThreadActive || (callStatus.state !== "idle" && !callStatus.minimized))
   const isMixedSplitCommsPaneOnLeft = !isFoldSplitSwapped
   const mixedSplitPrimaryLeftTitle = isFoldSplitSwapped ? mobileSurfaceTitle : "Comms"
   const mixedSplitPrimaryRightTitle = isFoldSplitSwapped ? "Comms" : mobileSurfaceTitle
@@ -1168,7 +1168,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           ) : (
             <div
               className="pointer-events-none fixed bottom-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[rgba(255,255,255,0.12)] lg:hidden"
-              style={{ top: "calc(env(safe-area-inset-top) + 74px)" }}
+              style={{ top: shiftMixedSplitChromeToRight ? "env(safe-area-inset-top)" : "calc(env(safe-area-inset-top) + 74px)" }}
             />
           )
         ) : null}
@@ -1236,184 +1236,95 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               </div>
             ) : null}
             <main className="relative min-h-0 flex-1 overflow-hidden bg-black">
-              {!shiftMixedSplitChromeToRight ? (
-                <div className="grid h-full min-h-0 grid-cols-2">
-                  {isMixedSplitCommsPaneOnLeft ? (
-                    <>
-                      <div className="min-h-0 overflow-hidden pb-28">
-                        <MobileCommsShell
-                          visible
-                          hideHeader
-                          allowFoldableSplitView={false}
-                          onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
-                        />
-                      </div>
-                      <div
-                        className="min-h-0 overflow-y-auto overscroll-contain bg-black"
-                        style={{ touchAction: "pan-y" }}
-                      >
-                        {renderFoldRightPaneContent()}
-                      </div>
-                    </>
-                  ) : (
-                    <>
-                      <div
-                        className="min-h-0 overflow-y-auto overscroll-contain bg-black"
-                        style={{ touchAction: "pan-y" }}
-                      >
-                        {renderFoldRightPaneContent()}
-                      </div>
-                      <div className="min-h-0 overflow-hidden pb-28">
-                        <MobileCommsShell
-                          visible
-                          hideHeader
-                          allowFoldableSplitView={false}
-                          onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
-                        />
-                      </div>
-                    </>
-                  )}
-                </div>
-              ) : (
-                <div className="relative grid h-full min-h-0 grid-cols-2">
-                  <button
-                    type="button"
-                    onClick={() => setIsFoldSplitSwapped((value) => !value)}
-                    aria-label="Swap split sides"
-                    className="absolute left-1/2 z-20 flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3]"
-                    style={{ top: "calc(env(safe-area-inset-top) + 12px)" }}
+              {/* Swap button — only shown here when chrome has shifted (shared header is hidden).
+                  When !shiftMixedSplitChromeToRight the shared header above owns the swap button. */}
+              {shiftMixedSplitChromeToRight ? (
+                <button
+                  type="button"
+                  onClick={() => setIsFoldSplitSwapped((value) => !value)}
+                  aria-label="Swap split sides"
+                  className="absolute left-1/2 z-20 flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3]"
+                  style={{ top: "calc(env(safe-area-inset-top) + 12px)" }}
+                >
+                  <ArrowLeftRight size={18} />
+                </button>
+              ) : null}
+
+              {/* Comms pane — single stable instance; CSS-only repositioning so it never
+                  remounts when call state changes (avoids clearCallStatus flicker loop). */}
+              <div
+                className={`absolute inset-y-0 overflow-hidden ${
+                  isMixedSplitCommsPaneOnLeft ? "left-0 right-1/2" : "left-1/2 right-0"
+                } ${!shiftMixedSplitChromeToRight ? "pb-28" : ""}`}
+              >
+                <MobileCommsShell
+                  visible
+                  hideHeader
+                  allowFoldableSplitView={false}
+                  onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
+                />
+              </div>
+
+              {/* Surface pane — opposite side, owns the header + nav when call is active */}
+              <div
+                className={`absolute inset-y-0 flex flex-col overflow-hidden bg-black ${
+                  isMixedSplitCommsPaneOnLeft ? "left-1/2 right-0" : "left-0 right-1/2"
+                } ${shiftMixedSplitChromeToRight ? "pb-28" : ""}`}
+              >
+                {/* Per-pane header — only shown when chrome has shifted to this pane */}
+                {shiftMixedSplitChromeToRight ? (
+                  <div
+                    className="shrink-0 border-b border-black bg-black px-4 pb-3"
+                    style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
                   >
-                    <ArrowLeftRight size={18} />
-                  </button>
-                  {isMixedSplitCommsPaneOnLeft ? (
-                    <>
-                      <div className="min-h-0 overflow-hidden">
-                        <MobileCommsShell
-                          visible
-                          hideHeader
-                          allowFoldableSplitView={false}
-                          onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
-                        />
-                      </div>
-                      <div className="flex min-h-0 flex-col overflow-hidden bg-black pb-28">
-                        <div
-                          className="shrink-0 border-b border-black bg-black px-4 pb-3"
-                          style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
-                        >
-                          <div className="grid grid-cols-[minmax(0,1fr)_40px] items-start gap-4">
-                            <div className="min-w-0 text-center">
-                              <div className="inline-flex items-center gap-1 text-[22px] tracking-tight">
-                                <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
-                                <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
-                              </div>
-                              <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
-                                <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
-                                <span className="shrink-0 text-[#5f5f5f]">|</span>
-                                <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
-                              </div>
-                            </div>
-                            <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
-                              <button
-                                type="button"
-                                onClick={() => setShowMobileGlobalSearch(true)}
-                                aria-label="Open search"
-                                className="text-white/70 hover:text-white"
-                              >
-                                <Search size={20} />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => setShowMobileProfile(true)}
-                                aria-label="Open menu"
-                                className="text-white/80 hover:text-white"
-                              >
-                                <MoreVertical size={22} />
-                              </button>
-                            </div>
-                          </div>
-                          <div className="mt-3">
-                            <div
-                              className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
-                              style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-                            >
-                              {mobileSurfaceTitle}
-                            </div>
-                          </div>
+                    <div className="grid grid-cols-[minmax(0,1fr)_40px] items-start gap-4">
+                      <div className="min-w-0 text-center">
+                        <div className="inline-flex items-center gap-1 text-[22px] tracking-tight">
+                          <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
+                          <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
                         </div>
-                        <div
-                          className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-black"
-                          style={{ touchAction: "pan-y" }}
-                        >
-                          {renderFoldRightPaneContent()}
+                        <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
+                          <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
+                          <span className="shrink-0 text-[#5f5f5f]">|</span>
+                          <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
                         </div>
                       </div>
-                    </>
-                  ) : (
-                    <>
-                      <div className="flex min-h-0 flex-col overflow-hidden bg-black pb-28">
-                        <div
-                          className="shrink-0 border-b border-black bg-black px-4 pb-3"
-                          style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
+                      <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
+                        <button
+                          type="button"
+                          onClick={() => setShowMobileGlobalSearch(true)}
+                          aria-label="Open search"
+                          className="text-white/70 hover:text-white"
                         >
-                          <div className="grid grid-cols-[minmax(0,1fr)_40px] items-start gap-4">
-                            <div className="min-w-0 text-center">
-                              <div className="inline-flex items-center gap-1 text-[22px] tracking-tight">
-                                <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
-                                <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
-                              </div>
-                              <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
-                                <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
-                                <span className="shrink-0 text-[#5f5f5f]">|</span>
-                                <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
-                              </div>
-                            </div>
-                            <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
-                              <button
-                                type="button"
-                                onClick={() => setShowMobileGlobalSearch(true)}
-                                aria-label="Open search"
-                                className="text-white/70 hover:text-white"
-                              >
-                                <Search size={20} />
-                              </button>
-                              <button
-                                type="button"
-                                onClick={() => setShowMobileProfile(true)}
-                                aria-label="Open menu"
-                                className="text-white/80 hover:text-white"
-                              >
-                                <MoreVertical size={22} />
-                              </button>
-                            </div>
-                          </div>
-                          <div className="mt-3">
-                            <div
-                              className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
-                              style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-                            >
-                              {mobileSurfaceTitle}
-                            </div>
-                          </div>
-                        </div>
-                        <div
-                          className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-black"
-                          style={{ touchAction: "pan-y" }}
+                          <Search size={20} />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => setShowMobileProfile(true)}
+                          aria-label="Open menu"
+                          className="text-white/80 hover:text-white"
                         >
-                          {renderFoldRightPaneContent()}
-                        </div>
+                          <MoreVertical size={22} />
+                        </button>
                       </div>
-                      <div className="min-h-0 overflow-hidden">
-                        <MobileCommsShell
-                          visible
-                          hideHeader
-                          allowFoldableSplitView={false}
-                          onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
-                        />
+                    </div>
+                    <div className="mt-3">
+                      <div
+                        className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                        style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                      >
+                        {mobileSurfaceTitle}
                       </div>
-                    </>
-                  )}
+                    </div>
+                  </div>
+                ) : null}
+                <div
+                  className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-black"
+                  style={{ touchAction: "pan-y" }}
+                >
+                  {renderFoldRightPaneContent()}
                 </div>
-              )}
+              </div>
             </main>
           </>
         ) : null}
@@ -1539,7 +1450,17 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           onClose={() => setShowMobileGlobalSearch(false)}
         />
 
-        <div className={`fixed bottom-0 z-50 ${dockPinnedToCommsPane ? (shiftMixedSplitChromeToRight ? "right-0 w-1/2 max-w-full" : "left-0 w-1/2 max-w-full") : "inset-x-0"}`}>
+        <div className={`fixed bottom-0 z-50 ${
+          isFoldableMobileViewport
+            ? mobileTab !== "comms"
+              // Mixed split: nav follows the non-call pane (surface when shifted, comms when not)
+              ? shiftMixedSplitChromeToRight
+                ? (isMixedSplitCommsPaneOnLeft ? "right-0 w-1/2 max-w-full" : "left-0 w-1/2 max-w-full")
+                : (isMixedSplitCommsPaneOnLeft ? "left-0 w-1/2 max-w-full" : "right-0 w-1/2 max-w-full")
+              // Comms-only foldable: pin to left half
+              : "left-0 w-1/2 max-w-full"
+            : "inset-x-0"
+        }`}>
           <div className="bg-black border-t border-black px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
             <div
               className="grid gap-1"
