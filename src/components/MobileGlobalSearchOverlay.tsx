@@ -193,10 +193,12 @@ export default function MobileGlobalSearchOverlay({
   open,
   onClose,
   halfScreen = false,
+  rightHalf = false,
 }: {
   open: boolean
   onClose: () => void
-  halfScreen?: boolean
+  halfScreen?: boolean   // constrain drawer to left half (right edge at 50%)
+  rightHalf?: boolean    // constrain drawer to right half (left edge at 50%)
 }) {
   const [query, setQuery] = useState("")
   const [recentSearches, setRecentSearches] = useState<string[]>(DEFAULT_RECENTS)
@@ -247,7 +249,8 @@ export default function MobileGlobalSearchOverlay({
         className="fixed z-[35] bg-black/58 text-white lg:hidden"
         style={{
           animation: "mobileGlobalSearchFadeIn 260ms ease-out both",
-          inset: 0,
+          top: 0, bottom: 0,
+          left: rightHalf ? "50%" : 0,
           right: halfScreen ? "50%" : 0,
         }}
         onClick={onClose}
@@ -255,7 +258,7 @@ export default function MobileGlobalSearchOverlay({
         <div
           className="h-full overflow-y-auto rounded-r-[32px] rounded-tl-[24px] border-r border-t border-[#2d2d2d] bg-[linear-gradient(180deg,#111111_0%,#0a0a0a_100%)] px-4 shadow-[18px_0_44px_rgba(0,0,0,0.5)]"
           style={{
-            width: halfScreen ? "min(88%,29rem)" : "min(88vw,29rem)",
+            width: (halfScreen || rightHalf) ? "min(88%,29rem)" : "min(88vw,29rem)",
             animation: "mobileGlobalSearchDrawerIn 300ms cubic-bezier(0.22,1,0.36,1) both",
             paddingTop: "calc(env(safe-area-inset-top,0px) + 12px)",
             paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 108px)",

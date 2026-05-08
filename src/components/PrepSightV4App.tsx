@@ -541,6 +541,7 @@ function MobileSharedProfileDrawer({
   onOpenCalendar,
   onOpenConnectors,
   onSwitchWorkspace,
+  paneConstraint,
 }: {
   open: boolean
   onClose: () => void
@@ -555,16 +556,26 @@ function MobileSharedProfileDrawer({
   onOpenCalendar: () => void
   onOpenConnectors: () => void
   onSwitchWorkspace: () => void
+  paneConstraint?: "left" | "right"  // constrain drawer to that half-screen pane
 }) {
   const { theme, toggle } = useMobileTheme()
   if (!open) return null
 
+  // Compute backdrop and drawer positioning for pane-constrained mode
+  const backdropStyle: React.CSSProperties = paneConstraint === "right"
+    ? { left: "50%", right: 0, top: 0, bottom: 0 }
+    : paneConstraint === "left"
+      ? { left: 0, right: "50%", top: 0, bottom: 0 }
+      : {}
+  const drawerRight = paneConstraint === "left" ? "50%" : "0"
+  const drawerWidth = paneConstraint ? "min(44vw,29rem)" : "min(88vw,29rem)"
+
   return (
     <div className="absolute inset-0 z-30 lg:hidden">
-      <div className="absolute inset-0 bg-black/58" onClick={onClose} />
+      <div className="absolute bg-black/58" style={paneConstraint ? { ...backdropStyle, position: "fixed" } : { inset: 0 }} onClick={onClose} />
       <div
-        className="fixed inset-y-0 right-0 z-30 flex h-[100dvh] w-[min(88vw,29rem)] flex-col rounded-l-[32px] rounded-r-none border-l border-t border-[#3a3a3d] bg-[linear-gradient(180deg,#262628_0%,#1d1d1f_100%)] text-white shadow-[-18px_0_44px_rgba(0,0,0,0.5)]"
-        style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" }}
+        className="fixed inset-y-0 z-30 flex h-[100dvh] flex-col rounded-l-[32px] rounded-r-none border-l border-t border-[#3a3a3d] bg-[linear-gradient(180deg,#262628_0%,#1d1d1f_100%)] text-white shadow-[-18px_0_44px_rgba(0,0,0,0.5)]"
+        style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)", right: drawerRight, width: drawerWidth }}
       >
         <div className="border-b border-[#343437] px-5 pt-6 pb-6">
           <div className="mb-6 flex items-start justify-end">
@@ -1145,9 +1156,12 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     }
 
     if (mobileTab === "resources") {
+      // Pass surface-pane bounds so the team action sheet stays within this pane.
+      const surfacePaneBoundsLeft = isMixedSplitCommsPaneOnLeft ? "50%" : "0"
+      const surfacePaneBoundsRight = isMixedSplitCommsPaneOnLeft ? "0" : "50%"
       return (
         <div className="min-h-0 flex-1 overflow-hidden bg-black">
-          <MobileResourcesSurface embedded />
+          <MobileResourcesSurface embedded paneBoundsLeft={surfacePaneBoundsLeft} paneBoundsRight={surfacePaneBoundsRight} />
         </div>
       )
     }
@@ -1177,6 +1191,11 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           onOpenCalendar={() => openMobileUtilityPage("calendar")}
           onOpenConnectors={() => openMobileUtilityPage("connectors")}
           onSwitchWorkspace={handleMobileSwitchWorkspace}
+          paneConstraint={
+            isMixedSplitActive && shiftMixedSplitChromeToRight
+              ? (isMixedSplitCommsPaneOnLeft ? "right" : "left")
+              : undefined
+          }
         />
         {isFoldableMobileViewport ? (
           !isMixedSplitActive ? (
@@ -1531,6 +1550,8 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
         <MobileGlobalSearchOverlay
           open={showMobileGlobalSearch}
           onClose={() => setShowMobileGlobalSearch(false)}
+          halfScreen={isMixedSplitActive && shiftMixedSplitChromeToRight && !isMixedSplitCommsPaneOnLeft}
+          rightHalf={isMixedSplitActive && shiftMixedSplitChromeToRight && isMixedSplitCommsPaneOnLeft}
         />
 
         <div className={`fixed bottom-0 z-50 ${
@@ -1865,10 +1886,17 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
         </div>
       )}
 
-      {/* ── Incoming video upgrade request — shown on ALL viewports including desktop ── */}
+      {/* ── Incoming video upgrade request — constrained to call pane in split view ── */}
       {callStatus.incomingVideoRequest && (
-        <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/60 pointer-events-auto">
-          <div className="mx-6 w-full max-w-xs rounded-2xl bg-[#1a1a2e] p-6 text-center shadow-2xl">
+        <div
+          className="fixed z-[9998] flex items-center justify-center bg-black/60 pointer-events-auto"
+          style={{
+            top: 0, bottom: 0,
+            left: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? 0 : "50%") : 0,
+            right: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? "50%" : 0) : 0,
+          }}
+        >
+          <div className="mx-6 w-full max-w-xs rounded-2xl bg-[#212121] p-6 text-center shadow-2xl">
             <div className="mb-1 flex justify-center">
               <Video size={32} className="text-[#29b6d8]" />
             </div>

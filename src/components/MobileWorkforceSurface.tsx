@@ -387,7 +387,7 @@ function MobileMonthCalendarBlock({ leadingControl }: { leadingControl?: ReactNo
   )
 }
 
-function RotaPanel() {
+function RotaPanel({ paneBoundsLeft = "0", paneBoundsRight = "0" }: { paneBoundsLeft?: string; paneBoundsRight?: string } = {}) {
   const router = useRouter()
   const [filterMode, setFilterMode] = useState<AllocationFilterMode>("Area")
   const [selectedFilter, setSelectedFilter] = useState("All")
@@ -534,7 +534,11 @@ function RotaPanel() {
         ))}
       </div>
       {teamActionMember ? (
-        <div className="fixed inset-0 z-50 flex items-end bg-black/60" onClick={() => setTeamActionMember(null)}>
+        <div
+          className="fixed z-50 flex items-end bg-black/60"
+          style={{ top: 0, bottom: 0, left: paneBoundsLeft, right: paneBoundsRight }}
+          onClick={() => setTeamActionMember(null)}
+        >
           <div
             className="w-full rounded-t-[22px] border-t border-[#1f1f1f] bg-[#111111] px-4 pb-[calc(env(safe-area-inset-bottom,0px)+14px)] pt-3"
             onClick={(event) => event.stopPropagation()}
@@ -764,7 +768,7 @@ function MobileResourcePlaceholderSurface({
 type ResourceTab = "workforce" | "equipment" | "supplies"
 type WorkforceTab = "allocation" | "shifts" | "skills" | "tasks"
 
-export default function MobileResourcesSurface({ embedded = false }: { embedded?: boolean } = {}) {
+export default function MobileResourcesSurface({ embedded = false, paneBoundsLeft = "0", paneBoundsRight = "0" }: { embedded?: boolean; paneBoundsLeft?: string; paneBoundsRight?: string } = {}) {
   const [resourceTab, setResourceTab] = useState<ResourceTab>("workforce")
   const [activeTab, setActiveTab] = useState<WorkforceTab>("allocation")
   const [showSearch, setShowSearch] = useState(false)
@@ -868,7 +872,7 @@ export default function MobileResourcesSurface({ embedded = false }: { embedded?
               />
             </div>
             <div className="min-w-0 flex min-h-0 flex-1 flex-col bg-black">
-              {activeTab === "allocation" ? <RotaPanel /> : null}
+              {activeTab === "allocation" ? <RotaPanel paneBoundsLeft={paneBoundsLeft} paneBoundsRight={paneBoundsRight} /> : null}
               {activeTab === "shifts" ? <ShiftsPanel /> : null}
               {activeTab === "skills" ? <SkillsPanel /> : null}
               {activeTab === "tasks" ? <TasksPanel /> : null}

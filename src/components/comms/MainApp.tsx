@@ -4495,6 +4495,28 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               >
                 <Minimize2 size={14} />
               </button>
+              {/* Foldable-only: toggle between half-pane and both-panes fullscreen */}
+              {!allowFoldableSplitView && (
+                callViewMode === "fullscreen" ? (
+                  <button
+                    onClick={() => setCallViewMode("panel")}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/30 lg:hidden"
+                    aria-label="Half-pane view"
+                    title="Shrink to half pane"
+                  >
+                    <Square size={14} />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setCallViewMode("fullscreen")}
+                    className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white/60 backdrop-blur-sm transition-colors hover:bg-black/60 hover:text-white lg:hidden"
+                    aria-label="Expand to both panes"
+                    title="Expand to full display"
+                  >
+                    <Maximize2 size={14} />
+                  </button>
+                )
+              )}
               {/* Desktop-only panel view button */}
               <button
                 onClick={() => setCallViewMode("panel")}
