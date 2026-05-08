@@ -2636,35 +2636,20 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         const offerSdp = data.reofferSdp as RTCSessionDescriptionInit
         try {
           await pc.setRemoteDescription(new RTCSessionDescription(offerSdp))
-
-          // If the reoffer includes video and we haven't added our camera yet, do it now
-          // before creating the answer — single round-trip, no timing race
-          const weAlreadySendVideo = pc.getSenders().some(s => s.track?.kind === "video" && s.track?.readyState !== "ended")
-          const offerHasVideo = typeof offerSdp.sdp === "string" && offerSdp.sdp.includes("m=video")
-          if (offerHasVideo && !weAlreadySendVideo) {
-            try {
-              let vs: MediaStream
-              try {
-                vs = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacingMode }, audio: false })
-              } catch {
-                vs = await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
-              }
-              const vt = vs.getVideoTracks()[0]
-              if (vt && localStreamRef.current) {
-                localStreamRef.current.addTrack(vt)
-                pc.addTrack(vt, localStreamRef.current)
-                setLocalPreviewStream(localStreamRef.current)
-                setCallMediaMode("video")
-              }
-            } catch (e) { console.warn("reoffer: could not add camera:", e) }
-          }
-
           const reAnswer = await pc.createAnswer()
           await pc.setLocalDescription(reAnswer)
           await updateDoc(doc(firestore, "comms_v5_calls", callId), {
             reanswerSdp: { type: reAnswer.type, sdp: reAnswer.sdp },
             reofferSdp: deleteField(),
           })
+          // If remote switched to video and we're still audio-only, trigger our own
+          // video switch after the answer completes — two-round negotiation, avoids
+          // the addTrack-before-createAnswer race on mobile WebViews
+          const weAlreadySendVideo = pc.getSenders().some(s => s.track?.kind === "video" && s.track?.readyState !== "ended")
+          const offerHasVideo = typeof offerSdp.sdp === "string" && offerSdp.sdp.includes("m=video")
+          if (offerHasVideo && !weAlreadySendVideo) {
+            setTimeout(() => void callActionsRef.current.switchToVideo(), 500)
+          }
         } catch (e) { console.warn("reoffer failed:", e) }
       }
       if (data.reanswerSdp && pc.signalingState === "have-local-offer") {
