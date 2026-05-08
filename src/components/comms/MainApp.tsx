@@ -696,6 +696,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const callUnsubRef = useRef<(() => void) | null>(null)
   const callSignalUnsubRef = useRef<(() => void) | null>(null)
   const autoAnswerCallIdRef = useRef<string | null>(null)
+  const outgoingRingRef = useRef<HTMLAudioElement | null>(null)
   const deepLinkThreadIdRef = useRef<string | null>(null)
   const deepLinkCallSenderRef = useRef<string | null>(null)
   const [remoteVideoActive, setRemoteVideoActive] = useState(false)
@@ -1021,14 +1022,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => { audio.pause(); audio.src = "" }
   }, [callState])
 
-  // ── Outgoing call ringback tone (heard by the caller while waiting for answer) ──
-  useEffect(() => {
-    if (callState !== "outgoing") return
-    const audio = new Audio("/outgoing-call.mp3")
-    audio.loop = true
-    void audio.play().catch(() => {})
-    return () => { audio.pause(); audio.src = "" }
-  }, [callState])
 
   // â"€â"€ Call elapsed timer â"€â"€
   useEffect(() => {
@@ -2636,7 +2629,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         await onAnswer(data.answer as RTCSessionDescriptionInit)
       }
 
-      if (data.status === "active") setCallState("active")
+      if (data.status === "active") {
+        outgoingRingRef.current?.pause(); outgoingRingRef.current = null
+        setCallState("active")
+      }
 
       if (data.status === "declined" || data.status === "missed") {
         if (threadId) await postCallMessage(threadId, false, 0, nextCall.mode || "audio")
@@ -2710,6 +2706,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   async function initiateCall(calleeUid: string, threadId: string, mode: "audio" | "video" = "audio") {
     if (callState !== "idle") return
     setCallMediaMode(mode)
+    // Start ringback tone immediately — must be inside the user-gesture call stack
+    // (before any await) so the browser's autoplay policy allows it
+    outgoingRingRef.current?.pause()
+    const ringAudio = new Audio("/outgoing-call.mp3")
+    ringAudio.loop = true
+    outgoingRingRef.current = ringAudio
+    void ringAudio.play().catch(() => {})
     if (calleeUid === TOM_UID) {
       callThreadIdRef.current = threadId
       callStartTimeRef.current = 0
@@ -2928,6 +2931,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   function cleanupCall() {
+    outgoingRingRef.current?.pause(); outgoingRingRef.current = null
     if (tomAnswerTimeoutRef.current) {
       clearTimeout(tomAnswerTimeoutRef.current)
       tomAnswerTimeoutRef.current = null
