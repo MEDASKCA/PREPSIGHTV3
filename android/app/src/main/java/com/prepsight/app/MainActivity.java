@@ -14,42 +14,44 @@ import android.os.Handler;
 import android.os.Looper;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
-import android.widget.Toast;
 import androidx.core.app.ActivityCompat;
 import com.getcapacitor.BridgeActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.ListenerRegistration;
 
 public class MainActivity extends BridgeActivity {
-    /** True while the app is in the foreground — checked by PrepSightMessagingService */
     public static volatile boolean isForeground = false;
 
     private MediaPlayer ringPlayer;
+    private ListenerRegistration callRingListener;
 
+    // JS bridge — fast path if JS bridge happens to work
     private class RingBridge {
         @JavascriptInterface
-        public void start() {
-            runOnUiThread(() -> {
-                stopRingPlayer();
-                try {
-                    Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.outgoing_call);
-                    ringPlayer = new MediaPlayer();
-                    ringPlayer.setAudioAttributes(new AudioAttributes.Builder()
-                        .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
-                        .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
-                        .build());
-                    ringPlayer.setDataSource(MainActivity.this, uri);
-                    ringPlayer.setLooping(true);
-                    ringPlayer.prepare();
-                    ringPlayer.start();
-                    Toast.makeText(MainActivity.this, "PrepSight: ring started", Toast.LENGTH_SHORT).show();
-                } catch (Exception e) {
-                    Toast.makeText(MainActivity.this, "Ring error: " + e.getMessage(), Toast.LENGTH_LONG).show();
-                }
-            });
-        }
+        public void start() { runOnUiThread(() -> startRingPlayer()); }
 
         @JavascriptInterface
-        public void stop() {
-            runOnUiThread(() -> stopRingPlayer());
+        public void stop() { runOnUiThread(() -> stopRingPlayer()); }
+    }
+
+    private void startRingPlayer() {
+        if (ringPlayer != null) return; // already ringing
+        try {
+            Uri uri = Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.outgoing_call);
+            ringPlayer = new MediaPlayer();
+            ringPlayer.setAudioAttributes(new AudioAttributes.Builder()
+                .setContentType(AudioAttributes.CONTENT_TYPE_MUSIC)
+                .setUsage(AudioAttributes.USAGE_NOTIFICATION_RINGTONE)
+                .build());
+            ringPlayer.setDataSource(this, uri);
+            ringPlayer.setLooping(true);
+            ringPlayer.prepare();
+            ringPlayer.start();
+        } catch (Exception e) {
+            ringPlayer = null;
         }
     }
 
@@ -60,13 +62,47 @@ public class MainActivity extends BridgeActivity {
         }
     }
 
+    // Watches Firestore for outgoing ringing calls — plays/stops ring natively without any JS bridge
+    private void startCallRingListener() {
+        if (callRingListener != null) return;
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) return;
+        String myUid = user.getUid();
+        callRingListener = FirebaseFirestore.getInstance()
+            .collection("comms_v5_calls")
+            .whereEqualTo("callerUid", myUid)
+            .addSnapshotListener((snapshot, error) -> {
+                if (error != null || snapshot == null) return;
+                long fiveMinutesAgo = System.currentTimeMillis() - 5 * 60 * 1000;
+                boolean ringing = false;
+                for (DocumentSnapshot doc : snapshot.getDocuments()) {
+                    String status = doc.getString("status");
+                    Long createdAt = doc.getLong("createdAt");
+                    if ("ringing".equals(status) && createdAt != null && createdAt > fiveMinutesAgo) {
+                        ringing = true;
+                        break;
+                    }
+                }
+                final boolean shouldRing = ringing;
+                runOnUiThread(() -> {
+                    if (shouldRing) startRingPlayer();
+                    else stopRingPlayer();
+                });
+            });
+    }
+
+    private void stopCallRingListener() {
+        if (callRingListener != null) { callRingListener.remove(); callRingListener = null; }
+        stopRingPlayer();
+    }
+
     @Override
     public void load() {
         WebView.setWebContentsDebuggingEnabled(true);
         registerPlugin(RingPlugin.class);
         super.load();
         android.webkit.WebView wv = getBridge().getWebView();
-        wv.clearCache(true);   // always fetch fresh JS — no stale-cache issues
+        wv.clearCache(true);
         wv.addJavascriptInterface(new RingBridge(), "PSRing");
     }
 
@@ -74,42 +110,33 @@ public class MainActivity extends BridgeActivity {
     public void onResume() {
         super.onResume();
         isForeground = true;
+        startCallRingListener();
     }
 
     @Override
     public void onPause() {
         super.onPause();
         isForeground = false;
+        stopCallRingListener();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         createNotificationChannels();
-        // Request all runtime permissions up-front so users aren't prompted mid-call
         java.util.List<String> permsNeeded = new java.util.ArrayList<>();
-        String[] permsToCheck = {
-            Manifest.permission.RECORD_AUDIO,
-            Manifest.permission.CAMERA,
-        };
+        String[] permsToCheck = { Manifest.permission.RECORD_AUDIO, Manifest.permission.CAMERA };
         for (String p : permsToCheck) {
-            if (ActivityCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED) {
+            if (ActivityCompat.checkSelfPermission(this, p) != PackageManager.PERMISSION_GRANTED)
                 permsNeeded.add(p);
-            }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                    != PackageManager.PERMISSION_GRANTED) {
+                    != PackageManager.PERMISSION_GRANTED)
                 permsNeeded.add(Manifest.permission.POST_NOTIFICATIONS);
-            }
         }
-        if (!permsNeeded.isEmpty()) {
-            ActivityCompat.requestPermissions(
-                this,
-                permsNeeded.toArray(new String[0]),
-                101
-            );
-        }
+        if (!permsNeeded.isEmpty())
+            ActivityCompat.requestPermissions(this, permsNeeded.toArray(new String[0]), 101);
         handleCallIntent(getIntent());
         handleCommsIntent(getIntent());
     }
@@ -124,17 +151,13 @@ public class MainActivity extends BridgeActivity {
 
     private void handleCallIntent(Intent intent) {
         if (intent == null || !intent.getBooleanExtra("answerCall", false)) return;
-        // Stop the ringtone/vibration immediately — Answer was tapped
         stopService(new Intent(this, CallRingtoneService.class));
         String callId = intent.getStringExtra(CallRingtoneService.EXTRA_CALL_ID);
-        // Include callId so the web app can auto-answer the right call
         String url = "https://prepsight.medaskca.com/comms"
             + (callId != null && !callId.isEmpty() ? "?autoAnswer=" + callId : "");
         final String finalUrl = url;
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            try {
-                getBridge().getWebView().loadUrl(finalUrl);
-            } catch (Exception ignored) {}
+            try { getBridge().getWebView().loadUrl(finalUrl); } catch (Exception ignored) {}
         }, 300);
     }
 
@@ -143,24 +166,17 @@ public class MainActivity extends BridgeActivity {
         String threadId      = intent.getStringExtra("threadId");
         String callSenderUid = intent.getStringExtra("callSenderUid");
         String url = "https://prepsight.medaskca.com/comms";
-        if (threadId != null && !threadId.isEmpty()) {
-            url += "?threadId=" + threadId;
-        } else if (callSenderUid != null && !callSenderUid.isEmpty()) {
-            url += "?callSender=" + callSenderUid;
-        }
+        if (threadId != null && !threadId.isEmpty()) url += "?threadId=" + threadId;
+        else if (callSenderUid != null && !callSenderUid.isEmpty()) url += "?callSender=" + callSenderUid;
         final String finalUrl = url;
         new Handler(Looper.getMainLooper()).postDelayed(() -> {
-            try {
-                getBridge().getWebView().loadUrl(finalUrl);
-            } catch (Exception ignored) {}
+            try { getBridge().getWebView().loadUrl(finalUrl); } catch (Exception ignored) {}
         }, 300);
     }
 
     private void createNotificationChannels() {
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) return;
         NotificationManager nm = getSystemService(NotificationManager.class);
-
-        // Message channel — uses device default notification sound (chime)
         if (nm.getNotificationChannel("prepsight_messages") == null) {
             NotificationChannel messages = new NotificationChannel(
                 "prepsight_messages", "PrepSight Messages", NotificationManager.IMPORTANCE_HIGH);
@@ -169,8 +185,6 @@ public class MainActivity extends BridgeActivity {
             messages.setShowBadge(true);
             nm.createNotificationChannel(messages);
         }
-
-        // Legacy comms channel — kept so existing installs don't lose their channel
         if (nm.getNotificationChannel("prepsight_comms") == null) {
             NotificationChannel comms = new NotificationChannel(
                 "prepsight_comms", "PrepSight Comms", NotificationManager.IMPORTANCE_HIGH);

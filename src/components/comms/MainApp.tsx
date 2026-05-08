@@ -2706,7 +2706,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   function startOutgoingRing() {
     const win = window as any
-    alert("startOutgoingRing: PSRing=" + (!!win.PSRing))
     if (win.PSRing) {
       win.PSRing.start()
       return
@@ -2732,7 +2731,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   async function initiateCall(calleeUid: string, threadId: string, mode: "audio" | "video" = "audio") {
-    alert("initiateCall fired")
     if (callState !== "idle") return
     setCallMediaMode(mode)
     if (calleeUid === TOM_UID) {
