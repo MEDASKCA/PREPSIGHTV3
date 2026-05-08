@@ -577,10 +577,11 @@ interface Props {
   profileDepartment?: string
   hideMobileHeader?: boolean
   allowFoldableSplitView?: boolean
+  suppressCallOverlay?: boolean  // hide call overlay UI while keeping WebRTC alive
   onDirectThreadActiveChange?: (active: boolean) => void
 }
 
-export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true, onDirectThreadActiveChange }: Props) {
+export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true, suppressCallOverlay = false, onDirectThreadActiveChange }: Props) {
   const appRef = useRef<HTMLDivElement>(null)
   const firestore = db!
   const firebaseAuth = auth!
@@ -4412,7 +4413,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       )}
 
       {/* â•â•â• CALL OVERLAY â€" panel or fullscreen â•â•â• */}
-      {callState !== "idle" && callViewMode !== "floating" && (
+      {callState !== "idle" && callViewMode !== "floating" && !suppressCallOverlay && (
         <div
           className={`z-[200] flex flex-col bg-[#0c0c0c] pointer-events-auto ${
             callViewMode === "fullscreen"
