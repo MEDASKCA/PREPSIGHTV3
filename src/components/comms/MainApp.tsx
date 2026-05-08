@@ -2633,23 +2633,25 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       const pc = pcRef.current
       if (!pc) return
       if (data.reofferSdp && pc.signalingState === "stable") {
+        const offerSdp = data.reofferSdp as RTCSessionDescriptionInit
         try {
-          await pc.setRemoteDescription(new RTCSessionDescription(data.reofferSdp))
+          await pc.setRemoteDescription(new RTCSessionDescription(offerSdp))
 
-          // Acceptor: add own video track BEFORE creating the answer so both video tracks
-          // are negotiated in a single round-trip — avoids the second-renegotiation timing race
-          if (isVideoAcceptorRef.current) {
-            isVideoAcceptorRef.current = false
+          // If the reoffer includes video and we haven't added our camera yet, do it now
+          // before creating the answer — single round-trip, no timing race
+          const weAlreadySendVideo = pc.getSenders().some(s => s.track?.kind === "video" && s.track?.readyState !== "ended")
+          const offerHasVideo = typeof offerSdp.sdp === "string" && offerSdp.sdp.includes("m=video")
+          if (offerHasVideo && !weAlreadySendVideo) {
             try {
-              const vidStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacingMode }, audio: false })
-              const vidTrack = vidStream.getVideoTracks()[0]
-              if (vidTrack && localStreamRef.current) {
-                localStreamRef.current.addTrack(vidTrack)
-                pc.addTrack(vidTrack, localStreamRef.current)
+              const vs = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacingMode }, audio: false })
+              const vt = vs.getVideoTracks()[0]
+              if (vt && localStreamRef.current) {
+                localStreamRef.current.addTrack(vt)
+                pc.addTrack(vt, localStreamRef.current)
                 setLocalPreviewStream(localStreamRef.current)
                 setCallMediaMode("video")
               }
-            } catch (camErr) { console.warn("acceptor camera:", camErr) }
+            } catch { /* camera unavailable — answer without video */ }
           }
 
           const reAnswer = await pc.createAnswer()
