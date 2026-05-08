@@ -1021,6 +1021,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return () => { audio.pause(); audio.src = "" }
   }, [callState])
 
+  // ── Outgoing call ringback tone (heard by the caller while waiting for answer) ──
+  useEffect(() => {
+    if (callState !== "outgoing") return
+    const audio = new Audio("/outgoing-call.mp3")
+    audio.loop = true
+    void audio.play().catch(() => {})
+    return () => { audio.pause(); audio.src = "" }
+  }, [callState])
+
   // â"€â"€ Call elapsed timer â"€â"€
   useEffect(() => {
     if (callState !== "active") { setCallElapsed(0); return }
