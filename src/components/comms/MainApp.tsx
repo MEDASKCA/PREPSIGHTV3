@@ -1671,7 +1671,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <button
                       onClick={
                         callState === "active" && callMediaMode === "video" ? switchToAudio
-                        : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
+                        : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
                         : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                         : undefined
                       }
@@ -1774,7 +1774,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       <button
                         onClick={
                           callState === "active" && callMediaMode === "video" ? switchToAudio
-                          : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
+                          : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
                           : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                           : undefined
                         }
@@ -2643,7 +2643,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           const offerHasVideo = typeof offerSdp.sdp === "string" && offerSdp.sdp.includes("m=video")
           if (offerHasVideo && !weAlreadySendVideo) {
             try {
-              const vs = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacingMode }, audio: false })
+              let vs: MediaStream
+              try {
+                vs = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacingMode }, audio: false })
+              } catch {
+                vs = await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
+              }
               const vt = vs.getVideoTracks()[0]
               if (vt && localStreamRef.current) {
                 localStreamRef.current.addTrack(vt)
@@ -2651,7 +2656,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 setLocalPreviewStream(localStreamRef.current)
                 setCallMediaMode("video")
               }
-            } catch { /* camera unavailable — answer without video */ }
+            } catch (e) { console.warn("reoffer: could not add camera:", e) }
           }
 
           const reAnswer = await pc.createAnswer()
@@ -3495,7 +3500,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <button
                       onClick={
                         callState === "active" && callMediaMode === "video" ? switchToAudio
-                        : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
+                        : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
                         : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                         : undefined
                       }
@@ -4511,12 +4516,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     aria-label="Speaker"
                   />
                   <CallButton
-                    icon={awaitingVideoAccept
-                      ? <Video size={20} className="animate-pulse text-[#29b6d8]" />
-                      : <Video size={20} />}
-                    onClick={() => { if (!awaitingVideoAccept) void requestVideo() }}
-                    active={awaitingVideoAccept}
-                    aria-label={awaitingVideoAccept ? "Waiting for video accept…" : "Switch to video"}
+                    icon={<Video size={20} />}
+                    onClick={() => void switchToVideo()}
+                    aria-label="Switch to video"
                   />
                 </>
               ) : (
