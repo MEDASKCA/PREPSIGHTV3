@@ -535,23 +535,27 @@ function VoiceNoteAttachment({ url, isOwn }: { url: string; isOwn: boolean }) {
 
 // â"€â"€â"€ Call button helper â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 
-function CallButton({ icon, onClick, danger, active, "aria-label": ariaLabel }: {
+function CallButton({ icon, onClick, danger, active, disabled, "aria-label": ariaLabel }: {
   icon: React.ReactNode
   onClick?: () => void
   danger?: boolean
   active?: boolean
+  disabled?: boolean
   "aria-label"?: string
 }) {
   return (
     <button
       onClick={onClick}
+      disabled={disabled}
       aria-label={ariaLabel}
       className={`flex h-[52px] w-[52px] items-center justify-center rounded-full transition-colors ${
-        danger
-          ? "bg-[#ef4444] text-white hover:bg-[#dc2626] active:bg-[#b91c1c]"
-          : active
-            ? "bg-[#404040] text-white"
-            : "bg-[#2a2a2a] text-white/80 hover:bg-[#383838]"
+        disabled
+          ? "bg-[#2a2a2a] text-white/30 cursor-not-allowed"
+          : danger
+            ? "bg-[#ef4444] text-white hover:bg-[#dc2626] active:bg-[#b91c1c]"
+            : active
+              ? "bg-[#404040] text-white"
+              : "bg-[#2a2a2a] text-white/80 hover:bg-[#383838]"
       }`}
     >
       {icon}
