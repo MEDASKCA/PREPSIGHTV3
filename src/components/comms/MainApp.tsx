@@ -797,9 +797,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   const setRemoteVideoRef = useCallback((el: HTMLVideoElement | null) => {
     remoteVideoRef.current = el
-    if (el && remoteStreamRef.current) {
+    if (!el) return
+    const stream = remoteStreamRef.current
+    if (stream && stream.getVideoTracks().some(t => t.readyState !== "ended")) {
       el.muted = true
-      el.srcObject = remoteStreamRef.current
+      el.srcObject = stream
       playVideo(el)
     }
   }, [])
@@ -2525,20 +2527,45 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   function attachRemoteAudio(pc: RTCPeerConnection) {
     pc.ontrack = e => {
-      if (!e.streams[0]) return
-      remoteStreamRef.current = e.streams[0]
-      publishCallStatus({ remoteStream: e.streams[0] })
+      // Prefer the stream from the event; fall back to building one from the track
+      const stream = e.streams?.[0] ?? (() => {
+        const s = remoteStreamRef.current ?? new MediaStream()
+        s.addTrack(e.track)
+        return s
+      })()
+
+      // If we have an existing stream, graft new tracks into it so we keep audio+video together
+      if (remoteStreamRef.current && remoteStreamRef.current !== stream) {
+        if (!remoteStreamRef.current.getTracks().includes(e.track)) {
+          remoteStreamRef.current.addTrack(e.track)
+        }
+        remoteStreamRef.current = remoteStreamRef.current
+      } else {
+        remoteStreamRef.current = stream
+      }
+
+      publishCallStatus({ remoteStream: remoteStreamRef.current })
+
       if (remoteAudioRef.current) {
-        remoteAudioRef.current.srcObject = e.streams[0]
+        remoteAudioRef.current.srcObject = remoteStreamRef.current
         remoteAudioRef.current.play().catch(() => {})
       }
-      const hasVideo = e.streams[0].getVideoTracks().some(t => t.readyState !== "ended")
+
+      const hasVideo = remoteStreamRef.current.getVideoTracks().some(t => t.readyState !== "ended")
       setRemoteVideoActive(hasVideo)
-      if (hasVideo && remoteVideoRef.current) {
-        remoteVideoRef.current.muted = true
-        remoteVideoRef.current.srcObject = e.streams[0]
-        remoteVideoRef.current.play().catch(() => {})
-      } else if (!hasVideo && remoteVideoRef.current) {
+
+      if (hasVideo) {
+        if (remoteVideoRef.current) {
+          remoteVideoRef.current.muted = true
+          remoteVideoRef.current.srcObject = remoteStreamRef.current
+          remoteVideoRef.current.play().catch(() => {})
+        }
+        if (floatingVideoRef.current) {
+          floatingVideoRef.current.muted = true
+          floatingVideoRef.current.srcObject = remoteStreamRef.current
+          floatingVideoRef.current.play().catch(() => {})
+        }
+      } else if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = null
       }
     }
