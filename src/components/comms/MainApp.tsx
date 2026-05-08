@@ -1013,6 +1013,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   // â"€â"€ Ringtone on incoming call (web + Capacitor foreground — CallRingtoneService handles background) â"€â"€
   useEffect(() => {
     if (callState !== "incoming") return
+    // Only play in-app ringtone when visible — CallRingtoneService handles it when backgrounded
+    if (document.visibilityState !== "visible") return
     const audio = new Audio("/call-ringtone.mp3")
     audio.loop = true
     void audio.play().catch(() => {})
@@ -2633,17 +2635,29 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       if (data.reofferSdp && pc.signalingState === "stable") {
         try {
           await pc.setRemoteDescription(new RTCSessionDescription(data.reofferSdp))
+
+          // Acceptor: add own video track BEFORE creating the answer so both video tracks
+          // are negotiated in a single round-trip — avoids the second-renegotiation timing race
+          if (isVideoAcceptorRef.current) {
+            isVideoAcceptorRef.current = false
+            try {
+              const vidStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacingMode }, audio: false })
+              const vidTrack = vidStream.getVideoTracks()[0]
+              if (vidTrack && localStreamRef.current) {
+                localStreamRef.current.addTrack(vidTrack)
+                pc.addTrack(vidTrack, localStreamRef.current)
+                setLocalPreviewStream(localStreamRef.current)
+                setCallMediaMode("video")
+              }
+            } catch (camErr) { console.warn("acceptor camera:", camErr) }
+          }
+
           const reAnswer = await pc.createAnswer()
           await pc.setLocalDescription(reAnswer)
           await updateDoc(doc(firestore, "comms_v5_calls", callId), {
             reanswerSdp: { type: reAnswer.type, sdp: reAnswer.sdp },
             reofferSdp: deleteField(),
           })
-          // Acceptor: after answering the requester's reoffer, add own video track (second renegotiation)
-          if (isVideoAcceptorRef.current) {
-            isVideoAcceptorRef.current = false
-            void callActionsRef.current.switchToVideo()
-          }
         } catch (e) { console.warn("reoffer failed:", e) }
       }
       if (data.reanswerSdp && pc.signalingState === "have-local-offer") {
