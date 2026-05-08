@@ -2555,7 +2555,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         remoteAudioRef.current.play().catch(() => {})
       }
 
-      const hasVideo = remoteStreamRef.current.getVideoTracks().some(t => t.readyState !== "ended")
+      // Only count unmuted (actively streaming) video tracks — pre-negotiated tracks are
+      // muted until the sender calls replaceTrack, so don't show video UI prematurely
+      const hasVideo = !!remoteStreamRef.current?.getVideoTracks().some(t => t.readyState !== "ended" && !t.muted)
       setRemoteVideoActive(hasVideo)
 
       if (hasVideo) {
@@ -2571,6 +2573,35 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         }
       } else if (remoteVideoRef.current) {
         remoteVideoRef.current.srcObject = null
+      }
+
+      // When remote activates video (replaceTrack) the track fires onunmute.
+      // Auto-switch our camera too so both parties have video.
+      if (e.track.kind === "video") {
+        e.track.onunmute = () => {
+          setRemoteVideoActive(true)
+          if (remoteVideoRef.current) {
+            remoteVideoRef.current.muted = true
+            remoteVideoRef.current.srcObject = remoteStreamRef.current
+            remoteVideoRef.current.play().catch(() => {})
+          }
+          if (floatingVideoRef.current) {
+            floatingVideoRef.current.srcObject = remoteStreamRef.current
+            floatingVideoRef.current.play().catch(() => {})
+          }
+          const weAlreadySendVideo = pc.getSenders().some(
+            s => s.track?.kind === "video" && s.track?.readyState !== "ended"
+          )
+          if (!weAlreadySendVideo) {
+            setTimeout(() => void callActionsRef.current.switchToVideo(), 300)
+          }
+        }
+        e.track.onmute = () => {
+          const stillHasVideo = !!remoteStreamRef.current?.getVideoTracks().some(
+            t => t.readyState !== "ended" && !t.muted
+          )
+          setRemoteVideoActive(stillHasVideo)
+        }
       }
     }
   }
@@ -2717,6 +2748,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const pc = createPC()
     attachRemoteAudio(pc)
     stream.getTracks().forEach(t => pc.addTrack(t, stream))
+    // Pre-negotiate a video transceiver so switching audio→video reuses the existing
+    // ICE transport (no new STUN hole-punch needed — replaceTrack() just activates it)
+    if (mode === "audio") pc.addTransceiver("video", { direction: "sendrecv" })
 
     const callRef = doc(collection(firestore, "comms_v5_calls"))
     callThreadIdRef.current = threadId
@@ -2811,6 +2845,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (!offerData) return
 
     await pc.setRemoteDescription(new RTCSessionDescription(offerData))
+    // If caller pre-negotiated a video transceiver, open our side to sendrecv so either
+    // party can activate video later with replaceTrack — no renegotiation needed
+    const preVt = pc.getTransceivers().find(t => t.receiver.track.kind === "video")
+    if (preVt) preVt.direction = "sendrecv"
 
     // Set handler BEFORE setLocalDescription — ICE gathering starts on setLocalDescription,
     // and any candidates fired before the handler is attached are silently dropped.
@@ -2915,53 +2953,72 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   async function switchToAudio() {
     if (!localStreamRef.current || callState !== "active") return
-    if (videoBlurEnabled) {
-      await disableBackgroundBlur()
-    }
+    if (videoBlurEnabled) await disableBackgroundBlur()
     const pc = pcRef.current
-    localStreamRef.current.getVideoTracks().forEach(track => {
-      track.stop()
-      const sender = pc?.getSenders().find(s => s.track === track)
-      if (sender) pc?.removeTrack(sender)
-    })
+    // Stop local video tracks and detach from sender
+    const videoTracks = localStreamRef.current.getVideoTracks()
+    // Use replaceTrack(null) if pre-negotiated transceiver exists — no renegotiation,
+    // remote's track fires onmute and their UI clears the video element automatically
+    const vt = pc?.getTransceivers().find(t => t.sender.track?.kind === "video")
+    if (vt) {
+      await vt.sender.replaceTrack(null)
+      videoTracks.forEach(t => { t.stop(); localStreamRef.current?.removeTrack(t) })
+    } else {
+      videoTracks.forEach(track => {
+        track.stop()
+        const sender = pc?.getSenders().find(s => s.track === track)
+        if (sender) pc?.removeTrack(sender)
+      })
+      if (pc && activeCall) {
+        try {
+          const offer = await pc.createOffer()
+          await pc.setLocalDescription(offer)
+          await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
+            reofferSdp: { type: offer.type, sdp: offer.sdp },
+          })
+        } catch (e) { console.warn("renegotiate audio:", e) }
+      }
+    }
     setLocalPreviewStream(null)
     setCallMediaMode("audio")
-    // Renegotiate so remote peer knows video track was removed
-    if (pc && activeCall) {
-      try {
-        const offer = await pc.createOffer()
-        await pc.setLocalDescription(offer)
-        await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
-          reofferSdp: { type: offer.type, sdp: offer.sdp },
-        })
-      } catch (e) { console.warn("renegotiate audio:", e) }
-    }
   }
 
   async function switchToVideo() {
     if (callState !== "active") return
     const pc = pcRef.current
+    if (!pc) return
     try {
-      const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacingMode }, audio: false })
-      const track = stream.getVideoTracks()[0]
-      if (!track) return
-      localStreamRef.current?.addTrack(track)
-      if (pc && localStreamRef.current) {
-        pc.addTrack(track, localStreamRef.current)
+      let videoStream: MediaStream
+      try {
+        videoStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: camFacingMode }, audio: false })
+      } catch {
+        videoStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false })
       }
-      setLocalPreviewStream(localStreamRef.current)
-      setCallMediaMode("video")
-      // Renegotiate so remote peer receives the new video track
-      if (pc && activeCall) {
+      const track = videoStream.getVideoTracks()[0]
+      if (!track) return
+
+      localStreamRef.current?.addTrack(track)
+
+      // Prefer pre-negotiated transceiver: replaceTrack activates it with zero renegotiation
+      // and zero new ICE — the video just starts flowing on the existing bundled transport.
+      const vt = pc.getTransceivers().find(t => t.receiver.track.kind === "video")
+      if (vt) {
+        await vt.sender.replaceTrack(track)
+      } else if (localStreamRef.current && activeCall) {
+        // Fallback for calls that didn't pre-negotiate video (older session)
+        pc.addTrack(track, localStreamRef.current)
         const offer = await pc.createOffer()
         await pc.setLocalDescription(offer)
         await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
           reofferSdp: { type: offer.type, sdp: offer.sdp },
         })
       }
+
+      setLocalPreviewStream(localStreamRef.current)
+      setCallMediaMode("video")
     } catch (e) {
-      alert("Could not access camera. Please check camera permissions.")
-      console.warn("switch to video:", e)
+      alert("Could not access camera: " + String(e))
+      console.warn("switchToVideo:", e)
     }
   }
 
