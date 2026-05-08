@@ -4414,7 +4414,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* â•â•â• CALL OVERLAY â€" panel or fullscreen â•â•â• */}
       {callState !== "idle" && callViewMode !== "floating" && (
         <div
-          className={`z-[200] flex flex-col bg-[#0c0c0c] pointer-events-auto ${callViewMode === "fullscreen" ? "fixed inset-0" : "absolute inset-0"}`}
+          className={`z-[200] flex flex-col bg-[#0c0c0c] pointer-events-auto ${
+            callViewMode === "fullscreen"
+              ? "fixed inset-0"
+              : isFoldableSplitView
+                ? "absolute inset-y-0 right-0 left-1/2"
+                : "absolute inset-0"
+          }`}
           style={callViewMode === "fullscreen" ? { paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)" } : undefined}
         >
 
@@ -4501,11 +4507,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <PanelRight size={14} />
               </button>
             </div>
-            {callState === "active" && (
-              <span className="tabular-nums text-[13px] text-white/50">
-                {formatCallDuration(callElapsed)}
-              </span>
-            )}
             <div className="w-[72px]" />
           </div>
 
@@ -4540,15 +4541,20 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     {remote?.displayName ?? (callState === "incoming" ? "Incoming call" : (selectedThread ? getThreadName(selectedThread) : ""))}
                   </p>
                   {remote?.clinicalRole && (
-                    <p className="mt-1 text-[12px] text-white/40">{remote.clinicalRole}</p>
+                    <p className="mt-1 text-[14px] text-white">{remote.clinicalRole}</p>
                   )}
-                  <p className="mt-2 text-[12px] text-white/30">
+                  <p className="mt-1 text-[14px] text-white">
                     {callState === "outgoing"
                       ? (callMediaMode === "video" ? "Video calling" : "Calling")
                       : callState === "incoming"
                         ? (callMediaMode === "video" ? "Incoming video call" : "Incoming call")
                         : (tomVoiceMode ? "TOM voice" : "Connected")}
                   </p>
+                  {callState === "active" && (
+                    <p className="mt-1 tabular-nums text-[13px] text-white/50">
+                      {formatCallDuration(callElapsed)}
+                    </p>
+                  )}
                 </div>
               )
             })()}
