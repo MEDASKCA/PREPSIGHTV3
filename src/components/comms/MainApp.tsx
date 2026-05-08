@@ -879,6 +879,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       toggleMute: () => callActionsRef.current.toggleMute(),
       switchToAudio: () => callActionsRef.current.switchToAudio(),
       expand: () => setCallViewMode("panel"),
+      acceptVideoRequest: () => callActionsRef.current.acceptVideoRequest(),
+      declineVideoRequest: () => callActionsRef.current.declineVideoRequest(),
     })
     return () => clearCallStatus()
   }, []) // eslint-disable-line react-hooks/exhaustive-deps
@@ -893,6 +895,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       minimized: callViewMode === "floating",
     })
   }, [callState, callMediaMode, videoBlurEnabled, callMuted, callViewMode])
+
+  useEffect(() => {
+    publishCallStatus({ incomingVideoRequest })
+  }, [incomingVideoRequest])
 
   function setLocalPreviewStream(stream: MediaStream | null) {
     localPreviewStreamRef.current = stream
@@ -3184,28 +3190,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       )}
 
-      {/* Incoming video request modal */}
-      {incomingVideoRequest && (
-        <div className="fixed inset-0 z-[9998] flex items-center justify-center bg-black/60">
-          <div className="mx-6 w-full max-w-xs rounded-2xl bg-[#1a1a2e] p-6 text-center shadow-2xl">
-            <div className="mb-1 flex justify-center">
-              <Video size={32} className="text-[#29b6d8]" />
-            </div>
-            <p className="mt-2 text-base font-semibold text-white">Video request</p>
-            <p className="mt-1 text-sm text-white/60">{incomingVideoRequest.name} wants to switch to video</p>
-            <div className="mt-5 flex gap-3">
-              <button
-                onClick={() => void declineVideoRequest()}
-                className="flex-1 rounded-xl bg-white/10 py-3 text-sm font-medium text-white hover:bg-white/20 transition-colors"
-              >Decline</button>
-              <button
-                onClick={() => void acceptVideoRequest()}
-                className="flex-1 rounded-xl bg-[#29b6d8] py-3 text-sm font-medium text-white hover:bg-[#1a96b8] transition-colors"
-              >Accept</button>
-            </div>
-          </div>
-        </div>
-      )}
+      {/* Incoming video request modal rendered globally in PrepSightV4App via call-state */}
 
       {/* â"€â"€ Header â"€â"€ */}
       <div

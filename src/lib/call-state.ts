@@ -14,6 +14,7 @@ export type CallStatusState = {
   calleeName: string
   calleeUid: string
   remoteStream: MediaStream | null
+  incomingVideoRequest: { uid: string; name: string } | null
   // action callbacks registered by MainApp
   end: (() => void) | null
   answer: (() => void) | null
@@ -23,6 +24,8 @@ export type CallStatusState = {
   switchCamera: (() => void) | null
   expand: (() => void) | null
   enterFullscreen: (() => void) | null
+  acceptVideoRequest: (() => void) | null
+  declineVideoRequest: (() => void) | null
 }
 
 const IDLE: CallStatusState = {
@@ -37,6 +40,7 @@ const IDLE: CallStatusState = {
   calleeName: "",
   calleeUid: "",
   remoteStream: null,
+  incomingVideoRequest: null,
   end: null,
   answer: null,
   decline: null,
@@ -45,6 +49,8 @@ const IDLE: CallStatusState = {
   switchCamera: null,
   expand: null,
   enterFullscreen: null,
+  acceptVideoRequest: null,
+  declineVideoRequest: null,
 }
 
 let _state: CallStatusState = { ...IDLE }
@@ -61,8 +67,8 @@ export function publishCallStatus(patch: Partial<CallStatusState>): void {
 
 // Resets non-action fields to idle; preserves registered callbacks so they stay valid until unmount
 export function resetCallStatus(): void {
-  const { end, answer, decline, toggleMute, switchToAudio, expand } = _state
-  _state = { ...IDLE, end, answer, decline, toggleMute, switchToAudio, expand }
+  const { end, answer, decline, toggleMute, switchToAudio, expand, acceptVideoRequest, declineVideoRequest } = _state
+  _state = { ...IDLE, end, answer, decline, toggleMute, switchToAudio, expand, acceptVideoRequest, declineVideoRequest }
   _listeners.forEach(fn => fn(_state))
 }
 
