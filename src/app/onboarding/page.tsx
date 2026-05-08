@@ -75,18 +75,17 @@ const DEPARTMENT_PURPOSE: Record<string, string> = {
   "Other": "Keeps your account flexible while the wider hospital library is still being built out.",
 }
 
-const TOTAL_STEPS = 9
-const CTA_LABELS = [
-  "Continue",
-  "Confirm my hospital",
-  "Continue",
-  "Confirm my area",
-  "Confirm my clinical role",
-  "Continue",
-  "Confirm how I’ll use PrepSight",
-  "Understood, continue",
-  "Enter PrepSight",
-]
+const TOTAL_STEPS = 8
+const CTA_LABELS: Record<number, string> = {
+  1: "Continue",
+  2: "Confirm my hospital",
+  3: "Continue",
+  5: "Confirm my clinical role",
+  6: "Continue",
+  7: "Confirm how I’ll use PrepSight",
+  8: "Understood, continue",
+  9: "Enter PrepSight",
+}
 
 const ROLE_OPTIONS: Array<{ role: UserRole; label: string; description: string }> = [
   {
@@ -287,7 +286,7 @@ export default function OnboardingPage() {
   const [displayName, setDisplayName] = useState("")
   const [role, setRole] = useState<UserRole>("viewer")
   const [jobTitle, setJobTitle] = useState("")
-  const [departments, setDepartments] = useState<string[]>([])
+  const [departments, setDepartments] = useState<string[]>(["Theatres"])
   const [specialties, setSpecialties] = useState<string[]>([])
   const [collapsedDepartments, setCollapsedDepartments] = useState<string[]>([])
   const [managerCode, setManagerCode] = useState("")
@@ -345,9 +344,9 @@ export default function OnboardingPage() {
 
     const saved = loadProgress(user.uid)
     if (saved) {
-      setStep(saved.step)
+      setStep(saved.step === 4 ? 5 : saved.step)
       setHospital(saved.hospital || "")
-      setDepartments(saved.departments || [])
+      setDepartments(["Theatres"])
       setRole(saved.role || "viewer")
       setJobTitle(saved.jobTitle || "")
       setSpecialties(saved.specialties || [])
@@ -499,13 +498,13 @@ export default function OnboardingPage() {
       }
       setManagerCodeError("")
     }
-    setStep((current) => current + 1)
+    setStep((current) => current === 3 ? 5 : current + 1)
     setAnimKey((current) => current + 1)
   }
 
   function goBack() {
     setHasStartedOnboarding(true)
-    setStep((current) => current - 1)
+    setStep((current) => current === 5 ? 3 : current - 1)
     setAnimKey((current) => current + 1)
   }
 
@@ -576,7 +575,8 @@ export default function OnboardingPage() {
     }
   }
 
-  const progressPct = ((step - 1) / (TOTAL_STEPS - 1)) * 100
+  const visibleStepIndex = step > 4 ? step - 2 : step - 1
+  const progressPct = (visibleStepIndex / (TOTAL_STEPS - 1)) * 100
 
   if (finishing) {
     return <MedaskcaLoadingScreen message="Setting up your workspace..." />
@@ -585,7 +585,7 @@ export default function OnboardingPage() {
   return (
     <div className="onboarding-stage min-h-screen flex flex-col overflow-x-clip">
       {user ? (
-        <div className="absolute right-4 top-4 z-20 md:right-6 md:top-6">
+        <div className="absolute right-4 z-20 md:right-6" style={{ top: 'calc(env(safe-area-inset-top, 0px) + 16px)' }}>
           <button
             type="button"
             onClick={() => void handleSignOut()}
@@ -610,7 +610,7 @@ export default function OnboardingPage() {
         />
       </div>
 
-      <div className="relative z-10 flex-1 px-6 pb-8 pt-20 sm:pt-24 lg:px-12 lg:pt-16">
+      <div className="relative z-10 flex-1 px-6 pb-8 pt-14 sm:pt-20 lg:px-12 lg:pt-16">
         <div className="mx-auto w-full max-w-3xl" key={animKey}>
           {step === 1 && (
             <div className="animate-step-in lg:pt-10">
@@ -663,39 +663,41 @@ export default function OnboardingPage() {
 
               <div
                 ref={hospitalWrapRef}
-                className="relative isolate line-reveal"
+                className="line-reveal"
                 style={{ animationDelay: "560ms" }}
               >
-                <input
-                  type="text"
-                  value={hospital}
-                  onChange={(event) => handleHospitalInput(event.target.value)}
-                  placeholder="Search for your hospital or trust"
-                  className="w-full rounded-xl border border-[#D5DCE3] bg-white px-4 py-3.5 text-[15px] focus:outline-none focus:ring-2 focus:ring-[#4DA3FF] transition-shadow lg:px-5 lg:py-4 lg:text-lg"
-                  autoFocus
-                />
+                <div className="relative isolate">
+                  <input
+                    type="text"
+                    value={hospital}
+                    onChange={(event) => handleHospitalInput(event.target.value)}
+                    placeholder="Search for your hospital or trust"
+                    className="w-full rounded-xl border border-[#D5DCE3] bg-white px-4 py-3.5 text-[15px] focus:outline-none focus:ring-2 focus:ring-[#4DA3FF] transition-shadow lg:px-5 lg:py-4 lg:text-lg"
+                    autoFocus
+                  />
 
-                {showSuggestions && (
-                  <div className="absolute left-0 right-0 top-full mt-1 overflow-hidden rounded-xl border border-[#D5DCE3] bg-white shadow-[0_18px_40px_rgba(15,23,42,0.16)] ring-1 ring-white z-30">
-                    {hospitalSuggestions.map((entry) => (
-                      <button
-                        key={`${entry.hospital}-${entry.postcode ?? ""}`}
-                        type="button"
-                        onMouseDown={() => {
-                          setHospital(entry.hospital)
-                          setShowSuggestions(false)
-                        }}
-                        className="w-full px-4 py-3 text-left text-[15px] transition-colors hover:bg-[#F4F7FA] lg:text-sm"
-                      >
-                        <p className="text-[#3F4752] font-medium">{entry.hospital}</p>
-                        <p className="text-xs text-[#94a3b8] mt-0.5">
-                          {entry.trust}
-                          {entry.postcode ? ` · ${entry.postcode}` : ""}
-                        </p>
-                      </button>
-                    ))}
-                  </div>
-                )}
+                  {showSuggestions && (
+                    <div className="absolute left-0 right-0 top-full mt-1 overflow-hidden rounded-xl border border-[#D5DCE3] bg-white shadow-[0_18px_40px_rgba(15,23,42,0.16)] ring-1 ring-white z-30">
+                      {hospitalSuggestions.map((entry) => (
+                        <button
+                          key={`${entry.hospital}-${entry.postcode ?? ""}`}
+                          type="button"
+                          onMouseDown={() => {
+                            setHospital(entry.hospital)
+                            setShowSuggestions(false)
+                          }}
+                          className="w-full px-4 py-3 text-left text-[15px] transition-colors hover:bg-[#F4F7FA] lg:text-sm"
+                        >
+                          <p className="text-[#3F4752] font-medium">{entry.hospital}</p>
+                          <p className="text-xs text-[#94a3b8] mt-0.5">
+                            {entry.trust}
+                            {entry.postcode ? ` · ${entry.postcode}` : ""}
+                          </p>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
 
                 <p className="mt-3 text-[13px] leading-5 text-[#0F4C5C] lg:text-base lg:leading-7">
                   Not listed? Type it in and we&apos;ll save it automatically.
@@ -746,31 +748,29 @@ export default function OnboardingPage() {
 
           {step === 5 && (
             <div className="animate-step-in">
-              <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">
+              <h2 className="mb-1.5 text-3xl font-bold text-[#3F4752] lg:text-5xl">
                 What is your role?
               </h2>
-              <p className="mb-6 max-w-2xl text-base leading-7 text-[#0F4C5C] lg:text-xl lg:leading-9">
-                Choose the clinical role that best matches how you work. This helps PrepSight shape the most relevant context for you.
+              <p className="mb-3 max-w-2xl text-sm leading-6 text-[#0F4C5C] lg:text-xl lg:leading-9">
+                Choose the clinical role that best matches how you work.
               </p>
               {availableClinicalRoles.length > 0 ? (
-                <div className="grid gap-3 lg:grid-cols-2">
+                <div className="grid grid-cols-2 gap-1.5 lg:gap-2">
                   {availableClinicalRoles.map((option) => (
                     <button
                       key={option}
                       type="button"
                       onClick={() => setJobTitle(option)}
-                      className={`flex items-start gap-4 rounded-2xl border px-5 py-4 text-left transition-all duration-200 ${
+                      className={`flex items-center gap-2 rounded-xl border px-3 py-2 text-left transition-all duration-200 ${
                         jobTitle === option
-                          ? "border-[#0085B2] bg-[#0096C7] text-white shadow-[0_10px_22px_rgba(0,150,199,0.24)] ring-2 ring-[#7DD9EE]/60"
+                          ? "border-[#0085B2] bg-[#0096C7] text-white shadow-[0_6px_16px_rgba(0,150,199,0.2)] ring-2 ring-[#7DD9EE]/60"
                           : "border-[#4CBFD4] bg-[#7DD9EE] text-[#0F4C5C] hover:bg-[#0096C7] hover:text-white"
                       }`}
                     >
-                      <div className={`mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full border-2 ${jobTitle === option ? "border-white bg-white" : "border-[#0F4C5C]"}`}>
-                        {jobTitle === option && <span className="h-2.5 w-2.5 rounded-full bg-[#0096C7]" />}
+                      <div className={`flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full border-2 ${jobTitle === option ? "border-white bg-white" : "border-[#0F4C5C]"}`}>
+                        {jobTitle === option && <span className="h-1.5 w-1.5 rounded-full bg-[#0096C7]" />}
                       </div>
-                      <div>
-                        <p className="text-base font-semibold lg:text-lg">{option}</p>
-                      </div>
+                      <p className="text-xs font-semibold leading-4 lg:text-sm">{option}</p>
                     </button>
                   ))}
                 </div>
@@ -989,39 +989,33 @@ export default function OnboardingPage() {
           {step === 9 && (
             <div className="animate-step-in">
               <h2 className="mb-2 text-3xl font-bold text-[#3F4752] lg:text-5xl">You&apos;re set up.</h2>
-              <p className="mb-6 max-w-2xl text-base leading-7 text-[#0F4C5C] lg:text-xl lg:leading-9">
-                Your account is ready. PrepSight will start with the hospital areas and specialties most relevant to you.
-              </p>
-              <p className="mb-6 max-w-2xl text-sm leading-6 text-[#0F4C5C] lg:text-base lg:leading-7">
-                You can later be added to other hospital workspaces if you bank or rotate elsewhere. Those memberships should be approved by the relevant team lead.
+              <p className="mb-3 max-w-2xl text-base leading-6 text-[#0F4C5C] lg:text-xl lg:leading-9">
+                Your account is ready. PrepSight will surface the cards and specialties most relevant to your work. You can update these details at any time from your profile settings.
               </p>
 
               <div className="rounded-xl border border-[#0F4C5C] bg-[#DDF7FC] divide-y divide-[#0F4C5C]/20">
                 {[
                   { label: "Name", value: normalizedDisplayName || "-" },
                   { label: "Clinical role", value: jobTitle || "-" },
-                  { label: "Areas", value: departments.join(", ") || "-" },
+                  { label: "Area", value: departments.join(", ") || "-" },
                   { label: "PrepSight usage", value: ROLE_OPTIONS.find((o) => o.role === role)?.label ?? role },
                   { label: "Hospital", value: hospital || "-" },
                   ...(specialties.length > 0 ? [{ label: "Specialties", value: specialties.join(", ") }] : []),
                 ].map(({ label, value }, index) => (
                   <div
                     key={label}
-                    className="flex items-start gap-3 px-4 py-3.5 line-reveal"
+                    className="flex items-start gap-3 px-4 py-2 line-reveal"
                     style={{ animationDelay: `${index * 120}ms` }}
                   >
                     <Check size={14} className="mt-0.5 shrink-0 text-[#0F4C5C]" />
                     <div>
-                      <p className="text-sm text-[#0F4C5C] lg:text-base">{label}</p>
-                      <p className="mt-0.5 text-sm font-semibold text-[#3F4752] lg:text-lg">{value}</p>
+                      <p className="text-xs text-[#0F4C5C] lg:text-sm">{label}</p>
+                      <p className="text-sm font-semibold text-[#3F4752] lg:text-base">{value}</p>
                     </div>
                   </div>
                 ))}
               </div>
 
-              <p className="mt-4 text-sm leading-6 text-[#0F4C5C] lg:text-base lg:leading-7">
-                You can update your profile later, and request access to additional hospital workspaces separately.
-              </p>
               {saveError && (
                 <p className="mt-3 rounded-xl border border-[#FECACA] bg-[#FEF2F2] px-3 py-2 text-sm text-[#B91C1C]">
                   {saveError}
@@ -1030,7 +1024,7 @@ export default function OnboardingPage() {
             </div>
           )}
 
-          <div className="mt-7 flex w-full items-center gap-3 pb-[calc(env(safe-area-inset-bottom,0px)+8px)] lg:mt-10 lg:max-w-2xl">
+          <div className="mt-7 flex w-full items-center gap-3 pb-[calc(env(safe-area-inset-bottom,0px)+24px)] lg:mt-10 lg:max-w-2xl">
           {step > 1 && (
             <button
               type="button"
@@ -1048,7 +1042,7 @@ export default function OnboardingPage() {
               disabled={!canAdvance()}
               className="flex-1 flex items-center justify-center gap-1.5 rounded-xl bg-[#0096C7] px-4 py-3.5 text-sm font-semibold text-white transition-colors hover:bg-[#0085B2] disabled:cursor-not-allowed disabled:opacity-30 lg:px-6 lg:py-4 lg:text-lg"
             >
-              {CTA_LABELS[step - 1]} <ChevronRight size={15} />
+              {CTA_LABELS[step]} <ChevronRight size={15} />
             </button>
           ) : (
             <button

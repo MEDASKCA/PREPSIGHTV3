@@ -1273,7 +1273,16 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                   )}
                 </div>
               ) : (
-                <div className="grid h-full min-h-0 grid-cols-2">
+                <div className="relative grid h-full min-h-0 grid-cols-2">
+                  <button
+                    type="button"
+                    onClick={() => setIsFoldSplitSwapped((value) => !value)}
+                    aria-label="Swap split sides"
+                    className="absolute left-1/2 z-20 flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3]"
+                    style={{ top: "calc(env(safe-area-inset-top) + 12px)" }}
+                  >
+                    <ArrowLeftRight size={18} />
+                  </button>
                   {isMixedSplitCommsPaneOnLeft ? (
                     <>
                       <div className="min-h-0 overflow-hidden">

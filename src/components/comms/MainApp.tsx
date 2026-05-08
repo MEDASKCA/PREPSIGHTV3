@@ -1594,12 +1594,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }, [threads]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (!isFoldableSplitView || selectedThread || !tomDefaultThread) return
+    if (!isFoldableSplitView || selectedThread) return
     // Don't override a pending notification deep-link
     if (deepLinkThreadIdRef.current || deepLinkCallSenderRef.current) return
-    setSelectedThread(tomDefaultThread)
-    setUnreadCounts(prev => ({ ...prev, [tomDefaultThread.id]: 0 }))
-    void markThreadRead(tomDefaultThread.id)
+    // Prefer the last active thread; fall back to TOM only if none stored or not found
+    const last = getFoldCommsThread()
+    const preferred = (last && visibleThreads.find(t => t.id === last.id)) ?? tomDefaultThread
+    if (!preferred) return
+    setSelectedThread(preferred)
+    setUnreadCounts(prev => ({ ...prev, [preferred.id]: 0 }))
+    void markThreadRead(preferred.id)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFoldableSplitView, selectedThread, tomDefaultThread])
 
   function renderMobileThreadPane(splitView: boolean, minimalHeader = false) {
@@ -1673,7 +1678,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <button
                       onClick={
                         callState === "active" && callMediaMode === "video" ? switchToAudio
-                        : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
+                        : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
                         : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                         : undefined
                       }
@@ -1693,22 +1698,26 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ) : null}
                 </>
               )}
-              <button
-                type="button"
-                onClick={() => setShowGlobalSearch(true)}
-                className="text-white/70 hover:text-white"
-                aria-label="Search"
-              >
-                <Search size={20} />
-              </button>
-              <button
-                type="button"
-                onClick={() => setShowProfile(true)}
-                className="text-white hover:text-white/70"
-                aria-label="More options"
-              >
-                <MoreVertical size={22} />
-              </button>
+              {!splitView && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setShowGlobalSearch(true)}
+                    className="text-white/70 hover:text-white"
+                    aria-label="Search"
+                  >
+                    <Search size={20} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowProfile(true)}
+                    className="text-white hover:text-white/70"
+                    aria-label="More options"
+                  >
+                    <MoreVertical size={22} />
+                  </button>
+                </>
+              )}
             </div>
           </div>
         ) : (
@@ -1776,7 +1785,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       <button
                         onClick={
                           callState === "active" && callMediaMode === "video" ? switchToAudio
-                          : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
+                          : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
                           : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                           : undefined
                         }
@@ -1796,22 +1805,26 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     ) : null}
                   </>
                 )}
-              <button
-                type="button"
-                onClick={() => setShowGlobalSearch(true)}
-                className="text-white/70 hover:text-white"
-                aria-label="Search"
-              >
-                <Search size={20} />
-              </button>
-              <button
-                type="button"
-                onClick={() => setShowProfile(true)}
-                className="text-white hover:text-white/70"
-                aria-label="More options"
-              >
-                <MoreVertical size={22} />
-              </button>
+              {!splitView && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setShowGlobalSearch(true)}
+                    className="text-white/70 hover:text-white"
+                    aria-label="Search"
+                  >
+                    <Search size={20} />
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => setShowProfile(true)}
+                    className="text-white hover:text-white/70"
+                    aria-label="More options"
+                  >
+                    <MoreVertical size={22} />
+                  </button>
+                </>
+              )}
             </div>
           </div>
         )}
@@ -2667,6 +2680,22 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         const offerSdp = data.reofferSdp as RTCSessionDescriptionInit
         try {
           await pc.setRemoteDescription(new RTCSessionDescription(offerSdp))
+          // If we accepted a video request, add our camera before answering so both sides go video simultaneously
+          if (isVideoAcceptorRef.current) {
+            isVideoAcceptorRef.current = false
+            try {
+              let vStream: MediaStream
+              try { vStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false }) }
+              catch { vStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }) }
+              const vTrack = vStream.getVideoTracks()[0]
+              if (vTrack && localStreamRef.current) {
+                localStreamRef.current.addTrack(vTrack)
+                pc.addTrack(vTrack, localStreamRef.current)
+                setLocalPreviewStream(localStreamRef.current)
+                setCallMediaMode("video")
+              }
+            } catch (e) { console.warn("acceptor add video:", e) }
+          }
           const reAnswer = await pc.createAnswer()
           await pc.setLocalDescription(reAnswer)
           await updateDoc(doc(firestore, "comms_v5_calls", callId), {
@@ -3013,15 +3042,20 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       if (!track) return
 
       localStreamRef.current?.addTrack(track)
-
-      // Pre-negotiated transceiver: replaceTrack activates it with zero renegotiation
-      // and zero new ICE — the video just starts flowing on the existing bundled transport.
-      const vt = pc.getTransceivers().find(t => t.receiver.track.kind === "video")
-      if (!vt) { console.warn("switchToVideo: no pre-negotiated video transceiver"); return }
-      await vt.sender.replaceTrack(track)
+      pc.addTrack(track, localStreamRef.current!)
 
       setLocalPreviewStream(localStreamRef.current)
       setCallMediaMode("video")
+
+      if (activeCall) {
+        try {
+          const offer = await pc.createOffer()
+          await pc.setLocalDescription(offer)
+          await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
+            reofferSdp: { type: offer.type, sdp: offer.sdp },
+          })
+        } catch (e) { console.warn("switchToVideo renegotiate:", e) }
+      }
     } catch (e) {
       alert("Could not access camera: " + String(e))
       console.warn("switchToVideo:", e)
@@ -3321,7 +3355,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
       {/* â"€â"€ Filter row â"€â"€ */}
       <div className={`border-b border-black bg-black px-4 pt-0 pb-3 shrink-0 ${isFoldableSplitView ? "w-1/2" : ""}`}>
-        <div className="-mx-4 mb-3 bg-[#101012] px-4 pt-0.5 pb-2">
+        <div className="-mx-4 mb-3 bg-[#0a0a0b] px-4 pt-0.5 pb-1.5">
           <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {displayedContactMembers.map(member => (
             <button
@@ -3550,7 +3584,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <button
                       onClick={
                         callState === "active" && callMediaMode === "video" ? switchToAudio
-                        : callState === "active" && callMediaMode === "audio" ? () => void switchToVideo()
+                        : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
                         : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                         : undefined
                       }
@@ -4566,9 +4600,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     aria-label="Speaker"
                   />
                   <CallButton
-                    icon={<Video size={20} />}
-                    onClick={() => void switchToVideo()}
-                    aria-label="Switch to video"
+                    icon={<Video size={20} className={awaitingVideoAccept ? "animate-pulse text-[#29b6d8]" : ""} />}
+                    onClick={() => void requestVideo()}
+                    disabled={awaitingVideoAccept}
+                    aria-label={awaitingVideoAccept ? "Waiting for video accept…" : "Switch to video"}
                   />
                 </>
               ) : (
