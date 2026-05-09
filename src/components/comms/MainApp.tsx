@@ -80,6 +80,7 @@ import {
 // â"€â"€â"€ Emoji data â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 
 const QUICK_REACT = ["👍", "❤️", "😂", "😮", "😢", "🙏", "🔥", "✅"]
+const INCOMING_RING_TIMEOUT_MS = 12000
 const DEFAULT_THEATRE_GROUPS = [
   "Trauma and Orthopaedics",
   "General Surgery",
@@ -202,6 +203,11 @@ function dedupeDisplayedContacts(entries: CommsUser[]) {
 
 function getFirstName(name: string) {
   return name.trim().split(/\s+/)[0] || name
+}
+
+function triggerHapticPulse(duration = 12) {
+  if (typeof navigator === "undefined" || !("vibrate" in navigator)) return
+  navigator.vibrate(duration)
 }
 
 function EmojiPicker({
@@ -696,6 +702,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const remoteVideoRef = useRef<HTMLVideoElement | null>(null)
   const localVideoRef = useRef<HTMLVideoElement | null>(null)
   const floatingVideoRef = useRef<HTMLVideoElement | null>(null)
+  const incomingRingTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const remoteStreamRef = useRef<MediaStream | null>(null)
   const blurProcessorRef = useRef<VideoBackgroundBlurProcessor | null>(null)
   const callStartTimeRef = useRef<number>(0)
@@ -1024,22 +1031,46 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   // â"€â"€ Vibrate on incoming call â"€â"€
   useEffect(() => {
-    if (callState !== "incoming" || !("vibrate" in navigator)) return
+    if (!ownsGlobalCallStatus || callState !== "incoming" || !("vibrate" in navigator)) return
     // Ring pattern: 400ms on, 200ms off, repeat
     const interval = setInterval(() => navigator.vibrate([400, 200, 400, 200, 400]), 1400)
     return () => { clearInterval(interval); navigator.vibrate(0) }
-  }, [callState])
+  }, [callState, ownsGlobalCallStatus])
 
   // â"€â"€ Ringtone on incoming call (web + Capacitor foreground — CallRingtoneService handles background) â"€â"€
   useEffect(() => {
-    if (callState !== "incoming") return
+    if (!ownsGlobalCallStatus || callState !== "incoming") return
     // Only play in-app ringtone when visible — CallRingtoneService handles it when backgrounded
     if (document.visibilityState !== "visible") return
     const audio = new Audio("/call-ringtone.mp3")
     audio.loop = true
     void audio.play().catch(() => {})
     return () => { audio.pause(); audio.src = "" }
-  }, [callState])
+  }, [callState, ownsGlobalCallStatus])
+
+  useEffect(() => {
+    if (!ownsGlobalCallStatus || callState !== "incoming" || !activeCall) return
+    if (incomingRingTimeoutRef.current) {
+      clearTimeout(incomingRingTimeoutRef.current)
+    }
+    incomingRingTimeoutRef.current = setTimeout(() => {
+      incomingRingTimeoutRef.current = null
+      if (activeCall.calleeUid === TOM_UID || activeCall.callerUid === TOM_UID) {
+        cleanupCall()
+        return
+      }
+      void updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
+        status: "missed",
+        endedAt: Date.now(),
+      }).catch(() => {})
+    }, INCOMING_RING_TIMEOUT_MS)
+    return () => {
+      if (incomingRingTimeoutRef.current) {
+        clearTimeout(incomingRingTimeoutRef.current)
+        incomingRingTimeoutRef.current = null
+      }
+    }
+  }, [activeCall, callState, ownsGlobalCallStatus])
 
 
   // â"€â"€ Call elapsed timer â"€â"€
@@ -1948,6 +1979,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           const target = event.currentTarget
                           messageLongPressTimerRef.current = setTimeout(() => {
                             suppressMessageTapRef.current = true
+                            triggerHapticPulse()
                             openMessageActions(target, msg, isOwn)
                           }, 420)
                         }}
@@ -2999,6 +3031,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       clearTimeout(tomTypingTimeoutRef.current)
       tomTypingTimeoutRef.current = null
     }
+    if (incomingRingTimeoutRef.current) {
+      clearTimeout(incomingRingTimeoutRef.current)
+      incomingRingTimeoutRef.current = null
+    }
     callUnsubRef.current?.(); callUnsubRef.current = null
     callSignalUnsubRef.current?.(); callSignalUnsubRef.current = null
     teardownBlurProcessor()
@@ -3739,6 +3775,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           const target = event.currentTarget
                           messageLongPressTimerRef.current = setTimeout(() => {
                             suppressMessageTapRef.current = true
+                            triggerHapticPulse()
                             openMessageActions(target, msg, isOwn)
                           }, 420)
                         }}

@@ -25,6 +25,7 @@ This document captures the shared notation and behavior rules for unfolded folda
 - The swap button sits on the center divider.
 - In unified-header states, the swap button sits below the shared center header.
 - The bottom dock stays on the left pane by default for unified main-page states.
+- Search and the three-dot menu default to the right side of the unfolded layout.
 
 ## Base Comms Rules
 
@@ -41,12 +42,23 @@ This document captures the shared notation and behavior rules for unfolded folda
   - `+A=D'`
 - These states use one shared header across both panes.
 - The `'` stays on the right side of the shared header.
+- The unified-header rule is state-based, not hard-coded to “Comms must be on the left”.
+- If panes are swapped, unified mode still applies as long as the Comms pane is `A`.
+- So the swapped equivalents are still unified states:
+  - `B'=A`
+  - `C'=A`
+  - `D'=A`
 
 ## Breaking Unified State
 
 - Selecting a thread from `+A=X'` breaks unified mode and becomes `-A1=X'`.
 - `X'` is dynamic and can be `B'`, `C'`, or `D'`.
 - When unified mode breaks, the right pane keeps `'`.
+- Unified mode breaks only when the Comms pane stops being `A`.
+- In practice, that means unified mode ends when Comms becomes:
+  - `A1`
+  - `E`
+- Swap by itself does not break unified mode.
 
 ## Call Rules
 
@@ -71,6 +83,11 @@ Examples:
   - `A=C'`
   - `A=D'`
 - These states must not restore a stale `-A1` thread-detail pane unless the behavior explicitly calls for it.
+- If panes are swapped, the same rule still applies with Comms on the opposite side:
+  - `B'=A`
+  - `C'=A`
+  - `D'=A`
+- When a Comms thread is active, the split becomes the corresponding `A1` form on whichever side Comms currently occupies.
 
 ## Incoming Call Transition
 
@@ -83,3 +100,23 @@ Examples:
 - The Comms pane stays visible on the other side.
 - This applies to routes such as `/libraries/[id]/cards/[cardId]`.
 - Library drill-down must not replace the entire unfolded screen.
+- Direct URL entry to library detail routes on foldables must also resolve into the split shell, not a standalone full-screen mobile shell.
+- The same principle applies to unfolded Resources routes and related subroutes: the non-Comms content stays in its pane and Comms remains in the opposite pane as `A` or `A1`.
+
+## Header And Back Controls In Split Library States
+
+- If the Comms pane is still `A`, the unified header stays active even when the Library pane is showing a deeper library view.
+- In those cases, the Library-side `Back` control belongs in the unified header row on the non-Comms side.
+- The unified header should not disappear just because the non-Comms pane opened a deeper library state.
+- If unified mode is already broken because Comms became `A1` or `E`, then the `Back` control belongs in the standalone pane header for the non-Comms pane.
+
+## Pane-Bounded Drawers And Overlays
+
+- Any library branch/version drawer opened from the Library pane in unfolded mode must stay inside the Library pane bounds.
+- Its backdrop must also stay inside that pane and must not cover or cross the center divider.
+- Drawer contents must not overflow past the pane midline.
+
+## Embedded Detail Header Rule
+
+- When a detail view is rendered inside an unfolded split pane, it must not render a duplicate inner mobile header below the split header.
+- Embedded Library card and branch-detail views should suppress their own mobile top headers when the split shell already provides the pane header.

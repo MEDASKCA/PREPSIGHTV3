@@ -259,6 +259,11 @@ function addDays(date: Date, days: number) {
   return next
 }
 
+function triggerHapticPulse(duration = 12) {
+  if (typeof navigator === "undefined" || !("vibrate" in navigator)) return
+  navigator.vibrate(duration)
+}
+
 function startOfMonth(date: Date) {
   return new Date(date.getFullYear(), date.getMonth(), 1)
 }
@@ -426,6 +431,7 @@ function RotaPanel({ paneBoundsLeft = "0", paneBoundsRight = "0" }: { paneBounds
   function startLongPress(theatre: string, memberName: string) {
     clearLongPressTimer()
     longPressTimerRef.current = setTimeout(() => {
+      triggerHapticPulse()
       setTeamActionMember({ theatre, memberName })
       longPressTimerRef.current = null
     }, 420)
