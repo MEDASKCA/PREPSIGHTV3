@@ -856,7 +856,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const [mobileTab, setMobileTab] = useState<TabKey>(initialSurface)
   const [isFoldableMobileViewport, setIsFoldableMobileViewport] = useState(false)
   const foldCommsThread = useSyncExternalStore(subscribeFoldCommsThread, getFoldCommsThread, getFoldCommsThread)
-  const isMixedSplitDirectThreadActive = foldCommsThread?.type === "direct"
+  const isFoldCommsThreadActive = Boolean(foldCommsThread)
   const [isFoldSplitSwapped, setIsFoldSplitSwapped] = useState(false)
   const callStatus = useCallStatus()
   const pipVideoRef = useRef<HTMLVideoElement>(null)
@@ -931,26 +931,29 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           : "Search Insights"
 
   const dockPinnedToCommsPane = isFoldableMobileViewport
-  // True when any call is active on foldable (any state except idle)
-  const callActiveOnFoldable = isFoldableMobileViewport && callStatus.state !== "idle"
-  // Mixed split is active whenever foldable + non-comms tab, OR comms tab with active call.
-  // A single MCS instance always stays mounted; only CSS positioning changes.
+  const callActiveOnFoldable = isFoldableMobileViewport && callStatus.state !== "idle" && !callStatus.minimized
+  // Two-pane mode is active for foldables when a non-comms tab is selected,
+  // or when comms itself is paired with an active call pane.
   const isMixedSplitActive = isFoldableMobileViewport && (mobileTab !== "comms" || callActiveOnFoldable)
-  // Shift header + dock to the surface pane only when a DM thread or non-minimized call is open
-  // AND user is NOT on comms tab (so call overlay fills the comms pane top-to-bottom).
-  const shiftMixedSplitChromeToRight = isMixedSplitActive && mobileTab !== "comms" && (isMixedSplitDirectThreadActive || (callStatus.state !== "idle" && !callStatus.minimized))
   const isMixedSplitCommsPaneOnLeft = !isFoldSplitSwapped
-  // When comms tab is active during a call, the surface pane shows the last non-comms tab.
-  const effectiveSurfaceTab: TabKey = (mobileTab === "comms" && isMixedSplitActive) ? lastNonCommsTab : mobileTab
+  const surfaceShowsEmbeddedComms = callActiveOnFoldable && mobileTab === "comms"
+  const showUnifiedMainHeader =
+    isMixedSplitActive &&
+    mobileTab !== "comms" &&
+    !mobileUtilityPage &&
+    !callActiveOnFoldable &&
+    !isFoldCommsThreadActive
+  const showSurfaceStandaloneHeader =
+    isMixedSplitActive &&
+    !showUnifiedMainHeader &&
+    !surfaceShowsEmbeddedComms
+  const effectiveSurfaceTab: TabKey = mobileTab === "comms" ? lastNonCommsTab : mobileTab
   const effectiveSurfaceTitle = mobileUtilityPage === "calendar" ? "Calendar"
     : mobileUtilityPage === "connectors" ? "Connectors"
     : effectiveSurfaceTab === "library" ? "Library"
     : effectiveSurfaceTab === "resources" ? "Resources"
     : "Insights"
-  // commsDualMode: comms tab active during a non-minimised call on foldable.
-  // MCS shows thread inbox (suppressCallOverlay=true), surface pane shows call UI.
-  const commsDualMode = isMixedSplitActive && mobileTab === "comms" && callStatus.state !== "idle" && !callStatus.minimized
-  const surfacePaneTitle = commsDualMode ? "Call" : effectiveSurfaceTitle
+  const surfacePaneTitle = surfaceShowsEmbeddedComms ? "Comms" : effectiveSurfaceTitle
   const mixedSplitPrimaryLeftTitle = isFoldSplitSwapped ? surfacePaneTitle : "Comms"
   const mixedSplitPrimaryRightTitle = isFoldSplitSwapped ? "Comms" : surfacePaneTitle
 
@@ -1121,6 +1124,20 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   }
 
   function renderFoldRightPaneContent() {
+    if (surfaceShowsEmbeddedComms) {
+      return (
+        <div className="min-h-0 flex-1 overflow-hidden bg-black">
+          <MobileCommsShell
+            visible
+            hideHeader={false}
+            suppressCallOverlay
+            allowFoldableSplitView={false}
+            restoreStoredThread
+          />
+        </div>
+      )
+    }
+
     if (mobileUtilityPage === "calendar") {
       return (
         <div className="min-h-0 flex-1 overflow-y-auto bg-black">
@@ -1196,24 +1213,19 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           onOpenCalendar={() => openMobileUtilityPage("calendar")}
           onOpenConnectors={() => openMobileUtilityPage("connectors")}
           onSwitchWorkspace={handleMobileSwitchWorkspace}
-          paneConstraint={
-            isMixedSplitActive && shiftMixedSplitChromeToRight
-              ? (isMixedSplitCommsPaneOnLeft ? "right" : "left")
-              : undefined
-          }
+          paneConstraint={undefined}
         />
         {isFoldableMobileViewport ? (
           isMixedSplitActive ? (
             <div
               className="pointer-events-none fixed bottom-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[rgba(255,255,255,0.12)] lg:hidden"
-              style={{ top: (shiftMixedSplitChromeToRight || commsDualMode) ? "env(safe-area-inset-top)" : "calc(env(safe-area-inset-top) + 74px)" }}
+              style={{ top: showUnifiedMainHeader ? "calc(env(safe-area-inset-top) + 74px)" : "env(safe-area-inset-top)" }}
             />
           ) : mobileTab === "comms" ? (
             <div className="pointer-events-none fixed inset-y-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[rgba(255,255,255,0.12)] lg:hidden" />
           ) : null
         ) : null}
-        {/* Shared header — mixed split, chrome not shifted, not in comms-dual-call mode */}
-        {isMixedSplitActive && !shiftMixedSplitChromeToRight && !commsDualMode ? (
+        {showUnifiedMainHeader ? (
           <div
             className="shrink-0 border-b border-black bg-black px-4 pb-3"
             style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
@@ -1263,47 +1275,21 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               >
                 {mixedSplitPrimaryRightTitle}
               </div>
-              <button
-                type="button"
-                onClick={() => setIsFoldSplitSwapped((value) => !value)}
-                aria-label="Swap split sides"
-                className="absolute left-1/2 top-0 z-20 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3]"
-              >
-                <ArrowLeftRight size={18} />
-              </button>
             </div>
           </div>
         ) : null}
-        {/* Content area — always present; MCS never unmounts (WebRTC survives all tab/layout switches) */}
+        {isMixedSplitActive ? (
+          <button
+            type="button"
+            onClick={() => setIsFoldSplitSwapped((value) => !value)}
+            aria-label="Swap split sides"
+            className="fixed left-1/2 z-[250] flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3] lg:hidden"
+            style={{ top: "calc(env(safe-area-inset-top, 0px) + 8px)" }}
+          >
+            <ArrowLeftRight size={18} />
+          </button>
+        ) : null}
         <div className="relative min-h-0 flex-1 overflow-hidden bg-black">
-          {/* Swap button — above call overlay (z-[210]) when chrome shifted; fixed above everything (z-[250]) when commsDualMode */}
-          {isMixedSplitActive && shiftMixedSplitChromeToRight ? (
-            <button
-              type="button"
-              onClick={() => setIsFoldSplitSwapped((value) => !value)}
-              aria-label="Swap split sides"
-              className="absolute left-1/2 z-[210] flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3]"
-              style={{ top: "calc(env(safe-area-inset-top) + 12px)" }}
-            >
-              <ArrowLeftRight size={18} />
-            </button>
-          ) : null}
-          {commsDualMode ? (
-            <button
-              type="button"
-              onClick={() => setIsFoldSplitSwapped((value) => !value)}
-              aria-label="Swap split sides"
-              className="fixed left-1/2 z-[250] flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3] lg:hidden"
-              style={{ top: "calc(env(safe-area-inset-top, 0px) + 8px)" }}
-            >
-              <ArrowLeftRight size={18} />
-            </button>
-          ) : null}
-
-          {/* SINGLE always-mounted MCS — CSS positioning only, never unmounts.
-              Mixed split: comms pane (left or right half, pb-28 when nav in comms pane).
-              Single-column comms: full screen, MCS handles own bottom padding.
-              Single-column non-comms: display:none keeps WebRTC alive without rendering. */}
           <div
             className="absolute overflow-hidden"
             style={{
@@ -1311,30 +1297,29 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               bottom: 0,
               left: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? 0 : "50%") : 0,
               right: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? "50%" : 0) : 0,
-              paddingBottom: (isMixedSplitActive && !shiftMixedSplitChromeToRight) ? "7rem" : 0,
+              paddingBottom: isMixedSplitActive ? "7rem" : 0,
               display: (!isMixedSplitActive && (mobileTab !== "comms" || !!mobileUtilityPage)) ? "none" : undefined,
             }}
           >
             <MobileCommsShell
               visible={isMixedSplitActive || (mobileTab === "comms" && !mobileUtilityPage)}
-              hideHeader={isMixedSplitActive && !commsDualMode}
-              suppressCallOverlay={commsDualMode || (mobileTab === "comms" && isFoldableMobileViewport)}
+              hideHeader={isMixedSplitActive}
+              suppressCallOverlay={false}
               allowFoldableSplitView={!isMixedSplitActive && isFoldableMobileViewport}
               onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
             />
           </div>
 
-          {/* Surface pane — mixed split only; shows effectiveSurfaceTab content (last non-comms tab when comms active) */}
           {isMixedSplitActive ? (
             <div
               className="absolute inset-y-0 flex flex-col overflow-hidden bg-black"
               style={{
                 left: isMixedSplitCommsPaneOnLeft ? "50%" : 0,
                 right: isMixedSplitCommsPaneOnLeft ? 0 : "50%",
-                paddingBottom: shiftMixedSplitChromeToRight ? "7rem" : 0,
+                paddingBottom: 0,
               }}
             >
-              {shiftMixedSplitChromeToRight ? (
+              {showSurfaceStandaloneHeader ? (
                 <div
                   className="shrink-0 border-b border-black bg-black px-4 pb-3"
                   style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
@@ -1375,86 +1360,14 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                       className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
                       style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
                     >
-                      {effectiveSurfaceTitle}
+                      {surfacePaneTitle}
                     </div>
                   </div>
                 </div>
               ) : null}
-              <div className={`min-h-0 flex-1 ${commsDualMode ? "overflow-hidden bg-[#0c0c0c]" : "overflow-y-auto overscroll-contain bg-black"}`}
-                style={commsDualMode ? undefined : { touchAction: "pan-y" }}>
-                {commsDualMode ? (
-                  /* Call UI — visually matches MainApp call overlay: minimize top, identity centre, controls bottom */
-                  <div className="flex h-full flex-col bg-[#0c0c0c]">
-                    <div style={{ height: "calc(env(safe-area-inset-top, 0px) + 16px)" }} className="shrink-0" />
-                    <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-4 px-6">
-                      {callStatus.state === "incoming" && (
-                        <>
-                          <div className="absolute rounded-full bg-white/[0.06] animate-ping" style={{ width: 132, height: 132 }} />
-                          <div className="absolute rounded-full bg-white/[0.04] animate-ping" style={{ width: 180, height: 180, animationDelay: "0.35s" }} />
-                        </>
-                      )}
-                      <div className="flex h-[88px] w-[88px] items-center justify-center rounded-full"
-                        style={{ background: "rgba(41,182,216,0.12)", boxShadow: "0 0 0 2px rgba(41,182,216,0.3)" }}>
-                        <span className="text-[40px] font-semibold leading-none tracking-tight text-[#29b6d8]">
-                          {((callStatus.state === "incoming" ? callStatus.callerName : callStatus.calleeName) || "?").charAt(0).toUpperCase()}
-                        </span>
-                      </div>
-                      <div className="text-center">
-                        <p className="text-[24px] tracking-[-0.02em] text-white">
-                          {callStatus.state === "incoming" ? callStatus.callerName || "Incoming call" : callStatus.calleeName || "Call"}
-                        </p>
-                        <p className="mt-1 text-[14px] text-white">
-                          {callStatus.state === "incoming"
-                            ? callStatus.mediaMode === "video" ? "Incoming video call" : "Incoming call"
-                            : callStatus.state === "outgoing"
-                              ? callStatus.mediaMode === "video" ? "Video calling…" : "Calling…"
-                              : "Connected"}
-                        </p>
-                        {callStatus.state === "active" && (
-                          <p className="mt-1 tabular-nums text-[13px] text-white/50">{fmtDur(callStatus.elapsed)}</p>
-                        )}
-                      </div>
-                    </div>
-                    {callStatus.state === "active" ? (
-                      <div className="relative z-20 flex items-center justify-center gap-3 mb-6">
-                        <button
-                          onClick={() => callStatus.toggleMute?.()}
-                          className="flex h-14 w-14 items-center justify-center rounded-full transition-colors"
-                          style={{ background: callStatus.muted ? "rgba(239,68,68,0.15)" : "rgba(255,255,255,0.12)" }}
-                          aria-label={callStatus.muted ? "Unmute" : "Mute"}>
-                          {callStatus.muted ? <MicOff size={22} className="text-red-400" /> : <Mic size={22} className="text-white/80" />}
-                        </button>
-                        <button
-                          onClick={() => callStatus.end?.()}
-                          className="flex h-14 w-14 items-center justify-center rounded-full bg-red-500"
-                          style={{ boxShadow: "0 4px 20px rgba(239,68,68,0.45)" }}
-                          aria-label="End call">
-                          <PhoneOff size={22} className="text-white" />
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="relative z-10 flex items-end justify-center gap-12"
-                        style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 48px)" }}>
-                        {callStatus.state === "incoming" && (
-                          <button
-                            onClick={() => callStatus.answer?.()}
-                            className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[#22c55e] hover:bg-[#16a34a]"
-                            style={{ boxShadow: "0 4px 20px rgba(34,197,94,0.45)" }}
-                            aria-label="Answer">
-                            {callStatus.mediaMode === "video" ? <Video size={24} className="text-white" /> : <PhoneIncoming size={24} className="text-white" />}
-                          </button>
-                        )}
-                        <button
-                          onClick={() => callStatus.state === "incoming" ? callStatus.decline?.() : callStatus.end?.()}
-                          className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[#ef4444] hover:bg-[#dc2626]"
-                          style={{ boxShadow: "0 4px 20px rgba(239,68,68,0.45)" }}
-                          aria-label={callStatus.state === "incoming" ? "Decline" : "Cancel"}>
-                          <PhoneOff size={24} className="text-white" />
-                        </button>
-                      </div>
-                    )}
-                  </div>
-                ) : renderFoldRightPaneContent()}
+              <div className={`min-h-0 flex-1 ${surfaceShowsEmbeddedComms ? "overflow-hidden bg-black" : "overflow-y-auto overscroll-contain bg-black"}`}
+                style={surfaceShowsEmbeddedComms ? undefined : { touchAction: "pan-y" }}>
+                {renderFoldRightPaneContent()}
               </div>
             </div>
           ) : null}
@@ -1569,20 +1482,16 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
         <MobileGlobalSearchOverlay
           open={showMobileGlobalSearch}
           onClose={() => setShowMobileGlobalSearch(false)}
-          halfScreen={isMixedSplitActive && shiftMixedSplitChromeToRight && !isMixedSplitCommsPaneOnLeft}
-          rightHalf={isMixedSplitActive && shiftMixedSplitChromeToRight && isMixedSplitCommsPaneOnLeft}
+          halfScreen={isMixedSplitActive && !surfaceShowsEmbeddedComms}
+          rightHalf={isMixedSplitActive && isMixedSplitCommsPaneOnLeft}
         />
 
         <div className={`fixed bottom-0 z-50 ${
           isMixedSplitActive
-            // Mixed split: nav goes with the chrome — surface pane when shifted, comms pane otherwise
-            ? shiftMixedSplitChromeToRight
-              ? (isMixedSplitCommsPaneOnLeft ? "right-0 w-1/2 max-w-full" : "left-0 w-1/2 max-w-full")
-              : (isMixedSplitCommsPaneOnLeft ? "left-0 w-1/2 max-w-full" : "right-0 w-1/2 max-w-full")
+            ? (isMixedSplitCommsPaneOnLeft ? "left-0 w-1/2 max-w-full" : "right-0 w-1/2 max-w-full")
             : isFoldableMobileViewport && mobileTab === "comms"
-              // Single-column comms on foldable: pin to comms pane half
               ? (isMixedSplitCommsPaneOnLeft ? "left-0 w-1/2 max-w-full" : "right-0 w-1/2 max-w-full")
-              : "inset-x-0"
+            : "inset-x-0"
         }`}>
           <div className="bg-black border-t border-black px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
             <div

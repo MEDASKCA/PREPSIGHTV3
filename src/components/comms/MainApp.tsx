@@ -579,9 +579,10 @@ interface Props {
   allowFoldableSplitView?: boolean
   suppressCallOverlay?: boolean  // hide call overlay UI while keeping WebRTC alive
   onDirectThreadActiveChange?: (active: boolean) => void
+  restoreStoredThread?: boolean
 }
 
-export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true, suppressCallOverlay = false, onDirectThreadActiveChange }: Props) {
+export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true, suppressCallOverlay = false, onDirectThreadActiveChange, restoreStoredThread = false }: Props) {
   const appRef = useRef<HTMLDivElement>(null)
   const firestore = db!
   const firebaseAuth = auth!
@@ -594,7 +595,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [presence, setPresence] = useState<Record<string, CommsPresence>>({})
   const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>({})
   const [selectedThread, setSelectedThread] = useState<CommsThread | null>(() =>
-    !allowFoldableSplitView && hideMobileHeader ? getFoldCommsThread() : null
+    restoreStoredThread ? getFoldCommsThread() : (!allowFoldableSplitView && hideMobileHeader ? getFoldCommsThread() : null)
   )
   const [inputText, setInputText] = useState("")
   const [composerError, setComposerError] = useState("")
