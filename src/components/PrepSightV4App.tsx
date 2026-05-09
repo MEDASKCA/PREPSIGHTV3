@@ -1223,10 +1223,9 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                   <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
                   <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
                 </div>
-                <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
-                  <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
-                  <span className="shrink-0 text-[#5f5f5f]">|</span>
-                  <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
+                <div className="mt-[-2px] min-w-0 text-center leading-tight">
+                  <div className="truncate text-[13px] text-white">{mobileHospitalLabel}</div>
+                  <div className="truncate text-[11px] text-white/55">{mobileDepartmentLabel}</div>
                 </div>
               </div>
               <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
@@ -1332,10 +1331,9 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                         <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
                         <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
                       </div>
-                      <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
-                        <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
-                        <span className="shrink-0 text-[#5f5f5f]">|</span>
-                        <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
+                      <div className="mt-[-2px] min-w-0 text-center leading-tight">
+                        <div className="truncate text-[13px] text-white">{mobileHospitalLabel}</div>
+                        <div className="truncate text-[11px] text-white/55">{mobileDepartmentLabel}</div>
                       </div>
                     </div>
                     <div className="flex shrink-0 items-center justify-end gap-2 pt-1">

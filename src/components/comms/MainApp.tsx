@@ -4497,11 +4497,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               </button>
               {/* Foldable-only: segmented ratio control — 50% (half pane) or 100% (both panes) */}
               {!allowFoldableSplitView && (
-                <div className="flex items-center overflow-hidden rounded-full border border-white/25 backdrop-blur-sm lg:hidden">
+                <div className="flex items-center overflow-hidden rounded-full bg-black/40 backdrop-blur-sm lg:hidden">
                   <button
                     onClick={() => setCallViewMode("panel")}
                     className={`flex h-8 w-[38px] items-center justify-center text-[10px] font-semibold transition-colors ${
-                      callViewMode !== "fullscreen" ? "bg-white/25 text-white" : "text-white/45 hover:text-white/75"
+                      callViewMode !== "fullscreen" ? "bg-white/20 text-white" : "text-white/60 hover:text-white"
                     }`}
                     aria-label="Half-pane view"
                     title="Call takes half the screen"
@@ -4511,7 +4511,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   <button
                     onClick={() => setCallViewMode("fullscreen")}
                     className={`flex h-8 w-[38px] items-center justify-center text-[10px] font-semibold transition-colors ${
-                      callViewMode === "fullscreen" ? "bg-white/25 text-white" : "text-white/45 hover:text-white/75"
+                      callViewMode === "fullscreen" ? "bg-white/20 text-white" : "text-white/60 hover:text-white"
                     }`}
                     aria-label="Full-width view"
                     title="Call takes both panes"
@@ -4588,11 +4588,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
           {/* Active call controls */}
           {callState === "active" && (
-            <div className={`z-20 flex items-center justify-center gap-3 ${
-              callMediaMode === "video" && !tomVoiceMode
-                ? "absolute bottom-0 left-0 right-0 pb-8 pt-6 bg-gradient-to-t from-black/60 to-transparent"
-                : "relative mb-6"
-            }`}>
+            <div
+              className={`z-20 flex items-center justify-center gap-3 ${
+                callMediaMode === "video" && !tomVoiceMode
+                  ? "absolute bottom-0 left-0 right-0 pt-6 bg-gradient-to-t from-black/60 to-transparent"
+                  : "relative mb-6"
+              }`}
+              style={callMediaMode === "video" && !tomVoiceMode
+                ? { paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)" }
+                : undefined}
+            >
               {callMediaMode === "video" && !tomVoiceMode && (
                 <CallButton icon={<SwitchCamera size={20} />} onClick={() => void switchCamera()} aria-label="Flip camera" />
               )}
