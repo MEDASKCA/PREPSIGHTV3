@@ -4422,7 +4422,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 ? "absolute inset-y-0 right-0 left-1/2"
                 : "absolute inset-0"
           }`}
-          style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+          style={{
+            paddingTop: (callViewMode === "fullscreen" || !(embedded && hideMobileHeader))
+              ? "env(safe-area-inset-top, 0px)"
+              : undefined,
+            paddingBottom: "env(safe-area-inset-bottom, 0px)",
+          }}
         >
 
           {/* Primary remote video — only render when remote party has an active video track */}
