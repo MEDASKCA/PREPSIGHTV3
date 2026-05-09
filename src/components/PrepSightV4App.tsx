@@ -1305,7 +1305,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             <MobileCommsShell
               visible={isMixedSplitActive || (mobileTab === "comms" && !mobileUtilityPage)}
               hideHeader={isMixedSplitActive}
-              suppressCallOverlay={commsDualMode}
+              suppressCallOverlay={commsDualMode || (mobileTab === "comms" && isFoldableMobileViewport)}
               allowFoldableSplitView={false}
               onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
             />
