@@ -1000,6 +1000,9 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const surfacePaneTitle = surfaceShowsEmbeddedComms ? "Comms" : effectiveSurfaceTitle
   const mixedSplitPrimaryLeftTitle = isFoldSplitSwapped ? surfacePaneTitle : "Comms"
   const mixedSplitPrimaryRightTitle = isFoldSplitSwapped ? "Comms" : surfacePaneTitle
+  const mobileDockCompactSpacing =
+    mobileTab === "comms" &&
+    (isFoldCommsThreadActive || pathname === "/comms")
 
   useEffect(() => {
     const routeLibraryMatch = pathname.match(/^\/libraries\/([^/]+)$/)
@@ -1658,7 +1661,14 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               ? (isMixedSplitCommsPaneOnLeft ? "left-0 w-1/2 max-w-full" : "right-0 w-1/2 max-w-full")
             : "inset-x-0"
         }`}>
-          <div className="bg-black border-t border-black px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
+          <div
+            className={`bg-black border-t border-black px-3 ${mobileDockCompactSpacing ? "pt-1" : "pt-2"}`}
+            style={{
+              paddingBottom: mobileDockCompactSpacing
+                ? "calc(env(safe-area-inset-bottom,0px) + 4px)"
+                : "calc(env(safe-area-inset-bottom,0px) + 8px)",
+            }}
+          >
             <div
               className="grid gap-1"
               style={{ gridTemplateColumns: `repeat(${TAB_ITEMS.length}, minmax(0, 1fr))` }}

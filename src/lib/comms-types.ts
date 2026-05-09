@@ -75,6 +75,12 @@ export interface CommsMessage {
   edited?: boolean
   editedAt?: number
   deleted?: boolean
+  deletedAt?: number
+  deletedBy?: string
+  deletedByName?: string
+  deleteReason?: string
+  originalText?: string
+  originalAttachments?: CommsAttachment[]
   callAnswered?: boolean
   callDuration?: number
   callMode?: "audio" | "video"

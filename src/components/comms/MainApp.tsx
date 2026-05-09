@@ -116,6 +116,14 @@ type TomWatchTask = {
   completedAt?: number
 }
 
+type ImageViewerState = {
+  attachment: CommsAttachment
+  messageId: string
+  description: string
+  createdAt: number
+  senderName: string
+}
+
 const EMOJI_CATS: { icon: string; emojis: string[] }[] = [
   { icon: "😀", emojis: ["😀", "😃", "😄", "😁", "😆", "😂", "🤣", "🙂", "🙃", "😉", "😊", "😍", "🥰", "😘", "😎", "🤓", "🤔", "😐", "😶", "🙄", "😴", "😷", "🤒", "🤕", "🤯", "😮", "😢", "😭", "😡", "🤬"] },
   { icon: "👍", emojis: ["👍", "👎", "👏", "🙌", "🙏", "👋", "👌", "✌️", "🤞", "🤝", "💪", "🫶", "👀", "💋"] },
@@ -619,6 +627,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [editText, setEditText] = useState("")
   const [showEmojiPicker, setShowEmojiPicker] = useState<string | null>(null)
   const [actionMessage, setActionMessage] = useState<CommsMessage | null>(null)
+  const [lightboxImage, setLightboxImage] = useState<ImageViewerState | null>(null)
   const [forwardingMessage, setForwardingMessage] = useState<CommsMessage | null>(null)
   const [actionBoxPosition, setActionBoxPosition] = useState<{ top: number; left: number } | null>(null)
   const [showContacts, setShowContacts] = useState(false)
@@ -1243,6 +1252,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
   }, [messages])
 
+  useEffect(() => {
+    if (!selectedThread || messages.length === 0) return
+    void markThreadRead(selectedThread.id)
+  }, [selectedThread?.id, messages.length])
+
   // â"€â"€ Incoming call listener â"€â"€
   useEffect(() => {
     const q = query(
@@ -1434,7 +1448,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }
 
-  function openMessageActions(target: HTMLElement, msg: CommsMessage, isOwnMessage: boolean) {
+  function openMessageActions(target: HTMLElement, msg: CommsMessage, isOwnMessage: boolean, emitHaptic = false) {
+    if (emitHaptic) triggerHapticPulse()
     const containerRect = appRef.current?.getBoundingClientRect()
     const bubbleRect = target.getBoundingClientRect()
     const boxWidth = 228
@@ -1448,6 +1463,93 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     })
     setActionMessage(msg)
     setShowEmojiPicker(null)
+  }
+
+  function renderMessageAttachment(att: CommsAttachment, index: number, isOwn: boolean, message: CommsMessage) {
+    if (att.type === "image") {
+      return (
+        <div key={`${att.url}-${index}`} className="mb-2 last:mb-0">
+          <img
+            src={att.url}
+            alt={att.name}
+            onClick={(event) => {
+              event.stopPropagation()
+              setLightboxImage({
+                attachment: att,
+                messageId: message.id,
+                description: repairMojibake(message.originalText ?? message.text).trim(),
+                createdAt: message.createdAt,
+                senderName: message.displayName,
+              })
+            }}
+            className="block max-h-[360px] w-auto max-w-full rounded-[19px] bg-[#071017] object-cover shadow-[0_16px_36px_rgba(0,0,0,0.28)] cursor-zoom-in"
+          />
+        </div>
+      )
+    }
+
+    if (att.type === "audio") {
+      return (
+        <div key={`${att.url}-${index}`} className="mb-2 last:mb-0">
+          <VoiceNoteAttachment url={att.url} isOwn={isOwn} />
+        </div>
+      )
+    }
+
+    return (
+      <div key={`${att.url}-${index}`} className="mb-2 last:mb-0">
+        <a
+          href={att.url}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={`flex items-center gap-2 text-sm underline ${isOwn ? "text-white/80" : "text-[#29b6d8]"}`}
+        >
+          <Paperclip size={13} /> {att.name}
+        </a>
+      </div>
+    )
+  }
+
+  function getSeenReceiptMembers(thread: CommsThread | null, message: CommsMessage) {
+    if (!thread || message.uid !== user.uid || message.deleted) return []
+
+    return thread.memberUids
+      .filter((uid) => uid !== user.uid && uid !== TOM_UID)
+      .map((uid) => ({
+        uid,
+        readAt: thread.readBy?.[uid] ?? 0,
+        member: allMembers.find((member) => member.uid === uid) ?? null,
+      }))
+      .filter((entry) => entry.member && entry.readAt >= message.createdAt)
+      .sort((left, right) => right.readAt - left.readAt)
+  }
+
+  function renderMessageMeta(message: CommsMessage, isOwn: boolean) {
+    const seenMembers = getSeenReceiptMembers(liveSelectedThread, message)
+    const visibleSeenMembers = seenMembers.slice(0, 3)
+    const hiddenSeenCount = Math.max(0, seenMembers.length - visibleSeenMembers.length)
+
+    return (
+      <div className="mt-1 flex w-full items-center justify-between gap-3 px-1">
+        <span className="text-xs text-[var(--mob-text-2,#888888)]">{formatTime(message.createdAt)}</span>
+        {isOwn && visibleSeenMembers.length > 0 ? (
+          <div className="flex items-center gap-1.5">
+            <div className="flex -space-x-1.5">
+              {visibleSeenMembers.map(({ member, uid }) =>
+                member ? (
+                  <div key={uid} className="rounded-full ring-2 ring-black">
+                    <Avatar name={member.displayName} size={18} uid={member.uid} />
+                  </div>
+                ) : null,
+              )}
+            </div>
+            {hiddenSeenCount > 0 ? (
+              <span className="text-[11px] text-[#7f96a3]">{hiddenSeenCount} more</span>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
+    )
   }
 
   function isNestedInteractiveTarget(target: EventTarget | null, currentTarget: HTMLElement) {
@@ -1617,6 +1719,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   const selectedOtherUid = selectedThread?.type === "direct" ? getOtherUid(selectedThread) : ""
   const selectedDirectContact = selectedThread?.type === "direct" ? getThreadAvatar(selectedThread) : null
+  const liveSelectedThread = selectedThread ? threads.find((thread) => thread.id === selectedThread.id) ?? selectedThread : null
   const isTomConversation = !!selectedThread && selectedThread.type === "direct" && selectedThread.memberUids.includes(TOM_UID)
   const activeRemoteUid = activeCall
     ? activeCall.callerUid === user.uid
@@ -1914,6 +2017,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
               const messageText = repairMojibake(msg.text)
               const emojiOnly = !msg.attachments?.length && !msg.deleted && isEmojiOnly(messageText)
+              const hasImageAttachment = Boolean(msg.attachments?.some((att) => att.type === "image"))
+              const hasNonImageAttachment = Boolean(msg.attachments?.some((att) => att.type !== "image"))
+              const imageOnlyMessage =
+                hasImageAttachment &&
+                !hasNonImageAttachment &&
+                !messageText.trim() &&
+                !msg.replyTo
+              const seenMembers = getSeenReceiptMembers(liveSelectedThread, msg)
+              const visibleSeenMembers = seenMembers.slice(0, 3)
+              const hiddenSeenCount = Math.max(0, seenMembers.length - visibleSeenMembers.length)
 
               if (msg.type === "call" || (isSystem && messageText.startsWith("📞"))) {
                 const answered = msg.callAnswered ?? messageText.includes("Voice call")
@@ -1991,11 +2104,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         onKeyDown={event => {
                           if (event.key !== "Enter" && event.key !== " ") return
                           event.preventDefault()
-                          openMessageActions(event.currentTarget, msg, isOwn)
+                          openMessageActions(event.currentTarget, msg, isOwn, true)
                         }}
                         onContextMenu={event => {
                           event.preventDefault()
-                          openMessageActions(event.currentTarget, msg, isOwn)
+                          openMessageActions(event.currentTarget, msg, isOwn, true)
                         }}
                         onPointerDown={event => {
                           if (event.pointerType === "mouse") return
@@ -2005,8 +2118,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           const target = event.currentTarget
                           messageLongPressTimerRef.current = setTimeout(() => {
                             suppressMessageTapRef.current = true
-                            triggerHapticPulse()
-                            openMessageActions(target, msg, isOwn)
+                            openMessageActions(target, msg, isOwn, true)
                           }, 420)
                         }}
                         onPointerUp={() => clearMessageLongPress()}
@@ -2015,24 +2127,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         className={`relative text-left text-[14px] leading-snug ${
                           emojiOnly
                             ? ""
-                            : isOwn
-                              ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
-                              : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
+                            : imageOnlyMessage
+                              ? isOwn
+                                ? "overflow-hidden rounded-[22px] bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] p-[3px] text-white shadow-[0_16px_34px_rgba(0,150,199,0.22)]"
+                                : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
+                              : isOwn
+                                ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
+                                : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
-                        {msg.attachments?.map((att, ai) => (
-                          <div key={ai} className="mb-2">
-                            {att.type === "image" ? (
-                              <img src={att.url} alt={att.name} className="rounded-xl max-w-full max-h-48 object-cover" />
-                            ) : att.type === "audio" ? (
-                              <VoiceNoteAttachment url={att.url} isOwn={isOwn} />
-                            ) : (
-                              <a href={att.url} target="_blank" rel="noopener noreferrer"
-                                className={`flex items-center gap-2 text-sm underline ${isOwn ? "text-white/80" : "text-[#29b6d8]"}`}>
-                                <Paperclip size={13} /> {att.name}
-                              </a>
-                            )}
-                          </div>
-                        ))}
+                        {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
                         {emojiOnly ? (() => {
                           const segs = segmentEmoji(messageText)
                           const sz = segs.length === 1 ? 64 : segs.length <= 3 ? 52 : 44
@@ -2083,7 +2186,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       </div>
                     )}
 
-                    <span className="text-xs text-[var(--mob-text-2,#888888)] mt-1 mx-1">{formatTime(msg.createdAt)}</span>
+                    {renderMessageMeta(msg, isOwn)}
                   </div>
 
                 </div>
@@ -2139,10 +2242,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           className="bg-black shrink-0 relative px-4 pt-2"
           style={{
             paddingBottom: splitView
-              ? "calc(env(safe-area-inset-bottom, 0px) + 6px)"
+              ? "calc(env(safe-area-inset-bottom, 0px) + 2px)"
               : minimalHeader
-                ? "calc(env(safe-area-inset-bottom, 0px) + 8px)"
-                : "calc(env(safe-area-inset-bottom, 0px) + 16px)",
+                ? "calc(env(safe-area-inset-bottom, 0px) + 4px)"
+                : "calc(env(safe-area-inset-bottom, 0px) + 8px)",
           }}
         >
           {composerError ? (
@@ -2397,7 +2500,54 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   async function deleteMessage(messageId: string) {
-    await updateDoc(doc(firestore, "comms_v5_messages", messageId), { deleted: true, text: "This message was deleted" })
+    const msgRef = doc(firestore, "comms_v5_messages", messageId)
+    const snap = await getDoc(msgRef)
+    if (!snap.exists()) return
+
+    const message = { id: snap.id, ...snap.data() } as CommsMessage
+    if (message.deleted) return
+
+    const deletedAt = Date.now()
+    const deletedByName = user.displayName || user.email || "User"
+    const originalText = message.originalText ?? message.text
+    const originalAttachments = message.originalAttachments ?? message.attachments ?? []
+    const deleteReason =
+      message.type === "call" && message.callAnswered === false
+        ? "user_removed_missed_call"
+        : originalAttachments.some((attachment) => attachment.type === "image")
+          ? "user_removed_image_message"
+          : "user_removed_message"
+
+    await addDoc(collection(firestore, "comms_v5_message_recycle_bin"), {
+      messageId: message.id,
+      threadId: message.threadId,
+      organizationId: message.organizationId,
+      deletedAt,
+      deletedBy: user.uid,
+      deletedByName,
+      deleteReason,
+      snapshot: {
+        ...message,
+        originalText,
+        originalAttachments,
+      },
+    })
+
+    await updateDoc(msgRef, {
+      deleted: true,
+      deletedAt,
+      deletedBy: user.uid,
+      deletedByName,
+      deleteReason,
+      originalText,
+      originalAttachments,
+      text: "This message was deleted",
+      attachments: deleteField(),
+      replyTo: deleteField(),
+      reactions: deleteField(),
+      edited: deleteField(),
+      editedAt: deleteField(),
+    })
   }
 
   async function toggleReaction(messageId: string, emoji: string) {
@@ -3758,6 +3908,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
               const messageText = repairMojibake(msg.text)
               const emojiOnly = !msg.attachments?.length && !msg.deleted && isEmojiOnly(messageText)
+              const hasImageAttachment = Boolean(msg.attachments?.some((att) => att.type === "image"))
+              const hasNonImageAttachment = Boolean(msg.attachments?.some((att) => att.type !== "image"))
+              const imageOnlyMessage =
+                hasImageAttachment &&
+                !hasNonImageAttachment &&
+                !messageText.trim() &&
+                !msg.replyTo
 
               if (msg.type === "call" || (isSystem && messageText.startsWith("📞"))) {
                 const answered = msg.callAnswered ?? messageText.includes("Voice call")
@@ -3835,11 +3992,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         onKeyDown={event => {
                           if (event.key !== "Enter" && event.key !== " ") return
                           event.preventDefault()
-                          openMessageActions(event.currentTarget, msg, isOwn)
+                          openMessageActions(event.currentTarget, msg, isOwn, true)
                         }}
                         onContextMenu={event => {
                           event.preventDefault()
-                          openMessageActions(event.currentTarget, msg, isOwn)
+                          openMessageActions(event.currentTarget, msg, isOwn, true)
                         }}
                         onPointerDown={event => {
                           if (event.pointerType === "mouse") return
@@ -3849,8 +4006,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           const target = event.currentTarget
                           messageLongPressTimerRef.current = setTimeout(() => {
                             suppressMessageTapRef.current = true
-                            triggerHapticPulse()
-                            openMessageActions(target, msg, isOwn)
+                            openMessageActions(target, msg, isOwn, true)
                           }, 420)
                         }}
                         onPointerUp={() => clearMessageLongPress()}
@@ -3859,24 +4015,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         className={`relative text-left text-[14px] leading-snug ${
                           emojiOnly
                             ? ""
-                            : isOwn
-                              ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
-                              : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
+                            : imageOnlyMessage
+                              ? isOwn
+                                ? "overflow-hidden rounded-[22px] bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] p-[3px] text-white shadow-[0_16px_34px_rgba(0,150,199,0.22)]"
+                                : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
+                              : isOwn
+                                ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
+                                : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
-                        {msg.attachments?.map((att, ai) => (
-                          <div key={ai} className="mb-2">
-                            {att.type === "image" ? (
-                              <img src={att.url} alt={att.name} className="rounded-xl max-w-full max-h-48 object-cover" />
-                            ) : att.type === "audio" ? (
-                              <VoiceNoteAttachment url={att.url} isOwn={isOwn} />
-                            ) : (
-                              <a href={att.url} target="_blank" rel="noopener noreferrer"
-                                className={`flex items-center gap-2 text-sm underline ${isOwn ? "text-white/80" : "text-[#29b6d8]"}`}>
-                                <Paperclip size={13} /> {att.name}
-                              </a>
-                            )}
-                          </div>
-                        ))}
+                        {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
                         {emojiOnly ? (() => {
                           const segs = segmentEmoji(messageText)
                           const sz = segs.length === 1 ? 64 : segs.length <= 3 ? 52 : 44
@@ -3927,7 +4074,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       </div>
                     )}
 
-                    <span className="text-xs text-[var(--mob-text-2,#888888)] mt-1 mx-1">{formatTime(msg.createdAt)}</span>
+                    {renderMessageMeta(msg, isOwn)}
                   </div>
 
                 </div>
@@ -3983,7 +4130,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
           {/* Input */}
           <div
-            className="bg-black shrink-0 relative px-4 pt-2 pb-2"
+            className="bg-black shrink-0 relative px-4 pt-2"
+            style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 4px)" }}
           >
             {composerError ? (
               <div className="mb-2 rounded-xl border border-[#5a3d08] bg-[#2c1f05] px-3 py-2 text-[12px] text-[#f7c873]">
@@ -4148,6 +4296,34 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       ) : null}
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• MESSAGE ACTION OVERLAY (tap-hold bubble) â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      {lightboxImage ? (
+        <div className="absolute inset-0 z-40 flex flex-col bg-black" onClick={() => setLightboxImage(null)}>
+          <div className="relative flex min-h-0 flex-1 items-center justify-center px-4 py-4" onClick={(event) => event.stopPropagation()}>
+            <button
+              type="button"
+              onClick={() => setLightboxImage(null)}
+              className="absolute right-3 top-3 z-10 flex h-9 w-9 items-center justify-center rounded-full bg-black/55 text-white"
+              aria-label="Close image preview"
+            >
+              <X size={18} />
+            </button>
+            <img
+              src={lightboxImage.attachment.url}
+              alt={lightboxImage.attachment.name}
+              className="max-h-full max-w-full rounded-[18px] bg-[#071017] object-contain shadow-[0_24px_60px_rgba(0,0,0,0.45)]"
+            />
+          </div>
+          <div className="shrink-0 border-t border-white/10 bg-[#0a0f14] px-4 py-3" onClick={(event) => event.stopPropagation()}>
+            <div className="flex items-center justify-between gap-3">
+              <p className="truncate text-[13px] text-white/78">{lightboxImage.senderName}</p>
+              <p className="shrink-0 text-[12px] text-[#7f96a3]">{new Date(lightboxImage.createdAt).toLocaleString([], { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</p>
+            </div>
+            {lightboxImage.description ? (
+              <p className="mt-2 text-[14px] leading-relaxed text-white/92">{lightboxImage.description}</p>
+            ) : null}
+          </div>
+        </div>
+      ) : null}
       {actionMessage && (
         <div className="absolute inset-0 z-20">
           <div className="absolute inset-0" onClick={() => { setActionMessage(null); setActionBoxPosition(null); setShowEmojiPicker(null) }} />
@@ -4160,7 +4336,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           >
             <div className="flex items-center gap-1.5">
               <button
-                onClick={() => setShowEmojiPicker(showEmojiPicker === "drawer" ? null : "drawer")}
+                onClick={() => {
+                  triggerHapticPulse()
+                  setShowEmojiPicker(showEmojiPicker === "drawer" ? null : "drawer")
+                }}
                 className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white shadow-[0_10px_24px_rgba(26,134,200,0.28)] transition hover:scale-[1.03]"
                 aria-label="More reactions"
               >
@@ -4168,6 +4347,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               </button>
               <button
                 onClick={() => {
+                  triggerHapticPulse()
                   setReplyTo(actionMessage)
                   setActionMessage(null)
                   setActionBoxPosition(null)
@@ -4179,6 +4359,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               </button>
               <button
                 onClick={() => {
+                  triggerHapticPulse()
                   setForwardingMessage(actionMessage)
                   setShowNewDM(true)
                   setActionMessage(null)
@@ -4192,6 +4373,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               {actionMessage.uid === user.uid && !actionMessage.deleted ? (
                 <button
                   onClick={() => {
+                    triggerHapticPulse()
                     void deleteMessage(actionMessage.id)
                     setActionMessage(null)
                     setActionBoxPosition(null)
