@@ -578,10 +578,11 @@ interface Props {
   hideMobileHeader?: boolean
   allowFoldableSplitView?: boolean
   suppressCallOverlay?: boolean  // hide call overlay UI while keeping WebRTC alive
+  threadPaneSide?: "left" | "right"  // in foldable split: pop thread out to this viewport half via fixed positioning
   onDirectThreadActiveChange?: (active: boolean) => void
 }
 
-export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true, suppressCallOverlay = false, onDirectThreadActiveChange }: Props) {
+export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true, suppressCallOverlay = false, threadPaneSide, onDirectThreadActiveChange }: Props) {
   const appRef = useRef<HTMLDivElement>(null)
   const firestore = db!
   const firebaseAuth = auth!
@@ -2037,7 +2038,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           </div>
 
           {(showEmojiPicker === "drawer" || showEmojiPicker === "input") && (
-            <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col">
+            <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col"
+              style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
               <EmojiPicker
                 variant="drawer"
                 onSelect={e => {
@@ -3507,9 +3509,22 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       ) : null}
       {selectedThread && !isFoldableSplitView && embedded && hideMobileHeader && !allowFoldableSplitView ? (
-        <div className="absolute inset-0 z-10 bg-black">
-          {renderMobileThreadPane(true, true)}
-        </div>
+        threadPaneSide ? (
+          /* Fixed-position: thread pops into the opposite pane of the foldable split */
+          <div
+            className="fixed inset-y-0 z-[45] bg-black"
+            style={{
+              left: threadPaneSide === "right" ? "50%" : 0,
+              right: threadPaneSide === "right" ? 0 : "50%",
+            }}
+          >
+            {renderMobileThreadPane(true, true)}
+          </div>
+        ) : (
+          <div className="absolute inset-0 z-10 bg-black">
+            {renderMobileThreadPane(true, true)}
+          </div>
+        )
       ) : null}
       {selectedThread && !isFoldableSplitView && !(embedded && hideMobileHeader && !allowFoldableSplitView) && (
         <div
@@ -3818,7 +3833,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
           {/* Emoji overlay â€" z-[25] sits above the z-20 action backdrop so category buttons are clickable */}
           {(showEmojiPicker === "drawer" || showEmojiPicker === "input") && (
-            <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col">
+            <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col"
+              style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
               <EmojiPicker
                 variant="drawer"
                 onSelect={e => {
@@ -4305,7 +4321,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <span className="text-white text-lg">New message</span>
             <button onClick={() => setShowNewDM(false)}><X size={22} className="text-white/60" /></button>
           </div>
-          <div className="flex-1 overflow-y-auto px-5 py-5">
+          <div className="flex-1 overflow-y-auto px-5 py-5" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 20px)" }}>
             {displayedContactMembers.map(m => (
               <button key={m.uid} onClick={() => startDM(m.uid)}
                 className="w-full flex items-center gap-4 py-3.5 border-b border-white/5">

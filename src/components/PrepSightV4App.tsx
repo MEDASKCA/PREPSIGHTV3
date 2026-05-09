@@ -947,8 +947,12 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     : effectiveSurfaceTab === "library" ? "Library"
     : effectiveSurfaceTab === "resources" ? "Resources"
     : "Insights"
-  const mixedSplitPrimaryLeftTitle = isFoldSplitSwapped ? effectiveSurfaceTitle : "Comms"
-  const mixedSplitPrimaryRightTitle = isFoldSplitSwapped ? "Comms" : effectiveSurfaceTitle
+  // commsDualMode: comms tab active during a non-minimised call on foldable.
+  // MCS shows thread inbox (suppressCallOverlay=true), surface pane shows call UI.
+  const commsDualMode = isMixedSplitActive && mobileTab === "comms" && callStatus.state !== "idle" && !callStatus.minimized
+  const surfacePaneTitle = commsDualMode ? "Call" : effectiveSurfaceTitle
+  const mixedSplitPrimaryLeftTitle = isFoldSplitSwapped ? surfacePaneTitle : "Comms"
+  const mixedSplitPrimaryRightTitle = isFoldSplitSwapped ? "Comms" : surfacePaneTitle
 
   useEffect(() => {
     const routeSurface =
@@ -1303,8 +1307,9 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             <MobileCommsShell
               visible={isMixedSplitActive || (mobileTab === "comms" && !mobileUtilityPage)}
               hideHeader={isMixedSplitActive}
-              suppressCallOverlay={false}
+              suppressCallOverlay={commsDualMode || (mobileTab === "comms" && isFoldableMobileViewport)}
               allowFoldableSplitView={false}
+              threadPaneSide={isMixedSplitActive && !commsDualMode ? (isMixedSplitCommsPaneOnLeft ? "right" : "left") : undefined}
               onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
             />
           </div>
@@ -1365,8 +1370,81 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                   </div>
                 </div>
               ) : null}
-              <div className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-black" style={{ touchAction: "pan-y" }}>
-                {renderFoldRightPaneContent()}
+              <div className={`min-h-0 flex-1 ${commsDualMode ? "overflow-hidden bg-[#0c0c0c]" : "overflow-y-auto overscroll-contain bg-black"}`}
+                style={commsDualMode ? undefined : { touchAction: "pan-y" }}>
+                {commsDualMode ? (
+                  /* Call UI — visually matches MainApp call overlay: minimize top, identity centre, controls bottom */
+                  <div className="flex h-full flex-col bg-[#0c0c0c]">
+                    <div style={{ height: "calc(env(safe-area-inset-top, 0px) + 16px)" }} className="shrink-0" />
+                    <div className="relative z-10 flex flex-1 flex-col items-center justify-center gap-4 px-6">
+                      {callStatus.state === "incoming" && (
+                        <>
+                          <div className="absolute rounded-full bg-white/[0.06] animate-ping" style={{ width: 132, height: 132 }} />
+                          <div className="absolute rounded-full bg-white/[0.04] animate-ping" style={{ width: 180, height: 180, animationDelay: "0.35s" }} />
+                        </>
+                      )}
+                      <div className="flex h-[88px] w-[88px] items-center justify-center rounded-full"
+                        style={{ background: "rgba(41,182,216,0.12)", boxShadow: "0 0 0 2px rgba(41,182,216,0.3)" }}>
+                        <span className="text-[40px] font-semibold leading-none tracking-tight text-[#29b6d8]">
+                          {((callStatus.state === "incoming" ? callStatus.callerName : callStatus.calleeName) || "?").charAt(0).toUpperCase()}
+                        </span>
+                      </div>
+                      <div className="text-center">
+                        <p className="text-[24px] tracking-[-0.02em] text-white">
+                          {callStatus.state === "incoming" ? callStatus.callerName || "Incoming call" : callStatus.calleeName || "Call"}
+                        </p>
+                        <p className="mt-1 text-[14px] text-white">
+                          {callStatus.state === "incoming"
+                            ? callStatus.mediaMode === "video" ? "Incoming video call" : "Incoming call"
+                            : callStatus.state === "outgoing"
+                              ? callStatus.mediaMode === "video" ? "Video calling…" : "Calling…"
+                              : "Connected"}
+                        </p>
+                        {callStatus.state === "active" && (
+                          <p className="mt-1 tabular-nums text-[13px] text-white/50">{fmtDur(callStatus.elapsed)}</p>
+                        )}
+                      </div>
+                    </div>
+                    {callStatus.state === "active" ? (
+                      <div className="relative z-20 flex items-center justify-center gap-3 mb-6">
+                        <button
+                          onClick={() => callStatus.toggleMute?.()}
+                          className="flex h-14 w-14 items-center justify-center rounded-full transition-colors"
+                          style={{ background: callStatus.muted ? "rgba(239,68,68,0.15)" : "rgba(255,255,255,0.12)" }}
+                          aria-label={callStatus.muted ? "Unmute" : "Mute"}>
+                          {callStatus.muted ? <MicOff size={22} className="text-red-400" /> : <Mic size={22} className="text-white/80" />}
+                        </button>
+                        <button
+                          onClick={() => callStatus.end?.()}
+                          className="flex h-14 w-14 items-center justify-center rounded-full bg-red-500"
+                          style={{ boxShadow: "0 4px 20px rgba(239,68,68,0.45)" }}
+                          aria-label="End call">
+                          <PhoneOff size={22} className="text-white" />
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="relative z-10 flex items-end justify-center gap-12"
+                        style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 48px)" }}>
+                        {callStatus.state === "incoming" && (
+                          <button
+                            onClick={() => callStatus.answer?.()}
+                            className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[#22c55e] hover:bg-[#16a34a]"
+                            style={{ boxShadow: "0 4px 20px rgba(34,197,94,0.45)" }}
+                            aria-label="Answer">
+                            {callStatus.mediaMode === "video" ? <Video size={24} className="text-white" /> : <PhoneIncoming size={24} className="text-white" />}
+                          </button>
+                        )}
+                        <button
+                          onClick={() => callStatus.state === "incoming" ? callStatus.decline?.() : callStatus.end?.()}
+                          className="flex h-[64px] w-[64px] items-center justify-center rounded-full bg-[#ef4444] hover:bg-[#dc2626]"
+                          style={{ boxShadow: "0 4px 20px rgba(239,68,68,0.45)" }}
+                          aria-label={callStatus.state === "incoming" ? "Decline" : "Cancel"}>
+                          <PhoneOff size={24} className="text-white" />
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                ) : renderFoldRightPaneContent()}
               </div>
             </div>
           ) : null}
