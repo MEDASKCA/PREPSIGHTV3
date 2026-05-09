@@ -38,6 +38,7 @@ interface Props {
   subtitle?: string
   tertiaryLabel?: string
   implantSystem?: string
+  hideMobileHeader?: boolean
 }
 
 function formatName(fullName: string): string {
@@ -62,6 +63,7 @@ export default function ProcedurePageClient({
   subtitle,
   tertiaryLabel,
   implantSystem,
+  hideMobileHeader = false,
 }: Props) {
   const isSharedPublishedCard = procedure.cardScope === "shared" && procedure.publishState === "published"
   const profile = getProfile()
@@ -314,7 +316,7 @@ export default function ProcedurePageClient({
 
   return (
     <div className="procedure-route-theme app-shell-bg min-h-screen bg-[#F4F7FA] lg:h-screen lg:flex lg:flex-col lg:overflow-hidden">
-      <div className="lg:hidden">
+      <div className={`lg:hidden ${hideMobileHeader ? "hidden" : ""}`}>
         <MobileSurfaceHeader
           title="Library"
           hospital={hospitalLabel}

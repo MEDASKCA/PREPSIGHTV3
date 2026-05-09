@@ -281,6 +281,7 @@ export default function MobileProcedureRepositoryView({
   selectedVariantName,
   selectedSystemId,
   selectedSystemName,
+  hideMobileHeader = false,
 }: {
   procedure: Procedure
   sections: Section[]
@@ -289,6 +290,7 @@ export default function MobileProcedureRepositoryView({
   selectedVariantName?: string
   selectedSystemId?: string
   selectedSystemName?: string
+  hideMobileHeader?: boolean
 }) {
   const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -1149,7 +1151,7 @@ export default function MobileProcedureRepositoryView({
 
   return (
     <div className="min-h-screen bg-black text-[#e0e0e0]">
-      <div className="lg:hidden">
+      <div className={`lg:hidden ${hideMobileHeader ? "hidden" : ""}`}>
         <MobileSurfaceHeader
           title="Library"
           hospital={hospitalLabel}

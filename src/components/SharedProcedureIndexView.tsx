@@ -263,10 +263,14 @@ function VersionDrawer({
   branch,
   version,
   onClose,
+  paneBoundsLeft = "0",
+  paneBoundsRight = "0",
 }: {
   branch: BranchEntry | null
   version: PublishedVersion | null
   onClose: () => void
+  paneBoundsLeft?: string
+  paneBoundsRight?: string
 }) {
   const open = Boolean(branch && version)
   const [commentDraft, setCommentDraft] = useState("")
@@ -285,19 +289,25 @@ function VersionDrawer({
 
   return (
     <div
-      className={`fixed inset-x-0 bottom-0 z-40 max-h-[72vh] w-full rounded-t-[20px] border border-[#2d2d2d] bg-[#202020] shadow-[0_-18px_40px_rgba(0,0,0,0.5)] transition-transform duration-200 ${open ? "translate-y-0 lg:translate-x-0" : "translate-y-full lg:translate-x-full"} lg:inset-y-auto lg:bottom-0 lg:right-0 lg:left-auto lg:top-[72px] lg:max-h-[calc(100vh-72px)] lg:w-full lg:max-w-[28rem] lg:rounded-t-none lg:rounded-l-[18px] lg:border-y lg:border-r-0 lg:border-l lg:shadow-[-18px_0_40px_rgba(0,0,0,0.5)] lg:translate-y-0`}
+      className={`fixed bottom-0 z-40 max-h-[72vh] w-full max-w-full overflow-hidden rounded-t-[20px] border border-[#232323] bg-[#181818] shadow-[0_-18px_40px_rgba(0,0,0,0.58)] transition-transform duration-200 ${open ? "translate-y-0 lg:translate-x-0" : "translate-y-full lg:translate-x-full"} lg:inset-y-auto lg:bottom-0 lg:right-0 lg:left-auto lg:top-[72px] lg:max-h-[calc(100vh-72px)] lg:w-full lg:max-w-[28rem] lg:rounded-t-none lg:rounded-l-[18px] lg:border-y lg:border-r-0 lg:border-l lg:shadow-[-18px_0_40px_rgba(0,0,0,0.58)] lg:translate-y-0`}
+      style={{ left: paneBoundsLeft, right: paneBoundsRight }}
     >
       <div className="flex h-full flex-col">
         <div className="mx-auto mt-2 h-1 w-10 rounded-full bg-[#444444] lg:hidden" />
         <div className="flex items-start justify-between border-b border-[#2d2d2d] px-3.5 py-2.5 lg:px-5 lg:py-4">
           <div>
-            <div className="text-[13px] text-[#888888]">Published version</div>
+            <div className="text-[13px] text-white">Published version</div>
             <div className="mt-0.5 text-[16px] tracking-[-0.03em] text-white lg:mt-1 lg:text-[20px]">
               {version?.name ?? "Details"}
-              {version ? <span className="ml-2 text-[14px] tracking-normal text-[#888888]">| {getVersionLinkStatus(version.name)}</span> : null}
+              {version ? <span className="ml-2 text-[14px] tracking-normal text-white">| {getVersionLinkStatus(version.name)}</span> : null}
             </div>
           </div>
-          <button type="button" onClick={onClose} className="rounded-[8px] p-2 text-[#888888] hover:bg-[#2d2d2d]">
+          <button
+            type="button"
+            onClick={onClose}
+            aria-label="Close version drawer"
+            className="inline-flex items-center gap-1 rounded-[10px] border border-[#303030] bg-[#202020] px-2.5 py-2 text-white hover:bg-[#2d2d2d]"
+          >
             <X size={18} />
           </button>
         </div>
@@ -306,15 +316,15 @@ function VersionDrawer({
           {branch && version ? (
             <div className="space-y-3 lg:space-y-5">
               <div>
-                <div className="text-[13px] text-[#888888]">Branch</div>
-                <div className="mt-1 text-[13px] leading-5 text-[#e0e0e0] lg:text-[15px] lg:leading-7">
+                <div className="text-[13px] text-white">Branch</div>
+                <div className="mt-1 text-[13px] leading-5 text-white lg:text-[15px] lg:leading-7">
                   {branch.systemName}
                   {branch.approach ? ` | ${branch.approach}` : ""}
                   {branch.supplierName ? ` | ${branch.supplierName}` : ""}
                 </div>
               </div>
 
-              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-[#2d2d2d] pb-2.5 text-[13px] text-[#888888]">
+              <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5 border-b border-[#2d2d2d] pb-2.5 text-[13px] text-white">
                 <span className="inline-flex items-center gap-1">
                   <Heart size={15} />
                   {version.likes}
@@ -335,20 +345,20 @@ function VersionDrawer({
 
               <div className="space-y-1.5 border-b border-[#2d2d2d] pb-3 lg:grid lg:gap-3 lg:space-y-0 lg:sm:grid-cols-3">
                 <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[13px] leading-5 lg:block lg:text-[15px]">
-                  <span className="text-[#888888]">Contributor</span>
-                  <span className="text-[#e0e0e0] lg:mt-1 lg:block">{version.contributor}</span>
-                  <span className="text-[#888888] lg:hidden">Organisation</span>
-                  <span className="text-[#e0e0e0] lg:hidden">{version.organization}</span>
-                  <span className="text-[#888888] lg:hidden">Published</span>
-                  <span className="text-[#e0e0e0] lg:hidden">{formatDate(version.publishedAt)}</span>
+                  <span className="text-white">Contributor</span>
+                  <span className="text-white lg:mt-1 lg:block">{version.contributor}</span>
+                  <span className="text-white lg:hidden">Organisation</span>
+                  <span className="text-white lg:hidden">{version.organization}</span>
+                  <span className="text-white lg:hidden">Published</span>
+                  <span className="text-white lg:hidden">{formatDate(version.publishedAt)}</span>
                 </div>
                 <div className="hidden lg:block">
-                  <div className="text-[13px] text-[#888888]">Organisation</div>
-                  <div className="mt-1 text-[15px] text-[#e0e0e0]">{version.organization}</div>
+                  <div className="text-[13px] text-white">Organisation</div>
+                  <div className="mt-1 text-[15px] text-white">{version.organization}</div>
                 </div>
                 <div className="hidden lg:block">
-                  <div className="text-[13px] text-[#888888]">Published</div>
-                  <div className="mt-1 text-[15px] text-[#e0e0e0]">{formatDate(version.publishedAt)}</div>
+                  <div className="text-[13px] text-white">Published</div>
+                  <div className="mt-1 text-[15px] text-white">{formatDate(version.publishedAt)}</div>
                 </div>
               </div>
 
@@ -368,7 +378,7 @@ function VersionDrawer({
               </div>
 
               <div className="border-t border-[#2d2d2d] pt-3">
-                <div className="flex items-center gap-2 text-[14px] text-[#e0e0e0] lg:text-[15px]">
+                <div className="flex items-center gap-2 text-[14px] text-white lg:text-[15px]">
                   <MessageCircle size={15} />
                   Comments
                 </div>
@@ -377,24 +387,24 @@ function VersionDrawer({
                   {comments.map((comment) => (
                     <div key={comment.id} className="rounded-[12px] border border-[#2d2d2d] bg-[#2a2a2a] px-3 py-2">
                       <div className="flex items-center justify-between gap-3">
-                        <div className="text-[13px] text-[#e0e0e0] lg:text-[14px]">{comment.author}</div>
-                        <div className="text-[12px] text-[#888888]">{comment.createdAt}</div>
+                        <div className="text-[13px] text-white lg:text-[14px]">{comment.author}</div>
+                        <div className="text-[12px] text-white">{comment.createdAt}</div>
                       </div>
-                      <div className="mt-1.5 text-[13px] leading-5 text-[#aaaaaa] lg:text-[14px] lg:leading-6">{comment.body}</div>
+                      <div className="mt-1.5 text-[13px] leading-5 text-white lg:text-[14px] lg:leading-6">{comment.body}</div>
                     </div>
                   ))}
                 </div>
 
-                <div className="mt-2.5 flex items-start gap-2">
+                <div className="mt-2.5 flex min-w-0 items-start gap-2">
                   <textarea
                     value={commentDraft}
                     onChange={(event) => setCommentDraft(event.target.value)}
                     placeholder="Add a comment"
-                    className="min-h-[64px] flex-1 resize-none rounded-[10px] border border-[#2d2d2d] bg-[#2a2a2a] px-3 py-2 text-[13px] text-[#e0e0e0] outline-none placeholder:text-[#555555] lg:min-h-[76px] lg:py-2.5 lg:text-[14px]"
+                    className="min-h-[64px] min-w-0 flex-1 resize-none rounded-[10px] border border-[#2d2d2d] bg-[#242424] px-3 py-2 text-[13px] text-white outline-none placeholder:text-white lg:min-h-[76px] lg:py-2.5 lg:text-[14px]"
                   />
                   <button
                     type="button"
-                    className="inline-flex h-[36px] items-center gap-1.5 rounded-[10px] bg-[#0077B6] px-3 text-[13px] text-white hover:bg-[#00689f] lg:h-[40px] lg:gap-2 lg:text-[14px]"
+                    className="inline-flex h-[36px] shrink-0 items-center gap-1.5 rounded-[10px] bg-[#0077B6] px-3 text-[13px] text-white hover:bg-[#00689f] lg:h-[40px] lg:gap-2 lg:text-[14px]"
                   >
                     <Send size={15} />
                     Send
@@ -413,10 +423,16 @@ export default function SharedProcedureIndexView({
   libraryId,
   procedure,
   variants,
+  hideMobileHeader = false,
+  paneBoundsLeft = "0",
+  paneBoundsRight = "0",
 }: {
   libraryId: string
   procedure: Procedure
   variants: VariantWithSystems[]
+  hideMobileHeader?: boolean
+  paneBoundsLeft?: string
+  paneBoundsRight?: string
 }) {
   const router = useRouter()
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
@@ -457,6 +473,7 @@ export default function SharedProcedureIndexView({
     () => getPublishedCardsByFamilySnapshot(procedure.familyId),
     [procedure.familyId],
   )
+  const embeddedPane = hideMobileHeader
   const branches = useMemo(
     () => buildBranchEntries(libraryId, procedure, variants, publishedCards, localOrganization),
     [libraryId, localOrganization, procedure, variants, publishedCards],
@@ -650,8 +667,8 @@ export default function SharedProcedureIndexView({
   }
 
   return (
-    <div className="min-h-screen bg-black text-[#e0e0e0]">
-      <div className="lg:hidden">
+    <div className={`${embeddedPane ? "flex h-full min-h-0 flex-col" : "min-h-screen"} bg-black text-[#e0e0e0]`}>
+      <div className={`lg:hidden ${hideMobileHeader ? "hidden" : ""}`}>
         <MobileSurfaceHeader
           title="Library"
           hospital={hospitalLabel}
@@ -659,14 +676,16 @@ export default function SharedProcedureIndexView({
         />
       </div>
 
-      <main className="w-full px-4 pb-28 pt-4 lg:p-0 lg:pb-0">
+      <main className={`w-full ${embeddedPane ? "min-h-0 flex-1 px-4 pb-4 pt-2" : "px-4 pb-28 pt-4"} lg:p-0 lg:pb-0`}>
         <div
-          className={`lg:grid lg:min-h-screen lg:gap-0 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}
+          className={`${embeddedPane ? "min-h-0 flex-1" : ""} lg:grid lg:min-h-screen lg:gap-0 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}
         >
-          <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
+          {embeddedPane ? null : (
+            <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
+          )}
 
-          <div className="flex min-w-0 flex-col">
-            <div className="hidden lg:block">
+          <div className="flex min-w-0 min-h-0 flex-col">
+            <div className={embeddedPane ? "hidden" : "hidden lg:block"}>
               <AppTopBar menuOpen={false} onToggleMenu={handleToggleNavigation} searchPlaceholder="Search anywhere..." sectionLabel="Library Collections" />
             </div>
             <div className="flex min-h-0 flex-1">
@@ -753,7 +772,7 @@ export default function SharedProcedureIndexView({
               </span>
             </section>
 
-            <section className="relative left-1/2 mt-6 w-screen -translate-x-1/2 px-0 lg:left-auto lg:w-auto lg:translate-x-0 lg:px-0 lg:-mx-8">
+            <section className={`relative mt-6 px-0 ${embeddedPane ? "left-0 w-full translate-x-0" : "left-1/2 w-screen -translate-x-1/2"} lg:left-auto lg:w-auto lg:translate-x-0 lg:px-0 lg:-mx-8`}>
               <div className="flex items-center justify-between px-1 pb-3 lg:border-b lg:border-[#2d2d2d] lg:px-8">
                 <div className="flex flex-wrap items-center gap-2 text-[13px] lg:text-[14px]">
                   <div className="relative">
@@ -1026,7 +1045,13 @@ export default function SharedProcedureIndexView({
         <button
           type="button"
           onClick={() => setSelectedVersionId("")}
-          className="fixed inset-0 z-30 bg-black/50 lg:top-[72px]"
+          className="fixed z-30 bg-black/50 lg:top-[72px]"
+          style={{
+            top: 0,
+            bottom: 0,
+            left: paneBoundsLeft,
+            right: paneBoundsRight,
+          }}
           aria-label="Close version details"
         />
       ) : null}
@@ -1034,6 +1059,8 @@ export default function SharedProcedureIndexView({
         branch={selectedBranch}
         version={selectedVersion}
         onClose={() => setSelectedVersionId("")}
+        paneBoundsLeft={paneBoundsLeft}
+        paneBoundsRight={paneBoundsRight}
       />
     </div>
   )

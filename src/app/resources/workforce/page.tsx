@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
+import RootEntry from "@/components/RootEntry"
 import TriangleIcon from "@/components/TriangleIcon"
 import WorkforceSectionNav from "@/components/WorkforceSectionNav"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
@@ -394,7 +395,7 @@ export default function WorkforcePage() {
   }, [router])
 
   if (isDesktopViewport === false) {
-    return null
+    return <RootEntry initialSurface="resources" />
   }
 
   function toggleSort(nextKey: AllocationSortKey) {

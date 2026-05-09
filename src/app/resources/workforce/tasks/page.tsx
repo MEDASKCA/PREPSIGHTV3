@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import RootEntry from "@/components/RootEntry"
 import { CheckCircle2, Clock3, Layers3 } from "lucide-react"
 import WorkforcePersistentHeader from "@/components/WorkforcePersistentHeader"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
@@ -46,7 +47,7 @@ export default function WorkforceTasksPage() {
   }, [router])
 
   if (isDesktopViewport === false) {
-    return null
+    return <RootEntry initialSurface="resources" />
   }
 
   return (

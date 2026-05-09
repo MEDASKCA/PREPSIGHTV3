@@ -24,9 +24,15 @@ import {
 export default function LibraryCardRouteClient({
   libraryId,
   cardId,
+  hideMobileHeader = false,
+  paneBoundsLeft = "0",
+  paneBoundsRight = "0",
 }: {
   libraryId: string
   cardId: string
+  hideMobileHeader?: boolean
+  paneBoundsLeft?: string
+  paneBoundsRight?: string
 }) {
   const searchParams = useSearchParams()
   useSyncExternalStore(subscribeLibraries, getLibrariesSnapshot, getLibrariesSnapshot)
@@ -74,7 +80,16 @@ export default function LibraryCardRouteClient({
     variants.length > 0 &&
     !(variantId && systemId)
   ) {
-    return <SharedProcedureIndexView libraryId={libraryId} procedure={card} variants={variants} />
+    return (
+      <SharedProcedureIndexView
+        libraryId={libraryId}
+        procedure={card}
+        variants={variants}
+        hideMobileHeader={hideMobileHeader}
+        paneBoundsLeft={paneBoundsLeft}
+        paneBoundsRight={paneBoundsRight}
+      />
+    )
   }
 
   const selectedVariant = variantId ? getProcedureVariantById(variantId) : null
@@ -128,6 +143,7 @@ export default function LibraryCardRouteClient({
           selectedVariantName={selectedVariant?.name}
           selectedSystemId={selectedSystem?.id}
           selectedSystemName={selectedSystem?.name}
+          hideMobileHeader={hideMobileHeader}
         />
       ) : shouldRenderLocalRepositoryView ? (
         <MobileProcedureRepositoryView
@@ -138,6 +154,7 @@ export default function LibraryCardRouteClient({
           selectedVariantName={matchedLocalVariant?.name}
           selectedSystemId={matchedLocalSystem?.id}
           selectedSystemName={undefined}
+          hideMobileHeader={hideMobileHeader}
         />
       ) : (
         <ProcedurePageClient
@@ -152,6 +169,7 @@ export default function LibraryCardRouteClient({
           }
           tertiaryLabel={card.implantSystem}
           implantSystem={card.implantSystem}
+          hideMobileHeader={hideMobileHeader}
         />
       )}
     </>

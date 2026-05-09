@@ -3,6 +3,7 @@
 import dynamic from "next/dynamic"
 import { useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
+import RootEntry from "@/components/RootEntry"
 import {
   CalendarClock,
   ChevronRight,
@@ -304,7 +305,7 @@ export default function WorkforceShiftsPage() {
   }, [router])
 
   if (isDesktopViewport === false) {
-    return null
+    return <RootEntry initialSurface="resources" />
   }
 
   return (

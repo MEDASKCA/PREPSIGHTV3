@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
+import RootEntry from "@/components/RootEntry"
 import { GraduationCap, ShieldCheck, Sparkles } from "lucide-react"
 import WorkforcePersistentHeader from "@/components/WorkforcePersistentHeader"
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
@@ -54,7 +55,7 @@ export default function WorkforceSkillsPage() {
   }, [router])
 
   if (isDesktopViewport === false) {
-    return null
+    return <RootEntry initialSurface="resources" />
   }
 
   return (

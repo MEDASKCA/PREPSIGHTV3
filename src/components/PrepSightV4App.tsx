@@ -35,6 +35,8 @@ type MobileUtilityPage = "calendar" | "connectors" | null
 type MobileCalendarView = "daily" | "weekly" | "monthly" | "quarterly"
 type MobileCalendarSource = "all" | "library" | "resources" | "insights"
 type MobileConnectorFilter = "connected" | "available"
+type SurfaceResourceTab = "workforce" | "equipment" | "supplies"
+type SurfaceWorkforceTab = "allocation" | "shifts" | "skills" | "tasks"
 
 function CommsFilledIcon({ size = 23 }: { size?: number }) {
   return (
@@ -858,6 +860,20 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const [isFoldableMobileViewport, setIsFoldableMobileViewport] = useState(false)
   const foldCommsThread = useSyncExternalStore(subscribeFoldCommsThread, getFoldCommsThread, getFoldCommsThread)
   const isFoldCommsThreadActive = Boolean(foldCommsThread)
+  const routeResourceTab: SurfaceResourceTab =
+    pathname.startsWith("/resources/equipment")
+      ? "equipment"
+      : pathname.startsWith("/resources/supplies")
+        ? "supplies"
+        : "workforce"
+  const routeWorkforceTab: SurfaceWorkforceTab =
+    pathname.startsWith("/resources/workforce/shifts")
+      ? "shifts"
+      : pathname.startsWith("/resources/workforce/skills")
+        ? "skills"
+        : pathname.startsWith("/resources/workforce/tasks")
+          ? "tasks"
+          : "allocation"
   const [isFoldSplitSwapped, setIsFoldSplitSwapped] = useState(false)
   const callStatus = useCallStatus()
   const pipVideoRef = useRef<HTMLVideoElement>(null)
@@ -963,11 +979,21 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     : effectiveSurfaceTab === "library" ? "Library"
     : effectiveSurfaceTab === "resources" ? "Resources"
     : "Insights"
+  const showSurfacePaneBackButton =
+    showSurfaceStandaloneHeader &&
+    effectiveSurfaceTab === "library" &&
+    Boolean(selectedLibraryId)
+  const showUnifiedPaneBackButton =
+    showUnifiedMainHeader &&
+    effectiveSurfaceTab === "library" &&
+    Boolean(selectedLibraryId)
   const surfacePaneTitle = surfaceShowsEmbeddedComms ? "Comms" : effectiveSurfaceTitle
   const mixedSplitPrimaryLeftTitle = isFoldSplitSwapped ? surfacePaneTitle : "Comms"
   const mixedSplitPrimaryRightTitle = isFoldSplitSwapped ? "Comms" : surfacePaneTitle
 
   useEffect(() => {
+    const routeLibraryMatch = pathname.match(/^\/libraries\/([^/]+)$/)
+    const routeLibraryCardMatch = pathname.match(/^\/libraries\/([^/]+)\/cards\/([^/?#]+)/)
     const routeSurface =
       pathname === "/comms"
         ? "comms"
@@ -979,10 +1005,18 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
 
     setMobileUtilityPage(null)
     setMobileTab(routeSurface)
-    setFoldCommsThread(null)
     setIsFoldSplitSwapped(false)
     setActiveTab(routeSurface === "updates" ? "updates" : "library")
-    if (routeSurface !== "library") {
+    if (routeLibraryCardMatch) {
+      setSelectedLibraryId(decodeURIComponent(routeLibraryCardMatch[1]))
+      setSelectedLibraryCard({
+        libraryId: decodeURIComponent(routeLibraryCardMatch[1]),
+        cardId: decodeURIComponent(routeLibraryCardMatch[2]),
+      })
+    } else if (routeLibraryMatch) {
+      setSelectedLibraryId(decodeURIComponent(routeLibraryMatch[1]))
+      setSelectedLibraryCard(null)
+    } else {
       setSelectedLibraryId(null)
       setSelectedLibraryCard(null)
     }
@@ -1169,30 +1203,26 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     }
 
     if (effectiveSurfaceTab === "library") {
+      const surfacePaneBoundsLeft = isMixedSplitCommsPaneOnLeft ? "50%" : "0"
+      const surfacePaneBoundsRight = isMixedSplitCommsPaneOnLeft ? "0" : "50%"
       return (
         <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-4">
           {selectedLibraryId ? (
-            <div className="flex h-full min-h-0 flex-col space-y-4">
-              <button
-                type="button"
-                onClick={() => {
-                  if (selectedLibraryCard) {
-                    setSelectedLibraryCard(null)
-                    return
-                  }
-                  setSelectedLibraryId(null)
-                }}
-                className="shrink-0 self-start rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
-              >
-                {selectedLibraryCard ? "Back to library" : "Back to collections"}
-              </button>
+            <div className="flex h-full min-h-0 flex-col">
               <div className="min-h-0 flex-1 overflow-hidden">
                 {selectedLibraryCard ? (
-                  <LibraryCardRouteClient libraryId={selectedLibraryCard.libraryId} cardId={selectedLibraryCard.cardId} />
+                  <LibraryCardRouteClient
+                    libraryId={selectedLibraryCard.libraryId}
+                    cardId={selectedLibraryCard.cardId}
+                    hideMobileHeader
+                    paneBoundsLeft={surfacePaneBoundsLeft}
+                    paneBoundsRight={surfacePaneBoundsRight}
+                  />
                 ) : (
                   <LibraryPageClient
                     libraryId={selectedLibraryId}
                     embedded
+                    hideEmbeddedHeader
                     onOpenCard={(libraryId, cardId) => setSelectedLibraryCard({ libraryId, cardId })}
                   />
                 )}
@@ -1217,7 +1247,13 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
       const surfacePaneBoundsRight = isMixedSplitCommsPaneOnLeft ? "0" : "50%"
       return (
         <div className="min-h-0 flex-1 overflow-hidden bg-black">
-          <MobileResourcesSurface embedded paneBoundsLeft={surfacePaneBoundsLeft} paneBoundsRight={surfacePaneBoundsRight} />
+          <MobileResourcesSurface
+            embedded
+            paneBoundsLeft={surfacePaneBoundsLeft}
+            paneBoundsRight={surfacePaneBoundsRight}
+            initialResourceTab={routeResourceTab}
+            initialWorkforceTab={routeWorkforceTab}
+          />
         </div>
       )
     }
@@ -1297,17 +1333,51 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               </div>
             </div>
             <div className="relative mt-3 grid grid-cols-2 items-center gap-4">
-              <div
-                className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
-                style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-              >
-                {mixedSplitPrimaryLeftTitle}
+              <div className="relative min-w-0">
+                {!isMixedSplitCommsPaneOnLeft && showUnifiedPaneBackButton ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (selectedLibraryCard) {
+                        setSelectedLibraryCard(null)
+                        return
+                      }
+                      setSelectedLibraryId(null)
+                    }}
+                    className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
+                  >
+                    Back
+                  </button>
+                ) : null}
+                <div
+                  className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                  style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                >
+                  {mixedSplitPrimaryLeftTitle}
+                </div>
               </div>
-              <div
-                className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
-                style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-              >
-                {mixedSplitPrimaryRightTitle}
+              <div className="relative min-w-0">
+                {isMixedSplitCommsPaneOnLeft && showUnifiedPaneBackButton ? (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (selectedLibraryCard) {
+                        setSelectedLibraryCard(null)
+                        return
+                      }
+                      setSelectedLibraryId(null)
+                    }}
+                    className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
+                  >
+                    Back
+                  </button>
+                ) : null}
+                <div
+                  className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                  style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                >
+                  {mixedSplitPrimaryRightTitle}
+                </div>
               </div>
             </div>
           </div>
@@ -1391,7 +1461,22 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                       </button>
                     </div>
                   </div>
-                  <div className="mt-3">
+                  <div className="relative mt-3">
+                    {showSurfacePaneBackButton ? (
+                      <button
+                        type="button"
+                        onClick={() => {
+                          if (selectedLibraryCard) {
+                            setSelectedLibraryCard(null)
+                            return
+                          }
+                          setSelectedLibraryId(null)
+                        }}
+                        className="absolute left-0 top-1/2 -translate-y-1/2 rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
+                      >
+                        Back
+                      </button>
+                    ) : null}
                     <div
                       className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
                       style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
@@ -1472,15 +1557,20 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                           }}
                           className="shrink-0 self-start rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
                         >
-                          {selectedLibraryCard ? "Back to library" : "Back to collections"}
+                          {selectedLibraryCard ? "Back" : "Back to collections"}
                         </button>
                         <div className="min-h-0 flex-1 overflow-hidden">
                           {selectedLibraryCard ? (
-                            <LibraryCardRouteClient libraryId={selectedLibraryCard.libraryId} cardId={selectedLibraryCard.cardId} />
+                            <LibraryCardRouteClient
+                              libraryId={selectedLibraryCard.libraryId}
+                              cardId={selectedLibraryCard.cardId}
+                              hideMobileHeader
+                            />
                           ) : (
                             <LibraryPageClient
                               libraryId={selectedLibraryId}
                               embedded
+                              hideEmbeddedHeader
                               onOpenCard={(libraryId, cardId) => setSelectedLibraryCard({ libraryId, cardId })}
                             />
                           )}
@@ -1511,7 +1601,11 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                     onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
                   />
                   <div className="min-h-0 flex-1 overflow-hidden bg-black">
-                    <MobileResourcesSurface embedded />
+                    <MobileResourcesSurface
+                      embedded
+                      initialResourceTab={routeResourceTab}
+                      initialWorkforceTab={routeWorkforceTab}
+                    />
                   </div>
                 </div>
               ) : (

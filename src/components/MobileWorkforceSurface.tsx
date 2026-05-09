@@ -768,9 +768,21 @@ function MobileResourcePlaceholderSurface({
 type ResourceTab = "workforce" | "equipment" | "supplies"
 type WorkforceTab = "allocation" | "shifts" | "skills" | "tasks"
 
-export default function MobileResourcesSurface({ embedded = false, paneBoundsLeft = "0", paneBoundsRight = "0" }: { embedded?: boolean; paneBoundsLeft?: string; paneBoundsRight?: string } = {}) {
-  const [resourceTab, setResourceTab] = useState<ResourceTab>("workforce")
-  const [activeTab, setActiveTab] = useState<WorkforceTab>("allocation")
+export default function MobileResourcesSurface({
+  embedded = false,
+  paneBoundsLeft = "0",
+  paneBoundsRight = "0",
+  initialResourceTab = "workforce",
+  initialWorkforceTab = "allocation",
+}: {
+  embedded?: boolean
+  paneBoundsLeft?: string
+  paneBoundsRight?: string
+  initialResourceTab?: ResourceTab
+  initialWorkforceTab?: WorkforceTab
+} = {}) {
+  const [resourceTab, setResourceTab] = useState<ResourceTab>(initialResourceTab)
+  const [activeTab, setActiveTab] = useState<WorkforceTab>(initialWorkforceTab)
   const [showSearch, setShowSearch] = useState(false)
   const [searchValue, setSearchValue] = useState("")
 
@@ -782,6 +794,14 @@ export default function MobileResourcesSurface({ embedded = false, paneBoundsLef
     if (showSearch) setSearchValue("")
     setShowSearch(v => !v)
   }
+
+  useEffect(() => {
+    setResourceTab(initialResourceTab)
+  }, [initialResourceTab])
+
+  useEffect(() => {
+    setActiveTab(initialResourceTab === "workforce" ? initialWorkforceTab : "allocation")
+  }, [initialResourceTab, initialWorkforceTab])
 
   return (
     <div className={`${embedded ? "h-full min-h-0" : "min-h-[100dvh] bg-black"}`}>
