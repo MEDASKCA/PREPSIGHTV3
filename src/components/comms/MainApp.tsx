@@ -210,6 +210,10 @@ function triggerHapticPulse(duration = 12) {
   navigator.vibrate(duration)
 }
 
+function hasLiveVideoTrack(stream: MediaStream | null | undefined) {
+  return !!stream?.getVideoTracks().some(track => track.readyState !== "ended" && !track.muted)
+}
+
 function EmojiPicker({
   onSelect,
   onClose,
@@ -551,7 +555,11 @@ function CallButton({ icon, onClick, danger, active, disabled, "aria-label": ari
 }) {
   return (
     <button
-      onClick={onClick}
+      onClick={() => {
+        if (disabled) return
+        triggerHapticPulse()
+        onClick?.()
+      }}
       disabled={disabled}
       aria-label={ariaLabel}
       className={`flex h-[52px] w-[52px] items-center justify-center rounded-full transition-colors ${
@@ -732,7 +740,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [awaitingVideoAccept, setAwaitingVideoAccept] = useState(false)
   const [incomingVideoRequest, setIncomingVideoRequest] = useState<{ uid: string; name: string } | null>(null)
   const awaitingVideoAcceptRef = useRef(false)
-  const isVideoAcceptorRef = useRef(false)
+  const videoRequestResetTimeoutRef = useRef<number | null>(null)
   const [tomTyping, setTomTyping] = useState(false)
   const [tomTasks, setTomTasks] = useState<TomWatchTask[]>([])
   const voiceRecorderRef = useRef<MediaRecorder | null>(null)
@@ -849,7 +857,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   // â"€â"€ Re-apply remote stream when video element mounts/unmounts (callState or view mode changes) â"€â"€
   useEffect(() => {
     if (!remoteStreamRef.current) return
-    const hasVideo = remoteStreamRef.current.getVideoTracks().some(t => t.readyState !== "ended")
+    const hasVideo = hasLiveVideoTrack(remoteStreamRef.current)
     setRemoteVideoActive(hasVideo)
     if (hasVideo) {
       if (remoteVideoRef.current) {
@@ -1610,6 +1618,22 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const selectedOtherUid = selectedThread?.type === "direct" ? getOtherUid(selectedThread) : ""
   const selectedDirectContact = selectedThread?.type === "direct" ? getThreadAvatar(selectedThread) : null
   const isTomConversation = !!selectedThread && selectedThread.type === "direct" && selectedThread.memberUids.includes(TOM_UID)
+  const activeRemoteUid = activeCall
+    ? activeCall.callerUid === user.uid
+      ? activeCall.calleeUid
+      : activeCall.callerUid
+    : ""
+  const isSelectedDirectCallTarget =
+    !!selectedThread &&
+    selectedThread.type === "direct" &&
+    !!selectedOtherUid &&
+    selectedOtherUid === activeRemoteUid
+  const hideThreadHeaderCallButtons =
+    callState === "active" &&
+    callViewMode === "floating" &&
+    isSelectedDirectCallTarget
+  const canJoinExistingVideoCall = callState === "active" && callMediaMode === "audio" && remoteVideoActive
+  const shouldRequestVideoApproval = callState === "active" && callMediaMode === "audio" && !remoteVideoActive
   const otherPresence = selectedOtherUid ? presence[selectedOtherUid] : null
   const otherIsTyping =
     !!selectedThread &&
@@ -1703,7 +1727,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               )}
             </button>
             <div className="flex items-center gap-2">
-              {selectedThread.type === "direct" && (
+              {selectedThread.type === "direct" && !hideThreadHeaderCallButtons && (
                 <>
                   <button
                     onClick={
@@ -1728,7 +1752,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <button
                       onClick={
                         callState === "active" && callMediaMode === "video" ? switchToAudio
-                        : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
+                        : canJoinExistingVideoCall ? switchToVideo
+                        : shouldRequestVideoApproval ? () => void requestVideo()
                         : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                         : undefined
                       }
@@ -1810,7 +1835,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               )}
             </button>
               <div className="flex items-center gap-2">
-                {selectedThread.type === "direct" && (
+                {selectedThread.type === "direct" && !hideThreadHeaderCallButtons && (
                   <>
                     <button
                     onClick={
@@ -1835,7 +1860,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       <button
                         onClick={
                           callState === "active" && callMediaMode === "video" ? switchToAudio
-                          : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
+                          : canJoinExistingVideoCall ? switchToVideo
+                          : shouldRequestVideoApproval ? () => void requestVideo()
                           : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                           : undefined
                         }
@@ -2631,7 +2657,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         remoteAudioRef.current.play().catch(() => {})
       }
 
-      const hasVideo = !!remoteStreamRef.current?.getVideoTracks().some(t => t.readyState !== "ended" && !t.muted)
+      const hasVideo = hasLiveVideoTrack(remoteStreamRef.current)
       setRemoteVideoActive(hasVideo)
 
       if (hasVideo) {
@@ -2650,10 +2676,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       }
 
       // When remote activates video (replaceTrack) the track fires onunmute.
-      // Auto-switch our camera too so both parties have video.
+      // Video is per-person, so do not automatically turn on our own camera.
       if (e.track.kind === "video") {
         e.track.onunmute = () => {
-          setRemoteVideoActive(true)
+          const isRemoteVideoVisible = hasLiveVideoTrack(remoteStreamRef.current)
+          setRemoteVideoActive(isRemoteVideoVisible)
           if (remoteVideoRef.current) {
             remoteVideoRef.current.muted = true
             remoteVideoRef.current.srcObject = remoteStreamRef.current
@@ -2665,10 +2692,18 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           }
         }
         e.track.onmute = () => {
-          const stillHasVideo = !!remoteStreamRef.current?.getVideoTracks().some(
-            t => t.readyState !== "ended" && !t.muted
-          )
-          setRemoteVideoActive(stillHasVideo)
+          const isRemoteVideoVisible = hasLiveVideoTrack(remoteStreamRef.current)
+          setRemoteVideoActive(isRemoteVideoVisible)
+          if (isRemoteVideoVisible) return
+          if (remoteVideoRef.current) remoteVideoRef.current.srcObject = null
+          if (floatingVideoRef.current) floatingVideoRef.current.srcObject = null
+        }
+        e.track.onended = () => {
+          const isRemoteVideoVisible = hasLiveVideoTrack(remoteStreamRef.current)
+          setRemoteVideoActive(isRemoteVideoVisible)
+          if (isRemoteVideoVisible) return
+          if (remoteVideoRef.current) remoteVideoRef.current.srcObject = null
+          if (floatingVideoRef.current) floatingVideoRef.current.srcObject = null
         }
       }
     }
@@ -2718,19 +2753,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       } else if (!data.videoRequestFrom) {
         // Request was cleared (accepted or declined)
         setIncomingVideoRequest(null)
-      }
-
-      if (data.videoAccepted === true && awaitingVideoAcceptRef.current) {
-        // Remote accepted our video request — we go first with the reoffer
         awaitingVideoAcceptRef.current = false
         setAwaitingVideoAccept(false)
-        // Clear signal fields before renegotiating so the listener doesn't fire again
-        await updateDoc(doc(firestore, "comms_v5_calls", callId), {
-          videoRequestFrom: deleteField(),
-          videoRequestName: deleteField(),
-          videoAccepted: deleteField(),
-        })
-        void callActionsRef.current.switchToVideo()
+        if (videoRequestResetTimeoutRef.current) {
+          clearTimeout(videoRequestResetTimeoutRef.current)
+          videoRequestResetTimeoutRef.current = null
+        }
       }
 
       // Mid-call renegotiation (e.g. one party switched audio→video)
@@ -2740,22 +2768,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         const offerSdp = data.reofferSdp as RTCSessionDescriptionInit
         try {
           await pc.setRemoteDescription(new RTCSessionDescription(offerSdp))
-          // If we accepted a video request, add our camera before answering so both sides go video simultaneously
-          if (isVideoAcceptorRef.current) {
-            isVideoAcceptorRef.current = false
-            try {
-              let vStream: MediaStream
-              try { vStream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "user" }, audio: false }) }
-              catch { vStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: false }) }
-              const vTrack = vStream.getVideoTracks()[0]
-              if (vTrack && localStreamRef.current) {
-                localStreamRef.current.addTrack(vTrack)
-                pc.addTrack(vTrack, localStreamRef.current)
-                setLocalPreviewStream(localStreamRef.current)
-                setCallMediaMode("video")
-              }
-            } catch (e) { console.warn("acceptor add video:", e) }
-          }
           const reAnswer = await pc.createAnswer()
           await pc.setLocalDescription(reAnswer)
           await updateDoc(doc(firestore, "comms_v5_calls", callId), {
@@ -2933,6 +2945,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   async function answerCall() {
     if (!activeCall) return
+    triggerHapticPulse()
     let stream: MediaStream
     try {
       stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: activeCall.mode === "video" })
@@ -2984,6 +2997,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   async function declineCall() {
     if (!activeCall) return
+    triggerHapticPulse()
     if (activeCall.calleeUid === TOM_UID || activeCall.callerUid === TOM_UID) {
       cleanupCall()
       return
@@ -2994,6 +3008,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   async function endCall() {
     if (!activeCall) return
+    triggerHapticPulse()
     const duration = callStartTimeRef.current ? Math.round((Date.now() - callStartTimeRef.current) / 1000) : 0
     if (activeCall.calleeUid === TOM_UID || activeCall.callerUid === TOM_UID) {
       if (callThreadIdRef.current) {
@@ -3035,6 +3050,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       clearTimeout(incomingRingTimeoutRef.current)
       incomingRingTimeoutRef.current = null
     }
+    if (videoRequestResetTimeoutRef.current) {
+      clearTimeout(videoRequestResetTimeoutRef.current)
+      videoRequestResetTimeoutRef.current = null
+    }
     callUnsubRef.current?.(); callUnsubRef.current = null
     callSignalUnsubRef.current?.(); callSignalUnsubRef.current = null
     teardownBlurProcessor()
@@ -3050,6 +3069,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setVideoBlurEnabled(false)
     setShowLocalAsPrimary(false)
     setRemoteVideoActive(false)
+    awaitingVideoAcceptRef.current = false
+    setAwaitingVideoAccept(false)
+    setIncomingVideoRequest(null)
     setCallViewMode("panel")
     if (ownsGlobalCallStatus) {
       resetCallStatus()
@@ -3057,12 +3079,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   function toggleMute() {
+    triggerHapticPulse()
     localStreamRef.current?.getAudioTracks().forEach(t => { t.enabled = !t.enabled })
     setCallMuted(v => !v)
   }
 
   async function switchToAudio() {
     if (!localStreamRef.current || callState !== "active") return
+    triggerHapticPulse()
     if (videoBlurEnabled) await disableBackgroundBlur()
     const pc = pcRef.current
     // Stop local video tracks and detach from sender
@@ -3090,13 +3114,34 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       }
     }
     setLocalPreviewStream(null)
+    setShowLocalAsPrimary(false)
+    const remoteStillVisible = hasLiveVideoTrack(remoteStreamRef.current)
+    setRemoteVideoActive(remoteStillVisible)
+    if (remoteStillVisible) {
+      if (remoteVideoRef.current) {
+        remoteVideoRef.current.srcObject = remoteStreamRef.current
+        remoteVideoRef.current.play().catch(() => {})
+      }
+      if (floatingVideoRef.current) {
+        floatingVideoRef.current.srcObject = remoteStreamRef.current
+        floatingVideoRef.current.play().catch(() => {})
+      }
+    } else {
+      if (remoteVideoRef.current) remoteVideoRef.current.srcObject = null
+      if (floatingVideoRef.current) floatingVideoRef.current.srcObject = null
+    }
     setCallMediaMode("audio")
   }
 
   async function switchToVideo() {
     if (callState !== "active") return
+    triggerHapticPulse()
     const pc = pcRef.current
     if (!pc) return
+    if (hasLiveVideoTrack(localStreamRef.current)) {
+      setCallMediaMode("video")
+      return
+    }
     try {
       let videoStream: MediaStream
       try {
@@ -3129,16 +3174,29 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   async function requestVideo() {
-    if (callState !== "active" || callMediaMode === "video" || !activeCall || awaitingVideoAccept) return
+    if (callState !== "active" || !activeCall || awaitingVideoAccept) return
+    triggerHapticPulse()
     const myName = user.displayName || user.email || "Caller"
+    if (callMediaMode !== "video") {
+      await switchToVideo()
+    }
     awaitingVideoAcceptRef.current = true
     setAwaitingVideoAccept(true)
+    if (videoRequestResetTimeoutRef.current) {
+      clearTimeout(videoRequestResetTimeoutRef.current)
+      videoRequestResetTimeoutRef.current = null
+    }
     try {
       await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
         videoRequestFrom: user.uid,
         videoRequestName: myName,
         videoAccepted: deleteField(),
       })
+      videoRequestResetTimeoutRef.current = window.setTimeout(() => {
+        videoRequestResetTimeoutRef.current = null
+        awaitingVideoAcceptRef.current = false
+        setAwaitingVideoAccept(false)
+      }, 6000)
     } catch (e) {
       awaitingVideoAcceptRef.current = false
       setAwaitingVideoAccept(false)
@@ -3148,17 +3206,32 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   async function acceptVideoRequest() {
     if (!activeCall || !incomingVideoRequest) return
+    triggerHapticPulse()
     setIncomingVideoRequest(null)
-    // Signal acceptance only — requester goes first with reoffer; acceptor adds video after answering
-    isVideoAcceptorRef.current = true
+    awaitingVideoAcceptRef.current = false
+    setAwaitingVideoAccept(false)
+    if (videoRequestResetTimeoutRef.current) {
+      clearTimeout(videoRequestResetTimeoutRef.current)
+      videoRequestResetTimeoutRef.current = null
+    }
+    await switchToVideo()
     await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
-      videoAccepted: true,
+      videoRequestFrom: deleteField(),
+      videoRequestName: deleteField(),
+      videoAccepted: deleteField(),
     })
   }
 
   async function declineVideoRequest() {
     if (!activeCall || !incomingVideoRequest) return
+    triggerHapticPulse()
     setIncomingVideoRequest(null)
+    awaitingVideoAcceptRef.current = false
+    setAwaitingVideoAccept(false)
+    if (videoRequestResetTimeoutRef.current) {
+      clearTimeout(videoRequestResetTimeoutRef.current)
+      videoRequestResetTimeoutRef.current = null
+    }
     await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
       videoRequestFrom: deleteField(),
       videoRequestName: deleteField(),
@@ -3609,7 +3682,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               )}
             </button>
             <div className="flex items-center gap-2">
-              {selectedThread.type === "direct" && (
+              {selectedThread.type === "direct" && !hideThreadHeaderCallButtons && (
                 <>
                   {/* Audio call button â€" red hang-up when audio call active, grey when video call active, blue otherwise */}
                   <button
@@ -3635,7 +3708,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <button
                       onClick={
                         callState === "active" && callMediaMode === "video" ? switchToAudio
-                        : callState === "active" && callMediaMode === "audio" ? () => void requestVideo()
+                        : canJoinExistingVideoCall ? switchToVideo
+                        : shouldRequestVideoApproval ? () => void requestVideo()
                         : callState === "idle" ? () => void initiateCall(getOtherUid(selectedThread), selectedThread.id, "video")
                         : undefined
                       }
@@ -4600,7 +4674,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
           {/* Identity block â€" hidden during active video */}
           <div className={`relative z-10 flex flex-1 flex-col items-center justify-center gap-4 px-6
-            ${callState === "active" && callMediaMode === "video" && !tomVoiceMode ? "pointer-events-none opacity-0" : ""}`}
+            ${callState === "active" && !tomVoiceMode && (callMediaMode === "video" || remoteVideoActive) ? "pointer-events-none opacity-0" : ""}`}
           >
             <div className="relative flex items-center justify-center">
               {callState === "incoming" && (
@@ -4652,11 +4726,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           {callState === "active" && (
             <div
               className={`z-20 flex items-center justify-center gap-3 ${
-                callMediaMode === "video" && !tomVoiceMode
+                !tomVoiceMode && (callMediaMode === "video" || remoteVideoActive)
                   ? "absolute bottom-0 left-0 right-0 pt-6 bg-gradient-to-t from-black/60 to-transparent"
                   : "relative mb-6"
               }`}
-              style={callMediaMode === "video" && !tomVoiceMode
+              style={!tomVoiceMode && (callMediaMode === "video" || remoteVideoActive)
                 ? { paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)" }
                 : undefined}
             >
@@ -4694,10 +4768,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     aria-label="Speaker"
                   />
                   <CallButton
-                    icon={<Video size={20} className={awaitingVideoAccept ? "animate-pulse text-[#29b6d8]" : ""} />}
-                    onClick={() => void requestVideo()}
-                    disabled={awaitingVideoAccept}
-                    aria-label={awaitingVideoAccept ? "Waiting for video accept…" : "Switch to video"}
+                    icon={<Video size={20} className={shouldRequestVideoApproval && awaitingVideoAccept ? "animate-pulse text-[#29b6d8]" : ""} />}
+                    onClick={() => void (canJoinExistingVideoCall ? switchToVideo() : requestVideo())}
+                    disabled={shouldRequestVideoApproval && awaitingVideoAccept}
+                    aria-label={
+                      canJoinExistingVideoCall
+                        ? "Turn on my camera"
+                        : awaitingVideoAccept
+                          ? "Waiting for video accept…"
+                          : "Request video"
+                    }
                   />
                 </>
               ) : (

@@ -10,11 +10,46 @@ import AdminUnlocker from "./AdminUnlocker"
 import MedaskcaLoadingScreen from "./MedaskcaLoadingScreen"
 import PersistentCommsLayer from "./PersistentCommsLayer"
 import DesktopCommsFAB from "./DesktopCommsFAB"
+import RootEntry from "./RootEntry"
+import type { TabKey } from "@/v4/types"
 
 const PUBLIC_ROUTES    = ["/", "/login", "/privacy", "/terms"]
 const ONBOARDING_ROUTE = "/onboarding"
 const ADMIN_ROUTE      = "/admin"
 const PENDING_AUTH_KEY = "prepsight_pending_auth"
+
+function getPersistentMobileSurface(pathname: string): TabKey | null {
+  if (
+    pathname === "/comms" ||
+    pathname === "/calendar" ||
+    pathname === "/connectors"
+  ) {
+    return "comms"
+  }
+
+  if (
+    pathname === "/library" ||
+    pathname.startsWith("/libraries/")
+  ) {
+    return "library"
+  }
+
+  if (
+    pathname === "/resources" ||
+    pathname.startsWith("/resources/") ||
+    pathname === "/skills" ||
+    pathname === "/tasks" ||
+    pathname === "/builder"
+  ) {
+    return "resources"
+  }
+
+  if (pathname === "/insights") {
+    return "updates"
+  }
+
+  return null
+}
 
 export default function AppGate({ children }: { children: React.ReactNode }) {
   const router = useRouter()
@@ -29,6 +64,7 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
   const [authReady, setAuthReady] = useState(false)
   const [profileReady, setProfileReady] = useState(false)
   const [profileComplete, setProfileComplete] = useState(false)
+  const [isMobileViewport, setIsMobileViewport] = useState(false)
   const sessionTakeoverHandledRef = useRef(false)
 
   function hasPendingAuth() {
@@ -42,6 +78,14 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
       return false
     }
   }
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(max-width: 1023px)")
+    setIsMobileViewport(mediaQuery.matches)
+    const handleChange = (event: MediaQueryListEvent) => setIsMobileViewport(event.matches)
+    mediaQuery.addEventListener("change", handleChange)
+    return () => mediaQuery.removeEventListener("change", handleChange)
+  }, [])
 
   useEffect(() => {
     const unsub = onAuthChange((u) => {
@@ -202,6 +246,17 @@ export default function AppGate({ children }: { children: React.ReactNode }) {
 
   if (isAdmin) {
     return <><AdminUnlocker />{children}</>
+  }
+
+  const persistentMobileSurface = isMobileViewport ? getPersistentMobileSurface(pathname) : null
+
+  if (persistentMobileSurface) {
+    return (
+      <>
+        <RootEntry initialSurface={persistentMobileSurface} />
+        <AdminUnlocker />
+      </>
+    )
   }
 
   return (
