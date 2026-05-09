@@ -884,7 +884,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const mobileProfile = getProfile()
   const mobileSettings = useMemo(() => (mobileProfile ? getRelevantSettings(mobileProfile) : []), [mobileProfile])
   const mobileHospitalLabel = mobileProfile?.hospital?.trim() || "Royal Free Hospital"
-  const mobileDepartmentLabel = mobileSettings[0] ?? "Operating Theatres"
+  const mobileDepartmentLabel = mobileProfile?.departments?.[0]?.trim() || "Operating Theatres"
   const mobileDisplayName = mobileProfile?.name?.trim() || mobileUser?.displayName || mobileUser?.email?.split("@")[0] || "PrepSight user"
   const mobileRoleLabel = mobileProfile?.jobTitle?.trim() || mobileProfile?.role?.replace(/_/g, " ") || "Clinical role not set"
   const mobileProfileInitial = mobileDisplayName.charAt(0).toUpperCase()
@@ -1206,14 +1206,14 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           isMixedSplitActive ? (
             <div
               className="pointer-events-none fixed bottom-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[rgba(255,255,255,0.12)] lg:hidden"
-              style={{ top: shiftMixedSplitChromeToRight ? "env(safe-area-inset-top)" : "calc(env(safe-area-inset-top) + 74px)" }}
+              style={{ top: (shiftMixedSplitChromeToRight || commsDualMode) ? "env(safe-area-inset-top)" : "calc(env(safe-area-inset-top) + 74px)" }}
             />
           ) : mobileTab === "comms" ? (
             <div className="pointer-events-none fixed inset-y-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[rgba(255,255,255,0.12)] lg:hidden" />
           ) : null
         ) : null}
         {/* Shared header — mixed split, chrome not shifted, not in comms-dual-call mode */}
-        {isMixedSplitActive && !shiftMixedSplitChromeToRight ? (
+        {isMixedSplitActive && !shiftMixedSplitChromeToRight && !commsDualMode ? (
           <div
             className="shrink-0 border-b border-black bg-black px-4 pb-3"
             style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
@@ -1276,14 +1276,25 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
         ) : null}
         {/* Content area — always present; MCS never unmounts (WebRTC survives all tab/layout switches) */}
         <div className="relative min-h-0 flex-1 overflow-hidden bg-black">
-          {/* Swap button — only when chrome has shifted to surface pane (shared header hidden) */}
+          {/* Swap button — above call overlay (z-[210]) when chrome shifted; fixed above everything (z-[250]) when commsDualMode */}
           {isMixedSplitActive && shiftMixedSplitChromeToRight ? (
             <button
               type="button"
               onClick={() => setIsFoldSplitSwapped((value) => !value)}
               aria-label="Swap split sides"
-              className="absolute left-1/2 z-20 flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3]"
+              className="absolute left-1/2 z-[210] flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3]"
               style={{ top: "calc(env(safe-area-inset-top) + 12px)" }}
+            >
+              <ArrowLeftRight size={18} />
+            </button>
+          ) : null}
+          {commsDualMode ? (
+            <button
+              type="button"
+              onClick={() => setIsFoldSplitSwapped((value) => !value)}
+              aria-label="Swap split sides"
+              className="fixed left-1/2 z-[250] flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3] lg:hidden"
+              style={{ top: "calc(env(safe-area-inset-top, 0px) + 8px)" }}
             >
               <ArrowLeftRight size={18} />
             </button>
@@ -1300,6 +1311,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               bottom: 0,
               left: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? 0 : "50%") : 0,
               right: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? "50%" : 0) : 0,
+              paddingTop: commsDualMode ? "env(safe-area-inset-top, 0px)" : 0,
               paddingBottom: (isMixedSplitActive && !shiftMixedSplitChromeToRight) ? "7rem" : 0,
               display: (!isMixedSplitActive && (mobileTab !== "comms" || !!mobileUtilityPage)) ? "none" : undefined,
             }}
@@ -1308,8 +1320,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               visible={isMixedSplitActive || (mobileTab === "comms" && !mobileUtilityPage)}
               hideHeader={isMixedSplitActive}
               suppressCallOverlay={commsDualMode || (mobileTab === "comms" && isFoldableMobileViewport)}
-              allowFoldableSplitView={false}
-              threadPaneSide={isMixedSplitActive && !commsDualMode ? (isMixedSplitCommsPaneOnLeft ? "right" : "left") : undefined}
+              allowFoldableSplitView={!isMixedSplitActive && isFoldableMobileViewport}
               onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
             />
           </div>

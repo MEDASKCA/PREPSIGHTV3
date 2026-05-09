@@ -578,11 +578,10 @@ interface Props {
   hideMobileHeader?: boolean
   allowFoldableSplitView?: boolean
   suppressCallOverlay?: boolean  // hide call overlay UI while keeping WebRTC alive
-  threadPaneSide?: "left" | "right"  // in foldable split: pop thread out to this viewport half via fixed positioning
   onDirectThreadActiveChange?: (active: boolean) => void
 }
 
-export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true, suppressCallOverlay = false, threadPaneSide, onDirectThreadActiveChange }: Props) {
+export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true, suppressCallOverlay = false, onDirectThreadActiveChange }: Props) {
   const appRef = useRef<HTMLDivElement>(null)
   const firestore = db!
   const firebaseAuth = auth!
@@ -3509,22 +3508,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         </div>
       ) : null}
       {selectedThread && !isFoldableSplitView && embedded && hideMobileHeader && !allowFoldableSplitView ? (
-        threadPaneSide ? (
-          /* Fixed-position: thread pops into the opposite pane of the foldable split */
-          <div
-            className="fixed inset-y-0 z-[45] bg-black"
-            style={{
-              left: threadPaneSide === "right" ? "50%" : 0,
-              right: threadPaneSide === "right" ? 0 : "50%",
-            }}
-          >
-            {renderMobileThreadPane(true, true)}
-          </div>
-        ) : (
-          <div className="absolute inset-0 z-10 bg-black">
-            {renderMobileThreadPane(true, true)}
-          </div>
-        )
+        <div className="absolute inset-0 z-10 bg-black">
+          {renderMobileThreadPane(true, true)}
+        </div>
       ) : null}
       {selectedThread && !isFoldableSplitView && !(embedded && hideMobileHeader && !allowFoldableSplitView) && (
         <div

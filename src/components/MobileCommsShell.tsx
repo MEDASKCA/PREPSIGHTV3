@@ -36,14 +36,12 @@ export default function MobileCommsShell({
   hideHeader = false,
   allowFoldableSplitView = true,
   suppressCallOverlay = false,
-  threadPaneSide,
   onDirectThreadActiveChange,
 }: {
   visible?: boolean
   hideHeader?: boolean
   allowFoldableSplitView?: boolean
   suppressCallOverlay?: boolean
-  threadPaneSide?: "left" | "right"
   onDirectThreadActiveChange?: (active: boolean) => void
 }) {
   const [user, setUser]         = useState<User | null>(null)
@@ -208,7 +206,6 @@ export default function MobileCommsShell({
         hideMobileHeader={hideHeader}
         allowFoldableSplitView={allowFoldableSplitView}
         suppressCallOverlay={suppressCallOverlay}
-        threadPaneSide={threadPaneSide}
         onDirectThreadActiveChange={onDirectThreadActiveChange}
       />
     </div>
