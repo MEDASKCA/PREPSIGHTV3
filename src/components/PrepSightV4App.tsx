@@ -1284,7 +1284,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             onClick={() => setIsFoldSplitSwapped((value) => !value)}
             aria-label="Swap split sides"
             className="fixed left-1/2 z-[250] flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3] lg:hidden"
-            style={{ top: "calc(env(safe-area-inset-top, 0px) + 8px)" }}
+            style={{ top: showUnifiedMainHeader ? "calc(env(safe-area-inset-top, 0px) + 82px)" : "calc(env(safe-area-inset-top, 0px) + 8px)" }}
           >
             <ArrowLeftRight size={18} />
           </button>

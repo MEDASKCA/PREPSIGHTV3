@@ -580,9 +580,10 @@ interface Props {
   suppressCallOverlay?: boolean  // hide call overlay UI while keeping WebRTC alive
   onDirectThreadActiveChange?: (active: boolean) => void
   restoreStoredThread?: boolean
+  ownsGlobalCallStatus?: boolean
 }
 
-export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true, suppressCallOverlay = false, onDirectThreadActiveChange, restoreStoredThread = false }: Props) {
+export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = false, showProfileButton = false, visible = true, profileHospital, profileDepartment, hideMobileHeader = false, allowFoldableSplitView = true, suppressCallOverlay = false, onDirectThreadActiveChange, restoreStoredThread = false, ownsGlobalCallStatus = true }: Props) {
   const appRef = useRef<HTMLDivElement>(null)
   const firestore = db!
   const firebaseAuth = auth!
@@ -2072,7 +2073,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
         <div
           className="bg-black shrink-0 relative px-4 pt-2"
-          style={{ paddingBottom: minimalHeader ? "calc(env(safe-area-inset-bottom, 0px) + 8px)" : "calc(env(safe-area-inset-bottom, 0px) + 16px)" }}
+          style={{
+            paddingBottom: splitView
+              ? "calc(env(safe-area-inset-bottom, 0px) + 6px)"
+              : minimalHeader
+                ? "calc(env(safe-area-inset-bottom, 0px) + 8px)"
+                : "calc(env(safe-area-inset-bottom, 0px) + 16px)",
+          }}
         >
           {composerError ? (
             <div className="mb-2 rounded-xl border border-[#5a3d08] bg-[#2c1f05] px-3 py-2 text-[12px] text-[#f7c873]">
