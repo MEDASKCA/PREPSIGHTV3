@@ -16,6 +16,7 @@ import {
   EmbeddedLibrariesDashboardMobile,
   LibraryTree,
 } from "@/components/LibrariesDashboard"
+import LibraryCardRouteClient from "@/components/LibraryCardRouteClient"
 import LibraryPageClient from "@/components/LibraryPageClient"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
@@ -870,6 +871,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const [lastNonCommsTab, setLastNonCommsTab] = useState<TabKey>(initialSurface === "comms" ? "library" : initialSurface)
   const [activeUpdateKey, setActiveUpdateKey] = useState<UpdateKey | null>(UPDATES[0]?.key ?? null)
   const [selectedLibraryId, setSelectedLibraryId] = useState<string | null>(null)
+  const [selectedLibraryCard, setSelectedLibraryCard] = useState<{ libraryId: string; cardId: string } | null>(null)
   const commsRailOpen = useSyncExternalStore(
     subscribeDesktopCommsPreference,
     getDesktopCommsPreference,
@@ -947,6 +949,14 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     isMixedSplitActive &&
     !showUnifiedMainHeader &&
     !surfaceShowsEmbeddedComms
+  const suppressPrimaryFoldableCallOverlay =
+    isFoldableMobileViewport &&
+    mobileTab === "comms" &&
+    !isMixedSplitActive
+  const primaryCommsPaneKey =
+    isFoldableMobileViewport && isMixedSplitActive && mobileTab !== "comms"
+      ? `fold-comms-list:${mobileTab}`
+      : "fold-comms-primary"
   const effectiveSurfaceTab: TabKey = mobileTab === "comms" ? lastNonCommsTab : mobileTab
   const effectiveSurfaceTitle = mobileUtilityPage === "calendar" ? "Calendar"
     : mobileUtilityPage === "connectors" ? "Connectors"
@@ -972,7 +982,10 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     setFoldCommsThread(null)
     setIsFoldSplitSwapped(false)
     setActiveTab(routeSurface === "updates" ? "updates" : "library")
-    if (routeSurface !== "library") setSelectedLibraryId(null)
+    if (routeSurface !== "library") {
+      setSelectedLibraryId(null)
+      setSelectedLibraryCard(null)
+    }
   }, [pathname])
 
   useEffect(() => {
@@ -1132,7 +1145,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             hideHeader={false}
             suppressCallOverlay
             allowFoldableSplitView={false}
-            restoreStoredThread
+            restoreStoredThread={false}
             ownsGlobalCallStatus={false}
           />
         </div>
@@ -1162,17 +1175,37 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             <div className="flex h-full min-h-0 flex-col space-y-4">
               <button
                 type="button"
-                onClick={() => setSelectedLibraryId(null)}
+                onClick={() => {
+                  if (selectedLibraryCard) {
+                    setSelectedLibraryCard(null)
+                    return
+                  }
+                  setSelectedLibraryId(null)
+                }}
                 className="shrink-0 self-start rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
               >
-                Back to collections
+                {selectedLibraryCard ? "Back to library" : "Back to collections"}
               </button>
               <div className="min-h-0 flex-1 overflow-hidden">
-                <LibraryPageClient libraryId={selectedLibraryId} embedded />
+                {selectedLibraryCard ? (
+                  <LibraryCardRouteClient libraryId={selectedLibraryCard.libraryId} cardId={selectedLibraryCard.cardId} />
+                ) : (
+                  <LibraryPageClient
+                    libraryId={selectedLibraryId}
+                    embedded
+                    onOpenCard={(libraryId, cardId) => setSelectedLibraryCard({ libraryId, cardId })}
+                  />
+                )}
               </div>
             </div>
           ) : (
-            <EmbeddedLibrariesDashboardMobile query={searchValue} onSelectLibrary={setSelectedLibraryId} />
+            <EmbeddedLibrariesDashboardMobile
+              query={searchValue}
+              onSelectLibrary={(libraryId) => {
+                setSelectedLibraryCard(null)
+                setSelectedLibraryId(libraryId)
+              }}
+            />
           )}
         </div>
       )
@@ -1303,9 +1336,10 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             }}
           >
             <MobileCommsShell
+              key={primaryCommsPaneKey}
               visible={isMixedSplitActive || (mobileTab === "comms" && !mobileUtilityPage)}
               hideHeader={isMixedSplitActive}
-              suppressCallOverlay={false}
+              suppressCallOverlay={suppressPrimaryFoldableCallOverlay}
               allowFoldableSplitView={!isMixedSplitActive && isFoldableMobileViewport}
               onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
               ownsGlobalCallStatus
@@ -1429,17 +1463,37 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                       <div className="flex h-full min-h-0 flex-col space-y-4">
                         <button
                           type="button"
-                          onClick={() => setSelectedLibraryId(null)}
+                          onClick={() => {
+                            if (selectedLibraryCard) {
+                              setSelectedLibraryCard(null)
+                              return
+                            }
+                            setSelectedLibraryId(null)
+                          }}
                           className="shrink-0 self-start rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
                         >
-                          Back to collections
+                          {selectedLibraryCard ? "Back to library" : "Back to collections"}
                         </button>
                         <div className="min-h-0 flex-1 overflow-hidden">
-                          <LibraryPageClient libraryId={selectedLibraryId} embedded />
+                          {selectedLibraryCard ? (
+                            <LibraryCardRouteClient libraryId={selectedLibraryCard.libraryId} cardId={selectedLibraryCard.cardId} />
+                          ) : (
+                            <LibraryPageClient
+                              libraryId={selectedLibraryId}
+                              embedded
+                              onOpenCard={(libraryId, cardId) => setSelectedLibraryCard({ libraryId, cardId })}
+                            />
+                          )}
                         </div>
                       </div>
                     ) : (
-                      <EmbeddedLibrariesDashboardMobile query={searchValue} onSelectLibrary={setSelectedLibraryId} />
+                      <EmbeddedLibrariesDashboardMobile
+                        query={searchValue}
+                        onSelectLibrary={(libraryId) => {
+                          setSelectedLibraryCard(null)
+                          setSelectedLibraryId(libraryId)
+                        }}
+                      />
                     )}
                   </div>
                 </div>
@@ -1516,18 +1570,27 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                       if (isFoldableMobileViewport) {
                         setMobileUtilityPage(null)
                         setMobileTab(item.key)
-                        if (item.key !== "library") setSelectedLibraryId(null)
+                        if (item.key !== "library") {
+                          setSelectedLibraryId(null)
+                          setSelectedLibraryCard(null)
+                        }
                         return
                       }
                       if (item.href) {
                         setMobileUtilityPage(null)
-                        if (item.key !== "library") setSelectedLibraryId(null)
+                        if (item.key !== "library") {
+                          setSelectedLibraryId(null)
+                          setSelectedLibraryCard(null)
+                        }
                         router.push(item.href)
                         return
                       }
                       setMobileUtilityPage(null)
                       setMobileTab(item.key)
-                      if (item.key !== "comms") setSelectedLibraryId(null)
+                      if (item.key !== "comms") {
+                        setSelectedLibraryId(null)
+                        setSelectedLibraryCard(null)
+                      }
                     }}
                     className={`flex flex-col items-center justify-center rounded-[16px] px-2 py-2.5 transition-all ${
                       isActive ? "bg-[var(--mob-dock-active-bg)] text-[var(--mob-dock-active)]" : "text-[var(--mob-dock-inactive)]"

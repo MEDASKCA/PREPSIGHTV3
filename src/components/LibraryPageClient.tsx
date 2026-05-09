@@ -313,11 +313,13 @@ function TreeLeafList({
   libraryId,
   className = "ml-3",
   compact = false,
+  onOpenCard,
 }: {
   cards: Procedure[]
   libraryId: string
   className?: string
   compact?: boolean
+  onOpenCard?: (libraryId: string, cardId: string) => void
 }) {
   return (
     <div className={className}>
@@ -329,12 +331,22 @@ function TreeLeafList({
           nodeColor="#1e5a6a"
           compact={compact}
         >
-          <Link
-            href={`/libraries/${libraryId}/cards/${card.id}`}
-            className="block py-1 text-[14px] leading-6 text-[#e0e0e0] transition-colors hover:text-white lg:text-[15px]"
-          >
-            {card.name}
-          </Link>
+          {onOpenCard ? (
+            <button
+              type="button"
+              onClick={() => onOpenCard(libraryId, card.id)}
+              className="block py-1 text-[14px] leading-6 text-[#e0e0e0] transition-colors hover:text-white lg:text-[15px]"
+            >
+              {card.name}
+            </button>
+          ) : (
+            <Link
+              href={`/libraries/${libraryId}/cards/${card.id}`}
+              className="block py-1 text-[14px] leading-6 text-[#e0e0e0] transition-colors hover:text-white lg:text-[15px]"
+            >
+              {card.name}
+            </Link>
+          )}
         </TreeBranchNode>
       ))}
     </div>
@@ -348,6 +360,7 @@ function TreeGroupContent({
   toggleBranch,
   folderTone,
   compact = false,
+  onOpenCard,
 }: {
   group: TreeGroup
   libraryId: string
@@ -355,6 +368,7 @@ function TreeGroupContent({
   toggleBranch: (branchId: string) => void
   folderTone: "global" | "local"
   compact?: boolean
+  onOpenCard?: (libraryId: string, cardId: string) => void
 }) {
   const directRows = [
     ...group.branches.map((branch) => ({ type: "branch" as const, branch })),
@@ -415,7 +429,7 @@ function TreeGroupContent({
               compact={compact}
             >
               <p className="py-1 text-[14px] leading-5 font-normal text-[#888888]">Procedures</p>
-              <TreeLeafList cards={group.cards} libraryId={libraryId} compact={compact} />
+              <TreeLeafList cards={group.cards} libraryId={libraryId} compact={compact} onOpenCard={onOpenCard} />
             </TreeBranchNode>
           )
         })}
@@ -431,6 +445,7 @@ function TreeBranchContent({
   toggleBranch,
   folderTone,
   compact = false,
+  onOpenCard,
 }: {
   branch: TreeBranch
   libraryId: string
@@ -438,6 +453,7 @@ function TreeBranchContent({
   toggleBranch: (branchId: string) => void
   folderTone: "global" | "local"
   compact?: boolean
+  onOpenCard?: (libraryId: string, cardId: string) => void
 }) {
   const directRows = [
     ...branch.branches.map((child) => ({ type: "branch" as const, branch: child })),
@@ -483,6 +499,7 @@ function TreeBranchContent({
                   toggleBranch={toggleBranch}
                   folderTone={folderTone}
                   compact={compact}
+                  onOpenCard={onOpenCard}
                 />
               ) : null}
             </TreeBranchNode>
@@ -491,7 +508,7 @@ function TreeBranchContent({
 
         return (
           <div key={`${branch.id}:cards`}>
-            <TreeLeafList cards={branch.cards} libraryId={libraryId} className="" compact={compact} />
+            <TreeLeafList cards={branch.cards} libraryId={libraryId} className="" compact={compact} onOpenCard={onOpenCard} />
           </div>
         )
       })}
@@ -505,12 +522,14 @@ function TreeSelectedGroupContent({
   isBranchExpanded,
   toggleBranch,
   folderTone,
+  onOpenCard,
 }: {
   group: TreeGroup
   libraryId: string
   isBranchExpanded: (branchId: string) => boolean
   toggleBranch: (branchId: string) => void
   folderTone: "global" | "local"
+  onOpenCard?: (libraryId: string, cardId: string) => void
 }) {
   const directRows = [
     ...group.branches.map((branch) => ({ type: "branch" as const, branch })),
@@ -549,6 +568,7 @@ function TreeSelectedGroupContent({
                     toggleBranch={toggleBranch}
                     folderTone={folderTone}
                     compact
+                    onOpenCard={onOpenCard}
                   />
                 ) : null}
               </div>
@@ -566,10 +586,12 @@ export default function LibraryPageClient({
   libraryId,
   embedded = false,
   hideEmbeddedHeader = false,
+  onOpenCard,
 }: {
   libraryId: string
   embedded?: boolean
   hideEmbeddedHeader?: boolean
+  onOpenCard?: (libraryId: string, cardId: string) => void
 }) {
   const libraries = useSyncExternalStore(
     subscribeLibraries,
@@ -735,6 +757,13 @@ export default function LibraryPageClient({
     }))
   }
 
+  function handleOpenProcedure(href: string) {
+    if (!onOpenCard) return
+    const match = href.match(/^\/libraries\/([^/]+)\/cards\/([^/?#]+)/)
+    if (!match) return
+    onOpenCard(decodeURIComponent(match[1]), decodeURIComponent(match[2]))
+  }
+
   function isMobileUpdateExpanded(updateId: string) {
     if (mobileExpandedUpdates[updateId] !== undefined) return mobileExpandedUpdates[updateId]
     return false
@@ -835,6 +864,7 @@ export default function LibraryPageClient({
                       isBranchExpanded={isMobileBranchExpanded}
                       toggleBranch={toggleMobileBranch}
                       folderTone={folderTone}
+                      onOpenCard={onOpenCard}
                     />
                   </div>
                 </div>
@@ -888,12 +918,22 @@ export default function LibraryPageClient({
                     {isMobileUpdateExpanded(update.id) ? (
                       <div className="border-t border-[#1e1e1e] px-3 py-2">
                         <p className="text-[14px] leading-5 text-[#888888]">{renderCompactUpdateMeta(update)}</p>
-                        <Link
-                          href={update.href}
-                          className="mt-2 inline-flex items-center justify-center rounded-xl bg-[#0096C7] px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-[#0085B2] active:bg-[#0077B6]"
-                        >
-                          Open procedure
-                        </Link>
+                        {onOpenCard ? (
+                          <button
+                            type="button"
+                            onClick={() => handleOpenProcedure(update.href)}
+                            className="mt-2 inline-flex items-center justify-center rounded-xl bg-[#0096C7] px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-[#0085B2] active:bg-[#0077B6]"
+                          >
+                            Open procedure
+                          </button>
+                        ) : (
+                          <Link
+                            href={update.href}
+                            className="mt-2 inline-flex items-center justify-center rounded-xl bg-[#0096C7] px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-[#0085B2] active:bg-[#0077B6]"
+                          >
+                            Open procedure
+                          </Link>
+                        )}
                       </div>
                     ) : null}
                   </section>
@@ -1004,6 +1044,7 @@ export default function LibraryPageClient({
                           toggleBranch={toggleMobileBranch}
                           folderTone={folderTone}
                           compact
+                          onOpenCard={onOpenCard}
                         />
                       ) : null}
                     </section>
@@ -1035,12 +1076,22 @@ export default function LibraryPageClient({
                       {isMobileUpdateExpanded(update.id) ? (
                         <div className="border-t border-[#EEF4F7] px-3 py-2">
                           <p className="text-[14px] leading-5 text-[#0F4C5C]">{renderCompactUpdateMeta(update)}</p>
-                          <Link
-                            href={update.href}
-                            className="mt-2 inline-flex items-center justify-center rounded-xl bg-[#0096C7] px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-[#0085B2] active:bg-[#0077B6]"
-                          >
-                            Open procedure
-                          </Link>
+                          {onOpenCard ? (
+                            <button
+                              type="button"
+                              onClick={() => handleOpenProcedure(update.href)}
+                              className="mt-2 inline-flex items-center justify-center rounded-xl bg-[#0096C7] px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-[#0085B2] active:bg-[#0077B6]"
+                            >
+                              Open procedure
+                            </button>
+                          ) : (
+                            <Link
+                              href={update.href}
+                              className="mt-2 inline-flex items-center justify-center rounded-xl bg-[#0096C7] px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-[#0085B2] active:bg-[#0077B6]"
+                            >
+                              Open procedure
+                            </Link>
+                          )}
                         </div>
                       ) : null}
                     </section>
@@ -1136,6 +1187,7 @@ export default function LibraryPageClient({
                           isBranchExpanded={isBranchExpanded}
                           toggleBranch={toggleBranch}
                           folderTone={folderTone}
+                          onOpenCard={onOpenCard}
                         />
                       ) : null}
                     </div>
@@ -1151,16 +1203,30 @@ export default function LibraryPageClient({
                 {updates.length > 0 ? (
                   <div className="divide-y divide-[#2d2d2d]">
                     {updates.map((update) => (
-                      <Link
-                        key={update.id}
-                        href={update.href}
-                        className="block px-4 py-3 transition-colors hover:bg-[#252525]"
-                      >
-                        <div className="min-w-0">
-                          <p className="text-[14px] font-medium text-[#e0e0e0]">{update.title}</p>
-                          <p className="mt-1 text-[12px] leading-5 text-[#888888]">{renderCompactUpdateMeta(update)}</p>
-                        </div>
-                      </Link>
+                      onOpenCard ? (
+                        <button
+                          key={update.id}
+                          type="button"
+                          onClick={() => handleOpenProcedure(update.href)}
+                          className="block w-full px-4 py-3 text-left transition-colors hover:bg-[#252525]"
+                        >
+                          <div className="min-w-0">
+                            <p className="text-[14px] font-medium text-[#e0e0e0]">{update.title}</p>
+                            <p className="mt-1 text-[12px] leading-5 text-[#888888]">{renderCompactUpdateMeta(update)}</p>
+                          </div>
+                        </button>
+                      ) : (
+                        <Link
+                          key={update.id}
+                          href={update.href}
+                          className="block px-4 py-3 transition-colors hover:bg-[#252525]"
+                        >
+                          <div className="min-w-0">
+                            <p className="text-[14px] font-medium text-[#e0e0e0]">{update.title}</p>
+                            <p className="mt-1 text-[12px] leading-5 text-[#888888]">{renderCompactUpdateMeta(update)}</p>
+                          </div>
+                        </Link>
+                      )
                     ))}
                   </div>
                 ) : (
