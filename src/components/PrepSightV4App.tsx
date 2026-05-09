@@ -1311,14 +1311,13 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               bottom: 0,
               left: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? 0 : "50%") : 0,
               right: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? "50%" : 0) : 0,
-              paddingTop: commsDualMode ? "env(safe-area-inset-top, 0px)" : 0,
               paddingBottom: (isMixedSplitActive && !shiftMixedSplitChromeToRight) ? "7rem" : 0,
               display: (!isMixedSplitActive && (mobileTab !== "comms" || !!mobileUtilityPage)) ? "none" : undefined,
             }}
           >
             <MobileCommsShell
               visible={isMixedSplitActive || (mobileTab === "comms" && !mobileUtilityPage)}
-              hideHeader={isMixedSplitActive}
+              hideHeader={isMixedSplitActive && !commsDualMode}
               suppressCallOverlay={commsDualMode || (mobileTab === "comms" && isFoldableMobileViewport)}
               allowFoldableSplitView={!isMixedSplitActive && isFoldableMobileViewport}
               onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
