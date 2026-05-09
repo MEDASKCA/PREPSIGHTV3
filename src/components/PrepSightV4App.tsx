@@ -867,6 +867,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const [isMobilePipDragging, setIsMobilePipDragging] = useState(false)
   const desktopPipDragOrigin = useRef({ clientX: 0, clientY: 0, x: 0, y: 0 })
   const mobilePipDragOrigin = useRef({ clientX: 0, clientY: 0, x: 0, y: 0 })
+  const [lastNonCommsTab, setLastNonCommsTab] = useState<TabKey>(initialSurface === "comms" ? "library" : initialSurface)
   const [activeUpdateKey, setActiveUpdateKey] = useState<UpdateKey | null>(UPDATES[0]?.key ?? null)
   const [selectedLibraryId, setSelectedLibraryId] = useState<string | null>(null)
   const commsRailOpen = useSyncExternalStore(
@@ -930,28 +931,24 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           : "Search Insights"
 
   const dockPinnedToCommsPane = isFoldableMobileViewport
-  // True when a call is active on foldable (any state except idle)
+  // True when any call is active on foldable (any state except idle)
   const callActiveOnFoldable = isFoldableMobileViewport && callStatus.state !== "idle"
-  // True when user tapped the Comms tab during an active non-minimized call: call stays in
-  // its pane, other pane becomes a read-only comms thread list with the call overlay suppressed.
-  const mobileCommsInSurface = isFoldableMobileViewport && mobileTab === "comms" && callStatus.state !== "idle" && !callStatus.minimized
-  // True when call is minimized (floating PiP) while user is on comms tab: keep mixed split
-  // structure alive so the single MCS instance (and WebRTC connection) never unmounts.
-  const mobileCommsFullWidth = isFoldableMobileViewport && mobileTab === "comms" && callStatus.state !== "idle" && callStatus.minimized
-  // Mixed split is active in normal split mode OR when we need to keep MCS alive during a call.
-  const isMixedSplitActive = isFoldableMobileViewport && (mobileTab !== "comms" || mobileCommsInSurface || callActiveOnFoldable)
-  // Shift header + dock to the surface pane when a DM thread is open alongside a surface,
-  // OR when a call is active — so the comms/call pane is always full-height with no chrome.
-  // Only applies in normal mixed split (not when comms tab is the "surface").
+  // Mixed split is active whenever foldable + non-comms tab, OR comms tab with active call.
+  // A single MCS instance always stays mounted; only CSS positioning changes.
+  const isMixedSplitActive = isFoldableMobileViewport && (mobileTab !== "comms" || callActiveOnFoldable)
+  // Shift header + dock to the surface pane only when a DM thread or non-minimized call is open
+  // AND user is NOT on comms tab (so call overlay fills the comms pane top-to-bottom).
   const shiftMixedSplitChromeToRight = isMixedSplitActive && mobileTab !== "comms" && (isMixedSplitDirectThreadActive || (callStatus.state !== "idle" && !callStatus.minimized))
   const isMixedSplitCommsPaneOnLeft = !isFoldSplitSwapped
-  // When comms tab is active during a call, the surface pane shows "Call" instead of the surface label.
-  const mixedSplitPrimaryLeftTitle = mobileCommsInSurface
-    ? (isMixedSplitCommsPaneOnLeft ? "Comms" : "Call")
-    : (isFoldSplitSwapped ? mobileSurfaceTitle : "Comms")
-  const mixedSplitPrimaryRightTitle = mobileCommsInSurface
-    ? (isMixedSplitCommsPaneOnLeft ? "Call" : "Comms")
-    : (isFoldSplitSwapped ? "Comms" : mobileSurfaceTitle)
+  // When comms tab is active during a call, the surface pane shows the last non-comms tab.
+  const effectiveSurfaceTab: TabKey = (mobileTab === "comms" && isMixedSplitActive) ? lastNonCommsTab : mobileTab
+  const effectiveSurfaceTitle = mobileUtilityPage === "calendar" ? "Calendar"
+    : mobileUtilityPage === "connectors" ? "Connectors"
+    : effectiveSurfaceTab === "library" ? "Library"
+    : effectiveSurfaceTab === "resources" ? "Resources"
+    : "Insights"
+  const mixedSplitPrimaryLeftTitle = isFoldSplitSwapped ? effectiveSurfaceTitle : "Comms"
+  const mixedSplitPrimaryRightTitle = isFoldSplitSwapped ? "Comms" : effectiveSurfaceTitle
 
   useEffect(() => {
     const routeSurface =
@@ -1043,6 +1040,10 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     if (callStatus.state === "idle") setMobilePipPos(null)
   }, [callStatus.state])
 
+  useEffect(() => {
+    if (mobileTab !== "comms") setLastNonCommsTab(mobileTab)
+  }, [mobileTab])
+
   function fmtDur(s: number) {
     const m = Math.floor(s / 60)
     const ss = s % 60
@@ -1132,7 +1133,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
       )
     }
 
-    if (mobileTab === "library") {
+    if (effectiveSurfaceTab === "library") {
       return (
         <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-4">
           {selectedLibraryId ? (
@@ -1155,7 +1156,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
       )
     }
 
-    if (mobileTab === "resources") {
+    if (effectiveSurfaceTab === "resources") {
       // Pass surface-pane bounds so the team action sheet stays within this pane.
       const surfacePaneBoundsLeft = isMixedSplitCommsPaneOnLeft ? "50%" : "0"
       const surfacePaneBoundsRight = isMixedSplitCommsPaneOnLeft ? "0" : "50%"
@@ -1198,355 +1199,287 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           }
         />
         {isFoldableMobileViewport ? (
-          !isMixedSplitActive ? (
-            // Single-column comms: full-height divider marking left half
-            mobileTab === "comms" ? (
-              <div className="pointer-events-none fixed inset-y-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[rgba(255,255,255,0.12)] lg:hidden" />
-            ) : null
-          ) : mobileCommsFullWidth ? null : (
-            // Mixed-split or mobileCommsInSurface: divider from below-header to bottom
+          isMixedSplitActive ? (
             <div
               className="pointer-events-none fixed bottom-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[rgba(255,255,255,0.12)] lg:hidden"
               style={{ top: shiftMixedSplitChromeToRight ? "env(safe-area-inset-top)" : "calc(env(safe-area-inset-top) + 74px)" }}
             />
-          )
+          ) : mobileTab === "comms" ? (
+            <div className="pointer-events-none fixed inset-y-0 left-1/2 z-[60] w-px -translate-x-1/2 bg-[rgba(255,255,255,0.12)] lg:hidden" />
+          ) : null
         ) : null}
-        {isMixedSplitActive ? (
-          <>
-            {/* Shared header — hidden when chrome is shifted to surface pane OR when
-                comms pane is full-width (mobileCommsFullWidth: call minimized + comms tab). */}
-            {!shiftMixedSplitChromeToRight && !mobileCommsFullWidth ? (
-              <div
-                className="shrink-0 border-b border-black bg-black px-4 pb-3"
-                style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
-              >
-                <div className="grid grid-cols-[40px_minmax(0,1fr)_40px] items-start gap-4">
-                  <div />
-                  <div className="min-w-0 justify-self-center text-center">
-                    <div className="inline-flex items-center gap-1 text-[22px] tracking-tight">
-                      <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
-                      <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
-                    </div>
-                    <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
-                      <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
-                      <span className="shrink-0 text-[#5f5f5f]">|</span>
-                      <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
-                    </div>
-                  </div>
-                  <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
-                    <button
-                      type="button"
-                      onClick={() => setShowMobileGlobalSearch(true)}
-                      aria-label="Open search"
-                      className="text-white/70 hover:text-white"
-                    >
-                      <Search size={20} />
-                    </button>
-                    <button
-                      type="button"
-                      onClick={() => setShowMobileProfile(true)}
-                      aria-label="Open menu"
-                      className="text-white/80 hover:text-white"
-                    >
-                      <MoreVertical size={22} />
-                    </button>
-                  </div>
+        {/* Shared header — only for mixed split when chrome is not shifted to surface pane */}
+        {isMixedSplitActive && !shiftMixedSplitChromeToRight ? (
+          <div
+            className="shrink-0 border-b border-black bg-black px-4 pb-3"
+            style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
+          >
+            <div className="grid grid-cols-[40px_minmax(0,1fr)_40px] items-start gap-4">
+              <div />
+              <div className="min-w-0 justify-self-center text-center">
+                <div className="inline-flex items-center gap-1 text-[22px] tracking-tight">
+                  <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
+                  <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
                 </div>
-                <div className="relative mt-3 grid grid-cols-2 items-center gap-4">
-                  <div
-                    className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
-                    style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-                  >
-                    {mixedSplitPrimaryLeftTitle}
-                  </div>
-                  <div
-                    className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
-                    style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-                  >
-                    {mixedSplitPrimaryRightTitle}
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setIsFoldSplitSwapped((value) => !value)}
-                    aria-label="Swap split sides"
-                    className="absolute left-1/2 top-0 z-20 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3]"
-                  >
-                    <ArrowLeftRight size={18} />
-                  </button>
+                <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
+                  <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
+                  <span className="shrink-0 text-[#5f5f5f]">|</span>
+                  <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
                 </div>
               </div>
-            ) : null}
-            <main className="relative min-h-0 flex-1 overflow-hidden bg-black">
-              {/* Swap button — only shown here when chrome has shifted (shared header is hidden).
-                  When !shiftMixedSplitChromeToRight the shared header above owns the swap button. */}
-              {shiftMixedSplitChromeToRight ? (
+              <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
                 <button
                   type="button"
-                  onClick={() => setIsFoldSplitSwapped((value) => !value)}
-                  aria-label="Swap split sides"
-                  className="absolute left-1/2 z-20 flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3]"
-                  style={{ top: "calc(env(safe-area-inset-top) + 12px)" }}
+                  onClick={() => setShowMobileGlobalSearch(true)}
+                  aria-label="Open search"
+                  className="text-white/70 hover:text-white"
                 >
-                  <ArrowLeftRight size={18} />
+                  <Search size={20} />
                 </button>
-              ) : null}
-
-              {/* Comms pane — SINGLE stable instance; CSS-only repositioning so it never remounts.
-                  mobileCommsFullWidth: full width (call minimised + comms tab, WebRTC preserved).
-                  mobileCommsInSurface: suppressCallOverlay so thread list shows while call continues. */}
-              <div
-                className={`absolute inset-y-0 overflow-hidden ${
-                  mobileCommsFullWidth
-                    ? "left-0 right-0"
-                    : isMixedSplitCommsPaneOnLeft
-                      ? "left-0 right-1/2"
-                      : "left-1/2 right-0"
-                } ${mobileCommsFullWidth || !shiftMixedSplitChromeToRight ? "pb-28" : ""}`}
-              >
-                <MobileCommsShell
-                  visible
-                  hideHeader={!mobileCommsFullWidth}
-                  suppressCallOverlay={mobileCommsInSurface}
-                  allowFoldableSplitView={false}
-                  onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
-                />
-              </div>
-
-              {/* Surface pane — hidden when comms pane is full-width. When mobileCommsInSurface,
-                  shows a compact call status panel instead of surface content. */}
-              {!mobileCommsFullWidth ? (
-                <div
-                  className={`absolute inset-y-0 flex flex-col overflow-hidden bg-black ${
-                    isMixedSplitCommsPaneOnLeft ? "left-1/2 right-0" : "left-0 right-1/2"
-                  } ${shiftMixedSplitChromeToRight ? "pb-28" : ""}`}
+                <button
+                  type="button"
+                  onClick={() => setShowMobileProfile(true)}
+                  aria-label="Open menu"
+                  className="text-white/80 hover:text-white"
                 >
-                  {/* Per-pane header — only shown when chrome has shifted to this pane */}
-                  {shiftMixedSplitChromeToRight ? (
-                    <div
-                      className="shrink-0 border-b border-black bg-black px-4 pb-3"
-                      style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
-                    >
-                      <div className="grid grid-cols-[minmax(0,1fr)_40px] items-start gap-4">
-                        <div className="min-w-0 text-center">
-                          <div className="inline-flex items-center gap-1 text-[22px] tracking-tight">
-                            <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
-                            <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
-                          </div>
-                          <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
-                            <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
-                            <span className="shrink-0 text-[#5f5f5f]">|</span>
-                            <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
-                          </div>
-                        </div>
-                        <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
-                          <button
-                            type="button"
-                            onClick={() => setShowMobileGlobalSearch(true)}
-                            aria-label="Open search"
-                            className="text-white/70 hover:text-white"
-                          >
-                            <Search size={20} />
-                          </button>
-                          <button
-                            type="button"
-                            onClick={() => setShowMobileProfile(true)}
-                            aria-label="Open menu"
-                            className="text-white/80 hover:text-white"
-                          >
-                            <MoreVertical size={22} />
-                          </button>
-                        </div>
+                  <MoreVertical size={22} />
+                </button>
+              </div>
+            </div>
+            <div className="relative mt-3 grid grid-cols-2 items-center gap-4">
+              <div
+                className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+              >
+                {mixedSplitPrimaryLeftTitle}
+              </div>
+              <div
+                className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+              >
+                {mixedSplitPrimaryRightTitle}
+              </div>
+              <button
+                type="button"
+                onClick={() => setIsFoldSplitSwapped((value) => !value)}
+                aria-label="Swap split sides"
+                className="absolute left-1/2 top-0 z-20 flex h-9 w-9 -translate-x-1/2 -translate-y-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3]"
+              >
+                <ArrowLeftRight size={18} />
+              </button>
+            </div>
+          </div>
+        ) : null}
+        {/* Content area — always present; MCS never unmounts (WebRTC survives all tab/layout switches) */}
+        <div className="relative min-h-0 flex-1 overflow-hidden bg-black">
+          {/* Swap button — only when chrome has shifted to surface pane (shared header hidden) */}
+          {isMixedSplitActive && shiftMixedSplitChromeToRight ? (
+            <button
+              type="button"
+              onClick={() => setIsFoldSplitSwapped((value) => !value)}
+              aria-label="Swap split sides"
+              className="absolute left-1/2 z-20 flex h-9 w-9 -translate-x-1/2 items-center justify-center text-[#0096C7] transition-colors hover:text-[#28B7E3]"
+              style={{ top: "calc(env(safe-area-inset-top) + 12px)" }}
+            >
+              <ArrowLeftRight size={18} />
+            </button>
+          ) : null}
+
+          {/* SINGLE always-mounted MCS — CSS positioning only, never unmounts.
+              Mixed split: comms pane (left or right half, pb-28 when nav in comms pane).
+              Single-column comms: full screen, MCS handles own bottom padding.
+              Single-column non-comms: display:none keeps WebRTC alive without rendering. */}
+          <div
+            className="absolute overflow-hidden"
+            style={{
+              top: 0,
+              bottom: 0,
+              left: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? 0 : "50%") : 0,
+              right: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? "50%" : 0) : 0,
+              paddingBottom: (isMixedSplitActive && !shiftMixedSplitChromeToRight) ? "7rem" : 0,
+              display: (!isMixedSplitActive && (mobileTab !== "comms" || !!mobileUtilityPage)) ? "none" : undefined,
+            }}
+          >
+            <MobileCommsShell
+              visible={isMixedSplitActive || (mobileTab === "comms" && !mobileUtilityPage)}
+              hideHeader={isMixedSplitActive}
+              allowFoldableSplitView={false}
+              onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
+            />
+          </div>
+
+          {/* Surface pane — mixed split only; shows effectiveSurfaceTab content (last non-comms tab when comms active) */}
+          {isMixedSplitActive ? (
+            <div
+              className="absolute inset-y-0 flex flex-col overflow-hidden bg-black"
+              style={{
+                left: isMixedSplitCommsPaneOnLeft ? "50%" : 0,
+                right: isMixedSplitCommsPaneOnLeft ? 0 : "50%",
+                paddingBottom: shiftMixedSplitChromeToRight ? "7rem" : 0,
+              }}
+            >
+              {shiftMixedSplitChromeToRight ? (
+                <div
+                  className="shrink-0 border-b border-black bg-black px-4 pb-3"
+                  style={{ paddingTop: "calc(env(safe-area-inset-top) + 12px)" }}
+                >
+                  <div className="grid grid-cols-[minmax(0,1fr)_40px] items-start gap-4">
+                    <div className="min-w-0 text-center">
+                      <div className="inline-flex items-center gap-1 text-[22px] tracking-tight">
+                        <img src="/PrepSight%20logo.png" alt="" aria-hidden="true" className="h-[42px] w-auto" />
+                        <span className="app-display-font tracking-[-0.05em] text-[#0096C7]">PrepSight</span>
                       </div>
-                      <div className="mt-3">
-                        <div
-                          className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
-                          style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
-                        >
-                          {mobileSurfaceTitle}
-                        </div>
+                      <div className="mt-[-2px] flex items-center justify-center gap-2 overflow-hidden text-[14px] text-white">
+                        <span className="min-w-0 truncate whitespace-nowrap">{mobileHospitalLabel}</span>
+                        <span className="shrink-0 text-[#5f5f5f]">|</span>
+                        <span className="min-w-0 truncate whitespace-nowrap">{mobileDepartmentLabel}</span>
                       </div>
                     </div>
-                  ) : null}
-                  <div
-                    className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-black"
-                    style={{ touchAction: "pan-y" }}
-                  >
-                    {mobileCommsInSurface ? (
-                      /* Compact call status panel: call stays alive in comms pane while user browses threads */
-                      <div className="flex h-full flex-col items-center justify-center gap-6 px-6 text-white">
-                        <div
-                          className="flex h-20 w-20 items-center justify-center rounded-full ring-2 ring-[#29b6d8]/40"
-                          style={{ background: "rgba(41,182,216,0.15)" }}
-                        >
-                          <span className="text-3xl font-semibold text-[#29b6d8]">
-                            {(callStatus.state === "incoming" ? callStatus.callerName : callStatus.calleeName).charAt(0).toUpperCase() || "?"}
-                          </span>
-                        </div>
-                        <div className="text-center">
-                          <p className="text-[18px] font-semibold">
-                            {callStatus.state === "incoming" ? callStatus.callerName || "Incoming call" : callStatus.calleeName || "Call"}
-                          </p>
-                          <p className="mt-1 text-[13px] text-white/50">
-                            {callStatus.state === "incoming"
-                              ? callStatus.mediaMode === "video" ? "Incoming video call" : "Incoming call"
-                              : callStatus.state === "outgoing"
-                                ? callStatus.mediaMode === "video" ? "Video calling…" : "Calling…"
-                                : fmtDur(callStatus.elapsed)}
-                          </p>
-                        </div>
-                        <div className="flex items-center gap-5">
-                          {callStatus.state === "active" && (
-                            <button
-                              onClick={() => callStatus.toggleMute?.()}
-                              className="flex h-12 w-12 items-center justify-center rounded-full"
-                              style={{ background: callStatus.muted ? "rgba(239,68,68,0.18)" : "rgba(255,255,255,0.08)" }}
-                            >
-                              {callStatus.muted ? <MicOff size={20} className="text-red-400" /> : <Mic size={20} className="text-white/70" />}
-                            </button>
-                          )}
-                          {callStatus.state === "incoming" && (
-                            <button
-                              onClick={() => callStatus.answer?.()}
-                              className="flex h-14 w-14 items-center justify-center rounded-full bg-emerald-500"
-                              style={{ boxShadow: "0 4px 16px rgba(16,185,129,0.45)" }}
-                            >
-                              {callStatus.mediaMode === "video" ? <Video size={22} className="text-white" /> : <PhoneIncoming size={22} className="text-white" />}
-                            </button>
-                          )}
-                          <button
-                            onClick={() => callStatus.state === "incoming" ? callStatus.decline?.() : callStatus.end?.()}
-                            className="flex h-14 w-14 items-center justify-center rounded-full bg-red-500"
-                            style={{ boxShadow: "0 4px 16px rgba(239,68,68,0.4)" }}
-                          >
-                            <PhoneOff size={22} className="text-white" />
-                          </button>
-                        </div>
-                      </div>
-                    ) : renderFoldRightPaneContent()}
+                    <div className="flex shrink-0 items-center justify-end gap-2 pt-1">
+                      <button
+                        type="button"
+                        onClick={() => setShowMobileGlobalSearch(true)}
+                        aria-label="Open search"
+                        className="text-white/70 hover:text-white"
+                      >
+                        <Search size={20} />
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setShowMobileProfile(true)}
+                        aria-label="Open menu"
+                        className="text-white/80 hover:text-white"
+                      >
+                        <MoreVertical size={22} />
+                      </button>
+                    </div>
+                  </div>
+                  <div className="mt-3">
+                    <div
+                      className="app-display-font text-center text-[24px] leading-none tracking-[-0.05em] text-[#67CFCF]"
+                      style={{ fontFamily: "Georgia, 'Times New Roman', serif", fontStyle: "italic", fontWeight: 500 }}
+                    >
+                      {effectiveSurfaceTitle}
+                    </div>
                   </div>
                 </div>
               ) : null}
-            </main>
-          </>
-        ) : null}
-        {/* Comms shell — always mounted so the call listener survives page switches.
-            When not on comms tab it collapses to 0×0. The call UI inside uses
-            position:fixed z-[200] so it floats above everything including the nav.
-            NOT rendered while isMixedSplitActive — mixed split owns the single MCS instance. */}
-        {!isMixedSplitActive ? (
-        <main
-          className={`min-h-0 flex-1 bg-black overflow-hidden ${
-            mobileTab === "comms" ? "pb-0" : "pb-28"
-          }`}
-        >
-          {/* Always keep MobileCommsShell mounted — call WebRTC survives tab switches.
-              Floating call UI escapes via position:fixed z-[300]. */}
-          <div className={!mobileUtilityPage && mobileTab === "comms" ? "h-full min-h-0 flex-1 overflow-hidden" : "h-0 overflow-hidden pointer-events-none"}>
-            <MobileCommsShell visible={!mobileUtilityPage && mobileTab === "comms"} />
-          </div>
-          {mobileUtilityPage === "calendar" ? (
-            <div className="flex h-full min-h-0 flex-col">
-              <MobileSectionHeader
-                title={mobileSurfaceTitle}
-                hospital={mobileHospitalLabel}
-                department={mobileDepartmentLabel}
-                onOpenProfile={() => setShowMobileProfile(true)}
-                searchValue={searchValue}
-                onSearchChange={setSearchValue}
-                searchPlaceholder={mobileSearchPlaceholder}
-                inlineSearchEnabled={false}
-                onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
-              />
-              <div className="min-h-0 flex-1 overflow-y-auto">
-                <MobileCalendarSurface view={mobileCalendarView} onChangeView={setMobileCalendarView} />
-              </div>
-            </div>
-          ) : mobileUtilityPage === "connectors" ? (
-            <div className="flex h-full min-h-0 flex-col">
-              <MobileSectionHeader
-                title={mobileSurfaceTitle}
-                hospital={mobileHospitalLabel}
-                department={mobileDepartmentLabel}
-                onOpenProfile={() => setShowMobileProfile(true)}
-                searchValue={searchValue}
-                onSearchChange={setSearchValue}
-                searchPlaceholder={mobileSearchPlaceholder}
-                inlineSearchEnabled={false}
-                onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
-              />
-              <div className="min-h-0 flex-1 overflow-y-auto">
-                <MobileConnectorsSurface />
-              </div>
-            </div>
-          ) : mobileTab === "library" ? (
-            <div className="flex h-full min-h-0 flex-col">
-              <MobileSectionHeader
-                title={mobileSurfaceTitle}
-                hospital={mobileHospitalLabel}
-                department={mobileDepartmentLabel}
-                onOpenProfile={() => setShowMobileProfile(true)}
-                searchValue={searchValue}
-                onSearchChange={setSearchValue}
-                searchPlaceholder={mobileSearchPlaceholder}
-                inlineSearchEnabled={false}
-                onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
-              />
-              <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-4">
-                {selectedLibraryId ? (
-                  <div className="flex h-full min-h-0 flex-col space-y-4">
-                    <button
-                      type="button"
-                      onClick={() => setSelectedLibraryId(null)}
-                      className="shrink-0 self-start rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
-                    >
-                      Back to collections
-                    </button>
-                    <div className="min-h-0 flex-1 overflow-hidden">
-                      <LibraryPageClient libraryId={selectedLibraryId} embedded />
-                    </div>
-                  </div>
-                ) : (
-                  <EmbeddedLibrariesDashboardMobile query={searchValue} onSelectLibrary={setSelectedLibraryId} />
-                )}
-              </div>
-            </div>
-          ) : mobileTab === "resources" ? (
-            <div className="flex h-full min-h-0 flex-col">
-              <MobileSectionHeader
-                title={mobileSurfaceTitle}
-                hospital={mobileHospitalLabel}
-                department={mobileDepartmentLabel}
-                onOpenProfile={() => setShowMobileProfile(true)}
-                searchValue={searchValue}
-                onSearchChange={setSearchValue}
-                searchPlaceholder={mobileSearchPlaceholder}
-                inlineSearchEnabled={false}
-                onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
-              />
-              <div className="min-h-0 flex-1 overflow-hidden bg-black">
-                <MobileResourcesSurface embedded />
-              </div>
-            </div>
-          ) : mobileTab !== "comms" ? (
-            <div className="flex h-full min-h-0 flex-col">
-              <MobileSectionHeader
-                title={mobileSurfaceTitle}
-                hospital={mobileHospitalLabel}
-                department={mobileDepartmentLabel}
-                onOpenProfile={() => setShowMobileProfile(true)}
-                searchValue={searchValue}
-                onSearchChange={setSearchValue}
-                searchPlaceholder={mobileSearchPlaceholder}
-                inlineSearchEnabled={false}
-                onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
-              />
-              <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-4">
-                <UpdatesPanel activeKey={activeUpdateKey} onSelect={setActiveUpdateKey} surfaceLabel="Insights" />
+              <div
+                className="min-h-0 flex-1 overflow-y-auto overscroll-contain bg-black"
+                style={{ touchAction: "pan-y" }}
+              >
+                {renderFoldRightPaneContent()}
               </div>
             </div>
           ) : null}
-        </main>
-        ) : null}
+
+          {/* Single-column non-comms content — non-foldable mobile or foldable with no active call */}
+          {!isMixedSplitActive && (mobileTab !== "comms" || !!mobileUtilityPage) ? (
+            <div className="absolute inset-0 flex flex-col overflow-hidden" style={{ paddingBottom: "7rem" }}>
+              {mobileUtilityPage === "calendar" ? (
+                <div className="flex h-full min-h-0 flex-col">
+                  <MobileSectionHeader
+                    title="Calendar"
+                    hospital={mobileHospitalLabel}
+                    department={mobileDepartmentLabel}
+                    onOpenProfile={() => setShowMobileProfile(true)}
+                    searchValue={searchValue}
+                    onSearchChange={setSearchValue}
+                    searchPlaceholder="Search Calendar"
+                    inlineSearchEnabled={false}
+                    onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
+                  />
+                  <div className="min-h-0 flex-1 overflow-y-auto">
+                    <MobileCalendarSurface view={mobileCalendarView} onChangeView={setMobileCalendarView} />
+                  </div>
+                </div>
+              ) : mobileUtilityPage === "connectors" ? (
+                <div className="flex h-full min-h-0 flex-col">
+                  <MobileSectionHeader
+                    title="Connectors"
+                    hospital={mobileHospitalLabel}
+                    department={mobileDepartmentLabel}
+                    onOpenProfile={() => setShowMobileProfile(true)}
+                    searchValue={searchValue}
+                    onSearchChange={setSearchValue}
+                    searchPlaceholder="Search Connectors"
+                    inlineSearchEnabled={false}
+                    onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
+                  />
+                  <div className="min-h-0 flex-1 overflow-y-auto">
+                    <MobileConnectorsSurface />
+                  </div>
+                </div>
+              ) : mobileTab === "library" ? (
+                <div className="flex h-full min-h-0 flex-col">
+                  <MobileSectionHeader
+                    title="Library"
+                    hospital={mobileHospitalLabel}
+                    department={mobileDepartmentLabel}
+                    onOpenProfile={() => setShowMobileProfile(true)}
+                    searchValue={searchValue}
+                    onSearchChange={setSearchValue}
+                    searchPlaceholder="Search Library"
+                    inlineSearchEnabled={false}
+                    onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
+                  />
+                  <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-4">
+                    {selectedLibraryId ? (
+                      <div className="flex h-full min-h-0 flex-col space-y-4">
+                        <button
+                          type="button"
+                          onClick={() => setSelectedLibraryId(null)}
+                          className="shrink-0 self-start rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
+                        >
+                          Back to collections
+                        </button>
+                        <div className="min-h-0 flex-1 overflow-hidden">
+                          <LibraryPageClient libraryId={selectedLibraryId} embedded />
+                        </div>
+                      </div>
+                    ) : (
+                      <EmbeddedLibrariesDashboardMobile query={searchValue} onSelectLibrary={setSelectedLibraryId} />
+                    )}
+                  </div>
+                </div>
+              ) : mobileTab === "resources" ? (
+                <div className="flex h-full min-h-0 flex-col">
+                  <MobileSectionHeader
+                    title="Resources"
+                    hospital={mobileHospitalLabel}
+                    department={mobileDepartmentLabel}
+                    onOpenProfile={() => setShowMobileProfile(true)}
+                    searchValue={searchValue}
+                    onSearchChange={setSearchValue}
+                    searchPlaceholder="Search Resources"
+                    inlineSearchEnabled={false}
+                    onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
+                  />
+                  <div className="min-h-0 flex-1 overflow-hidden bg-black">
+                    <MobileResourcesSurface embedded />
+                  </div>
+                </div>
+              ) : (
+                <div className="flex h-full min-h-0 flex-col">
+                  <MobileSectionHeader
+                    title="Insights"
+                    hospital={mobileHospitalLabel}
+                    department={mobileDepartmentLabel}
+                    onOpenProfile={() => setShowMobileProfile(true)}
+                    searchValue={searchValue}
+                    onSearchChange={setSearchValue}
+                    searchPlaceholder="Search Insights"
+                    inlineSearchEnabled={false}
+                    onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
+                  />
+                  <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-4">
+                    <UpdatesPanel activeKey={activeUpdateKey} onSelect={setActiveUpdateKey} surfaceLabel="Insights" />
+                  </div>
+                </div>
+              )}
+            </div>
+          ) : null}
+        </div>
         <MobileGlobalSearchOverlay
           open={showMobileGlobalSearch}
           onClose={() => setShowMobileGlobalSearch(false)}
@@ -1555,21 +1488,15 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
         />
 
         <div className={`fixed bottom-0 z-50 ${
-          isFoldableMobileViewport
-            ? mobileCommsFullWidth
-              // Call minimised + comms tab: MCS is full-width, nav matches left half (comms pane default)
+          isMixedSplitActive
+            // Mixed split: nav goes with the chrome — surface pane when shifted, comms pane otherwise
+            ? shiftMixedSplitChromeToRight
+              ? (isMixedSplitCommsPaneOnLeft ? "right-0 w-1/2 max-w-full" : "left-0 w-1/2 max-w-full")
+              : (isMixedSplitCommsPaneOnLeft ? "left-0 w-1/2 max-w-full" : "right-0 w-1/2 max-w-full")
+            : isFoldableMobileViewport && mobileTab === "comms"
+              // Single-column comms on foldable: pin to comms pane half
               ? (isMixedSplitCommsPaneOnLeft ? "left-0 w-1/2 max-w-full" : "right-0 w-1/2 max-w-full")
-              : mobileCommsInSurface
-                // Call active + comms tab: thread list in comms pane, nav in comms pane
-                ? (isMixedSplitCommsPaneOnLeft ? "left-0 w-1/2 max-w-full" : "right-0 w-1/2 max-w-full")
-                : mobileTab !== "comms"
-                  // Normal mixed split: nav follows surface pane when shifted, comms pane when not
-                  ? shiftMixedSplitChromeToRight
-                    ? (isMixedSplitCommsPaneOnLeft ? "right-0 w-1/2 max-w-full" : "left-0 w-1/2 max-w-full")
-                    : (isMixedSplitCommsPaneOnLeft ? "left-0 w-1/2 max-w-full" : "right-0 w-1/2 max-w-full")
-                  // Single-column comms (no call): pin to left half
-                  : "left-0 w-1/2 max-w-full"
-            : "inset-x-0"
+              : "inset-x-0"
         }`}>
           <div className="bg-black border-t border-black px-3 pt-2 pb-[calc(env(safe-area-inset-bottom,0px)+8px)]">
             <div

@@ -4495,27 +4495,30 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               >
                 <Minimize2 size={14} />
               </button>
-              {/* Foldable-only: toggle between half-pane and both-panes fullscreen */}
+              {/* Foldable-only: segmented ratio control — 50% (half pane) or 100% (both panes) */}
               {!allowFoldableSplitView && (
-                callViewMode === "fullscreen" ? (
+                <div className="flex items-center overflow-hidden rounded-full border border-white/25 backdrop-blur-sm lg:hidden">
                   <button
                     onClick={() => setCallViewMode("panel")}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white backdrop-blur-sm transition-colors hover:bg-white/30 lg:hidden"
+                    className={`flex h-8 w-[38px] items-center justify-center text-[10px] font-semibold transition-colors ${
+                      callViewMode !== "fullscreen" ? "bg-white/25 text-white" : "text-white/45 hover:text-white/75"
+                    }`}
                     aria-label="Half-pane view"
-                    title="Shrink to half pane"
+                    title="Call takes half the screen"
                   >
-                    <Square size={14} />
+                    50%
                   </button>
-                ) : (
                   <button
                     onClick={() => setCallViewMode("fullscreen")}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white/60 backdrop-blur-sm transition-colors hover:bg-black/60 hover:text-white lg:hidden"
-                    aria-label="Expand to both panes"
-                    title="Expand to full display"
+                    className={`flex h-8 w-[38px] items-center justify-center text-[10px] font-semibold transition-colors ${
+                      callViewMode === "fullscreen" ? "bg-white/25 text-white" : "text-white/45 hover:text-white/75"
+                    }`}
+                    aria-label="Full-width view"
+                    title="Call takes both panes"
                   >
-                    <Maximize2 size={14} />
+                    100%
                   </button>
-                )
+                </div>
               )}
               {/* Desktop-only panel view button */}
               <button
