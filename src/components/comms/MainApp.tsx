@@ -875,6 +875,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   // â"€â"€ Register stable action callbacks in global store (mount only) â"€â"€
   useEffect(() => {
+    if (!ownsGlobalCallStatus) return
     publishCallStatus({
       end: () => callActionsRef.current.endCall(),
       answer: () => callActionsRef.current.answerCall(),
@@ -886,10 +887,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       declineVideoRequest: () => callActionsRef.current.declineVideoRequest(),
     })
     return () => clearCallStatus()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [ownsGlobalCallStatus]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // â"€â"€ Sync call state changes to global store â"€â"€
   useEffect(() => {
+    if (!ownsGlobalCallStatus) return
     publishCallStatus({
       state: callState,
       mediaMode: callMediaMode,
@@ -897,11 +899,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       muted: callMuted,
       minimized: callViewMode === "floating",
     })
-  }, [callState, callMediaMode, videoBlurEnabled, callMuted, callViewMode])
+  }, [callState, callMediaMode, videoBlurEnabled, callMuted, callViewMode, ownsGlobalCallStatus])
 
   useEffect(() => {
+    if (!ownsGlobalCallStatus) return
     publishCallStatus({ incomingVideoRequest })
-  }, [incomingVideoRequest])
+  }, [incomingVideoRequest, ownsGlobalCallStatus])
 
   function setLocalPreviewStream(stream: MediaStream | null) {
     localPreviewStreamRef.current = stream
@@ -973,16 +976,19 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   useEffect(() => {
+    if (!ownsGlobalCallStatus) return
     publishCallStatus({ elapsed: callElapsed })
-  }, [callElapsed])
+  }, [callElapsed, ownsGlobalCallStatus])
 
   useEffect(() => {
+    if (!ownsGlobalCallStatus) return
     publishCallStatus({ callerName: callerInfo?.displayName ?? "", callerUid: callerInfo?.uid ?? "" })
-  }, [callerInfo])
+  }, [callerInfo, ownsGlobalCallStatus])
 
   useEffect(() => {
+    if (!ownsGlobalCallStatus) return
     publishCallStatus({ calleeName: calleeInfo?.displayName ?? "", calleeUid: calleeInfo?.uid ?? "" })
-  }, [calleeInfo])
+  }, [calleeInfo, ownsGlobalCallStatus])
 
   // Read URL params on mount — set by Android when tapping call/message notifications
   useEffect(() => {
@@ -2583,7 +2589,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         remoteStreamRef.current = stream
       }
 
-      publishCallStatus({ remoteStream: remoteStreamRef.current })
+      if (ownsGlobalCallStatus) {
+        publishCallStatus({ remoteStream: remoteStreamRef.current })
+      }
 
       if (remoteAudioRef.current) {
         stopOutgoingRing()                        // stop web-side ring if any
@@ -3007,7 +3015,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setShowLocalAsPrimary(false)
     setRemoteVideoActive(false)
     setCallViewMode("panel")
-    resetCallStatus()
+    if (ownsGlobalCallStatus) {
+      resetCallStatus()
+    }
   }
 
   function toggleMute() {

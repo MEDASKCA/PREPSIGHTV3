@@ -38,6 +38,7 @@ export default function MobileCommsShell({
   suppressCallOverlay = false,
   onDirectThreadActiveChange,
   restoreStoredThread = false,
+  ownsGlobalCallStatus = true,
 }: {
   visible?: boolean
   hideHeader?: boolean
@@ -45,6 +46,7 @@ export default function MobileCommsShell({
   suppressCallOverlay?: boolean
   onDirectThreadActiveChange?: (active: boolean) => void
   restoreStoredThread?: boolean
+  ownsGlobalCallStatus?: boolean
 }) {
   const [user, setUser]         = useState<User | null>(null)
   const [org, setOrg]           = useState<CommsOrg | null>(null)
@@ -210,6 +212,7 @@ export default function MobileCommsShell({
         suppressCallOverlay={suppressCallOverlay}
         onDirectThreadActiveChange={onDirectThreadActiveChange}
         restoreStoredThread={restoreStoredThread}
+        ownsGlobalCallStatus={ownsGlobalCallStatus}
       />
     </div>
   )

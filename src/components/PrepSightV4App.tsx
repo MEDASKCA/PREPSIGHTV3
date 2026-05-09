@@ -1133,6 +1133,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             suppressCallOverlay
             allowFoldableSplitView={false}
             restoreStoredThread
+            ownsGlobalCallStatus={false}
           />
         </div>
       )
@@ -1307,6 +1308,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               suppressCallOverlay={false}
               allowFoldableSplitView={!isMixedSplitActive && isFoldableMobileViewport}
               onDirectThreadActiveChange={(active) => { if (!active) setFoldCommsThread(null) }}
+              ownsGlobalCallStatus
             />
           </div>
 
