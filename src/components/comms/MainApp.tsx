@@ -745,6 +745,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [floatingSize, setFloatingSize] = useState({ w: 130, h: 190 })
   const floatingDragRef = useRef<{ startX: number; startY: number; origX: number; origY: number } | null>(null)
   const floatingResizeRef = useRef<{ startX: number; startY: number; origW: number; origH: number } | null>(null)
+  const [showCallControls, setShowCallControls] = useState(false)
+  const controlsTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [camFacingMode, setCamFacingMode] = useState<"user" | "environment">("user")
   const [awaitingVideoAccept, setAwaitingVideoAccept] = useState(false)
   const [incomingVideoRequest, setIncomingVideoRequest] = useState<{ uid: string; name: string } | null>(null)
@@ -884,6 +886,23 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       if (floatingVideoRef.current) floatingVideoRef.current.srcObject = null
     }
   }, [callState, callViewMode, callMediaMode, remoteVideoActive])
+
+  // â"€â"€ Tap-to-reveal call controls (video mode): show for 7s then auto-hide â"€â"€
+  function revealCallControls() {
+    setShowCallControls(true)
+    if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current)
+    controlsTimerRef.current = setTimeout(() => setShowCallControls(false), 7000)
+  }
+  useEffect(() => {
+    if (callState === "active" && (callMediaMode === "video" || remoteVideoActive)) {
+      revealCallControls()
+    }
+    if (callState === "idle") {
+      setShowCallControls(false)
+      if (controlsTimerRef.current) clearTimeout(controlsTimerRef.current)
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [callState, callMediaMode])
 
   // â"€â"€ Auto-minimise to floating only when panel becomes invisible (not fullscreen â€" that's intentional) â"€â"€
   useEffect(() => {
@@ -4741,6 +4760,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               : undefined,
             paddingBottom: "env(safe-area-inset-bottom, 0px)",
           }}
+          onClick={revealCallControls}
         >
 
           {/* Primary remote video — only render when remote party has an active video track */}
@@ -4907,14 +4927,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           {/* Active call controls */}
           {callState === "active" && (
             <div
-              className={`z-20 flex items-center justify-center gap-3 ${
+              className={`z-20 flex gap-3 transition-opacity duration-300 ${
                 !tomVoiceMode && (callMediaMode === "video" || remoteVideoActive)
-                  ? "absolute bottom-0 left-0 right-0 pt-6 bg-gradient-to-t from-black/60 to-transparent"
-                  : "relative mb-6"
+                  ? `absolute left-0 top-0 bottom-0 flex-col items-center justify-center px-3 bg-gradient-to-r from-black/55 to-transparent w-[68px] ${showCallControls ? "opacity-100" : "opacity-0 pointer-events-none"}`
+                  : "relative mb-6 flex-row items-center justify-center"
               }`}
-              style={!tomVoiceMode && (callMediaMode === "video" || remoteVideoActive)
-                ? { paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 32px)" }
-                : undefined}
             >
               {callMediaMode === "video" && !tomVoiceMode && (
                 <CallButton icon={<SwitchCamera size={20} />} onClick={() => void switchCamera()} aria-label="Flip camera" />
