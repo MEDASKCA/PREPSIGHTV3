@@ -74,6 +74,7 @@ import {
   Minimize2,
   PanelRight,
   Square,
+  Users,
   X,
 } from "lucide-react"
 
@@ -631,7 +632,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [showDirectContactSheet, setShowDirectContactSheet] = useState(false)
   const [showGlobalSearch, setShowGlobalSearch] = useState(false)
   const [showNewDM, setShowNewDM] = useState(false)
-  const [filterTab, setFilterTab] = useState<"chats" | "pinned" | "groups">("chats")
+  const [filterTab, setFilterTab] = useState<"chats" | "pings" | "spaces" | "feeds">("chats")
+  const [showCreateSpace, setShowCreateSpace] = useState(false)
+  const [newSpaceName, setNewSpaceName] = useState("")
+  const [newSpaceMembers, setNewSpaceMembers] = useState<string[]>([])
+  const [creatingSpace, setCreatingSpace] = useState(false)
   const [isFoldableSplitView, setIsFoldableSplitView] = useState(false)
   const [isRecordingVoice, setIsRecordingVoice] = useState(false)
   const [recordingElapsed, setRecordingElapsed] = useState(0)
@@ -881,6 +886,33 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       if (floatingVideoRef.current) floatingVideoRef.current.srcObject = null
     }
   }, [callState, callViewMode, callMediaMode, remoteVideoActive])
+
+  // Polling fallback — onmute doesn't fire reliably on all WebView implementations
+  useEffect(() => {
+    if (callState !== "active") return
+    const interval = setInterval(() => {
+      const hasVideo = hasLiveVideoTrack(remoteStreamRef.current)
+      if (hasVideo !== remoteVideoActive) {
+        setRemoteVideoActive(hasVideo)
+        if (!hasVideo) {
+          if (remoteVideoRef.current) remoteVideoRef.current.srcObject = null
+          if (floatingVideoRef.current) floatingVideoRef.current.srcObject = null
+        } else {
+          if (remoteVideoRef.current) {
+            remoteVideoRef.current.muted = true
+            remoteVideoRef.current.srcObject = remoteStreamRef.current
+            remoteVideoRef.current.play().catch(() => {})
+          }
+          if (floatingVideoRef.current) {
+            floatingVideoRef.current.muted = true
+            floatingVideoRef.current.srcObject = remoteStreamRef.current
+            floatingVideoRef.current.play().catch(() => {})
+          }
+        }
+      }
+    }, 1000)
+    return () => clearInterval(interval)
+  }, [callState, remoteVideoActive])
 
   // â"€â"€ Tap-to-reveal call controls (video mode): show for 7s then auto-hide â"€â"€
   function revealCallControls() {
@@ -1684,9 +1716,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }, [threads, user.uid, org.id])
 
   const filteredThreads = threads.filter(t => {
-    if (filterTab === "pinned" && !isThreadPinned(t.id)) return false
     if (filterTab === "chats" && t.type !== "direct") return false
-    if (filterTab === "groups" && t.type !== "channel") return false
+    if (filterTab === "pings") return false // placeholder until Pings is defined
+    if (filterTab === "spaces" && !(t.type === "channel" && t.subtype === "group")) return false
+    if (filterTab === "feeds" && !(t.type === "channel" && (t.subtype === "feed" || !t.subtype))) return false
     if (t.type === "channel" && ((t.name || "").trim().toLowerCase() === "general" || (t.description || "").trim().toLowerCase() === "general discussion")) {
       return false
     }
@@ -2256,7 +2289,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           className="bg-black shrink-0 relative px-4 pt-2"
           style={{
             paddingBottom: splitView
-              ? "calc(env(safe-area-inset-bottom, 0px) + 2px)"
+              ? "calc(env(safe-area-inset-bottom, 0px) + 16px)"
               : minimalHeader
                 ? "calc(env(safe-area-inset-bottom, 0px) + 4px)"
                 : "calc(env(safe-area-inset-bottom, 0px) + 8px)",
@@ -2776,6 +2809,46 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
     selectThread(thread)
     setShowContacts(false); setShowNewDM(false)
+  }
+
+  async function createSpace() {
+    if (!db || !newSpaceName.trim()) return
+    setCreatingSpace(true)
+    try {
+      const now = Date.now()
+      const allMemberUids = Array.from(new Set([user.uid, ...newSpaceMembers]))
+      const threadRef = await addDoc(collection(db, "comms_v5_threads"), {
+        type: "channel",
+        subtype: "group",
+        name: newSpaceName.trim(),
+        organizationId: org.id,
+        memberUids: allMemberUids,
+        createdBy: user.uid,
+        createdAt: now,
+        updatedAt: now,
+        lastMessage: "",
+        readBy: { [user.uid]: now },
+      })
+      const newThread: CommsThread = {
+        id: threadRef.id,
+        type: "channel",
+        subtype: "group",
+        name: newSpaceName.trim(),
+        organizationId: org.id,
+        memberUids: allMemberUids,
+        createdBy: user.uid,
+        createdAt: now,
+        updatedAt: now,
+        lastMessage: "",
+        readBy: { [user.uid]: now },
+      }
+      setShowCreateSpace(false)
+      setNewSpaceName("")
+      setNewSpaceMembers([])
+      selectThread(newThread)
+    } finally {
+      setCreatingSpace(false)
+    }
   }
 
   // â"€â"€ WebRTC â"€â"€
@@ -3666,28 +3739,41 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           ))}
           </div>
         </div>
-        <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {(["chats","pinned","groups"] as const).map(tab => (
-            <button
-              key={tab}
-              onClick={() => setFilterTab(tab)}
-              className={`shrink-0 rounded-full px-4 py-1.5 text-sm transition-colors ${
-                filterTab === tab
-                  ? "bg-[#0096C7] text-white"
-                  : "text-[var(--mob-text-2,#888888)] hover:text-[var(--mob-text,#e0e0e0)]"
-              }`}
-            >
-              {tab === "chats" ? "Chats" : tab === "pinned" ? "Pinned" : "Groups"}
-            </button>
-          ))}
+        <div className="flex items-center gap-2">
+          <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            {(["chats","pings","spaces","feeds"] as const).map(tab => (
+              <button
+                key={tab}
+                onClick={() => setFilterTab(tab)}
+                className={`shrink-0 rounded-full px-4 py-1.5 text-sm transition-colors ${
+                  filterTab === tab
+                    ? "bg-[#0096C7] text-white"
+                    : "text-[var(--mob-text-2,#888888)] hover:text-[var(--mob-text,#e0e0e0)]"
+                }`}
+              >
+                {tab === "chats" ? "Chats" : tab === "pings" ? "Pings" : tab === "spaces" ? "Spaces" : "Feeds"}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
-      {/* â"€â"€ Thread list â"€â"€ */}
-      <div className={`flex-1 overflow-y-auto bg-black ${isFoldableSplitView ? "w-1/2" : ""}`}>
-          {visibleThreads.length === 0 && (
+      {/* ── Thread list ── */}
+      <div className={`relative flex-1 min-h-0 ${isFoldableSplitView ? "w-1/2" : ""}`}>
+      <div className="h-full overflow-y-auto bg-black">
+          {visibleThreads.length === 0 && filterTab === "spaces" ? (
+            <div className="flex flex-col items-center justify-center gap-4 px-8 pt-24 text-center">
+              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#111111] text-[#0096C7]">
+                <Users size={28} />
+              </div>
+              <div>
+                <p className="text-[16px] font-medium text-[var(--mob-text,#e0e0e0)]">No spaces yet</p>
+                <p className="mt-1 text-[13px] text-[var(--mob-text-2,#888888)]">Tap + to create a space and start a group chat with your team.</p>
+              </div>
+            </div>
+          ) : visibleThreads.length === 0 ? (
             <p className="mt-20 text-center text-sm text-[var(--mob-text-2,#888888)]">No conversations yet</p>
-          )}
+          ) : null}
 
           {visibleThreads.map(thread => {
             const unread = unreadCounts[thread.id] || 0
@@ -3736,7 +3822,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   </div>
                   <div className="mt-px flex items-center justify-between gap-3 leading-tight">
                     <span className="truncate text-[13px] leading-tight text-[var(--mob-text-2,#888888)]">
-                      {getLastMessagePreview(thread)}
+                      {thread.subtype === "group"
+                        ? `${thread.memberUids.length} member${thread.memberUids.length !== 1 ? "s" : ""}`
+                        : getLastMessagePreview(thread)}
                     </span>
                     {unread > 0 && (
                       <span className="ml-2 flex h-[20px] min-w-[20px] shrink-0 items-center justify-center rounded-full bg-[#0096C7] px-1.5 text-[11px] font-semibold text-white">
@@ -3749,10 +3837,113 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             )
           })}
       </div>
+      {filterTab === "spaces" && (
+        <button
+          type="button"
+          onClick={() => { setNewSpaceName(""); setNewSpaceMembers([]); setShowCreateSpace(true) }}
+          className="absolute bottom-6 right-4 z-10 flex h-14 w-14 items-center justify-center rounded-full bg-[#0096C7] shadow-[0_4px_20px_rgba(0,150,199,0.4)] active:scale-95 transition-transform"
+          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 96px)" }}
+        >
+          <Plus size={24} className="text-white" />
+        </button>
+      )}
+      </div>
 
-      {/* â"€â"€ Bottom nav â"€â"€ */}
+      {/* Bottom nav */}
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• THREAD VIEW â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      {/* Create Space side drawer */}
+      {showCreateSpace && (
+        <>
+          <style jsx global>{`
+            @keyframes createSpaceDrawerIn {
+              from { transform: translateX(-28px) scale(0.985); opacity: 0; }
+              to { transform: translateX(0) scale(1); opacity: 1; }
+            }
+          `}</style>
+          <div
+            className="absolute inset-0 z-30 bg-black/58"
+            style={{ animation: "mobileGlobalSearchFadeIn 260ms ease-out both" }}
+            onClick={() => setShowCreateSpace(false)}
+          >
+            <div
+              className="h-full overflow-y-auto rounded-r-[32px] rounded-tl-[24px] border-r border-t border-[#2d2d2d] bg-[linear-gradient(180deg,#111111_0%,#0a0a0a_100%)] px-4 shadow-[18px_0_44px_rgba(0,0,0,0.5)]"
+              style={{
+                width: "min(88%,29rem)",
+                animation: "createSpaceDrawerIn 300ms cubic-bezier(0.22,1,0.36,1) both",
+                paddingTop: "calc(env(safe-area-inset-top,0px) + 12px)",
+                paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 32px)",
+              }}
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="mb-2 flex items-start justify-end">
+                <button
+                  type="button"
+                  onClick={() => setShowCreateSpace(false)}
+                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[#d8d8d8] transition-colors hover:bg-[#1a1a1a] hover:text-white"
+                  aria-label="Close"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              <p className="mb-5 text-[22px] font-semibold text-white">New Space</p>
+
+              <input
+                type="text"
+                value={newSpaceName}
+                onChange={e => setNewSpaceName(e.target.value)}
+                placeholder="Space name"
+                className="w-full rounded-full border border-[#2d2d2d] bg-[#161616] px-4 py-2.5 text-[15px] text-white outline-none placeholder:text-[#6f6f6f] focus:border-[#0096C7] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+                autoFocus
+              />
+
+              {members.filter(m => m.uid !== user.uid).length > 0 && (
+                <div className="mt-6">
+                  <p className="mb-3 text-[16px] text-white">Add members</p>
+                  <div className="space-y-0">
+                    {members.filter(m => m.uid !== user.uid).map(member => {
+                      const selected = newSpaceMembers.includes(member.uid)
+                      return (
+                        <button
+                          key={member.uid}
+                          type="button"
+                          onClick={() => setNewSpaceMembers(prev =>
+                            selected ? prev.filter(id => id !== member.uid) : [...prev, member.uid]
+                          )}
+                          className="flex w-full items-center gap-3 px-1 py-3 border-b border-[#181818] last:border-b-0 active:bg-[#141414]"
+                        >
+                          <Avatar name={member.displayName} size={40} uid={member.uid} />
+                          <div className="flex-1 min-w-0 text-left">
+                            <p className="truncate text-[14px] text-[#d8d8d8]">{member.displayName}</p>
+                            {member.clinicalRole && <p className="truncate text-[12px] text-[#6f6f6f]">{member.clinicalRole}</p>}
+                          </div>
+                          <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${selected ? "border-[#0096C7] bg-[#0096C7]" : "border-[#333]"}`}>
+                            {selected && <Check size={12} className="text-white" />}
+                          </div>
+                        </button>
+                      )
+                    })}
+                  </div>
+                  {newSpaceMembers.length > 0 && (
+                    <p className="mt-3 text-[13px] text-[#0096C7]">{newSpaceMembers.length} member{newSpaceMembers.length !== 1 ? "s" : ""} selected</p>
+                  )}
+                </div>
+              )}
+
+              <button
+                type="button"
+                onClick={createSpace}
+                disabled={!newSpaceName.trim() || creatingSpace}
+                className="mt-6 w-full rounded-full bg-[#0096C7] py-3 text-[15px] font-semibold text-white disabled:opacity-40 transition-opacity"
+              >
+                {creatingSpace ? "Creating…" : "Create Space"}
+              </button>
+            </div>
+          </div>
+        </>
+      )}
+
       <MobileGlobalSearchOverlay open={showGlobalSearch} onClose={() => setShowGlobalSearch(false)} halfScreen={isFoldableSplitView} />
       {joinCodeThread ? (
         <div className="absolute inset-0 z-20 flex items-end justify-center bg-[rgba(19,66,83,0.28)] px-4 pb-[calc(env(safe-area-inset-bottom)+24px)] lg:items-center lg:pb-0">

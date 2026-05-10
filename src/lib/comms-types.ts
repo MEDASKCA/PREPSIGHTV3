@@ -34,6 +34,7 @@ export interface CommsUser {
 export interface CommsThread {
   id: string
   type: "channel" | "direct"
+  subtype?: "feed" | "group"  // channels only — "feed" = auto-generated theatre specialty, "group" = user-created
   name?: string            // channels only
   description?: string     // channels only
   organizationId: string

@@ -156,7 +156,7 @@ export default function MobileCommsShell({
           const normalized = groupName.trim().toLowerCase()
           if (!normalized || existingThreadNames.has(normalized)) continue
           await addDoc(collection(firestore, "comms_v5_threads"), {
-            type: "channel", name: groupName, description: `${hydratedUser.department || DEFAULT_DEPARTMENT} group`,
+            type: "channel", subtype: "feed", name: groupName, description: `${hydratedUser.department || DEFAULT_DEPARTMENT} group`,
             organizationId: activeOrg.id, memberUids: [currentUser.uid], createdBy: currentUser.uid,
             createdAt: Date.now(), updatedAt: Date.now(), lastMessage: "",
           })
