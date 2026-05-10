@@ -48,6 +48,14 @@
         { "fieldPath": "organizationId", "order": "ASCENDING" },
         { "fieldPath": "lastSeen", "order": "DESCENDING" }
       ]
+    },
+    {
+      "collectionGroup": "comms_v5_pings",
+      "queryScope": "COLLECTION",
+      "fields": [
+        { "fieldPath": "organizationId", "order": "ASCENDING" },
+        { "fieldPath": "createdAt", "order": "DESCENDING" }
+      ]
     }
   ],
   "fieldOverrides": []

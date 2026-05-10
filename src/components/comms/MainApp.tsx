@@ -29,6 +29,8 @@ import { toggleDesktopCommsPreference } from "@/lib/desktop-comms"
 import { createVideoBackgroundBlurProcessor, type VideoBackgroundBlurProcessor } from "@/lib/video-background-blur"
 import type {
   CommsAttachment,
+  CommsPing,
+  PingCategory,
   CommsOrg,
   CommsThread,
   CommsMessage,
@@ -65,7 +67,6 @@ import {
   Send,
   Settings,
   Smile,
-  Sun,
   Trash2,
   Video,
   VideoOff,
@@ -77,11 +78,22 @@ import {
   Square,
   Users,
   X,
+  Zap,
 } from "lucide-react"
 
 // â"€â"€â"€ Emoji data â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€â"€
 
 const QUICK_REACT = ["👍", "❤️", "😂", "😮", "😢", "🙏", "🔥", "✅"]
+
+const PING_CATEGORIES: { id: PingCategory; label: string }[] = [
+  { id: "action",    label: "Action"    },
+  { id: "urgent",    label: "Urgent"    },
+  { id: "reminder",  label: "Reminder"  },
+  { id: "change",    label: "Change"    },
+  { id: "heads_up",  label: "Heads Up"  },
+  { id: "question",  label: "Question"  },
+  { id: "confirmed", label: "Confirmed" },
+]
 const INCOMING_RING_TIMEOUT_MS = 12000
 const DEFAULT_THEATRE_GROUPS = [
   "Trauma and Orthopaedics",
@@ -649,6 +661,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [joinCodeThread, setJoinCodeThread] = useState<CommsThread | null>(null)
   const [joinCodeInput, setJoinCodeInput] = useState("")
   const [joinCodeError, setJoinCodeError] = useState("")
+  const [showPingPicker, setShowPingPicker] = useState<"composer" | "longpress" | null>(null)
+  const [pendingPingCategory, setPendingPingCategory] = useState<PingCategory | null>(null)
+  const [pings, setPings] = useState<CommsPing[]>([])
   const messageLongPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const suppressMessageTapRef = useRef(false)
 
@@ -1718,6 +1733,27 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     void ensureTomThread()
   }, [threads, user.uid, org.id])
 
+  useEffect(() => {
+    if (filterTab !== "pings" || !org?.id) return
+    const q = query(
+      collection(firestore, "comms_v5_pings"),
+      where("organizationId", "==", org.id),
+    )
+    const unsub = onSnapshot(
+      q,
+      snap => {
+        const sorted = snap.docs
+          .map(d => ({ id: d.id, ...d.data() }) as CommsPing)
+          .sort((a, b) => b.createdAt - a.createdAt)
+        setPings(sorted)
+      },
+      err => {
+        if (err.code !== "permission-denied") console.error("pings listener:", err)
+      },
+    )
+    return unsub
+  }, [filterTab, org?.id])
+
   const filteredThreads = threads.filter(t => {
     if (filterTab === "chats" && t.type !== "direct") return false
     if (filterTab === "pings") return false // placeholder until Pings is defined
@@ -2072,6 +2108,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           <div className="absolute inset-0 overflow-y-auto bg-black px-4 py-4 space-y-1">
             {messages.map((msg, idx) => {
               const isOwn = msg.uid === user.uid
+              const isTom = msg.uid === TOM_UID
               const isSystem = msg.type === "system"
               const prevMsg = messages[idx - 1]
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
@@ -2190,10 +2227,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                             : imageOnlyMessage
                               ? isOwn
                                 ? "overflow-hidden rounded-[22px] bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] p-[3px] text-white shadow-[0_16px_34px_rgba(0,150,199,0.22)]"
-                                : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
+                                : isTom
+                                  ? "overflow-hidden rounded-[22px] bg-[#0e7490] p-[3px] text-white shadow-[0_16px_34px_rgba(14,116,144,0.3)]"
+                                  : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
                               : isOwn
                                 ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
-                                : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
+                                : isTom
+                                  ? "px-3 py-1.5 rounded-2xl bg-[#0e7490] text-white rounded-bl-sm"
+                                  : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
                         {emojiOnly ? (() => {
@@ -2286,6 +2327,36 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               />
             </div>
           )}
+          {showPingPicker && (
+            <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col"
+              style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
+              <div className="border-b border-[#2d2d2d] px-3 py-2 flex items-center justify-between shrink-0">
+                <span className="text-[11px] font-medium text-[#888888] uppercase tracking-wide">Ping type</span>
+                <button onClick={() => setShowPingPicker(null)}><X size={12} className="text-[#888888]" /></button>
+              </div>
+              <div className="flex-1 overflow-y-auto py-2 px-2 flex flex-col gap-1">
+                {PING_CATEGORIES.map(cat => (
+                  <button
+                    key={cat.id}
+                    onClick={() => {
+                      if (showPingPicker === "composer") {
+                        setPendingPingCategory(cat.id)
+                        setShowPingPicker(null)
+                      } else if (showPingPicker === "longpress" && actionMessage) {
+                        const msg = actionMessage
+                        setShowPingPicker(null)
+                        setActionMessage(null)
+                        void createPing(cat.id, repairMojibake(msg.text), selectedThread!, msg.id)
+                      }
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-xl text-[13px] text-[#e0e0e0] bg-[#1c1c1c] hover:bg-[#242424] active:bg-[#2e2e2e] transition-colors"
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
+            </div>
+          )}
         </div>
 
         {replyTo && (
@@ -2318,14 +2389,20 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <Paperclip size={17} />
             </button>
             <button
-              onClick={() => selectedThread && void togglePinThread(selectedThread.id)}
+              onClick={() => setShowPingPicker(showPingPicker === "composer" ? null : "composer")}
               className="shrink-0"
-              aria-label="Pin thread"
+              aria-label="Ping"
             >
-              <Sun size={17} strokeWidth={2} className={selectedThread && isThreadPinned(selectedThread.id) ? "text-[#00e5ff]" : "text-[#00b8d4]"} />
+              <Zap size={17} strokeWidth={2} className={pendingPingCategory ? "text-[#0e7490]" : "text-[#00b8d4]"} fill={pendingPingCategory ? "#0e7490" : "none"} />
             </button>
             <input type="file" ref={fileInputRef} className="hidden"
               onChange={e => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); e.target.value = "" }} />
+            {pendingPingCategory && !isRecordingVoice && !recordedVoiceBlob && (
+              <div className="flex items-center gap-1 shrink-0 px-2 py-0.5 rounded-full bg-[#0e7490]/20 border border-[#0e7490]/50">
+                <span className="text-[11px] text-[#5bc8da] font-medium">{PING_CATEGORIES.find(c => c.id === pendingPingCategory)?.label}</span>
+                <button onClick={() => setPendingPingCategory(null)} className="text-[#5bc8da]"><X size={9} /></button>
+              </div>
+            )}
             {isRecordingVoice || recordedVoiceBlob ? (
               <div className="flex min-w-0 flex-1 items-center gap-2">
                 <button
@@ -2479,6 +2556,28 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }, [inputText, selectedThread?.id, org.id, user.uid])
 
   // â"€â"€ Send message â"€â"€
+  function getThreadPingScope(thread: CommsThread): "direct" | "space" | "org" {
+    if (thread.type === "direct") return "direct"
+    if (thread.subtype === "group") return "space"
+    return "org"
+  }
+
+  async function createPing(category: PingCategory, text: string, thread: CommsThread, messageId?: string) {
+    await addDoc(collection(firestore, "comms_v5_pings"), {
+      category,
+      text: text.trim(),
+      threadId: thread.id,
+      threadName: thread.name ?? (thread.type === "direct" ? "Direct Message" : "Channel"),
+      organizationId: org.id,
+      scope: getThreadPingScope(thread),
+      createdBy: user.uid,
+      displayName: user.displayName || "User",
+      createdAt: Date.now(),
+      memberUids: thread.memberUids ?? [],
+      ...(messageId ? { messageId } : {}),
+    })
+  }
+
   async function sendMessage(text?: string, attachments?: { name: string; url: string; type: "image" | "file" | "audio"; size: number }[]) {
     const content = text ?? inputText.trim()
     if (!content && !attachments?.length) return
@@ -2553,6 +2652,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       setTimeout(() => {
         sendTomMessage(thread, "Hi! I'm TOM, PrepSight's AI assistant. I'm here to help with clinical coordination, scheduling, handovers and more. Full TOM integration is coming soon — watch this space.").catch(console.error)
       }, 1500)
+    }
+    if (pendingPingCategory && content) {
+      const thread = selectedThread
+      const category = pendingPingCategory
+      setPendingPingCategory(null)
+      void createPing(category, content, thread)
     }
     setInputText(""); setReplyTo(null)
   }
@@ -3800,7 +3905,54 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* ── Thread list ── */}
       <div className={`relative flex-1 min-h-0 ${isFoldableSplitView ? "w-1/2" : ""}`}>
       <div className="h-full overflow-y-auto bg-black">
-          {visibleThreads.length === 0 && filterTab === "spaces" ? (
+          {filterTab === "pings" ? (
+            pings.length === 0 ? (
+              <div className="flex flex-col items-center justify-center gap-4 px-8 pt-24 text-center">
+                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#111111] text-[#0e7490]">
+                  <Zap size={28} />
+                </div>
+                <div>
+                  <p className="text-[16px] font-medium text-[var(--mob-text,#e0e0e0)]">No pings yet</p>
+                  <p className="mt-1 text-[13px] text-[var(--mob-text-2,#888888)]">Tap ⚡ in a chat to create a ping, or long-press a message to ping it.</p>
+                </div>
+              </div>
+            ) : (
+              <div className="px-4 py-4 space-y-2">
+                {PING_CATEGORIES.map(cat => {
+                  const catPings = pings.filter(p => p.category === cat.id)
+                  if (catPings.length === 0) return null
+                  return (
+                    <div key={cat.id}>
+                      <div className="flex items-center gap-2 mb-2 mt-3 first:mt-0">
+                        <Zap size={12} className="text-[#0e7490] shrink-0" />
+                        <span className="text-[11px] font-semibold text-[#0e7490] uppercase tracking-wider">{cat.label}</span>
+                        <div className="flex-1 h-px bg-[#1e1e1e]" />
+                      </div>
+                      {catPings.map(ping => (
+                        <div key={ping.id} className="rounded-xl bg-[#111111] border border-[#1e1e1e] px-3 py-2.5 mb-1.5">
+                          <p className="text-[14px] text-[#e0e0e0] leading-snug">{ping.text}</p>
+                          <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                            <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
+                              ping.scope === "direct" ? "bg-[#1a3a4a] text-[#5bc8da]" :
+                              ping.scope === "space" ? "bg-[#1a2a3a] text-[#7cb9e8]" :
+                              "bg-[#1a1a3a] text-[#a89ee8]"
+                            }`}>
+                              {ping.scope === "direct" ? "Direct" : ping.scope === "space" ? "Space" : "Org"}
+                            </span>
+                            {ping.threadName && (
+                              <span className="text-[11px] text-[#555555]">{ping.threadName}</span>
+                            )}
+                            <span className="text-[11px] text-[#444444] ml-auto">{formatTime(ping.createdAt)}</span>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )
+                })}
+              </div>
+            )
+          ) : null}
+          {filterTab !== "pings" && visibleThreads.length === 0 && filterTab === "spaces" ? (
             <div className="flex flex-col items-center justify-center gap-4 px-8 pt-24 text-center">
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#111111] text-[#0096C7]">
                 <Users size={28} />
@@ -3810,11 +3962,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <p className="mt-1 text-[13px] text-[var(--mob-text-2,#888888)]">Tap + to create a space and start a group chat with your team.</p>
               </div>
             </div>
-          ) : visibleThreads.length === 0 ? (
+          ) : filterTab !== "pings" && visibleThreads.length === 0 ? (
             <p className="mt-20 text-center text-sm text-[var(--mob-text-2,#888888)]">No conversations yet</p>
           ) : null}
 
-          {visibleThreads.map(thread => {
+          {filterTab !== "pings" && visibleThreads.map(thread => {
             const unread = unreadCounts[thread.id] || 0
             const avatar = getThreadAvatar(thread)
             const otherUid = thread.type === "direct" ? getOtherUid(thread) : ""
@@ -4245,6 +4397,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           <div className="absolute inset-0 overflow-y-auto bg-black px-4 py-4 space-y-1">
             {messages.map((msg, idx) => {
               const isOwn = msg.uid === user.uid
+              const isTom = msg.uid === TOM_UID
               const isSystem = msg.type === "system"
               const prevMsg = messages[idx - 1]
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
@@ -4360,10 +4513,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                             : imageOnlyMessage
                               ? isOwn
                                 ? "overflow-hidden rounded-[22px] bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] p-[3px] text-white shadow-[0_16px_34px_rgba(0,150,199,0.22)]"
-                                : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
+                                : isTom
+                                  ? "overflow-hidden rounded-[22px] bg-[#0e7490] p-[3px] text-white shadow-[0_16px_34px_rgba(14,116,144,0.3)]"
+                                  : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
                               : isOwn
                                 ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
-                                : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
+                                : isTom
+                                  ? "px-3 py-1.5 rounded-2xl bg-[#0e7490] text-white rounded-bl-sm"
+                                  : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
                         {emojiOnly ? (() => {
@@ -4435,7 +4592,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Emoji overlay â€" z-[25] sits above the z-20 action backdrop so category buttons are clickable */}
+          {/* Emoji overlay — z-[25] sits above the z-20 action backdrop so category buttons are clickable */}
           {(showEmojiPicker === "drawer" || showEmojiPicker === "input") && (
             <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col"
               style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
@@ -4455,6 +4612,36 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 }}
                 onClose={() => setShowEmojiPicker(null)}
               />
+            </div>
+          )}
+          {showPingPicker && (
+            <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col"
+              style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
+              <div className="border-b border-[#2d2d2d] px-3 py-2 flex items-center justify-between shrink-0">
+                <span className="text-[11px] font-medium text-[#888888] uppercase tracking-wide">Ping type</span>
+                <button onClick={() => setShowPingPicker(null)}><X size={12} className="text-[#888888]" /></button>
+              </div>
+              <div className="flex-1 overflow-y-auto py-2 px-2 flex flex-col gap-1">
+                {PING_CATEGORIES.map(cat => (
+                  <button
+                    key={cat.id}
+                    onClick={() => {
+                      if (showPingPicker === "composer") {
+                        setPendingPingCategory(cat.id)
+                        setShowPingPicker(null)
+                      } else if (showPingPicker === "longpress" && actionMessage) {
+                        const msg = actionMessage
+                        setShowPingPicker(null)
+                        setActionMessage(null)
+                        void createPing(cat.id, repairMojibake(msg.text), selectedThread!, msg.id)
+                      }
+                    }}
+                    className="w-full text-left px-3 py-2 rounded-xl text-[13px] text-[#e0e0e0] bg-[#1c1c1c] hover:bg-[#242424] active:bg-[#2e2e2e] transition-colors"
+                  >
+                    {cat.label}
+                  </button>
+                ))}
+              </div>
             </div>
           )}
           </div>{/* end messages container */}
@@ -4485,14 +4672,20 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <Paperclip size={17} />
               </button>
               <button
-                onClick={() => selectedThread && void togglePinThread(selectedThread.id)}
+                onClick={() => setShowPingPicker(showPingPicker === "composer" ? null : "composer")}
                 className="shrink-0"
-                aria-label="Pin thread"
+                aria-label="Ping"
               >
-                <Sun size={17} strokeWidth={2} className={selectedThread && isThreadPinned(selectedThread.id) ? "text-[#00e5ff]" : "text-[#00b8d4]"} />
+                <Zap size={17} strokeWidth={2} className={pendingPingCategory ? "text-[#0e7490]" : "text-[#00b8d4]"} fill={pendingPingCategory ? "#0e7490" : "none"} />
               </button>
               <input type="file" ref={fileInputRef} className="hidden"
                 onChange={e => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); e.target.value = "" }} />
+              {pendingPingCategory && !isRecordingVoice && !recordedVoiceBlob && (
+                <div className="flex items-center gap-1 shrink-0 px-2 py-0.5 rounded-full bg-[#0e7490]/20 border border-[#0e7490]/50">
+                  <span className="text-[11px] text-[#5bc8da] font-medium">{PING_CATEGORIES.find(c => c.id === pendingPingCategory)?.label}</span>
+                  <button onClick={() => setPendingPingCategory(null)} className="text-[#5bc8da]"><X size={9} /></button>
+                </div>
+              )}
               {isRecordingVoice || recordedVoiceBlob ? (
                 <div className="flex min-w-0 flex-1 items-center gap-2">
                   <button
@@ -4712,6 +4905,19 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               >
                 <Forward size={18} className="transition group-hover:translate-x-0.5" />
               </button>
+              {!actionMessage.deleted ? (
+                <button
+                  onClick={() => {
+                    triggerHapticPulse()
+                    setShowPingPicker("longpress")
+                    setActionBoxPosition(null)
+                  }}
+                  className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white shadow-[0_10px_24px_rgba(26,134,200,0.28)] transition hover:scale-[1.03]"
+                  aria-label="Ping"
+                >
+                  <Zap size={17} />
+                </button>
+              ) : null}
               {actionMessage.uid === user.uid && !actionMessage.deleted ? (
                 <button
                   onClick={() => {

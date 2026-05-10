@@ -107,3 +107,20 @@ export interface CommsCall {
   answeredAt?: number
   endedAt?: number
 }
+
+export type PingCategory = "action" | "urgent" | "reminder" | "change" | "heads_up" | "question" | "confirmed"
+
+export interface CommsPing {
+  id: string
+  category: PingCategory
+  text: string
+  threadId: string
+  threadName: string
+  organizationId: string
+  scope: "direct" | "space" | "org"
+  createdBy: string
+  displayName: string
+  createdAt: number
+  messageId?: string
+  memberUids: string[]
+}
