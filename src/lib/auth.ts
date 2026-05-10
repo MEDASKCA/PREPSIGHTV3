@@ -180,8 +180,7 @@ function isEmbeddedBrowser() {
   if (typeof navigator === "undefined") return false
   if (isNativeApp()) return false
   const ua = navigator.userAgent || ""
-  return /FBAN|FBAV|Instagram|Messenger|PrepSightA
-  pp/i.test(ua) || (/\bwv\b/i.test(ua) && /Android/i.test(ua))
+  return /FBAN|FBAV|Instagram|Messenger|PrepSightApp/i.test(ua) || (/\bwv\b/i.test(ua) && /Android/i.test(ua))
 }
 
 function canUseSessionStorage() {
