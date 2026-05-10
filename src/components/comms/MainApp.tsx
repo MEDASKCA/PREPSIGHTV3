@@ -1470,7 +1470,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   function isGroupLocked(thread: CommsThread) {
-    return thread.type === "channel" && !isGroupUnlocked(thread.id)
+    return thread.type === "channel" && thread.subtype !== "group" && !isGroupUnlocked(thread.id)
   }
 
   function getLastMessagePreview(thread: CommsThread) {
