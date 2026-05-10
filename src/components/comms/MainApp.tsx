@@ -637,6 +637,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [newSpaceName, setNewSpaceName] = useState("")
   const [newSpaceMembers, setNewSpaceMembers] = useState<string[]>([])
   const [creatingSpace, setCreatingSpace] = useState(false)
+  const [showSpaceInfo, setShowSpaceInfo] = useState(false)
   const [isFoldableSplitView, setIsFoldableSplitView] = useState(false)
   const [isRecordingVoice, setIsRecordingVoice] = useState(false)
   const [recordingElapsed, setRecordingElapsed] = useState(0)
@@ -1837,7 +1838,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return (
       <div
         className={splitView ? "flex h-full min-h-0 flex-col bg-black" : "absolute inset-x-0 top-0 z-10 flex flex-col bg-black"}
-        style={splitView ? undefined : { bottom: "calc(env(safe-area-inset-bottom, 0px) + 82px)" }}
+        style={splitView ? undefined : { bottom: "calc(env(safe-area-inset-bottom, 0px) + 72px)" }}
       >
         {minimalHeader ? (
           <div
@@ -1862,9 +1863,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               onClick={() => {
                 if (selectedThread.type === "direct" && selectedDirectContact) {
                   setShowDirectContactSheet(true)
+                } else if (selectedThread.subtype === "group") {
+                  setShowSpaceInfo(true)
                 }
               }}
-              className={`min-w-0 flex-1 text-left ${selectedThread.type === "direct" ? "cursor-pointer" : "cursor-default"}`}
+              className={`min-w-0 flex-1 text-left ${selectedThread.type === "direct" || selectedThread.subtype === "group" ? "cursor-pointer" : "cursor-default"}`}
             >
               <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
               {selectedThread.type === "direct" && (
@@ -1872,7 +1875,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   {showTomTyping || otherIsTyping ? "typing..." : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
                 </p>
               )}
-              {selectedThread.type === "channel" && selectedThread.description && (
+              {selectedThread.subtype === "group" && (
+                <p className="text-sm text-[#888888]">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""} · tap for info</p>
+              )}
+              {selectedThread.type === "channel" && selectedThread.subtype !== "group" && selectedThread.description && (
                 <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
               )}
             </button>
@@ -1970,9 +1976,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               onClick={() => {
                 if (selectedThread.type === "direct" && selectedDirectContact) {
                   setShowDirectContactSheet(true)
+                } else if (selectedThread.subtype === "group") {
+                  setShowSpaceInfo(true)
                 }
               }}
-              className={`min-w-0 flex-1 text-left ${selectedThread.type === "direct" ? "cursor-pointer" : "cursor-default"}`}
+              className={`min-w-0 flex-1 text-left ${selectedThread.type === "direct" || selectedThread.subtype === "group" ? "cursor-pointer" : "cursor-default"}`}
             >
               <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
               {selectedThread.type === "direct" && (
@@ -1980,7 +1988,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   {showTomTyping || otherIsTyping ? "typing..." : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
                 </p>
               )}
-              {selectedThread.type === "channel" && selectedThread.description && (
+              {selectedThread.subtype === "group" && (
+                <p className="text-sm text-[#888888]">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""} · tap for info</p>
+              )}
+              {selectedThread.type === "channel" && selectedThread.subtype !== "group" && selectedThread.description && (
                 <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
               )}
             </button>
@@ -2816,7 +2827,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setCreatingSpace(true)
     try {
       const now = Date.now()
-      const allMemberUids = Array.from(new Set([user.uid, ...newSpaceMembers]))
+      const allMemberUids = Array.from(new Set([user.uid, TOM_UID, ...newSpaceMembers]))
       const threadRef = await addDoc(collection(db, "comms_v5_threads"), {
         type: "channel",
         subtype: "group",
@@ -2849,6 +2860,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     } finally {
       setCreatingSpace(false)
     }
+  }
+
+  async function addMemberToSpace(uid: string) {
+    if (!db || !selectedThread || selectedThread.subtype !== "group") return
+    await updateDoc(doc(db, "comms_v5_threads", selectedThread.id), {
+      memberUids: arrayUnion(uid),
+    })
+    setSelectedThread(prev => prev ? { ...prev, memberUids: Array.from(new Set([...prev.memberUids, uid])) } : prev)
   }
 
   // â"€â"€ WebRTC â"€â"€
@@ -3856,6 +3875,95 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* Bottom nav */}
 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• THREAD VIEW â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
+      {/* Space Info side drawer */}
+      {showSpaceInfo && selectedThread?.subtype === "group" && (() => {
+        const spaceMembers = members.filter(m => selectedThread.memberUids.includes(m.uid))
+        const nonMembers = members.filter(m => !selectedThread.memberUids.includes(m.uid))
+        return (
+          <div
+            className="absolute inset-0 z-30 bg-black/58"
+            style={{ animation: "mobileGlobalSearchFadeIn 260ms ease-out both" }}
+            onClick={() => setShowSpaceInfo(false)}
+          >
+            <div
+              className="h-full overflow-y-auto rounded-r-[32px] rounded-tl-[24px] border-r border-t border-[#2d2d2d] bg-[linear-gradient(180deg,#111111_0%,#0a0a0a_100%)] px-4 shadow-[18px_0_44px_rgba(0,0,0,0.5)]"
+              style={{
+                width: "min(88%,29rem)",
+                animation: "createSpaceDrawerIn 300ms cubic-bezier(0.22,1,0.36,1) both",
+                paddingTop: "calc(env(safe-area-inset-top,0px) + 12px)",
+                paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 32px)",
+              }}
+              onClick={e => e.stopPropagation()}
+            >
+              <div className="mb-2 flex items-start justify-end">
+                <button
+                  type="button"
+                  onClick={() => setShowSpaceInfo(false)}
+                  className="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-[#d8d8d8] hover:bg-[#1a1a1a] hover:text-white"
+                >
+                  <X size={18} />
+                </button>
+              </div>
+
+              <div className="mb-1 flex items-center gap-3">
+                <Avatar name={getThreadName(selectedThread)} size={48} uid={selectedThread.id} />
+                <div className="min-w-0">
+                  <p className="text-[20px] font-semibold text-white truncate">{getThreadName(selectedThread)}</p>
+                  <p className="text-[13px] text-[#6f6f6f]">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""}</p>
+                </div>
+              </div>
+
+              <div className="mt-6">
+                <p className="mb-3 text-[16px] text-white">Members</p>
+                <div>
+                  {spaceMembers.map(member => (
+                    <div key={member.uid} className="flex items-center gap-3 px-1 py-3 border-b border-[#181818] last:border-b-0">
+                      <div className="relative shrink-0">
+                        <Avatar name={member.displayName} size={40} uid={member.uid} />
+                        {isOnline(member.uid) && (
+                          <div className="absolute bottom-0 right-0 w-2.5 h-2.5 bg-emerald-400 border-2 border-black rounded-full" />
+                        )}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="truncate text-[14px] text-[#d8d8d8]">
+                          {member.displayName}
+                          {member.uid === user.uid ? <span className="ml-1.5 text-[11px] text-[#555]">You</span> : null}
+                          {member.uid === selectedThread.createdBy ? <span className="ml-1.5 text-[11px] text-[#0096C7]">Admin</span> : null}
+                        </p>
+                        {member.clinicalRole && <p className="truncate text-[12px] text-[#6f6f6f]">{member.clinicalRole}</p>}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {nonMembers.length > 0 && (
+                <div className="mt-6">
+                  <p className="mb-3 text-[16px] text-white">Add people</p>
+                  <div>
+                    {nonMembers.map(member => (
+                      <button
+                        key={member.uid}
+                        type="button"
+                        onClick={() => void addMemberToSpace(member.uid)}
+                        className="flex w-full items-center gap-3 px-1 py-3 border-b border-[#181818] last:border-b-0 active:bg-[#141414]"
+                      >
+                        <Avatar name={member.displayName} size={40} uid={member.uid} />
+                        <div className="flex-1 min-w-0 text-left">
+                          <p className="truncate text-[14px] text-[#d8d8d8]">{member.displayName}</p>
+                          {member.clinicalRole && <p className="truncate text-[12px] text-[#6f6f6f]">{member.clinicalRole}</p>}
+                        </div>
+                        <Plus size={18} className="shrink-0 text-[#0096C7]" />
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        )
+      })()}
+
       {/* Create Space side drawer */}
       {showCreateSpace && (
         <>
@@ -3995,7 +4103,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {selectedThread && !isFoldableSplitView && !(embedded && hideMobileHeader && !allowFoldableSplitView) && (
         <div
           className="absolute inset-x-0 top-0 z-10 flex flex-col bg-black"
-          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 82px)" }}
+          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 72px)" }}
         >
           {/* Thread header */}
           <div
@@ -4020,9 +4128,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               onClick={() => {
                 if (selectedThread.type === "direct" && selectedDirectContact) {
                   setShowDirectContactSheet(true)
+                } else if (selectedThread.subtype === "group") {
+                  setShowSpaceInfo(true)
                 }
               }}
-              className={`min-w-0 flex-1 text-left ${selectedThread.type === "direct" ? "cursor-pointer" : "cursor-default"}`}
+              className={`min-w-0 flex-1 text-left ${selectedThread.type === "direct" || selectedThread.subtype === "group" ? "cursor-pointer" : "cursor-default"}`}
             >
               <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
               {selectedThread.type === "direct" && (
@@ -4030,7 +4140,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   {showTomTyping || otherIsTyping ? "typing..." : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
                 </p>
               )}
-              {selectedThread.type === "channel" && selectedThread.description && (
+              {selectedThread.subtype === "group" && (
+                <p className="text-sm text-[#888888]">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""} · tap for info</p>
+              )}
+              {selectedThread.type === "channel" && selectedThread.subtype !== "group" && selectedThread.description && (
                 <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
               )}
             </button>
