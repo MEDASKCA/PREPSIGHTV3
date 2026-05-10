@@ -1429,6 +1429,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   async function sendTomMessage(thread: CommsThread, text: string) {
     const createdAt = Date.now()
+    const memberUids = Array.from(new Set([...thread.memberUids, user.uid, TOM_UID]))
     await addDoc(collection(firestore, "comms_v5_messages"), {
       threadId: thread.id,
       uid: TOM_UID,
@@ -1436,7 +1437,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       text,
       type: "text",
       organizationId: org.id,
-      memberUids: thread.memberUids,
+      memberUids,
       createdAt,
     })
     await updateDoc(doc(firestore, "comms_v5_threads", thread.id), {
@@ -2547,10 +2548,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         }
       }, 1800)
     }
-    if (selectedThread.type === "channel" && selectedThread.subtype === "group" && /@tom\b/i.test(content)) {
+    if (selectedThread.type === "channel" && selectedThread.subtype === "group" && /@tom/i.test(content)) {
       const thread = selectedThread
-      setTimeout(async () => {
-        await sendTomMessage(thread, "Hi! I'm TOM, PrepSight's AI assistant. I'm here to help with clinical coordination, scheduling, handovers and more. Full TOM integration is coming soon — watch this space.")
+      setTimeout(() => {
+        sendTomMessage(thread, "Hi! I'm TOM, PrepSight's AI assistant. I'm here to help with clinical coordination, scheduling, handovers and more. Full TOM integration is coming soon — watch this space.").catch(console.error)
       }, 1500)
     }
     setInputText(""); setReplyTo(null)
