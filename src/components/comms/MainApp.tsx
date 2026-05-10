@@ -4869,9 +4869,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="w-[72px]" />
           </div>
 
-          {/* Identity block â€" hidden during active video */}
+          {/* Identity block â€" hidden only when remote video is actually live */}
           <div className={`relative z-10 flex flex-1 flex-col items-center justify-center gap-4 px-6
-            ${callState === "active" && !tomVoiceMode && (callMediaMode === "video" || remoteVideoActive) ? "pointer-events-none opacity-0" : ""}`}
+            ${callState === "active" && !tomVoiceMode && callMediaMode === "video" && remoteVideoActive ? "pointer-events-none opacity-0" : ""}`}
           >
             <div className="relative flex items-center justify-center">
               {callState === "incoming" && (
