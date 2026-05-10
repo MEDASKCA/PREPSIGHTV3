@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState, useCallback } from "react"
 import {
   addDoc,
+  arrayRemove,
   arrayUnion,
   collection,
   deleteField,
@@ -1838,7 +1839,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return (
       <div
         className={splitView ? "flex h-full min-h-0 flex-col bg-black" : "absolute inset-x-0 top-0 z-10 flex flex-col bg-black"}
-        style={splitView ? undefined : { bottom: "calc(env(safe-area-inset-bottom, 0px) + 72px)" }}
+        style={splitView ? undefined : { bottom: "calc(env(safe-area-inset-bottom, 0px) + 60px)" }}
       >
         {minimalHeader ? (
           <div
@@ -2546,6 +2547,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         }
       }, 1800)
     }
+    if (selectedThread.type === "channel" && selectedThread.subtype === "group" && /@tom\b/i.test(content)) {
+      const thread = selectedThread
+      setTimeout(async () => {
+        await sendTomMessage(thread, "Hi! I'm TOM, PrepSight's AI assistant. I'm here to help with clinical coordination, scheduling, handovers and more. Full TOM integration is coming soon — watch this space.")
+      }, 1500)
+    }
     setInputText(""); setReplyTo(null)
   }
 
@@ -2868,6 +2875,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       memberUids: arrayUnion(uid),
     })
     setSelectedThread(prev => prev ? { ...prev, memberUids: Array.from(new Set([...prev.memberUids, uid])) } : prev)
+  }
+
+  async function removeMemberFromSpace(uid: string) {
+    if (!db || !selectedThread || selectedThread.subtype !== "group") return
+    await updateDoc(doc(db, "comms_v5_threads", selectedThread.id), {
+      memberUids: arrayRemove(uid),
+    })
+    setSelectedThread(prev => prev ? { ...prev, memberUids: prev.memberUids.filter(id => id !== uid) } : prev)
   }
 
   // â"€â"€ WebRTC â"€â"€
@@ -3877,8 +3892,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• THREAD VIEW â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */}
       {/* Space Info side drawer */}
       {showSpaceInfo && selectedThread?.subtype === "group" && (() => {
-        const spaceMembers = members.filter(m => selectedThread.memberUids.includes(m.uid))
-        const nonMembers = members.filter(m => !selectedThread.memberUids.includes(m.uid))
+        const spaceMembers = members.filter(m => selectedThread.memberUids.includes(m.uid) && m.uid !== TOM_UID)
+        const nonMembers = members.filter(m => !selectedThread.memberUids.includes(m.uid) && m.uid !== TOM_UID)
+        const isAdmin = selectedThread.createdBy === user.uid
         return (
           <div
             className="absolute inset-0 z-30 bg-black/58"
@@ -3932,6 +3948,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         </p>
                         {member.clinicalRole && <p className="truncate text-[12px] text-[#6f6f6f]">{member.clinicalRole}</p>}
                       </div>
+                      {isAdmin && member.uid !== user.uid && (
+                        <button
+                          type="button"
+                          onClick={() => void removeMemberFromSpace(member.uid)}
+                          className="shrink-0 flex h-7 w-7 items-center justify-center rounded-full text-[#555] hover:bg-[#1f1f1f] hover:text-[#ef4444] transition-colors"
+                        >
+                          <X size={14} />
+                        </button>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -4103,7 +4128,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {selectedThread && !isFoldableSplitView && !(embedded && hideMobileHeader && !allowFoldableSplitView) && (
         <div
           className="absolute inset-x-0 top-0 z-10 flex flex-col bg-black"
-          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 72px)" }}
+          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 60px)" }}
         >
           {/* Thread header */}
           <div
