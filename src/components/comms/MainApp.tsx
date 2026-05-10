@@ -148,19 +148,14 @@ function Avatar({ name, size = 40, uid }: { name: string; size?: number; uid?: s
     return (
       <div
         aria-label="TOM"
-        className="relative shrink-0 overflow-hidden"
-        style={{
-          width: size,
-          height: size,
-        }}
+        className="shrink-0 overflow-hidden rounded-full"
+        style={{ width: size, height: size }}
       >
+        {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="/image1.png"
+          src="/TOM.jpg"
           alt="TOM"
-          width={Math.round(size * 2.15)}
-          height={Math.round(size * 2.15)}
-          className="absolute left-1/2 top-1/2 max-w-none -translate-x-1/2 -translate-y-[46%]"
-          style={{ imageRendering: "auto" }}
+          className="h-full w-full object-cover"
         />
       </div>
     )
