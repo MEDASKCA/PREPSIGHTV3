@@ -3545,6 +3545,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           0%, 100% { transform: scaleY(0.92); opacity: 0.82; }
           50% { transform: scaleY(1.18); opacity: 1; }
         }
+        @keyframes createSpaceDrawerIn {
+          from { transform: translateX(-28px) scale(0.985); opacity: 0; }
+          to { transform: translateX(0) scale(1); opacity: 1; }
+        }
       `}</style>
       {/* Hidden audio for remote stream â€" video refs live in call UI only to avoid ref conflicts */}
       <audio ref={remoteAudioRef} autoPlay playsInline className="hidden" />
@@ -3855,12 +3859,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* Create Space side drawer */}
       {showCreateSpace && (
         <>
-          <style jsx global>{`
-            @keyframes createSpaceDrawerIn {
-              from { transform: translateX(-28px) scale(0.985); opacity: 0; }
-              to { transform: translateX(0) scale(1); opacity: 1; }
-            }
-          `}</style>
           <div
             className="absolute inset-0 z-30 bg-black/58"
             style={{ animation: "mobileGlobalSearchFadeIn 260ms ease-out both" }}
