@@ -203,7 +203,8 @@ export default function WorkforcePage() {
     const q = query(collection(db, "theatre_sessions"), where("date", "==", selectedDateKey))
     getDocs(q)
       .then((snap) => {
-        if (snap.empty) { setCards(TEAM_CARDS); return }
+        if (snap.empty) { console.warn("[Workforce] No sessions for", selectedDateKey); setCards(TEAM_CARDS); return }
+        console.log("[Workforce] Loaded", snap.size, "sessions for", selectedDateKey)
         const live: TeamCard[] = snap.docs.map((d) => {
           const s = d.data()
           return {
@@ -227,7 +228,7 @@ export default function WorkforcePage() {
         ].sort((a, b) => a.theatreNum - b.theatreNum)
         setCards(merged)
       })
-      .catch(() => setCards(TEAM_CARDS))
+      .catch((err) => { console.error("[Workforce] theatre_sessions fetch failed:", err); setCards(TEAM_CARDS) })
   }, [selectedDateKey])
 
   const selectedDateObject = useMemo(() => new Date(`${selectedDateKey}T00:00:00`), [selectedDateKey])
