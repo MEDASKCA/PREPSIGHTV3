@@ -12,6 +12,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock3,
+  MessageSquare,
   MoreVertical,
   Phone,
   Search,
@@ -272,11 +273,11 @@ type EquipmentRow = { name: string; type: string; status: EquipmentStatus; check
 type EquipmentCard = { storage: string; category: string; area: string; items: EquipmentRow[] }
 
 const EQUIPMENT_STATUS_COLORS: Record<EquipmentStatus, { bg: string; name: string; sub: string }> = {
-  "In Use":         { bg: "bg-[#060c12]", name: "text-[#38bdf8]", sub: "text-[#7dd3fc]" },
-  "Available":      { bg: "bg-[#060e0a]", name: "text-[#34d399]", sub: "text-[#6ee7b7]" },
-  "For Repair":     { bg: "bg-[#0e0a00]", name: "text-[#fbbf24]", sub: "text-[#fcd34d]" },
-  "Reserved":       { bg: "bg-[#08040e]", name: "text-[#c084fc]", sub: "text-[#d8b4fe]" },
-  "Decommissioned": { bg: "bg-[#0e0305]", name: "text-[#fb7185]", sub: "text-[#fda4af]" },
+  "In Use":         { bg: "bg-black", name: "text-[#38bdf8]", sub: "text-[#7dd3fc]" },
+  "Available":      { bg: "bg-black", name: "text-[#34d399]", sub: "text-[#6ee7b7]" },
+  "For Repair":     { bg: "bg-black", name: "text-[#fbbf24]", sub: "text-[#fcd34d]" },
+  "Reserved":       { bg: "bg-black", name: "text-[#c084fc]", sub: "text-[#d8b4fe]" },
+  "Decommissioned": { bg: "bg-black", name: "text-[#fb7185]", sub: "text-[#fda4af]" },
 }
 
 const EQUIPMENT_CARDS: EquipmentCard[] = [
@@ -338,11 +339,11 @@ type SupplyRow = { name: string; category: string; qty: number; unit: string; st
 type SupplyCard = { storage: string; category: string; area: string; items: SupplyRow[] }
 
 const SUPPLY_STATUS_COLORS: Record<SupplyStatus, { bg: string; name: string; sub: string }> = {
-  "In Stock":    { bg: "bg-[#060e0a]", name: "text-[#34d399]", sub: "text-[#6ee7b7]" },
-  "Low Stock":   { bg: "bg-[#0e0a00]", name: "text-[#fbbf24]", sub: "text-[#fcd34d]" },
-  "Ordered":     { bg: "bg-[#060c12]", name: "text-[#38bdf8]", sub: "text-[#7dd3fc]" },
-  "Out of Stock":{ bg: "bg-[#0e0305]", name: "text-[#fb7185]", sub: "text-[#fda4af]" },
-  "Recalled":    { bg: "bg-[#08040e]", name: "text-[#c084fc]", sub: "text-[#d8b4fe]" },
+  "In Stock":    { bg: "bg-black", name: "text-[#34d399]", sub: "text-[#6ee7b7]" },
+  "Low Stock":   { bg: "bg-black", name: "text-[#fbbf24]", sub: "text-[#fcd34d]" },
+  "Ordered":     { bg: "bg-black", name: "text-[#38bdf8]", sub: "text-[#7dd3fc]" },
+  "Out of Stock":{ bg: "bg-black", name: "text-[#fb7185]", sub: "text-[#fda4af]" },
+  "Recalled":    { bg: "bg-black", name: "text-[#c084fc]", sub: "text-[#d8b4fe]" },
 }
 
 const SUPPLY_CARDS: SupplyCard[] = [
@@ -575,11 +576,11 @@ function theatreNum(t: string) { return t.match(/\d+/)?.[0] ?? t }
 type StaffStatus = "Scrub" | "Relieving" | "On Break" | "Sick" | "Dispatched"
 
 const STATUS_COLORS: Record<StaffStatus, { bg: string; name: string; sub: string; badge: string }> = {
-  "Scrub":      { bg: "bg-[#060c12]", name: "text-[#38bdf8]", sub: "text-[#7dd3fc]", badge: "border-[#0096C7]/40 bg-[#0096C7]/10 text-[#38bdf8]" },
-  "Relieving":  { bg: "bg-[#060e0a]", name: "text-[#34d399]", sub: "text-[#6ee7b7]", badge: "border-[#059669]/40 bg-[#059669]/10 text-[#34d399]" },
-  "On Break":   { bg: "bg-[#0e0a00]", name: "text-[#fbbf24]", sub: "text-[#fcd34d]", badge: "border-[#d97706]/40 bg-[#d97706]/10 text-[#fbbf24]" },
-  "Sick":       { bg: "bg-[#0e0305]", name: "text-[#fb7185]", sub: "text-[#fda4af]", badge: "border-[#e11d48]/40 bg-[#e11d48]/10 text-[#fb7185]" },
-  "Dispatched": { bg: "bg-[#08040e]", name: "text-[#c084fc]", sub: "text-[#d8b4fe]", badge: "border-[#9333ea]/40 bg-[#9333ea]/10 text-[#c084fc]" },
+  "Scrub":      { bg: "bg-black", name: "text-[#38bdf8]", sub: "text-[#7dd3fc]", badge: "border-[#0096C7]/40 bg-[#0096C7]/10 text-[#38bdf8]" },
+  "Relieving":  { bg: "bg-black", name: "text-[#34d399]", sub: "text-[#6ee7b7]", badge: "border-[#059669]/40 bg-[#059669]/10 text-[#34d399]" },
+  "On Break":   { bg: "bg-black", name: "text-[#fbbf24]", sub: "text-[#fcd34d]", badge: "border-[#d97706]/40 bg-[#d97706]/10 text-[#fbbf24]" },
+  "Sick":       { bg: "bg-black", name: "text-[#fb7185]", sub: "text-[#fda4af]", badge: "border-[#e11d48]/40 bg-[#e11d48]/10 text-[#fb7185]" },
+  "Dispatched": { bg: "bg-black", name: "text-[#c084fc]", sub: "text-[#d8b4fe]", badge: "border-[#9333ea]/40 bg-[#9333ea]/10 text-[#c084fc]" },
 }
 
 
@@ -910,26 +911,66 @@ function RotaPanel({
       {/* ── Team action sheet ── */}
       {teamActionMember ? (
         <div
-          className="fixed z-50 flex items-end bg-black/70"
+          className="fixed z-50 flex items-end bg-black/60 backdrop-blur-sm"
           style={{ top: 0, bottom: 0, left: paneBoundsLeft, right: paneBoundsRight }}
           onClick={() => setTeamActionMember(null)}
         >
           <div
-            className="w-full rounded-t-[22px] border-t border-[#2a2a2a] bg-[#111111] px-4 pb-[calc(env(safe-area-inset-bottom,0px)+14px)] pt-3"
+            className="w-full rounded-t-[28px] border-t border-[#222222] bg-[#0f0f0f] px-5 pb-[calc(env(safe-area-inset-bottom,0px)+24px)] pt-3"
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="mx-auto mb-3 h-1.5 w-12 rounded-full bg-[#333333]" />
-            <div className="border-b border-[#2a2a2a] pb-3">
-              <p className="text-[15px] font-medium text-white">{teamActionMember.memberName}</p>
-              <p className="mt-1 text-[12px] text-[#888888]">{teamActionMember.theatre}</p>
+            {/* Handle */}
+            <div className="mx-auto mb-5 h-1 w-10 rounded-full bg-[#2a2a2a]" />
+
+            {/* Member header */}
+            <div className="mb-5 flex items-center gap-3">
+              <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0096C7]/20">
+                <span className="text-[15px] font-bold text-[#0096C7]">
+                  {teamActionMember.memberName.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
+                </span>
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[17px] font-semibold leading-tight text-white">{teamActionMember.memberName}</p>
+                <p className="mt-0.5 text-[13px] text-[#555555]">{teamActionMember.theatre}</p>
+              </div>
+              <button type="button" onClick={() => setTeamActionMember(null)}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1a1a1a] text-[#666666]">
+                <X size={15} />
+              </button>
             </div>
-            <div className="pt-2">
-              {(["Message - Comms", "Offer swap", "Send for break"] as const).map((label) => (
-                <button key={label} type="button" onClick={openCommsAction}
-                  className="flex w-full items-center rounded-[12px] px-3 py-3.5 text-left text-[14px] text-white transition-colors hover:bg-[#1a1a1a]">
-                  {label}
-                </button>
-              ))}
+
+            {/* Actions */}
+            <div className="space-y-2.5">
+              <button type="button" onClick={openCommsAction}
+                className="flex w-full items-center gap-4 rounded-[16px] bg-[#141414] px-4 py-4 text-left active:bg-[#1c1c1c]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0096C7]/15">
+                  <MessageSquare size={17} className="text-[#38bdf8]" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[15px] font-semibold text-white">Open Comms</p>
+                  <p className="text-[12px] text-[#555555]">Message via PrepSight Comms</p>
+                </div>
+              </button>
+              <button type="button" onClick={() => setTeamActionMember(null)}
+                className="flex w-full items-center gap-4 rounded-[16px] bg-[#141414] px-4 py-4 text-left active:bg-[#1c1c1c]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#34d399]/15">
+                  <ArrowRightLeft size={17} className="text-[#34d399]" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[15px] font-semibold text-white">Offer Swap</p>
+                  <p className="text-[12px] text-[#555555]">Propose a shift or slot swap</p>
+                </div>
+              </button>
+              <button type="button" onClick={() => setTeamActionMember(null)}
+                className="flex w-full items-center gap-4 rounded-[16px] bg-[#141414] px-4 py-4 text-left active:bg-[#1c1c1c]">
+                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#fbbf24]/15">
+                  <Clock3 size={17} className="text-[#fbbf24]" />
+                </div>
+                <div className="min-w-0">
+                  <p className="text-[15px] font-semibold text-white">Send for Break</p>
+                  <p className="text-[12px] text-[#555555]">Mark as on break and notify team</p>
+                </div>
+              </button>
             </div>
           </div>
         </div>
