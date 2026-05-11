@@ -12,6 +12,7 @@ import {
   ChevronLeft,
   ChevronRight,
   Clock3,
+  Crown,
   MessageSquare,
   MoreVertical,
   Phone,
@@ -893,7 +894,7 @@ function RotaPanel({
                           <span className="shrink-0 text-[14px] leading-none" style={{ color: "#FFD700" }}>★</span>
                         )}
                         {isLeadRole(member.role) && (
-                          <span className="shrink-0 rounded-[3px] bg-[#0096C7]/15 px-[3px] py-[1px] text-[8px] font-bold uppercase tracking-[0.04em] text-[#38bdf8]">TL</span>
+                          <Crown size={11} className="shrink-0" style={{ color: "#FFD700" }} />
                         )}
                         <span className={`truncate text-[11px] leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{shortenRole(member.role)}</span>
                       </span>
