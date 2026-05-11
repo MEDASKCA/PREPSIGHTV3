@@ -347,11 +347,10 @@ export default function WorkforcePage() {
 
           {/* ── Table section ── */}
           <section className="flex min-h-0 flex-1 flex-col bg-black">
-            {/* Filter + carousel + legend bar */}
+            {/* Filter + legend bar */}
             <div className="shrink-0 border-b border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5">
-              <div className="flex items-center gap-3">
-                {/* Filter controls */}
-                <div className="flex shrink-0 items-center gap-2">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex items-center gap-2">
                   <span className="text-[13px] font-medium text-[#888888]">Filter by</span>
                   <select
                     value={filterMode}
@@ -379,62 +378,110 @@ export default function WorkforcePage() {
                     </button>
                   )}
                 </div>
-
-                {/* Divider */}
-                <div className="h-5 w-px shrink-0 bg-[#2d2d2d]" />
-
-                {/* Theatre carousel — shot-clock style */}
-                <div className="flex flex-1 items-center justify-center gap-2">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (selectedTheatre === null) return
-                      const idx = filteredCards.findIndex((c) => c.theatreNum === selectedTheatre)
-                      setSelectedTheatre(idx === 0 ? null : filteredCards[idx - 1].theatreNum)
-                    }}
-                    disabled={selectedTheatre === null}
-                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full disabled:opacity-20 hover:bg-white/10"
-                  >
-                    <ChevronLeft size={18} className="text-[#0096C7]" />
-                  </button>
-
-                  <div className="flex w-[80px] flex-col items-center">
-                    <span className="font-mono text-[38px] font-black leading-none tracking-tighter text-[#00c8dc]">
-                      {selectedTheatre === null ? "ALL" : String(selectedTheatre).padStart(2, "0")}
-                    </span>
-                    <span className="mt-0.5 font-mono text-[11px] tabular-nums text-[#444444]">
-                      {(selectedTheatre === null ? 0 : filteredCards.findIndex((c) => c.theatreNum === selectedTheatre) + 1) + 1}
-                      {" / "}
-                      {filteredCards.length + 1}
-                    </span>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (selectedTheatre === null) {
-                        if (filteredCards.length > 0) setSelectedTheatre(filteredCards[0].theatreNum)
-                      } else {
-                        const idx = filteredCards.findIndex((c) => c.theatreNum === selectedTheatre)
-                        setSelectedTheatre(idx < filteredCards.length - 1 ? filteredCards[idx + 1].theatreNum : null)
-                      }
-                    }}
-                    disabled={selectedTheatre === filteredCards[filteredCards.length - 1]?.theatreNum}
-                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full disabled:opacity-20 hover:bg-white/10"
-                  >
-                    <ChevronRight size={18} className="text-[#0096C7]" />
-                  </button>
-                </div>
-
-                {/* Divider */}
-                <div className="h-5 w-px shrink-0 bg-[#2d2d2d]" />
-
-                {/* Legend */}
-                <div className="shrink-0">
-                  <StatusLegend />
-                </div>
+                <StatusLegend />
               </div>
             </div>
+
+            {/* Carousel header — matches mobile layout */}
+            {(() => {
+              const isAll = selectedTheatre === null
+              const card = isAll ? null : filteredCards.find((c) => c.theatreNum === selectedTheatre) ?? null
+              const times = card?.sessionTime?.split(" - ") ?? []
+              const carouselIdx = isAll ? 0 : (filteredCards.findIndex((c) => c.theatreNum === selectedTheatre) + 1)
+              const totalSlides = filteredCards.length + 1
+              const CAROUSEL_SORT_CYCLE = [null, "name", "role", "start"] as const
+
+              function prevSlide() {
+                if (isAll) return
+                const idx = filteredCards.findIndex((c) => c.theatreNum === selectedTheatre)
+                setSelectedTheatre(idx === 0 ? null : filteredCards[idx - 1].theatreNum)
+              }
+              function nextSlide() {
+                if (isAll) {
+                  if (filteredCards.length > 0) setSelectedTheatre(filteredCards[0].theatreNum)
+                } else {
+                  const idx = filteredCards.findIndex((c) => c.theatreNum === selectedTheatre)
+                  setSelectedTheatre(idx < filteredCards.length - 1 ? filteredCards[idx + 1].theatreNum : null)
+                }
+              }
+
+              return (
+                <div className="shrink-0 border-b border-[#1e1e1e] bg-[#0a0a0a]">
+                  {/* Card row */}
+                  <div className="flex items-stretch gap-4 px-4 pt-3 pb-2">
+                    {/* Number box */}
+                    <div className="flex shrink-0 flex-col items-center justify-center rounded-[10px] border border-[#1e1e1e] bg-[#111111] px-4 py-2">
+                      <span className="font-mono text-[36px] font-black leading-none tracking-tighter text-[#00c8dc]">
+                        {isAll ? "ALL" : String(selectedTheatre).padStart(2, "0")}
+                      </span>
+                    </div>
+                    {/* Info */}
+                    <div className="min-w-0 flex-1">
+                      <p className="text-[14px] font-black uppercase tracking-[0.05em] leading-tight text-white">
+                        {isAll ? "All Theatres" : card?.theatre}
+                      </p>
+                      <p className="text-[14px] font-medium leading-snug text-[#00c8dc]">
+                        {isAll ? `${filteredCards.length} theatres` : card?.specialty}
+                      </p>
+                      <p className="text-[13px] leading-snug text-[#555555]">
+                        {isAll ? "Use arrows to browse theatres" : `${card?.area} · ${card?.consultantSurgeon} · ${card?.consultantAnaesthetist}`}
+                      </p>
+                    </div>
+                    {/* Session time + sort */}
+                    <div className="flex shrink-0 flex-col items-end justify-between">
+                      {!isAll && times.length === 2 ? (
+                        <div className="text-right">
+                          <p className="text-[11px] uppercase tracking-[0.15em] text-[#555555]">Session</p>
+                          <p className="text-[15px] font-bold tabular-nums leading-tight text-white">{times[0]}</p>
+                          <p className="text-[15px] font-bold tabular-nums leading-tight text-white">{times[1]}</p>
+                        </div>
+                      ) : <div />}
+                      <button
+                        type="button"
+                        onClick={() => setSortKey((k) => { const i = CAROUSEL_SORT_CYCLE.indexOf(k as typeof CAROUSEL_SORT_CYCLE[number]); return CAROUSEL_SORT_CYCLE[(i + 1) % CAROUSEL_SORT_CYCLE.length] as SortKey | null })}
+                        className="flex items-center gap-1.5 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2.5 py-2"
+                      >
+                        <ArrowUpDown size={14} className={sortKey ? "text-[#0096C7]" : "text-[#666666]"} />
+                        <span className="text-[13px] text-white">{sortKey ?? "Sort"}</span>
+                      </button>
+                    </div>
+                  </div>
+                  {/* Nav + pips row */}
+                  <div className="flex items-center gap-1 px-3 pb-2.5">
+                    <button
+                      type="button"
+                      onClick={prevSlide}
+                      disabled={isAll}
+                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full disabled:opacity-20 hover:bg-white/10"
+                    >
+                      <ChevronLeft size={18} className="text-[#0096C7]" />
+                    </button>
+                    <div className="flex flex-1 items-center justify-center gap-1.5">
+                      {Array.from({ length: totalSlides }).map((_, i) => (
+                        <button
+                          key={i}
+                          type="button"
+                          onClick={() => setSelectedTheatre(i === 0 ? null : (filteredCards[i - 1]?.theatreNum ?? null))}
+                          className={`rounded-full transition-all duration-200 ${
+                            i === carouselIdx
+                              ? "h-[4px] w-5 bg-[#0096C7]"
+                              : "h-[4px] w-[4px] bg-[#2a2a2a]"
+                          }`}
+                        />
+                      ))}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={nextSlide}
+                      disabled={carouselIdx === totalSlides - 1}
+                      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full disabled:opacity-20 hover:bg-white/10"
+                    >
+                      <ChevronRight size={18} className="text-[#0096C7]" />
+                    </button>
+                  </div>
+                </div>
+              )
+            })()}
 
             {/* Sticky column header row */}
             <div className={`shrink-0 grid ${COLS} items-center gap-x-3 border-b border-[#1e1e1e] bg-[#0d0d0d] px-4 py-2.5`}>
