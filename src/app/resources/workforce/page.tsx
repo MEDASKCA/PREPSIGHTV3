@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
-import { ArrowRightLeft, ArrowUpDown, Clock3, MessageSquare, X } from "lucide-react"
+import { ArrowRightLeft, ArrowUpDown, Clock3, Crown, MessageSquare, X } from "lucide-react"
 import RootEntry from "@/components/RootEntry"
 import TriangleIcon from "@/components/TriangleIcon"
 import WorkforceSectionNav from "@/components/WorkforceSectionNav"
@@ -50,6 +50,9 @@ const STATUS_META: Record<StaffStatus, { name: string; sub: string }> = {
   "Sick":       { name: "text-[#fb7185]", sub: "text-[#fda4af]" },
   "Dispatched": { name: "text-[#c084fc]", sub: "text-[#d8b4fe]" },
 }
+
+function isConsultantRole(role: string) { return role.startsWith("Consultant ") }
+function isLeadRole(role: string) { return role === "Scrub RN" }
 
 // ── Mock data ──────────────────────────────────────────────────────────────
 
@@ -189,6 +192,7 @@ export default function WorkforcePage() {
   const [sortKey, setSortKey] = useState<SortKey | null>(null)
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc")
   const [contextMenu, setContextMenu] = useState<ContextMenu>(null)
+  const [selectedTheatre, setSelectedTheatre] = useState<number | null>(null)
 
   const selectedDateObject = useMemo(() => new Date(`${selectedDateKey}T00:00:00`), [selectedDateKey])
   const monthDays = useMemo(
@@ -209,11 +213,16 @@ export default function WorkforcePage() {
     [filterMode, selectedFilter],
   )
 
+  const displayCards = useMemo(
+    () => selectedTheatre === null ? filteredCards : filteredCards.filter((c) => c.theatreNum === selectedTheatre),
+    [filteredCards, selectedTheatre],
+  )
+
   // Flat sorted rows for when a sort is active
   type FlatRow = TeamMember & { theatreNum: number; theatre: string; area: string }
   const flatSortedRows = useMemo<FlatRow[]>(() => {
     if (!sortKey) return []
-    const rows: FlatRow[] = filteredCards.flatMap((card) =>
+    const rows: FlatRow[] = displayCards.flatMap((card) =>
       card.staff.map((m) => ({ ...m, theatreNum: card.theatreNum, theatre: card.theatre, area: card.area })),
     )
     rows.sort((a, b) => {
@@ -227,7 +236,9 @@ export default function WorkforcePage() {
       return sortDir === "asc" ? cmp : -cmp
     })
     return rows
-  }, [filteredCards, sortKey, sortDir])
+  }, [displayCards, sortKey, sortDir])
+
+  useEffect(() => { setSelectedTheatre(null) }, [filterMode, selectedFilter])
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -336,10 +347,11 @@ export default function WorkforcePage() {
 
           {/* ── Table section ── */}
           <section className="flex min-h-0 flex-1 flex-col bg-black">
-            {/* Filter + legend bar */}
+            {/* Filter + carousel + legend bar */}
             <div className="shrink-0 border-b border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5">
-              <div className="flex items-center justify-between gap-4">
-                <div className="flex items-center gap-3">
+              <div className="flex items-center gap-3">
+                {/* Filter controls */}
+                <div className="flex shrink-0 items-center gap-2">
                   <span className="text-[13px] font-medium text-[#888888]">Filter by</span>
                   <select
                     value={filterMode}
@@ -353,7 +365,7 @@ export default function WorkforcePage() {
                   <select
                     value={selectedFilter}
                     onChange={(e) => setSelectedFilter(e.target.value)}
-                    className="min-w-[180px] rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-3 py-1.5 text-[13px] text-white outline-none"
+                    className="min-w-[160px] rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-3 py-1.5 text-[13px] text-white outline-none"
                   >
                     {filterOptions.map((f) => <option key={f} value={f}>{f}</option>)}
                   </select>
@@ -367,7 +379,46 @@ export default function WorkforcePage() {
                     </button>
                   )}
                 </div>
-                <StatusLegend />
+
+                {/* Divider */}
+                <div className="h-5 w-px shrink-0 bg-[#2d2d2d]" />
+
+                {/* Theatre carousel */}
+                <div className="flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto">
+                  <button
+                    type="button"
+                    onClick={() => setSelectedTheatre(null)}
+                    className={`shrink-0 rounded-[8px] px-3 py-1.5 font-mono text-[12px] font-black tracking-tight transition-colors ${
+                      selectedTheatre === null
+                        ? "bg-[#0096C7] text-white"
+                        : "border border-[#2d2d2d] bg-[#111111] text-[#888888] hover:text-white"
+                    }`}
+                  >
+                    ALL
+                  </button>
+                  {filteredCards.map((card) => (
+                    <button
+                      key={card.theatreNum}
+                      type="button"
+                      onClick={() => setSelectedTheatre(card.theatreNum === selectedTheatre ? null : card.theatreNum)}
+                      className={`shrink-0 rounded-[8px] px-3 py-1.5 font-mono text-[12px] font-black tracking-tight transition-colors ${
+                        selectedTheatre === card.theatreNum
+                          ? "bg-[#0096C7] text-white"
+                          : "border border-[#2d2d2d] bg-[#111111] text-[#888888] hover:text-white"
+                      }`}
+                    >
+                      {String(card.theatreNum).padStart(2, "0")}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Divider */}
+                <div className="h-5 w-px shrink-0 bg-[#2d2d2d]" />
+
+                {/* Legend */}
+                <div className="shrink-0">
+                  <StatusLegend />
+                </div>
               </div>
             </div>
 
@@ -401,7 +452,11 @@ export default function WorkforcePage() {
                           {String(row.theatreNum).padStart(2, "0")}
                         </span>
                         <span className={`truncate text-[13px] font-semibold ${c.name}`}>{row.name}</span>
-                        <span className={`truncate text-[12px] ${c.sub}`}>{row.role}</span>
+                        <span className="flex min-w-0 items-center gap-1.5">
+                          {isConsultantRole(row.role) && <span className="shrink-0 text-[13px] leading-none" style={{ color: "#FFD700" }}>★</span>}
+                          {isLeadRole(row.role) && <Crown size={12} className="shrink-0" style={{ color: "#FFD700" }} />}
+                          <span className={`truncate text-[12px] ${c.sub}`}>{row.role}</span>
+                        </span>
                         <span className={`truncate text-[12px] ${c.sub}`}>{row.specialty}</span>
                         <span className={`truncate text-[12px] ${c.sub}`}>{row.area}</span>
                         <span className={`text-[12px] tabular-nums ${c.sub}`}>{row.start}</span>
@@ -415,7 +470,7 @@ export default function WorkforcePage() {
               ) : (
                 // ── Grouped by theatre ───────────────────────────────────
                 <>
-                  {filteredCards.map((card) => (
+                  {displayCards.map((card) => (
                     <div key={card.theatre}>
                       {/* Theatre section header */}
                       <div className="grid grid-cols-[52px_1fr_auto] items-center gap-x-3 border-b border-[#111111] bg-[#070707] px-4 py-2">
@@ -443,7 +498,11 @@ export default function WorkforcePage() {
                               {String(card.theatreNum).padStart(2, "0")}
                             </span>
                             <span className={`truncate text-[13px] font-semibold ${c.name}`}>{member.name}</span>
-                            <span className={`truncate text-[12px] ${c.sub}`}>{member.role}</span>
+                            <span className="flex min-w-0 items-center gap-1.5">
+                              {isConsultantRole(member.role) && <span className="shrink-0 text-[13px] leading-none" style={{ color: "#FFD700" }}>★</span>}
+                              {isLeadRole(member.role) && <Crown size={12} className="shrink-0" style={{ color: "#FFD700" }} />}
+                              <span className={`truncate text-[12px] ${c.sub}`}>{member.role}</span>
+                            </span>
                             <span className={`truncate text-[12px] ${c.sub}`}>{member.specialty}</span>
                             <span className={`truncate text-[12px] ${c.sub}`}>{card.area}</span>
                             <span className={`text-[12px] tabular-nums ${c.sub}`}>{member.start}</span>
