@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
-import { ArrowRightLeft, ArrowUpDown, Clock3, Crown, MessageSquare, X } from "lucide-react"
+import { ArrowRightLeft, ArrowUpDown, ChevronLeft, ChevronRight, Clock3, Crown, MessageSquare, X } from "lucide-react"
 import RootEntry from "@/components/RootEntry"
 import TriangleIcon from "@/components/TriangleIcon"
 import WorkforceSectionNav from "@/components/WorkforceSectionNav"
@@ -168,7 +168,7 @@ function ColHeader({
     <button
       type="button"
       onClick={() => onSort(colKey)}
-      className={`flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.1em] transition-colors ${active ? "text-[#0096C7]" : "text-[#888888] hover:text-[#aaaaaa]"}`}
+      className={`flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.1em] transition-colors ${active ? "text-[#0096C7]" : "text-white hover:text-[#0096C7]"}`}
     >
       {label}
       <ArrowUpDown size={10} className={active ? "text-[#0096C7]" : "text-[#666666]"} />
@@ -383,33 +383,47 @@ export default function WorkforcePage() {
                 {/* Divider */}
                 <div className="h-5 w-px shrink-0 bg-[#2d2d2d]" />
 
-                {/* Theatre carousel */}
-                <div className="flex min-w-0 flex-1 items-center gap-1.5 overflow-x-auto">
+                {/* Theatre carousel — shot-clock style */}
+                <div className="flex flex-1 items-center justify-center gap-2">
                   <button
                     type="button"
-                    onClick={() => setSelectedTheatre(null)}
-                    className={`shrink-0 rounded-[8px] px-3 py-1.5 font-mono text-[12px] font-black tracking-tight transition-colors ${
-                      selectedTheatre === null
-                        ? "bg-[#0096C7] text-white"
-                        : "border border-[#2d2d2d] bg-[#111111] text-[#888888] hover:text-white"
-                    }`}
+                    onClick={() => {
+                      if (selectedTheatre === null) return
+                      const idx = filteredCards.findIndex((c) => c.theatreNum === selectedTheatre)
+                      setSelectedTheatre(idx === 0 ? null : filteredCards[idx - 1].theatreNum)
+                    }}
+                    disabled={selectedTheatre === null}
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full disabled:opacity-20 hover:bg-white/10"
                   >
-                    ALL
+                    <ChevronLeft size={18} className="text-[#0096C7]" />
                   </button>
-                  {filteredCards.map((card) => (
-                    <button
-                      key={card.theatreNum}
-                      type="button"
-                      onClick={() => setSelectedTheatre(card.theatreNum === selectedTheatre ? null : card.theatreNum)}
-                      className={`shrink-0 rounded-[8px] px-3 py-1.5 font-mono text-[12px] font-black tracking-tight transition-colors ${
-                        selectedTheatre === card.theatreNum
-                          ? "bg-[#0096C7] text-white"
-                          : "border border-[#2d2d2d] bg-[#111111] text-[#888888] hover:text-white"
-                      }`}
-                    >
-                      {String(card.theatreNum).padStart(2, "0")}
-                    </button>
-                  ))}
+
+                  <div className="flex w-[80px] flex-col items-center">
+                    <span className="font-mono text-[38px] font-black leading-none tracking-tighter text-[#00c8dc]">
+                      {selectedTheatre === null ? "ALL" : String(selectedTheatre).padStart(2, "0")}
+                    </span>
+                    <span className="mt-0.5 font-mono text-[11px] tabular-nums text-[#444444]">
+                      {(selectedTheatre === null ? 0 : filteredCards.findIndex((c) => c.theatreNum === selectedTheatre) + 1) + 1}
+                      {" / "}
+                      {filteredCards.length + 1}
+                    </span>
+                  </div>
+
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (selectedTheatre === null) {
+                        if (filteredCards.length > 0) setSelectedTheatre(filteredCards[0].theatreNum)
+                      } else {
+                        const idx = filteredCards.findIndex((c) => c.theatreNum === selectedTheatre)
+                        setSelectedTheatre(idx < filteredCards.length - 1 ? filteredCards[idx + 1].theatreNum : null)
+                      }
+                    }}
+                    disabled={selectedTheatre === filteredCards[filteredCards.length - 1]?.theatreNum}
+                    className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full disabled:opacity-20 hover:bg-white/10"
+                  >
+                    <ChevronRight size={18} className="text-[#0096C7]" />
+                  </button>
                 </div>
 
                 {/* Divider */}
@@ -424,15 +438,15 @@ export default function WorkforcePage() {
 
             {/* Sticky column header row */}
             <div className={`shrink-0 grid ${COLS} items-center gap-x-3 border-b border-[#1e1e1e] bg-[#0d0d0d] px-4 py-2.5`}>
-              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#888888]">T#</span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">Theatre</span>
               <ColHeader label="Staff Name"  colKey="name"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
               <ColHeader label="Role"        colKey="role"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
               <ColHeader label="Specialty"   colKey="specialty" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
               <ColHeader label="Area"        colKey="area"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
               <ColHeader label="Start"       colKey="start"     sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#888888]">End</span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">End</span>
               <ColHeader label="Status"      colKey="status"    sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#888888]">Actions</span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">Actions</span>
             </div>
 
             {/* Scrollable rows */}
@@ -472,19 +486,6 @@ export default function WorkforcePage() {
                 <>
                   {displayCards.map((card) => (
                     <div key={card.theatre}>
-                      {/* Theatre section header */}
-                      <div className="grid grid-cols-[52px_1fr_auto] items-center gap-x-3 border-b border-[#111111] bg-[#070707] px-4 py-2">
-                        <span className="font-mono text-[20px] font-black leading-none text-[#00c8dc]">
-                          {String(card.theatreNum).padStart(2, "0")}
-                        </span>
-                        <div className="flex items-baseline gap-3 min-w-0">
-                          <span className="text-[14px] font-black text-white truncate">{card.theatre}</span>
-                          <span className="text-[13px] text-[#00c8dc] truncate">{card.specialty}</span>
-                          <span className="text-[12px] text-[#888888] truncate">{card.area} · {card.consultantSurgeon} · {card.consultantAnaesthetist}</span>
-                        </div>
-                        <span className="shrink-0 text-[12px] tabular-nums text-[#888888]">{card.sessionTime}</span>
-                      </div>
-
                       {/* Staff rows */}
                       {card.staff.map((member) => {
                         const c = STATUS_META[member.status]
