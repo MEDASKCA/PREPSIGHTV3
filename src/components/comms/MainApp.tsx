@@ -162,16 +162,16 @@ function Avatar({ name, size = 40, uid }: { name: string; size?: number; uid?: s
     return (
       <div
         aria-label="TOM"
-        className="shrink-0 overflow-hidden rounded-full"
-        style={{ width: size, height: size }}
-      >
-        {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img
-          src="/TOM.jpg"
-          alt="TOM"
-          className="h-full w-full scale-[1.38] object-cover"
-        />
-      </div>
+        className="shrink-0 rounded-full"
+        style={{
+          width: size,
+          height: size,
+          backgroundImage: "url('/TOM.jpg')",
+          backgroundSize: "175%",
+          backgroundPosition: "center",
+          backgroundRepeat: "no-repeat",
+        }}
+      />
     )
   }
   const idx = uid ? uid.charCodeAt(0) % AVATAR_COLORS.length : 0
