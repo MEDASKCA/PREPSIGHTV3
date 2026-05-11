@@ -412,6 +412,11 @@ service cloud.firestore {
       allow update, delete: if false;
     }
 
+    match /theatre_sessions/{sessionId} {
+      allow read: if isSignedIn();
+      allow write: if false;
+    }
+
     match /{document=**} {
       allow read, write: if false;
     }

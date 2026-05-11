@@ -2,7 +2,9 @@
 
 import { useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
+import { collection, getDocs, query, where } from "firebase/firestore"
 import { ArrowRightLeft, ArrowUpDown, ChevronLeft, ChevronRight, Clock3, Crown, MessageSquare, X } from "lucide-react"
+import { db } from "@/lib/firebase"
 import RootEntry from "@/components/RootEntry"
 import TriangleIcon from "@/components/TriangleIcon"
 import WorkforceSectionNav from "@/components/WorkforceSectionNav"
@@ -193,6 +195,40 @@ export default function WorkforcePage() {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc")
   const [contextMenu, setContextMenu] = useState<ContextMenu>(null)
   const [selectedTheatre, setSelectedTheatre] = useState<number | null>(null)
+  const [cards, setCards] = useState<TeamCard[]>(TEAM_CARDS)
+
+  // Live fetch: pull theatre_sessions for the selected date, overlay on top of mock cards
+  useEffect(() => {
+    if (!db) return
+    const q = query(collection(db, "theatre_sessions"), where("date", "==", selectedDateKey))
+    getDocs(q)
+      .then((snap) => {
+        if (snap.empty) { setCards(TEAM_CARDS); return }
+        const live: TeamCard[] = snap.docs.map((d) => {
+          const s = d.data()
+          return {
+            theatre: s.theatre,
+            theatreNum: Number(s.theatreNum),
+            area: s.area,
+            specialty: s.specialty,
+            consultantSurgeon: s.consultantSurgeon,
+            consultantAnaesthetist: s.consultantAnaesthetist,
+            sessionTime: s.sessionTime,
+            staff: (s.staff ?? []).map((m: Record<string, string>) => ({
+              name: m.name, role: m.role, specialty: m.specialty,
+              status: m.status as StaffStatus, start: m.start, end: m.end,
+            })),
+          }
+        })
+        const liveNums = new Set(live.map((c) => c.theatreNum))
+        const merged = [
+          ...live,
+          ...TEAM_CARDS.filter((c) => !liveNums.has(c.theatreNum)),
+        ].sort((a, b) => a.theatreNum - b.theatreNum)
+        setCards(merged)
+      })
+      .catch(() => setCards(TEAM_CARDS))
+  }, [selectedDateKey])
 
   const selectedDateObject = useMemo(() => new Date(`${selectedDateKey}T00:00:00`), [selectedDateKey])
   const monthDays = useMemo(
@@ -202,15 +238,15 @@ export default function WorkforcePage() {
 
   const filterOptions = useMemo(() => {
     const vals =
-      filterMode === "Area" ? Array.from(new Set(TEAM_CARDS.map((c) => c.area)))
-      : filterMode === "Specialty" ? Array.from(new Set(TEAM_CARDS.map((c) => c.specialty)))
-      : Array.from(new Set(TEAM_CARDS.map((c) => c.consultantSurgeon)))
+      filterMode === "Area" ? Array.from(new Set(cards.map((c) => c.area)))
+      : filterMode === "Specialty" ? Array.from(new Set(cards.map((c) => c.specialty)))
+      : Array.from(new Set(cards.map((c) => c.consultantSurgeon)))
     return ["All", ...vals]
-  }, [filterMode])
+  }, [filterMode, cards])
 
   const filteredCards = useMemo(
-    () => TEAM_CARDS.filter((c) => matchesFilter(c, filterMode, selectedFilter)),
-    [filterMode, selectedFilter],
+    () => cards.filter((c) => matchesFilter(c, filterMode, selectedFilter)),
+    [cards, filterMode, selectedFilter],
   )
 
   const displayCards = useMemo(
