@@ -338,7 +338,15 @@ export async function saveProfile(profile: PrepSightProfile, uid?: string): Prom
 export async function resolveProfile(uid: string): Promise<PrepSightProfile | null> {
   if (shouldForceOnboarding()) return null
   const local = getProfileForUid(uid)
-  if (local) return local
+  if (local) {
+    // Sync to Firestore if we have a local profile but no remote one yet
+    void getUserProfile(uid).then((remote) => {
+      if (!remote && local.completedAt) {
+        void saveProfile(local, uid)
+      }
+    }).catch(() => {})
+    return local
+  }
   if (getProfile() && !getStoredProfileOwnerUid()) {
     clearProfile()
   }

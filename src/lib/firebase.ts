@@ -29,7 +29,7 @@ if (apiKey && projectId && storageBucket && messagingSenderId && appId) {
     app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApps()[0]
     auth = getAuth(app)
     try {
-      db = initializeFirestore(app, {})
+      db = initializeFirestore(app, { ignoreUndefinedProperties: true })
     } catch {
       db = getFirestore(app)
     }
