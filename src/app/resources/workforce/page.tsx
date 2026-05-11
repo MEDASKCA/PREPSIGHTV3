@@ -144,7 +144,7 @@ function matchesFilter(card: TeamCard, mode: FilterMode, val: string) {
 function StatusLegend() {
   return (
     <div className="flex items-center gap-5">
-      <span className="text-[11px] font-semibold uppercase tracking-widest text-[#333333]">Key</span>
+      <span className="text-[11px] font-semibold uppercase tracking-widest text-[#666666]">Key</span>
       {(Object.entries(STATUS_META) as [StaffStatus, typeof STATUS_META[StaffStatus]][]).map(([label, c]) => (
         <span key={label} className={`text-[12px] font-semibold ${c.name}`}>{label}</span>
       ))}
@@ -165,10 +165,10 @@ function ColHeader({
     <button
       type="button"
       onClick={() => onSort(colKey)}
-      className={`flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.1em] transition-colors ${active ? "text-[#0096C7]" : "text-[#444444] hover:text-[#888888]"}`}
+      className={`flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.1em] transition-colors ${active ? "text-[#0096C7]" : "text-[#888888] hover:text-[#aaaaaa]"}`}
     >
       {label}
-      <ArrowUpDown size={10} className={active ? "text-[#0096C7]" : "text-[#2a2a2a]"} />
+      <ArrowUpDown size={10} className={active ? "text-[#0096C7]" : "text-[#666666]"} />
     </button>
   )
 }
@@ -315,9 +315,9 @@ export default function WorkforcePage() {
                           <button
                             type="button"
                             onClick={() => jumpToDate(day.date)}
-                            className={`w-full rounded-[12px] px-0.5 py-3 text-center text-[14px] leading-none transition-all ${
+                            className={`w-full rounded-[12px] px-0.5 py-3 text-center font-mono text-[14px] font-black tracking-tighter leading-none transition-all ${
                               active
-                                ? "scale-[1.3] bg-[#0096C7] font-semibold text-white shadow-[0_14px_30px_rgba(0,150,199,0.42)]"
+                                ? "scale-[1.3] bg-[#0096C7] text-white shadow-[0_14px_30px_rgba(0,150,199,0.42)]"
                                 : day.isToday
                                   ? "bg-[#67CFCF]/20 text-[#67CFCF] hover:bg-[#67CFCF]/30"
                                   : "bg-[#67CFCF]/10 text-[#d0d0d0] hover:bg-[#67CFCF]/20"
@@ -373,15 +373,15 @@ export default function WorkforcePage() {
 
             {/* Sticky column header row */}
             <div className={`shrink-0 grid ${COLS} items-center gap-x-3 border-b border-[#1e1e1e] bg-[#0d0d0d] px-4 py-2.5`}>
-              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#444444]">T#</span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#888888]">T#</span>
               <ColHeader label="Staff Name"  colKey="name"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
               <ColHeader label="Role"        colKey="role"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
               <ColHeader label="Specialty"   colKey="specialty" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
               <ColHeader label="Area"        colKey="area"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
               <ColHeader label="Start"       colKey="start"     sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#444444]">End</span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#888888]">End</span>
               <ColHeader label="Status"      colKey="status"    sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#444444]">Actions</span>
+              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-[#888888]">Actions</span>
             </div>
 
             {/* Scrollable rows */}
@@ -425,9 +425,9 @@ export default function WorkforcePage() {
                         <div className="flex items-baseline gap-3 min-w-0">
                           <span className="text-[14px] font-black text-white truncate">{card.theatre}</span>
                           <span className="text-[13px] text-[#00c8dc] truncate">{card.specialty}</span>
-                          <span className="text-[12px] text-[#444444] truncate">{card.area} · {card.consultantSurgeon} · {card.consultantAnaesthetist}</span>
+                          <span className="text-[12px] text-[#888888] truncate">{card.area} · {card.consultantSurgeon} · {card.consultantAnaesthetist}</span>
                         </div>
-                        <span className="shrink-0 text-[12px] tabular-nums text-[#555555]">{card.sessionTime}</span>
+                        <span className="shrink-0 text-[12px] tabular-nums text-[#888888]">{card.sessionTime}</span>
                       </div>
 
                       {/* Staff rows */}
@@ -475,7 +475,7 @@ export default function WorkforcePage() {
             >
               <div className="mb-2 border-b border-[#1a1a1a] px-3 pb-2.5 pt-1.5">
                 <p className="text-[14px] font-semibold text-white">{contextMenu.memberName}</p>
-                <p className="text-[12px] text-[#555555]">{contextMenu.theatre}</p>
+                <p className="text-[12px] text-[#888888]">{contextMenu.theatre}</p>
               </div>
               <button type="button" onClick={openComms}
                 className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left transition-colors hover:bg-[#141414]">
@@ -484,7 +484,7 @@ export default function WorkforcePage() {
                 </div>
                 <div>
                   <p className="text-[13px] font-semibold text-white">Open Comms</p>
-                  <p className="text-[11px] text-[#555555]">Message via PrepSight Comms</p>
+                  <p className="text-[11px] text-[#888888]">Message via PrepSight Comms</p>
                 </div>
               </button>
               <button type="button" onClick={() => setContextMenu(null)}
@@ -494,7 +494,7 @@ export default function WorkforcePage() {
                 </div>
                 <div>
                   <p className="text-[13px] font-semibold text-white">Offer Swap</p>
-                  <p className="text-[11px] text-[#555555]">Propose a shift or slot swap</p>
+                  <p className="text-[11px] text-[#888888]">Propose a shift or slot swap</p>
                 </div>
               </button>
               <button type="button" onClick={() => setContextMenu(null)}
@@ -504,7 +504,7 @@ export default function WorkforcePage() {
                 </div>
                 <div>
                   <p className="text-[13px] font-semibold text-white">Send for Break</p>
-                  <p className="text-[11px] text-[#555555]">Mark as on break and notify team</p>
+                  <p className="text-[11px] text-[#888888]">Mark as on break and notify team</p>
                 </div>
               </button>
             </div>

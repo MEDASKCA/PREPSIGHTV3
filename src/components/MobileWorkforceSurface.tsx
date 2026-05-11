@@ -688,7 +688,7 @@ function RotaPanel({
                   }`}
                 >
                   <span className={`text-[12px] font-medium leading-none ${isSelected ? "text-white/70" : "text-white/50"}`}>{wday}</span>
-                  <span className={`mt-1 text-[15px] font-bold leading-none ${
+                  <span className={`mt-1 font-mono text-[16px] font-black tracking-tighter leading-none ${
                     isSelected ? "text-white" : isToday ? "text-[#0096C7]" : "text-[#d0d0d0]"
                   }`}>{dayNum}</span>
                   {isToday && !isSelected && (
@@ -761,9 +761,6 @@ function RotaPanel({
               <div className="flex shrink-0 flex-col items-center justify-center rounded-[10px] border border-[#1e1e1e] bg-[#111111] px-3 py-2">
                 <span className="font-mono text-[36px] font-black leading-none tracking-tighter text-[#00c8dc]">
                   {isAll ? "ALL" : theatreNum(card?.theatre ?? "").padStart(2, "0")}
-                </span>
-                <span className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#333333]">
-                  {isAll ? "theatres" : "theatre"}
                 </span>
               </div>
               {/* Info */}
@@ -901,7 +898,7 @@ function RotaPanel({
       {/* ── Status legend ── */}
       <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-[#444444]">Key</span>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-[#888888]">Key</span>
           {(Object.entries(STATUS_COLORS) as [StaffStatus, typeof STATUS_COLORS[StaffStatus]][]).map(([label, c]) => (
             <span key={label} className={`text-[13px] font-semibold ${c.name}`}>{label}</span>
           ))}
@@ -1040,9 +1037,6 @@ function EquipmentPanel() {
                 <span className="font-mono text-[36px] font-black leading-none tracking-tighter text-[#00c8dc]">
                   {isAll ? "ALL" : storageLabel(card?.storage ?? "").padStart(2, "0")}
                 </span>
-                <span className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#333333]">
-                  {isAll ? "stores" : "store"}
-                </span>
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[14px] font-black uppercase tracking-[0.05em] leading-tight text-white">
@@ -1132,7 +1126,7 @@ function EquipmentPanel() {
 
       <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-[#444444]">Key</span>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-[#888888]">Key</span>
           {(Object.entries(EQUIPMENT_STATUS_COLORS) as [EquipmentStatus, typeof EQUIPMENT_STATUS_COLORS[EquipmentStatus]][]).map(([label, c]) => (
             <span key={label} className={`text-[13px] font-semibold ${c.name}`}>{label}</span>
           ))}
@@ -1202,9 +1196,6 @@ function SuppliesPanel() {
               <div className="flex shrink-0 flex-col items-center justify-center rounded-[10px] border border-[#1e1e1e] bg-[#111111] px-3 py-2">
                 <span className="font-mono text-[36px] font-black leading-none tracking-tighter text-[#00c8dc]">
                   {isAll ? "ALL" : storageLabel(card?.storage ?? "").padStart(2, "0")}
-                </span>
-                <span className="mt-0.5 text-[11px] font-semibold uppercase tracking-[0.2em] text-[#333333]">
-                  {isAll ? "bays" : "bay"}
                 </span>
               </div>
               <div className="min-w-0 flex-1">
@@ -1295,7 +1286,7 @@ function SuppliesPanel() {
 
       <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-[#444444]">Key</span>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-[#888888]">Key</span>
           {(Object.entries(SUPPLY_STATUS_COLORS) as [SupplyStatus, typeof SUPPLY_STATUS_COLORS[SupplyStatus]][]).map(([label, c]) => (
             <span key={label} className={`text-[13px] font-semibold ${c.name}`}>{label}</span>
           ))}
