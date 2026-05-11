@@ -889,13 +889,13 @@ function RotaPanel({
                       </span>
                       <span className={`truncate text-[12px] font-semibold leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.name ?? "text-white"}`}>{member.name}</span>
                       <span className="flex min-w-0 items-center gap-1">
-                        <span className={`truncate text-[11px] leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{shortenRole(member.role)}</span>
                         {isConsultantRole(member.role) && (
-                          <span className="shrink-0 text-[9px] leading-none text-[#f59e0b]">★</span>
+                          <span className="shrink-0 text-[14px] leading-none" style={{ color: "#FFD700" }}>★</span>
                         )}
                         {isLeadRole(member.role) && (
                           <span className="shrink-0 rounded-[3px] bg-[#0096C7]/15 px-[3px] py-[1px] text-[8px] font-bold uppercase tracking-[0.04em] text-[#38bdf8]">TL</span>
                         )}
+                        <span className={`truncate text-[11px] leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{shortenRole(member.role)}</span>
                       </span>
                       <span className={`truncate text-[11px] ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{shortenSpec(member.specialty)}</span>
                       <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{noColon(member.start)}</span>
