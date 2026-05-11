@@ -169,7 +169,7 @@ function Avatar({ name, size = 40, uid }: { name: string; size?: number; uid?: s
         <img
           src="/TOM.jpg"
           alt="TOM"
-          className="h-full w-full object-cover"
+          className="h-full w-full scale-[1.38] object-cover"
         />
       </div>
     )
