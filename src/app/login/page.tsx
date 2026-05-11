@@ -99,6 +99,19 @@ function clearPendingProvider() {
   removeStorageValue(window.sessionStorage, PENDING_PROVIDER_KEY)
 }
 
+function devFullReset() {
+  if (typeof window === "undefined") return
+  // Clear all prepsight_* keys from localStorage and sessionStorage
+  const lsKeys = Object.keys(window.localStorage).filter((k) => k.startsWith("prepsight_"))
+  lsKeys.forEach((k) => window.localStorage.removeItem(k))
+  const ssKeys = Object.keys(window.sessionStorage).filter((k) => k.startsWith("prepsight_"))
+  ssKeys.forEach((k) => window.sessionStorage.removeItem(k))
+  // Clear prepsight cookies
+  ;["prepsight_platform_role", "prepsight_specialties"].forEach((name) => {
+    document.cookie = `${name}=; path=/; max-age=0; samesite=lax`
+  })
+}
+
 function isEmbeddedBrowser() {
   if (typeof navigator === "undefined") return false
   // Capacitor native app uses a WebView but it IS the app — never treat it as embedded
@@ -138,10 +151,38 @@ export default function LoginPage() {
   const [nativeNotice, setNativeNotice] = useState<string | null>(null)
   const [embeddedBrowser, setEmbeddedBrowser] = useState(false)
   const [sessionConflictNotice, setSessionConflictNotice] = useState<string | null>(null)
+  const [brandTapCount, setBrandTapCount] = useState(0)
+  const [devResetOpen, setDevResetOpen] = useState(false)
+  const [devResetDone, setDevResetDone] = useState(false)
+  const brandTapTimer = useRef<number | null>(null)
   const [pendingSessionTakeover, setPendingSessionTakeover] = useState<{
     user: User
     activeSession: ActiveUserSessionRecord
   } | null>(null)
+
+  function handleBrandTap() {
+    if (brandTapTimer.current !== null) window.clearTimeout(brandTapTimer.current)
+    setBrandTapCount((n) => {
+      const next = n + 1
+      if (next >= 10) {
+        setDevResetOpen(true)
+        setDevResetDone(false)
+        brandTapTimer.current = null
+        return 0
+      }
+      brandTapTimer.current = window.setTimeout(() => setBrandTapCount(0), 2000)
+      return next
+    })
+  }
+
+  function handleDevReset() {
+    devFullReset()
+    setDevResetDone(true)
+    window.setTimeout(() => {
+      setDevResetOpen(false)
+      window.location.reload()
+    }, 1200)
+  }
 
   function appendDebug(message: string) {
     if (!showDebug) return
@@ -680,11 +721,12 @@ export default function LoginPage() {
       >
         {/* PrepSight */}
         <div
-          className="mb-1 flex w-full items-center justify-center gap-2 -translate-x-4"
+          className="mb-1 flex w-full items-center justify-center gap-2 -translate-x-4 select-none cursor-default"
           style={{
             opacity: lit ? 1 : 0,
             transition: "opacity 0.5s ease 1180ms",
           }}
+          onClick={handleBrandTap}
         >
           <img
             src="/PrepSight%20logo.png"
@@ -696,6 +738,34 @@ export default function LoginPage() {
             PrepSight
           </h1>
         </div>
+
+        {/* Dev reset panel — 10-tap unlock */}
+        {devResetOpen && (
+          <div className="fixed inset-0 z-[999] flex items-center justify-center bg-black/70 backdrop-blur-sm">
+            <div className="w-[320px] rounded-2xl border border-[#2a2a2a] bg-[#0d0d0d] p-6 shadow-2xl">
+              <p className="mb-1 text-sm font-black uppercase tracking-widest text-[#00c8dc]">Dev Tools</p>
+              <p className="mb-4 text-xs text-[#888]">Clears all cached profile, session, and auth data from this browser.</p>
+              {devResetDone ? (
+                <p className="text-center text-sm font-semibold text-[#00c8dc]">Reset complete — reloading...</p>
+              ) : (
+                <div className="flex gap-3">
+                  <button
+                    onClick={handleDevReset}
+                    className="flex-1 rounded-xl bg-[#0096C7] px-4 py-2.5 text-sm font-semibold text-white hover:bg-[#0085B2] active:bg-[#0077B6] transition-colors"
+                  >
+                    Full Reset
+                  </button>
+                  <button
+                    onClick={() => setDevResetOpen(false)}
+                    className="flex-1 rounded-xl border border-[#2a2a2a] px-4 py-2.5 text-sm font-semibold text-[#888] hover:bg-[#111] transition-colors"
+                  >
+                    Cancel
+                  </button>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
 
         {/* Tagline + description */}
         <div
