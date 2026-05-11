@@ -20,6 +20,8 @@ import {
   SlidersHorizontal,
   X,
 } from "lucide-react"
+import { collection, getDocs, query, where } from "firebase/firestore"
+import { db } from "@/lib/firebase"
 import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import TriangleIcon from "@/components/TriangleIcon"
 import { getProfile, getRelevantSettings } from "@/lib/profile"
@@ -615,20 +617,58 @@ function RotaPanel({
 
   const monthDays = useMemo(() => buildMonthCalendar(selectedDate).filter((d) => d.inMonth), [selectedDate])
   const selectedDateKey = selectedDate.toISOString().slice(0, 10)
+  const [cards, setCards] = useState<AllocationCard[]>(MOBILE_ALLOCATION_CARDS)
+
+  useEffect(() => {
+    if (!db) return
+    const q = query(collection(db, "theatre_sessions"), where("date", "==", selectedDateKey))
+    getDocs(q)
+      .then((snap) => {
+        if (snap.empty) { setCards(MOBILE_ALLOCATION_CARDS); return }
+        const live: AllocationCard[] = snap.docs.map((d) => {
+          const s = d.data()
+          return {
+            theatre: s.theatre,
+            area: s.area,
+            specialty: s.specialty,
+            consultant: s.consultantSurgeon,
+            consultantSurgeon: s.consultantSurgeon,
+            consultantAnaesthetist: s.consultantAnaesthetist,
+            sessionTime: s.sessionTime,
+            staff: (s.staff ?? []).map((m: Record<string, string>) => ({
+              name: m.name,
+              role: m.role,
+              specialty: m.specialty,
+              shift: m.start < "12:00" ? "AM" : "PM" as "AM" | "PM",
+              start: m.start,
+              end: m.end,
+              status: m.status as StaffRow["status"],
+            })),
+          }
+        })
+        const liveTheatres = new Set(live.map((c) => c.theatre))
+        const merged = [
+          ...live,
+          ...MOBILE_ALLOCATION_CARDS.filter((c) => !liveTheatres.has(c.theatre)),
+        ].sort((a, b) => a.theatre.localeCompare(b.theatre))
+        setCards(merged)
+      })
+      .catch((err) => { console.error("[MobileWorkforce] fetch failed:", err); setCards(MOBILE_ALLOCATION_CARDS) })
+  }, [selectedDateKey])
 
   const filterOptions = useMemo(() => {
     const values =
       filterMode === "Area"
-        ? Array.from(new Set(MOBILE_ALLOCATION_CARDS.map((c) => c.area)))
+        ? Array.from(new Set(cards.map((c) => c.area)))
         : filterMode === "Specialty"
-          ? Array.from(new Set(MOBILE_ALLOCATION_CARDS.map((c) => c.specialty)))
-          : Array.from(new Set(MOBILE_ALLOCATION_CARDS.map((c) => c.consultant)))
+          ? Array.from(new Set(cards.map((c) => c.specialty)))
+          : Array.from(new Set(cards.map((c) => c.consultant)))
     return ["All", ...values]
-  }, [filterMode])
+  }, [filterMode, cards])
 
   const filteredCards = useMemo(
-    () => MOBILE_ALLOCATION_CARDS.filter((c) => matchesAllocationFilter(c, filterMode, selectedFilter)),
-    [filterMode, selectedFilter],
+    () => cards.filter((c) => matchesAllocationFilter(c, filterMode, selectedFilter)),
+    [cards, filterMode, selectedFilter],
   )
 
   // total slides = "All" + one per theatre
