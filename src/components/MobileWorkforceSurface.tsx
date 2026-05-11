@@ -231,10 +231,10 @@ function makeTheatreCard(idx: number): AllocationCard {
     consultantAnaesthetist: anaes,
     sessionTime,
     staff: [
-      { name: `${fmNames[idx % 7]} ${surnames[(idx + 1) % 7]}`, role: "Consultant Surgeon", specialty, shift: "AM", start: s, end: e, status: "Scrub" },
-      { name: `Dr ${surnames[idx % 7]}`, role: "Consultant Anaesthetist", specialty: "Anaesthetics", shift: "AM", start: s, end: e, status: "Scrub" },
-      { name: `${fmNames[(idx + 2) % 7]} ${surnames[(idx + 3) % 7]}`, role: "Scrub Practitioner", specialty: "Theatre Support", shift: "AM", start: s, end: e, status: "Scrub" },
-      { name: `${fmNames[(idx + 4) % 7]} ${surnames[(idx + 5) % 7]}`, role: "ODP", specialty: "ODP", shift: "PM", start: "13:00", end: e, status: "Relieving" },
+      { name: `${fmNames[idx % 7]} ${surnames[(idx + 1) % 7]}`, role: "Consultant Surgeon",      specialty,              shift: "AM", start: s,       end: e, status: "Scrub"     },
+      { name: `Dr ${surnames[idx % 7]}`,                         role: "Consultant Anaesthetist", specialty: "Anaesthetics", shift: "AM", start: s,       end: e, status: "Scrub"     },
+      { name: `${fmNames[(idx + 2) % 7]} ${surnames[(idx + 3) % 7]}`, role: "Scrub RN",           specialty: "Theatre Support", shift: "AM", start: s,    end: e, status: "Scrub"     },
+      { name: `${fmNames[(idx + 4) % 7]} ${surnames[(idx + 5) % 7]}`, role: "Anaes ODP",          specialty: "ODP",          shift: "PM", start: "13:00", end: e, status: "Relieving" },
     ],
   }
 }
@@ -251,14 +251,14 @@ const MOBILE_ALLOCATION_CARDS: AllocationCard[] = [
     staff: [
       { name: "J Smith",    role: "Consultant Surgeon",      specialty: "Trauma & Ortho",  shift: "AM", start: "07:30", end: "19:30", status: "Scrub"      },
       { name: "A Bennett",  role: "Consultant Anaesthetist", specialty: "Anaesthetics",    shift: "AM", start: "07:30", end: "19:30", status: "Scrub"      },
-      { name: "S Patel",    role: "Scrub Practitioner",      specialty: "Theatre Support", shift: "AM", start: "07:30", end: "19:30", status: "Scrub"      },
-      { name: "L Brown",    role: "Circulating Nurse",        specialty: "Nursing",         shift: "AM", start: "07:30", end: "19:30", status: "On Break"   },
-      { name: "M Johnson",  role: "ODP",                     specialty: "ODP",             shift: "AM", start: "07:30", end: "19:30", status: "Dispatched" },
+      { name: "S Patel",    role: "Scrub RN",                specialty: "Theatre Support", shift: "AM", start: "07:30", end: "19:30", status: "Scrub"      },
+      { name: "L Brown",    role: "HCA",                     specialty: "Nursing",         shift: "AM", start: "07:30", end: "19:30", status: "On Break"   },
+      { name: "M Johnson",  role: "Anaes ODP",               specialty: "ODP",             shift: "AM", start: "07:30", end: "19:30", status: "Dispatched" },
       { name: "R Walker",   role: "Consultant Surgeon",      specialty: "Trauma & Ortho",  shift: "PM", start: "13:00", end: "19:30", status: "Relieving"  },
       { name: "D Evans",    role: "Consultant Anaesthetist", specialty: "Anaesthetics",    shift: "PM", start: "13:00", end: "19:30", status: "Sick"       },
-      { name: "K Lee",      role: "Scrub Practitioner",      specialty: "Theatre Support", shift: "PM", start: "13:00", end: "19:30", status: "Relieving"  },
-      { name: "H Davies",   role: "Circulating Nurse",        specialty: "Nursing",         shift: "PM", start: "13:00", end: "19:30", status: "Scrub"      },
-      { name: "T Green",    role: "ODP",                     specialty: "ODP",             shift: "PM", start: "13:00", end: "19:30", status: "On Break"   },
+      { name: "K Lee",      role: "Scrub RN",                specialty: "Theatre Support", shift: "PM", start: "13:00", end: "19:30", status: "Relieving"  },
+      { name: "H Davies",   role: "HCA",                     specialty: "Nursing",         shift: "PM", start: "13:00", end: "19:30", status: "Scrub"      },
+      { name: "T Green",    role: "Anaes ODP",               specialty: "ODP",             shift: "PM", start: "13:00", end: "19:30", status: "On Break"   },
     ],
   },
   ...Array.from({ length: 11 }, (_, i) => makeTheatreCard(i + 2)),
@@ -544,13 +544,19 @@ function MobileMonthCalendarBlock({ leadingControl }: { leadingControl?: ReactNo
 }
 
 const ROLE_SHORT: Record<string, string> = {
-  "Consultant Surgeon": "Surgeon",
+  "Consultant Surgeon":    "Surgeon",
   "Consultant Anaesthetist": "Anaesthetist",
-  "Scrub Practitioner": "Scrub ODP",
-  "Circulating Nurse": "Scout RN",
-  "ODP": "Anaes ODP",
+  "Scrub RN":              "Scrub RN",
+  "Anaes ODP":             "Anaes ODP",
+  "HCA":                   "HCA",
+  // legacy aliases
+  "Scrub Practitioner":    "Scrub RN",
+  "Circulating Nurse":     "HCA",
+  "ODP":                   "Anaes ODP",
 }
 function shortenRole(role: string) { return ROLE_SHORT[role] ?? role }
+function isConsultantRole(role: string) { return role.startsWith("Consultant ") }
+function isLeadRole(role: string) { return role === "Scrub RN" || role === "Scrub Practitioner" }
 function noColon(t: string) { return t.replace(":", "") }
 
 const SPEC_SHORT: Record<string, string> = {
@@ -882,7 +888,15 @@ function RotaPanel({
                         {theatreNum(card.theatre)}
                       </span>
                       <span className={`truncate text-[12px] font-semibold leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.name ?? "text-white"}`}>{member.name}</span>
-                      <span className={`truncate text-[11px] leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{shortenRole(member.role)}</span>
+                      <span className="flex min-w-0 items-center gap-1">
+                        <span className={`truncate text-[11px] leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{shortenRole(member.role)}</span>
+                        {isConsultantRole(member.role) && (
+                          <span className="shrink-0 text-[9px] leading-none text-[#f59e0b]">★</span>
+                        )}
+                        {isLeadRole(member.role) && (
+                          <span className="shrink-0 rounded-[3px] bg-[#0096C7]/15 px-[3px] py-[1px] text-[8px] font-bold uppercase tracking-[0.04em] text-[#38bdf8]">TL</span>
+                        )}
+                      </span>
                       <span className={`truncate text-[11px] ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{shortenSpec(member.specialty)}</span>
                       <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{noColon(member.start)}</span>
                       <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{noColon(member.end)}</span>
