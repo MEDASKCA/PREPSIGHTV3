@@ -1,6 +1,6 @@
-"use client"
+﻿"use client"
 
-import { useEffect, useRef, useState, useCallback } from "react"
+import { useEffect, useMemo, useRef, useState, useCallback } from "react"
 import {
   addDoc,
   arrayRemove,
@@ -22,6 +22,7 @@ import { signOut, type User } from "firebase/auth"
 import { auth, db, storage } from "@/lib/firebase"
 import { isFoldableMobileViewport as detectFoldableMobileViewport } from "@/lib/foldable"
 import { setFoldCommsThread, getFoldCommsThread } from "@/lib/fold-comms-thread"
+import { subscribeFoldOpenDm, consumeFoldOpenDm } from "@/lib/fold-open-dm"
 import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
 import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import { clearCallStatus, getCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
@@ -246,7 +247,7 @@ function EmojiPicker({
       <div className={`${variant === "drawer" ? "border-b border-[#2d2d2d] px-1 py-1.5 shrink-0" : "border-b border-gray-100 px-2 pt-2"}`}>
         {variant === "drawer" ? (
           <div className="flex justify-end mb-1">
-            <button onClick={onClose} className="px-1 py-0.5 text-[#888888] hover:text-white">
+            <button onClick={onClose} className="px-1 py-0.5 text-white hover:text-white">
               <X size={12} />
             </button>
           </div>
@@ -581,12 +582,12 @@ function CallButton({ icon, onClick, danger, active, disabled, "aria-label": ari
       aria-label={ariaLabel}
       className={`flex h-[52px] w-[52px] items-center justify-center rounded-full transition-colors ${
         disabled
-          ? "bg-[#2a2a2a] text-white/30 cursor-not-allowed"
+          ? "bg-[#2a2a2a] text-white cursor-not-allowed"
           : danger
             ? "bg-[#ef4444] text-white hover:bg-[#dc2626] active:bg-[#b91c1c]"
             : active
               ? "bg-[#404040] text-white"
-              : "bg-[#2a2a2a] text-white/80 hover:bg-[#383838]"
+              : "bg-[#2a2a2a] text-white hover:bg-[#383838]"
       }`}
     >
       {icon}
@@ -646,6 +647,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [showGlobalSearch, setShowGlobalSearch] = useState(false)
   const [showNewDM, setShowNewDM] = useState(false)
   const [filterTab, setFilterTab] = useState<"chats" | "pings" | "spaces" | "feeds">("chats")
+
+  const [todaySessions, setTodaySessions] = useState<Array<{ theatre: string; specialty: string; staff: string[] }>>([])
+  const [sessionsLoaded, setSessionsLoaded] = useState(false)
+  const [orgTeams, setOrgTeams] = useState<Array<{ id: string; name: string; type: "theatre" | "specialty" }>>([])
+
+
   const [showCreateSpace, setShowCreateSpace] = useState(false)
   const [newSpaceName, setNewSpaceName] = useState("")
   const [newSpaceMembers, setNewSpaceMembers] = useState<string[]>([])
@@ -747,6 +754,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const outgoingRingRef = useRef<HTMLAudioElement | null>(null)
   const deepLinkThreadIdRef = useRef<string | null>(null)
   const deepLinkCallSenderRef = useRef<string | null>(null)
+  const deepLinkDmWithRef = useRef<string | null>(null)
   const [remoteVideoActive, setRemoteVideoActive] = useState(false)
   const [showConnectingOverlay, setShowConnectingOverlay] = useState(false)
   const tomAnswerTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
@@ -1086,6 +1094,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (threadId) deepLinkThreadIdRef.current = threadId
     const callSender = params.get("callSender")
     if (callSender) deepLinkCallSenderRef.current = callSender
+    const dmWith = params.get("dmWith")
+    if (dmWith) deepLinkDmWithRef.current = dmWith
     if (autoAnswer || callSender) setShowConnectingOverlay(true)
   }, [])
 
@@ -1566,7 +1576,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           href={att.url}
           target="_blank"
           rel="noopener noreferrer"
-          className={`flex items-center gap-2 text-sm underline ${isOwn ? "text-white/80" : "text-[#29b6d8]"}`}
+          className={`flex items-center gap-2 text-sm underline ${isOwn ? "text-white" : "text-[#29b6d8]"}`}
         >
           <Paperclip size={13} /> {att.name}
         </a>
@@ -1595,7 +1605,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
     return (
       <div className="mt-1 flex w-full items-center justify-between gap-3 px-1">
-        <span className="text-xs text-[var(--mob-text-2,#888888)]">{formatTime(message.createdAt)}</span>
+        <span className="text-xs text-white/60">{formatTime(message.createdAt)}</span>
         {isOwn && visibleSeenMembers.length > 0 ? (
           <div className="flex items-center gap-1.5">
             <div className="flex -space-x-1.5">
@@ -1733,6 +1743,95 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     void ensureTomThread()
   }, [threads, user.uid, org.id])
 
+  // Load today's theatre sessions once for On Shift context filter
+  useEffect(() => {
+    const today = new Date().toISOString().slice(0, 10)
+    getDocs(query(collection(firestore, "theatre_sessions"), where("date", "==", today)))
+      .then(snap => {
+        setTodaySessions(snap.docs.map(d => ({
+          theatre: d.data().theatre as string,
+          specialty: (d.data().specialty as string) ?? "",
+          staff: ((d.data().staff ?? []) as Array<{ name: string }>).map(m => m.name),
+        })))
+        setSessionsLoaded(true)
+      })
+      .catch(() => { setSessionsLoaded(true) })
+  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Subscribe to org_teams for Spaces sectioning + seeding ────────────────
+  useEffect(() => {
+    const unsub = onSnapshot(
+      query(collection(firestore, "org_teams"), where("orgId", "==", org.id)),
+      snap => setOrgTeams(snap.docs.map(d => ({
+        id: d.id,
+        name: d.data().name as string,
+        type: d.data().type as "theatre" | "specialty",
+      }))),
+      () => {},
+    )
+    return unsub
+  }, [org.id]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // ── Auto-seed persistent team threads (theatres + specialties) ────────────
+  const teamThreadsSeededRef = useRef(false)
+  useEffect(() => {
+    if (teamThreadsSeededRef.current) return
+    if (!sessionsLoaded) return
+    teamThreadsSeededRef.current = true
+
+    // Theatre names: org_teams "theatre" type first, fall back to today's sessions
+    const orgTheatreNames = orgTeams.filter(t => t.type === "theatre").map(t => t.name)
+    const sessionTheatreNames = todaySessions.map(s => s.theatre).filter(Boolean)
+    const theatreNames = [...new Set([...orgTheatreNames, ...sessionTheatreNames])]
+
+    // Specialty names: always from org_teams "specialty" type
+    const specialtyNames = orgTeams.filter(t => t.type === "specialty").map(t => t.name)
+
+    const allGroupNames = [...theatreNames, ...specialtyNames]
+    if (!allGroupNames.length) return
+
+    getDocs(query(
+      collection(firestore, "comms_v5_threads"),
+      where("organizationId", "==", org.id),
+      where("type", "==", "channel"),
+    )).then(async snap => {
+      const existingNames = new Set(snap.docs.map(d => (d.data().name as string) ?? "").filter(Boolean))
+
+      for (const name of allGroupNames) {
+        if (existingNames.has(name)) continue
+
+        const isTheatre = theatreNames.includes(name)
+        let memberUids: string[]
+
+        if (isTheatre) {
+          const staffNames = todaySessions.find(s => s.theatre === name)?.staff ?? []
+          memberUids = members.length
+            ? staffNames
+                .map(n => members.find(m => m.displayName?.toLowerCase() === n.toLowerCase())?.uid)
+                .filter((uid): uid is string => Boolean(uid))
+            : []
+        } else {
+          memberUids = members
+            .filter(m => m.department === name || m.specialties?.includes(name))
+            .map(m => m.uid)
+        }
+
+        const allMemberUids = [...new Set([user.uid, ...memberUids])]
+        await addDoc(collection(firestore, "comms_v5_threads"), {
+          type: "channel",
+          subtype: "group",
+          teamType: isTheatre ? "theatre" : "specialty",
+          name,
+          organizationId: org.id,
+          memberUids: allMemberUids,
+          createdBy: user.uid,
+          createdAt: Date.now(),
+          updatedAt: Date.now(),
+        })
+      }
+    }).catch(() => {})
+  }, [sessionsLoaded, orgTeams.length, org.id]) // eslint-disable-line react-hooks/exhaustive-deps
+
   useEffect(() => {
     if (filterTab !== "pings" || !org?.id) return
     const q = query(
@@ -1803,6 +1902,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return 0
   })
 
+  // ─────────────────────────────────────────────────────────────────────────
+
   const selectedOtherUid = selectedThread?.type === "direct" ? getOtherUid(selectedThread) : ""
   const selectedDirectContact = selectedThread?.type === "direct" ? getThreadAvatar(selectedThread) : null
   const liveSelectedThread = selectedThread ? threads.find((thread) => thread.id === selectedThread.id) ?? selectedThread : null
@@ -1836,6 +1937,37 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const tomDefaultThread = visibleThreads.find(
     (thread) => thread.type === "direct" && thread.memberUids.includes(TOM_UID),
   ) ?? null
+
+  // Navigate to DM thread by display name (?dmWith=Name Surname or fold signal)
+  useEffect(() => {
+    if (!threads.length || !members.length) return
+    const name = deepLinkDmWithRef.current
+    if (!name) return
+    deepLinkDmWithRef.current = null
+    const lower = name.toLowerCase()
+    const target = members.find(m => m.displayName?.toLowerCase() === lower)
+    if (!target) return
+    const thread = threads.find(t =>
+      t.type === "direct" && t.memberUids.includes(target.uid) && !t.memberUids.includes(TOM_UID)
+    )
+    if (thread) selectThread(thread)
+  }, [threads, members]) // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Foldable split: react to requestFoldOpenDm() signals from other panes
+  useEffect(() => {
+    function handleFoldDm() {
+      const name = consumeFoldOpenDm()
+      if (!name || !threads.length || !members.length) return
+      const lower = name.toLowerCase()
+      const target = members.find(m => m.displayName?.toLowerCase() === lower)
+      if (!target) return
+      const thread = threads.find(t =>
+        t.type === "direct" && t.memberUids.includes(target.uid) && !t.memberUids.includes(TOM_UID)
+      )
+      if (thread) selectThread(thread)
+    }
+    return subscribeFoldOpenDm(handleFoldDm)
+  }, [threads, members]) // eslint-disable-line react-hooks/exhaustive-deps
 
   // Navigate to deep-linked thread once threads have loaded from Firestore
   useEffect(() => {
@@ -1876,7 +2008,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return (
       <div
         className={splitView ? "flex h-full min-h-0 flex-col bg-black" : "absolute inset-x-0 top-0 z-10 flex flex-col bg-black"}
-        style={splitView ? undefined : { bottom: "calc(env(safe-area-inset-bottom, 0px) + 60px)" }}
+        style={splitView ? undefined : { bottom: "calc(env(safe-area-inset-bottom, 0px) + 88px)" }}
       >
         {minimalHeader ? (
           <div
@@ -1909,15 +2041,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             >
               <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
               {selectedThread.type === "direct" && (
-                <p className="text-sm text-[#888888]">
+                <p className="text-sm text-white/60">
                   {showTomTyping || otherIsTyping ? "typing..." : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
                 </p>
               )}
               {selectedThread.subtype === "group" && (
-                <p className="text-sm text-[#888888]">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""} · tap for info</p>
+                <p className="text-sm text-white/60">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""} · tap for info</p>
               )}
               {selectedThread.type === "channel" && selectedThread.subtype !== "group" && selectedThread.description && (
-                <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
+                <p className="truncate text-sm text-white/60">{selectedThread.description}</p>
               )}
             </button>
             <div className="flex items-center gap-2">
@@ -1972,7 +2104,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   <button
                     type="button"
                     onClick={() => setShowGlobalSearch(true)}
-                    className="text-white/70 hover:text-white"
+                    className="text-white hover:text-white"
                     aria-label="Search"
                   >
                     <Search size={20} />
@@ -1980,7 +2112,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   <button
                     type="button"
                     onClick={() => setShowProfile(true)}
-                    className="text-white hover:text-white/70"
+                    className="text-white hover:text-white"
                     aria-label="More options"
                   >
                     <MoreVertical size={22} />
@@ -2022,15 +2154,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             >
               <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
               {selectedThread.type === "direct" && (
-                <p className="text-sm text-[#888888]">
+                <p className="text-sm text-white/60">
                   {showTomTyping || otherIsTyping ? "typing..." : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
                 </p>
               )}
               {selectedThread.subtype === "group" && (
-                <p className="text-sm text-[#888888]">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""} · tap for info</p>
+                <p className="text-sm text-white/60">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""} · tap for info</p>
               )}
               {selectedThread.type === "channel" && selectedThread.subtype !== "group" && selectedThread.description && (
-                <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
+                <p className="truncate text-sm text-white/60">{selectedThread.description}</p>
               )}
             </button>
               <div className="flex items-center gap-2">
@@ -2085,7 +2217,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   <button
                     type="button"
                     onClick={() => setShowGlobalSearch(true)}
-                    className="text-white/70 hover:text-white"
+                    className="text-white hover:text-white"
                     aria-label="Search"
                   >
                     <Search size={20} />
@@ -2093,7 +2225,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   <button
                     type="button"
                     onClick={() => setShowProfile(true)}
-                    className="text-white hover:text-white/70"
+                    className="text-white hover:text-white"
                     aria-label="More options"
                   >
                     <MoreVertical size={22} />
@@ -2147,12 +2279,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               }
               if (isSystem) return (
                 <div key={msg.id} className="flex justify-center my-3">
-                  <span className="bg-[#1c1c1c] text-[#888888] text-sm px-4 py-1.5 rounded-full">{messageText}</span>
+                  <span className="bg-[#1c1c1c] text-white text-sm px-4 py-1.5 rounded-full">{messageText}</span>
                 </div>
               )
               if (msg.deleted) return (
                 <div key={msg.id} className={`flex ${isOwn ? "justify-end" : "justify-start"}`}>
-                  <span className="text-sm text-[var(--mob-text-2,#888888)] italic px-3 py-1">This message was deleted</span>
+                  <span className="text-sm text-white italic px-3 py-1">This message was deleted</span>
                 </div>
               )
 
@@ -2172,7 +2304,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     )}
 
                     {msg.replyTo && (
-                      <div className={`text-sm text-[#888888] bg-[#1c1c1c] rounded-t-xl px-3 py-2 border-l-2 border-[#29b6d8] mb-0.5 max-w-full ${isOwn ? "rounded-bl-xl" : "rounded-br-xl"}`}>
+                      <div className={`text-sm text-white bg-[#1c1c1c] rounded-t-xl px-3 py-2 border-l-2 border-[#29b6d8] mb-0.5 max-w-full ${isOwn ? "rounded-bl-xl" : "rounded-br-xl"}`}>
                         <span className="text-[#29b6d8]">{msg.replyTo.displayName}</span>: {repairMojibake(msg.replyTo.text).slice(0, 60)}{msg.replyTo.text.length > 60 ? "..." : ""}
                       </div>
                     )}
@@ -2268,7 +2400,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                             </div>
                           )
                         })() : messageText}
-                        {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white/50" : "text-white/50"}`}>(edited)</span>}
+                        {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white" : "text-white"}`}>(edited)</span>}
                       </div>
                     )}
 
@@ -2297,7 +2429,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <div className="flex items-end gap-0.5">
                 <div className="w-1 shrink-0" />
                 <div className="flex max-w-[84%] flex-col items-start">
-                  <div className="rounded-2xl rounded-bl-sm bg-[#003d54] px-3 py-1.5 text-left text-[14px] leading-snug text-white/70">
+                  <div className="rounded-2xl rounded-bl-sm bg-[#003d54] px-3 py-1.5 text-left text-[14px] leading-snug text-white">
                     <TypingDots tone={showTomTyping ? "tom" : "default"} />
                   </div>
                 </div>
@@ -2331,8 +2463,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col"
               style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
               <div className="border-b border-[#2d2d2d] px-3 py-2 flex items-center justify-between shrink-0">
-                <span className="text-[11px] font-medium text-[#888888] uppercase tracking-wide">Ping type</span>
-                <button onClick={() => setShowPingPicker(null)}><X size={12} className="text-[#888888]" /></button>
+                <span className="text-[11px] font-medium text-white uppercase tracking-wide">Ping type</span>
+                <button onClick={() => setShowPingPicker(null)}><X size={12} className="text-white" /></button>
               </div>
               <div className="flex-1 overflow-y-auto py-2 px-2 flex flex-col gap-1">
                 {PING_CATEGORIES.map(cat => (
@@ -2363,9 +2495,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           <div className="flex items-center gap-3 px-4 py-2.5 bg-[#0d1a22] border-t border-[#2d2d2d] shrink-0">
             <div className="flex-1 min-w-0">
               <span className="text-sm text-[#29b6d8]">{replyTo.displayName}</span>
-              <p className="text-sm text-[#888888] truncate">{repairMojibake(replyTo.text)}</p>
+              <p className="text-sm text-white truncate">{repairMojibake(replyTo.text)}</p>
             </div>
-            <button onClick={() => setReplyTo(null)}><X size={16} className="text-[#888888]" /></button>
+            <button onClick={() => setReplyTo(null)}><X size={16} className="text-white" /></button>
           </div>
         )}
 
@@ -2408,7 +2540,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <button
                   type="button"
                   onClick={cancelVoiceRecording}
-                  className="shrink-0 px-1 text-[13px] text-[#777777] transition-colors hover:text-white"
+                  className="shrink-0 px-1 text-[13px] text-white transition-colors hover:text-white"
                 >
                   cancel
                 </button>
@@ -2468,7 +2600,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             )}
             {!isRecordingVoice && !recordedVoiceBlob ? (
               <button onClick={() => setShowEmojiPicker(showEmojiPicker === "input" ? null : "input")}
-                className="text-[#888888] shrink-0">
+                className="text-white shrink-0">
                 <Smile size={17} />
               </button>
             ) : null}
@@ -3696,7 +3828,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {/* Connecting overlay — shown when app opens from a call notification */}
       {showConnectingOverlay && (
         <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-black pointer-events-none">
-          <p className="animate-pulse text-base font-medium text-white/80 tracking-wide">Connecting…</p>
+          <p className="animate-pulse text-base font-medium text-white tracking-wide">Connecting…</p>
         </div>
       )}
 
@@ -3735,7 +3867,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           setShowGlobalSearch(true)
                         }}
                         aria-label="Toggle search"
-                        className="text-white/70 hover:text-white"
+                        className="text-white hover:text-white"
                       >
                         <Search size={20} />
                       </button>
@@ -3743,7 +3875,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         type="button"
                         onClick={() => setShowProfile(true)}
                         aria-label="More"
-                        className="text-white/80 hover:text-white"
+                        className="text-white hover:text-white"
                       >
                         <MoreVertical size={22} />
                       </button>
@@ -3768,7 +3900,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         setShowGlobalSearch(true)
                       }}
                       aria-label="Toggle search"
-                      className="text-white/70 hover:text-white"
+                      className="text-white hover:text-white"
                     >
                       <Search size={20} />
                     </button>
@@ -3776,7 +3908,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       type="button"
                       onClick={() => setShowProfile(true)}
                       aria-label="More"
-                      className="text-white/80 hover:text-white"
+                      className="text-white hover:text-white"
                     >
                       <MoreVertical size={22} />
                     </button>
@@ -3817,7 +3949,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 setShowGlobalSearch(true)
               }}
               aria-label="Toggle search"
-              className="text-white/70 hover:text-white lg:hidden"
+              className="text-white hover:text-white lg:hidden"
             >
               <Search size={20} />
             </button>
@@ -3828,7 +3960,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               }}
               aria-label="Close PrepSight Comms"
               title="Close PrepSight Comms"
-              className="hidden text-white/70 hover:text-white lg:block"
+              className="hidden text-white hover:text-white lg:block"
             >
               <X size={20} />
             </button>
@@ -3837,7 +3969,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 type="button"
                 onClick={() => setShowProfile(true)}
                 aria-label="More"
-                className="text-white/80 hover:text-white"
+                className="text-white hover:text-white"
               >
                 <MoreVertical size={22} />
               </button>
@@ -3860,45 +3992,59 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
       {/* â"€â"€ Filter row â"€â"€ */}
       <div className={`border-b border-black bg-black px-4 pt-0 pb-3 shrink-0 ${isFoldableSplitView ? "w-1/2" : ""}`}>
+        {/* Avatar strip — leftmost slot reserved for Status */}
         <div className="-mx-4 mb-3 bg-[#0a0a0b] px-4 pt-0.5 pb-1.5">
           <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-          {displayedContactMembers.map(member => (
+
+            {/* Status placeholder — wired up later */}
             <button
-              key={member.uid}
               type="button"
-              onClick={() => startDM(member.uid)}
-              aria-label={`Message ${member.displayName}`}
-              className="flex w-[52px] shrink-0 flex-col items-center gap-0.5 text-center"
+              disabled
+              title="Status — coming soon"
+              className="flex w-[52px] shrink-0 flex-col items-center gap-0.5 text-center opacity-40"
             >
-              <div className="relative">
-                <Avatar name={member.displayName} size={48} uid={member.uid} />
-                {isOnline(member.uid) ? (
-                  <div className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border border-black bg-emerald-400" />
-                ) : null}
+              <div className="relative flex h-[48px] w-[48px] items-center justify-center rounded-full border border-[#2a2a2a] bg-[#111111]">
+                <span className="h-3 w-3 rounded-full border-2 border-[#22c55e] bg-[#22c55e]/30" />
               </div>
-              <span className="w-full truncate text-[10px] leading-tight text-[var(--mob-text-2,#b5b5b5)]">
-                {getFirstName(member.displayName)}
-              </span>
+              <span className="w-full truncate text-[10px] leading-tight text-white">Status</span>
             </button>
-          ))}
-          </div>
-        </div>
-        <div className="flex items-center gap-2">
-          <div className="flex gap-2 overflow-x-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            {(["chats","pings","spaces","feeds"] as const).map(tab => (
+
+            {displayedContactMembers.map(member => (
               <button
-                key={tab}
-                onClick={() => setFilterTab(tab)}
-                className={`shrink-0 rounded-full px-4 py-1.5 text-sm transition-colors ${
-                  filterTab === tab
-                    ? "bg-[#0096C7] text-white"
-                    : "text-[var(--mob-text-2,#888888)] hover:text-[var(--mob-text,#e0e0e0)]"
-                }`}
+                key={member.uid}
+                type="button"
+                onClick={() => startDM(member.uid)}
+                aria-label={`Message ${member.displayName}`}
+                className="flex w-[52px] shrink-0 flex-col items-center gap-0.5 text-center"
               >
-                {tab === "chats" ? "Chats" : tab === "pings" ? "Pings" : tab === "spaces" ? "Spaces" : "Feeds"}
+                <div className="relative">
+                  <Avatar name={member.displayName} size={48} uid={member.uid} />
+                  {isOnline(member.uid) ? (
+                    <div className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full border border-black bg-emerald-400" />
+                  ) : null}
+                </div>
+                <span className="w-full truncate text-[10px] leading-tight text-white">
+                  {getFirstName(member.displayName)}
+                </span>
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Tab row */}
+        <div className="flex gap-1.5">
+          {(["chats","pings","spaces","feeds"] as const).map(tab => (
+            <button
+              key={tab}
+              type="button"
+              onClick={() => setFilterTab(tab)}
+              className={`shrink-0 rounded-full px-3.5 py-1.5 text-[13px] transition-colors ${
+                filterTab === tab ? "bg-[#0096C7] text-white font-medium" : "text-white"
+              }`}
+            >
+              {tab === "chats" ? "Chats" : tab === "pings" ? "Pings" : tab === "spaces" ? "Spaces" : "Feeds"}
+            </button>
+          ))}
         </div>
       </div>
 
@@ -3912,8 +4058,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   <Zap size={28} />
                 </div>
                 <div>
-                  <p className="text-[16px] font-medium text-[var(--mob-text,#e0e0e0)]">No pings yet</p>
-                  <p className="mt-1 text-[13px] text-[var(--mob-text-2,#888888)]">Tap ⚡ in a chat to create a ping, or long-press a message to ping it.</p>
+                  <p className="text-[16px] font-medium text-white">No pings yet</p>
+                  <p className="mt-1 text-[13px] text-white">Tap ⚡ in a chat to create a ping, or long-press a message to ping it.</p>
                 </div>
               </div>
             ) : (
@@ -3940,9 +4086,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                               {ping.scope === "direct" ? "Direct" : ping.scope === "space" ? "Space" : "Org"}
                             </span>
                             {ping.threadName && (
-                              <span className="text-[11px] text-[#555555]">{ping.threadName}</span>
+                              <span className="text-[11px] text-white/60">{ping.threadName}</span>
                             )}
-                            <span className="text-[11px] text-[#444444] ml-auto">{formatTime(ping.createdAt)}</span>
+                            <span className="text-[11px] text-white/60 ml-auto">{formatTime(ping.createdAt)}</span>
                           </div>
                         </div>
                       ))}
@@ -3958,15 +4104,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <Users size={28} />
               </div>
               <div>
-                <p className="text-[16px] font-medium text-[var(--mob-text,#e0e0e0)]">No spaces yet</p>
-                <p className="mt-1 text-[13px] text-[var(--mob-text-2,#888888)]">Tap + to create a space and start a group chat with your team.</p>
+                <p className="text-[16px] font-medium text-white">No spaces yet</p>
+                <p className="mt-1 text-[13px] text-white">Tap + to create a space and start a group chat with your team.</p>
               </div>
             </div>
           ) : filterTab !== "pings" && visibleThreads.length === 0 ? (
-            <p className="mt-20 text-center text-sm text-[var(--mob-text-2,#888888)]">No conversations yet</p>
+            <p className="mt-20 text-center text-sm text-white">No conversations yet</p>
           ) : null}
 
-          {filterTab !== "pings" && visibleThreads.map(thread => {
+          {filterTab !== "pings" && filterTab !== "spaces" && visibleThreads.map(thread => {
             const unread = unreadCounts[thread.id] || 0
             const avatar = getThreadAvatar(thread)
             const otherUid = thread.type === "direct" ? getOtherUid(thread) : ""
@@ -3993,7 +4139,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <div className="absolute bottom-0.5 right-0.5 w-3 h-3 bg-emerald-400 border-2 border-black rounded-full" />
                   )}
                   {thread.type === "channel" && isGroupLocked(thread) && (
-                    <div className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--mob-surface,#111111)] text-[var(--mob-text-2,#888888)]">
+                    <div className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--mob-surface,#111111)] text-white">
                       <LockKeyhole size={10} />
                     </div>
                   )}
@@ -4001,18 +4147,18 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
                 <div className="flex-1 min-w-0 text-left leading-tight">
                   <div className="flex items-start justify-between gap-3 leading-tight">
-                    <span className={`truncate text-[15px] leading-tight ${unread ? "font-semibold text-[var(--mob-text,#e0e0e0)]" : "font-medium text-[var(--mob-text,#e0e0e0)]"}`}>
+                    <span className={`truncate text-[15px] leading-tight ${unread ? "font-semibold text-white" : "font-medium text-white"}`}>
                       {name}
                     </span>
                     <div className="flex shrink-0 items-center gap-2">
-                      {isThreadPinned(thread.id) ? <Pin size={12} className="fill-[var(--mob-text-2,#888888)] text-[var(--mob-text-2,#888888)]" /> : null}
-                      <span className="text-[11px] text-[var(--mob-text-2,#888888)]">
+                      {isThreadPinned(thread.id) ? <Pin size={12} className="fill-white text-white" /> : null}
+                      <span className="text-[11px] text-white/60">
                         {thread.updatedAt ? formatTime(thread.updatedAt) : ""}
                       </span>
                     </div>
                   </div>
                   <div className="mt-px flex items-center justify-between gap-3 leading-tight">
-                    <span className="truncate text-[13px] leading-tight text-[var(--mob-text-2,#888888)]">
+                    <span className="truncate text-[13px] leading-tight text-white/60">
                       {thread.subtype === "group"
                         ? `${thread.memberUids.length} member${thread.memberUids.length !== 1 ? "s" : ""}`
                         : getLastMessagePreview(thread)}
@@ -4027,6 +4173,91 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               </button>
             )
           })}
+
+          {filterTab === "spaces" && (() => {
+            const theatreNameSet = new Set([
+              ...orgTeams.filter(t => t.type === "theatre").map(t => t.name),
+              ...todaySessions.map(s => s.theatre),
+            ])
+            const specialtyNameSet = new Set(orgTeams.filter(t => t.type === "specialty").map(t => t.name))
+
+            const isTheatreThread = (t: CommsThread) => t.teamType === "theatre" || theatreNameSet.has(t.name ?? "")
+            const isTeamThread = (t: CommsThread) => t.teamType === "specialty" || specialtyNameSet.has(t.name ?? "")
+
+            const theatreThreads = visibleThreads.filter(isTheatreThread)
+            const teamThreads = visibleThreads.filter(t => !isTheatreThread(t) && isTeamThread(t))
+            const otherThreads = visibleThreads.filter(t => !isTheatreThread(t) && !isTeamThread(t))
+
+            const renderSpaceRow = (thread: CommsThread) => {
+              const unread = unreadCounts[thread.id] || 0
+              const name = getThreadName(thread)
+              return (
+                <button
+                  key={thread.id}
+                  onClick={() => selectThread(thread)}
+                  className={`w-full flex items-center gap-3 px-4 py-2 border-b border-black active:bg-[#111111] ${
+                    selectedThread?.id === thread.id ? "bg-[var(--mob-accent-bg,rgba(0,180,216,0.08))]" : ""
+                  }`}
+                >
+                  <div className="relative shrink-0">
+                    <Avatar name={name} size={48} uid={thread.id} />
+                    {thread.type === "channel" && isGroupLocked(thread) && (
+                      <div className="absolute -right-1 -top-1 flex h-5 w-5 items-center justify-center rounded-full bg-[var(--mob-surface,#111111)] text-white">
+                        <LockKeyhole size={10} />
+                      </div>
+                    )}
+                  </div>
+                  <div className="flex-1 min-w-0 text-left leading-tight">
+                    <div className="flex items-start justify-between gap-3 leading-tight">
+                      <span className={`truncate text-[15px] leading-tight ${unread ? "font-semibold text-white" : "font-medium text-white"}`}>
+                        {name}
+                      </span>
+                      <div className="flex shrink-0 items-center gap-2">
+                        {isThreadPinned(thread.id) ? <Pin size={12} className="fill-white text-white" /> : null}
+                        <span className="text-[11px] text-white/60">
+                          {thread.updatedAt ? formatTime(thread.updatedAt) : ""}
+                        </span>
+                      </div>
+                    </div>
+                    <div className="mt-px flex items-center justify-between gap-3 leading-tight">
+                      <span className="truncate text-[13px] leading-tight text-white/60">
+                        {`${thread.memberUids.length} member${thread.memberUids.length !== 1 ? "s" : ""}`}
+                      </span>
+                      {unread > 0 && (
+                        <span className="ml-2 flex h-[20px] min-w-[20px] shrink-0 items-center justify-center rounded-full bg-[#0096C7] px-1.5 text-[11px] font-semibold text-white">
+                          {unread > 99 ? "99+" : unread}
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                </button>
+              )
+            }
+
+            return (
+              <>
+                {theatreThreads.length > 0 && (
+                  <>
+                    <div className="flex items-center gap-2 px-4 pb-1.5 pt-4">
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white">Theatres</span>
+                      <span className="rounded-full bg-[#161616] px-1.5 text-[10px] text-white">{theatreThreads.length}</span>
+                    </div>
+                    {theatreThreads.map(renderSpaceRow)}
+                  </>
+                )}
+                {teamThreads.length > 0 && (
+                  <>
+                    <div className="flex items-center gap-2 px-4 pb-1.5 pt-4">
+                      <span className="text-[10px] font-semibold uppercase tracking-[0.12em] text-white">Teams</span>
+                      <span className="rounded-full bg-[#161616] px-1.5 text-[10px] text-white">{teamThreads.length}</span>
+                    </div>
+                    {teamThreads.map(renderSpaceRow)}
+                  </>
+                )}
+                {otherThreads.map(renderSpaceRow)}
+              </>
+            )
+          })()}
       </div>
       {filterTab === "spaces" && (
         <button
@@ -4078,7 +4309,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <Avatar name={getThreadName(selectedThread)} size={48} uid={selectedThread.id} />
                 <div className="min-w-0">
                   <p className="text-[20px] font-semibold text-white truncate">{getThreadName(selectedThread)}</p>
-                  <p className="text-[13px] text-[#6f6f6f]">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""}</p>
+                  <p className="text-[13px] text-white">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""}</p>
                 </div>
               </div>
 
@@ -4099,7 +4330,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           {member.uid === user.uid ? <span className="ml-1.5 text-[11px] text-[#555]">You</span> : null}
                           {member.uid === selectedThread.createdBy ? <span className="ml-1.5 text-[11px] text-[#0096C7]">Admin</span> : null}
                         </p>
-                        {member.clinicalRole && <p className="truncate text-[12px] text-[#6f6f6f]">{member.clinicalRole}</p>}
+                        {member.clinicalRole && <p className="truncate text-[12px] text-white">{member.clinicalRole}</p>}
                       </div>
                       {isAdmin && member.uid !== user.uid && (
                         <button
@@ -4129,7 +4360,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         <Avatar name={member.displayName} size={40} uid={member.uid} />
                         <div className="flex-1 min-w-0 text-left">
                           <p className="truncate text-[14px] text-[#d8d8d8]">{member.displayName}</p>
-                          {member.clinicalRole && <p className="truncate text-[12px] text-[#6f6f6f]">{member.clinicalRole}</p>}
+                          {member.clinicalRole && <p className="truncate text-[12px] text-white">{member.clinicalRole}</p>}
                         </div>
                         <Plus size={18} className="shrink-0 text-[#0096C7]" />
                       </button>
@@ -4178,7 +4409,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 value={newSpaceName}
                 onChange={e => setNewSpaceName(e.target.value)}
                 placeholder="Space name"
-                className="w-full rounded-full border border-[#2d2d2d] bg-[#161616] px-4 py-2.5 text-[15px] text-white outline-none placeholder:text-[#6f6f6f] focus:border-[#0096C7] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+                className="w-full rounded-full border border-[#2d2d2d] bg-[#161616] px-4 py-2.5 text-[15px] text-white outline-none placeholder:text-white focus:border-[#0096C7] shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
                 autoFocus
               />
 
@@ -4200,7 +4431,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           <Avatar name={member.displayName} size={40} uid={member.uid} />
                           <div className="flex-1 min-w-0 text-left">
                             <p className="truncate text-[14px] text-[#d8d8d8]">{member.displayName}</p>
-                            {member.clinicalRole && <p className="truncate text-[12px] text-[#6f6f6f]">{member.clinicalRole}</p>}
+                            {member.clinicalRole && <p className="truncate text-[12px] text-white">{member.clinicalRole}</p>}
                           </div>
                           <div className={`flex h-6 w-6 shrink-0 items-center justify-center rounded-full border-2 transition-colors ${selected ? "border-[#0096C7] bg-[#0096C7]" : "border-[#333]"}`}>
                             {selected && <Check size={12} className="text-white" />}
@@ -4281,7 +4512,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {selectedThread && !isFoldableSplitView && !(embedded && hideMobileHeader && !allowFoldableSplitView) && (
         <div
           className="absolute inset-x-0 top-0 z-10 flex flex-col bg-black"
-          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 60px)" }}
+          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 88px)" }}
         >
           {/* Thread header */}
           <div
@@ -4314,15 +4545,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             >
               <p className="text-white text-base font-semibold truncate">{getThreadName(selectedThread)}</p>
               {selectedThread.type === "direct" && (
-                <p className="text-sm text-[#888888]">
+                <p className="text-sm text-white/60">
                   {showTomTyping || otherIsTyping ? "typing..." : isOnline(getOtherUid(selectedThread)) ? "Online" : "Offline"}
                 </p>
               )}
               {selectedThread.subtype === "group" && (
-                <p className="text-sm text-[#888888]">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""} · tap for info</p>
+                <p className="text-sm text-white/60">{selectedThread.memberUids.length} member{selectedThread.memberUids.length !== 1 ? "s" : ""} · tap for info</p>
               )}
               {selectedThread.type === "channel" && selectedThread.subtype !== "group" && selectedThread.description && (
-                <p className="truncate text-sm text-[#888888]">{selectedThread.description}</p>
+                <p className="truncate text-sm text-white/60">{selectedThread.description}</p>
               )}
             </button>
             <div className="flex items-center gap-2">
@@ -4376,7 +4607,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <button
                 type="button"
                 onClick={() => setShowGlobalSearch(true)}
-                className="text-white/70 hover:text-white"
+                className="text-white hover:text-white"
                 aria-label="Search"
               >
                 <Search size={20} />
@@ -4384,7 +4615,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <button
                 type="button"
                 onClick={() => setShowProfile(true)}
-                className="text-white hover:text-white/70"
+                className="text-white hover:text-white"
                 aria-label="More options"
               >
                 <MoreVertical size={22} />
@@ -4433,12 +4664,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               }
               if (isSystem) return (
                 <div key={msg.id} className="flex justify-center my-3">
-                  <span className="bg-[#1c1c1c] text-[#888888] text-sm px-4 py-1.5 rounded-full">{messageText}</span>
+                  <span className="bg-[#1c1c1c] text-white text-sm px-4 py-1.5 rounded-full">{messageText}</span>
                 </div>
               )
               if (msg.deleted) return (
                 <div key={msg.id} className={`flex ${isOwn ? "justify-end" : "justify-start"}`}>
-                  <span className="text-sm text-[var(--mob-text-2,#888888)] italic px-3 py-1">This message was deleted</span>
+                  <span className="text-sm text-white italic px-3 py-1">This message was deleted</span>
                 </div>
               )
 
@@ -4458,7 +4689,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     )}
 
                     {msg.replyTo && (
-                      <div className={`text-sm text-[#888888] bg-[#1c1c1c] rounded-t-xl px-3 py-2 border-l-2 border-[#29b6d8] mb-0.5 max-w-full ${isOwn ? "rounded-bl-xl" : "rounded-br-xl"}`}>
+                      <div className={`text-sm text-white bg-[#1c1c1c] rounded-t-xl px-3 py-2 border-l-2 border-[#29b6d8] mb-0.5 max-w-full ${isOwn ? "rounded-bl-xl" : "rounded-br-xl"}`}>
                         <span className="text-[#29b6d8]">{msg.replyTo.displayName}</span>: {repairMojibake(msg.replyTo.text).slice(0, 60)}{msg.replyTo.text.length > 60 ? "..." : ""}
                       </div>
                     )}
@@ -4554,7 +4785,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                             </div>
                           )
                         })() : messageText}
-                        {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white/50" : "text-white/50"}`}>(edited)</span>}
+                        {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white" : "text-white"}`}>(edited)</span>}
                       </div>
                     )}
 
@@ -4583,7 +4814,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <div className="flex items-end gap-0.5">
                 <div className="w-1 shrink-0" />
                 <div className="flex max-w-[84%] flex-col items-start">
-                  <div className="rounded-2xl rounded-bl-sm bg-[#003d54] px-3 py-1.5 text-left text-[14px] leading-snug text-white/70">
+                  <div className="rounded-2xl rounded-bl-sm bg-[#003d54] px-3 py-1.5 text-left text-[14px] leading-snug text-white">
                     <TypingDots tone={showTomTyping ? "tom" : "default"} />
                   </div>
                 </div>
@@ -4618,8 +4849,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col"
               style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
               <div className="border-b border-[#2d2d2d] px-3 py-2 flex items-center justify-between shrink-0">
-                <span className="text-[11px] font-medium text-[#888888] uppercase tracking-wide">Ping type</span>
-                <button onClick={() => setShowPingPicker(null)}><X size={12} className="text-[#888888]" /></button>
+                <span className="text-[11px] font-medium text-white uppercase tracking-wide">Ping type</span>
+                <button onClick={() => setShowPingPicker(null)}><X size={12} className="text-white" /></button>
               </div>
               <div className="flex-1 overflow-y-auto py-2 px-2 flex flex-col gap-1">
                 {PING_CATEGORIES.map(cat => (
@@ -4651,9 +4882,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex items-center gap-3 px-4 py-2.5 bg-[#0d1a22] border-t border-[#2d2d2d] shrink-0">
               <div className="flex-1 min-w-0">
                 <span className="text-sm text-[#29b6d8]">{replyTo.displayName}</span>
-                <p className="text-sm text-[#888888] truncate">{repairMojibake(replyTo.text)}</p>
+                <p className="text-sm text-white truncate">{repairMojibake(replyTo.text)}</p>
               </div>
-              <button onClick={() => setReplyTo(null)}><X size={16} className="text-[#888888]" /></button>
+              <button onClick={() => setReplyTo(null)}><X size={16} className="text-white" /></button>
             </div>
           )}
 
@@ -4691,7 +4922,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   <button
                     type="button"
                     onClick={cancelVoiceRecording}
-                    className="shrink-0 px-1 text-[13px] text-[#777777] transition-colors hover:text-white"
+                    className="shrink-0 px-1 text-[13px] text-white transition-colors hover:text-white"
                   >
                     cancel
                   </button>
@@ -4751,7 +4982,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               )}
               {!isRecordingVoice && !recordedVoiceBlob ? (
                 <button onClick={() => setShowEmojiPicker(showEmojiPicker === "input" ? null : "input")}
-                  className="text-[#888888] shrink-0">
+                  className="text-white shrink-0">
                   <Smile size={17} />
                 </button>
               ) : null}
@@ -4795,33 +5026,33 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <Avatar name={selectedDirectContact.displayName} size={52} uid={selectedDirectContact.uid} />
               <div className="min-w-0">
                 <p className="truncate text-[18px] text-white">{selectedDirectContact.displayName}</p>
-                <p className="mt-1 text-[12px] text-[#8a8a8a]">
+                <p className="mt-1 text-[12px] text-white/60">
                   {isOnline(selectedDirectContact.uid) ? "Online" : "Offline"}
                 </p>
               </div>
             </div>
             <div className="space-y-3 pt-4">
               <div>
-                <p className="text-[11px] uppercase tracking-[0.16em] text-[#6f6f6f]">Role</p>
+                <p className="text-[11px] uppercase tracking-[0.16em] text-white/60">Role</p>
                 <p className="mt-1 text-[14px] text-white">{selectedDirectContact.clinicalRole?.trim() || "Not set"}</p>
               </div>
               <div>
-                <p className="text-[11px] uppercase tracking-[0.16em] text-[#6f6f6f]">Band / Grade</p>
+                <p className="text-[11px] uppercase tracking-[0.16em] text-white/60">Band / Grade</p>
                 <p className="mt-1 text-[14px] text-white">{selectedDirectContact.groupLabel?.trim() || "Not set"}</p>
               </div>
               <div>
-                <p className="text-[11px] uppercase tracking-[0.16em] text-[#6f6f6f]">Email</p>
+                <p className="text-[11px] uppercase tracking-[0.16em] text-white/60">Email</p>
                 <p className="mt-1 break-all text-[14px] text-white">{selectedDirectContact.email?.trim() || "Not set"}</p>
               </div>
               {selectedDirectContact.department?.trim() ? (
                 <div>
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-[#6f6f6f]">Department</p>
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-white/60">Department</p>
                   <p className="mt-1 text-[14px] text-white">{selectedDirectContact.department.trim()}</p>
                 </div>
               ) : null}
               {selectedDirectContact.hospital?.trim() ? (
                 <div>
-                  <p className="text-[11px] uppercase tracking-[0.16em] text-[#6f6f6f]">Hospital</p>
+                  <p className="text-[11px] uppercase tracking-[0.16em] text-white/60">Hospital</p>
                   <p className="mt-1 text-[14px] text-white">{selectedDirectContact.hospital.trim()}</p>
                 </div>
               ) : null}
@@ -4850,11 +5081,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           </div>
           <div className="shrink-0 border-t border-white/10 bg-[#0a0f14] px-4 py-3" onClick={(event) => event.stopPropagation()}>
             <div className="flex items-center justify-between gap-3">
-              <p className="truncate text-[13px] text-white/78">{lightboxImage.senderName}</p>
+              <p className="truncate text-[13px] text-white">{lightboxImage.senderName}</p>
               <p className="shrink-0 text-[12px] text-[#7f96a3]">{new Date(lightboxImage.createdAt).toLocaleString([], { day: "numeric", month: "short", hour: "2-digit", minute: "2-digit" })}</p>
             </div>
             {lightboxImage.description ? (
-              <p className="mt-2 text-[14px] leading-relaxed text-white/92">{lightboxImage.description}</p>
+              <p className="mt-2 text-[14px] leading-relaxed text-white">{lightboxImage.description}</p>
             ) : null}
           </div>
         </div>
@@ -4952,7 +5183,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex items-start justify-between border-b border-[#2d2d2d] px-6 pt-10 pb-4">
               <div>
                 <h2 className="text-[32px] tracking-[-0.05em] text-[#e0e0e0]">Contacts</h2>
-                <p className="mt-0.5 text-sm text-[#888888]">{org.name}</p>
+                <p className="mt-0.5 text-sm text-white">{org.name}</p>
               </div>
               <button
                 onClick={() => setShowContacts(false)}
@@ -4966,7 +5197,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex-1 overflow-y-auto px-6 py-2">
               {displayedContactMembers.filter(m => isOnline(m.uid)).length > 0 && (
                 <>
-                  <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-[#888888]">available</p>
+                  <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-white">available</p>
                   {displayedContactMembers.filter(m => isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
                       className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
@@ -4984,7 +5215,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               )}
               {displayedContactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
                 <>
-                  <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-[#888888]">offline</p>
+                  <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-white">offline</p>
                   {displayedContactMembers.filter(m => !isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
                       className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
@@ -4992,16 +5223,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         <Avatar name={m.displayName} size={44} uid={m.uid} />
                         <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#1c1c1c] bg-[#555555]" />
                       </div>
-                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#888888]">
+                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-white">
                         <span className="min-w-0 flex-1 truncate">{m.displayName}</span>
-                        <span className="w-[52px] shrink-0 text-right text-sm text-[#555555]">offline</span>
+                        <span className="w-[52px] shrink-0 text-right text-sm text-white">offline</span>
                       </div>
                     </button>
                   ))}
                 </>
               )}
               {displayedContactMembers.length === 0 && (
-                <p className="mt-20 text-center text-sm text-[#888888]">
+                <p className="mt-20 text-center text-sm text-white">
                   No members yet.<br />Code: <span className="tracking-widest text-[#0096C7]">{org.joinCode}</span>
                 </p>
               )}
@@ -5032,7 +5263,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex items-start justify-between border-b border-[#2d2d2d] px-6 pt-10 pb-4">
               <div>
                 <h2 className="text-[32px] tracking-[-0.05em] text-[#e0e0e0]">Contacts</h2>
-                <p className="mt-0.5 text-sm text-[#888888]">{org.name}</p>
+                <p className="mt-0.5 text-sm text-white">{org.name}</p>
               </div>
               <button
                 onClick={() => setShowContacts(false)}
@@ -5045,7 +5276,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex-1 overflow-y-auto px-6 py-2">
               {displayedContactMembers.filter(m => isOnline(m.uid)).length > 0 && (
                 <>
-                  <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-[#888888]">available</p>
+                  <p className="mb-3 mt-2 text-xs tracking-[0.14em] text-white">available</p>
                   {displayedContactMembers.filter(m => isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
                       className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
@@ -5063,7 +5294,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               )}
               {displayedContactMembers.filter(m => !isOnline(m.uid)).length > 0 && (
                 <>
-                  <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-[#888888]">offline</p>
+                  <p className="mb-3 mt-6 text-xs tracking-[0.14em] text-white">offline</p>
                   {displayedContactMembers.filter(m => !isOnline(m.uid)).map(m => (
                     <button key={m.uid} onClick={() => startDM(m.uid)}
                       className="flex w-full items-center gap-4 border-b border-[#2d2d2d] py-2.5">
@@ -5071,16 +5302,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         <Avatar name={m.displayName} size={44} uid={m.uid} />
                         <div className="absolute bottom-0 right-0 h-3 w-3 rounded-full border-2 border-[#1c1c1c] bg-[#555555]" />
                       </div>
-                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-[#888888]">
+                      <div className="flex flex-1 items-center gap-3 text-left text-[15px] text-white">
                         <span className="min-w-0 flex-1 truncate">{m.displayName}</span>
-                        <span className="w-[52px] shrink-0 text-right text-sm text-[#555555]">offline</span>
+                        <span className="w-[52px] shrink-0 text-right text-sm text-white">offline</span>
                       </div>
                     </button>
                   ))}
                 </>
               )}
               {displayedContactMembers.length === 0 && (
-                <p className="mt-20 text-center text-sm text-[#888888]">
+                <p className="mt-20 text-center text-sm text-white">
                   No members yet.<br />Code: <span className="tracking-widest text-[#0096C7]">{org.joinCode}</span>
                 </p>
               )}
@@ -5164,7 +5395,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             style={{ paddingTop: "calc(env(safe-area-inset-top) + 16px)" }}
           >
             <span className="text-white text-lg">New message</span>
-            <button onClick={() => setShowNewDM(false)}><X size={22} className="text-white/60" /></button>
+            <button onClick={() => setShowNewDM(false)}><X size={22} className="text-white" /></button>
           </div>
           <div className="flex-1 overflow-y-auto px-5 py-5" style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 20px)" }}>
             {displayedContactMembers.map(m => (
@@ -5199,13 +5430,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="border-b border-[#2d2d2d] px-5 pt-12 pb-6">
               <div className="mb-6 flex items-center justify-between">
                 <span className="text-[#e0e0e0]">Profile</span>
-                <button onClick={() => setShowProfile(false)}><X size={20} className="text-[#888888]" /></button>
+                <button onClick={() => setShowProfile(false)}><X size={20} className="text-white" /></button>
               </div>
               <div className="flex flex-col items-center">
                 <Avatar name={displayName} size={70} uid={user.uid} />
                 <p className="mt-3 text-[15px] text-[#e0e0e0]">{user.displayName}</p>
                 <p className="mt-1 text-sm text-[#0096C7]">{clinicalRoleLabel}</p>
-                <p className="mt-1 text-sm text-[#888888]">{user.email}</p>
+                <p className="mt-1 text-sm text-white">{user.email}</p>
                 <div className="mt-2 flex items-center gap-2">
                   <div className="h-2 w-2 rounded-full bg-emerald-400" />
                   <span className="text-sm text-emerald-400">Online</span>
@@ -5213,18 +5444,18 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               </div>
             </div>
             <div className="border-b border-[#2d2d2d] px-5 py-4">
-              <p className="mb-3 text-xs tracking-widest text-[#888888]">workspace</p>
+              <p className="mb-3 text-xs tracking-widest text-white">workspace</p>
               <p className="text-[15px] text-[#e0e0e0]">{hospitalLabel}</p>
-              <p className="mt-1 text-sm text-[#888888]">{groupLabel}</p>
-              <p className="mt-1 text-sm text-[#888888]">
+              <p className="mt-1 text-sm text-white">{groupLabel}</p>
+              <p className="mt-1 text-sm text-white">
                 Join code: <span className="tracking-widest text-[#0096C7]">{org.joinCode}</span>
               </p>
             </div>
             <div className="flex flex-1 flex-col gap-1 px-5 py-4">
-              <button className="flex items-center gap-3 py-3.5 text-[15px] text-[#888888]">
+              <button className="flex items-center gap-3 py-3.5 text-[15px] text-white">
                 <Settings size={18} /> Settings
               </button>
-              <button onClick={handleSwitchOrg} className="flex items-center gap-3 py-3.5 text-[15px] text-[#888888]">
+              <button onClick={handleSwitchOrg} className="flex items-center gap-3 py-3.5 text-[15px] text-white">
                 <ChevronDown size={18} /> Switch workspace
               </button>
               <button onClick={handleSignOut} className="mt-2 flex items-center gap-3 py-3.5 text-[15px] text-red-400">
@@ -5357,7 +5588,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               {/* Minimise to floating â€" expand again by tapping the floating window */}
               <button
                 onClick={() => setCallViewMode("floating")}
-                className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white/60 backdrop-blur-sm transition-colors hover:bg-black/60 hover:text-white"
+                className="flex h-8 w-8 items-center justify-center rounded-full bg-black/40 text-white backdrop-blur-sm transition-colors hover:bg-black/60 hover:text-white"
                 aria-label="Minimise to floating window"
               >
                 <Minimize2 size={14} />
@@ -5368,7 +5599,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   <button
                     onClick={() => setCallViewMode("panel")}
                     className={`flex h-8 w-[38px] items-center justify-center text-[10px] font-semibold transition-colors ${
-                      callViewMode !== "fullscreen" ? "bg-white/20 text-white" : "text-white/60 hover:text-white"
+                      callViewMode !== "fullscreen" ? "bg-white/20 text-white" : "text-white hover:text-white"
                     }`}
                     aria-label="Half-pane view"
                     title="Call takes half the screen"
@@ -5378,7 +5609,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   <button
                     onClick={() => setCallViewMode("fullscreen")}
                     className={`flex h-8 w-[38px] items-center justify-center text-[10px] font-semibold transition-colors ${
-                      callViewMode === "fullscreen" ? "bg-white/20 text-white" : "text-white/60 hover:text-white"
+                      callViewMode === "fullscreen" ? "bg-white/20 text-white" : "text-white hover:text-white"
                     }`}
                     aria-label="Full-width view"
                     title="Call takes both panes"
@@ -5393,7 +5624,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 className={`hidden lg:flex h-8 w-8 items-center justify-center rounded-full backdrop-blur-sm transition-colors ${
                   callViewMode === "panel"
                     ? "bg-white/20 text-white"
-                    : "bg-black/40 text-white/60 hover:bg-black/60 hover:text-white"
+                    : "bg-black/40 text-white hover:bg-black/60 hover:text-white"
                 }`}
                 aria-label="Panel view"
               >
@@ -5444,7 +5675,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         : (tomVoiceMode ? "TOM voice" : "Connected")}
                   </p>
                   {callState === "active" && (
-                    <p className="mt-1 tabular-nums text-[13px] text-white/50">
+                    <p className="mt-1 tabular-nums text-[13px] text-white">
                       {formatCallDuration(callElapsed)}
                     </p>
                   )}
@@ -5606,14 +5837,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               aria-label="Expand call"
             />
             <div className="absolute right-1.5 top-1.5 z-20 flex h-5 w-5 items-center justify-center rounded-md bg-black/40 pointer-events-none">
-              <Maximize2 size={10} className="text-white/60" />
+              <Maximize2 size={10} className="text-white" />
             </div>
             {/* Name + elapsed */}
             <div className="absolute bottom-9 left-0 right-0 z-20 px-2 pointer-events-none">
-              <p className="truncate text-center text-[11px] text-white/80">
+              <p className="truncate text-center text-[11px] text-white">
                 {calleeInfo?.displayName ?? ""}
               </p>
-              <p className="text-center text-[10px] text-white/45 tabular-nums">
+              <p className="text-center text-[10px] text-white tabular-nums">
                 {formatCallDuration(callElapsed)}
               </p>
             </div>
@@ -5624,7 +5855,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 className="flex h-7 w-7 items-center justify-center rounded-full bg-black/50"
                 aria-label={callMuted ? "Unmute" : "Mute"}
               >
-                {callMuted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white/70" />}
+                {callMuted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white" />}
               </button>
               <button
                 onClick={(e) => { e.stopPropagation(); void endCall() }}
@@ -5672,7 +5903,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 window.addEventListener("touchend", onEnd)
               }}
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" className="absolute bottom-1 right-1 text-white/30 pointer-events-none">
+              <svg width="12" height="12" viewBox="0 0 12 12" className="absolute bottom-1 right-1 text-white pointer-events-none">
                 <path d="M10 2L2 10M10 6L6 10M10 10" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
               </svg>
             </div>
@@ -5732,7 +5963,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ? (callerInfo?.displayName ?? "Incoming call")
                   : (calleeInfo?.displayName ?? "Call")}
               </p>
-              <p className="text-[11px] text-white/40">
+              <p className="text-[11px] text-white">
                 {callState === "active"
                   ? formatCallDuration(callElapsed)
                   : callState === "outgoing"
@@ -5745,7 +5976,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#2a2a2a]"
               aria-label={callMuted ? "Unmute" : "Mute"}
             >
-              {callMuted ? <MicOff size={14} className="text-red-400" /> : <Mic size={14} className="text-white/70" />}
+              {callMuted ? <MicOff size={14} className="text-red-400" /> : <Mic size={14} className="text-white" />}
             </button>
             <button
               onClick={(e) => { e.stopPropagation(); void endCall() }}
