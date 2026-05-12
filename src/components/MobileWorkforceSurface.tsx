@@ -635,7 +635,6 @@ function RotaPanel({
   const [activeModal, setActiveModal] = useState<ActiveModal>(null)
   const [dispatchDest, setDispatchDest] = useState("")
   const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
-  const swipeStartX = useRef<number | null>(null)
 
   const monthDays = useMemo(() => buildMonthCalendar(selectedDate).filter((d) => d.inMonth), [selectedDate])
   const selectedDateKey = selectedDate.toISOString().slice(0, 10)
@@ -754,10 +753,7 @@ function RotaPanel({
   const isSplitPane = paneBoundsLeft !== "0" || paneBoundsRight !== "0"
 
   return (
-    <div
-      className="flex flex-1 min-h-0 flex-col overflow-hidden"
-      style={isSplitPane ? { paddingBottom: "7rem" } : undefined}
-    >
+    <div className="flex flex-1 min-h-0 flex-col overflow-hidden">
       {/* ── Premium date strip ── */}
       <div className="shrink-0 border-b border-[#222222] bg-[#111111]">
         <div className="flex items-stretch">
@@ -938,17 +934,7 @@ function RotaPanel({
         className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
         style={{
           WebkitOverflowScrolling: "touch",
-          paddingBottom: "12px",
-        }}
-        onTouchStart={(e) => { swipeStartX.current = e.touches[0].clientX }}
-        onTouchEnd={(e) => {
-          if (swipeStartX.current === null) return
-          const delta = swipeStartX.current - e.changedTouches[0].clientX
-          if (Math.abs(delta) > 48) {
-            if (delta > 0) setCurrentCardIndex((i) => Math.min(totalSlides - 1, i + 1))
-            else setCurrentCardIndex((i) => Math.max(0, i - 1))
-          }
-          swipeStartX.current = null
+          paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 128px)",
         }}
       >
         {(() => {
@@ -982,6 +968,7 @@ function RotaPanel({
                   onTouchMove={clearLongPressTimer}
                   onTouchCancel={clearLongPressTimer}
                   className={`grid w-full ${COLS} items-center gap-x-2 border-b border-[#141414] py-2 pl-2 pr-3 text-left ${STATUS_COLORS[member.status as StaffStatus]?.bg ?? "bg-[#0a0a0a]"}`}
+                  style={{ touchAction: "pan-y" }}
                 >
                   <span className={`font-mono text-[18px] font-black leading-none ${STATUS_COLORS[member.status as StaffStatus]?.name ?? "text-white"}`}>
                     {theatreNum(card.theatre)}
@@ -1007,7 +994,16 @@ function RotaPanel({
       </div>
 
       {/* ── Status legend ── */}
-      <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5 shadow-[0_-10px_24px_rgba(0,0,0,0.42)]">
+      <div
+        className="fixed z-40 border-t border-[#1e1e1e] bg-[#0a0a0a]/96 px-3 py-2.5 shadow-[0_-10px_24px_rgba(0,0,0,0.42)] backdrop-blur-sm"
+        style={{
+          left: paneBoundsLeft,
+          right: paneBoundsRight,
+          bottom: isSplitPane
+            ? "calc(env(safe-area-inset-bottom, 0px) + 68px)"
+            : "calc(env(safe-area-inset-bottom, 0px) + 72px)",
+        }}
+      >
         <div className="grid grid-cols-[28px_minmax(0,1fr)] items-start gap-x-3">
           <span className="pt-[1px] text-[10px] font-semibold uppercase tracking-[0.16em] text-white">Key</span>
           <div className="flex flex-wrap items-start gap-x-3 gap-y-1">
