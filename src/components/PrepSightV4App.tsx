@@ -1517,7 +1517,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
 
           {/* Single-column non-comms content — non-foldable mobile or foldable with no active call */}
           {!isMixedSplitActive && (mobileTab !== "comms" || !!mobileUtilityPage) ? (
-            <div className="flex min-h-0 flex-1 flex-col overflow-hidden" style={{ paddingBottom: "7rem" }}>
+            <div className="absolute inset-0 flex flex-col overflow-hidden" style={{ paddingBottom: "7rem" }}>
               {mobileUtilityPage === "calendar" ? (
                 <div className="flex h-full min-h-0 flex-col">
                   <MobileSectionHeader
