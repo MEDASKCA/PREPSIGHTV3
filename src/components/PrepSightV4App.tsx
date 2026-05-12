@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -37,7 +37,7 @@ type MobileCalendarView = "daily" | "weekly" | "monthly" | "quarterly"
 type MobileCalendarSource = "all" | "library" | "resources" | "insights"
 type MobileConnectorFilter = "connected" | "available"
 type SurfaceResourceTab = "workforce" | "equipment" | "supplies"
-type SurfaceWorkforceTab = "allocation" | "shifts" | "skills" | "tasks"
+type SurfaceWorkforceTab = "allocation" | "shifts" | "skills" | "tasks" | "teams"
 
 function CommsFilledIcon({ size = 23 }: { size?: number }) {
   return (
@@ -138,6 +138,7 @@ function MobileSectionHeader({
   searchPlaceholder,
   onSearchButtonClick,
   inlineSearchEnabled = true,
+  onBack,
 }: {
   title: string
   hospital: string
@@ -148,6 +149,7 @@ function MobileSectionHeader({
   searchPlaceholder: string
   onSearchButtonClick?: () => void
   inlineSearchEnabled?: boolean
+  onBack?: () => void
 }) {
   const [showSearch, setShowSearch] = useState(false)
 
@@ -167,13 +169,14 @@ function MobileSectionHeader({
       title={title}
       hospital={hospital}
       department={department}
+      onBack={onBack}
       rightControls={(
         <>
           <button
             type="button"
             onClick={toggleSearch}
             aria-label="Toggle search"
-            className={showSearch ? "text-white" : "text-white/70 hover:text-white"}
+            className={showSearch ? "text-white" : "text-white hover:text-white"}
           >
             <Search size={20} />
           </button>
@@ -181,7 +184,7 @@ function MobileSectionHeader({
             type="button"
             onClick={onOpenProfile}
             aria-label="More"
-            className="text-white/80 hover:text-white"
+            className="text-white hover:text-white"
           >
             <MoreVertical size={22} />
           </button>
@@ -190,7 +193,7 @@ function MobileSectionHeader({
     >
       {inlineSearchEnabled && showSearch ? (
         <div className="mt-3 flex items-center gap-3 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-4 py-2">
-          <Search size={14} className="shrink-0 text-[#888888]" />
+          <Search size={14} className="shrink-0 text-white" />
           <input
             autoFocus
             value={searchValue}
@@ -199,7 +202,7 @@ function MobileSectionHeader({
             className="flex-1 bg-transparent text-[15px] text-[#e0e0e0] placeholder-[#555555] outline-none"
           />
           {searchValue ? (
-            <button onClick={() => onSearchChange("")} className="text-[#888888]">
+            <button onClick={() => onSearchChange("")} className="text-white">
               <X size={14} />
             </button>
           ) : null}
@@ -357,7 +360,7 @@ function MobileCalendarSurface({
                     >
                       <p className="text-[12px]">{month}</p>
                       <p className="mt-1 text-[22px] leading-none">{day}</p>
-                      <p className={`mt-2 text-[11px] ${isActive ? "text-white/80" : "text-[#7A98AA]"}`}>
+                      <p className={`mt-2 text-[11px] ${isActive ? "text-white" : "text-[#7A98AA]"}`}>
                         {count === 0 ? "No items" : `${count} items`}
                       </p>
                     </button>
@@ -605,7 +608,7 @@ function MobileSharedProfileDrawer({
             <SharedMobileAvatar label={profileInitial} photoURL={photoURL} size={70} />
             <p className="mt-3 text-[15px] text-white">{displayName}</p>
             <p className="mt-1 text-sm text-[#67CFCF]">{roleLabel}</p>
-            <p className="mt-1 text-sm text-[#8f8f8f]">{email}</p>
+            <p className="mt-1 text-sm text-white">{email}</p>
             <div className="mt-2 flex items-center gap-2">
               <div className="h-2 w-2 rounded-full bg-emerald-400" />
               <span className="text-sm text-emerald-400">Online</span>
@@ -613,9 +616,9 @@ function MobileSharedProfileDrawer({
           </div>
         </div>
         <div className="border-b border-[#343437] px-5 py-4">
-          <p className="mb-3 text-xs tracking-widest text-[#6f6f6f]">workspace</p>
+          <p className="mb-3 text-xs tracking-widest text-white">workspace</p>
           <p className="text-[15px] text-white">{hospital}</p>
-          <p className="mt-1 text-sm text-[#8f8f8f]">{department}</p>
+          <p className="mt-1 text-sm text-white">{department}</p>
         </div>
         <div className="flex flex-1 flex-col gap-1 px-5 py-4">
           <button onClick={onOpenCalendar} className="flex items-center gap-3 py-3.5 text-[15px] text-[#d8d8d8]">
@@ -791,11 +794,11 @@ function LibraryOverview({
           <button
             type="button"
             onClick={onBackToCollections}
-            className="rounded-[12px] border border-[#2d2d2d] bg-[#202020] px-3 py-2 text-[14px] text-[#e0e0e0]"
+            className="rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
           >
-            Back to collections
+            Back
           </button>
-          <p className="text-[14px] text-[#888888]">Library detail</p>
+          <p className="text-[14px] text-white">Library detail</p>
         </div>
         <LibraryPageClient libraryId={selectedLibraryId} embedded />
       </div>
@@ -806,9 +809,9 @@ function LibraryOverview({
     <div className="space-y-4">
       {false ? (
         <section className="p-4">
-        <p className="text-[11px] text-[#888888]">Workspace</p>
+        <p className="text-[11px] text-white">Workspace</p>
         <h1 className="mt-1 text-[20px] tracking-[-0.03em] text-white">{workspaceLabel}</h1>
-        <p className="mt-1 text-[13px] text-[#888888]">
+        <p className="mt-1 text-[13px] text-white">
           {libraries.length} collections Â· {totalCards} procedure cards
         </p>
         </section>
@@ -883,7 +886,9 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
         ? "skills"
         : pathname.startsWith("/resources/workforce/tasks")
           ? "tasks"
-          : "allocation"
+          : pathname.startsWith("/resources/workforce/teams")
+            ? "teams"
+            : "allocation"
   const [isFoldSplitSwapped, setIsFoldSplitSwapped] = useState(false)
   const callStatus = useCallStatus()
   const pipVideoRef = useRef<HTMLVideoElement>(null)
@@ -898,6 +903,12 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const [activeUpdateKey, setActiveUpdateKey] = useState<UpdateKey | null>(UPDATES[0]?.key ?? null)
   const [selectedLibraryId, setSelectedLibraryId] = useState<string | null>(null)
   const [selectedLibraryCard, setSelectedLibraryCard] = useState<{ libraryId: string; cardId: string } | null>(null)
+  const [mobileLibraryHasGroupBack, setMobileLibraryHasGroupBack] = useState(false)
+  const mobileLibraryGroupBackRef = useRef<(() => void) | null>(null)
+  function handleLibraryGroupBackChange(fn: (() => void) | null) {
+    mobileLibraryGroupBackRef.current = fn
+    setMobileLibraryHasGroupBack(fn !== null)
+  }
   const commsRailOpen = useSyncExternalStore(
     subscribeDesktopCommsPreference,
     getDesktopCommsPreference,
@@ -992,11 +1003,18 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const showSurfacePaneBackButton =
     showSurfaceStandaloneHeader &&
     effectiveSurfaceTab === "library" &&
-    Boolean(selectedLibraryId)
+    (Boolean(selectedLibraryId) || mobileLibraryHasGroupBack)
   const showUnifiedPaneBackButton =
     showUnifiedMainHeader &&
     effectiveSurfaceTab === "library" &&
-    Boolean(selectedLibraryId)
+    (Boolean(selectedLibraryId) || mobileLibraryHasGroupBack)
+  function handleSplitLibraryBack() {
+    if (selectedLibraryCard) { setSelectedLibraryCard(null); return }
+    if (mobileLibraryHasGroupBack) { mobileLibraryGroupBackRef.current?.(); return }
+    setMobileLibraryHasGroupBack(false)
+    mobileLibraryGroupBackRef.current = null
+    setSelectedLibraryId(null)
+  }
   const surfacePaneTitle = surfaceShowsEmbeddedComms ? "Comms" : effectiveSurfaceTitle
   const mixedSplitPrimaryLeftTitle = isFoldSplitSwapped ? surfacePaneTitle : "Comms"
   const mixedSplitPrimaryRightTitle = isFoldSplitSwapped ? "Comms" : surfacePaneTitle
@@ -1242,6 +1260,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                     embedded
                     hideEmbeddedHeader
                     onOpenCard={(libraryId, cardId) => setSelectedLibraryCard({ libraryId, cardId })}
+                    onGroupBackChange={handleLibraryGroupBackChange}
                   />
                 )}
               </div>
@@ -1251,8 +1270,11 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               query={searchValue}
               onSelectLibrary={(libraryId) => {
                 setSelectedLibraryCard(null)
+                setMobileLibraryHasGroupBack(false)
+                mobileLibraryGroupBackRef.current = null
                 setSelectedLibraryId(libraryId)
               }}
+              onGroupBackChange={handleLibraryGroupBackChange}
             />
           )}
         </div>
@@ -1287,7 +1309,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
 <div className="min-h-screen bg-black">
 
       <MobileThemeProvider>
-<div id="mobile-app-root" data-mobile-theme="dark" className="relative lg:hidden flex h-[100dvh] flex-col overflow-hidden bg-[var(--mob-bg,#000000)]">        <MobileSharedProfileDrawer
+<div id="mobile-app-root" data-mobile-theme="dark" className="relative flex h-[100svh] min-h-0 flex-col overflow-hidden bg-[var(--mob-bg,#000000)] lg:hidden">        <MobileSharedProfileDrawer
           open={showMobileProfile}
           onClose={() => setShowMobileProfile(false)}
           profileInitial={mobileProfileInitial}
@@ -1336,7 +1358,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                   type="button"
                   onClick={() => setShowMobileGlobalSearch(true)}
                   aria-label="Open search"
-                  className="text-white/70 hover:text-white"
+                  className="text-white hover:text-white"
                 >
                   <Search size={20} />
                 </button>
@@ -1344,7 +1366,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                   type="button"
                   onClick={() => setShowMobileProfile(true)}
                   aria-label="Open menu"
-                  className="text-white/80 hover:text-white"
+                  className="text-white hover:text-white"
                 >
                   <MoreVertical size={22} />
                 </button>
@@ -1355,13 +1377,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 {!isMixedSplitCommsPaneOnLeft && showUnifiedPaneBackButton ? (
                   <button
                     type="button"
-                    onClick={() => {
-                      if (selectedLibraryCard) {
-                        setSelectedLibraryCard(null)
-                        return
-                      }
-                      setSelectedLibraryId(null)
-                    }}
+                    onClick={handleSplitLibraryBack}
                     className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
                   >
                     Back
@@ -1378,13 +1394,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 {isMixedSplitCommsPaneOnLeft && showUnifiedPaneBackButton ? (
                   <button
                     type="button"
-                    onClick={() => {
-                      if (selectedLibraryCard) {
-                        setSelectedLibraryCard(null)
-                        return
-                      }
-                      setSelectedLibraryId(null)
-                    }}
+                    onClick={handleSplitLibraryBack}
                     className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
                   >
                     Back
@@ -1465,7 +1475,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                         type="button"
                         onClick={() => setShowMobileGlobalSearch(true)}
                         aria-label="Open search"
-                        className="text-white/70 hover:text-white"
+                        className="text-white hover:text-white"
                       >
                         <Search size={20} />
                       </button>
@@ -1473,7 +1483,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                         type="button"
                         onClick={() => setShowMobileProfile(true)}
                         aria-label="Open menu"
-                        className="text-white/80 hover:text-white"
+                        className="text-white hover:text-white"
                       >
                         <MoreVertical size={22} />
                       </button>
@@ -1483,13 +1493,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                     {showSurfacePaneBackButton ? (
                       <button
                         type="button"
-                        onClick={() => {
-                          if (selectedLibraryCard) {
-                            setSelectedLibraryCard(null)
-                            return
-                          }
-                          setSelectedLibraryId(null)
-                        }}
+                        onClick={handleSplitLibraryBack}
                         className="absolute left-0 top-1/2 -translate-y-1/2 rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
                       >
                         Back
@@ -1560,23 +1564,17 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                     searchPlaceholder="Search Library"
                     inlineSearchEnabled={false}
                     onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
+                    onBack={(selectedLibraryId || mobileLibraryHasGroupBack) ? () => {
+                      if (selectedLibraryCard) { setSelectedLibraryCard(null); return }
+                      if (mobileLibraryHasGroupBack) { mobileLibraryGroupBackRef.current?.(); return }
+                      setMobileLibraryHasGroupBack(false)
+                      mobileLibraryGroupBackRef.current = null
+                      setSelectedLibraryId(null)
+                    } : undefined}
                   />
                   <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-4">
                     {selectedLibraryId ? (
-                      <div className="flex h-full min-h-0 flex-col space-y-4">
-                        <button
-                          type="button"
-                          onClick={() => {
-                            if (selectedLibraryCard) {
-                              setSelectedLibraryCard(null)
-                              return
-                            }
-                            setSelectedLibraryId(null)
-                          }}
-                          className="shrink-0 self-start rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
-                        >
-                          {selectedLibraryCard ? "Back" : "Back to collections"}
-                        </button>
+                      <div className="flex h-full min-h-0 flex-col">
                         <div className="min-h-0 flex-1 overflow-hidden">
                           {selectedLibraryCard ? (
                             <LibraryCardRouteClient
@@ -1590,6 +1588,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                               embedded
                               hideEmbeddedHeader
                               onOpenCard={(libraryId, cardId) => setSelectedLibraryCard({ libraryId, cardId })}
+                              onGroupBackChange={handleLibraryGroupBackChange}
                             />
                           )}
                         </div>
@@ -1599,8 +1598,11 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                         query={searchValue}
                         onSelectLibrary={(libraryId) => {
                           setSelectedLibraryCard(null)
+                          setMobileLibraryHasGroupBack(false)
+                          mobileLibraryGroupBackRef.current = null
                           setSelectedLibraryId(libraryId)
                         }}
+                        onGroupBackChange={handleLibraryGroupBackChange}
                       />
                     )}
                   </div>
@@ -1860,9 +1862,9 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                       }}
                       className="flex h-7 w-7 items-center justify-center rounded-full bg-black/50"
                     >
-                      {callStatus.muted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white/80" />}
+                      {callStatus.muted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white" />}
                     </button>
-                    <span className="font-mono text-[10px] text-white/70">{fmtDur(callStatus.elapsed)}</span>
+                    <span className="font-mono text-[10px] text-white">{fmtDur(callStatus.elapsed)}</span>
                   </div>
                 </>
               ) : (
@@ -1887,7 +1889,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                     <p className="truncate text-[13px] font-semibold text-white">
                       {callStatus.state === "incoming" ? callStatus.callerName || "Incoming call" : callStatus.calleeName || "Call"}
                     </p>
-                    <p className="text-[11px] text-white/70">
+                    <p className="text-[11px] text-white">
                       {callStatus.state === "incoming"
                         ? (callStatus.mediaMode === "video" ? "Incoming video" : "Incoming call")
                         : callStatus.state === "outgoing"
@@ -1920,7 +1922,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                       }}
                       className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#2a2a2a]"
                     >
-                      {callStatus.muted ? <MicOff size={14} className="text-red-400" /> : <Mic size={14} className="text-white/80" />}
+                      {callStatus.muted ? <MicOff size={14} className="text-red-400" /> : <Mic size={14} className="text-white" />}
                     </button>
                   )}
                   <button
@@ -1992,7 +1994,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                       <button onClick={() => callStatus.toggleMute?.()}
                         onPointerDown={e => e.stopPropagation()}
                         className="flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.08] hover:bg-white/[0.14]">
-                        {callStatus.muted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white/60" />}
+                        {callStatus.muted ? <MicOff size={12} className="text-red-400" /> : <Mic size={12} className="text-white" />}
                       </button>
                     )}
                     {callStatus.state === "active" && callStatus.mediaMode === "video" && (
@@ -2026,7 +2028,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                       onPointerDown={e => e.stopPropagation()}
                       className="flex h-7 w-7 items-center justify-center rounded-full bg-white/[0.08] hover:bg-white/[0.14]"
                       title="Return to full call">
-                      <Maximize2 size={12} className="text-white/60" />
+                      <Maximize2 size={12} className="text-white" />
                     </button>
                   </div>
                 </div>
@@ -2052,7 +2054,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               <Video size={32} className="text-[#29b6d8]" />
             </div>
             <p className="mt-2 text-base font-semibold text-white">Video request</p>
-            <p className="mt-1 text-sm text-white/60">
+            <p className="mt-1 text-sm text-white">
               {callStatus.incomingVideoRequest.name} wants to switch to video
             </p>
             <div className="mt-5 flex gap-3">

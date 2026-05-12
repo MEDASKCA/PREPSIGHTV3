@@ -931,7 +931,8 @@ function RotaPanel({
 
       {/* ── Carousel body ── */}
       <div
-        className="min-h-0 flex-1 overflow-y-auto"
+        className="min-h-0 flex-1 overflow-y-auto overscroll-contain [touch-action:pan-y]"
+        style={{ WebkitOverflowScrolling: "touch" }}
         onTouchStart={(e) => { swipeStartX.current = e.touches[0].clientX }}
         onTouchEnd={(e) => {
           if (swipeStartX.current === null) return
@@ -962,7 +963,7 @@ function RotaPanel({
           return (
             <>
               {sortedCards.map((card) => (
-                <div key={card.theatre}>
+                <div key={card.theatre} className="pb-20">
                   {/* Staff rows */}
                   {card.staff.map((member) => (
                     <button
@@ -1002,7 +1003,7 @@ function RotaPanel({
       </div>
 
       {/* ── Status legend ── */}
-      <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5">
+      <div className="sticky bottom-0 z-20 shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5 shadow-[0_-10px_24px_rgba(0,0,0,0.42)]">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
           <span className="text-[11px] font-semibold uppercase tracking-widest text-white">Key</span>
           {(Object.entries(STATUS_COLORS) as [StaffStatus, typeof STATUS_COLORS[StaffStatus]][]).map(([label, c]) => (
@@ -2443,7 +2444,7 @@ export default function MobileResourcesSurface({
   }, [initialResourceTab, initialWorkforceTab])
 
   return (
-    <div className={`flex flex-col ${embedded ? "flex-1 min-h-0 overflow-hidden" : "h-[100dvh] bg-black"}`}>
+    <div className={`flex flex-col ${embedded ? "flex-1 min-h-0 overflow-hidden" : "h-[100svh] min-h-0 overflow-hidden bg-black"}`}>
       {!embedded ? (
         <MobileSurfaceHeader
           title="Resources"

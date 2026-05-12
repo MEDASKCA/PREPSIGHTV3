@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { MoreVertical, Search, X } from "lucide-react"
@@ -62,7 +62,7 @@ export default function MobileWorkspaceChildShell({
   const department = settings[0] ?? "Operating Theatres"
 
   return (
-    <div className="flex h-[100dvh] flex-col overflow-hidden bg-black lg:hidden">
+    <div className="flex h-[100svh] min-h-0 flex-col overflow-hidden bg-black lg:hidden">
       <MobileSurfaceHeader
         title={parentTitle}
         hospital={hospital}
@@ -73,7 +73,7 @@ export default function MobileWorkspaceChildShell({
               type="button"
               onClick={() => setMobileGlobalSearchOpen(true)}
               aria-label="Open global search"
-              className="text-white/70 hover:text-white"
+              className="text-white hover:text-white"
             >
               <Search size={20} />
             </button>
@@ -81,7 +81,7 @@ export default function MobileWorkspaceChildShell({
               type="button"
               onClick={() => setMenuOpen((value) => !value)}
               aria-label="Open menu"
-              className="text-white/80 hover:text-white"
+              className="text-white hover:text-white"
             >
               <MoreVertical size={22} />
             </button>

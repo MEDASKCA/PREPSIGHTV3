@@ -2008,7 +2008,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return (
       <div
         className={splitView ? "flex h-full min-h-0 flex-col bg-black" : "absolute inset-x-0 top-0 z-10 flex flex-col bg-black"}
-        style={splitView ? undefined : { bottom: "calc(env(safe-area-inset-bottom, 0px) + 88px)" }}
+        style={splitView ? undefined : { bottom: "calc(env(safe-area-inset-bottom, 0px) + 76px)" }}
       >
         {minimalHeader ? (
           <div
@@ -2237,7 +2237,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         )}
 
         <div className="relative flex-1 min-h-0">
-          <div className="absolute inset-0 overflow-y-auto bg-black px-4 py-4 space-y-1">
+          <div
+            className="absolute inset-0 overflow-y-auto overscroll-contain bg-black px-4 py-4 space-y-1 [touch-action:pan-y]"
+            style={{ WebkitOverflowScrolling: "touch" }}
+          >
             {messages.map((msg, idx) => {
               const isOwn = msg.uid === user.uid
               const isTom = msg.uid === TOM_UID
@@ -2507,8 +2510,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             paddingBottom: splitView
               ? "calc(env(safe-area-inset-bottom, 0px) + 16px)"
               : minimalHeader
-                ? "calc(env(safe-area-inset-bottom, 0px) + 4px)"
-                : "calc(env(safe-area-inset-bottom, 0px) + 8px)",
+                ? "calc(env(safe-area-inset-bottom, 0px) + 6px)"
+                : "calc(env(safe-area-inset-bottom, 0px) + 6px)",
           }}
         >
           {composerError ? (
@@ -4512,7 +4515,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       {selectedThread && !isFoldableSplitView && !(embedded && hideMobileHeader && !allowFoldableSplitView) && (
         <div
           className="absolute inset-x-0 top-0 z-10 flex flex-col bg-black"
-          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 88px)" }}
+          style={{ bottom: "calc(env(safe-area-inset-bottom, 0px) + 76px)" }}
         >
           {/* Thread header */}
           <div
@@ -4625,7 +4628,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
           {/* Messages container with emoji overlay */}
           <div className="relative flex-1 min-h-0">
-          <div className="absolute inset-0 overflow-y-auto bg-black px-4 py-4 space-y-1">
+          <div
+            className="absolute inset-0 overflow-y-auto overscroll-contain bg-black px-4 py-4 space-y-1 [touch-action:pan-y]"
+            style={{ WebkitOverflowScrolling: "touch" }}
+          >
             {messages.map((msg, idx) => {
               const isOwn = msg.uid === user.uid
               const isTom = msg.uid === TOM_UID
@@ -4891,7 +4897,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           {/* Input */}
           <div
             className="bg-black shrink-0 relative px-4 pt-2"
-            style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 4px)" }}
+            style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 6px)" }}
           >
             {composerError ? (
               <div className="mb-2 rounded-xl border border-[#5a3d08] bg-[#2c1f05] px-3 py-2 text-[12px] text-[#f7c873]">
