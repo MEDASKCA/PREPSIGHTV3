@@ -634,7 +634,6 @@ function RotaPanel({
   const [sheetView, setSheetView] = useState<"actions" | "relief_select">("actions")
   const [activeModal, setActiveModal] = useState<ActiveModal>(null)
   const [dispatchDest, setDispatchDest] = useState("")
-  const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
 
   const monthDays = useMemo(() => buildMonthCalendar(selectedDate).filter((d) => d.inMonth), [selectedDate])
   const selectedDateKey = selectedDate.toISOString().slice(0, 10)
@@ -698,23 +697,6 @@ function RotaPanel({
   useEffect(() => {
     setCurrentCardIndex((i) => Math.min(i, filteredCards.length))
   }, [filteredCards.length])
-
-  useEffect(() => {
-    return () => { if (longPressTimerRef.current) clearTimeout(longPressTimerRef.current) }
-  }, [])
-
-  function clearLongPressTimer() {
-    if (longPressTimerRef.current) { clearTimeout(longPressTimerRef.current); longPressTimerRef.current = null }
-  }
-
-  function startLongPress(theatre: string, memberName: string) {
-    clearLongPressTimer()
-    longPressTimerRef.current = setTimeout(() => {
-      triggerHapticPulse()
-      setTeamActionMember({ theatre, memberName })
-      longPressTimerRef.current = null
-    }, 420)
-  }
 
   useEffect(() => {
     if (activeModal?.kind === "toast") {
@@ -931,10 +913,10 @@ function RotaPanel({
 
       {/* ── Carousel body ── */}
       <div
-        className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
+        className="min-h-0 flex-1 overflow-y-scroll overscroll-contain [touch-action:pan-y]"
         style={{
           WebkitOverflowScrolling: "touch",
-          paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 128px)",
+          paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 92px)",
         }}
       >
         {(() => {
@@ -959,16 +941,11 @@ function RotaPanel({
           return (
             <>
               {visibleRows.map(({ card, member }) => (
-                <button
+                <div
                   key={`${card.theatre}-${member.name}-${member.start}-${member.end}`}
-                  type="button"
                   onContextMenu={(e) => { e.preventDefault(); setTeamActionMember({ theatre: card.theatre, memberName: member.name }) }}
-                  onTouchStart={() => startLongPress(card.theatre, member.name)}
-                  onTouchEnd={clearLongPressTimer}
-                  onTouchMove={clearLongPressTimer}
-                  onTouchCancel={clearLongPressTimer}
                   className={`grid w-full ${COLS} items-center gap-x-2 border-b border-[#141414] py-2 pl-2 pr-3 text-left ${STATUS_COLORS[member.status as StaffStatus]?.bg ?? "bg-[#0a0a0a]"}`}
-                  style={{ touchAction: "pan-y" }}
+                  style={{ touchAction: "pan-y", WebkitTapHighlightColor: "transparent" }}
                 >
                   <span className={`font-mono text-[18px] font-black leading-none ${STATUS_COLORS[member.status as StaffStatus]?.name ?? "text-white"}`}>
                     {theatreNum(card.theatre)}
@@ -986,7 +963,7 @@ function RotaPanel({
                   <span className={`truncate text-[11px] ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{shortenSpec(member.specialty)}</span>
                   <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{noColon(member.start)}</span>
                   <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{noColon(member.end)}</span>
-                </button>
+                </div>
               ))}
             </>
           )
@@ -1000,8 +977,8 @@ function RotaPanel({
           left: paneBoundsLeft,
           right: paneBoundsRight,
           bottom: isSplitPane
-            ? "calc(env(safe-area-inset-bottom, 0px) + 68px)"
-            : "calc(env(safe-area-inset-bottom, 0px) + 72px)",
+            ? "calc(env(safe-area-inset-bottom, 0px) + 52px)"
+            : "calc(env(safe-area-inset-bottom, 0px) + 56px)",
         }}
       >
         <div className="grid grid-cols-[28px_minmax(0,1fr)] items-start gap-x-3">
