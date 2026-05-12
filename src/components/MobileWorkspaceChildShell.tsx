@@ -114,7 +114,10 @@ export default function MobileWorkspaceChildShell({
         </div>
       ) : null}
 
-      <main className={`min-h-0 flex-1 overflow-hidden bg-black pb-28 ${flushChildren ? "px-0" : "px-4"}`}>
+      <main
+        className={`min-h-0 flex-1 overflow-hidden bg-black ${flushChildren ? "px-0" : "px-4"}`}
+        style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 76px)" }}
+      >
         <div className="flex h-full min-h-0 flex-col">
           {childTitle ? (
             <div className="shrink-0 pb-4 pt-1">
@@ -132,7 +135,7 @@ export default function MobileWorkspaceChildShell({
       />
 
       <div className="fixed inset-x-0 bottom-0 z-50">
-        <div className="border-t border-black bg-black px-3 pb-[calc(env(safe-area-inset-bottom,0px)+8px)] pt-2">
+        <div className="border-t border-black bg-black px-3 pb-[calc(env(safe-area-inset-bottom,0px)+10px)] pt-2">
           <div
             className="grid gap-1"
             style={{ gridTemplateColumns: `repeat(${TAB_ITEMS.length}, minmax(0, 1fr))` }}
@@ -158,7 +161,7 @@ export default function MobileWorkspaceChildShell({
                       <Icon size={23} strokeWidth={isActive ? 2.2 : 1.7} />
                     )}
                   </div>
-                  <span className="mt-1 text-[11px] font-medium tracking-wide">
+                  <span className="mt-1 text-center text-[11px] font-medium leading-none tracking-wide">
                     {item.key === "updates" ? "Insights" : item.label}
                   </span>
                 </Link>

@@ -602,6 +602,63 @@ const STATUS_COLORS: Record<StaffStatus, { bg: string; name: string; sub: string
   "Dispatched": { bg: "bg-black", name: "text-[#c084fc]", sub: "text-[#d8b4fe]", badge: "border-[#9333ea]/40 bg-[#9333ea]/10 text-[#c084fc]" },
 }
 
+const MOBILE_RESOURCES_KEYBAR_HEIGHT = 44
+
+function FloatingStatusKeyBar({
+  items,
+  paneBoundsLeft = "0",
+  paneBoundsRight = "0",
+  hasDock,
+}: {
+  items: Array<{ label: string; tone: string }>
+  paneBoundsLeft?: string
+  paneBoundsRight?: string
+  hasDock: boolean
+}) {
+  const [dockOffset, setDockOffset] = useState(0)
+
+  useEffect(() => {
+    if (!hasDock || typeof window === "undefined") {
+      setDockOffset(0)
+      return
+    }
+
+    const syncDockOffset = () => {
+      const dock = document.getElementById("mobile-bottom-dock")
+      setDockOffset(dock ? Math.round(dock.getBoundingClientRect().height) : 0)
+    }
+
+    syncDockOffset()
+    window.addEventListener("resize", syncDockOffset)
+    return () => window.removeEventListener("resize", syncDockOffset)
+  }, [hasDock])
+
+  return (
+    <div
+      className="pointer-events-none fixed z-[55]"
+      style={{
+        left: paneBoundsLeft,
+        right: paneBoundsRight,
+        bottom: hasDock ? `${dockOffset}px` : "env(safe-area-inset-bottom, 0px)",
+      }}
+    >
+      <div className="border-t border-black bg-[#141414]/98 px-3 py-2 backdrop-blur-xl">
+        <div className="overflow-x-auto whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+          <div className="inline-flex min-w-full items-center gap-2.5 text-[10px] leading-none text-white">
+            <span className="text-white/55">Key</span>
+            {items.map((item) => (
+              <span key={item.label} className="inline-flex items-center gap-1">
+                <span className={`h-2 w-2 rounded-full ${item.tone}`} />
+                <span>{item.label}</span>
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 
 type ActiveModal =
   | { kind: "ping";          memberName: string; theatre: string }
@@ -617,11 +674,13 @@ function RotaPanel({
   paneBoundsRight = "0",
   activeTab,
   setActiveTab,
+  hasDock = false,
 }: {
   paneBoundsLeft?: string
   paneBoundsRight?: string
   activeTab: WorkforceTab
   setActiveTab: (tab: WorkforceTab) => void
+  hasDock?: boolean
 }) {
   const router = useRouter()
   const [filterMode, setFilterMode] = useState<AllocationFilterMode>("Area")
@@ -733,9 +792,6 @@ function RotaPanel({
   function confirmAction(message: string) { setActiveModal({ kind: "toast", message }) }
 
   const COLS = "grid-cols-[26px_minmax(0,1.3fr)_minmax(0,0.95fr)_minmax(0,0.75fr)_38px_38px]"
-  const isSplitPane = paneBoundsLeft !== "0" || paneBoundsRight !== "0"
-  const legendOffsetBottom = isSplitPane ? "0px" : "calc(env(safe-area-inset-bottom, 0px) + 58px)"
-  const legendReserve = isSplitPane ? "64px" : "130px"
 
   return (
     <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden">
@@ -784,7 +840,7 @@ function RotaPanel({
       </div>
 
       {/* ── Filter bar — page · filter mode · filter value ── */}
-      <div className="shrink-0 border-b border-[#1e1e1e] bg-[#0d0d0d] px-2 py-2">
+      <div className="shrink-0 border-b border-black bg-[#0d0d0d] px-2 py-2">
         <div className="flex items-center gap-1.5">
           {/* Page / tab */}
           <div className="relative shrink-0">
@@ -837,7 +893,7 @@ function RotaPanel({
         const card = isAll ? null : filteredCards[currentCardIndex - 1]
         const times = card?.sessionTime?.split(" - ") ?? []
         return (
-          <div className="shrink-0 border-b border-[#1e1e1e] bg-[#0a0a0a]">
+          <div className="shrink-0 border-b border-black bg-[#0a0a0a]">
             {/* Card row */}
             <div className="flex items-stretch gap-3 px-3 pt-3 pb-2">
               {/* Theatre number */}
@@ -929,7 +985,7 @@ function RotaPanel({
         }}
         style={{
           WebkitOverflowScrolling: "touch",
-          paddingBottom: `calc(env(safe-area-inset-bottom, 0px) + ${legendReserve})`,
+          paddingBottom: `${MOBILE_RESOURCES_KEYBAR_HEIGHT + 12}px`,
         }}
       >
         {(() => {
@@ -957,7 +1013,7 @@ function RotaPanel({
                 <div
                   key={`${card.theatre}-${member.name}-${member.start}-${member.end}`}
                   onContextMenu={(e) => { e.preventDefault(); setTeamActionMember({ theatre: card.theatre, memberName: member.name }) }}
-                  className={`grid w-full ${COLS} items-center gap-x-2 border-b border-[#141414] py-2 pl-2 pr-3 text-left ${STATUS_COLORS[member.status as StaffStatus]?.bg ?? "bg-[#0a0a0a]"}`}
+                  className={`grid w-full ${COLS} items-center gap-x-2 border-b border-black py-2 pl-2 pr-3 text-left ${STATUS_COLORS[member.status as StaffStatus]?.bg ?? "bg-[#0a0a0a]"}`}
                   style={{ WebkitTapHighlightColor: "transparent" }}
                 >
                   <span className={`font-mono text-[18px] font-black leading-none ${STATUS_COLORS[member.status as StaffStatus]?.name ?? "text-white"}`}>
@@ -983,22 +1039,18 @@ function RotaPanel({
         })()}
       </div>
 
-      {/* ── Status legend ── */}
-      <div
-        className="pointer-events-none absolute left-0 right-0 z-40 border-t border-[#1e1e1e] bg-[#0a0a0a]/96 px-3 py-2.5 shadow-[0_-10px_24px_rgba(0,0,0,0.42)] backdrop-blur-sm"
-        style={{
-          bottom: legendOffsetBottom,
-        }}
-      >
-        <div className="grid grid-cols-[28px_minmax(0,1fr)] items-start gap-x-3">
-          <span className="pt-[1px] text-[10px] font-semibold uppercase tracking-[0.16em] text-white">Key</span>
-          <div className="flex flex-wrap items-start gap-x-3 gap-y-1">
-            {(Object.entries(STATUS_COLORS) as [StaffStatus, typeof STATUS_COLORS[StaffStatus]][]).map(([label, c]) => (
-              <span key={label} className={`text-[12px] font-semibold leading-4 ${c.name}`}>{label}</span>
-            ))}
-          </div>
-        </div>
-      </div>
+      <FloatingStatusKeyBar
+        hasDock={hasDock}
+        paneBoundsLeft={paneBoundsLeft}
+        paneBoundsRight={paneBoundsRight}
+        items={[
+          { label: "Scrub", tone: "bg-[#38bdf8]" },
+          { label: "Relief", tone: "bg-[#34d399]" },
+          { label: "Break", tone: "bg-[#fbbf24]" },
+          { label: "Sick", tone: "bg-[#fb7185]" },
+          { label: "Dispatch", tone: "bg-[#c084fc]" },
+        ]}
+      />
 
       {/* ── Team action sheet ── */}
       {teamActionMember ? (
@@ -1239,7 +1291,15 @@ function MobileModalHeader({ icon, bg, title, sub }: { icon: ReactNode; bg: stri
   )
 }
 
-function EquipmentPanel() {
+function EquipmentPanel({
+  paneBoundsLeft = "0",
+  paneBoundsRight = "0",
+  hasDock = false,
+}: {
+  paneBoundsLeft?: string
+  paneBoundsRight?: string
+  hasDock?: boolean
+} = {}) {
   const [filterMode, setFilterMode] = useState<EquipmentFilterMode>("Area")
   const [selectedFilter, setSelectedFilter] = useState("All")
   const [currentCardIndex, setCurrentCardIndex] = useState(0)
@@ -1268,7 +1328,7 @@ function EquipmentPanel() {
 
   return (
     <div className="flex flex-1 min-h-0 flex-col overflow-hidden">
-      <div className="shrink-0 border-b border-[#1e1e1e] bg-[#0d0d0d] px-2 py-2">
+      <div className="shrink-0 border-b border-black bg-[#0d0d0d] px-2 py-2">
         <div className="flex items-center gap-1.5">
           <div className="relative shrink-0 flex items-center">
             <SlidersHorizontal size={11} className="pointer-events-none absolute left-2 text-[#0096C7]" />
@@ -1294,7 +1354,7 @@ function EquipmentPanel() {
         const isAll = currentCardIndex === 0
         const card = isAll ? null : filteredCards[currentCardIndex - 1]
         return (
-          <div className="shrink-0 border-b border-[#1e1e1e] bg-[#0a0a0a]">
+          <div className="shrink-0 border-b border-black bg-[#0a0a0a]">
             <div className="flex items-stretch gap-3 px-3 pt-3 pb-2">
               <div className="flex shrink-0 flex-col items-center justify-center rounded-[10px] border border-[#1e1e1e] bg-[#111111] px-3 py-2">
                 <span className="font-mono text-[36px] font-black leading-none tracking-tighter text-[#00c8dc]">
@@ -1352,6 +1412,7 @@ function EquipmentPanel() {
           }
           swipeStartX.current = null
         }}
+        style={{ paddingBottom: `${MOBILE_RESOURCES_KEYBAR_HEIGHT + 12}px` }}
       >
         {(() => {
           const isAll = currentCardIndex === 0
@@ -1371,7 +1432,7 @@ function EquipmentPanel() {
                 <div key={card.storage}>
                   {card.items.map((item) => (
                     <div key={`${card.storage}-${item.name}`}
-                      className={`grid w-full ${ECOLS} items-center gap-x-2 border-b border-[#141414] py-2 pl-2 pr-3 ${EQUIPMENT_STATUS_COLORS[item.status]?.bg ?? "bg-[#0a0a0a]"}`}>
+                      className={`grid w-full ${ECOLS} items-center gap-x-2 border-b border-black py-2 pl-2 pr-3 ${EQUIPMENT_STATUS_COLORS[item.status]?.bg ?? "bg-[#0a0a0a]"}`}>
                       <span className={`font-mono text-[18px] font-black leading-none ${EQUIPMENT_STATUS_COLORS[item.status]?.name ?? "text-white"}`}>
                         {storageLabel(card.storage)}
                       </span>
@@ -1387,19 +1448,32 @@ function EquipmentPanel() {
         })()}
       </div>
 
-      <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-white">Key</span>
-          {(Object.entries(EQUIPMENT_STATUS_COLORS) as [EquipmentStatus, typeof EQUIPMENT_STATUS_COLORS[EquipmentStatus]][]).map(([label, c]) => (
-            <span key={label} className={`text-[13px] font-semibold ${c.name}`}>{label}</span>
-          ))}
-        </div>
-      </div>
+      <FloatingStatusKeyBar
+        hasDock={hasDock}
+        paneBoundsLeft={paneBoundsLeft}
+        paneBoundsRight={paneBoundsRight}
+        items={[
+          { label: "In Use", tone: "bg-[#38bdf8]" },
+          { label: "Avail", tone: "bg-[#34d399]" },
+          { label: "Repair", tone: "bg-[#fbbf24]" },
+          { label: "Reserved", tone: "bg-[#c084fc]" },
+          { label: "Decom", tone: "bg-[#fb7185]" },
+        ]}
+      />
+
     </div>
   )
 }
 
-function SuppliesPanel() {
+function SuppliesPanel({
+  paneBoundsLeft = "0",
+  paneBoundsRight = "0",
+  hasDock = false,
+}: {
+  paneBoundsLeft?: string
+  paneBoundsRight?: string
+  hasDock?: boolean
+} = {}) {
   const [filterMode, setFilterMode] = useState<SupplyFilterMode>("Category")
   const [selectedFilter, setSelectedFilter] = useState("All")
   const [currentCardIndex, setCurrentCardIndex] = useState(0)
@@ -1428,7 +1502,7 @@ function SuppliesPanel() {
 
   return (
     <div className="flex flex-1 min-h-0 flex-col overflow-hidden">
-      <div className="shrink-0 border-b border-[#1e1e1e] bg-[#0d0d0d] px-2 py-2">
+      <div className="shrink-0 border-b border-black bg-[#0d0d0d] px-2 py-2">
         <div className="flex items-center gap-1.5">
           <div className="relative shrink-0 flex items-center">
             <SlidersHorizontal size={11} className="pointer-events-none absolute left-2 text-[#0096C7]" />
@@ -1454,7 +1528,7 @@ function SuppliesPanel() {
         const isAll = currentCardIndex === 0
         const card = isAll ? null : filteredCards[currentCardIndex - 1]
         return (
-          <div className="shrink-0 border-b border-[#1e1e1e] bg-[#0a0a0a]">
+          <div className="shrink-0 border-b border-black bg-[#0a0a0a]">
             <div className="flex items-stretch gap-3 px-3 pt-3 pb-2">
               <div className="flex shrink-0 flex-col items-center justify-center rounded-[10px] border border-[#1e1e1e] bg-[#111111] px-3 py-2">
                 <span className="font-mono text-[36px] font-black leading-none tracking-tighter text-[#00c8dc]">
@@ -1512,6 +1586,7 @@ function SuppliesPanel() {
           }
           swipeStartX.current = null
         }}
+        style={{ paddingBottom: `${MOBILE_RESOURCES_KEYBAR_HEIGHT + 12}px` }}
       >
         {(() => {
           const isAll = currentCardIndex === 0
@@ -1531,7 +1606,7 @@ function SuppliesPanel() {
                 <div key={card.storage}>
                   {card.items.map((item) => (
                     <div key={`${card.storage}-${item.name}`}
-                      className={`grid w-full ${SCOLS} items-center gap-x-2 border-b border-[#141414] py-2 pl-2 pr-3 ${SUPPLY_STATUS_COLORS[item.status]?.bg ?? "bg-[#0a0a0a]"}`}>
+                      className={`grid w-full ${SCOLS} items-center gap-x-2 border-b border-black py-2 pl-2 pr-3 ${SUPPLY_STATUS_COLORS[item.status]?.bg ?? "bg-[#0a0a0a]"}`}>
                       <span className={`font-mono text-[18px] font-black leading-none ${SUPPLY_STATUS_COLORS[item.status]?.name ?? "text-white"}`}>
                         {storageLabel(card.storage)}
                       </span>
@@ -1547,14 +1622,19 @@ function SuppliesPanel() {
         })()}
       </div>
 
-      <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-white">Key</span>
-          {(Object.entries(SUPPLY_STATUS_COLORS) as [SupplyStatus, typeof SUPPLY_STATUS_COLORS[SupplyStatus]][]).map(([label, c]) => (
-            <span key={label} className={`text-[13px] font-semibold ${c.name}`}>{label}</span>
-          ))}
-        </div>
-      </div>
+      <FloatingStatusKeyBar
+        hasDock={hasDock}
+        paneBoundsLeft={paneBoundsLeft}
+        paneBoundsRight={paneBoundsRight}
+        items={[
+          { label: "Stock", tone: "bg-[#34d399]" },
+          { label: "Low", tone: "bg-[#fbbf24]" },
+          { label: "Ordered", tone: "bg-[#38bdf8]" },
+          { label: "Out", tone: "bg-[#fb7185]" },
+          { label: "Recall", tone: "bg-[#c084fc]" },
+        ]}
+      />
+
     </div>
   )
 }
@@ -2431,6 +2511,8 @@ export default function MobileResourcesSurface({
     setActiveTab(initialResourceTab === "workforce" ? initialWorkforceTab : "allocation")
   }, [initialResourceTab, initialWorkforceTab])
 
+  const hasDockInThisLayout = embedded && paneBoundsLeft === "0" && paneBoundsRight === "0"
+
   return (
     <div className={`flex flex-col ${embedded ? "h-full flex-1 min-h-0 overflow-hidden" : "h-[100svh] min-h-0 overflow-hidden bg-black"}`}>
       {!embedded ? (
@@ -2542,7 +2624,7 @@ export default function MobileResourcesSurface({
               ) : null}
             </div>
             <div className="min-w-0 flex min-h-0 flex-1 flex-col bg-black">
-              {activeTab === "allocation" ? <RotaPanel paneBoundsLeft={paneBoundsLeft} paneBoundsRight={paneBoundsRight} activeTab={activeTab} setActiveTab={setActiveTab} /> : null}
+              {activeTab === "allocation" ? <RotaPanel paneBoundsLeft={paneBoundsLeft} paneBoundsRight={paneBoundsRight} activeTab={activeTab} setActiveTab={setActiveTab} hasDock={hasDockInThisLayout} /> : null}
               {activeTab === "shifts" ? <ShiftsPanel /> : null}
               {activeTab === "skills" ? <SkillsPanel /> : null}
               {activeTab === "tasks" ? <TasksPanel /> : null}
@@ -2552,11 +2634,11 @@ export default function MobileResourcesSurface({
         </div>
       ) : resourceTab === "equipment" ? (
         <div className={`flex flex-1 min-h-0 flex-col ${embedded ? "" : "pb-28"}`}>
-          <EquipmentPanel />
+          <EquipmentPanel paneBoundsLeft={paneBoundsLeft} paneBoundsRight={paneBoundsRight} hasDock={hasDockInThisLayout} />
         </div>
       ) : (
         <div className={`flex flex-1 min-h-0 flex-col ${embedded ? "" : "pb-28"}`}>
-          <SuppliesPanel />
+          <SuppliesPanel paneBoundsLeft={paneBoundsLeft} paneBoundsRight={paneBoundsRight} hasDock={hasDockInThisLayout} />
         </div>
       )}
     </div>

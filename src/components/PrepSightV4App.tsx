@@ -1018,9 +1018,6 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const surfacePaneTitle = surfaceShowsEmbeddedComms ? "Comms" : effectiveSurfaceTitle
   const mixedSplitPrimaryLeftTitle = isFoldSplitSwapped ? surfacePaneTitle : "Comms"
   const mixedSplitPrimaryRightTitle = isFoldSplitSwapped ? "Comms" : surfacePaneTitle
-  const mobileDockCompactSpacing =
-    mobileTab === "comms" &&
-    (isFoldCommsThreadActive || pathname === "/comms")
 
   useEffect(() => {
     const routeLibraryMatch = pathname.match(/^\/libraries\/([^/]+)$/)
@@ -1429,7 +1426,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               bottom: 0,
               left: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? 0 : "50%") : 0,
               right: isMixedSplitActive ? (isMixedSplitCommsPaneOnLeft ? "50%" : 0) : 0,
-              paddingBottom: isMixedSplitActive ? "7rem" : 0,
+              paddingBottom: isMixedSplitActive ? "calc(env(safe-area-inset-bottom,0px) + 76px)" : 0,
               display: (!isMixedSplitActive && (mobileTab !== "comms" || !!mobileUtilityPage)) ? "none" : undefined,
             }}
           >
@@ -1517,7 +1514,10 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
 
           {/* Single-column non-comms content — non-foldable mobile or foldable with no active call */}
           {!isMixedSplitActive && (mobileTab !== "comms" || !!mobileUtilityPage) ? (
-            <div className="absolute inset-0 flex flex-col overflow-hidden" style={{ paddingBottom: "7rem" }}>
+            <div
+              className="absolute inset-0 flex flex-col overflow-hidden"
+              style={{ paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 76px)" }}
+            >
               {mobileUtilityPage === "calendar" ? (
                 <div className="flex h-full min-h-0 flex-col">
                   <MobileSectionHeader
@@ -1656,7 +1656,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           rightHalf={isMixedSplitActive && isMixedSplitCommsPaneOnLeft}
         />
 
-        <div className={`fixed bottom-0 z-50 ${
+        <div id="mobile-bottom-dock" className={`fixed bottom-0 z-50 ${
           isMixedSplitActive
             ? (isMixedSplitCommsPaneOnLeft ? "left-0 w-1/2 max-w-full" : "right-0 w-1/2 max-w-full")
             : isFoldableMobileViewport && mobileTab === "comms"
@@ -1664,11 +1664,9 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
             : "inset-x-0"
         }`}>
           <div
-            className={`bg-black border-t border-black px-3 ${mobileDockCompactSpacing ? "pt-1" : "pt-2"}`}
+            className="border-t border-black bg-black px-3 pt-2"
             style={{
-              paddingBottom: mobileDockCompactSpacing
-                ? "calc(env(safe-area-inset-bottom,0px) + 4px)"
-                : "calc(env(safe-area-inset-bottom,0px) + 8px)",
+              paddingBottom: "calc(env(safe-area-inset-bottom,0px) + 10px)",
             }}
           >
             <div
@@ -1713,7 +1711,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                         setSelectedLibraryCard(null)
                       }
                     }}
-                    className={`flex flex-col items-center justify-center rounded-[16px] px-2 py-2.5 transition-all ${
+                    className={`flex flex-col items-center justify-center rounded-[16px] px-2 py-2 transition-all ${
                       isActive ? "bg-[var(--mob-dock-active-bg)] text-[var(--mob-dock-active)]" : "text-[var(--mob-dock-inactive)]"
                     }`}
                   >
@@ -1726,7 +1724,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                         <Icon size={23} strokeWidth={isActive ? 2.2 : 1.7} />
                       )}
                     </div>
-                    <span className="mt-1 text-[11px] font-medium tracking-wide">
+                    <span className="mt-1 text-center text-[11px] font-medium leading-none tracking-wide">
                       {item.key === "updates" ? "Insights" : item.label}
                     </span>
                   </button>
