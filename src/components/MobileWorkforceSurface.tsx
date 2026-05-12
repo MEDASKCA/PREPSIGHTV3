@@ -630,6 +630,7 @@ function RotaPanel({
   const [selectedDate, setSelectedDate] = useState(() => new Date())
   const [sortKey, setSortKey] = useState<"name" | "role" | "start" | null>(null)
   const SORT_CYCLE = [null, "name", "role", "start"] as const
+  const swipeStartX = useRef<number | null>(null)
   const [teamActionMember, setTeamActionMember] = useState<{ theatre: string; memberName: string } | null>(null)
   const [sheetView, setSheetView] = useState<"actions" | "relief_select">("actions")
   const [activeModal, setActiveModal] = useState<ActiveModal>(null)
@@ -733,8 +734,8 @@ function RotaPanel({
 
   const COLS = "grid-cols-[26px_minmax(0,1.3fr)_minmax(0,0.95fr)_minmax(0,0.75fr)_38px_38px]"
   const isSplitPane = paneBoundsLeft !== "0" || paneBoundsRight !== "0"
-  const legendOffsetBottom = isSplitPane ? "0px" : "calc(env(safe-area-inset-bottom, 0px) + 64px)"
-  const legendReserve = isSplitPane ? "64px" : "124px"
+  const legendOffsetBottom = "0px"
+  const legendReserve = isSplitPane ? "64px" : "72px"
 
   return (
     <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden">
@@ -915,10 +916,19 @@ function RotaPanel({
 
       {/* ── Carousel body ── */}
       <div
-        className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
+        className="min-h-0 flex-1 overflow-y-auto"
+        onTouchStart={(e) => { swipeStartX.current = e.touches[0].clientX }}
+        onTouchEnd={(e) => {
+          if (swipeStartX.current === null) return
+          const delta = swipeStartX.current - e.changedTouches[0].clientX
+          if (Math.abs(delta) > 48) {
+            if (delta > 0) setCurrentCardIndex((i) => Math.min(totalSlides - 1, i + 1))
+            else setCurrentCardIndex((i) => Math.max(0, i - 1))
+          }
+          swipeStartX.current = null
+        }}
         style={{
           WebkitOverflowScrolling: "touch",
-          touchAction: "pan-y",
           paddingBottom: `calc(env(safe-area-inset-bottom, 0px) + ${legendReserve})`,
         }}
       >
@@ -975,10 +985,8 @@ function RotaPanel({
 
       {/* ── Status legend ── */}
       <div
-        className="pointer-events-none fixed z-40 border-t border-[#1e1e1e] bg-[#0a0a0a]/96 px-3 py-2.5 shadow-[0_-10px_24px_rgba(0,0,0,0.42)] backdrop-blur-sm"
+        className="pointer-events-none absolute left-0 right-0 z-40 border-t border-[#1e1e1e] bg-[#0a0a0a]/96 px-3 py-2.5 shadow-[0_-10px_24px_rgba(0,0,0,0.42)] backdrop-blur-sm"
         style={{
-          left: paneBoundsLeft,
-          right: paneBoundsRight,
           bottom: legendOffsetBottom,
         }}
       >
