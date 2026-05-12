@@ -733,8 +733,8 @@ function RotaPanel({
 
   const COLS = "grid-cols-[26px_minmax(0,1.3fr)_minmax(0,0.95fr)_minmax(0,0.75fr)_38px_38px]"
   const isSplitPane = paneBoundsLeft !== "0" || paneBoundsRight !== "0"
-  const legendOffsetBottom = isSplitPane ? "0px" : "56px"
-  const legendReserve = isSplitPane ? "64px" : "116px"
+  const legendOffsetBottom = isSplitPane ? "0px" : "calc(env(safe-area-inset-bottom, 0px) + 64px)"
+  const legendReserve = isSplitPane ? "64px" : "124px"
 
   return (
     <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden">
@@ -915,9 +915,10 @@ function RotaPanel({
 
       {/* ── Carousel body ── */}
       <div
-        className="min-h-0 flex-1 overflow-y-scroll overscroll-contain [touch-action:pan-y]"
+        className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
         style={{
           WebkitOverflowScrolling: "touch",
+          touchAction: "pan-y",
           paddingBottom: `calc(env(safe-area-inset-bottom, 0px) + ${legendReserve})`,
         }}
       >
@@ -947,7 +948,7 @@ function RotaPanel({
                   key={`${card.theatre}-${member.name}-${member.start}-${member.end}`}
                   onContextMenu={(e) => { e.preventDefault(); setTeamActionMember({ theatre: card.theatre, memberName: member.name }) }}
                   className={`grid w-full ${COLS} items-center gap-x-2 border-b border-[#141414] py-2 pl-2 pr-3 text-left ${STATUS_COLORS[member.status as StaffStatus]?.bg ?? "bg-[#0a0a0a]"}`}
-                  style={{ touchAction: "pan-y", WebkitTapHighlightColor: "transparent" }}
+                  style={{ WebkitTapHighlightColor: "transparent" }}
                 >
                   <span className={`font-mono text-[18px] font-black leading-none ${STATUS_COLORS[member.status as StaffStatus]?.name ?? "text-white"}`}>
                     {theatreNum(card.theatre)}
@@ -2487,8 +2488,8 @@ export default function MobileResourcesSurface({
       </div>
 
       {resourceTab === "workforce" ? (
-        <div className={`flex flex-1 min-h-0 flex-col overflow-hidden ${embedded ? "" : "pb-28"}`}>
-          <div className="flex min-h-0 flex-1 flex-col overflow-hidden border-y border-black bg-black">
+        <div className={`flex flex-1 min-h-0 flex-col ${embedded ? "" : "pb-28"}`}>
+          <div className="flex min-h-0 flex-1 flex-col border-y border-black bg-black">
             <div className="shrink-0">
               {activeTab === "teams" ? (
                 <div className="flex items-center px-3 py-2.5 border-b border-[#1a1a1a]">
@@ -2532,7 +2533,7 @@ export default function MobileResourcesSurface({
                 />
               ) : null}
             </div>
-            <div className="min-w-0 flex min-h-0 flex-1 flex-col overflow-hidden bg-black">
+            <div className="min-w-0 flex min-h-0 flex-1 flex-col bg-black">
               {activeTab === "allocation" ? <RotaPanel paneBoundsLeft={paneBoundsLeft} paneBoundsRight={paneBoundsRight} activeTab={activeTab} setActiveTab={setActiveTab} /> : null}
               {activeTab === "shifts" ? <ShiftsPanel /> : null}
               {activeTab === "skills" ? <SkillsPanel /> : null}
