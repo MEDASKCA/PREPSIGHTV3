@@ -751,9 +751,13 @@ function RotaPanel({
   function confirmAction(message: string) { setActiveModal({ kind: "toast", message }) }
 
   const COLS = "grid-cols-[26px_minmax(0,1.3fr)_minmax(0,0.95fr)_minmax(0,0.75fr)_38px_38px]"
+  const isSplitPane = paneBoundsLeft !== "0" || paneBoundsRight !== "0"
 
   return (
-    <div className="flex flex-1 min-h-0 flex-col overflow-hidden">
+    <div
+      className="flex flex-1 min-h-0 flex-col overflow-hidden"
+      style={isSplitPane ? { paddingBottom: "7rem" } : undefined}
+    >
       {/* ── Premium date strip ── */}
       <div className="shrink-0 border-b border-[#222222] bg-[#111111]">
         <div className="flex items-stretch">
@@ -931,8 +935,11 @@ function RotaPanel({
 
       {/* ── Carousel body ── */}
       <div
-        className="min-h-0 flex-1 overflow-y-auto overscroll-contain [touch-action:pan-y]"
-        style={{ WebkitOverflowScrolling: "touch" }}
+        className="min-h-0 flex-1 overflow-y-auto overscroll-contain"
+        style={{
+          WebkitOverflowScrolling: "touch",
+          paddingBottom: "12px",
+        }}
         onTouchStart={(e) => { swipeStartX.current = e.touches[0].clientX }}
         onTouchEnd={(e) => {
           if (swipeStartX.current === null) return
@@ -959,43 +966,40 @@ function RotaPanel({
                 })
               : card.staff,
           }))
+          const visibleRows = sortedCards.flatMap((card) =>
+            card.staff.map((member) => ({ card, member })),
+          )
 
           return (
             <>
-              {sortedCards.map((card) => (
-                <div key={card.theatre} className="pb-20">
-                  {/* Staff rows */}
-                  {card.staff.map((member) => (
-                    <button
-                      key={`${card.theatre}-${member.name}`}
-                      type="button"
-                      onContextMenu={(e) => { e.preventDefault(); setTeamActionMember({ theatre: card.theatre, memberName: member.name }) }}
-                      onTouchStart={() => startLongPress(card.theatre, member.name)}
-                      onTouchEnd={clearLongPressTimer}
-                      onTouchMove={clearLongPressTimer}
-                      onTouchCancel={clearLongPressTimer}
-                      className={`grid w-full ${COLS} items-center gap-x-2 border-b border-[#141414] py-2 pl-2 pr-3 text-left ${STATUS_COLORS[member.status as StaffStatus]?.bg ?? "bg-[#0a0a0a]"}`}
-                    >
-                      {/* Theatre number */}
-                      <span className={`font-mono text-[18px] font-black leading-none ${STATUS_COLORS[member.status as StaffStatus]?.name ?? "text-white"}`}>
-                        {theatreNum(card.theatre)}
-                      </span>
-                      <span className={`truncate text-[12px] font-semibold leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.name ?? "text-white"}`}>{member.name}</span>
-                      <span className="flex min-w-0 items-center gap-1">
-                        {isConsultantRole(member.role) && (
-                          <span className="shrink-0 text-[14px] leading-none" style={{ color: "#FFD700" }}>★</span>
-                        )}
-                        {isLeadRole(member.role) && (
-                          <Crown size={11} className="shrink-0" style={{ color: "#FFD700" }} />
-                        )}
-                        <span className={`truncate text-[11px] leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{shortenRole(member.role)}</span>
-                      </span>
-                      <span className={`truncate text-[11px] ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{shortenSpec(member.specialty)}</span>
-                      <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{noColon(member.start)}</span>
-                      <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{noColon(member.end)}</span>
-                    </button>
-                  ))}
-                </div>
+              {visibleRows.map(({ card, member }) => (
+                <button
+                  key={`${card.theatre}-${member.name}-${member.start}-${member.end}`}
+                  type="button"
+                  onContextMenu={(e) => { e.preventDefault(); setTeamActionMember({ theatre: card.theatre, memberName: member.name }) }}
+                  onTouchStart={() => startLongPress(card.theatre, member.name)}
+                  onTouchEnd={clearLongPressTimer}
+                  onTouchMove={clearLongPressTimer}
+                  onTouchCancel={clearLongPressTimer}
+                  className={`grid w-full ${COLS} items-center gap-x-2 border-b border-[#141414] py-2 pl-2 pr-3 text-left ${STATUS_COLORS[member.status as StaffStatus]?.bg ?? "bg-[#0a0a0a]"}`}
+                >
+                  <span className={`font-mono text-[18px] font-black leading-none ${STATUS_COLORS[member.status as StaffStatus]?.name ?? "text-white"}`}>
+                    {theatreNum(card.theatre)}
+                  </span>
+                  <span className={`truncate text-[12px] font-semibold leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.name ?? "text-white"}`}>{member.name}</span>
+                  <span className="flex min-w-0 items-center gap-1">
+                    {isConsultantRole(member.role) && (
+                      <span className="shrink-0 text-[14px] leading-none" style={{ color: "#FFD700" }}>★</span>
+                    )}
+                    {isLeadRole(member.role) && (
+                      <Crown size={11} className="shrink-0" style={{ color: "#FFD700" }} />
+                    )}
+                    <span className={`truncate text-[11px] leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{shortenRole(member.role)}</span>
+                  </span>
+                  <span className={`truncate text-[11px] ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{shortenSpec(member.specialty)}</span>
+                  <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{noColon(member.start)}</span>
+                  <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{noColon(member.end)}</span>
+                </button>
               ))}
             </>
           )
@@ -1003,12 +1007,14 @@ function RotaPanel({
       </div>
 
       {/* ── Status legend ── */}
-      <div className="sticky bottom-0 z-20 shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5 shadow-[0_-10px_24px_rgba(0,0,0,0.42)]">
-        <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-white">Key</span>
-          {(Object.entries(STATUS_COLORS) as [StaffStatus, typeof STATUS_COLORS[StaffStatus]][]).map(([label, c]) => (
-            <span key={label} className={`text-[13px] font-semibold ${c.name}`}>{label}</span>
-          ))}
+      <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5 shadow-[0_-10px_24px_rgba(0,0,0,0.42)]">
+        <div className="grid grid-cols-[28px_minmax(0,1fr)] items-start gap-x-3">
+          <span className="pt-[1px] text-[10px] font-semibold uppercase tracking-[0.16em] text-white">Key</span>
+          <div className="flex flex-wrap items-start gap-x-3 gap-y-1">
+            {(Object.entries(STATUS_COLORS) as [StaffStatus, typeof STATUS_COLORS[StaffStatus]][]).map(([label, c]) => (
+              <span key={label} className={`text-[12px] font-semibold leading-4 ${c.name}`}>{label}</span>
+            ))}
+          </div>
         </div>
       </div>
 
