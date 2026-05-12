@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import dynamic from "next/dynamic"
 import type { ReactNode } from "react"
@@ -7,24 +7,34 @@ import { useRouter } from "next/navigation"
 import {
   ArrowRightLeft,
   ArrowUpDown,
+  Bell,
   Calendar,
   CalendarClock,
+  CalendarPlus,
+  ChevronDown,
   ChevronLeft,
   ChevronRight,
   Clock3,
+  Coffee,
   Crown,
   MessageSquare,
   MoreVertical,
+  Navigation,
+  Pencil,
   Phone,
   Search,
   SlidersHorizontal,
+  Star,
+  Users,
   X,
 } from "lucide-react"
-import { collection, getDocs, query, where } from "firebase/firestore"
-import { db } from "@/lib/firebase"
+import { arrayRemove, arrayUnion, collection, doc, getDoc, getDocs, onSnapshot, query, setDoc, updateDoc, where } from "firebase/firestore"
+import { auth, db } from "@/lib/firebase"
+import { requestFoldOpenDm } from "@/lib/fold-open-dm"
 import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import TriangleIcon from "@/components/TriangleIcon"
 import { getProfile, getRelevantSettings } from "@/lib/profile"
+import type { CommsUser } from "@/lib/comms-types"
 import type { WorkforceHospitalPin } from "@/components/WorkforceShiftMap"
 
 const MobileWorkforceShiftMap = dynamic(() => import("@/components/WorkforceShiftMap"), { ssr: false })
@@ -53,7 +63,7 @@ function MobileAccordionSection({
       >
         <span className="min-w-0 flex-1">
           <span className="block text-[15px] leading-6 text-[#e0e0e0]">{label}</span>
-          <span className="mt-0.5 block text-[12px] leading-5 text-[#aaaaaa]">{summary}</span>
+          <span className="mt-0.5 block text-[12px] leading-5 text-white">{summary}</span>
         </span>
         <TriangleIcon direction={open ? "up" : "down"} size={12} className="shrink-0 text-[#0096C7]" />
       </button>
@@ -77,7 +87,7 @@ function MobileLabeledSelect<T extends string>({
 }) {
   return (
     <div className="flex items-center justify-between gap-3 px-4 py-2">
-      <span className="shrink-0 text-[13px] text-[#888888]">{label}</span>
+      <span className="shrink-0 text-[13px] text-white">{label}</span>
       <select
         value={value}
         onChange={(event) => onChange(event.target.value as T)}
@@ -593,6 +603,15 @@ const STATUS_COLORS: Record<StaffStatus, { bg: string; name: string; sub: string
 }
 
 
+type ActiveModal =
+  | { kind: "ping";          memberName: string; theatre: string }
+  | { kind: "call";          memberName: string }
+  | { kind: "break";         memberName: string; theatre: string }
+  | { kind: "dispatch";      memberName: string; theatre: string }
+  | { kind: "shift_request"; memberName: string; theatre: string }
+  | { kind: "toast";         message: string }
+  | null
+
 function RotaPanel({
   paneBoundsLeft = "0",
   paneBoundsRight = "0",
@@ -608,10 +627,13 @@ function RotaPanel({
   const [filterMode, setFilterMode] = useState<AllocationFilterMode>("Area")
   const [selectedFilter, setSelectedFilter] = useState("All")
   const [currentCardIndex, setCurrentCardIndex] = useState(0)
-  const [selectedDate, setSelectedDate] = useState(() => new Date(2025, 4, 1))
+  const [selectedDate, setSelectedDate] = useState(() => new Date())
   const [sortKey, setSortKey] = useState<"name" | "role" | "start" | null>(null)
   const SORT_CYCLE = [null, "name", "role", "start"] as const
   const [teamActionMember, setTeamActionMember] = useState<{ theatre: string; memberName: string } | null>(null)
+  const [sheetView, setSheetView] = useState<"actions" | "relief_select">("actions")
+  const [activeModal, setActiveModal] = useState<ActiveModal>(null)
+  const [dispatchDest, setDispatchDest] = useState("")
   const longPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const swipeStartX = useRef<number | null>(null)
 
@@ -695,10 +717,38 @@ function RotaPanel({
     }, 420)
   }
 
+  useEffect(() => {
+    if (activeModal?.kind === "toast") {
+      const t = setTimeout(() => setActiveModal(null), 2800)
+      return () => clearTimeout(t)
+    }
+  }, [activeModal])
+
+  function closeSheet() { setTeamActionMember(null); setSheetView("actions") }
+
   function openCommsAction() {
-    setTeamActionMember(null)
-    router.push("/comms")
+    const name = teamActionMember?.memberName
+    closeSheet()
+    const inFoldableSplit = paneBoundsLeft !== "0" || paneBoundsRight !== "0"
+    if (inFoldableSplit && name) {
+      requestFoldOpenDm(name)
+    } else {
+      router.push(name ? `/comms?dmWith=${encodeURIComponent(name)}` : "/comms")
+    }
   }
+
+  function openSheetAction(kind: "ping" | "call" | "break" | "relief_select" | "dispatch" | "shift_request") {
+    const { memberName, theatre } = teamActionMember!
+    if (kind === "relief_select") { setSheetView("relief_select"); return }
+    closeSheet()
+    if (kind === "call")          setActiveModal({ kind: "call",          memberName })
+    else if (kind === "ping")     { setActiveModal({ kind: "ping",          memberName, theatre }) }
+    else if (kind === "break")    setActiveModal({ kind: "break",         memberName, theatre })
+    else if (kind === "dispatch") { setDispatchDest(""); setActiveModal({ kind: "dispatch", memberName, theatre }) }
+    else if (kind === "shift_request") setActiveModal({ kind: "shift_request", memberName, theatre })
+  }
+
+  function confirmAction(message: string) { setActiveModal({ kind: "toast", message }) }
 
   const COLS = "grid-cols-[26px_minmax(0,1.3fr)_minmax(0,0.95fr)_minmax(0,0.75fr)_38px_38px]"
 
@@ -734,7 +784,7 @@ function RotaPanel({
                       : "active:bg-[#1e1e1e]"
                   }`}
                 >
-                  <span className={`text-[12px] font-medium leading-none ${isSelected ? "text-white/70" : "text-white/50"}`}>{wday}</span>
+                  <span className={`text-[12px] font-medium leading-none ${isSelected ? "text-white" : "text-white"}`}>{wday}</span>
                   <span className={`mt-1 font-mono text-[16px] font-black tracking-tighter leading-none ${
                     isSelected ? "text-white" : isToday ? "text-[#0096C7]" : "text-[#d0d0d0]"
                   }`}>{dayNum}</span>
@@ -762,8 +812,9 @@ function RotaPanel({
               <option value="shifts">Shifts</option>
               <option value="skills">Skills</option>
               <option value="tasks">Tasks</option>
+              <option value="teams">Teams</option>
             </select>
-            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[#666666]" />
+            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-white" />
           </div>
           {/* Filter mode */}
           <div className="relative shrink-0 flex items-center">
@@ -777,7 +828,7 @@ function RotaPanel({
               <option value="Specialty">Specialty</option>
               <option value="Consultant">Consultant</option>
             </select>
-            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 text-[#666666]" />
+            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 text-white" />
           </div>
           {/* Filter value */}
           <div className="relative min-w-0 flex-1">
@@ -790,7 +841,7 @@ function RotaPanel({
                 <option key={f} value={f}>{f}</option>
               ))}
             </select>
-            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[#666666]" />
+            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-white" />
           </div>
         </div>
       </div>
@@ -818,7 +869,7 @@ function RotaPanel({
                 <p className="text-[14px] font-medium leading-snug text-[#00c8dc]">
                   {isAll ? `${filteredCards.length} theatres` : card?.specialty}
                 </p>
-                <p className="text-[13px] leading-snug text-[#555555]">
+                <p className="text-[13px] leading-snug text-white">
                   {isAll ? "Swipe or tap to browse" : `Main Theatres · ${card?.consultantSurgeon}`}
                 </p>
               </div>
@@ -826,7 +877,7 @@ function RotaPanel({
               <div className="flex shrink-0 flex-col items-end justify-between">
                 {!isAll && times.length === 2 ? (
                   <div className="text-right">
-                    <p className="text-[11px] uppercase tracking-[0.15em] text-[#555555]">Time</p>
+                    <p className="text-[11px] uppercase tracking-[0.15em] text-white">Time</p>
                     <p className="text-[15px] font-bold tabular-nums leading-tight text-white">{times[0]}</p>
                     <p className="text-[15px] font-bold tabular-nums leading-tight text-white">{times[1]}</p>
                   </div>
@@ -836,7 +887,7 @@ function RotaPanel({
                   onClick={() => setSortKey((k) => { const i = SORT_CYCLE.indexOf(k); return SORT_CYCLE[(i + 1) % SORT_CYCLE.length] })}
                   className="flex items-center gap-1.5 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2.5 py-2"
                 >
-                  <ArrowUpDown size={14} className={sortKey ? "text-[#0096C7]" : "text-[#666666]"} />
+                  <ArrowUpDown size={14} className={sortKey ? "text-[#0096C7]" : "text-white"} />
                   <span className="text-[13px] text-white">{sortKey ?? "sort"}</span>
                 </button>
               </div>
@@ -936,11 +987,11 @@ function RotaPanel({
                         {isLeadRole(member.role) && (
                           <Crown size={11} className="shrink-0" style={{ color: "#FFD700" }} />
                         )}
-                        <span className={`truncate text-[11px] leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{shortenRole(member.role)}</span>
+                        <span className={`truncate text-[11px] leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{shortenRole(member.role)}</span>
                       </span>
-                      <span className={`truncate text-[11px] ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{shortenSpec(member.specialty)}</span>
-                      <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{noColon(member.start)}</span>
-                      <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-[#aaaaaa]"}`}>{noColon(member.end)}</span>
+                      <span className={`truncate text-[11px] ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{shortenSpec(member.specialty)}</span>
+                      <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{noColon(member.start)}</span>
+                      <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{noColon(member.end)}</span>
                     </button>
                   ))}
                 </div>
@@ -953,7 +1004,7 @@ function RotaPanel({
       {/* ── Status legend ── */}
       <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-[#888888]">Key</span>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-white">Key</span>
           {(Object.entries(STATUS_COLORS) as [StaffStatus, typeof STATUS_COLORS[StaffStatus]][]).map(([label, c]) => (
             <span key={label} className={`text-[13px] font-semibold ${c.name}`}>{label}</span>
           ))}
@@ -965,17 +1016,16 @@ function RotaPanel({
         <div
           className="fixed z-50 flex items-end bg-black/60 backdrop-blur-sm"
           style={{ top: 0, bottom: 0, left: paneBoundsLeft, right: paneBoundsRight }}
-          onClick={() => setTeamActionMember(null)}
+          onClick={closeSheet}
         >
           <div
             className="w-full rounded-t-[28px] border-t border-[#222222] bg-[#0f0f0f] px-5 pb-[calc(env(safe-area-inset-bottom,0px)+24px)] pt-3"
             onClick={(e) => e.stopPropagation()}
           >
-            {/* Handle */}
-            <div className="mx-auto mb-5 h-1 w-10 rounded-full bg-[#2a2a2a]" />
+            <div className="mx-auto mb-4 h-1 w-10 rounded-full bg-[#2a2a2a]" />
 
             {/* Member header */}
-            <div className="mb-5 flex items-center gap-3">
+            <div className="mb-4 flex items-center gap-3">
               <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-[#0096C7]/20">
                 <span className="text-[15px] font-bold text-[#0096C7]">
                   {teamActionMember.memberName.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase()}
@@ -983,50 +1033,219 @@ function RotaPanel({
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[17px] font-semibold leading-tight text-white">{teamActionMember.memberName}</p>
-                <p className="mt-0.5 text-[13px] text-[#555555]">{teamActionMember.theatre}</p>
+                <p className="mt-0.5 text-[13px] text-white">{teamActionMember.theatre}</p>
               </div>
-              <button type="button" onClick={() => setTeamActionMember(null)}
-                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1a1a1a] text-[#666666]">
+              <button type="button" onClick={closeSheet}
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1a1a1a] text-white">
                 <X size={15} />
               </button>
             </div>
 
-            {/* Actions */}
-            <div className="space-y-2.5">
-              <button type="button" onClick={openCommsAction}
-                className="flex w-full items-center gap-4 rounded-[16px] bg-[#141414] px-4 py-4 text-left active:bg-[#1c1c1c]">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#0096C7]/15">
-                  <MessageSquare size={17} className="text-[#38bdf8]" />
+            {/* ── Actions list ── */}
+            {sheetView === "actions" && (
+              <div className="space-y-2">
+                <SheetAction icon={<MessageSquare size={17} className="text-[#38bdf8]" />} iconBg="bg-[#0096C7]/15"
+                  label="Chat" sub="Open direct message thread" onClick={openCommsAction} />
+                <SheetAction icon={<Bell size={17} className="text-[#fbbf24]" />} iconBg="bg-[#fbbf24]/15"
+                  label="Ping" sub="Send a quick ping via Comms"
+                  onClick={() => openSheetAction("ping")} />
+                <div className="my-1 border-t border-[#1e1e1e]" />
+                <SheetAction icon={<Phone size={17} className="text-[#34d399]" />} iconBg="bg-[#34d399]/15"
+                  label="Call Extension" sub="View extension number"
+                  onClick={() => openSheetAction("call")} />
+                <SheetAction icon={<Coffee size={17} className="text-[#fb923c]" />} iconBg="bg-[#fb923c]/15"
+                  label="Send for Break" sub="Notify team and send to break"
+                  onClick={() => openSheetAction("break")} />
+                <SheetAction icon={<Users size={17} className="text-[#a78bfa]" />} iconBg="bg-[#a78bfa]/15"
+                  label="Ask for Relief" sub="Select a relief from this theatre"
+                  onClick={() => openSheetAction("relief_select")} />
+                <SheetAction icon={<Navigation size={17} className="text-[#22d3ee]" />} iconBg="bg-[#22d3ee]/15"
+                  label="Dispatch" sub="Send to another location or task"
+                  onClick={() => openSheetAction("dispatch")} />
+                <div className="my-1 border-t border-[#1e1e1e]" />
+                {(() => {
+                  const isFuture = selectedDateKey > new Date().toISOString().slice(0, 10)
+                  return (
+                    <SheetAction icon={<ArrowRightLeft size={17} className={isFuture ? "text-[#34d399]" : "text-white"} />}
+                      iconBg={isFuture ? "bg-[#34d399]/15" : "bg-[#1a1a1a]"}
+                      label="Offer Swap" sub={isFuture ? "Propose a shift or slot swap" : "Only available on future dates"}
+                      onClick={isFuture ? closeSheet : undefined} disabled={!isFuture} />
+                  )
+                })()}
+                <SheetAction icon={<CalendarPlus size={17} className="text-[#38bdf8]" />} iconBg="bg-[#38bdf8]/15"
+                  label="Shift Request" sub="Ask about availability for a shift"
+                  onClick={() => openSheetAction("shift_request")} />
+              </div>
+            )}
+
+            {/* ── Relief: select person ── */}
+            {sheetView === "relief_select" && (
+              <>
+                <div className="mb-3 flex items-center gap-2">
+                  <button type="button" onClick={() => setSheetView("actions")}
+                    className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1a1a1a] text-white">
+                    <ChevronLeft size={15} />
+                  </button>
+                  <p className="text-[14px] font-semibold text-white">Select relief for {teamActionMember.memberName}</p>
                 </div>
-                <div className="min-w-0">
-                  <p className="text-[15px] font-semibold text-white">Open Comms</p>
-                  <p className="text-[12px] text-[#555555]">Message via PrepSight Comms</p>
+                <div className="max-h-[260px] overflow-y-auto space-y-2 pb-1">
+                  {(cards.find(c => c.theatre === teamActionMember.theatre)?.staff ?? [])
+                    .filter(m => m.name !== teamActionMember.memberName)
+                    .map(m => (
+                      <button key={m.name} type="button"
+                        onClick={() => {
+                          confirmAction(`${m.name} asked to relieve ${teamActionMember.memberName}`)
+                          closeSheet()
+                        }}
+                        className="flex w-full items-center gap-3 rounded-[14px] bg-[#141414] px-4 py-3 text-left active:bg-[#1c1c1c]">
+                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#a78bfa]/20 text-[11px] font-bold text-[#a78bfa]">
+                          {m.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
+                        </div>
+                        <div>
+                          <p className="text-[14px] font-semibold text-white">{m.name}</p>
+                          <p className="text-[12px] text-white">{m.role}</p>
+                        </div>
+                      </button>
+                    ))
+                  }
                 </div>
-              </button>
-              <button type="button" onClick={() => setTeamActionMember(null)}
-                className="flex w-full items-center gap-4 rounded-[16px] bg-[#141414] px-4 py-4 text-left active:bg-[#1c1c1c]">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#34d399]/15">
-                  <ArrowRightLeft size={17} className="text-[#34d399]" />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[15px] font-semibold text-white">Offer Swap</p>
-                  <p className="text-[12px] text-[#555555]">Propose a shift or slot swap</p>
-                </div>
-              </button>
-              <button type="button" onClick={() => setTeamActionMember(null)}
-                className="flex w-full items-center gap-4 rounded-[16px] bg-[#141414] px-4 py-4 text-left active:bg-[#1c1c1c]">
-                <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#fbbf24]/15">
-                  <Clock3 size={17} className="text-[#fbbf24]" />
-                </div>
-                <div className="min-w-0">
-                  <p className="text-[15px] font-semibold text-white">Send for Break</p>
-                  <p className="text-[12px] text-[#555555]">Mark as on break and notify team</p>
-                </div>
-              </button>
-            </div>
+              </>
+            )}
           </div>
         </div>
       ) : null}
+
+      {/* ── Action modals ── */}
+      {activeModal && activeModal.kind !== "toast" && (
+        <div className="fixed z-50 flex items-end bg-black/70 backdrop-blur-sm"
+             style={{ top: 0, bottom: 0, left: paneBoundsLeft, right: paneBoundsRight }}
+             onClick={() => setActiveModal(null)}>
+          <div className="w-full rounded-t-[28px] border-t border-[#222222] bg-[#0f0f0f] px-5 pb-[calc(env(safe-area-inset-bottom,0px)+24px)] pt-5"
+               onClick={(e) => e.stopPropagation()}>
+            <div className="mx-auto mb-5 h-1 w-10 rounded-full bg-[#2a2a2a]" />
+
+            {activeModal.kind === "ping" && (
+              <>
+                <MobileModalHeader icon={<Bell size={22} className="text-[#fbbf24]" />} bg="bg-[#fbbf24]/15"
+                  title={`Ping ${activeModal.memberName}`} sub={activeModal.theatre} />
+                <p className="mb-6 text-[14px] text-white">A ping will be sent to {activeModal.memberName} and logged in Comms.</p>
+                <div className="flex gap-3">
+                  <button type="button" onClick={() => setActiveModal(null)}
+                    className="flex-1 rounded-[14px] border border-[#2a2a2a] py-4 text-[14px] font-semibold text-white active:bg-[#141414]">No, Cancel</button>
+                  <button type="button"
+                    onClick={() => confirmAction(`Ping sent to ${activeModal.memberName}`)}
+                    className="flex-1 rounded-[14px] bg-[#fbbf24] py-4 text-[14px] font-bold text-black active:bg-[#f59e0b]">Yes, Send Ping</button>
+                </div>
+              </>
+            )}
+
+            {activeModal.kind === "call" && (
+              <>
+                <MobileModalHeader icon={<Phone size={22} className="text-[#34d399]" />} bg="bg-[#34d399]/15"
+                  title={`Call ${activeModal.memberName}`} sub="Extension number" />
+                <div className="mb-5 rounded-[14px] bg-[#141414] px-4 py-4 text-center">
+                  <p className="text-[11px] uppercase tracking-widest text-white">Extension</p>
+                  <p className="mt-1.5 text-[32px] font-black text-white">— —</p>
+                  <p className="mt-1 text-[12px] text-white">Available when hospital directory is connected</p>
+                </div>
+                <button type="button" onClick={() => setActiveModal(null)}
+                  className="w-full rounded-[14px] border border-[#2a2a2a] py-4 text-[14px] font-semibold text-white active:bg-[#141414]">Close</button>
+              </>
+            )}
+
+            {activeModal.kind === "break" && (
+              <>
+                <MobileModalHeader icon={<Coffee size={22} className="text-[#fb923c]" />} bg="bg-[#fb923c]/15"
+                  title={`Send ${activeModal.memberName} for break?`} sub={activeModal.theatre} />
+                <p className="mb-6 text-[14px] text-white">A break notification will be sent and visible to the team via Comms.</p>
+                <div className="flex gap-3">
+                  <button type="button" onClick={() => setActiveModal(null)}
+                    className="flex-1 rounded-[14px] border border-[#2a2a2a] py-4 text-[14px] font-semibold text-white active:bg-[#141414]">Cancel</button>
+                  <button type="button"
+                    onClick={() => confirmAction(`Break notification sent to ${activeModal.memberName}`)}
+                    className="flex-1 rounded-[14px] bg-[#fb923c] py-4 text-[14px] font-bold text-black active:bg-[#f97316]">Send for Break</button>
+                </div>
+              </>
+            )}
+
+            {activeModal.kind === "dispatch" && (
+              <>
+                <MobileModalHeader icon={<Navigation size={22} className="text-[#22d3ee]" />} bg="bg-[#22d3ee]/15"
+                  title={`Dispatch ${activeModal.memberName}`} sub={activeModal.theatre} />
+                <label className="mb-2 block text-[13px] text-white">Destination</label>
+                <input type="text" value={dispatchDest} onChange={(e) => setDispatchDest(e.target.value)}
+                  placeholder="e.g. Recovery Room, Theatre 3, ICU…"
+                  className="mb-5 w-full rounded-[14px] border border-[#2a2a2a] bg-[#141414] px-4 py-4 text-[14px] text-white placeholder-[#444444] outline-none focus:border-[#22d3ee]/50" />
+                <div className="flex gap-3">
+                  <button type="button" onClick={() => setActiveModal(null)}
+                    className="flex-1 rounded-[14px] border border-[#2a2a2a] py-4 text-[14px] font-semibold text-white active:bg-[#141414]">Cancel</button>
+                  <button type="button" disabled={!dispatchDest.trim()}
+                    onClick={() => confirmAction(`${activeModal.memberName} dispatched to ${dispatchDest.trim()}`)}
+                    className="flex-1 rounded-[14px] bg-[#22d3ee] py-4 text-[14px] font-bold text-black active:bg-[#06b6d4] disabled:opacity-40">Dispatch</button>
+                </div>
+              </>
+            )}
+
+            {activeModal.kind === "shift_request" && (
+              <>
+                <MobileModalHeader icon={<CalendarPlus size={22} className="text-[#38bdf8]" />} bg="bg-[#38bdf8]/15"
+                  title="Shift Request" sub={`${activeModal.memberName} · ${activeModal.theatre}`} />
+                <p className="mb-2 text-[14px] text-white">Send an availability request to {activeModal.memberName} for:</p>
+                <div className="mb-5 rounded-[14px] bg-[#141414] px-4 py-3 text-center">
+                  <p className="text-[16px] font-semibold text-white">{selectedDateKey}</p>
+                </div>
+                <div className="flex gap-3">
+                  <button type="button" onClick={() => setActiveModal(null)}
+                    className="flex-1 rounded-[14px] border border-[#2a2a2a] py-4 text-[14px] font-semibold text-white active:bg-[#141414]">Cancel</button>
+                  <button type="button"
+                    onClick={() => confirmAction(`Shift request sent to ${activeModal.memberName}`)}
+                    className="flex-1 rounded-[14px] bg-[#38bdf8] py-4 text-[14px] font-bold text-black active:bg-[#0ea5e9]">Send Request</button>
+                </div>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+
+      {/* ── Toast ── */}
+      {activeModal?.kind === "toast" && (
+        <div className="pointer-events-none fixed top-16 z-50 flex justify-center"
+             style={{ left: paneBoundsLeft, right: paneBoundsRight }}>
+          <div className="rounded-full border border-[#2a2a2a] bg-[#141414] px-5 py-3 text-[13px] font-semibold text-white shadow-2xl">
+            {activeModal.message}
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
+
+// ── Bottom sheet action row ────────────────────────────────────────────────
+
+function SheetAction({ icon, iconBg, label, sub, onClick, disabled }: {
+  icon: ReactNode; iconBg: string; label: string; sub: string
+  onClick?: () => void; disabled?: boolean
+}) {
+  return (
+    <button type="button" onClick={onClick} disabled={disabled}
+      className={`flex w-full items-center gap-4 rounded-[16px] bg-[#141414] px-4 py-3.5 text-left ${disabled ? "opacity-35" : "active:bg-[#1c1c1c]"}`}>
+      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${iconBg}`}>{icon}</div>
+      <div className="min-w-0">
+        <p className="text-[15px] font-semibold text-white">{label}</p>
+        <p className="text-[12px] text-white">{sub}</p>
+      </div>
+    </button>
+  )
+}
+
+function MobileModalHeader({ icon, bg, title, sub }: { icon: ReactNode; bg: string; title: string; sub: string }) {
+  return (
+    <div className="mb-5 flex items-center gap-4">
+      <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${bg}`}>{icon}</div>
+      <div>
+        <p className="text-[17px] font-bold text-white">{title}</p>
+        <p className="text-[13px] text-white">{sub}</p>
+      </div>
     </div>
   )
 }
@@ -1070,14 +1289,14 @@ function EquipmentPanel() {
               <option value="Category">Category</option>
               <option value="Type">Type</option>
             </select>
-            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 text-[#666666]" />
+            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 text-white" />
           </div>
           <div className="relative min-w-0 flex-1">
             <select value={selectedFilter} onChange={(e) => setSelectedFilter(e.target.value)}
               className="w-full appearance-none rounded-[8px] border border-[#2d2d2d] bg-[#111111] py-2 pl-2.5 pr-6 text-[13px] text-white outline-none">
               {filterOptions.map((f) => <option key={f} value={f}>{f}</option>)}
             </select>
-            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[#666666]" />
+            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-white" />
           </div>
         </div>
       </div>
@@ -1100,7 +1319,7 @@ function EquipmentPanel() {
                 <p className="text-[14px] font-medium leading-snug text-[#00c8dc]">
                   {isAll ? `${filteredCards.length} locations` : card?.category}
                 </p>
-                <p className="text-[13px] leading-snug text-[#555555]">
+                <p className="text-[13px] leading-snug text-white">
                   {isAll ? "Swipe or tap to browse" : card?.area}
                 </p>
               </div>
@@ -1108,7 +1327,7 @@ function EquipmentPanel() {
                 <button type="button"
                   onClick={() => setSortKey((k) => { const i = SORT_CYCLE.indexOf(k); return SORT_CYCLE[(i + 1) % SORT_CYCLE.length] })}
                   className="flex items-center gap-1.5 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2.5 py-2">
-                  <ArrowUpDown size={14} className={sortKey ? "text-[#0096C7]" : "text-[#666666]"} />
+                  <ArrowUpDown size={14} className={sortKey ? "text-[#0096C7]" : "text-white"} />
                   <span className="text-[13px] text-white">{sortKey ?? "sort"}</span>
                 </button>
               </div>
@@ -1168,8 +1387,8 @@ function EquipmentPanel() {
                         {storageLabel(card.storage)}
                       </span>
                       <span className={`truncate text-[12px] font-semibold leading-snug ${EQUIPMENT_STATUS_COLORS[item.status]?.name ?? "text-white"}`}>{item.name}</span>
-                      <span className={`truncate text-[11px] leading-snug ${EQUIPMENT_STATUS_COLORS[item.status]?.sub ?? "text-[#aaaaaa]"}`}>{item.type}</span>
-                      <span className={`text-[11px] tabular-nums text-right ${EQUIPMENT_STATUS_COLORS[item.status]?.sub ?? "text-[#aaaaaa]"}`}>{item.checked}</span>
+                      <span className={`truncate text-[11px] leading-snug ${EQUIPMENT_STATUS_COLORS[item.status]?.sub ?? "text-white"}`}>{item.type}</span>
+                      <span className={`text-[11px] tabular-nums text-right ${EQUIPMENT_STATUS_COLORS[item.status]?.sub ?? "text-white"}`}>{item.checked}</span>
                     </div>
                   ))}
                 </div>
@@ -1181,7 +1400,7 @@ function EquipmentPanel() {
 
       <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-[#888888]">Key</span>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-white">Key</span>
           {(Object.entries(EQUIPMENT_STATUS_COLORS) as [EquipmentStatus, typeof EQUIPMENT_STATUS_COLORS[EquipmentStatus]][]).map(([label, c]) => (
             <span key={label} className={`text-[13px] font-semibold ${c.name}`}>{label}</span>
           ))}
@@ -1230,14 +1449,14 @@ function SuppliesPanel() {
               <option value="Area">Area</option>
               <option value="Status">Status</option>
             </select>
-            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 text-[#666666]" />
+            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 text-white" />
           </div>
           <div className="relative min-w-0 flex-1">
             <select value={selectedFilter} onChange={(e) => setSelectedFilter(e.target.value)}
               className="w-full appearance-none rounded-[8px] border border-[#2d2d2d] bg-[#111111] py-2 pl-2.5 pr-6 text-[13px] text-white outline-none">
               {filterOptions.map((f) => <option key={f} value={f}>{f}</option>)}
             </select>
-            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-[#666666]" />
+            <TriangleIcon direction="down" size={9} className="pointer-events-none absolute right-1.5 top-1/2 -translate-y-1/2 text-white" />
           </div>
         </div>
       </div>
@@ -1260,7 +1479,7 @@ function SuppliesPanel() {
                 <p className="text-[14px] font-medium leading-snug text-[#00c8dc]">
                   {isAll ? `${filteredCards.length} bays` : card?.category}
                 </p>
-                <p className="text-[13px] leading-snug text-[#555555]">
+                <p className="text-[13px] leading-snug text-white">
                   {isAll ? "Swipe or tap to browse" : card?.area}
                 </p>
               </div>
@@ -1268,7 +1487,7 @@ function SuppliesPanel() {
                 <button type="button"
                   onClick={() => setSortKey((k) => { const i = SORT_CYCLE.indexOf(k); return SORT_CYCLE[(i + 1) % SORT_CYCLE.length] })}
                   className="flex items-center gap-1.5 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2.5 py-2">
-                  <ArrowUpDown size={14} className={sortKey ? "text-[#0096C7]" : "text-[#666666]"} />
+                  <ArrowUpDown size={14} className={sortKey ? "text-[#0096C7]" : "text-white"} />
                   <span className="text-[13px] text-white">{sortKey ?? "sort"}</span>
                 </button>
               </div>
@@ -1329,7 +1548,7 @@ function SuppliesPanel() {
                       </span>
                       <span className={`truncate text-[12px] font-semibold leading-snug ${SUPPLY_STATUS_COLORS[item.status]?.name ?? "text-white"}`}>{item.name}</span>
                       <span className={`text-[13px] font-bold tabular-nums text-right ${SUPPLY_STATUS_COLORS[item.status]?.name ?? "text-white"}`}>{item.qty}</span>
-                      <span className={`truncate text-[11px] ${SUPPLY_STATUS_COLORS[item.status]?.sub ?? "text-[#aaaaaa]"}`}>{item.unit}</span>
+                      <span className={`truncate text-[11px] ${SUPPLY_STATUS_COLORS[item.status]?.sub ?? "text-white"}`}>{item.unit}</span>
                     </div>
                   ))}
                 </div>
@@ -1341,7 +1560,7 @@ function SuppliesPanel() {
 
       <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2.5">
         <div className="flex flex-wrap items-center gap-x-4 gap-y-1">
-          <span className="text-[11px] font-semibold uppercase tracking-widest text-[#888888]">Key</span>
+          <span className="text-[11px] font-semibold uppercase tracking-widest text-white">Key</span>
           {(Object.entries(SUPPLY_STATUS_COLORS) as [SupplyStatus, typeof SUPPLY_STATUS_COLORS[SupplyStatus]][]).map(([label, c]) => (
             <span key={label} className={`text-[13px] font-semibold ${c.name}`}>{label}</span>
           ))}
@@ -1395,7 +1614,7 @@ function ShiftsPanel() {
 
       {shiftMode === "Map" ? (
         <div>
-          <p className="px-4 pb-3 text-[12px] text-[#888888]">Start with the hospital, then open the shifts inside it.</p>
+          <p className="px-4 pb-3 text-[12px] text-white">Start with the hospital, then open the shifts inside it.</p>
           <div className="border-y border-[#1e1e1e] [&_.leaflet-container]:h-[320px]">
             <MobileWorkforceShiftMap
               hospitals={pins}
@@ -1412,28 +1631,28 @@ function ShiftsPanel() {
               <div key={hospital.id} className="border-b border-[#1e1e1e] px-4 py-4">
                 <div className="flex items-start justify-between gap-3">
                   <h3 className="text-[15px] text-[#e0e0e0]">{hospital.hospital}</h3>
-                  <span className={`text-[12px] ${hospital.shifts.length > 0 ? "text-[#0096C7]" : "text-[#555555]"}`}>
+                  <span className={`text-[12px] ${hospital.shifts.length > 0 ? "text-[#0096C7]" : "text-white"}`}>
                     {hospital.shifts.length > 0 ? `${hospital.shifts.length} shifts` : "No shifts"}
                   </span>
                 </div>
-                <p className="mt-0.5 text-[12px] text-[#888888]">{hospital.distanceMiles} miles away</p>
+                <p className="mt-0.5 text-[12px] text-white">{hospital.distanceMiles} miles away</p>
                 <div className="mt-3 space-y-3">
                   {hospital.shifts.length > 0 ? (
                     hospital.shifts.map((shift) => (
                       <div key={`${hospital.id}-${shift.title}`} className="border-t border-[#1e1e1e] pt-3">
                         <div className="flex items-start justify-between gap-3">
                           <p className="text-[14px] text-[#e0e0e0]">{shift.title}</p>
-                          <span className="shrink-0 text-[11px] text-[#888888]">{shift.state}</span>
+                          <span className="shrink-0 text-[11px] text-white">{shift.state}</span>
                         </div>
-                        <p className="mt-1 text-[12px] text-[#888888]">{shift.contact}</p>
-                        <div className="mt-1 flex items-center gap-2 text-[12px] text-[#888888]">
+                        <p className="mt-1 text-[12px] text-white">{shift.contact}</p>
+                        <div className="mt-1 flex items-center gap-2 text-[12px] text-white">
                           <Phone size={13} className="text-[#0096C7]" />
                           {shift.phone}
                         </div>
                       </div>
                     ))
                   ) : (
-                    <p className="text-[13px] text-[#555555]">No available shifts here right now.</p>
+                    <p className="text-[13px] text-white">No available shifts here right now.</p>
                   )}
                 </div>
               </div>
@@ -1446,11 +1665,11 @@ function ShiftsPanel() {
             <div key={`${item.state}-${item.hospital}`} className="border-b border-[#1e1e1e] px-4 py-4">
               <div className="flex items-center justify-between gap-3">
                 <h3 className="text-[15px] text-[#e0e0e0]">{item.state}</h3>
-                <span className="text-[12px] text-[#888888]">{item.hospital}</span>
+                <span className="text-[12px] text-white">{item.hospital}</span>
               </div>
               <p className="mt-1 text-[14px] text-[#e0e0e0]">{item.shift}</p>
-              <p className="mt-1 text-[12px] text-[#888888]">{item.contact}</p>
-              <div className="mt-1 flex items-center gap-2 text-[12px] text-[#888888]">
+              <p className="mt-1 text-[12px] text-white">{item.contact}</p>
+              <div className="mt-1 flex items-center gap-2 text-[12px] text-white">
                 <Phone size={13} className="text-[#0096C7]" />
                 {item.phone}
               </div>
@@ -1471,7 +1690,7 @@ function SkillsPanel() {
             <h3 className="text-[15px] text-[#e0e0e0]">{skill.title}</h3>
             <span className="text-[12px] text-[#0096C7]">{skill.level}</span>
           </div>
-          <p className="mt-1 text-[13px] text-[#888888]">{skill.detail}</p>
+          <p className="mt-1 text-[13px] text-white">{skill.detail}</p>
         </div>
       ))}
     </div>
@@ -1484,9 +1703,656 @@ function TasksPanel() {
       {TASKS.map((task) => (
         <div key={task.title} className="border-b border-[#1e1e1e] px-4 py-4 last:border-b-0">
           <h3 className="text-[15px] text-[#e0e0e0]">{task.title}</h3>
-          <p className="mt-1 text-[13px] text-[#888888]">{task.meta}</p>
+          <p className="mt-1 text-[13px] text-white">{task.meta}</p>
         </div>
       ))}
+    </div>
+  )
+}
+
+// ── Teams panel ─────────────────────────────────────────────────────────────
+
+type MobileOrgTeam = {
+  id: string
+  orgId: string
+  name: string
+  type: "theatre" | "specialty"
+  memberUids: string[]
+}
+type MobileStaffRow = CommsUser & { specialtyTeams: string[] }
+
+const MOB_AVATAR_COLORS = ["bg-sky-700", "bg-violet-700", "bg-emerald-700", "bg-amber-700", "bg-rose-700"]
+function mobAvatarColor(uid: string) {
+  let n = 0
+  for (let i = 0; i < uid.length; i++) n += uid.charCodeAt(i)
+  return MOB_AVATAR_COLORS[n % MOB_AVATAR_COLORS.length]
+}
+function mobInitials(name: string) {
+  const parts = name.trim().split(/\s+/)
+  if (parts.length === 1) return parts[0][0]?.toUpperCase() ?? "?"
+  return ((parts[0][0] ?? "") + (parts[parts.length - 1][0] ?? "")).toUpperCase()
+}
+
+// Premium bottom-sheet, constrained to the current split-view pane
+function StaffBottomSheet({
+  staff,
+  specialtyTeams,
+  paneBoundsLeft,
+  paneBoundsRight,
+  onClose,
+  onSave,
+}: {
+  staff: MobileStaffRow
+  specialtyTeams: MobileOrgTeam[]
+  paneBoundsLeft: string
+  paneBoundsRight: string
+  onClose: () => void
+  onSave: (uid: string, patch: Partial<CommsUser>, teamIds: string[]) => Promise<void>
+}) {
+  const [visible, setVisible] = useState(false)
+  const [name, setName] = useState(staff.displayName)
+  const [role, setRole] = useState(staff.clinicalRole ?? "")
+  const [department, setDepartment] = useState(staff.department ?? "")
+  const [band, setBand] = useState(staff.band ?? "")
+  const [staffType, setStaffType] = useState<"permanent" | "bank" | "agency">(staff.staffType ?? "permanent")
+  const [isTeamLeader, setIsTeamLeader] = useState(staff.isTeamLeader ?? false)
+
+  // Specialty checkboxes — derive available list from org teams + user's existing ones
+  const availableSpecialties = [...new Set([
+    ...specialtyTeams.map(t => t.name),
+    ...(staff.specialties ?? []),
+  ])].sort()
+  const [selectedSpecialties, setSelectedSpecialties] = useState<string[]>(staff.specialties ?? [])
+  const [primarySpecialty, setPrimarySpecialty] = useState(
+    staff.primarySpecialty ?? staff.specialties?.[0] ?? "",
+  )
+
+  const [selectedTeamIds, setSelectedTeamIds] = useState<string[]>(
+    specialtyTeams.filter(t => t.memberUids.includes(staff.uid)).map(t => t.id),
+  )
+  const [saving, setSaving] = useState(false)
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => requestAnimationFrame(() => setVisible(true)))
+    return () => cancelAnimationFrame(id)
+  }, [])
+
+  function dismiss() {
+    setVisible(false)
+    setTimeout(onClose, 420)
+  }
+
+  function toggleSpecialty(s: string) {
+    setSelectedSpecialties(prev => {
+      const next = prev.includes(s) ? prev.filter(x => x !== s) : [...prev, s]
+      // if removing the primary, clear primary or pick first remaining
+      if (primarySpecialty === s && !next.includes(s)) {
+        setPrimarySpecialty(next[0] ?? "")
+      }
+      return next
+    })
+  }
+
+  async function handleSave() {
+    setSaving(true)
+    const eff = selectedSpecialties.filter(Boolean)
+    const primary = primarySpecialty && eff.includes(primarySpecialty) ? primarySpecialty : eff[0] ?? ""
+    await onSave(
+      staff.uid,
+      {
+        displayName: name.trim(),
+        clinicalRole: role.trim(),
+        department: department.trim(),
+        band: band.trim(),
+        staffType,
+        isTeamLeader,
+        specialties: eff,
+        primarySpecialty: primary,
+      },
+      selectedTeamIds,
+    )
+    setSaving(false)
+    dismiss()
+  }
+
+  const inputCls =
+    "w-full rounded-2xl border border-white/10 bg-white/[0.06] px-4 py-3 text-[15px] text-white outline-none placeholder:text-white/30 transition-colors focus:border-[#0096C7]/50 focus:bg-white/[0.08]"
+
+  return (
+    <div
+      className="fixed z-[600]"
+      style={{ top: 0, bottom: 0, left: paneBoundsLeft, right: paneBoundsRight }}
+    >
+      <div
+        className="absolute inset-0"
+        onClick={dismiss}
+        style={{
+          backgroundColor: "rgba(0,0,0,0.7)",
+          backdropFilter: "blur(10px)",
+          WebkitBackdropFilter: "blur(10px)",
+          transition: "opacity 350ms ease",
+          opacity: visible ? 1 : 0,
+        }}
+      />
+
+      <div
+        className="absolute bottom-0 left-0 right-0 flex flex-col overflow-hidden"
+        style={{
+          maxHeight: "88%",
+          borderRadius: "28px 28px 0 0",
+          background: "linear-gradient(180deg, #1a1a1a 0%, #111111 100%)",
+          borderTop: "1px solid rgba(255,255,255,0.08)",
+          boxShadow: "0 -24px 80px rgba(0,0,0,0.8), 0 -2px 0 rgba(255,255,255,0.04)",
+          transition: "transform 420ms cubic-bezier(0.32, 0.72, 0, 1)",
+          transform: visible ? "translateY(0)" : "translateY(100%)",
+        }}
+      >
+        {/* Drag pill */}
+        <div className="flex shrink-0 justify-center pt-3 pb-1">
+          <div className="h-[5px] w-9 rounded-full bg-white/20" />
+        </div>
+
+        {/* Header */}
+        <div className="flex shrink-0 items-center justify-between px-5 pb-4 pt-2">
+          <button type="button" onClick={dismiss} className="rounded-full px-3 py-1.5 text-[14px] text-white/50 active:bg-white/8">
+            Cancel
+          </button>
+          <div className="flex min-w-0 items-center gap-2.5">
+            <div className={`relative flex h-7 w-7 shrink-0 items-center justify-center rounded-full text-[10px] font-bold text-white ${mobAvatarColor(staff.uid)}`}>
+              {mobInitials(name || "?")}
+              {isTeamLeader && (
+                <div className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-amber-400 shadow">
+                  <Crown size={7} className="text-black" strokeWidth={2.5} />
+                </div>
+              )}
+            </div>
+            <span className="max-w-[130px] truncate text-[15px] font-semibold text-white">{name || staff.displayName}</span>
+          </div>
+          <button
+            type="button"
+            onClick={() => void handleSave()}
+            disabled={saving}
+            className="rounded-full bg-[#0096C7] px-4 py-1.5 text-[14px] font-semibold text-white transition-all disabled:opacity-50 active:scale-95 active:bg-[#0085b3]"
+          >
+            {saving ? "Saving…" : "Save"}
+          </button>
+        </div>
+
+        <div className="mx-5 shrink-0 h-px bg-white/[0.07]" />
+
+        {/* Scrollable form */}
+        <div className="flex-1 overflow-y-auto overscroll-contain px-5 py-5 space-y-5 pb-12">
+          <SheetField label="Display Name">
+            <input value={name} onChange={e => setName(e.target.value)} className={inputCls} />
+          </SheetField>
+
+          <SheetField label="Clinical Role">
+            <input value={role} onChange={e => setRole(e.target.value)} className={inputCls} />
+          </SheetField>
+
+          <SheetField label="Department">
+            <input value={department} onChange={e => setDepartment(e.target.value)} className={inputCls} />
+          </SheetField>
+
+          {/* Staff Classification */}
+          <SheetField label="Classification">
+            <div className="flex gap-2">
+              {(["permanent", "bank", "agency"] as const).map(t => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setStaffType(t)}
+                  className={`flex-1 rounded-2xl border py-2.5 text-[13px] font-medium capitalize transition-all ${
+                    staffType === t
+                      ? t === "permanent" ? "border-[#0096C7]/50 bg-[#0096C7]/15 text-[#67CFCF]"
+                        : t === "bank" ? "border-indigo-400/50 bg-indigo-400/12 text-indigo-300"
+                        : "border-violet-400/50 bg-violet-400/12 text-violet-300"
+                      : "border-white/8 bg-white/[0.03] text-white/35"
+                  }`}
+                >
+                  {t.charAt(0).toUpperCase() + t.slice(1)}
+                </button>
+              ))}
+            </div>
+          </SheetField>
+
+          {/* Band + Team Leader on one row */}
+          <div className="flex gap-3">
+            <div className="flex-1">
+              <SheetField label="Band / Grade">
+                <input
+                  value={band}
+                  onChange={e => setBand(e.target.value)}
+                  placeholder="e.g. 6"
+                  className={inputCls}
+                />
+              </SheetField>
+            </div>
+            <div className="shrink-0">
+              <SheetField label="Team Leader">
+                <button
+                  type="button"
+                  onClick={() => setIsTeamLeader(v => !v)}
+                  className={`flex h-[50px] w-[50px] items-center justify-center rounded-2xl border-2 transition-all ${
+                    isTeamLeader
+                      ? "border-amber-400/60 bg-amber-400/15"
+                      : "border-white/10 bg-white/[0.04]"
+                  }`}
+                  aria-pressed={isTeamLeader}
+                >
+                  <Crown size={18} className={isTeamLeader ? "text-amber-400" : "text-white/30"} />
+                </button>
+              </SheetField>
+            </div>
+          </div>
+
+          {/* Specialties — checkbox list */}
+          {availableSpecialties.length > 0 && (
+            <SheetField label="Specialties">
+              <div className="space-y-1.5">
+                {availableSpecialties.map(s => {
+                  const checked = selectedSpecialties.includes(s)
+                  const isPrimary = primarySpecialty === s
+                  return (
+                    <div
+                      key={s}
+                      className={`flex items-center gap-3 rounded-2xl border px-3.5 py-2.5 transition-colors ${
+                        checked ? "border-[#0096C7]/30 bg-[#0096C7]/8" : "border-white/8 bg-white/[0.03]"
+                      }`}
+                    >
+                      {/* Checkbox */}
+                      <button
+                        type="button"
+                        onClick={() => toggleSpecialty(s)}
+                        className={`flex h-[22px] w-[22px] shrink-0 items-center justify-center rounded-full border-2 transition-all ${
+                          checked ? "border-[#0096C7] bg-[#0096C7]" : "border-white/20"
+                        }`}
+                      >
+                        {checked && (
+                          <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                            <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        )}
+                      </button>
+                      {/* Label */}
+                      <span className={`flex-1 text-[13px] ${checked ? "text-white" : "text-white/50"}`}>{s}</span>
+                      {/* Star = set as primary */}
+                      {checked && (
+                        <button
+                          type="button"
+                          onClick={() => setPrimarySpecialty(isPrimary ? "" : s)}
+                          className="shrink-0 transition-colors"
+                          title={isPrimary ? "Primary specialty" : "Set as primary"}
+                        >
+                          <Star
+                            size={14}
+                            className={isPrimary ? "text-amber-400" : "text-white/25"}
+                            fill={isPrimary ? "currentColor" : "none"}
+                          />
+                        </button>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+              <p className="mt-2 text-[11px] text-white/35">Tap ★ to set a specialty as the primary one shown on your profile</p>
+            </SheetField>
+          )}
+
+          {/* Team assignment */}
+          {specialtyTeams.length > 0 && (
+            <SheetField label="Specialty Team">
+              <div className="space-y-1.5">
+                {specialtyTeams.map(team => {
+                  const checked = selectedTeamIds.includes(team.id)
+                  return (
+                    <button
+                      key={team.id}
+                      type="button"
+                      onClick={() => setSelectedTeamIds(prev => prev.includes(team.id) ? prev.filter(x => x !== team.id) : [...prev, team.id])}
+                      className={`flex w-full items-center justify-between rounded-2xl border px-4 py-3 text-left transition-colors ${
+                        checked ? "border-[#0096C7]/40 bg-[#0096C7]/10" : "border-white/8 bg-white/[0.04] active:border-white/15"
+                      }`}
+                    >
+                      <span className="text-[14px] text-white">{team.name}</span>
+                      <div className={`flex h-[22px] w-[22px] items-center justify-center rounded-full border-2 transition-all ${checked ? "border-[#0096C7] bg-[#0096C7]" : "border-white/20"}`}>
+                        {checked && (
+                          <svg width="10" height="8" viewBox="0 0 10 8" fill="none">
+                            <path d="M1 4L3.5 6.5L9 1" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        )}
+                      </div>
+                    </button>
+                  )
+                })}
+              </div>
+            </SheetField>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}
+
+function SheetField({ label, children }: { label: string; children: React.ReactNode }) {
+  return (
+    <div className="space-y-2">
+      <p className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white/45">{label}</p>
+      {children}
+    </div>
+  )
+}
+
+function TeamsPanel({ paneBoundsLeft = "0", paneBoundsRight = "0" }: { paneBoundsLeft?: string; paneBoundsRight?: string }) {
+  const profile = getProfile()
+  const canEdit = profile?.role === "manager" || profile?.role === "senior_manager"
+
+  const [orgId, setOrgId] = useState<string | null>(null)
+  const [staff, setStaff] = useState<MobileStaffRow[]>([])
+  const [orgTeams, setOrgTeams] = useState<MobileOrgTeam[]>([])
+  const [loading, setLoading] = useState(true)
+  const [searchQ, setSearchQ] = useState("")
+  const [expandedUid, setExpandedUid] = useState<string | null>(null)
+  const [editingStaff, setEditingStaff] = useState<MobileStaffRow | null>(null)
+  const [toast, setToast] = useState<string | null>(null)
+
+  function showToast(msg: string) {
+    setToast(msg)
+    setTimeout(() => setToast(null), 3000)
+  }
+
+  useEffect(() => {
+    const uid = auth?.currentUser?.uid
+    if (!uid || !db) { setLoading(false); return }
+    getDocs(query(collection(db, "comms_v5_memberships"), where("uid", "==", uid), where("status", "==", "active")))
+      .then(snap => {
+        if (!snap.empty) setOrgId(snap.docs[0].data().orgId as string)
+        else setLoading(false)
+      })
+      .catch(() => setLoading(false))
+  }, [])
+
+  useEffect(() => {
+    if (!orgId || !db) return
+    return onSnapshot(
+      query(collection(db, "org_teams"), where("orgId", "==", orgId)),
+      snap => setOrgTeams(snap.docs.map(d => ({ id: d.id, ...d.data() }) as MobileOrgTeam)),
+      () => {},
+    )
+  }, [orgId])
+
+  useEffect(() => {
+    if (!orgId || !db) return
+    const firestore = db
+    const unsub = onSnapshot(
+      query(collection(firestore, "comms_v5_memberships"), where("orgId", "==", orgId), where("status", "==", "active")),
+      async snap => {
+        const uids = [...new Set(snap.docs.map(d => d.data().uid as string).filter(Boolean))]
+        const users: CommsUser[] = []
+        for (const uid of uids) {
+          const ud = await getDoc(doc(firestore, "comms_v5_users", uid))
+          if (ud.exists()) users.push({ uid, ...ud.data() } as CommsUser)
+        }
+        setStaff(users.map(u => ({ ...u, specialtyTeams: [] })))
+        setLoading(false)
+      },
+      () => setLoading(false),
+    )
+    return unsub
+  }, [orgId])
+
+  const specialtyTeams = orgTeams.filter(t => t.type === "specialty")
+  const staffWithTeams: MobileStaffRow[] = staff.map(m => ({
+    ...m,
+    specialtyTeams: specialtyTeams.filter(t => t.memberUids.includes(m.uid)).map(t => t.name),
+  }))
+
+  const q = searchQ.trim().toLowerCase()
+  const filtered = q
+    ? staffWithTeams.filter(m =>
+        (m.displayName ?? "").toLowerCase().includes(q) ||
+        (m.email ?? "").toLowerCase().includes(q) ||
+        (m.clinicalRole ?? "").toLowerCase().includes(q) ||
+        (m.department ?? "").toLowerCase().includes(q) ||
+        (m.specialties ?? []).some(s => s.toLowerCase().includes(q)) ||
+        m.specialtyTeams.some(t => t.toLowerCase().includes(q))
+      )
+    : staffWithTeams
+
+  async function handleSave(uid: string, patch: Partial<CommsUser>, selectedTeamIds: string[]) {
+    if (!db) return
+    const firestore = db
+    await setDoc(doc(firestore, "comms_v5_users", uid), { ...patch, updatedAt: Date.now() }, { merge: true })
+    for (const team of specialtyTeams) {
+      const shouldBeIn = selectedTeamIds.includes(team.id)
+      const isIn = team.memberUids.includes(uid)
+      if (shouldBeIn && !isIn) await updateDoc(doc(firestore, "org_teams", team.id), { memberUids: arrayUnion(uid) })
+      else if (!shouldBeIn && isIn) await updateDoc(doc(firestore, "org_teams", team.id), { memberUids: arrayRemove(uid) })
+    }
+    showToast("Saved")
+  }
+
+  if (loading) {
+    return (
+      <div className="space-y-1.5 px-4 pt-4">
+        {[...Array(5)].map((_, i) => (
+          <div key={i} className="h-[52px] animate-pulse rounded-2xl bg-white/[0.05]" />
+        ))}
+      </div>
+    )
+  }
+
+  return (
+    <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden">
+      {/* Search */}
+      <div className="shrink-0 px-4 pt-3 pb-2">
+        <label className="flex items-center gap-2.5 rounded-2xl border border-white/8 bg-white/[0.05] px-3.5 py-2.5">
+          <Search size={13} className="shrink-0 text-white/35" />
+          <input
+            value={searchQ}
+            onChange={e => setSearchQ(e.target.value)}
+            placeholder="Name, role, specialty…"
+            className="min-w-0 flex-1 bg-transparent text-[13px] text-white outline-none placeholder:text-white/30"
+          />
+          {searchQ && (
+            <button type="button" onClick={() => setSearchQ("")} className="text-white/35">
+              <X size={13} />
+            </button>
+          )}
+        </label>
+      </div>
+
+      <p className="shrink-0 px-4 pb-2 text-[11px] text-white/35">
+        {filtered.length} member{filtered.length !== 1 ? "s" : ""}
+      </p>
+
+      {/* Scrollable list */}
+      <div className="flex-1 min-h-0 overflow-y-auto overscroll-contain pb-10">
+        {filtered.length === 0 ? (
+          <div className="px-4 py-12 text-center">
+            <p className="text-[14px] text-white">{searchQ ? "No results" : "No staff members yet."}</p>
+            {searchQ && <p className="mt-1 text-[12px] text-white/40">Try a different search</p>}
+          </div>
+        ) : (
+          <div className="space-y-1.5 px-4">
+            {filtered.map(member => {
+              const isExpanded = expandedUid === member.uid
+              return (
+                <div
+                  key={member.uid}
+                  className={`overflow-hidden rounded-2xl border transition-colors duration-200 ${
+                    isExpanded ? "border-white/10 bg-white/[0.06]" : "border-transparent bg-white/[0.04]"
+                  }`}
+                >
+                  {/* One-liner row */}
+                  <button
+                    type="button"
+                    onClick={() => setExpandedUid(isExpanded ? null : member.uid)}
+                    className="flex w-full items-center gap-3 px-3.5 py-3 text-left"
+                  >
+                    {/* Avatar + optional crown */}
+                    <div className="relative shrink-0">
+                      <div className={`flex h-8 w-8 items-center justify-center rounded-full text-[11px] font-bold text-white ${mobAvatarColor(member.uid)}`}>
+                        {mobInitials(member.displayName)}
+                      </div>
+                      {member.isTeamLeader && (
+                        <div className="absolute -top-1 -right-1 flex h-3.5 w-3.5 items-center justify-center rounded-full bg-amber-400 shadow-sm">
+                          <Crown size={7} className="text-black" strokeWidth={2.5} />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Name + primary specialty or role */}
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[14px] font-medium text-white leading-tight">{member.displayName || "—"}</p>
+                      {(member.primarySpecialty || member.clinicalRole) && (
+                        <p className="truncate text-[12px] text-white/50 leading-tight">
+                          {member.primarySpecialty || member.clinicalRole}
+                        </p>
+                      )}
+                    </div>
+
+                    {/* Right badges */}
+                    <div className="flex shrink-0 items-center gap-1.5">
+                      {member.specialtyTeams[0] && (
+                        <span className="max-w-[80px] truncate rounded-full bg-[#0096C7]/20 px-2 py-0.5 text-[10px] font-medium text-[#67CFCF]">
+                          {member.specialtyTeams[0]}
+                        </span>
+                      )}
+                      {member.staffType === "bank" && (
+                        <span className="rounded-md border border-indigo-400/35 bg-indigo-400/10 px-1.5 py-0.5 text-[10px] font-semibold text-indigo-300">Bank</span>
+                      )}
+                      {member.staffType === "agency" && (
+                        <span className="rounded-md border border-violet-400/35 bg-violet-400/10 px-1.5 py-0.5 text-[10px] font-semibold text-violet-300">Agency</span>
+                      )}
+                      {member.band && (
+                        <span className="rounded border border-amber-500/30 bg-amber-500/10 px-2 py-0.5 text-[10px] font-medium text-amber-300">
+                          Bd {member.band}
+                        </span>
+                      )}
+                      <ChevronDown
+                        size={14}
+                        className="text-white/30 transition-transform duration-300"
+                        style={{ transform: isExpanded ? "rotate(180deg)" : "rotate(0deg)" }}
+                      />
+                    </div>
+                  </button>
+
+                  {/* Expandable detail */}
+                  <div
+                    className="overflow-hidden"
+                    style={{
+                      maxHeight: isExpanded ? "500px" : "0px",
+                      transition: "max-height 320ms cubic-bezier(0.4, 0, 0.2, 1)",
+                    }}
+                  >
+                    <div className="space-y-3 px-3.5 pb-4">
+                      <div className="h-px bg-white/[0.07]" />
+
+                      {/* Role + dept + email */}
+                      <div className="space-y-2">
+                        {member.clinicalRole && (
+                          <div className="flex gap-2">
+                            <span className="w-14 shrink-0 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/35 pt-[1px]">Role</span>
+                            <span className="text-[13px] text-white">{member.clinicalRole}</span>
+                          </div>
+                        )}
+                        {member.department && (
+                          <div className="flex gap-2">
+                            <span className="w-14 shrink-0 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/35 pt-[1px]">Dept</span>
+                            <span className="text-[13px] text-white">{member.department}</span>
+                          </div>
+                        )}
+                        {member.email && (
+                          <div className="flex gap-2">
+                            <span className="w-14 shrink-0 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/35 pt-[1px]">Email</span>
+                            <span className="min-w-0 truncate text-[12px] text-white/60">{member.email}</span>
+                          </div>
+                        )}
+                        {(member.staffType === "bank" || member.staffType === "agency" || member.band) && (
+                          <div className="flex gap-2">
+                            <span className="w-14 shrink-0 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/35 pt-[1px]">Grade</span>
+                            <div className="flex flex-wrap items-center gap-1.5">
+                              {member.staffType === "bank" && <span className="rounded-md border border-indigo-400/35 bg-indigo-400/10 px-2 py-0.5 text-[11px] font-semibold text-indigo-300">Bank</span>}
+                              {member.staffType === "agency" && <span className="rounded-md border border-violet-400/35 bg-violet-400/10 px-2 py-0.5 text-[11px] font-semibold text-violet-300">Agency</span>}
+                              {member.band && <span className="text-[13px] text-amber-300">Band {member.band}</span>}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Specialties — clean vertical list */}
+                      {(member.specialties ?? []).length > 0 && (
+                        <div>
+                          <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/35">Specialties</p>
+                          <div className="space-y-1">
+                            {member.specialties!.map(s => (
+                              <div key={s} className="flex items-center gap-2">
+                                {member.primarySpecialty === s && (
+                                  <Star size={10} className="shrink-0 text-amber-400" fill="currentColor" />
+                                )}
+                                {member.primarySpecialty !== s && (
+                                  <div className="h-1 w-1 shrink-0 rounded-full bg-white/25" />
+                                )}
+                                <span className={`text-[13px] ${member.primarySpecialty === s ? "font-medium text-white" : "text-white/70"}`}>{s}</span>
+                              </div>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {/* Teams */}
+                      {member.specialtyTeams.length > 0 && (
+                        <div>
+                          <p className="mb-1.5 text-[10px] font-semibold uppercase tracking-[0.1em] text-white/35">Teams</p>
+                          <div className="flex flex-wrap gap-1.5">
+                            {member.specialtyTeams.map(t => (
+                              <span key={t} className="rounded-full bg-[#0096C7]/15 px-2.5 py-1 text-[11px] font-medium text-[#67CFCF]">{t}</span>
+                            ))}
+                          </div>
+                        </div>
+                      )}
+
+                      {canEdit && (
+                        <button
+                          type="button"
+                          onClick={() => setEditingStaff(member)}
+                          className="flex items-center gap-2 rounded-xl border border-white/10 bg-white/[0.05] px-3.5 py-2 text-[13px] font-medium text-white transition-colors active:bg-white/10"
+                        >
+                          <Pencil size={12} />
+                          Edit member
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+              )
+            })}
+          </div>
+        )}
+      </div>
+
+      {/* Bottom sheet */}
+      {editingStaff && canEdit && (
+        <StaffBottomSheet
+          staff={editingStaff}
+          specialtyTeams={specialtyTeams}
+          paneBoundsLeft={paneBoundsLeft}
+          paneBoundsRight={paneBoundsRight}
+          onClose={() => setEditingStaff(null)}
+          onSave={handleSave}
+        />
+      )}
+
+      {/* Toast — anchored to pane centre */}
+      {toast && (
+        <div
+          className="pointer-events-none fixed z-[700] -translate-x-1/2 rounded-full bg-white/10 px-4 py-2 text-[13px] text-white shadow-lg backdrop-blur"
+          style={{ bottom: "96px", left: `calc((${paneBoundsLeft} + (100% - ${paneBoundsRight})) / 2)` }}
+        >
+          {toast}
+        </div>
+      )}
     </div>
   )
 }
@@ -1496,7 +2362,7 @@ function TasksPanel() {
 function PlaceholderPanel({ body }: { body: string }) {
   return (
     <div className="px-4 py-8 text-center">
-      <p className="text-[13px] leading-6 text-[#888888]">{body}</p>
+      <p className="text-[13px] leading-6 text-white">{body}</p>
     </div>
   )
 }
@@ -1539,7 +2405,7 @@ function MobileResourcePlaceholderSurface({
 // ── Main export ────────────────────────────────────────────────────────────
 
 type ResourceTab = "workforce" | "equipment" | "supplies"
-type WorkforceTab = "allocation" | "shifts" | "skills" | "tasks"
+type WorkforceTab = "allocation" | "shifts" | "skills" | "tasks" | "teams"
 
 export default function MobileResourcesSurface({
   embedded = false,
@@ -1589,14 +2455,14 @@ export default function MobileResourcesSurface({
                 type="button"
                 onClick={toggleSearch}
                 aria-label="Toggle search"
-                className={showSearch ? "text-white" : "text-white/70 hover:text-white"}
+                className={showSearch ? "text-white" : "text-white hover:text-white"}
               >
                 <Search size={20} />
               </button>
               <button
                 type="button"
                 aria-label="More"
-                className="text-white/80 hover:text-white"
+                className="text-white hover:text-white"
               >
                 <MoreVertical size={22} />
               </button>
@@ -1605,7 +2471,7 @@ export default function MobileResourcesSurface({
         >
           {showSearch ? (
             <div className="mt-3 flex items-center gap-3 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-4 py-2">
-              <Search size={14} className="shrink-0 text-[#888888]" />
+              <Search size={14} className="shrink-0 text-white" />
               <input
                 autoFocus
                 value={searchValue}
@@ -1614,7 +2480,7 @@ export default function MobileResourcesSurface({
                 className="flex-1 bg-transparent text-[15px] text-[#e0e0e0] placeholder-[#555555] outline-none"
               />
               {searchValue ? (
-                <button onClick={() => setSearchValue("")} className="text-[#888888]">
+                <button onClick={() => setSearchValue("")} className="text-white">
                   <X size={14} />
                 </button>
               ) : null}
@@ -1632,7 +2498,7 @@ export default function MobileResourcesSurface({
             className={`shrink-0 rounded-full px-4 py-1.5 text-sm capitalize transition-colors ${
               resourceTab === tab
                 ? "bg-[#0096C7] text-white"
-                : "text-[#888888] hover:text-[#e0e0e0]"
+                : "text-white hover:text-[#e0e0e0]"
             }`}
           >
             {tab}
@@ -1644,7 +2510,26 @@ export default function MobileResourcesSurface({
         <div className={`flex flex-1 min-h-0 flex-col overflow-hidden ${embedded ? "" : "pb-28"}`}>
           <div className="flex min-h-0 flex-1 flex-col overflow-hidden border-y border-black bg-black">
             <div className="shrink-0">
-              {activeTab !== "allocation" ? (
+              {activeTab === "teams" ? (
+                <div className="flex items-center px-3 py-2.5 border-b border-[#1a1a1a]">
+                  <div className="relative w-[126px]">
+                    <select
+                      value={activeTab}
+                      onChange={(event) => setActiveTab(event.target.value as WorkforceTab)}
+                      className="w-full appearance-none rounded-[12px] border border-[#2d2d2d] bg-[#111111] px-3 py-2 pr-9 text-[13px] text-white outline-none"
+                    >
+                      <option value="allocation">Allocation</option>
+                      <option value="shifts">Shifts</option>
+                      <option value="skills">Skills</option>
+                      <option value="tasks">Tasks</option>
+                      <option value="teams">Teams</option>
+                    </select>
+                    <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#0096C7]">
+                      <TriangleIcon direction="down" size={12} />
+                    </span>
+                  </div>
+                </div>
+              ) : activeTab !== "allocation" ? (
                 <MobileMonthCalendarBlock
                   leadingControl={
                     <div className="relative w-[126px]">
@@ -1657,6 +2542,7 @@ export default function MobileResourcesSurface({
                         <option value="shifts">Shifts</option>
                         <option value="skills">Skills</option>
                         <option value="tasks">Tasks</option>
+                        <option value="teams">Teams</option>
                       </select>
                       <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-[#0096C7]">
                         <TriangleIcon direction="down" size={12} />
@@ -1671,6 +2557,7 @@ export default function MobileResourcesSurface({
               {activeTab === "shifts" ? <ShiftsPanel /> : null}
               {activeTab === "skills" ? <SkillsPanel /> : null}
               {activeTab === "tasks" ? <TasksPanel /> : null}
+              {activeTab === "teams" ? <TeamsPanel paneBoundsLeft={paneBoundsLeft} paneBoundsRight={paneBoundsRight} /> : null}
             </div>
           </div>
         </div>

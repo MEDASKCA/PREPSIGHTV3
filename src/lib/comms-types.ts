@@ -25,6 +25,10 @@ export interface CommsUser {
   department?: string
   clinicalRole?: string
   specialties?: string[]
+  primarySpecialty?: string   // nominated main specialty — shown on collapsed row
+  isTeamLeader?: boolean      // team leader — renders crown badge on avatar
+  band?: string               // NHS/AfC band number e.g. "6", "7"
+  staffType?: "permanent" | "bank" | "agency"  // employment classification
   groupLabel?: string
   pinnedThreadIds?: string[]
   unlockedGroupIds?: string[]
@@ -35,6 +39,7 @@ export interface CommsThread {
   id: string
   type: "channel" | "direct"
   subtype?: "feed" | "group"  // channels only — "feed" = auto-generated theatre specialty, "group" = user-created
+  teamType?: "theatre" | "specialty"  // channels only — set when seeded from org_teams
   name?: string            // channels only
   description?: string     // channels only
   organizationId: string

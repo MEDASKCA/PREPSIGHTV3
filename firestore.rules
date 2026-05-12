@@ -338,7 +338,7 @@ service cloud.firestore {
 
     match /comms_v5_users/{uid} {
       allow read: if isSignedIn();
-      allow write: if isSignedIn() && request.auth.uid == uid;
+      allow write: if isSignedIn();
     }
 
     match /comms_v5_threads/{threadId} {
@@ -410,6 +410,13 @@ service cloud.firestore {
       allow read: if isSignedIn();
       allow create: if isSignedIn() && request.resource.data.createdBy == request.auth.uid;
       allow update, delete: if false;
+    }
+
+    match /org_teams/{teamId} {
+      allow read: if isSignedIn();
+      allow create: if isSignedIn();
+      allow update: if isSignedIn();
+      allow delete: if false;
     }
 
     match /theatre_sessions/{sessionId} {

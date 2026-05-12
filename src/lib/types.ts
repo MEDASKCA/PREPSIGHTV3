@@ -253,6 +253,7 @@ export interface PrepSightProfile {
   activeOrganizationId?: string
   organizationIds?: string[]
   jobTitle?: string
+  band?: string
   name?: string
   email?: string
   specialtiesOfInterest: string[]
