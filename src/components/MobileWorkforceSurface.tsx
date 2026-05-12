@@ -625,7 +625,7 @@ function FloatingStatusKeyBar({
 
     const syncDockOffset = () => {
       const dock = document.getElementById("mobile-bottom-dock")
-      setDockOffset(dock ? Math.round(dock.getBoundingClientRect().height) : 0)
+      setDockOffset(dock ? Math.max(Math.round(dock.getBoundingClientRect().height) - 1, 0) : 0)
     }
 
     syncDockOffset()
