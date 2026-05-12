@@ -155,19 +155,6 @@ function matchesFilter(card: TeamCard, mode: FilterMode, val: string) {
   return card.consultantSurgeon === val
 }
 
-// ── Legend ─────────────────────────────────────────────────────────────────
-
-function StatusLegend() {
-  return (
-    <div className="flex items-center gap-5">
-      <span className="text-[11px] font-semibold uppercase tracking-widest text-white">Key</span>
-      {(Object.entries(STATUS_META) as [StaffStatus, typeof STATUS_META[StaffStatus]][]).map(([label, c]) => (
-        <span key={label} className={`text-[12px] font-semibold ${c.name}`}>{label}</span>
-      ))}
-    </div>
-  )
-}
-
 // ── Column header button ───────────────────────────────────────────────────
 
 function ColHeader({
@@ -446,7 +433,7 @@ export default function WorkforcePage() {
               }
 
               return (
-                <div className="shrink-0 border-b border-[#1e1e1e] bg-[#0a0a0a] px-3 py-2">
+                <div className="shrink-0 border-b border-black bg-[#0a0a0a] px-3 py-2">
                   <div className="flex items-center gap-3">
 
                     {/* Filter controls */}
@@ -540,7 +527,7 @@ export default function WorkforcePage() {
             {/* Scrollable area — horizontal + vertical */}
             <div className="min-h-0 flex-1 overflow-x-auto overflow-y-auto">
               {/* Column header — sticky vertically, scrolls horizontally with rows */}
-              <div className={`sticky top-0 z-10 grid ${COLS} min-w-[900px] items-center gap-x-3 border-b border-[#1e1e1e] bg-[#0d0d0d] px-4 py-2.5`}>
+              <div className={`sticky top-0 z-10 grid ${COLS} min-w-[900px] items-center gap-x-3 border-b border-black bg-[#0d0d0d] px-4 py-2.5`}>
                 <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">Theatre</span>
                 <ColHeader label="Staff Name"  colKey="name"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
                 <ColHeader label="Role"        colKey="role"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
@@ -563,7 +550,7 @@ export default function WorkforcePage() {
                       <div
                         key={`${row.theatre}-${row.name}-${i}`}
                         onContextMenu={(e) => openContextMenu(e, row.name, row.theatre)}
-                        className={`group grid ${COLS} cursor-context-menu items-center gap-x-3 border-b border-[#0f0f0f] bg-black px-4 py-2.5 transition-colors hover:bg-[#080808]`}
+                        className={`group grid ${COLS} cursor-context-menu items-center gap-x-3 border-b border-black bg-black px-4 py-2.5 transition-colors hover:bg-[#080808]`}
                       >
                         <span className={`font-mono text-[17px] font-black leading-none ${c.name}`}>
                           {String(row.theatreNum).padStart(2, "0")}
@@ -596,7 +583,7 @@ export default function WorkforcePage() {
                           <div
                             key={`${card.theatre}-${member.name}`}
                             onContextMenu={(e) => openContextMenu(e, member.name, card.theatre)}
-                            className={`group grid ${COLS} cursor-context-menu items-center gap-x-3 border-b border-[#0a0a0a] bg-black px-4 py-2.5 transition-colors hover:bg-[#080808]`}
+                            className={`group grid ${COLS} cursor-context-menu items-center gap-x-3 border-b border-black bg-black px-4 py-2.5 transition-colors hover:bg-[#080808]`}
                           >
                             <span className={`font-mono text-[17px] font-black leading-none ${c.name}`}>
                               {String(card.theatreNum).padStart(2, "0")}
@@ -623,10 +610,17 @@ export default function WorkforcePage() {
               </div>
             </div>
 
-            {/* Legend — fixed above dock, never scrolls */}
-            <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-4 py-2.5">
-              <StatusLegend />
+            <div className="shrink-0 border-t border-black bg-[#141414] px-4 py-2">
+              <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-[10px] leading-none text-white">
+                <span className="text-white/55">Key</span>
+                <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-[#38bdf8]" />Scrub</span>
+                <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-[#34d399]" />Relief</span>
+                <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-[#fbbf24]" />Break</span>
+                <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-[#fb7185]" />Sick</span>
+                <span className="inline-flex items-center gap-1"><span className="h-2 w-2 rounded-full bg-[#c084fc]" />Dispatch</span>
+              </div>
             </div>
+
           </section>
         </div>
 
