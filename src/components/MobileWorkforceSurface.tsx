@@ -733,9 +733,11 @@ function RotaPanel({
 
   const COLS = "grid-cols-[26px_minmax(0,1.3fr)_minmax(0,0.95fr)_minmax(0,0.75fr)_38px_38px]"
   const isSplitPane = paneBoundsLeft !== "0" || paneBoundsRight !== "0"
+  const legendOffsetBottom = isSplitPane ? "0px" : "56px"
+  const legendReserve = isSplitPane ? "64px" : "116px"
 
   return (
-    <div className="flex flex-1 min-h-0 flex-col overflow-hidden">
+    <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden">
       {/* ── Premium date strip ── */}
       <div className="shrink-0 border-b border-[#222222] bg-[#111111]">
         <div className="flex items-stretch">
@@ -916,7 +918,7 @@ function RotaPanel({
         className="min-h-0 flex-1 overflow-y-scroll overscroll-contain [touch-action:pan-y]"
         style={{
           WebkitOverflowScrolling: "touch",
-          paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 92px)",
+          paddingBottom: `calc(env(safe-area-inset-bottom, 0px) + ${legendReserve})`,
         }}
       >
         {(() => {
@@ -972,13 +974,11 @@ function RotaPanel({
 
       {/* ── Status legend ── */}
       <div
-        className="fixed z-40 border-t border-[#1e1e1e] bg-[#0a0a0a]/96 px-3 py-2.5 shadow-[0_-10px_24px_rgba(0,0,0,0.42)] backdrop-blur-sm"
+        className="pointer-events-none fixed z-40 border-t border-[#1e1e1e] bg-[#0a0a0a]/96 px-3 py-2.5 shadow-[0_-10px_24px_rgba(0,0,0,0.42)] backdrop-blur-sm"
         style={{
           left: paneBoundsLeft,
           right: paneBoundsRight,
-          bottom: isSplitPane
-            ? "calc(env(safe-area-inset-bottom, 0px) + 52px)"
-            : "calc(env(safe-area-inset-bottom, 0px) + 56px)",
+          bottom: legendOffsetBottom,
         }}
       >
         <div className="grid grid-cols-[28px_minmax(0,1fr)] items-start gap-x-3">
