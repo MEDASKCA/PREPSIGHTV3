@@ -1,9 +1,9 @@
-"use client"
+﻿"use client"
 
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useMemo, useState, type ReactNode } from "react"
 import { useRouter } from "next/navigation"
 import { collection, getDocs, query, where } from "firebase/firestore"
-import { ArrowRightLeft, ArrowUpDown, ChevronLeft, ChevronRight, Clock3, Crown, MessageSquare, X } from "lucide-react"
+import { ArrowRightLeft, ArrowUpDown, Bell, CalendarPlus, ChevronLeft, ChevronRight, Clock3, Coffee, Crown, MessageSquare, Navigation, Phone, Users, X } from "lucide-react"
 import { db } from "@/lib/firebase"
 import RootEntry from "@/components/RootEntry"
 import TriangleIcon from "@/components/TriangleIcon"
@@ -42,6 +42,17 @@ type ContextMenu = {
   x: number
   y: number
 } | null
+
+type ActiveModal =
+  | { kind: "ping";          memberName: string; theatre: string }
+  | { kind: "call";          memberName: string }
+  | { kind: "break";         memberName: string; theatre: string }
+  | { kind: "relief";        requester: string;  theatre: string }
+  | { kind: "relief_sent";   requester: string;  relievedBy: string }
+  | { kind: "dispatch";      memberName: string; theatre: string }
+  | { kind: "shift_request"; memberName: string; theatre: string }
+  | { kind: "toast";         message: string }
+  | null
 
 // ── Status colours (font-only — no bg tint) ────────────────────────────────
 
@@ -149,7 +160,7 @@ function matchesFilter(card: TeamCard, mode: FilterMode, val: string) {
 function StatusLegend() {
   return (
     <div className="flex items-center gap-5">
-      <span className="text-[11px] font-semibold uppercase tracking-widest text-[#666666]">Key</span>
+      <span className="text-[11px] font-semibold uppercase tracking-widest text-white">Key</span>
       {(Object.entries(STATUS_META) as [StaffStatus, typeof STATUS_META[StaffStatus]][]).map(([label, c]) => (
         <span key={label} className={`text-[12px] font-semibold ${c.name}`}>{label}</span>
       ))}
@@ -173,7 +184,7 @@ function ColHeader({
       className={`flex items-center gap-1 text-[11px] font-semibold uppercase tracking-[0.1em] transition-colors ${active ? "text-[#0096C7]" : "text-white hover:text-[#0096C7]"}`}
     >
       {label}
-      <ArrowUpDown size={10} className={active ? "text-[#0096C7]" : "text-[#666666]"} />
+      <ArrowUpDown size={10} className={active ? "text-[#0096C7]" : "text-white"} />
     </button>
   )
 }
@@ -194,6 +205,8 @@ export default function WorkforcePage() {
   const [sortKey, setSortKey] = useState<SortKey | null>(null)
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc")
   const [contextMenu, setContextMenu] = useState<ContextMenu>(null)
+  const [activeModal, setActiveModal] = useState<ActiveModal>(null)
+  const [dispatchDest, setDispatchDest] = useState("")
   const [selectedTheatre, setSelectedTheatre] = useState<number | null>(null)
   const [cards, setCards] = useState<TeamCard[]>(TEAM_CARDS)
 
@@ -312,12 +325,38 @@ export default function WorkforcePage() {
     jumpToDate(parsed)
   }
 
+  useEffect(() => {
+    if (activeModal?.kind === "toast") {
+      const t = setTimeout(() => setActiveModal(null), 2800)
+      return () => clearTimeout(t)
+    }
+  }, [activeModal])
+
   function openContextMenu(e: React.MouseEvent, memberName: string, theatre: string) {
     e.preventDefault()
-    setContextMenu({ memberName, theatre, x: e.clientX, y: e.clientY })
+    const menuW = 240, menuH = 340
+    const x = Math.min(e.clientX, window.innerWidth - menuW - 8)
+    const y = Math.min(e.clientY, window.innerHeight - menuH - 8)
+    setContextMenu({ memberName, theatre, x, y })
   }
 
-  function openComms() { setContextMenu(null); router.push("/comms") }
+  function openComms(memberName?: string) {
+    setContextMenu(null)
+    router.push(memberName ? `/comms?dmWith=${encodeURIComponent(memberName)}` : "/comms")
+  }
+
+  function openAction(memberName: string, theatre: string, kind: "ping" | "call" | "break" | "relief" | "dispatch" | "shift_request") {
+    setContextMenu(null)
+    if (kind === "ping")               setActiveModal({ kind: "ping",          memberName, theatre })
+    else if (kind === "call")          setActiveModal({ kind: "call",          memberName })
+    else if (kind === "break")         setActiveModal({ kind: "break",         memberName, theatre })
+    else if (kind === "relief")        setActiveModal({ kind: "relief",        requester: memberName, theatre })
+    else if (kind === "dispatch")      { setDispatchDest(""); setActiveModal({ kind: "dispatch", memberName, theatre }) }
+    else if (kind === "shift_request") setActiveModal({ kind: "shift_request", memberName, theatre })
+  }
+
+  function confirmAction(message: string) { setActiveModal({ kind: "toast", message }) }
+  function closeModal() { setActiveModal(null) }
 
   return (
     <WorkspaceDesktopShell currentNav="workforce">
@@ -359,7 +398,7 @@ export default function WorkforcePage() {
                         .replace("Thu","TH").replace("Fri","F").replace("Sat","Sa").replace("Sun","Su")
                       return (
                         <div key={day.key} className="flex w-[30px] shrink-0 flex-col items-center gap-1.5">
-                          <span className="text-[11px] uppercase leading-none text-white/50">{wday}</span>
+                          <span className="text-[11px] uppercase leading-none text-white">{wday}</span>
                           <button
                             type="button"
                             onClick={() => jumpToDate(day.date)}
@@ -412,7 +451,7 @@ export default function WorkforcePage() {
 
                     {/* Filter controls */}
                     <div className="flex shrink-0 items-center gap-2">
-                      <span className="text-[13px] font-medium text-[#888888]">Filter by</span>
+                      <span className="text-[13px] font-medium text-white">Filter by</span>
                       <select
                         value={filterMode}
                         onChange={(e) => { setFilterMode(e.target.value as FilterMode); setSelectedFilter("All") }}
@@ -433,7 +472,7 @@ export default function WorkforcePage() {
                         <button
                           type="button"
                           onClick={() => setSortKey(null)}
-                          className="flex items-center gap-1 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2 py-1.5 text-[12px] text-[#888888] hover:text-white"
+                          className="flex items-center gap-1 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2 py-1.5 text-[12px] text-white hover:text-white"
                         >
                           <X size={11} /> Clear sort
                         </button>
@@ -465,7 +504,7 @@ export default function WorkforcePage() {
                           <span className="text-[11px] leading-tight text-[#00c8dc]">
                             {isAll ? `${filteredCards.length} theatres` : card?.specialty}
                           </span>
-                          <span className="text-[10px] leading-tight text-[#555555]">
+                          <span className="text-[10px] leading-tight text-white">
                             {isAll ? "Use arrows to browse" : `${card?.area} · ${card?.consultantSurgeon} · ${card?.consultantAnaesthetist} · ${card?.sessionTime}`}
                           </span>
                         </div>
@@ -489,36 +528,32 @@ export default function WorkforcePage() {
                       onClick={() => setSortKey((k) => { const i = CAROUSEL_SORT_CYCLE.indexOf(k as typeof CAROUSEL_SORT_CYCLE[number]); return CAROUSEL_SORT_CYCLE[(i + 1) % CAROUSEL_SORT_CYCLE.length] as SortKey | null })}
                       className="flex shrink-0 items-center gap-1.5 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2.5 py-1.5"
                     >
-                      <ArrowUpDown size={13} className={sortKey ? "text-[#0096C7]" : "text-[#666666]"} />
+                      <ArrowUpDown size={13} className={sortKey ? "text-[#0096C7]" : "text-white"} />
                       <span className="text-[12px] text-white">{sortKey ?? "Sort"}</span>
                     </button>
 
-                    <div className="h-5 w-px shrink-0 bg-[#2d2d2d]" />
-
-                    {/* Legend */}
-                    <div className="shrink-0">
-                      <StatusLegend />
-                    </div>
                   </div>
                 </div>
               )
             })()}
 
-            {/* Sticky column header row */}
-            <div className={`shrink-0 grid ${COLS} items-center gap-x-3 border-b border-[#1e1e1e] bg-[#0d0d0d] px-4 py-2.5`}>
-              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">Theatre</span>
-              <ColHeader label="Staff Name"  colKey="name"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-              <ColHeader label="Role"        colKey="role"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-              <ColHeader label="Specialty"   colKey="specialty" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-              <ColHeader label="Area"        colKey="area"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-              <ColHeader label="Start"       colKey="start"     sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">End</span>
-              <ColHeader label="Status"      colKey="status"    sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-              <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">Actions</span>
-            </div>
+            {/* Scrollable area — horizontal + vertical */}
+            <div className="min-h-0 flex-1 overflow-x-auto overflow-y-auto">
+              {/* Column header — sticky vertically, scrolls horizontally with rows */}
+              <div className={`sticky top-0 z-10 grid ${COLS} min-w-[900px] items-center gap-x-3 border-b border-[#1e1e1e] bg-[#0d0d0d] px-4 py-2.5`}>
+                <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">Theatre</span>
+                <ColHeader label="Staff Name"  colKey="name"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <ColHeader label="Role"        colKey="role"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <ColHeader label="Specialty"   colKey="specialty" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <ColHeader label="Area"        colKey="area"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <ColHeader label="Start"       colKey="start"     sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">End</span>
+                <ColHeader label="Status"      colKey="status"    sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">Actions</span>
+              </div>
 
-            {/* Scrollable rows */}
-            <div className="min-h-0 flex-1 overflow-y-auto">
+              {/* Rows */}
+              <div className="min-w-[900px]">
               {sortKey ? (
                 // ── Flat sorted view ─────────────────────────────────────
                 <>
@@ -544,7 +579,7 @@ export default function WorkforcePage() {
                         <span className={`text-[12px] tabular-nums ${c.sub}`}>{row.start}</span>
                         <span className={`text-[12px] tabular-nums ${c.sub}`}>{row.end}</span>
                         <span className={`text-[12px] font-semibold ${c.name}`}>{row.status}</span>
-                        <ActionButtons memberName={row.name} theatre={row.theatre} onComms={openComms} onDismiss={() => {}} />
+                        <ActionButtons memberName={row.name} theatre={row.theatre} onComms={() => openComms(row.name)} onDismiss={() => {}} />
                       </div>
                     )
                   })}
@@ -577,7 +612,7 @@ export default function WorkforcePage() {
                             <span className={`text-[12px] tabular-nums ${c.sub}`}>{member.start}</span>
                             <span className={`text-[12px] tabular-nums ${c.sub}`}>{member.end}</span>
                             <span className={`text-[12px] font-semibold ${c.name}`}>{member.status}</span>
-                            <ActionButtons memberName={member.name} theatre={card.theatre} onComms={openComms} onDismiss={() => {}} />
+                            <ActionButtons memberName={member.name} theatre={card.theatre} onComms={() => openComms(member.name)} onDismiss={() => {}} />
                           </div>
                         )
                       })}
@@ -585,6 +620,12 @@ export default function WorkforcePage() {
                   ))}
                 </>
               )}
+              </div>
+            </div>
+
+            {/* Legend — fixed above dock, never scrolls */}
+            <div className="shrink-0 border-t border-[#1e1e1e] bg-[#0a0a0a] px-4 py-2.5">
+              <StatusLegend />
             </div>
           </section>
         </div>
@@ -597,44 +638,214 @@ export default function WorkforcePage() {
             onContextMenu={(e) => { e.preventDefault(); setContextMenu(null) }}
           >
             <div
-              className="absolute min-w-[230px] rounded-[16px] border border-[#1e1e1e] bg-[#0f0f0f] p-2 shadow-[0_24px_56px_rgba(0,0,0,0.7)]"
+              className="absolute min-w-[248px] rounded-[16px] border border-[#1e1e1e] bg-[#0f0f0f] p-2 shadow-[0_24px_56px_rgba(0,0,0,0.8)]"
               style={{ left: contextMenu.x, top: contextMenu.y }}
               onClick={(e) => e.stopPropagation()}
             >
               <div className="mb-2 border-b border-[#1a1a1a] px-3 pb-2.5 pt-1.5">
                 <p className="text-[14px] font-semibold text-white">{contextMenu.memberName}</p>
-                <p className="text-[12px] text-[#888888]">{contextMenu.theatre}</p>
+                <p className="text-[12px] text-white">{contextMenu.theatre}</p>
               </div>
-              <button type="button" onClick={openComms}
-                className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left transition-colors hover:bg-[#141414]">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#0096C7]/15">
-                  <MessageSquare size={13} className="text-[#38bdf8]" />
-                </div>
-                <div>
-                  <p className="text-[13px] font-semibold text-white">Open Comms</p>
-                  <p className="text-[11px] text-[#888888]">Message via PrepSight Comms</p>
-                </div>
-              </button>
-              <button type="button" onClick={() => setContextMenu(null)}
-                className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left transition-colors hover:bg-[#141414]">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#34d399]/15">
-                  <ArrowRightLeft size={13} className="text-[#34d399]" />
-                </div>
-                <div>
-                  <p className="text-[13px] font-semibold text-white">Offer Swap</p>
-                  <p className="text-[11px] text-[#888888]">Propose a shift or slot swap</p>
-                </div>
-              </button>
-              <button type="button" onClick={() => setContextMenu(null)}
-                className="flex w-full items-center gap-3 rounded-[10px] px-3 py-2.5 text-left transition-colors hover:bg-[#141414]">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-[#fbbf24]/15">
-                  <Clock3 size={13} className="text-[#fbbf24]" />
-                </div>
-                <div>
-                  <p className="text-[13px] font-semibold text-white">Send for Break</p>
-                  <p className="text-[11px] text-[#888888]">Mark as on break and notify team</p>
-                </div>
-              </button>
+
+              {/* Chat */}
+              <CtxItem icon={<MessageSquare size={13} className="text-[#38bdf8]" />} iconBg="bg-[#0096C7]/15"
+                label="Chat" sub="Open direct message thread" onClick={() => openComms(contextMenu.memberName)} />
+
+              {/* Ping */}
+              <CtxItem icon={<Bell size={13} className="text-[#fbbf24]" />} iconBg="bg-[#fbbf24]/15"
+                label="Ping" sub="Send a quick ping via Comms"
+                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "ping")} />
+
+              <div className="my-1.5 border-t border-[#1a1a1a]" />
+
+              {/* Call Extension */}
+              <CtxItem icon={<Phone size={13} className="text-[#34d399]" />} iconBg="bg-[#34d399]/15"
+                label="Call Extension" sub="View extension number"
+                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "call")} />
+
+              {/* Send for Break */}
+              <CtxItem icon={<Coffee size={13} className="text-[#fb923c]" />} iconBg="bg-[#fb923c]/15"
+                label="Send for Break" sub="Notify team and send to break"
+                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "break")} />
+
+              {/* Ask for Relief */}
+              <CtxItem icon={<Users size={13} className="text-[#a78bfa]" />} iconBg="bg-[#a78bfa]/15"
+                label="Ask for Relief" sub="Select a relief from this theatre"
+                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "relief")} />
+
+              {/* Dispatch */}
+              <CtxItem icon={<Navigation size={13} className="text-[#22d3ee]" />} iconBg="bg-[#22d3ee]/15"
+                label="Dispatch" sub="Send to another location or task"
+                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "dispatch")} />
+
+              <div className="my-1.5 border-t border-[#1a1a1a]" />
+
+              {/* Offer Swap — disabled on today */}
+              {(() => {
+                const isFuture = selectedDateKey > new Date().toISOString().slice(0, 10)
+                return (
+                  <CtxItem icon={<ArrowRightLeft size={13} className={isFuture ? "text-[#34d399]" : "text-white"} />}
+                    iconBg={isFuture ? "bg-[#34d399]/15" : "bg-[#222222]"}
+                    label="Offer Swap" sub={isFuture ? "Propose a shift or slot swap" : "Only available on future dates"}
+                    onClick={isFuture ? () => setContextMenu(null) : undefined}
+                    disabled={!isFuture} />
+                )
+              })()}
+
+              {/* Shift Request */}
+              <CtxItem icon={<CalendarPlus size={13} className="text-[#38bdf8]" />} iconBg="bg-[#38bdf8]/15"
+                label="Shift Request" sub="Ask about availability for a shift"
+                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "shift_request")} />
+            </div>
+          </div>
+        )}
+
+        {/* ── Action modals ── */}
+        {activeModal && activeModal.kind !== "toast" && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
+               onClick={closeModal}>
+            <div className="w-full max-w-sm rounded-[20px] border border-[#1e1e1e] bg-[#0f0f0f] p-6 shadow-[0_32px_80px_rgba(0,0,0,0.9)]"
+                 onClick={(e) => e.stopPropagation()}>
+
+              {/* Ping */}
+              {activeModal.kind === "ping" && (
+                <>
+                  <ModalHeader icon={<Bell size={20} className="text-[#fbbf24]" />} bg="bg-[#fbbf24]/15"
+                    title={`Ping ${activeModal.memberName}`} sub={activeModal.theatre} />
+                  <p className="mb-6 text-[13px] text-white">A ping will be sent to {activeModal.memberName} and logged in Comms.</p>
+                  <div className="flex gap-3">
+                    <button type="button" onClick={closeModal}
+                      className="flex-1 rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">No, Cancel</button>
+                    <button type="button"
+                      onClick={() => confirmAction(`Ping sent to ${activeModal.memberName}`)}
+                      className="flex-1 rounded-[12px] bg-[#fbbf24] py-3 text-[13px] font-bold text-black hover:bg-[#f59e0b]">Yes, Send Ping</button>
+                  </div>
+                </>
+              )}
+
+              {/* Call Extension */}
+              {activeModal.kind === "call" && (
+                <>
+                  <ModalHeader icon={<Phone size={20} className="text-[#34d399]" />} bg="bg-[#34d399]/15"
+                    title={`Call ${activeModal.memberName}`} sub="Extension number" />
+                  <div className="mb-4 rounded-[12px] bg-[#141414] px-4 py-3 text-center">
+                    <p className="text-[11px] uppercase tracking-widest text-white">Extension</p>
+                    <p className="mt-1 text-[28px] font-black text-white">— —</p>
+                    <p className="mt-1 text-[11px] text-white">Available when hospital directory is connected</p>
+                  </div>
+                  <button type="button" onClick={closeModal}
+                    className="w-full rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">Close</button>
+                </>
+              )}
+
+              {/* Send for Break */}
+              {activeModal.kind === "break" && (
+                <>
+                  <ModalHeader icon={<Coffee size={20} className="text-[#fb923c]" />} bg="bg-[#fb923c]/15"
+                    title={`Send ${activeModal.memberName} for break?`} sub={activeModal.theatre} />
+                  <p className="mb-6 text-[13px] text-white">A break notification will be sent to {activeModal.memberName} and visible to the team via Comms.</p>
+                  <div className="flex gap-3">
+                    <button type="button" onClick={closeModal}
+                      className="flex-1 rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">Cancel</button>
+                    <button type="button"
+                      onClick={() => confirmAction(`Break notification sent to ${activeModal.memberName}`)}
+                      className="flex-1 rounded-[12px] bg-[#fb923c] py-3 text-[13px] font-bold text-black hover:bg-[#f97316]">Send for Break</button>
+                  </div>
+                </>
+              )}
+
+              {/* Ask for Relief */}
+              {activeModal.kind === "relief" && (
+                <>
+                  <ModalHeader icon={<Users size={20} className="text-[#a78bfa]" />} bg="bg-[#a78bfa]/15"
+                    title="Ask for Relief" sub={`${activeModal.requester} · ${activeModal.theatre}`} />
+                  <p className="mb-3 text-[13px] text-white">Select who will relieve {activeModal.requester}:</p>
+                  <div className="mb-4 max-h-[200px] overflow-y-auto space-y-1.5 pr-1">
+                    {(cards.find(c => c.theatre === activeModal.theatre)?.staff ?? [])
+                      .filter(m => m.name !== activeModal.requester)
+                      .map(m => (
+                        <button key={m.name} type="button"
+                          onClick={() => setActiveModal({ kind: "relief_sent", requester: activeModal.requester, relievedBy: m.name })}
+                          className="flex w-full items-center gap-3 rounded-[12px] bg-[#141414] px-3 py-2.5 text-left hover:bg-[#1c1c1c]">
+                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#a78bfa]/20 text-[11px] font-bold text-[#a78bfa]">
+                            {m.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
+                          </div>
+                          <div>
+                            <p className="text-[13px] font-semibold text-white">{m.name}</p>
+                            <p className="text-[11px] text-white">{m.role}</p>
+                          </div>
+                        </button>
+                      ))
+                    }
+                  </div>
+                  <button type="button" onClick={closeModal}
+                    className="w-full rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">Cancel</button>
+                </>
+              )}
+
+              {/* Relief sent confirmation */}
+              {activeModal.kind === "relief_sent" && (
+                <>
+                  <ModalHeader icon={<Users size={20} className="text-[#a78bfa]" />} bg="bg-[#a78bfa]/15"
+                    title="Relief request sent" sub="Via Comms · Ping channel" />
+                  <p className="mb-6 text-[13px] text-white">{activeModal.relievedBy} has been asked to relieve {activeModal.requester}.</p>
+                  <button type="button" onClick={closeModal}
+                    className="w-full rounded-[12px] bg-[#a78bfa] py-3 text-[13px] font-bold text-black hover:bg-[#9061f9]">Done</button>
+                </>
+              )}
+
+              {/* Dispatch */}
+              {activeModal.kind === "dispatch" && (
+                <>
+                  <ModalHeader icon={<Navigation size={20} className="text-[#22d3ee]" />} bg="bg-[#22d3ee]/15"
+                    title={`Dispatch ${activeModal.memberName}`} sub={activeModal.theatre} />
+                  <label className="mb-1.5 block text-[12px] text-white">Destination</label>
+                  <input
+                    type="text"
+                    value={dispatchDest}
+                    onChange={(e) => setDispatchDest(e.target.value)}
+                    placeholder="e.g. Recovery Room, Theatre 3, ICU…"
+                    className="mb-5 w-full rounded-[12px] border border-[#2a2a2a] bg-[#141414] px-4 py-3 text-[13px] text-white placeholder-[#444444] outline-none focus:border-[#22d3ee]/50"
+                  />
+                  <div className="flex gap-3">
+                    <button type="button" onClick={closeModal}
+                      className="flex-1 rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">Cancel</button>
+                    <button type="button"
+                      disabled={!dispatchDest.trim()}
+                      onClick={() => confirmAction(`${activeModal.memberName} dispatched to ${dispatchDest.trim()}`)}
+                      className="flex-1 rounded-[12px] bg-[#22d3ee] py-3 text-[13px] font-bold text-black hover:bg-[#06b6d4] disabled:opacity-40 disabled:cursor-not-allowed">Dispatch</button>
+                  </div>
+                </>
+              )}
+
+              {/* Shift Request */}
+              {activeModal.kind === "shift_request" && (
+                <>
+                  <ModalHeader icon={<CalendarPlus size={20} className="text-[#38bdf8]" />} bg="bg-[#38bdf8]/15"
+                    title="Shift Request" sub={`${activeModal.memberName} · ${activeModal.theatre}`} />
+                  <p className="mb-2 text-[13px] text-white">Send an availability request to {activeModal.memberName} for:</p>
+                  <div className="mb-5 rounded-[12px] bg-[#141414] px-4 py-3 text-center">
+                    <p className="text-[15px] font-semibold text-white">{selectedDateKey}</p>
+                  </div>
+                  <div className="flex gap-3">
+                    <button type="button" onClick={closeModal}
+                      className="flex-1 rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">Cancel</button>
+                    <button type="button"
+                      onClick={() => confirmAction(`Shift request sent to ${activeModal.memberName}`)}
+                      className="flex-1 rounded-[12px] bg-[#38bdf8] py-3 text-[13px] font-bold text-black hover:bg-[#0ea5e9]">Send Request</button>
+                  </div>
+                </>
+              )}
+
+            </div>
+          </div>
+        )}
+
+        {/* ── Toast ── */}
+        {activeModal?.kind === "toast" && (
+          <div className="pointer-events-none fixed bottom-6 left-1/2 z-50 -translate-x-1/2">
+            <div className="rounded-full border border-[#2a2a2a] bg-[#141414] px-5 py-3 text-[13px] font-semibold text-white shadow-2xl">
+              {activeModal.message}
             </div>
           </div>
         )}
@@ -645,35 +856,56 @@ export default function WorkforcePage() {
 
 // ── Inline action buttons (shown on row hover) ─────────────────────────────
 
-function ActionButtons({ memberName, theatre, onComms, onDismiss }: {
-  memberName: string; theatre: string; onComms: () => void; onDismiss: () => void
-}) {
+function ActionButtons({ onComms }: { memberName: string; theatre: string; onComms: () => void; onDismiss: () => void }) {
   return (
     <div className="flex items-center gap-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-      <button
-        type="button"
-        title={`Message ${memberName}`}
+      <button type="button" title="Chat"
         onClick={(e) => { e.stopPropagation(); onComms() }}
-        className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0096C7]/10 text-[#38bdf8] transition-colors hover:bg-[#0096C7]/20"
-      >
+        className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0096C7]/10 text-[#38bdf8] transition-colors hover:bg-[#0096C7]/20">
         <MessageSquare size={13} />
       </button>
-      <button
-        type="button"
-        title="Offer swap"
+      <button type="button" title="Ping"
         onClick={(e) => e.stopPropagation()}
-        className="flex h-7 w-7 items-center justify-center rounded-full bg-[#34d399]/10 text-[#34d399] transition-colors hover:bg-[#34d399]/20"
-      >
-        <ArrowRightLeft size={13} />
+        className="flex h-7 w-7 items-center justify-center rounded-full bg-[#fbbf24]/10 text-[#fbbf24] transition-colors hover:bg-[#fbbf24]/20">
+        <Bell size={13} />
       </button>
-      <button
-        type="button"
-        title="Send for break"
+      <button type="button" title="More actions — right-click for full menu"
         onClick={(e) => e.stopPropagation()}
-        className="flex h-7 w-7 items-center justify-center rounded-full bg-[#fbbf24]/10 text-[#fbbf24] transition-colors hover:bg-[#fbbf24]/20"
-      >
+        className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1a1a1a] text-white transition-colors hover:bg-[#222222]">
         <Clock3 size={13} />
       </button>
+    </div>
+  )
+}
+
+// ── Context menu item ──────────────────────────────────────────────────────
+
+function CtxItem({ icon, iconBg, label, sub, onClick, disabled }: {
+  icon: React.ReactNode; iconBg: string; label: string; sub: string
+  onClick?: () => void; disabled?: boolean
+}) {
+  return (
+    <button type="button" onClick={onClick} disabled={disabled}
+      className={`flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left transition-colors ${disabled ? "cursor-not-allowed opacity-35" : "hover:bg-[#141414]"}`}>
+      <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${iconBg}`}>{icon}</div>
+      <div>
+        <p className="text-[13px] font-semibold text-white">{label}</p>
+        <p className="text-[11px] text-white">{sub}</p>
+      </div>
+    </button>
+  )
+}
+
+// ── Modal header ───────────────────────────────────────────────────────────
+
+function ModalHeader({ icon, bg, title, sub }: { icon: React.ReactNode; bg: string; title: string; sub: string }) {
+  return (
+    <div className="mb-5 flex items-center gap-4">
+      <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${bg}`}>{icon}</div>
+      <div>
+        <p className="text-[16px] font-bold text-white">{title}</p>
+        <p className="text-[12px] text-white">{sub}</p>
+      </div>
     </div>
   )
 }
