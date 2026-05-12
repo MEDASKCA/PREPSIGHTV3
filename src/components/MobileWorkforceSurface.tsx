@@ -734,8 +734,8 @@ function RotaPanel({
 
   const COLS = "grid-cols-[26px_minmax(0,1.3fr)_minmax(0,0.95fr)_minmax(0,0.75fr)_38px_38px]"
   const isSplitPane = paneBoundsLeft !== "0" || paneBoundsRight !== "0"
-  const legendOffsetBottom = "0px"
-  const legendReserve = isSplitPane ? "64px" : "72px"
+  const legendOffsetBottom = isSplitPane ? "0px" : "calc(env(safe-area-inset-bottom, 0px) + 58px)"
+  const legendReserve = isSplitPane ? "64px" : "130px"
 
   return (
     <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden">
@@ -2432,7 +2432,7 @@ export default function MobileResourcesSurface({
   }, [initialResourceTab, initialWorkforceTab])
 
   return (
-    <div className={`flex flex-col ${embedded ? "flex-1 min-h-0 overflow-hidden" : "h-[100svh] min-h-0 overflow-hidden bg-black"}`}>
+    <div className={`flex flex-col ${embedded ? "h-full flex-1 min-h-0 overflow-hidden" : "h-[100svh] min-h-0 overflow-hidden bg-black"}`}>
       {!embedded ? (
         <MobileSurfaceHeader
           title="Resources"
@@ -2551,11 +2551,11 @@ export default function MobileResourcesSurface({
           </div>
         </div>
       ) : resourceTab === "equipment" ? (
-        <div className={`flex flex-1 min-h-0 flex-col overflow-hidden ${embedded ? "" : "pb-28"}`}>
+        <div className={`flex flex-1 min-h-0 flex-col ${embedded ? "" : "pb-28"}`}>
           <EquipmentPanel />
         </div>
       ) : (
-        <div className={`flex flex-1 min-h-0 flex-col overflow-hidden ${embedded ? "" : "pb-28"}`}>
+        <div className={`flex flex-1 min-h-0 flex-col ${embedded ? "" : "pb-28"}`}>
           <SuppliesPanel />
         </div>
       )}
