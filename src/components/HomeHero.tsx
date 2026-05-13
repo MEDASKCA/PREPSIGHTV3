@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useDeferredValue, useEffect, useLayoutEffect, useMemo, useRef, useState, useSyncExternalStore, type CSSProperties, type PointerEvent as ReactPointerEvent, type UIEvent } from "react"
 import { createPortal } from "react-dom"
@@ -2187,7 +2187,7 @@ export default function HomeHero({
                     </span>
                     <div>
                       <p className="text-white text-[34px] font-semibold tracking-[-0.04em] leading-tight">{slide.title}</p>
-                      <p className="mt-2.5 text-white/80 text-[18px] leading-snug">{slide.text}</p>
+                      <p className="mt-2.5 text-white text-[18px] leading-snug">{slide.text}</p>
                     </div>
                   </div>
                   {/* Image placeholder */}
@@ -2488,7 +2488,7 @@ export default function HomeHero({
                   onClick={() => submitSearch()}
                   disabled={query.trim().length === 0}
                   aria-label="Search"
-                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#00B4D8] text-white shadow-[0_10px_22px_rgba(0,180,216,0.32)] transition-colors hover:bg-[#12C4E7] disabled:bg-[#CBD5E1] disabled:text-white/80 disabled:shadow-none"
+                  className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#00B4D8] text-white shadow-[0_10px_22px_rgba(0,180,216,0.32)] transition-colors hover:bg-[#12C4E7] disabled:bg-[#CBD5E1] disabled:text-white disabled:shadow-none"
                 >
                   <Search size={18} />
                 </button>

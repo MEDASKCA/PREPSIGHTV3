@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import WorkspaceDesktopShell from "@/components/WorkspaceDesktopShell"
 
@@ -23,7 +23,7 @@ export default function ConnectorsPage() {
       <div className="space-y-5 px-2 py-2 lg:px-4 lg:py-4">
         <section>
           <h1 className="text-[32px] tracking-[-0.04em] text-white">connectors</h1>
-          <p className="mt-2 max-w-[760px] text-[15px] leading-7 text-[#9a9a9a]">
+          <p className="mt-2 max-w-[760px] text-[15px] leading-7 text-white">
             External systems and integration points should stay sparse, readable, and easy to audit.
           </p>
         </section>
@@ -35,7 +35,7 @@ export default function ConnectorsPage() {
               className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-4 py-4 transition-colors hover:border-[#3a3a3a] hover:bg-[#1d1d1d]"
             >
               <h2 className="text-[16px] text-white">{group.title}</h2>
-              <p className="mt-2 text-[14px] leading-6 text-[#8f8f8f]">{group.detail}</p>
+              <p className="mt-2 text-[14px] leading-6 text-white">{group.detail}</p>
             </article>
           ))}
         </section>

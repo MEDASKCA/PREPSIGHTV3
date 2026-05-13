@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
@@ -36,7 +36,7 @@ type ParsedStaffingReport = {
 }
 
 const ACCESS_BADGE: Record<UserRole, { label: string; className: string }> = {
-  viewer: { label: "User", className: "bg-white/10 text-white/50" },
+  viewer: { label: "User", className: "bg-white/10 text-white" },
   editor: { label: "Content Mgr", className: "bg-blue-500/20 text-blue-300" },
   clinical_author: { label: "Clinical Author", className: "bg-purple-500/20 text-purple-300" },
   manager: { label: "Manager", className: "bg-[#0096C7]/30 text-[#29b6d8]" },
@@ -358,7 +358,7 @@ export default function UserAccountsPageClient() {
       <div className="min-h-screen bg-black px-4 py-6 lg:px-8 lg:py-8">
         <div className="mb-6">
           <h1 className="text-[22px] font-bold text-white lg:text-[28px]">User Accounts</h1>
-          <p className="mt-1 text-[14px] text-white/40">
+          <p className="mt-1 text-[14px] text-white">
             {profile?.hospital} · {users.length} {users.length === 1 ? "member" : "members"}
           </p>
         </div>
@@ -371,12 +371,12 @@ export default function UserAccountsPageClient() {
 
         <div className="mb-5 flex flex-col gap-3 sm:flex-row sm:items-center">
           <label className="flex flex-1 items-center gap-2 rounded-[10px] border border-[#2d2d2d] bg-[#111111] px-3 py-2.5">
-            <Search size={15} className="shrink-0 text-white/30" />
+            <Search size={15} className="shrink-0 text-white" />
             <input
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="Search by name, email or department..."
-              className="min-w-0 flex-1 bg-transparent text-[14px] text-white outline-none placeholder:text-white/25"
+              className="min-w-0 flex-1 bg-transparent text-[14px] text-white outline-none placeholder:text-white/60"
             />
           </label>
           {departments.length > 1 ? (
@@ -396,22 +396,22 @@ export default function UserAccountsPageClient() {
 
         <div className="bg-black">
           <div className="grid grid-cols-[minmax(0,2fr)_minmax(0,1fr)_minmax(0,1.5fr)_minmax(0,1fr)_minmax(0,auto)] gap-4 bg-black px-4 py-2 lg:px-3">
-            <span className="text-[12px] font-medium text-white/40">Name</span>
-            <span className="hidden text-[12px] font-medium text-white/40 lg:block">Department</span>
-            <span className="hidden text-[12px] font-medium text-white/40 lg:block">Registrations</span>
-            <span className="hidden text-[12px] font-medium text-white/40 lg:block">Role</span>
-            <span className="hidden text-[12px] font-medium text-white/40 lg:block">Access</span>
+            <span className="text-[12px] font-medium text-white">Name</span>
+            <span className="hidden text-[12px] font-medium text-white lg:block">Department</span>
+            <span className="hidden text-[12px] font-medium text-white lg:block">Registrations</span>
+            <span className="hidden text-[12px] font-medium text-white lg:block">Role</span>
+            <span className="hidden text-[12px] font-medium text-white lg:block">Access</span>
           </div>
 
           {loading ? (
             <div className="flex items-center justify-center gap-3 py-12">
               <div className="h-5 w-5 animate-spin rounded-full border-2 border-[#0096C7] border-t-transparent" />
-              <span className="text-[14px] text-white/30">Loading users...</span>
+              <span className="text-[14px] text-white">Loading users...</span>
             </div>
           ) : filtered.length === 0 ? (
             <div className="px-4 py-12 text-center">
-              <p className="text-[15px] font-medium text-white/30">No users yet</p>
-              <p className="mt-1 text-[13px] text-white/20">
+              <p className="text-[15px] font-medium text-white">No users yet</p>
+              <p className="mt-1 text-[13px] text-white">
                 Users will appear here once they join your hospital workspace.
               </p>
             </div>
@@ -449,7 +449,7 @@ export default function UserAccountsPageClient() {
                       </span>
                       <ChevronDown
                         size={14}
-                        className={`text-white/35 transition-transform ${mobileExpanded ? "rotate-180" : ""}`}
+                        className={`text-white transition-transform ${mobileExpanded ? "rotate-180" : ""}`}
                       />
                     </div>
                   </button>
@@ -457,24 +457,24 @@ export default function UserAccountsPageClient() {
                   {mobileExpanded ? (
                     <div className="grid gap-2 px-4 pb-3 lg:hidden">
                       <div className="grid grid-cols-[92px_1fr] gap-3 text-[12px]">
-                        <span className="text-white/35">Department</span>
-                        <span className="text-white/70">{departmentsForUser[0] ?? "-"}</span>
+                        <span className="text-white">Department</span>
+                        <span className="text-white">{departmentsForUser[0] ?? "-"}</span>
                       </div>
                       <div className="grid grid-cols-[92px_1fr] gap-3 text-[12px]">
-                        <span className="text-white/35">Registrations</span>
-                        <span className="text-white/70">
+                        <span className="text-white">Registrations</span>
+                        <span className="text-white">
                           {!primaryMembership
                             ? "-"
                             : `${registrationStatus} (${primaryMembership?.approvedAt ? "approved" : "requested"} ${registrationDate ? formatDate(registrationDate) : "-"})`}
                         </span>
                       </div>
                       <div className="grid grid-cols-[92px_1fr] gap-3 text-[12px]">
-                        <span className="text-white/35">Role</span>
-                        <span className="text-white/70">{roleLabel}</span>
+                        <span className="text-white">Role</span>
+                        <span className="text-white">{roleLabel}</span>
                       </div>
                       <div className="grid grid-cols-[92px_1fr] gap-3 text-[12px]">
-                        <span className="text-white/35">Access</span>
-                        <span className="text-white/70">{badge.label}</span>
+                        <span className="text-white">Access</span>
+                        <span className="text-white">{badge.label}</span>
                       </div>
                     </div>
                   ) : null}
@@ -485,16 +485,16 @@ export default function UserAccountsPageClient() {
                     </div>
 
                     <div className="min-w-0">
-                      <span className="truncate text-[13px] text-white/70">{departmentsForUser[0] ?? "-"}</span>
+                      <span className="truncate text-[13px] text-white">{departmentsForUser[0] ?? "-"}</span>
                     </div>
 
                     <div className="min-w-0">
                       {!primaryMembership ? (
-                        <span className="text-[13px] text-white/35">-</span>
+                        <span className="text-[13px] text-white">-</span>
                       ) : (
-                        <span className="text-[13px] text-white/70">
+                        <span className="text-[13px] text-white">
                           {registrationStatus}{" "}
-                          <span className="text-white/35">
+                          <span className="text-white">
                             ({primaryMembership?.approvedAt ? "approved" : "requested"} {registrationDate ? formatDate(registrationDate) : "-"})
                           </span>
                         </span>
@@ -502,7 +502,7 @@ export default function UserAccountsPageClient() {
                     </div>
 
                     <div className="min-w-0">
-                      <span className="truncate text-[13px] text-white/70">{roleLabel}</span>
+                      <span className="truncate text-[13px] text-white">{roleLabel}</span>
                     </div>
 
                     <div className="flex items-center gap-2">
@@ -514,7 +514,7 @@ export default function UserAccountsPageClient() {
                           <button
                             type="button"
                             disabled={savingUid === user.uid}
-                            className="flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.06] text-white/30 hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+                            className="flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.06] text-white hover:bg-white/10 hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
                           >
                             <Shield size={12} />
                           </button>
@@ -523,7 +523,7 @@ export default function UserAccountsPageClient() {
                               <button
                                 type="button"
                                 onClick={() => void updateRole(user.uid, "manager")}
-                                className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-[13px] text-white/60 hover:bg-white/[0.06] hover:text-white"
+                                className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-[13px] text-white hover:bg-white/[0.06] hover:text-white"
                               >
                                 <Shield size={13} className="text-[#0096C7]" />
                                 Promote to Manager
@@ -533,7 +533,7 @@ export default function UserAccountsPageClient() {
                               <button
                                 type="button"
                                 onClick={() => void updateRole(user.uid, "senior_manager")}
-                                className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-[13px] text-white/60 hover:bg-white/[0.06] hover:text-white"
+                                className="flex w-full items-center gap-2 px-3 py-2.5 text-left text-[13px] text-white hover:bg-white/[0.06] hover:text-white"
                               >
                                 <ShieldCheck size={13} className="text-amber-400" />
                                 Promote to Senior Manager/Lead
@@ -571,7 +571,7 @@ export default function UserAccountsPageClient() {
         <div className="mt-10 bg-black">
           <div className="mb-4">
             <h2 className="text-[18px] font-medium text-white">Staffing Report Links</h2>
-            <p className="mt-1 text-[13px] text-white/35">
+            <p className="mt-1 text-[13px] text-white">
               Imported names from the latest Optima staffing report, ready for manager linking to PrepSight users.
             </p>
           </div>
@@ -579,7 +579,7 @@ export default function UserAccountsPageClient() {
           <div className="mb-5 flex flex-col gap-3 rounded-[12px] border border-[#2d2d2d] bg-[#101010] px-4 py-4 lg:flex-row lg:items-center lg:justify-between">
             <div>
               <p className="text-[14px] text-white">Upload Staffing Report</p>
-              <p className="mt-1 text-[12px] text-white/35">
+              <p className="mt-1 text-[12px] text-white">
                 Parse Optima daily staffing reports, store report metadata, and merge staff into the pool without duplication.
               </p>
               {latestReportMeta ? (
@@ -604,11 +604,11 @@ export default function UserAccountsPageClient() {
           </div>
 
           <div className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_minmax(0,1.2fr)_minmax(0,1.4fr)] gap-4 bg-black px-4 py-2 lg:px-3">
-            <span className="text-[12px] font-medium text-white/40">Imported Name</span>
-            <span className="text-[12px] font-medium text-white/40">Title</span>
-            <span className="text-[12px] font-medium text-white/40">Band</span>
-            <span className="text-[12px] font-medium text-white/40">Matched User</span>
-            <span className="text-[12px] font-medium text-white/40">Email</span>
+            <span className="text-[12px] font-medium text-white">Imported Name</span>
+            <span className="text-[12px] font-medium text-white">Title</span>
+            <span className="text-[12px] font-medium text-white">Band</span>
+            <span className="text-[12px] font-medium text-white">Matched User</span>
+            <span className="text-[12px] font-medium text-white">Email</span>
           </div>
 
           {staffingRows.map((row) => (
@@ -617,10 +617,10 @@ export default function UserAccountsPageClient() {
               className="grid grid-cols-[minmax(0,1.6fr)_minmax(0,0.8fr)_minmax(0,0.8fr)_minmax(0,1.2fr)_minmax(0,1.4fr)] items-center gap-4 bg-black px-4 py-2.5 hover:bg-white/[0.02] lg:px-3"
             >
               <span className="truncate text-[13px] text-white">{row.name}</span>
-              <span className="truncate text-[13px] text-white/70">{row.sourceTitle ?? "-"}</span>
-              <span className="truncate text-[13px] text-white/70">{row.sourceBand ?? "-"}</span>
-              <span className="truncate text-[13px] text-white/70">{row.matchedUser?.name ?? "-"}</span>
-              <span className="truncate text-[13px] text-white/45">{row.matchedUser?.email ?? "Needs link"}</span>
+              <span className="truncate text-[13px] text-white">{row.sourceTitle ?? "-"}</span>
+              <span className="truncate text-[13px] text-white">{row.sourceBand ?? "-"}</span>
+              <span className="truncate text-[13px] text-white">{row.matchedUser?.name ?? "-"}</span>
+              <span className="truncate text-[13px] text-white">{row.matchedUser?.email ?? "Needs link"}</span>
             </div>
           ))}
         </div>

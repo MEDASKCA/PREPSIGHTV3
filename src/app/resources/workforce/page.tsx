@@ -1,10 +1,28 @@
 ﻿"use client"
 
-import { useEffect, useMemo, useState, type ReactNode } from "react"
+import { useEffect, useMemo, useState } from "react"
 import { useRouter } from "next/navigation"
-import { collection, getDocs, query, where } from "firebase/firestore"
-import { ArrowRightLeft, ArrowUpDown, Bell, CalendarPlus, ChevronLeft, ChevronRight, Clock3, Coffee, Crown, MessageSquare, Navigation, Phone, Users, X } from "lucide-react"
-import { db } from "@/lib/firebase"
+import { collection, doc, getDoc, getDocs, query, setDoc, where } from "firebase/firestore"
+import { ArrowUpDown, Bell, ChevronLeft, ChevronRight, Crown, MessageSquare, Settings2, X } from "lucide-react"
+import { auth, db } from "@/lib/firebase"
+import {
+  createDirectPing,
+  DEFAULT_PING_SHORTCUTS,
+  findActiveDuplicatePing,
+  getEffectivePingStatus,
+  getPingRoleFromClinicalRole,
+  getPingStatusLabel,
+  isPingActive,
+  loadPingShortcutSets,
+  readCachedPingShortcutSets,
+  resolveCommsRecipientByDisplayName,
+  savePingShortcutSets,
+  subscribeOrganizationPings,
+  subscribePingShortcutSets,
+} from "@/lib/comms-pings"
+import type { CommsPing, CommsUser, PingShortcutSets } from "@/lib/comms-types"
+import { getProfile } from "@/lib/profile"
+import { canonicalSpecialtyName } from "@/lib/specialty-normalization"
 import RootEntry from "@/components/RootEntry"
 import TriangleIcon from "@/components/TriangleIcon"
 import WorkforceSectionNav from "@/components/WorkforceSectionNav"
@@ -19,6 +37,7 @@ type SortKey = "name" | "role" | "specialty" | "area" | "start" | "status"
 type TeamMember = {
   name: string
   role: string
+  band?: string
   specialty: string
   status: StaffStatus
   start: string
@@ -38,21 +57,45 @@ type TeamCard = {
 
 type ContextMenu = {
   memberName: string
+  memberRole: string
   theatre: string
   x: number
   y: number
 } | null
 
+type PingRole = keyof typeof DEFAULT_PING_SHORTCUTS
+
 type ActiveModal =
-  | { kind: "ping";          memberName: string; theatre: string }
-  | { kind: "call";          memberName: string }
-  | { kind: "break";         memberName: string; theatre: string }
-  | { kind: "relief";        requester: string;  theatre: string }
-  | { kind: "relief_sent";   requester: string;  relievedBy: string }
-  | { kind: "dispatch";      memberName: string; theatre: string }
-  | { kind: "shift_request"; memberName: string; theatre: string }
-  | { kind: "toast";         message: string }
+  | { kind: "toast"; message: string }
   | null
+
+type PingConfigDrawer =
+  | {
+      memberName: string
+      memberRole: string
+      pingRole: PingRole
+    }
+  | null
+
+type WiringDiagnostic = {
+  organizationId: string
+  membershipCount: number
+  commsUserCount: number
+  sessionCount: number
+  sessionStaffCount: number
+  activeMembers: Array<{
+    uid: string
+    displayName: string
+    email: string
+    clinicalRole: string
+    primarySpecialty: string
+  }>
+  missingCommsUsers: Array<{
+    uid: string
+    displayName: string
+  }>
+  allocatedNames: string[]
+}
 
 // ── Status colours (font-only — no bg tint) ────────────────────────────────
 
@@ -64,13 +107,47 @@ const STATUS_META: Record<StaffStatus, { name: string; sub: string }> = {
   "Dispatched": { name: "text-[#c084fc]", sub: "text-[#d8b4fe]" },
 }
 
-function isConsultantRole(role: string) { return role.startsWith("Consultant ") }
-function isLeadRole(role: string) { return role === "Scrub RN" }
+function isConsultantRole(member: Pick<TeamMember, "role" | "band">) {
+  return getClassificationLabel(member).toLowerCase() === "consultant"
+}
+function isLeadRole(member: Pick<TeamMember, "role" | "band">) {
+  const classification = getClassificationLabel(member).toLowerCase()
+  return member.role === "Nurse" && (classification === "band 7" || classification === "band 8a")
+}
+function getGenericRole(role: string) {
+  const lower = role.trim().toLowerCase()
+  if (lower.includes("surgical assistant") || lower.includes("assistant surgeon")) return "Surgical Assistant"
+  if (lower.includes("surgeon")) return "Surgeon"
+  if (lower.includes("anaesth")) return "Anaesthetist"
+  if (lower.includes("odp") || lower.includes("practitioner")) return "Practitioner"
+  if (lower.includes("hca") || lower.includes("support")) return "Support Worker"
+  return "Nurse"
+}
+function getClassificationLabel(member: Pick<TeamMember, "band" | "role">) {
+  if (member.band?.trim()) return member.band.trim()
+  if (member.role === "Surgeon") return "Consultant"
+  if (member.role === "Anaesthetist") return "Consultant"
+  if (member.role === "Surgical Assistant") return "Registrar"
+  if (member.role === "Nurse") return "Band 6"
+  if (member.role === "Practitioner") return "Band 6"
+  if (member.role === "Support Worker") return "Band 3"
+  return "—"
+}
+function getBandLabel(member: Pick<TeamMember, "band" | "role">) {
+  return getClassificationLabel(member)
+}
+
+type ActiveMembership = {
+  uid: string
+  orgId: string
+  status?: string
+  displayName?: string
+}
 
 // ── Mock data ──────────────────────────────────────────────────────────────
 
 function makeCard(n: number): TeamCard {
-  const specialty = n % 5 === 0 ? "Neurosurgery" : n % 4 === 0 ? "General Surgery" : n % 3 === 0 ? "ENT" : "Trauma and Orthopaedics"
+  const specialty = canonicalSpecialtyName("Operating Theatre", n % 5 === 0 ? "Neurosurgery" : n % 4 === 0 ? "General Surgery" : n % 3 === 0 ? "Gynaecology" : "Trauma and Orthopaedics")
   const area = n % 3 === 0 ? "Day Surgery" : n % 2 === 0 ? "DSU" : "Main Theatres"
   const session = n % 4 === 0 ? "10:00 - 22:00" : n % 3 === 0 ? "09:00 - 21:00" : n % 2 === 0 ? "08:00 - 20:00" : "07:30 - 19:30"
   const [s, e] = session.split(" - ")
@@ -83,11 +160,11 @@ function makeCard(n: number): TeamCard {
     theatre: `Theatre ${n}`, theatreNum: n, area, specialty,
     consultantSurgeon: surgeon, consultantAnaesthetist: anaes, sessionTime: session,
     staff: [
-      { name: `${initials[n % 7]} ${surnames[(n + 1) % 7]}`, role: "Consultant Surgeon",      specialty,                 status: "Scrub",        start: s,       end: e },
-      { name: `Dr ${surnames[n % 7]}`,                       role: "Consultant Anaesthetist", specialty: "Anaesthetics",  status: "Scrub",        start: s,       end: e },
-      { name: `${initials[(n+2)%7]} ${surnames[(n+3)%7]}`,   role: "Scrub RN",                specialty: "Theatre Support", status: pool[n % 5],  start: s,       end: e },
-      { name: `${initials[(n+4)%7]} ${surnames[(n+5)%7]}`,   role: "HCA",                     specialty: "Nursing",       status: pool[(n+2)%5],  start: "13:00", end: e },
-      { name: `${initials[(n+6)%7]} ${surnames[(n+6)%7]}`,   role: "Anaes ODP",               specialty: "ODP",           status: pool[(n+4)%5],  start: "13:00", end: e },
+      { name: `${initials[n % 7]} ${surnames[(n + 1) % 7]}`, role: "Surgeon",       band: "Consultant", specialty, status: "Scrub",        start: s,       end: e },
+      { name: `Dr ${surnames[n % 7]}`,                       role: "Anaesthetist", band: "Consultant", specialty, status: "Scrub",        start: s,       end: e },
+      { name: `${initials[(n+2)%7]} ${surnames[(n+3)%7]}`,   role: "Nurse",             band: "Band 6",    specialty, status: pool[n % 5],  start: s,       end: e },
+      { name: `${initials[(n+4)%7]} ${surnames[(n+5)%7]}`,   role: "Support Worker",    band: "Band 3",    specialty, status: pool[(n+2)%5],  start: "13:00", end: e },
+      { name: `${initials[(n+6)%7]} ${surnames[(n+6)%7]}`,   role: "Practitioner", band: "Band 6",     specialty, status: pool[(n+4)%5],  start: "13:00", end: e },
     ],
   }
 }
@@ -98,14 +175,14 @@ const TEAM_CARDS: TeamCard[] = [
     specialty: "Trauma and Orthopaedics", consultantSurgeon: "Mr Walker", consultantAnaesthetist: "Dr Bennett",
     sessionTime: "07:30 - 19:30",
     staff: [
-      { name: "J Smith",   role: "Consultant Surgeon",      specialty: "Trauma and Orthopaedics", status: "Scrub",      start: "07:30", end: "19:30" },
-      { name: "A Bennett", role: "Consultant Anaesthetist", specialty: "Anaesthetics",            status: "Scrub",      start: "07:30", end: "19:30" },
-      { name: "S Patel",   role: "Scrub RN",                specialty: "Theatre Support",         status: "Scrub",      start: "07:30", end: "19:30" },
-      { name: "L Brown",   role: "HCA",                     specialty: "Nursing",                 status: "On Break",   start: "07:30", end: "19:30" },
-      { name: "M Johnson", role: "Anaes ODP",               specialty: "ODP",                    status: "Dispatched", start: "07:30", end: "19:30" },
-      { name: "R Walker",  role: "Consultant Surgeon",      specialty: "Trauma and Orthopaedics", status: "Relieving",  start: "13:00", end: "19:30" },
-      { name: "D Evans",   role: "Consultant Anaesthetist", specialty: "Anaesthetics",            status: "Sick",       start: "13:00", end: "19:30" },
-      { name: "K Lee",     role: "Scrub RN",                specialty: "Theatre Support",         status: "Relieving",  start: "13:00", end: "19:30" },
+      { name: "J Smith",   role: "Surgeon",       band: "Consultant", specialty: "Trauma and Orthopaedics", status: "Scrub",      start: "07:30", end: "19:30" },
+      { name: "A Bennett", role: "Anaesthetist", band: "Consultant", specialty: "Trauma and Orthopaedics", status: "Scrub",      start: "07:30", end: "19:30" },
+      { name: "S Patel",   role: "Nurse",          band: "Band 6",    specialty: "Trauma and Orthopaedics", status: "Scrub",      start: "07:30", end: "19:30" },
+      { name: "L Brown",   role: "Support Worker", band: "Band 3",    specialty: "Trauma and Orthopaedics", status: "On Break",   start: "07:30", end: "19:30" },
+      { name: "M Johnson", role: "Practitioner", band: "Band 6",     specialty: "Trauma and Orthopaedics", status: "Dispatched", start: "07:30", end: "19:30" },
+      { name: "R Walker",  role: "Surgical Assistant", band: "Registrar",  specialty: "Trauma and Orthopaedics", status: "Relieving",  start: "13:00", end: "19:30" },
+      { name: "D Evans",   role: "Anaesthetist", band: "Registrar",  specialty: "Trauma and Orthopaedics", status: "Sick",       start: "13:00", end: "19:30" },
+      { name: "K Lee",     role: "Nurse",        band: "Band 6",     specialty: "Trauma and Orthopaedics", status: "Relieving",  start: "13:00", end: "19:30" },
     ],
   },
   ...Array.from({ length: 11 }, (_, i) => makeCard(i + 2)),
@@ -144,10 +221,6 @@ function buildMonthCalendar(date: Date) {
   return days
 }
 
-function formatWeekDate(date: Date) {
-  return { key: date.toISOString().slice(0, 10) }
-}
-
 function matchesFilter(card: TeamCard, mode: FilterMode, val: string) {
   if (val === "All") return true
   if (mode === "Area") return card.area === val
@@ -158,9 +231,9 @@ function matchesFilter(card: TeamCard, mode: FilterMode, val: string) {
 // ── Column header button ───────────────────────────────────────────────────
 
 function ColHeader({
-  label, colKey, sortKey, sortDir, onSort,
+  label, colKey, sortKey, onSort,
 }: {
-  label: string; colKey: SortKey; sortKey: SortKey | null; sortDir: "asc" | "desc"
+  label: string; colKey: SortKey; sortKey: SortKey | null
   onSort: (k: SortKey) => void
 }) {
   const active = sortKey === colKey
@@ -178,7 +251,9 @@ function ColHeader({
 
 // ── Page ───────────────────────────────────────────────────────────────────
 
-const COLS = "grid-cols-[52px_minmax(0,1.5fr)_minmax(0,1.3fr)_minmax(0,1.1fr)_minmax(0,0.85fr)_70px_70px_118px_116px]"
+const COLS = "grid-cols-[56px_minmax(140px,1.55fr)_minmax(132px,1.1fr)_minmax(92px,0.8fr)_minmax(176px,1.25fr)_minmax(128px,0.95fr)_76px_76px_minmax(160px,1.15fr)]"
+const PING_MENU_WIDTH = 296
+const PING_MENU_MAX_HEIGHT = 560
 
 export default function WorkforcePage() {
   const router = useRouter()
@@ -193,9 +268,34 @@ export default function WorkforcePage() {
   const [sortDir, setSortDir] = useState<"asc" | "desc">("asc")
   const [contextMenu, setContextMenu] = useState<ContextMenu>(null)
   const [activeModal, setActiveModal] = useState<ActiveModal>(null)
-  const [dispatchDest, setDispatchDest] = useState("")
+  const [pingConfigDrawer, setPingConfigDrawer] = useState<PingConfigDrawer>(null)
+  const [pingShortcutSets, setPingShortcutSets] = useState<PingShortcutSets>(() => readCachedPingShortcutSets())
+  const [activePingsByMember, setActivePingsByMember] = useState<Record<string, CommsPing>>({})
+  const [seedVersion, setSeedVersion] = useState(0)
+  const [isSeedingSession, setIsSeedingSession] = useState(false)
+  const [isInspectingWiring, setIsInspectingWiring] = useState(false)
+  const [wiringDiagnostic, setWiringDiagnostic] = useState<WiringDiagnostic | null>(null)
   const [selectedTheatre, setSelectedTheatre] = useState<number | null>(null)
   const [cards, setCards] = useState<TeamCard[]>(TEAM_CARDS)
+
+  const contextMenuStyle = useMemo(() => {
+    if (!contextMenu) return null
+    if (typeof window === "undefined") {
+      return { left: contextMenu.x, top: contextMenu.y, maxHeight: PING_MENU_MAX_HEIGHT }
+    }
+    const viewportPadding = 16
+    const availableHeight = window.innerHeight - viewportPadding * 2
+    const maxHeight = Math.min(PING_MENU_MAX_HEIGHT, availableHeight)
+    const left = Math.max(
+      viewportPadding,
+      Math.min(contextMenu.x, window.innerWidth - PING_MENU_WIDTH - viewportPadding),
+    )
+    const top = Math.max(
+      viewportPadding,
+      Math.min(contextMenu.y, window.innerHeight - maxHeight - viewportPadding),
+    )
+    return { left, top, maxHeight }
+  }, [contextMenu])
 
   // Live fetch: pull theatre_sessions for the selected date, overlay on top of mock cards
   useEffect(() => {
@@ -211,12 +311,15 @@ export default function WorkforcePage() {
             theatre: s.theatre,
             theatreNum: Number(s.theatreNum),
             area: s.area,
-            specialty: s.specialty,
+            specialty: canonicalSpecialtyName("Operating Theatre", s.specialty || "Trauma and Orthopaedics"),
             consultantSurgeon: s.consultantSurgeon,
             consultantAnaesthetist: s.consultantAnaesthetist,
             sessionTime: s.sessionTime,
             staff: (s.staff ?? []).map((m: Record<string, string>) => ({
-              name: m.name, role: m.role, specialty: m.specialty,
+              name: m.name,
+              role: getGenericRole(m.role || ""),
+              band: m.band?.trim() || undefined,
+              specialty: canonicalSpecialtyName("Operating Theatre", m.specialty || s.specialty || "Trauma and Orthopaedics"),
               status: m.status as StaffStatus, start: m.start, end: m.end,
             })),
           }
@@ -229,7 +332,7 @@ export default function WorkforcePage() {
         setCards(merged)
       })
       .catch((err) => { console.error("[Workforce] theatre_sessions fetch failed:", err); setCards(TEAM_CARDS) })
-  }, [selectedDateKey])
+  }, [selectedDateKey, seedVersion])
 
   const selectedDateObject = useMemo(() => new Date(`${selectedDateKey}T00:00:00`), [selectedDateKey])
   const monthDays = useMemo(
@@ -275,8 +378,6 @@ export default function WorkforcePage() {
     return rows
   }, [displayCards, sortKey, sortDir])
 
-  useEffect(() => { setSelectedTheatre(null) }, [filterMode, selectedFilter])
-
   useEffect(() => {
     if (typeof window === "undefined") return
     const mq = window.matchMedia("(min-width: 1024px)")
@@ -285,6 +386,289 @@ export default function WorkforcePage() {
     mq.addEventListener("change", sync)
     return () => mq.removeEventListener("change", sync)
   }, [router])
+
+  useEffect(() => {
+    if (activeModal?.kind === "toast") {
+      const t = setTimeout(() => setActiveModal(null), 2800)
+      return () => clearTimeout(t)
+    }
+  }, [activeModal])
+
+  useEffect(() => subscribePingShortcutSets(setPingShortcutSets), [])
+
+  useEffect(() => {
+    if (!db) return
+    const uid = auth?.currentUser?.uid
+    if (!uid) return
+    loadPingShortcutSets(db, uid)
+      .then((sets) => setPingShortcutSets(sets))
+      .catch(() => {})
+  }, [])
+
+  function mapClinicalRoleToWorkforceRole(member: CommsUser, index: number) {
+    const role = member.clinicalRole?.trim() ?? ""
+    const lower = role.toLowerCase()
+    if (lower.includes("surgical assistant") || lower.includes("assistant surgeon") || lower.includes("fellow") || lower.includes("registrar")) return "Surgical Assistant"
+    if (lower.includes("surgeon")) return "Surgeon"
+    if (lower.includes("anaesthet")) return "Anaesthetist"
+    if (lower.includes("odp") || lower.includes("practitioner")) return "Practitioner"
+    if (lower.includes("hca") || lower.includes("support")) return "Support Worker"
+    if (lower.includes("scrub") || lower.includes("nurse") || lower.includes("rn")) return "Nurse"
+    return index % 2 === 0 ? "Nurse" : "Support Worker"
+  }
+
+  async function resolveActiveOrganizationId() {
+    if (!db || !auth?.currentUser) return null
+    const firestore = db
+
+    const preferredOrgId = getProfile()?.activeOrganizationId?.trim()
+    const ownMembershipSnap = await getDocs(
+      query(
+        collection(firestore, "comms_v5_memberships"),
+        where("uid", "==", auth.currentUser.uid),
+        where("status", "==", "active"),
+      ),
+    )
+    const ownMemberships = ownMembershipSnap.docs.map((entry) => entry.data() as ActiveMembership)
+
+    if (preferredOrgId) {
+      const preferredMemberSnap = await getDocs(
+        query(
+          collection(firestore, "comms_v5_memberships"),
+          where("orgId", "==", preferredOrgId),
+          where("status", "==", "active"),
+        ),
+      )
+      if (!preferredMemberSnap.empty) {
+        return {
+          organizationId: preferredOrgId,
+          membershipCount: preferredMemberSnap.size,
+          source: "profile" as const,
+        }
+      }
+    }
+
+    if (ownMemberships.length === 0) return null
+
+    const candidateCounts = await Promise.all(
+      ownMemberships.map(async (membership) => {
+        const orgMemberSnap = await getDocs(
+          query(
+            collection(firestore, "comms_v5_memberships"),
+            where("orgId", "==", membership.orgId),
+            where("status", "==", "active"),
+          ),
+        )
+        return {
+          organizationId: membership.orgId,
+          membershipCount: orgMemberSnap.size,
+        }
+      }),
+    )
+
+    candidateCounts.sort((left, right) => right.membershipCount - left.membershipCount)
+    const best = candidateCounts[0]
+    return best ? { ...best, source: "membership" as const } : null
+  }
+
+  async function seedSelectedDateFromOrgMembers() {
+    if (!db || !auth?.currentUser) {
+      setActiveModal({ kind: "toast", message: "Sign in is required before seeding the workforce board." })
+      return
+    }
+    const firestore = db
+    const resolvedOrg = await resolveActiveOrganizationId()
+    if (!resolvedOrg?.organizationId) {
+      setActiveModal({ kind: "toast", message: "No active organization found." })
+      return
+    }
+    const organizationId = resolvedOrg.organizationId
+
+    setIsSeedingSession(true)
+    try {
+      const membershipSnap = await getDocs(
+        query(
+          collection(firestore, "comms_v5_memberships"),
+          where("orgId", "==", organizationId),
+          where("status", "==", "active"),
+        ),
+      )
+      const userRecords = await Promise.all(
+        membershipSnap.docs.map(async (membershipDoc) => {
+          const membership = membershipDoc.data() as { uid: string; displayName?: string }
+          const userSnap = await getDoc(doc(firestore, "comms_v5_users", membership.uid))
+          if (!userSnap.exists()) return null
+          return { uid: membership.uid, ...userSnap.data() } as CommsUser
+        }),
+      )
+
+      const members = userRecords.filter((member): member is CommsUser => Boolean(member))
+      if (members.length === 0) {
+        setActiveModal({ kind: "toast", message: `No active Comms members found for org ${organizationId}.` })
+        return
+      }
+
+      const sortedMembers = [...members].sort((left, right) => (left.displayName || "").localeCompare(right.displayName || ""))
+      const surgeon = sortedMembers.find((member) => mapClinicalRoleToWorkforceRole(member, 0) === "Surgeon") ?? sortedMembers[0]
+      const anaesthetist = sortedMembers.find((member) => mapClinicalRoleToWorkforceRole(member, 0) === "Anaesthetist") ?? sortedMembers.find((member) => member.uid !== surgeon.uid) ?? sortedMembers[0]
+      const specialty = canonicalSpecialtyName(
+        "Operating Theatre",
+        surgeon.primarySpecialty?.trim() || surgeon.specialties?.[0]?.trim() || "Trauma and Orthopaedics",
+      )
+
+      const staff = sortedMembers.map((member, index) => ({
+        name: member.displayName || member.email || `Staff ${index + 1}`,
+        role: mapClinicalRoleToWorkforceRole(member, index),
+        band: member.band?.trim() || (mapClinicalRoleToWorkforceRole(member, index) === "Surgeon" ? "Consultant" : mapClinicalRoleToWorkforceRole(member, index) === "Anaesthetist" ? "Consultant" : mapClinicalRoleToWorkforceRole(member, index) === "Surgical Assistant" ? "Registrar" : undefined),
+        specialty:
+          canonicalSpecialtyName("Operating Theatre", member.primarySpecialty?.trim() || member.specialties?.[0]?.trim() || specialty),
+        status: "Scrub" as const,
+        start: "07:30",
+        end: "19:30",
+      }))
+
+      await setDoc(
+        doc(firestore, "theatre_sessions", `${selectedDateKey}__theatre_1`),
+        {
+          organizationId,
+          date: selectedDateKey,
+          theatre: "Theatre 1",
+          theatreNum: 1,
+          area: "Main Theatres",
+          specialty,
+          consultantSurgeon: surgeon.displayName || "Consultant Surgeon",
+          consultantAnaesthetist: anaesthetist.displayName || "Consultant Anaesthetist",
+          sessionTime: "07:30 - 19:30",
+          staff,
+          updatedAt: Date.now(),
+          seededFromComms: true,
+        },
+        { merge: true },
+      )
+
+      setSeedVersion((value) => value + 1)
+      setSelectedTheatre(1)
+      setActiveModal({
+        kind: "toast",
+        message: `Loaded ${members.length} active members into Theatre 1 for ${selectedDateKey}${resolvedOrg.source === "membership" ? " using live Comms org" : ""}.`,
+      })
+    } catch {
+      setActiveModal({ kind: "toast", message: "Unable to seed the workforce session right now." })
+    } finally {
+      setIsSeedingSession(false)
+    }
+  }
+
+  async function inspectOrgWiring() {
+    if (!db || !auth?.currentUser) {
+      setActiveModal({ kind: "toast", message: "Sign in is required before checking workforce wiring." })
+      return
+    }
+    const firestore = db
+    const resolvedOrg = await resolveActiveOrganizationId()
+    if (!resolvedOrg?.organizationId) {
+      setActiveModal({ kind: "toast", message: "No active organization found." })
+      return
+    }
+    const organizationId = resolvedOrg.organizationId
+
+    setIsInspectingWiring(true)
+    try {
+      const membershipSnap = await getDocs(
+        query(
+          collection(firestore, "comms_v5_memberships"),
+          where("orgId", "==", organizationId),
+          where("status", "==", "active"),
+        ),
+      )
+
+      const membershipRows = membershipSnap.docs.map((entry) => entry.data() as { uid: string; displayName?: string })
+      const userRecords = await Promise.all(
+        membershipRows.map(async (membership) => {
+          const userSnap = await getDoc(doc(firestore, "comms_v5_users", membership.uid))
+          if (!userSnap.exists()) {
+            return {
+              uid: membership.uid,
+              displayName: membership.displayName?.trim() || membership.uid,
+              missing: true as const,
+            }
+          }
+          const user = userSnap.data() as CommsUser
+          return {
+            uid: membership.uid,
+            displayName: user.displayName?.trim() || membership.displayName?.trim() || user.email?.trim() || membership.uid,
+            email: user.email?.trim() || "",
+            clinicalRole: user.clinicalRole?.trim() || "",
+            primarySpecialty: user.primarySpecialty?.trim() || user.specialties?.[0]?.trim() || "",
+            missing: false as const,
+          }
+        }),
+      )
+
+      const sessionsSnap = await getDocs(query(collection(firestore, "theatre_sessions"), where("date", "==", selectedDateKey)))
+      const sessions = sessionsSnap.docs.map((entry) => entry.data() as {
+        organizationId?: string
+        staff?: Array<{ name?: string }>
+      })
+      const relevantSessions = sessions.filter((session) => !session.organizationId || session.organizationId === organizationId)
+      const allocatedNames = relevantSessions.flatMap((session) => (session.staff ?? []).map((member) => member.name?.trim() || "")).filter(Boolean)
+
+      setWiringDiagnostic({
+        organizationId,
+        membershipCount: membershipRows.length,
+        commsUserCount: userRecords.filter((record) => !record.missing).length,
+        sessionCount: relevantSessions.length,
+        sessionStaffCount: allocatedNames.length,
+        activeMembers: userRecords
+          .filter((record): record is Extract<typeof record, { missing: false }> => !record.missing)
+          .sort((left, right) => left.displayName.localeCompare(right.displayName))
+          .map((record) => ({
+            uid: record.uid,
+            displayName: record.displayName,
+            email: record.email,
+            clinicalRole: record.clinicalRole,
+            primarySpecialty: record.primarySpecialty,
+          })),
+        missingCommsUsers: userRecords
+          .filter((record): record is Extract<typeof record, { missing: true }> => record.missing)
+          .map((record) => ({ uid: record.uid, displayName: record.displayName })),
+        allocatedNames,
+      })
+    } catch {
+      setActiveModal({ kind: "toast", message: "Unable to inspect the workforce wiring right now." })
+    } finally {
+      setIsInspectingWiring(false)
+    }
+  }
+
+  useEffect(() => {
+    if (!db) return
+    const organizationId = getProfile()?.activeOrganizationId?.trim()
+    if (!organizationId) return
+    return subscribeOrganizationPings(
+      db,
+      organizationId,
+      (pings) => {
+        const now = Date.now()
+        const next: Record<string, CommsPing> = {}
+        pings
+          .filter((ping) => Boolean(ping.recipientDisplayName))
+          .filter((ping) => {
+            const status = getEffectivePingStatus(ping, now)
+            if (status === "completed") return Boolean(ping.completedAt && now - ping.completedAt < 10 * 60_000)
+            if (status === "declined") return Boolean(ping.declinedAt && now - ping.declinedAt < 10 * 60_000)
+            return isPingActive(ping, now)
+          })
+          .sort((a, b) => b.createdAt - a.createdAt)
+          .forEach((ping) => {
+            const key = ping.recipientDisplayName!.trim().toLowerCase()
+            if (!next[key]) next[key] = { ...ping, status: getEffectivePingStatus(ping, now) }
+          })
+        setActivePingsByMember(next)
+      },
+      () => {},
+    )
+  }, [])
 
   if (isDesktopViewport === false) return <RootEntry initialSurface="resources" />
 
@@ -312,19 +696,12 @@ export default function WorkforcePage() {
     jumpToDate(parsed)
   }
 
-  useEffect(() => {
-    if (activeModal?.kind === "toast") {
-      const t = setTimeout(() => setActiveModal(null), 2800)
-      return () => clearTimeout(t)
-    }
-  }, [activeModal])
-
-  function openContextMenu(e: React.MouseEvent, memberName: string, theatre: string) {
+  function openContextMenu(e: React.MouseEvent, memberName: string, memberRole: string, theatre: string) {
     e.preventDefault()
-    const menuW = 240, menuH = 340
+    const menuW = 296, menuH = 420
     const x = Math.min(e.clientX, window.innerWidth - menuW - 8)
     const y = Math.min(e.clientY, window.innerHeight - menuH - 8)
-    setContextMenu({ memberName, theatre, x, y })
+    setContextMenu({ memberName, memberRole, theatre, x, y })
   }
 
   function openComms(memberName?: string) {
@@ -332,26 +709,58 @@ export default function WorkforcePage() {
     router.push(memberName ? `/comms?dmWith=${encodeURIComponent(memberName)}` : "/comms")
   }
 
-  function openAction(memberName: string, theatre: string, kind: "ping" | "call" | "break" | "relief" | "dispatch" | "shift_request") {
-    setContextMenu(null)
-    if (kind === "ping")               setActiveModal({ kind: "ping",          memberName, theatre })
-    else if (kind === "call")          setActiveModal({ kind: "call",          memberName })
-    else if (kind === "break")         setActiveModal({ kind: "break",         memberName, theatre })
-    else if (kind === "relief")        setActiveModal({ kind: "relief",        requester: memberName, theatre })
-    else if (kind === "dispatch")      { setDispatchDest(""); setActiveModal({ kind: "dispatch", memberName, theatre }) }
-    else if (kind === "shift_request") setActiveModal({ kind: "shift_request", memberName, theatre })
+  function getMemberActivePing(memberName: string) {
+    return activePingsByMember[memberName.trim().toLowerCase()] ?? null
   }
 
-  function confirmAction(message: string) { setActiveModal({ kind: "toast", message }) }
-  function closeModal() { setActiveModal(null) }
+  async function sendPing(memberName: string, memberRole: string, message: string) {
+    setContextMenu(null)
+    if (!db || !auth?.currentUser) {
+      setActiveModal({ kind: "toast", message: "Comms is not available right now." })
+      return
+    }
+
+    const organizationId = getProfile()?.activeOrganizationId?.trim()
+    if (!organizationId) {
+      setActiveModal({ kind: "toast", message: "No active organization found for Comms." })
+      return
+    }
+
+    try {
+      const recipient = await resolveCommsRecipientByDisplayName(db, organizationId, memberName)
+      if (!recipient) {
+        setActiveModal({ kind: "toast", message: `Could not find ${memberName} in Comms.` })
+        return
+      }
+
+      const duplicate = await findActiveDuplicatePing(db, organizationId, recipient.uid, message)
+      if (duplicate) {
+        setActiveModal({ kind: "toast", message: `${memberName} already has this ping: ${getPingStatusLabel(duplicate)}` })
+        return
+      }
+
+      await createDirectPing(db, {
+        organizationId,
+        senderUid: auth.currentUser.uid,
+        senderDisplayName: auth.currentUser.displayName || auth.currentUser.email || "User",
+        recipientUid: recipient.uid,
+        recipientDisplayName: recipient.displayName || memberName,
+        pingRole: getPingRoleFromClinicalRole(memberRole),
+        text: message,
+      })
+      setActiveModal({ kind: "toast", message: `Ping sent to ${memberName}: ${message}` })
+    } catch {
+      setActiveModal({ kind: "toast", message: `Unable to send ping to ${memberName} right now.` })
+    }
+  }
 
   return (
     <WorkspaceDesktopShell currentNav="workforce">
-      <div className="flex h-full min-h-0 flex-col px-4 py-4">
+      <div className="relative flex h-full min-h-0 flex-col py-4">
         <div className="flex min-h-0 flex-1 flex-col gap-3">
 
           {/* ── Top bar ── */}
-          <section className="shrink-0 space-y-3">
+          <section className="shrink-0 space-y-3 px-4">
             <div className="space-y-4">
               <h1 className="hidden text-[21px] font-medium tracking-[-0.03em] text-white lg:block">Workforce</h1>
               <WorkforceSectionNav current="overview" />
@@ -433,7 +842,7 @@ export default function WorkforcePage() {
               }
 
               return (
-                <div className="shrink-0 border-b border-black bg-[#0a0a0a] px-3 py-2">
+                <div className="shrink-0 border-b border-black bg-[#0a0a0a] px-4 py-2">
                   <div className="flex items-center gap-3">
 
                     {/* Filter controls */}
@@ -441,7 +850,11 @@ export default function WorkforcePage() {
                       <span className="text-[13px] font-medium text-white">Filter by</span>
                       <select
                         value={filterMode}
-                        onChange={(e) => { setFilterMode(e.target.value as FilterMode); setSelectedFilter("All") }}
+                        onChange={(e) => {
+                          setFilterMode(e.target.value as FilterMode)
+                          setSelectedFilter("All")
+                          setSelectedTheatre(null)
+                        }}
                         className="rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2.5 py-1.5 text-[13px] text-white outline-none"
                       >
                         <option value="Area">Area</option>
@@ -450,7 +863,10 @@ export default function WorkforcePage() {
                       </select>
                       <select
                         value={selectedFilter}
-                        onChange={(e) => setSelectedFilter(e.target.value)}
+                        onChange={(e) => {
+                          setSelectedFilter(e.target.value)
+                          setSelectedTheatre(null)
+                        }}
                         className="min-w-[140px] rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2.5 py-1.5 text-[13px] text-white outline-none"
                       >
                         {filterOptions.map((f) => <option key={f} value={f}>{f}</option>)}
@@ -510,14 +926,34 @@ export default function WorkforcePage() {
                     <div className="h-5 w-px shrink-0 bg-[#2d2d2d]" />
 
                     {/* Sort cycle */}
-                    <button
-                      type="button"
-                      onClick={() => setSortKey((k) => { const i = CAROUSEL_SORT_CYCLE.indexOf(k as typeof CAROUSEL_SORT_CYCLE[number]); return CAROUSEL_SORT_CYCLE[(i + 1) % CAROUSEL_SORT_CYCLE.length] as SortKey | null })}
-                      className="flex shrink-0 items-center gap-1.5 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2.5 py-1.5"
-                    >
-                      <ArrowUpDown size={13} className={sortKey ? "text-[#0096C7]" : "text-white"} />
-                      <span className="text-[12px] text-white">{sortKey ?? "Sort"}</span>
-                    </button>
+                    <div className="flex shrink-0 items-center gap-2">
+                      <button
+                        type="button"
+                        onClick={() => { void seedSelectedDateFromOrgMembers() }}
+                        disabled={isSeedingSession}
+                        className="flex items-center gap-1.5 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2.5 py-1.5 disabled:cursor-not-allowed disabled:opacity-45"
+                      >
+                        <Bell size={13} className="text-[#67CFCF]" />
+                        <span className="text-[12px] text-white">{isSeedingSession ? "Loading team..." : "Restore org team"}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { void inspectOrgWiring() }}
+                        disabled={isInspectingWiring}
+                        className="flex items-center gap-1.5 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2.5 py-1.5 disabled:cursor-not-allowed disabled:opacity-45"
+                      >
+                        <Settings2 size={13} className="text-[#67CFCF]" />
+                        <span className="text-[12px] text-white">{isInspectingWiring ? "Checking..." : "Check wiring"}</span>
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => setSortKey((k) => { const i = CAROUSEL_SORT_CYCLE.indexOf(k as typeof CAROUSEL_SORT_CYCLE[number]); return CAROUSEL_SORT_CYCLE[(i + 1) % CAROUSEL_SORT_CYCLE.length] as SortKey | null })}
+                        className="flex shrink-0 items-center gap-1.5 rounded-[8px] border border-[#2d2d2d] bg-[#111111] px-2.5 py-1.5"
+                      >
+                        <ArrowUpDown size={13} className={sortKey ? "text-[#0096C7]" : "text-white"} />
+                        <span className="text-[12px] text-white">{sortKey ?? "Sort"}</span>
+                      </button>
+                    </div>
 
                   </div>
                 </div>
@@ -527,20 +963,20 @@ export default function WorkforcePage() {
             {/* Scrollable area — horizontal + vertical */}
             <div className="min-h-0 flex-1 overflow-x-auto overflow-y-auto">
               {/* Column header — sticky vertically, scrolls horizontally with rows */}
-              <div className={`sticky top-0 z-10 grid ${COLS} min-w-[900px] items-center gap-x-3 border-b border-black bg-[#0d0d0d] px-4 py-2.5`}>
+              <div className={`sticky top-0 z-10 grid ${COLS} min-w-[1180px] items-center gap-x-5 border-b border-black bg-[#0d0d0d] px-5 py-2.5`}>
                 <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">Theatre</span>
-                <ColHeader label="Staff Name"  colKey="name"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <ColHeader label="Role"        colKey="role"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <ColHeader label="Specialty"   colKey="specialty" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <ColHeader label="Area"        colKey="area"      sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <ColHeader label="Start"       colKey="start"     sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <ColHeader label="Staff Name"  colKey="name"      sortKey={sortKey} onSort={handleSort} />
+                <ColHeader label="Role"        colKey="role"      sortKey={sortKey} onSort={handleSort} />
+                <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">Band / Grade</span>
+                <ColHeader label="Specialty"   colKey="specialty" sortKey={sortKey} onSort={handleSort} />
+                <ColHeader label="Area"        colKey="area"      sortKey={sortKey} onSort={handleSort} />
+                <ColHeader label="Start"       colKey="start"     sortKey={sortKey} onSort={handleSort} />
                 <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">End</span>
-                <ColHeader label="Status"      colKey="status"    sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <span className="text-[11px] font-semibold uppercase tracking-[0.1em] text-white">Actions</span>
+                <ColHeader label="Status"      colKey="status"    sortKey={sortKey} onSort={handleSort} />
               </div>
 
               {/* Rows */}
-              <div className="min-w-[900px]">
+              <div className="min-w-[1180px]">
               {sortKey ? (
                 // ── Flat sorted view ─────────────────────────────────────
                 <>
@@ -549,24 +985,27 @@ export default function WorkforcePage() {
                     return (
                       <div
                         key={`${row.theatre}-${row.name}-${i}`}
-                        onContextMenu={(e) => openContextMenu(e, row.name, row.theatre)}
-                        className={`group grid ${COLS} cursor-context-menu items-center gap-x-3 border-b border-black bg-black px-4 py-2.5 transition-colors hover:bg-[#080808]`}
+                        onContextMenu={(e) => openContextMenu(e, row.name, row.role, row.theatre)}
+                        className={`group grid ${COLS} cursor-context-menu items-center gap-x-5 border-b border-black bg-black px-5 py-2.5 transition-colors hover:bg-[#141414]`}
                       >
                         <span className={`font-mono text-[17px] font-black leading-none ${c.name}`}>
                           {String(row.theatreNum).padStart(2, "0")}
                         </span>
                         <span className={`truncate text-[13px] font-semibold ${c.name}`}>{row.name}</span>
                         <span className="flex min-w-0 items-center gap-1.5">
-                          {isConsultantRole(row.role) && <span className="shrink-0 text-[13px] leading-none" style={{ color: "#FFD700" }}>★</span>}
-                          {isLeadRole(row.role) && <Crown size={12} className="shrink-0" style={{ color: "#FFD700" }} />}
+                          {isConsultantRole(row) && <span className="shrink-0 text-[13px] leading-none" style={{ color: "#FFD700" }}>★</span>}
+                          {isLeadRole(row) && <Crown size={12} className="shrink-0" style={{ color: "#FFD700" }} />}
                           <span className={`truncate text-[12px] ${c.sub}`}>{row.role}</span>
                         </span>
+                        <span className={`text-[12px] font-semibold ${c.sub}`}>{getBandLabel(row)}</span>
                         <span className={`truncate text-[12px] ${c.sub}`}>{row.specialty}</span>
                         <span className={`truncate text-[12px] ${c.sub}`}>{row.area}</span>
                         <span className={`text-[12px] tabular-nums ${c.sub}`}>{row.start}</span>
                         <span className={`text-[12px] tabular-nums ${c.sub}`}>{row.end}</span>
-                        <span className={`text-[12px] font-semibold ${c.name}`}>{row.status}</span>
-                        <ActionButtons memberName={row.name} theatre={row.theatre} onComms={() => openComms(row.name)} onDismiss={() => {}} />
+                        <div className="flex min-w-0 items-center gap-2">
+                          <span className={`shrink-0 text-[12px] font-semibold ${c.name}`}>{row.status}</span>
+                          <InlinePingState livePing={getMemberActivePing(row.name)} />
+                        </div>
                       </div>
                     )
                   })}
@@ -577,29 +1016,32 @@ export default function WorkforcePage() {
                   {displayCards.map((card) => (
                     <div key={card.theatre}>
                       {/* Staff rows */}
-                      {card.staff.map((member) => {
+                      {card.staff.map((member, memberIndex) => {
                         const c = STATUS_META[member.status]
                         return (
                           <div
-                            key={`${card.theatre}-${member.name}`}
-                            onContextMenu={(e) => openContextMenu(e, member.name, card.theatre)}
-                            className={`group grid ${COLS} cursor-context-menu items-center gap-x-3 border-b border-black bg-black px-4 py-2.5 transition-colors hover:bg-[#080808]`}
+                            key={`${card.theatre}-${member.name}-${member.role}-${member.start}-${memberIndex}`}
+                            onContextMenu={(e) => openContextMenu(e, member.name, member.role, card.theatre)}
+                            className={`group grid ${COLS} cursor-context-menu items-center gap-x-5 border-b border-black bg-black px-5 py-2.5 transition-colors hover:bg-[#141414]`}
                           >
                             <span className={`font-mono text-[17px] font-black leading-none ${c.name}`}>
                               {String(card.theatreNum).padStart(2, "0")}
                             </span>
                             <span className={`truncate text-[13px] font-semibold ${c.name}`}>{member.name}</span>
                             <span className="flex min-w-0 items-center gap-1.5">
-                              {isConsultantRole(member.role) && <span className="shrink-0 text-[13px] leading-none" style={{ color: "#FFD700" }}>★</span>}
-                              {isLeadRole(member.role) && <Crown size={12} className="shrink-0" style={{ color: "#FFD700" }} />}
+                              {isConsultantRole(member) && <span className="shrink-0 text-[13px] leading-none" style={{ color: "#FFD700" }}>★</span>}
+                              {isLeadRole(member) && <Crown size={12} className="shrink-0" style={{ color: "#FFD700" }} />}
                               <span className={`truncate text-[12px] ${c.sub}`}>{member.role}</span>
                             </span>
+                            <span className={`text-[12px] font-semibold ${c.sub}`}>{getBandLabel(member)}</span>
                             <span className={`truncate text-[12px] ${c.sub}`}>{member.specialty}</span>
                             <span className={`truncate text-[12px] ${c.sub}`}>{card.area}</span>
                             <span className={`text-[12px] tabular-nums ${c.sub}`}>{member.start}</span>
                             <span className={`text-[12px] tabular-nums ${c.sub}`}>{member.end}</span>
-                            <span className={`text-[12px] font-semibold ${c.name}`}>{member.status}</span>
-                            <ActionButtons memberName={member.name} theatre={card.theatre} onComms={() => openComms(member.name)} onDismiss={() => {}} />
+                            <div className="flex min-w-0 items-center gap-2">
+                              <span className={`shrink-0 text-[12px] font-semibold ${c.name}`}>{member.status}</span>
+                              <InlinePingState livePing={getMemberActivePing(member.name)} />
+                            </div>
                           </div>
                         )
                       })}
@@ -632,205 +1074,186 @@ export default function WorkforcePage() {
             onContextMenu={(e) => { e.preventDefault(); setContextMenu(null) }}
           >
             <div
-              className="absolute min-w-[248px] rounded-[16px] border border-[#1e1e1e] bg-[#0f0f0f] p-2 shadow-[0_24px_56px_rgba(0,0,0,0.8)]"
-              style={{ left: contextMenu.x, top: contextMenu.y }}
+              className="absolute flex w-[296px] flex-col rounded-[18px] border border-[#1e1e1e] bg-[#0f0f0f] p-2 shadow-[0_24px_56px_rgba(0,0,0,0.8)]"
+              style={contextMenuStyle ?? { left: contextMenu.x, top: contextMenu.y, maxHeight: PING_MENU_MAX_HEIGHT }}
               onClick={(e) => e.stopPropagation()}
             >
-              <div className="mb-2 border-b border-[#1a1a1a] px-3 pb-2.5 pt-1.5">
+              <div className="mb-2 border-b border-[#1a1a1a] px-3 pb-3 pt-2">
                 <p className="text-[14px] font-semibold text-white">{contextMenu.memberName}</p>
-                <p className="text-[12px] text-white">{contextMenu.theatre}</p>
+                <p className="text-[12px] text-white">{getPingRoleFromClinicalRole(contextMenu.memberRole)} · {contextMenu.theatre}</p>
               </div>
 
-              {/* Chat */}
-              <CtxItem icon={<MessageSquare size={13} className="text-[#38bdf8]" />} iconBg="bg-[#0096C7]/15"
-                label="Chat" sub="Open direct message thread" onClick={() => openComms(contextMenu.memberName)} />
+              <div className="px-3 pb-1">
+                <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Ping shortcuts</p>
+                <p className="mt-1 text-[11px] text-white/70">Quick-send shortcuts tailored to this role.</p>
+              </div>
 
-              {/* Ping */}
-              <CtxItem icon={<Bell size={13} className="text-[#fbbf24]" />} iconBg="bg-[#fbbf24]/15"
-                label="Ping" sub="Send a quick ping via Comms"
-                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "ping")} />
-
-              <div className="my-1.5 border-t border-[#1a1a1a]" />
-
-              {/* Call Extension */}
-              <CtxItem icon={<Phone size={13} className="text-[#34d399]" />} iconBg="bg-[#34d399]/15"
-                label="Call Extension" sub="View extension number"
-                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "call")} />
-
-              {/* Send for Break */}
-              <CtxItem icon={<Coffee size={13} className="text-[#fb923c]" />} iconBg="bg-[#fb923c]/15"
-                label="Send for Break" sub="Notify team and send to break"
-                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "break")} />
-
-              {/* Ask for Relief */}
-              <CtxItem icon={<Users size={13} className="text-[#a78bfa]" />} iconBg="bg-[#a78bfa]/15"
-                label="Ask for Relief" sub="Select a relief from this theatre"
-                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "relief")} />
-
-              {/* Dispatch */}
-              <CtxItem icon={<Navigation size={13} className="text-[#22d3ee]" />} iconBg="bg-[#22d3ee]/15"
-                label="Dispatch" sub="Send to another location or task"
-                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "dispatch")} />
+              <div className="space-y-1 overflow-y-auto px-1 pb-1">
+                {[...DEFAULT_PING_SHORTCUTS[getPingRoleFromClinicalRole(contextMenu.memberRole)], ...pingShortcutSets[getPingRoleFromClinicalRole(contextMenu.memberRole)]].map((ping) => (
+                  <button
+                    key={ping}
+                    type="button"
+                    onClick={() => { void sendPing(contextMenu.memberName, contextMenu.memberRole, ping) }}
+                    className="flex w-full items-center gap-3 rounded-[12px] border border-[#232323] bg-[#141414] px-3 py-3 text-left transition-colors hover:border-[#2f4d56] hover:bg-[#191c1d]"
+                  >
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#fbbf24]/15">
+                      <Bell size={14} className="text-[#fbbf24]" />
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[13px] font-semibold text-white">{ping}</p>
+                    </div>
+                  </button>
+                ))}
+              </div>
 
               <div className="my-1.5 border-t border-[#1a1a1a]" />
 
-              {/* Offer Swap — disabled on today */}
-              {(() => {
-                const isFuture = selectedDateKey > new Date().toISOString().slice(0, 10)
-                return (
-                  <CtxItem icon={<ArrowRightLeft size={13} className={isFuture ? "text-[#34d399]" : "text-white"} />}
-                    iconBg={isFuture ? "bg-[#34d399]/15" : "bg-[#222222]"}
-                    label="Offer Swap" sub={isFuture ? "Propose a shift or slot swap" : "Only available on future dates"}
-                    onClick={isFuture ? () => setContextMenu(null) : undefined}
-                    disabled={!isFuture} />
-                )
-              })()}
-
-              {/* Shift Request */}
-              <CtxItem icon={<CalendarPlus size={13} className="text-[#38bdf8]" />} iconBg="bg-[#38bdf8]/15"
-                label="Shift Request" sub="Ask about availability for a shift"
-                onClick={() => openAction(contextMenu.memberName, contextMenu.theatre, "shift_request")} />
+              <div className="grid grid-cols-2 gap-2 px-2 pb-2">
+                <button
+                  type="button"
+                  onClick={() => openComms(contextMenu.memberName)}
+                  className="flex items-center justify-center gap-2 rounded-[12px] border border-[#232323] bg-[#141414] px-3 py-2.5 text-[12px] font-semibold text-white transition-colors hover:bg-[#191919]"
+                >
+                  <MessageSquare size={13} className="text-[#38bdf8]" />
+                  Open chat
+                </button>
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPingConfigDrawer({
+                      memberName: contextMenu.memberName,
+                      memberRole: contextMenu.memberRole,
+                      pingRole: getPingRoleFromClinicalRole(contextMenu.memberRole),
+                    })
+                    setContextMenu(null)
+                  }}
+                  className="flex items-center justify-center gap-2 rounded-[12px] border border-[#232323] bg-[#141414] px-3 py-2.5 text-[12px] font-semibold text-white transition-colors hover:bg-[#191919]"
+                >
+                  <Settings2 size={13} className="text-[#67CFCF]" />
+                  Manage pings
+                </button>
+              </div>
             </div>
           </div>
         )}
 
-        {/* ── Action modals ── */}
-        {activeModal && activeModal.kind !== "toast" && (
-          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-sm"
-               onClick={closeModal}>
-            <div className="w-full max-w-sm rounded-[20px] border border-[#1e1e1e] bg-[#0f0f0f] p-6 shadow-[0_32px_80px_rgba(0,0,0,0.9)]"
-                 onClick={(e) => e.stopPropagation()}>
+        {pingConfigDrawer && (
+          <PingConfigPanel
+            pingRole={pingConfigDrawer.pingRole}
+            memberName={pingConfigDrawer.memberName}
+            customPings={pingShortcutSets[pingConfigDrawer.pingRole]}
+            onClose={() => setPingConfigDrawer(null)}
+            onSave={(next) => {
+              const updatedSets = { ...pingShortcutSets, [pingConfigDrawer.pingRole]: next }
+              setPingShortcutSets(updatedSets)
+              if (db && auth?.currentUser?.uid) {
+                void savePingShortcutSets(db, auth.currentUser.uid, updatedSets)
+              }
+            }}
+          />
+        )}
 
-              {/* Ping */}
-              {activeModal.kind === "ping" && (
-                <>
-                  <ModalHeader icon={<Bell size={20} className="text-[#fbbf24]" />} bg="bg-[#fbbf24]/15"
-                    title={`Ping ${activeModal.memberName}`} sub={activeModal.theatre} />
-                  <p className="mb-6 text-[13px] text-white">A ping will be sent to {activeModal.memberName} and logged in Comms.</p>
-                  <div className="flex gap-3">
-                    <button type="button" onClick={closeModal}
-                      className="flex-1 rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">No, Cancel</button>
-                    <button type="button"
-                      onClick={() => confirmAction(`Ping sent to ${activeModal.memberName}`)}
-                      className="flex-1 rounded-[12px] bg-[#fbbf24] py-3 text-[13px] font-bold text-black hover:bg-[#f59e0b]">Yes, Send Ping</button>
-                  </div>
-                </>
-              )}
+        {wiringDiagnostic && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 px-6" onClick={() => setWiringDiagnostic(null)}>
+            <div
+              className="max-h-[80vh] w-full max-w-[760px] overflow-y-auto rounded-[20px] border border-[#1f1f1f] bg-[#0c0c0c] p-5 shadow-[0_28px_72px_rgba(0,0,0,0.82)]"
+              onClick={(event) => event.stopPropagation()}
+            >
+              <div className="flex items-start justify-between gap-4 border-b border-white/8 pb-4">
+                <div>
+                  <p className="text-[18px] font-semibold text-white">Workforce wiring check</p>
+                  <p className="mt-1 text-[12px] text-white/65">Selected date: {selectedDateKey} · Org: {wiringDiagnostic.organizationId}</p>
+                </div>
+                <button type="button" onClick={() => setWiringDiagnostic(null)} className="text-white/55 hover:text-white">
+                  <X size={18} />
+                </button>
+              </div>
 
-              {/* Call Extension */}
-              {activeModal.kind === "call" && (
-                <>
-                  <ModalHeader icon={<Phone size={20} className="text-[#34d399]" />} bg="bg-[#34d399]/15"
-                    title={`Call ${activeModal.memberName}`} sub="Extension number" />
-                  <div className="mb-4 rounded-[12px] bg-[#141414] px-4 py-3 text-center">
-                    <p className="text-[11px] uppercase tracking-widest text-white">Extension</p>
-                    <p className="mt-1 text-[28px] font-black text-white">— —</p>
-                    <p className="mt-1 text-[11px] text-white">Available when hospital directory is connected</p>
-                  </div>
-                  <button type="button" onClick={closeModal}
-                    className="w-full rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">Close</button>
-                </>
-              )}
+              <div className="mt-5 grid gap-3 sm:grid-cols-4">
+                <div className="rounded-[14px] border border-[#1f1f1f] bg-[#121212] px-4 py-3">
+                  <p className="text-[11px] uppercase tracking-[0.12em] text-white/50">Memberships</p>
+                  <p className="mt-2 text-[20px] font-semibold text-white">{wiringDiagnostic.membershipCount}</p>
+                </div>
+                <div className="rounded-[14px] border border-[#1f1f1f] bg-[#121212] px-4 py-3">
+                  <p className="text-[11px] uppercase tracking-[0.12em] text-white/50">Comms users</p>
+                  <p className="mt-2 text-[20px] font-semibold text-white">{wiringDiagnostic.commsUserCount}</p>
+                </div>
+                <div className="rounded-[14px] border border-[#1f1f1f] bg-[#121212] px-4 py-3">
+                  <p className="text-[11px] uppercase tracking-[0.12em] text-white/50">Sessions</p>
+                  <p className="mt-2 text-[20px] font-semibold text-white">{wiringDiagnostic.sessionCount}</p>
+                </div>
+                <div className="rounded-[14px] border border-[#1f1f1f] bg-[#121212] px-4 py-3">
+                  <p className="text-[11px] uppercase tracking-[0.12em] text-white/50">Allocated staff</p>
+                  <p className="mt-2 text-[20px] font-semibold text-white">{wiringDiagnostic.sessionStaffCount}</p>
+                </div>
+              </div>
 
-              {/* Send for Break */}
-              {activeModal.kind === "break" && (
-                <>
-                  <ModalHeader icon={<Coffee size={20} className="text-[#fb923c]" />} bg="bg-[#fb923c]/15"
-                    title={`Send ${activeModal.memberName} for break?`} sub={activeModal.theatre} />
-                  <p className="mb-6 text-[13px] text-white">A break notification will be sent to {activeModal.memberName} and visible to the team via Comms.</p>
-                  <div className="flex gap-3">
-                    <button type="button" onClick={closeModal}
-                      className="flex-1 rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">Cancel</button>
-                    <button type="button"
-                      onClick={() => confirmAction(`Break notification sent to ${activeModal.memberName}`)}
-                      className="flex-1 rounded-[12px] bg-[#fb923c] py-3 text-[13px] font-bold text-black hover:bg-[#f97316]">Send for Break</button>
-                  </div>
-                </>
-              )}
-
-              {/* Ask for Relief */}
-              {activeModal.kind === "relief" && (
-                <>
-                  <ModalHeader icon={<Users size={20} className="text-[#a78bfa]" />} bg="bg-[#a78bfa]/15"
-                    title="Ask for Relief" sub={`${activeModal.requester} · ${activeModal.theatre}`} />
-                  <p className="mb-3 text-[13px] text-white">Select who will relieve {activeModal.requester}:</p>
-                  <div className="mb-4 max-h-[200px] overflow-y-auto space-y-1.5 pr-1">
-                    {(cards.find(c => c.theatre === activeModal.theatre)?.staff ?? [])
-                      .filter(m => m.name !== activeModal.requester)
-                      .map(m => (
-                        <button key={m.name} type="button"
-                          onClick={() => setActiveModal({ kind: "relief_sent", requester: activeModal.requester, relievedBy: m.name })}
-                          className="flex w-full items-center gap-3 rounded-[12px] bg-[#141414] px-3 py-2.5 text-left hover:bg-[#1c1c1c]">
-                          <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#a78bfa]/20 text-[11px] font-bold text-[#a78bfa]">
-                            {m.name.split(" ").map(n => n[0]).join("").slice(0, 2)}
+              <div className="mt-5 grid gap-5 lg:grid-cols-[minmax(0,1.2fr)_minmax(0,0.8fr)]">
+                <section>
+                  <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Active org members</p>
+                  <div className="mt-3 space-y-2">
+                    {wiringDiagnostic.activeMembers.length === 0 ? (
+                      <div className="rounded-[14px] border border-dashed border-white/10 bg-[#101010] px-4 py-3 text-[13px] text-white/60">
+                        No `comms_v5_users` matched the active memberships for this organization.
+                      </div>
+                    ) : (
+                      wiringDiagnostic.activeMembers.map((member) => {
+                        const allocated = wiringDiagnostic.allocatedNames.some((name) => name.toLowerCase() === member.displayName.toLowerCase())
+                        return (
+                          <div key={member.uid} className="rounded-[14px] border border-[#1f1f1f] bg-[#121212] px-4 py-3">
+                            <div className="flex items-center justify-between gap-3">
+                              <p className="text-[14px] font-semibold text-white">{member.displayName}</p>
+                              <span className={`rounded-full px-2 py-1 text-[10px] font-semibold ${allocated ? "bg-emerald-500/12 text-emerald-300" : "bg-amber-500/12 text-amber-300"}`}>
+                                {allocated ? "Allocated" : "Not allocated"}
+                              </span>
+                            </div>
+                            <p className="mt-1 text-[12px] text-white/70">{member.email || "No email stored"}</p>
+                            <p className="mt-1 text-[12px] text-white/55">
+                              {member.clinicalRole || "No clinical role"} · {member.primarySpecialty || "No specialty"}
+                            </p>
                           </div>
-                          <div>
-                            <p className="text-[13px] font-semibold text-white">{m.name}</p>
-                            <p className="text-[11px] text-white">{m.role}</p>
+                        )
+                      })
+                    )}
+                  </div>
+                </section>
+
+                <section className="space-y-5">
+                  <div>
+                    <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Missing Comms users</p>
+                    <div className="mt-3 space-y-2">
+                      {wiringDiagnostic.missingCommsUsers.length === 0 ? (
+                        <div className="rounded-[14px] border border-[#1f1f1f] bg-[#121212] px-4 py-3 text-[13px] text-emerald-300">
+                          Every active membership has a matching `comms_v5_users` record.
+                        </div>
+                      ) : (
+                        wiringDiagnostic.missingCommsUsers.map((member) => (
+                          <div key={member.uid} className="rounded-[14px] border border-[#3a2513] bg-[#18110b] px-4 py-3 text-[13px] text-amber-200">
+                            {member.displayName} · {member.uid}
                           </div>
-                        </button>
-                      ))
-                    }
+                        ))
+                      )}
+                    </div>
                   </div>
-                  <button type="button" onClick={closeModal}
-                    className="w-full rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">Cancel</button>
-                </>
-              )}
 
-              {/* Relief sent confirmation */}
-              {activeModal.kind === "relief_sent" && (
-                <>
-                  <ModalHeader icon={<Users size={20} className="text-[#a78bfa]" />} bg="bg-[#a78bfa]/15"
-                    title="Relief request sent" sub="Via Comms · Ping channel" />
-                  <p className="mb-6 text-[13px] text-white">{activeModal.relievedBy} has been asked to relieve {activeModal.requester}.</p>
-                  <button type="button" onClick={closeModal}
-                    className="w-full rounded-[12px] bg-[#a78bfa] py-3 text-[13px] font-bold text-black hover:bg-[#9061f9]">Done</button>
-                </>
-              )}
-
-              {/* Dispatch */}
-              {activeModal.kind === "dispatch" && (
-                <>
-                  <ModalHeader icon={<Navigation size={20} className="text-[#22d3ee]" />} bg="bg-[#22d3ee]/15"
-                    title={`Dispatch ${activeModal.memberName}`} sub={activeModal.theatre} />
-                  <label className="mb-1.5 block text-[12px] text-white">Destination</label>
-                  <input
-                    type="text"
-                    value={dispatchDest}
-                    onChange={(e) => setDispatchDest(e.target.value)}
-                    placeholder="e.g. Recovery Room, Theatre 3, ICU…"
-                    className="mb-5 w-full rounded-[12px] border border-[#2a2a2a] bg-[#141414] px-4 py-3 text-[13px] text-white placeholder-[#444444] outline-none focus:border-[#22d3ee]/50"
-                  />
-                  <div className="flex gap-3">
-                    <button type="button" onClick={closeModal}
-                      className="flex-1 rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">Cancel</button>
-                    <button type="button"
-                      disabled={!dispatchDest.trim()}
-                      onClick={() => confirmAction(`${activeModal.memberName} dispatched to ${dispatchDest.trim()}`)}
-                      className="flex-1 rounded-[12px] bg-[#22d3ee] py-3 text-[13px] font-bold text-black hover:bg-[#06b6d4] disabled:opacity-40 disabled:cursor-not-allowed">Dispatch</button>
+                  <div>
+                    <p className="text-[12px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Allocated names</p>
+                    <div className="mt-3 flex flex-wrap gap-2">
+                      {wiringDiagnostic.allocatedNames.length === 0 ? (
+                        <div className="rounded-[14px] border border-dashed border-white/10 bg-[#101010] px-4 py-3 text-[13px] text-white/60">
+                          No staff are allocated in `theatre_sessions` for this date.
+                        </div>
+                      ) : (
+                        wiringDiagnostic.allocatedNames.map((name, index) => (
+                          <span key={`${name}-${index}`} className="rounded-full border border-[#1f1f1f] bg-[#121212] px-3 py-1.5 text-[12px] text-white">
+                            {name}
+                          </span>
+                        ))
+                      )}
+                    </div>
                   </div>
-                </>
-              )}
-
-              {/* Shift Request */}
-              {activeModal.kind === "shift_request" && (
-                <>
-                  <ModalHeader icon={<CalendarPlus size={20} className="text-[#38bdf8]" />} bg="bg-[#38bdf8]/15"
-                    title="Shift Request" sub={`${activeModal.memberName} · ${activeModal.theatre}`} />
-                  <p className="mb-2 text-[13px] text-white">Send an availability request to {activeModal.memberName} for:</p>
-                  <div className="mb-5 rounded-[12px] bg-[#141414] px-4 py-3 text-center">
-                    <p className="text-[15px] font-semibold text-white">{selectedDateKey}</p>
-                  </div>
-                  <div className="flex gap-3">
-                    <button type="button" onClick={closeModal}
-                      className="flex-1 rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]">Cancel</button>
-                    <button type="button"
-                      onClick={() => confirmAction(`Shift request sent to ${activeModal.memberName}`)}
-                      className="flex-1 rounded-[12px] bg-[#38bdf8] py-3 text-[13px] font-bold text-black hover:bg-[#0ea5e9]">Send Request</button>
-                  </div>
-                </>
-              )}
-
+                </section>
+              </div>
             </div>
           </div>
         )}
@@ -848,57 +1271,155 @@ export default function WorkforcePage() {
   )
 }
 
-// ── Inline action buttons (shown on row hover) ─────────────────────────────
+// ── Inline ping state ───────────────────────────────────────────────────────
 
-function ActionButtons({ onComms }: { memberName: string; theatre: string; onComms: () => void; onDismiss: () => void }) {
+function InlinePingState({ livePing }: { livePing: CommsPing | null }) {
+  const pingLabel = livePing ? getPingStatusLabel(livePing) : null
+  const pingTone =
+    !livePing ? ""
+    : pingLabel === "Done" ? "border-emerald-500/35 bg-emerald-500/10 text-emerald-300"
+    : pingLabel === "Escalated" ? "border-rose-500/35 bg-rose-500/10 text-rose-300"
+    : pingLabel === "On it" ? "border-sky-500/35 bg-sky-500/10 text-sky-300"
+    : pingLabel === "Seen" ? "border-amber-500/35 bg-amber-500/10 text-amber-300"
+    : "border-[#2b5d69] bg-[#0f2025] text-[#67CFCF]"
+
   return (
-    <div className="flex items-center gap-1.5 opacity-0 transition-opacity group-hover:opacity-100">
-      <button type="button" title="Chat"
-        onClick={(e) => { e.stopPropagation(); onComms() }}
-        className="flex h-7 w-7 items-center justify-center rounded-full bg-[#0096C7]/10 text-[#38bdf8] transition-colors hover:bg-[#0096C7]/20">
-        <MessageSquare size={13} />
-      </button>
-      <button type="button" title="Ping"
-        onClick={(e) => e.stopPropagation()}
-        className="flex h-7 w-7 items-center justify-center rounded-full bg-[#fbbf24]/10 text-[#fbbf24] transition-colors hover:bg-[#fbbf24]/20">
-        <Bell size={13} />
-      </button>
-      <button type="button" title="More actions — right-click for full menu"
-        onClick={(e) => e.stopPropagation()}
-        className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1a1a1a] text-white transition-colors hover:bg-[#222222]">
-        <Clock3 size={13} />
-      </button>
-    </div>
+    livePing ? (
+      <span
+        className={`min-w-0 max-w-[120px] truncate rounded-full border px-2 py-1 text-[10px] font-semibold leading-none ${pingTone}`}
+        title={`${pingLabel}: ${livePing.text}`}
+      >
+        {pingLabel}
+      </span>
+    ) : null
   )
 }
 
-// ── Context menu item ──────────────────────────────────────────────────────
-
-function CtxItem({ icon, iconBg, label, sub, onClick, disabled }: {
-  icon: React.ReactNode; iconBg: string; label: string; sub: string
-  onClick?: () => void; disabled?: boolean
+function PingConfigPanel({
+  pingRole,
+  memberName,
+  customPings,
+  onClose,
+  onSave,
+}: {
+  pingRole: PingRole
+  memberName: string
+  customPings: string[]
+  onClose: () => void
+  onSave: (next: string[]) => void
 }) {
-  return (
-    <button type="button" onClick={onClick} disabled={disabled}
-      className={`flex w-full items-center gap-3 rounded-[10px] px-3 py-2 text-left transition-colors ${disabled ? "cursor-not-allowed opacity-35" : "hover:bg-[#141414]"}`}>
-      <div className={`flex h-7 w-7 shrink-0 items-center justify-center rounded-full ${iconBg}`}>{icon}</div>
-      <div>
-        <p className="text-[13px] font-semibold text-white">{label}</p>
-        <p className="text-[11px] text-white">{sub}</p>
-      </div>
-    </button>
-  )
-}
+  const [draft, setDraft] = useState<string[]>(customPings)
+  const [newPing, setNewPing] = useState("")
 
-// ── Modal header ───────────────────────────────────────────────────────────
-
-function ModalHeader({ icon, bg, title, sub }: { icon: React.ReactNode; bg: string; title: string; sub: string }) {
   return (
-    <div className="mb-5 flex items-center gap-4">
-      <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${bg}`}>{icon}</div>
-      <div>
-        <p className="text-[16px] font-bold text-white">{title}</p>
-        <p className="text-[12px] text-white">{sub}</p>
+    <div className="absolute inset-0 z-30 flex">
+      <button type="button" className="flex-1 bg-black/55" onClick={onClose} aria-label="Close ping config" />
+      <div className="flex h-full w-[min(28rem,46%)] min-w-[22rem] max-w-full flex-col border-l border-white/10 bg-[#0a0a0a] shadow-2xl">
+        <div className="flex items-start justify-between border-b border-white/8 px-5 py-4">
+          <div>
+            <p className="text-[16px] font-semibold text-white">Ping shortcuts</p>
+            <p className="mt-1 text-[12px] text-white/70">{pingRole} shortcuts for {memberName}</p>
+          </div>
+          <button type="button" onClick={onClose} className="text-white/60 hover:text-white">
+            <X size={18} />
+          </button>
+        </div>
+
+        <div className="flex-1 space-y-5 overflow-y-auto px-5 py-5">
+          <section>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Role defaults</p>
+            <div className="mt-3 space-y-2">
+              {DEFAULT_PING_SHORTCUTS[pingRole].map((ping) => (
+                <div key={ping} className="rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5 text-[13px] text-white">
+                  {ping}
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <div className="flex items-center justify-between">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Custom pings</p>
+              <button
+                type="button"
+                onClick={() => setDraft([])}
+                className="text-[11px] font-semibold text-white/60 hover:text-white"
+              >
+                Clear all
+              </button>
+            </div>
+
+            <div className="mt-3 space-y-2">
+              {draft.length === 0 ? (
+                <div className="rounded-[12px] border border-dashed border-white/10 bg-[#101010] px-3 py-3 text-[12px] text-white/55">
+                  No custom pings yet. Add role-specific shortcuts here. Full management can later live in Comms.
+                </div>
+              ) : (
+                draft.map((ping, index) => (
+                  <div key={`${ping}-${index}`} className="flex items-center gap-2 rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5">
+                    <input
+                      value={ping}
+                      onChange={(e) => setDraft((prev) => prev.map((item, i) => i === index ? e.target.value : item))}
+                      className="flex-1 bg-transparent text-[13px] text-white outline-none"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => setDraft((prev) => prev.filter((_, i) => i !== index))}
+                      className="text-[11px] font-semibold text-[#f87171] hover:text-[#fb7185]"
+                    >
+                      Remove
+                    </button>
+                  </div>
+                ))
+              )}
+            </div>
+          </section>
+
+          <section>
+            <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Add new ping</p>
+            <div className="mt-3 flex gap-2">
+              <input
+                value={newPing}
+                onChange={(e) => setNewPing(e.target.value)}
+                placeholder={`Add a ${pingRole.toLowerCase()} shortcut`}
+                className="flex-1 rounded-[12px] border border-[#2a2a2a] bg-[#141414] px-4 py-3 text-[13px] text-white placeholder:text-white/35 outline-none focus:border-[#0096C7]/50"
+              />
+              <button
+                type="button"
+                disabled={!newPing.trim()}
+                onClick={() => {
+                  setDraft((prev) => [...prev, newPing.trim()])
+                  setNewPing("")
+                }}
+                className="rounded-[12px] bg-[#0096C7] px-4 py-3 text-[13px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-35"
+              >
+                Add
+              </button>
+            </div>
+          </section>
+        </div>
+
+        <div className="border-t border-white/8 px-5 py-4">
+          <div className="flex gap-3">
+            <button
+              type="button"
+              onClick={onClose}
+              className="flex-1 rounded-[12px] border border-[#2a2a2a] py-3 text-[13px] font-semibold text-white hover:bg-[#141414]"
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                onSave(draft.filter((item) => item.trim()))
+                onClose()
+              }}
+              className="flex-1 rounded-[12px] bg-[#0096C7] py-3 text-[13px] font-semibold text-white hover:bg-[#0087b3]"
+            >
+              Save pings
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   )

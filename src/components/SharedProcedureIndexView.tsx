@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { useMemo, useState, useSyncExternalStore } from "react"
@@ -692,11 +692,11 @@ export default function SharedProcedureIndexView({
               <div className="min-w-0 flex-1">
                 <div className="lg:px-8 lg:pt-4">
             <section className="px-1 pb-2">
-              <p className="text-[13px] text-[#888888]">Community</p>
+              <p className="text-[13px] text-white">Community</p>
               <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-white lg:text-[30px]">
                 {procedure.name}
               </h1>
-              <p className="mt-2 text-[15px] leading-7 text-[#888888] lg:text-[16px]">{hierarchyLabel}</p>
+              <p className="mt-2 text-[15px] leading-7 text-white lg:text-[16px]">{hierarchyLabel}</p>
             </section>
 
             <section className="mt-4 flex flex-wrap items-center gap-x-5 gap-y-2 pb-3 text-[14px] lg:border-b lg:border-[#2d2d2d] lg:text-[15px]">
@@ -748,7 +748,7 @@ export default function SharedProcedureIndexView({
               ) : null}
             </section>
 
-            <section className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[14px] text-[#888888] lg:text-[15px]">
+            <section className="mt-4 flex flex-wrap gap-x-4 gap-y-2 text-[14px] text-white lg:text-[15px]">
               <span className="inline-flex items-center gap-2">
                 <span
                   aria-hidden="true"
@@ -779,7 +779,7 @@ export default function SharedProcedureIndexView({
                     <button
                       type="button"
                       onClick={() => setFilterOpen((value) => !value)}
-                      className="inline-flex items-center gap-2 rounded-[8px] border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 text-[#888888] hover:bg-[#252525]"
+                      className="inline-flex items-center gap-2 rounded-[8px] border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 text-white hover:bg-[#252525]"
                     >
                       <span>View by: {getViewLabel(branchView)}</span>
                       <span className={`text-[11px] leading-none transition-transform ${filterOpen ? "rotate-180" : ""}`}>▼</span>
@@ -805,7 +805,7 @@ export default function SharedProcedureIndexView({
                             className={`block w-full rounded-[10px] px-3 py-2 text-left text-[14px] ${
                               branchView === value
                                 ? "bg-[#252525] text-[#e0e0e0]"
-                                : "text-[#888888] hover:bg-[#252525]"
+                                : "text-white hover:bg-[#252525]"
                             }`}
                           >
                             {label}
@@ -820,7 +820,7 @@ export default function SharedProcedureIndexView({
                       <button
                         type="button"
                         onClick={() => setValueFilterOpen((value) => !value)}
-                        className="inline-flex items-center gap-2 rounded-[8px] border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 text-[#888888] hover:bg-[#252525]"
+                        className="inline-flex items-center gap-2 rounded-[8px] border border-[#2d2d2d] bg-[#1a1a1a] px-3 py-1.5 text-white hover:bg-[#252525]"
                       >
                         <span>{getViewLabel(branchView)}: {selectedViewValue}</span>
                         <span className={`text-[11px] leading-none transition-transform ${valueFilterOpen ? "rotate-180" : ""}`}>▼</span>
@@ -839,7 +839,7 @@ export default function SharedProcedureIndexView({
                               className={`block w-full rounded-[10px] px-3 py-2 text-left text-[14px] ${
                                 selectedViewValue === value
                                   ? "bg-[#252525] text-[#e0e0e0]"
-                                  : "text-[#888888] hover:bg-[#252525]"
+                                  : "text-white hover:bg-[#252525]"
                               }`}
                             >
                               {value}
@@ -850,7 +850,7 @@ export default function SharedProcedureIndexView({
                     </div>
                   ) : null}
 
-                  <span className="ml-1 text-[13px] text-[#888888] lg:text-[14px]">
+                  <span className="ml-1 text-[13px] text-white lg:text-[14px]">
                     {orderedBranches.length} total {orderedBranches.length === 1 ? "branch" : "branches"}
                   </span>
                 </div>
@@ -869,7 +869,7 @@ export default function SharedProcedureIndexView({
 
               {composerOpen ? (
                 <div className="px-1 py-4 lg:border-b lg:border-[#2d2d2d] lg:px-8">
-                  <div className="mb-3 text-[14px] text-[#888888]">
+                  <div className="mb-3 text-[14px] text-white">
                     {selectedBranch
                       ? <>Adapting from <span className="text-[#e0e0e0]">{selectedBranch.systemName}</span>.</>
                       : <>Select a branch below first, then adapt from that branch.</>}
@@ -917,13 +917,13 @@ export default function SharedProcedureIndexView({
                         key={key}
                         type="button"
                         onClick={() => handleSortBranches(key)}
-                        className={`inline-flex min-w-0 items-center gap-1 text-[15px] text-[#888888] hover:text-[#0096C7] ${alignClass} ${key === "versions" ? "justify-end" : ""}`}
+                        className={`inline-flex min-w-0 items-center gap-1 text-[15px] text-white hover:text-[#0096C7] ${alignClass} ${key === "versions" ? "justify-end" : ""}`}
                       >
                         <span className="truncate">{label}</span>
                         {active ? (
                           branchSortDirection === "asc" ? <ArrowUp size={14} /> : <ArrowDown size={14} />
                         ) : (
-                          <span className="text-[13px] text-[#555555]">↕</span>
+                          <span className="text-[13px] text-white">↕</span>
                         )}
                       </button>
                     )
@@ -944,16 +944,16 @@ export default function SharedProcedureIndexView({
                           <span className="line-clamp-2 lg:hidden">{buildBranchSummary(branch)}</span>
                           <span className="hidden min-w-0 lg:block lg:truncate">{branch.systemName}</span>
                         </span>
-                        <span className="hidden min-w-0 text-[15px] text-[#aaaaaa] transition-colors group-hover:lg:text-white lg:block lg:truncate">
+                        <span className="hidden min-w-0 text-[15px] text-white transition-colors group-hover:lg:text-white lg:block lg:truncate">
                           {branch.approach?.trim() || "Not specified"}
                         </span>
-                        <span className="hidden min-w-0 text-[15px] text-[#aaaaaa] transition-colors group-hover:lg:text-white lg:block lg:truncate">
+                        <span className="hidden min-w-0 text-[15px] text-white transition-colors group-hover:lg:text-white lg:block lg:truncate">
                           {branch.supplierName?.trim() || "Unknown supplier"}
                         </span>
-                        <span className="hidden text-[15px] text-[#aaaaaa] transition-colors group-hover:lg:text-white lg:block lg:truncate">
+                        <span className="hidden text-[15px] text-white transition-colors group-hover:lg:text-white lg:block lg:truncate">
                           {branch.defaultBranch ? "Default" : ""}
                         </span>
-                        <span className="hidden whitespace-nowrap text-right text-[15px] text-[#aaaaaa] transition-colors group-hover:lg:text-white lg:block">
+                        <span className="hidden whitespace-nowrap text-right text-[15px] text-white transition-colors group-hover:lg:text-white lg:block">
                           {getPublishedVersionLabel(branch.versions.length)}
                         </span>
                         <span className="hidden lg:flex lg:justify-end">
@@ -985,7 +985,7 @@ export default function SharedProcedureIndexView({
                                 <span className="min-w-0 flex-1 text-[14px] text-[#e0e0e0] transition-colors group-hover:lg:text-[#0096C7] lg:text-[15px]">
                                   <span className="block truncate">{buildVersionSummary(version)}</span>
                                 </span>
-                                <span className="flex shrink-0 items-center gap-2.5 text-[#888888] transition-colors group-hover:lg:text-[#0096C7]">
+                                <span className="flex shrink-0 items-center gap-2.5 text-white transition-colors group-hover:lg:text-[#0096C7]">
                                   <span
                                     aria-label={`${version.likes} likes`}
                                     className="inline-flex items-center gap-1 text-[13px]"
@@ -1004,7 +1004,7 @@ export default function SharedProcedureIndexView({
                               </button>
                             )) : (
                               <div className="px-4 py-3 lg:px-8">
-                                <div className="text-[14px] text-[#888888]">
+                                <div className="text-[14px] text-white">
                                   No published versions yet for this branch.
                                 </div>
                                 <button
@@ -1023,7 +1023,7 @@ export default function SharedProcedureIndexView({
                     </div>
                   )
                 }) : (
-                  <div className="px-4 py-6 text-[14px] text-[#888888] lg:px-8 lg:text-[15px]">
+                  <div className="px-4 py-6 text-[14px] text-white lg:px-8 lg:text-[15px]">
                     No branches match the current filters.
                   </div>
                 )}

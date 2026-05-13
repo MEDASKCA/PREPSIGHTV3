@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useMemo, useRef, useState } from "react"
 import { ArrowUp, Paperclip, Sparkles, X } from "lucide-react"
@@ -431,8 +431,8 @@ export default function MobileDrawer() {
             <div className="flex items-start gap-3">
               <AIIcon className="mt-[-8px] h-[68px] w-[68px] shrink-0" />
               <div className="pt-1">
-                <p className="text-xs uppercase tracking-[0.24em] text-white/50">Assistant</p>
-                <p className="mt-2 max-w-[220px] text-sm leading-6 text-white/80">
+                <p className="text-xs uppercase tracking-[0.24em] text-white">Assistant</p>
+                <p className="mt-2 max-w-[220px] text-sm leading-6 text-white">
                   {context.title}
                 </p>
               </div>
@@ -440,18 +440,18 @@ export default function MobileDrawer() {
             <button
               onClick={() => setOpen(false)}
               aria-label="Close AI assistant"
-              className="mt-1 flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
+              className="mt-1 flex h-9 w-9 items-center justify-center rounded-2xl border border-white/10 bg-white/5 text-white transition-colors hover:bg-white/10 hover:text-white"
             >
               <X size={18} />
             </button>
           </div>
 
           <div className="mt-3 rounded-[24px] border border-white/10 bg-white/5 px-3 py-3 backdrop-blur-sm">
-            <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-white/45">
+            <div className="flex items-center gap-2 text-[11px] uppercase tracking-[0.18em] text-white">
               <Sparkles size={12} />
               Context aware
             </div>
-            <p className="mt-2 text-sm leading-6 text-white/82">
+            <p className="mt-2 text-sm leading-6 text-white">
               {context.description}
             </p>
           </div>

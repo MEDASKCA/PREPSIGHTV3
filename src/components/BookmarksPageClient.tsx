@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { useMemo, useState, useSyncExternalStore } from "react"
@@ -21,12 +21,12 @@ function BookmarksPageContent({
     <div className="px-1 py-4 lg:px-8 lg:pt-4">
       <section>
         <h1 className="hidden text-[22px] font-medium tracking-[-0.03em] text-white lg:block">Bookmarks</h1>
-        <p className="mt-0 text-[15px] leading-7 text-[#9a9a9a] lg:text-[16px]">
+        <p className="mt-0 text-[15px] leading-7 text-white lg:text-[16px]">
           Keep quick links to community procedures and versions you want to return to.
         </p>
       </section>
 
-      <section className="mt-5 flex flex-wrap items-center gap-3 border-b border-[#2d2d2d] pb-3 text-[14px] text-[#8f8f8f] lg:text-[15px]">
+      <section className="mt-5 flex flex-wrap items-center gap-3 border-b border-[#2d2d2d] pb-3 text-[14px] text-white lg:text-[15px]">
         <span>{filteredBookmarks.length} saved {filteredBookmarks.length === 1 ? "bookmark" : "bookmarks"}</span>
         {query ? <span>matching "{query}"</span> : null}
       </section>
@@ -43,7 +43,7 @@ function BookmarksPageContent({
                     </div>
                     <div className="min-w-0">
                       <div className="truncate text-[15px] text-white lg:text-[16px]">{bookmark.title}</div>
-                      <div className="mt-1 truncate text-[13px] text-[#8f8f8f] lg:text-[14px]">{bookmark.subtitle}</div>
+                      <div className="mt-1 truncate text-[13px] text-white lg:text-[14px]">{bookmark.subtitle}</div>
                     </div>
                   </div>
                 </Link>
@@ -51,7 +51,7 @@ function BookmarksPageContent({
                 <button
                   type="button"
                   onClick={() => removeBookmark(bookmark.id)}
-                  className="shrink-0 rounded-[10px] p-2 text-[#8f8f8f] hover:bg-[#202020] hover:text-white"
+                  className="shrink-0 rounded-[10px] p-2 text-white hover:bg-[#202020] hover:text-white"
                   aria-label={`Remove ${bookmark.title} from bookmarks`}
                 >
                   <Trash2 size={16} />
@@ -67,7 +67,7 @@ function BookmarksPageContent({
             <div className="mt-4 text-[16px] text-white">
               {query ? "No bookmarks match that search." : "No bookmarks yet."}
             </div>
-            <div className="mt-2 text-[14px] leading-6 text-[#8f8f8f]">
+            <div className="mt-2 text-[14px] leading-6 text-white">
               {query
                 ? "Try a different search term."
                 : "Use Bookmark on a procedure or version to keep it here."}

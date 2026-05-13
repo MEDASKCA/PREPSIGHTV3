@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { useMemo, useState } from "react"
@@ -107,13 +107,13 @@ function DetailContent({ product, onClose }: { product: Product; onClose: () => 
           </div>
           <div className="min-w-0">
             <h2 className="text-[18px] leading-6 text-white">{product.name}</h2>
-            <p className="mt-1 text-[13px] text-[#8f8f8f]">{product.sourceBadge}</p>
+            <p className="mt-1 text-[13px] text-white">{product.sourceBadge}</p>
           </div>
         </div>
         <button
           type="button"
           onClick={onClose}
-          className="rounded-[10px] border border-[#2d2d2d] bg-[#202020] p-2 text-[#8f8f8f] hover:text-white"
+          className="rounded-[10px] border border-[#2d2d2d] bg-[#202020] p-2 text-white hover:text-white"
         >
           <X size={16} />
         </button>
@@ -127,10 +127,10 @@ function DetailContent({ product, onClose }: { product: Product; onClose: () => 
       </div>
 
       {product.description ? (
-        <p className="text-[14px] leading-6 text-[#9a9a9a]">{product.description}</p>
+        <p className="text-[14px] leading-6 text-white">{product.description}</p>
       ) : null}
 
-      <div className="space-y-3 border-t border-[#252525] pt-4 text-[13px] text-[#8f8f8f]">
+      <div className="space-y-3 border-t border-[#252525] pt-4 text-[13px] text-white">
         {product.supplierPhone ? (
           <a href={`tel:${product.supplierPhone}`} className="flex items-center gap-2 hover:text-white">
             <Phone size={14} />
@@ -250,7 +250,7 @@ export default function CataloguePage() {
   const stats = (
     <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-4 py-4">
       <p className="text-[15px] text-white">catalogue</p>
-      <div className="mt-4 space-y-3 text-[13px] text-[#8f8f8f]">
+      <div className="mt-4 space-y-3 text-[13px] text-white">
         <div className="flex items-center justify-between">
           <span>total items</span>
           <span className="text-[18px] text-white">{products.length}</span>
@@ -271,7 +271,7 @@ export default function CataloguePage() {
     <div className="space-y-5">
       <section>
         <h1 className="hidden text-[22px] font-medium tracking-[-0.03em] text-white lg:block">Catalogue</h1>
-        <p className="mt-2 max-w-[760px] text-[15px] leading-7 text-[#9a9a9a]">
+        <p className="mt-2 max-w-[760px] text-[15px] leading-7 text-white">
           Search supplier-fixed systems, trays, implants, consumables, and equipment in one minimal surface.
         </p>
       </section>
@@ -285,7 +285,7 @@ export default function CataloguePage() {
               placeholder="search by name, supplier, or description"
               value={query}
               onChange={(event) => setQuery(event.target.value)}
-              className="w-full rounded-full border border-[#2d2d2d] bg-[#202020] py-2.5 pl-9 pr-10 text-[14px] text-white outline-none placeholder:text-[#6f6f6f]"
+              className="w-full rounded-full border border-[#2d2d2d] bg-[#202020] py-2.5 pl-9 pr-10 text-[14px] text-white outline-none placeholder:text-white"
             />
             {query ? (
               <button
@@ -314,19 +314,19 @@ export default function CataloguePage() {
           <FilterSelect value={recordTypeFilter} onChange={setRecordTypeFilter} options={RECORD_TYPES} />
 
           <div className="ml-auto flex items-center gap-2">
-            <span className="text-[13px] text-[#8f8f8f]">{filtered.length} items</span>
+            <span className="text-[13px] text-white">{filtered.length} items</span>
             <div className="flex items-center gap-1 rounded-full border border-[#2d2d2d] bg-[#202020] p-1">
               <button
                 type="button"
                 onClick={() => setView("list")}
-                className={`rounded-full p-2 ${view === "list" ? "bg-white text-black" : "text-[#8f8f8f] hover:text-white"}`}
+                className={`rounded-full p-2 ${view === "list" ? "bg-white text-black" : "text-white hover:text-white"}`}
               >
                 <List size={14} />
               </button>
               <button
                 type="button"
                 onClick={() => setView("grid")}
-                className={`rounded-full p-2 ${view === "grid" ? "bg-white text-black" : "text-[#8f8f8f] hover:text-white"}`}
+                className={`rounded-full p-2 ${view === "grid" ? "bg-white text-black" : "text-white hover:text-white"}`}
               >
                 <LayoutGrid size={14} />
               </button>
@@ -340,7 +340,7 @@ export default function CataloguePage() {
           {filtered.length === 0 ? (
             <div className="px-4 py-12 text-center">
               <p className="text-[16px] text-white">no products match this view</p>
-              <p className="mt-1 text-[14px] text-[#8f8f8f]">try another search or filter combination</p>
+              <p className="mt-1 text-[14px] text-white">try another search or filter combination</p>
             </div>
           ) : (
             filtered.map((product) => (
@@ -355,12 +355,12 @@ export default function CataloguePage() {
                 <Thumbnail icon={product.icon} imageUrl={product.imageUrl} />
                 <div className="min-w-0 flex-1">
                   <p className="truncate text-[15px] text-white">{product.name}</p>
-                  <p className="mt-1 text-[13px] text-[#8f8f8f]">{product.supplier}</p>
-                  <p className="mt-1 text-[12px] text-[#6f6f6f]">{product.sourceBadge}</p>
+                  <p className="mt-1 text-[13px] text-white">{product.supplier}</p>
+                  <p className="mt-1 text-[12px] text-white">{product.sourceBadge}</p>
                 </div>
                 <div className="shrink-0 text-right">
-                  <p className="text-[12px] text-[#8f8f8f]">{product.category}</p>
-                  <ChevronRight size={14} className="ml-auto mt-2 text-[#6f6f6f]" />
+                  <p className="text-[12px] text-white">{product.category}</p>
+                  <ChevronRight size={14} className="ml-auto mt-2 text-white" />
                 </div>
               </button>
             ))
@@ -371,7 +371,7 @@ export default function CataloguePage() {
           {filtered.length === 0 ? (
             <div className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-4 py-12 text-center sm:col-span-2 xl:col-span-3">
               <p className="text-[16px] text-white">no products match this view</p>
-              <p className="mt-1 text-[14px] text-[#8f8f8f]">try another search or filter combination</p>
+              <p className="mt-1 text-[14px] text-white">try another search or filter combination</p>
             </div>
           ) : (
             filtered.map((product) => {
@@ -396,8 +396,8 @@ export default function CataloguePage() {
                     )}
                   </div>
                   <p className="line-clamp-2 text-[15px] leading-6 text-white">{product.name}</p>
-                  <p className="mt-1 text-[13px] text-[#8f8f8f]">{product.supplier}</p>
-                  <p className="mt-1 text-[12px] text-[#6f6f6f]">{product.sourceBadge}</p>
+                  <p className="mt-1 text-[13px] text-white">{product.supplier}</p>
+                  <p className="mt-1 text-[12px] text-white">{product.sourceBadge}</p>
                 </button>
               )
             })

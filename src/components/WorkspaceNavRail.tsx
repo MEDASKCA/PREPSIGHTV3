@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { useRouter } from "next/navigation"
@@ -89,7 +89,7 @@ export default function WorkspaceNavRail({
               <button
                 type="button"
                 onClick={onToggleCollapsed}
-                className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/70 transition-all hover:bg-white/20 hover:text-white"
+                className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20 hover:text-white"
                 aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
                 title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
               >
@@ -106,7 +106,7 @@ export default function WorkspaceNavRail({
               <button
                 type="button"
                 onClick={onToggleCollapsed}
-                className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white/70 transition-all hover:bg-white/20 hover:text-white"
+                className="group flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-white/10 text-white transition-all hover:bg-white/20 hover:text-white"
                 aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
                 title={collapsed ? "Expand sidebar" : "Collapse sidebar"}
               >
@@ -132,7 +132,7 @@ export default function WorkspaceNavRail({
                   key={item.key}
                   href={item.href}
                   className={`flex items-center justify-center rounded-[10px] px-2 py-1.5 ${
-                    active ? "bg-white/10 font-medium text-white" : "text-[#D7E7F7] hover:bg-white/6"
+                    active ? "bg-white/10 font-medium text-white" : "text-white hover:bg-white/6"
                   }`}
                   title={item.label}
                 >
@@ -154,7 +154,7 @@ export default function WorkspaceNavRail({
                     aria-expanded={isOpen}
                     aria-label={isOpen ? `Collapse ${group.label}` : `Expand ${group.label}`}
                   >
-                    <p className={`text-[17px] text-white/84 ${isOpen ? "italic" : "font-medium"}`}>{group.label}</p>
+                    <p className={`text-[17px] text-white ${isOpen ? "italic" : "font-medium"}`}>{group.label}</p>
                   </button>
                   {isOpen && group.items.length > 0 ? (
                     <div className="space-y-1 pl-3">
@@ -165,7 +165,7 @@ export default function WorkspaceNavRail({
                             key={item.key}
                             href={item.href}
                             className={`flex items-center gap-3 rounded-[8px] px-2 py-1 text-[15px] ${
-                              active ? "bg-white/10 font-medium text-white" : "text-[#D7E7F7] hover:bg-white/6"
+                              active ? "bg-white/10 font-medium text-white" : "text-white hover:bg-white/6"
                             }`}
                           >
                             <img src={item.iconSrc} alt="" aria-hidden="true" className="h-[26px] w-[26px] shrink-0 object-contain" />
@@ -189,7 +189,7 @@ export default function WorkspaceNavRail({
                       key={item.key}
                       href={item.href}
                       className={`flex items-center gap-3 rounded-[8px] px-2 py-2 text-[15px] ${
-                        active ? "bg-white/10 font-medium text-white" : "text-[#D7E7F7] hover:bg-white/6"
+                        active ? "bg-white/10 font-medium text-white" : "text-white hover:bg-white/6"
                       }`}
                     >
                       <img src={item.iconSrc} alt="" aria-hidden="true" className="h-[26px] w-[26px] shrink-0 object-contain" />
@@ -208,7 +208,7 @@ export default function WorkspaceNavRail({
         {/* Notifications */}
         <button
           type="button"
-          className={`flex items-center gap-3 rounded-[8px] text-[#D7E7F7] transition-colors hover:bg-white/8 hover:text-white ${
+          className={`flex items-center gap-3 rounded-[8px] text-white transition-colors hover:bg-white/8 hover:text-white ${
             collapsed ? "w-10 justify-center px-2 py-2" : "w-full px-2 py-2 text-[14px]"
           }`}
           aria-label="Notifications"
@@ -223,7 +223,7 @@ export default function WorkspaceNavRail({
           <button
             type="button"
             onClick={() => setProfileMenuOpen(v => !v)}
-            className={`flex items-center gap-3 rounded-[8px] text-[#D7E7F7] transition-colors hover:bg-white/8 hover:text-white ${
+            className={`flex items-center gap-3 rounded-[8px] text-white transition-colors hover:bg-white/8 hover:text-white ${
               collapsed ? "w-10 justify-center px-1 py-1" : "w-full px-2 py-2"
             }`}
             aria-label="Account"
@@ -235,7 +235,13 @@ export default function WorkspaceNavRail({
             {!collapsed && (
               <span className="min-w-0 flex-1 text-left">
                 <span className="block truncate text-[13px] font-medium text-white">{displayName}</span>
-                {user?.email && <span className="block truncate text-[11px] text-white/40">{user.email}</span>}
+                {canManage ? (
+                  <span className="mt-0.5 inline-block rounded-full bg-[#0096C7]/20 px-2 py-0.5 text-[10px] font-medium text-[#67CFCF]">
+                    {profile?.role === "senior_manager" ? "Senior Manager" : "Manager"}
+                  </span>
+                ) : (
+                  user?.email && <span className="block truncate text-[11px] text-white/60">{user.email}</span>
+                )}
               </span>
             )}
           </button>
@@ -244,13 +250,13 @@ export default function WorkspaceNavRail({
             <div className="absolute bottom-[calc(100%+6px)] left-0 z-50 w-52 overflow-hidden rounded-[16px] border border-white/10 bg-[#1a1a1a] shadow-[0_16px_40px_rgba(0,0,0,0.6)]">
               <div className="border-b border-white/8 px-3 py-2.5">
                 <p className="truncate text-[13px] font-medium text-white">{displayName}</p>
-                {user?.email && <p className="truncate text-[11px] text-white/40">{user.email}</p>}
+                {user?.email && <p className="truncate text-[11px] text-white/60">{user.email}</p>}
               </div>
               <div className="p-1.5">
                 <button
                   type="button"
                   onClick={() => { setProfileMenuOpen(false); router.push("/settings/profile") }}
-                  className="flex w-full items-center gap-2.5 rounded-[10px] px-2.5 py-2 text-left text-[13px] text-white/80 hover:bg-white/8 hover:text-white"
+                  className="flex w-full items-center gap-2.5 rounded-[10px] px-2.5 py-2 text-left text-[13px] text-white hover:bg-white/8 hover:text-white"
                 >
                   <UserRound size={14} />
                   Profile
@@ -258,7 +264,7 @@ export default function WorkspaceNavRail({
                 <button
                   type="button"
                   onClick={() => { setProfileMenuOpen(false); router.push("/settings/notifications") }}
-                  className="flex w-full items-center gap-2.5 rounded-[10px] px-2.5 py-2 text-left text-[13px] text-white/80 hover:bg-white/8 hover:text-white"
+                  className="flex w-full items-center gap-2.5 rounded-[10px] px-2.5 py-2 text-left text-[13px] text-white hover:bg-white/8 hover:text-white"
                 >
                   <Bell size={14} />
                   Notifications
@@ -266,7 +272,7 @@ export default function WorkspaceNavRail({
                 <button
                   type="button"
                   onClick={() => { setProfileMenuOpen(false); router.push("/settings/access") }}
-                  className="flex w-full items-center gap-2.5 rounded-[10px] px-2.5 py-2 text-left text-[13px] text-white/80 hover:bg-white/8 hover:text-white"
+                  className="flex w-full items-center gap-2.5 rounded-[10px] px-2.5 py-2 text-left text-[13px] text-white hover:bg-white/8 hover:text-white"
                 >
                   <Settings size={14} />
                   Settings

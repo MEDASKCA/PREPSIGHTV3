@@ -1,5 +1,6 @@
 "use client"
 
+import { ArrowLeft } from "lucide-react"
 import type { ReactNode } from "react"
 
 export default function MobileSurfaceHeader({
@@ -9,6 +10,7 @@ export default function MobileSurfaceHeader({
   rightControls,
   children,
   compact = false,
+  onBack,
 }: {
   title: string
   hospital: string
@@ -16,6 +18,7 @@ export default function MobileSurfaceHeader({
   rightControls?: ReactNode
   children?: ReactNode
   compact?: boolean
+  onBack?: () => void
 }) {
   const hospitalDisplay = hospital.replace("NHS Foundation Trust", "NHSFT")
 
@@ -25,6 +28,16 @@ export default function MobileSurfaceHeader({
       style={{ paddingTop: "calc(env(safe-area-inset-top) + 6px)" }}
     >
       <div className="flex items-start gap-2">
+        {onBack && (
+          <button
+            type="button"
+            onClick={onBack}
+            aria-label="Go back"
+            className="mt-2.5 shrink-0 text-[#0096C7]"
+          >
+            <ArrowLeft size={22} />
+          </button>
+        )}
         <div className="flex-1 min-w-0">
           <div className="flex items-center justify-between gap-2">
             <span className="inline-flex items-center gap-1 text-[24px] tracking-tight leading-none">

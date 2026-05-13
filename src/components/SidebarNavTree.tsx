@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useMemo } from "react"
 import { usePathname, useSearchParams } from "next/navigation"
@@ -242,10 +242,10 @@ export default function SidebarNavTree({ onNavigate }: Props) {
                     }`}
                   >
                     <span className="flex-1 text-sm font-semibold text-white">{surgeon}</span>
-                    <span className="text-xs text-white/60 tabular-nums shrink-0">{procs.length}</span>
+                    <span className="text-xs text-white tabular-nums shrink-0">{procs.length}</span>
                     <ChevronRight
                       size={14}
-                      className={`shrink-0 text-white/60 transition-transform duration-200 ${expanded ? "rotate-90" : ""}`}
+                      className={`shrink-0 text-white transition-transform duration-200 ${expanded ? "rotate-90" : ""}`}
                     />
                   </button>
                   {expanded && (

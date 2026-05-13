@@ -75,6 +75,10 @@ export default function MobileCommsShell({
           : "") || (localProfile?.departments?.[0]?.trim() ?? "")
         const profileRole = (typeof psProfile.jobTitle === "string" && psProfile.jobTitle.trim()) || localProfile?.jobTitle?.trim() || DEFAULT_CLINICAL_ROLE
         const profileName = (typeof psProfile.name === "string" && psProfile.name.trim()) || localProfile?.name?.trim() || currentUser.displayName || currentUser.email || "User"
+        const profileSpecialties: string[] = (
+          Array.isArray(psProfile.specialtiesOfInterest) ? (psProfile.specialtiesOfInterest as string[]).filter(Boolean) :
+          localProfile?.specialtiesOfInterest?.filter(Boolean) ?? []
+        )
 
         // Query ALL memberships (any status) so we can reactivate one that was accidentally deactivated
         const memberSnap = await getDocs(
@@ -102,6 +106,7 @@ export default function MobileCommsShell({
               if (profileHospital) updatePayload.hospital = profileHospital
               if (profileDept) { updatePayload.department = profileDept; updatePayload.groupLabel = profileDept }
               if (profileRole) updatePayload.clinicalRole = profileRole
+              if (profileSpecialties.length) updatePayload.specialties = profileSpecialties
               await setDoc(userRef, updatePayload, { merge: true })
               if (!cancelled) {
                 setProfileHospital(profileHospital)

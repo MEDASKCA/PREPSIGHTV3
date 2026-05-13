@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
@@ -534,7 +534,7 @@ function VariantSection({
               />
             ))
           ) : (
-            <div className={`procedure-empty-row border-t px-5 py-4 text-sm ${isDark ? "border-[#334155] bg-[#243244] text-[#C7D2E0]" : "border-[#D5DCE3] bg-white text-slate-500 lg:border-white/10 lg:bg-transparent lg:text-white/56"}`}>
+            <div className={`procedure-empty-row border-t px-5 py-4 text-sm ${isDark ? "border-[#334155] bg-[#243244] text-[#C7D2E0]" : "border-[#D5DCE3] bg-white text-slate-500 lg:border-white/10 lg:bg-transparent lg:text-white"}`}>
               No systems linked yet for this variant.
             </div>
           )}
@@ -612,14 +612,14 @@ function DesktopProcedureMatrix({
                   className="rounded-[22px] px-5 py-5"
                   style={{ backgroundColor: palette.hover }}
                 >
-                <p className="text-[11px] font-normal uppercase tracking-[0.18em] text-white/72">
+                <p className="text-[11px] font-normal uppercase tracking-[0.18em] text-white">
                   Procedure
                 </p>
                 <p className="mt-2 text-[20px] font-normal tracking-[-0.03em] text-white">
                   {procedure.name}
                 </p>
                 {procedure.description && (
-                  <p className="mt-2 text-sm leading-6 text-white/78">
+                  <p className="mt-2 text-sm leading-6 text-white">
                     {procedure.description}
                   </p>
                 )}
@@ -734,12 +734,12 @@ function DesktopProcedureMatrix({
                                           formatSystemMeta(system).supplier) && (
                                           <div className="mt-1 space-y-0.5">
                                             {formatSystemMeta(system).type && (
-                                              <div className="text-[12px] font-normal uppercase tracking-[0.08em] text-white/82">
+                                              <div className="text-[12px] font-normal uppercase tracking-[0.08em] text-white">
                                                 {formatSystemMeta(system).type}
                                               </div>
                                             )}
                                             {formatSystemMeta(system).supplier && (
-                                              <div className="text-[15px] leading-5 text-white/70">
+                                              <div className="text-[15px] leading-5 text-white">
                                                 {formatSystemMeta(system).supplier}
                                               </div>
                                             )}
@@ -823,14 +823,14 @@ function ProcedureSection({
               {procedure.name}
             </div>
             {procedure.description && (
-              <div className="mt-0.5 line-clamp-1 text-[12px] leading-5 text-white/80 lg:text-[13px]">
+              <div className="mt-0.5 line-clamp-1 text-[12px] leading-5 text-white lg:text-[13px]">
                 {procedure.description}
               </div>
             )}
           </div>
 
           <div className="flex shrink-0 items-center gap-2">
-            <span className="rounded-full border border-white/14 bg-white/10 px-2.5 py-1 text-[10px] font-normal uppercase tracking-[0.14em] text-white/80">
+            <span className="rounded-full border border-white/14 bg-white/10 px-2.5 py-1 text-[10px] font-normal uppercase tracking-[0.14em] text-white">
               {hasAuthoredCard ? "Ready" : "Stub"}
             </span>
             <span className="rounded-full bg-white/16 px-3 py-1 text-[10px] font-normal uppercase tracking-[0.14em] text-white">
@@ -855,27 +855,27 @@ function ProcedureSection({
         >
           <div className="flex min-w-0 flex-1 items-center gap-3 px-4 py-4 text-left lg:px-5 lg:py-4">
             <div className="min-w-0 flex-1">
-              <p className="hidden lg:block lg:text-[11px] lg:font-normal lg:uppercase lg:tracking-[0.18em] lg:text-white/62">
+              <p className="hidden lg:block lg:text-[11px] lg:font-normal lg:uppercase lg:tracking-[0.18em] lg:text-white">
                 Menu
               </p>
               <div className="app-display-font text-sm font-normal text-white lg:text-[24px] lg:font-normal lg:tracking-[-0.04em]">
                 {procedure.name}
               </div>
               {desktopExpanded && procedure.description && (
-                <div className="mt-1 line-clamp-2 text-xs text-white/85 lg:max-w-3xl lg:text-[13px] lg:leading-5">
+                <div className="mt-1 line-clamp-2 text-xs text-white lg:max-w-3xl lg:text-[13px] lg:leading-5">
                   {procedure.description}
                 </div>
               )}
             </div>
             <div className="hidden lg:flex lg:items-center lg:gap-3">
-              <span className="rounded-full border border-white/14 bg-white/10 px-3 py-1 text-[10px] font-normal uppercase tracking-[0.16em] text-white/80">
+              <span className="rounded-full border border-white/14 bg-white/10 px-3 py-1 text-[10px] font-normal uppercase tracking-[0.16em] text-white">
                 {canOpenDirectCard
                   ? hasAuthoredCard
                     ? "Card ready"
                     : "Placeholder"
                   : `${variants.length || 1} approaches`}
               </span>
-              <Chevron expanded={desktopExpanded} className="text-white/80" />
+              <Chevron expanded={desktopExpanded} className="text-white" />
             </div>
           </div>
         </div>
@@ -891,7 +891,7 @@ function ProcedureSection({
               {procedure.name}
             </div>
             {procedure.description && (
-              <div className="mt-1 line-clamp-2 text-[13px] text-white/85 leading-5">
+              <div className="mt-1 line-clamp-2 text-[13px] text-white leading-5">
                 {procedure.description}
               </div>
             )}

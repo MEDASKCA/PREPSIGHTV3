@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useRef, useState } from "react"
 import Link from "next/link"
@@ -560,10 +560,10 @@ export default function OnboardingPage() {
       }
       await promoteAuthenticatedSessionPersistence()
       if (typeof window !== "undefined") {
-        window.location.replace("/")
+        window.location.replace("/comms")
         return
       }
-      router.replace("/")
+      router.replace("/comms")
     } catch (error) {
       console.error("[PrepSight] Onboarding save failed:", error)
       setSaveError(
@@ -955,7 +955,7 @@ export default function OnboardingPage() {
                     </div>
                     <div>
                       <p className="text-base font-semibold lg:text-lg">{option.label}</p>
-                      <p className={`mt-1 text-sm leading-5 lg:text-base lg:leading-6 ${role === option.role ? "text-white/90" : "text-[#0F4C5C]"}`}>{option.description}</p>
+                      <p className={`mt-1 text-sm leading-5 lg:text-base lg:leading-6 ${role === option.role ? "text-white" : "text-[#0F4C5C]"}`}>{option.description}</p>
                     </div>
                   </button>
                 ))}

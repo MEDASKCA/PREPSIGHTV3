@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useMemo, useState } from "react"
 import Link from "next/link"
@@ -815,18 +815,18 @@ export default function ReviewPage() {
         <div className="mt-4">
           <div>
             <h2 className="text-[24px] font-semibold tracking-[-0.04em] text-white">records awaiting validation</h2>
-            <p className="mt-1 text-[14px] text-[#8f8f8f]">select a system to confirm or flag its linked data</p>
+            <p className="mt-1 text-[14px] text-white">select a system to confirm or flag its linked data</p>
           </div>
 
           <div className="mt-3 rounded-[12px] border border-[#2d2d2d] bg-[#161616] p-3">
             <div className="flex flex-col gap-2">
               <label className="relative w-full">
-                <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#6f6f6f]" />
+                <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-white" />
                 <input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="search system, supplier, procedure"
-                  className="w-full rounded-full border border-[#2d2d2d] bg-[#202020] py-3 pl-10 pr-4 text-sm text-white outline-none placeholder:text-[#6f6f6f]"
+                  className="w-full rounded-full border border-[#2d2d2d] bg-[#202020] py-3 pl-10 pr-4 text-sm text-white outline-none placeholder:text-white"
                 />
               </label>
               <div className="flex flex-wrap gap-2">
@@ -871,14 +871,14 @@ export default function ReviewPage() {
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <p className="text-[18px] font-semibold tracking-[-0.03em] text-white">{row.system}</p>
-                        <p className="mt-0.5 text-[15px] text-[#8f8f8f]">{row.supplier}</p>
+                        <p className="mt-0.5 text-[15px] text-white">{row.supplier}</p>
                       </div>
                       <span className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold ${queueStatusPillClass(queueStatus)}`}>
                         {queueStatusLabel(queueStatus)}
                       </span>
                     </div>
 
-                    <div className="mt-3 space-y-0.5 text-[14px] text-[#9a9a9a]">
+                    <div className="mt-3 space-y-0.5 text-[14px] text-white">
                       <p>{reviewLine}</p>
                       <p>{getSupportLine(row)}</p>
                     </div>
@@ -903,7 +903,7 @@ export default function ReviewPage() {
               {filteredRows.length === 0 ? (
                 <div className="rounded-[12px] border border-dashed border-[#2d2d2d] bg-[#161616] px-4 py-8 text-center">
                   <p className="text-[16px] font-medium text-white">no records match this view</p>
-                  <p className="mt-1 text-[14px] text-[#8f8f8f]">try another status filter or search term.</p>
+                  <p className="mt-1 text-[14px] text-white">try another status filter or search term.</p>
                 </div>
               ) : null}
             </div>
@@ -920,19 +920,19 @@ export default function ReviewPage() {
             <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-3 py-3">
               <p className="text-[15px] font-medium text-white">queue</p>
               <div className="mt-3 space-y-3">
-                <div className="flex items-center justify-between text-[13px] text-[#8f8f8f]">
+                <div className="flex items-center justify-between text-[13px] text-white">
                   <span>total</span>
                   <span className="text-[18px] text-white">{summary.total}</span>
                 </div>
-                <div className="flex items-center justify-between text-[13px] text-[#8f8f8f]">
+                <div className="flex items-center justify-between text-[13px] text-white">
                   <span>awaiting</span>
                   <span className="text-[18px] text-[#A16207]">{summary.awaiting}</span>
                 </div>
-                <div className="flex items-center justify-between text-[13px] text-[#8f8f8f]">
+                <div className="flex items-center justify-between text-[13px] text-white">
                   <span>validated</span>
                   <span className="text-[18px] text-[#047857]">{summary.validated}</span>
                 </div>
-                <div className="flex items-center justify-between text-[13px] text-[#8f8f8f]">
+                <div className="flex items-center justify-between text-[13px] text-white">
                   <span>needs review</span>
                   <span className="text-[18px] text-[#C2410C]">{summary.needsReview}</span>
                 </div>
@@ -942,7 +942,7 @@ export default function ReviewPage() {
             <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-3 py-3">
               <p className="text-[15px] font-medium text-white">reviewer</p>
               <p className="mt-3 text-[17px] tracking-[-0.03em] text-white">{reviewerName}</p>
-              <p className="mt-1 text-[12px] text-[#8f8f8f]">
+              <p className="mt-1 text-[12px] text-white">
                 Status: {reviewerStatus.replaceAll("_", " ")}
               </p>
               <p className="mt-3 text-[12px] leading-5 text-[#61758B]">
@@ -954,7 +954,7 @@ export default function ReviewPage() {
 
             <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] px-3 py-3">
               <p className="text-[15px] font-medium text-white">current view</p>
-              <p className="mt-3 text-[13px] text-[#8f8f8f]">
+              <p className="mt-3 text-[13px] text-white">
                 {filteredRows.length} records match the current filter and search.
               </p>
               <p className="mt-2 text-[12px] leading-5 text-[#61758B]">
@@ -967,7 +967,7 @@ export default function ReviewPage() {
         <div className="space-y-4">
           <section className="px-1">
             <h1 className="hidden text-[22px] font-medium tracking-[-0.03em] text-white lg:block">Review</h1>
-            <p className="mt-2 text-[14px] text-[#8f8f8f]">
+            <p className="mt-2 text-[14px] text-white">
               Help confirm supplier system data for theatre use.
             </p>
           </section>
@@ -1003,17 +1003,17 @@ export default function ReviewPage() {
           <section className="rounded-[12px] border border-[#2d2d2d] bg-[#161616] p-3">
             <div>
               <h2 className="text-[24px] tracking-[-0.04em] text-white">records awaiting validation</h2>
-              <p className="mt-1 text-[14px] text-[#8f8f8f]">select a system to confirm or flag its linked data.</p>
+              <p className="mt-1 text-[14px] text-white">select a system to confirm or flag its linked data.</p>
             </div>
 
             <div className="mt-3 flex flex-col gap-2">
               <label className="relative w-full">
-                <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-[#6f6f6f]" />
+                <Search size={16} className="pointer-events-none absolute left-4 top-1/2 -translate-y-1/2 text-white" />
                 <input
                   value={query}
                   onChange={(event) => setQuery(event.target.value)}
                   placeholder="Search system, supplier, procedure..."
-                  className="w-full rounded-full border border-[#2d2d2d] bg-[#202020] py-3 pl-10 pr-4 text-sm text-white outline-none placeholder:text-[#6f6f6f]"
+                  className="w-full rounded-full border border-[#2d2d2d] bg-[#202020] py-3 pl-10 pr-4 text-sm text-white outline-none placeholder:text-white"
                 />
               </label>
               <div className="flex flex-wrap gap-2">
@@ -1058,14 +1058,14 @@ export default function ReviewPage() {
                     <div className="flex items-start justify-between gap-3">
                       <div className="min-w-0">
                         <p className="text-[18px] font-semibold tracking-[-0.03em] text-white">{row.system}</p>
-                        <p className="mt-0.5 text-[15px] text-[#8f8f8f]">{row.supplier}</p>
+                        <p className="mt-0.5 text-[15px] text-white">{row.supplier}</p>
                       </div>
                       <span className={`shrink-0 rounded-full px-3 py-1 text-[11px] font-semibold ${queueStatusPillClass(queueStatus)}`}>
                         {queueStatusLabel(queueStatus)}
                       </span>
                     </div>
 
-                    <div className="mt-3 space-y-0.5 text-[14px] text-[#9a9a9a]">
+                    <div className="mt-3 space-y-0.5 text-[14px] text-white">
                       <p>{reviewLine}</p>
                       <p>{getSupportLine(row)}</p>
                     </div>
@@ -1090,7 +1090,7 @@ export default function ReviewPage() {
               {filteredRows.length === 0 ? (
                 <div className="rounded-[12px] border border-dashed border-[#2d2d2d] bg-[#161616] px-4 py-8 text-center">
                   <p className="text-[16px] font-medium text-white">no records match this view</p>
-                  <p className="mt-1 text-[14px] text-[#8f8f8f]">try another status filter or search term.</p>
+                  <p className="mt-1 text-[14px] text-white">try another status filter or search term.</p>
                 </div>
               ) : null}
             </div>
@@ -1106,7 +1106,7 @@ export default function ReviewPage() {
                 <div>
                   <p className="text-[12px] font-semibold text-[#7f7f7f]">data review</p>
                   <h2 className="mt-1 text-[26px] font-semibold tracking-[-0.04em] text-white">{selectedRow.system}</h2>
-                  <p className="mt-1 text-[15px] text-[#8f8f8f]">{selectedRow.supplier}</p>
+                  <p className="mt-1 text-[15px] text-white">{selectedRow.supplier}</p>
                 </div>
                 <button
                   type="button"
@@ -1138,7 +1138,7 @@ export default function ReviewPage() {
                   {queueStatusLabel(getQueueStatus(selectedRow))}
                 </span>
               </div>
-              <div className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-[#8f8f8f]">
+              <div className="mt-2 flex flex-wrap items-center gap-2 text-[13px] text-white">
                 <span>{validationSummary.reviewedCount} of 3 sections reviewed</span>
                 <span className="text-[#5f5f5f]">/</span>
                 <span>{validationSummary.correctCount} correct</span>
@@ -1194,7 +1194,7 @@ export default function ReviewPage() {
 
               {sectionReviews.systems.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">what is wrong?</legend>
+                  <legend className="text-[13px] font-semibold text-white">what is wrong?</legend>
                   <div className="mt-2 grid gap-2">
                     {INCORRECT_REASON_OPTIONS.map((option) => (
                       <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-2 text-[15px] text-[#b0b0b0]">
@@ -1214,7 +1214,7 @@ export default function ReviewPage() {
 
               {sectionReviews.systems.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">help improve this section</legend>
+                  <legend className="text-[13px] font-semibold text-white">help improve this section</legend>
                   <div className="mt-2 grid gap-2">
                     {[
                       { value: "suggest_correction" as const, label: "Suggest correction" },
@@ -1239,7 +1239,7 @@ export default function ReviewPage() {
               {sectionReviews.systems.improveMode === "suggest_correction" || sectionReviews.systems.improveMode === "add_missing" ? (
                 <div className="mt-4 grid gap-4">
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#8f8f8f]">procedure variant</span>
+                    <span className="text-[13px] font-semibold text-white">procedure variant</span>
                     <input
                       value={sectionReviews.systems.procedureVariant}
                       onChange={(event) => setSectionReviewValue("systems", { procedureVariant: event.target.value })}
@@ -1247,7 +1247,7 @@ export default function ReviewPage() {
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#8f8f8f]">implant type</span>
+                    <span className="text-[13px] font-semibold text-white">implant type</span>
                     <input
                       value={sectionReviews.systems.implantType}
                       onChange={(event) => setSectionReviewValue("systems", { implantType: event.target.value })}
@@ -1255,7 +1255,7 @@ export default function ReviewPage() {
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#8f8f8f]">source / rationale (optional)</span>
+                    <span className="text-[13px] font-semibold text-white">source / rationale (optional)</span>
                     <input
                       value={sectionReviews.systems.sourceRationale}
                       onChange={(event) => setSectionReviewValue("systems", { sourceRationale: event.target.value })}
@@ -1266,7 +1266,7 @@ export default function ReviewPage() {
               ) : null}
 
               <label className="mt-4 block">
-                <span className="flex items-center gap-2 text-[13px] font-semibold text-[#8f8f8f]">
+                <span className="flex items-center gap-2 text-[13px] font-semibold text-white">
                   add note or correction (optional)
                 </span>
                 <textarea
@@ -1321,7 +1321,7 @@ export default function ReviewPage() {
 
               {sectionReviews.trays.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">what is wrong?</legend>
+                  <legend className="text-[13px] font-semibold text-white">what is wrong?</legend>
                   <div className="mt-2 grid gap-2">
                     {INCORRECT_REASON_OPTIONS.map((option) => (
                       <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-2 text-[15px] text-[#b0b0b0]">
@@ -1341,7 +1341,7 @@ export default function ReviewPage() {
 
               {sectionReviews.trays.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">help improve this section</legend>
+                  <legend className="text-[13px] font-semibold text-white">help improve this section</legend>
                   <div className="mt-2 grid gap-2">
                     {[
                       { value: "suggest_correction" as const, label: "Suggest correction" },
@@ -1366,7 +1366,7 @@ export default function ReviewPage() {
               {sectionReviews.trays.improveMode === "suggest_correction" || sectionReviews.trays.improveMode === "add_missing" ? (
                 <div className="mt-4 grid gap-4">
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#8f8f8f]">Tray name</span>
+                    <span className="text-[13px] font-semibold text-white">Tray name</span>
                     <input
                       value={sectionReviews.trays.trayName}
                       onChange={(event) => setSectionReviewValue("trays", { trayName: event.target.value })}
@@ -1374,7 +1374,7 @@ export default function ReviewPage() {
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#8f8f8f]">Tray type / category (optional)</span>
+                    <span className="text-[13px] font-semibold text-white">Tray type / category (optional)</span>
                     <input
                       value={sectionReviews.trays.trayCategory}
                       onChange={(event) => setSectionReviewValue("trays", { trayCategory: event.target.value })}
@@ -1382,7 +1382,7 @@ export default function ReviewPage() {
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#8f8f8f]">Supplier (optional)</span>
+                    <span className="text-[13px] font-semibold text-white">Supplier (optional)</span>
                     <input
                       value={sectionReviews.trays.traySupplier}
                       onChange={(event) => setSectionReviewValue("trays", { traySupplier: event.target.value })}
@@ -1393,7 +1393,7 @@ export default function ReviewPage() {
               ) : null}
 
               <label className="mt-4 block">
-                <span className="text-[13px] font-semibold text-[#8f8f8f]">add note or correction (optional)</span>
+                <span className="text-[13px] font-semibold text-white">add note or correction (optional)</span>
                 <textarea
                   value={sectionReviews.trays.note}
                   onChange={(event) => setSectionReviewValue("trays", { note: event.target.value })}
@@ -1442,7 +1442,7 @@ export default function ReviewPage() {
 
               {sectionReviews.skus.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">what is wrong?</legend>
+                  <legend className="text-[13px] font-semibold text-white">what is wrong?</legend>
                   <div className="mt-2 grid gap-2">
                     {INCORRECT_REASON_OPTIONS.map((option) => (
                       <label key={option.value} className="flex min-h-[48px] items-center gap-3 rounded-[16px] border border-[#2d2d2d] bg-[#1a1a1a] px-4 py-2 text-[15px] text-[#b0b0b0]">
@@ -1462,7 +1462,7 @@ export default function ReviewPage() {
 
               {sectionReviews.skus.answer === "incorrect" ? (
                 <fieldset className="mt-4 block">
-                  <legend className="text-[13px] font-semibold text-[#8f8f8f]">help improve this section</legend>
+                  <legend className="text-[13px] font-semibold text-white">help improve this section</legend>
                   <div className="mt-2 grid gap-2">
                     {[
                       { value: "suggest_correction" as const, label: "Suggest correction" },
@@ -1487,7 +1487,7 @@ export default function ReviewPage() {
               {sectionReviews.skus.improveMode === "suggest_correction" || sectionReviews.skus.improveMode === "add_missing" ? (
                 <div className="mt-4 grid gap-4">
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#8f8f8f]">SKU / product code</span>
+                    <span className="text-[13px] font-semibold text-white">SKU / product code</span>
                     <input
                       value={sectionReviews.skus.skuCode}
                       onChange={(event) => setSectionReviewValue("skus", { skuCode: event.target.value })}
@@ -1495,7 +1495,7 @@ export default function ReviewPage() {
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#8f8f8f]">Product name</span>
+                    <span className="text-[13px] font-semibold text-white">Product name</span>
                     <input
                       value={sectionReviews.skus.productName}
                       onChange={(event) => setSectionReviewValue("skus", { productName: event.target.value })}
@@ -1503,7 +1503,7 @@ export default function ReviewPage() {
                     />
                   </label>
                   <label className="block">
-                    <span className="text-[13px] font-semibold text-[#8f8f8f]">Category (optional)</span>
+                    <span className="text-[13px] font-semibold text-white">Category (optional)</span>
                     <input
                       value={sectionReviews.skus.skuCategory}
                       onChange={(event) => setSectionReviewValue("skus", { skuCategory: event.target.value })}
@@ -1514,7 +1514,7 @@ export default function ReviewPage() {
               ) : null}
 
               <label className="mt-4 block">
-                <span className="text-[13px] font-semibold text-[#8f8f8f]">add note or correction (optional)</span>
+                <span className="text-[13px] font-semibold text-white">add note or correction (optional)</span>
                 <textarea
                   value={sectionReviews.skus.note}
                   onChange={(event) => setSectionReviewValue("skus", { note: event.target.value })}
@@ -1567,7 +1567,7 @@ export default function ReviewPage() {
                       </div>
                     ))
                 ) : (
-                  <p className="px-3 py-3 text-[13px] text-[#8f8f8f]">no reviews yet.</p>
+                  <p className="px-3 py-3 text-[13px] text-white">no reviews yet.</p>
                 )}
               </div>
             </ReviewSection>
@@ -1596,7 +1596,7 @@ export default function ReviewPage() {
                       </div>
                     ))
                 ) : (
-                  <p className="px-3 py-3 text-[13px] text-[#8f8f8f]">no revisions yet.</p>
+                  <p className="px-3 py-3 text-[13px] text-white">no revisions yet.</p>
                 )}
               </div>
             </ReviewSection>
@@ -1607,7 +1607,6 @@ export default function ReviewPage() {
     </>
   )
 }
-
 
 
 

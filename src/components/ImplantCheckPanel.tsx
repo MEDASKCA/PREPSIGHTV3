@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState, useMemo, useRef } from "react"
 import { Check, Minus, Plus, AlertTriangle, RotateCcw } from "lucide-react"
@@ -197,8 +197,8 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
       <div className="mb-3 flex items-center justify-center py-6">
         <div className="rounded-xl bg-[#1c1c1c] px-5 py-4 max-w-sm text-center">
           <p className="text-sm font-semibold text-[#e0e0e0]">Implant stock check</p>
-          <p className="mt-1 text-xs text-[#888888]">
-            Stockroom not yet mapped for <span className="font-medium text-[#aaaaaa]">{implantSystem}</span> — verify implant availability manually before knife-to-skin.
+          <p className="mt-1 text-xs text-white">
+            Stockroom not yet mapped for <span className="font-medium text-white">{implantSystem}</span> — verify implant availability manually before knife-to-skin.
           </p>
         </div>
       </div>
@@ -243,30 +243,30 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
       <div className="hidden lg:flex items-center border-t border-[#2d2d2d] bg-[#161616]">
         <div className="shrink-0 border-r border-[#2d2d2d]" style={{ width: CHECKBOX_W }} />
         <div className="relative flex items-center px-3 py-2 border-r border-[#2d2d2d] shrink-0" style={{ width: colWidths.size }}>
-          <p className="text-[20px] font-semibold text-[#888888] leading-none">Size</p>
+          <p className="text-[20px] font-semibold text-white leading-none">Size</p>
           <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#0096C7] transition-colors z-10" onMouseDown={(e) => startColResize("size", e)} />
         </div>
         <div className="flex items-center px-3 py-2 border-r border-[#2d2d2d] flex-1 min-w-0">
-          <p className="text-[20px] font-semibold text-[#888888] leading-none">Description</p>
+          <p className="text-[20px] font-semibold text-white leading-none">Description</p>
         </div>
         <div className="relative flex items-center px-3 py-2 border-r border-[#2d2d2d] shrink-0" style={{ width: colWidths.sku }}>
-          <p className="text-[20px] font-semibold text-[#888888] leading-none">SKU</p>
+          <p className="text-[20px] font-semibold text-white leading-none">SKU</p>
           <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#0096C7] transition-colors z-10" onMouseDown={(e) => startColResize("sku", e)} />
         </div>
         <div className="relative flex items-center px-3 py-2 border-r border-[#2d2d2d] shrink-0" style={{ width: colWidths.loc }}>
-          <p className="text-[20px] font-semibold text-[#888888] leading-none">Location</p>
+          <p className="text-[20px] font-semibold text-white leading-none">Location</p>
           <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#0096C7] transition-colors z-10" onMouseDown={(e) => startColResize("loc", e)} />
         </div>
         <div className="relative flex items-center justify-center px-3 py-2 border-r border-[#2d2d2d] shrink-0" style={{ width: colWidths.status }}>
-          <p className="text-[20px] font-semibold text-[#888888] leading-none">Status</p>
+          <p className="text-[20px] font-semibold text-white leading-none">Status</p>
           <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#0096C7] transition-colors z-10" onMouseDown={(e) => startColResize("status", e)} />
         </div>
         <div className="relative flex items-center justify-center px-3 py-2 border-r border-[#2d2d2d] shrink-0" style={{ width: colWidths.qty }}>
-          <p className="text-[20px] font-semibold text-[#888888] leading-none">Qty</p>
+          <p className="text-[20px] font-semibold text-white leading-none">Qty</p>
           <div className="absolute right-0 top-0 bottom-0 w-1.5 cursor-col-resize hover:bg-[#0096C7] transition-colors z-10" onMouseDown={(e) => startColResize("qty", e)} />
         </div>
         <div className="flex items-center px-3 py-2 shrink-0" style={{ width: colWidths.hist }}>
-          <p className="text-[20px] font-semibold text-[#888888] leading-none">History</p>
+          <p className="text-[20px] font-semibold text-white leading-none">History</p>
         </div>
       </div>
     )
@@ -289,15 +289,15 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
               className="shrink-0 text-[#0096C7]"
             />
             <span className="text-sm font-semibold text-[#e0e0e0] lg:text-[20px]">Implant stock check</span>
-            <span className="hidden lg:inline text-[16px] text-[#555555] font-normal">— tick each item to verify · adjust qty if count differs</span>
+            <span className="hidden lg:inline text-[16px] text-white font-normal">— tick each item to verify · adjust qty if count differs</span>
             {hasIssues && !expanded && (
               <AlertTriangle size={13} className="text-amber-500 shrink-0" />
             )}
             <div className="flex items-center gap-2 shrink-0">
               {verifiedCount > 0 && (
-                <span className="text-[11px] text-[#888888] lg:text-[17px]">{verifiedCount}/{checks.length}</span>
+                <span className="text-[11px] text-white lg:text-[17px]">{verifiedCount}/{checks.length}</span>
               )}
-              <span className="text-[11px] text-[#555555] lg:text-[17px]">
+              <span className="text-[11px] text-white lg:text-[17px]">
                 {groups.length} group{groups.length !== 1 ? "s" : ""} · {stockItems.length} items
               </span>
             </div>
@@ -308,7 +308,7 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
             <button
               type="button"
               onClick={() => setInfoOpen((v) => !v)}
-              className="w-7 h-7 rounded-full border-2 border-[#2d2d2d] flex items-center justify-center text-[#888888] text-[14px] font-bold hover:border-[#0096C7] hover:text-[#0096C7] transition-colors"
+              className="w-7 h-7 rounded-full border-2 border-[#2d2d2d] flex items-center justify-center text-white text-[14px] font-bold hover:border-[#0096C7] hover:text-[#0096C7] transition-colors"
               aria-label="How this works"
             >
               i
@@ -318,14 +318,14 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
                 <div className="fixed inset-0 z-10" onClick={() => setInfoOpen(false)} />
                 <div className="absolute left-9 top-0 z-20 w-80 rounded-xl border border-[#2d2d2d] bg-[#1c1c1c] shadow-xl p-4">
                   <p className="text-[18px] font-semibold text-[#e0e0e0] mb-3">How Implant Stock Check works</p>
-                  <ol className="space-y-2 text-[16px] text-[#888888] list-decimal list-inside leading-snug">
+                  <ol className="space-y-2 text-[16px] text-white list-decimal list-inside leading-snug">
                     <li>Expand the panel to see all implant groups and sizes</li>
                     <li>Go to the physical store and locate each item</li>
                     <li>Use the ± controls to adjust the quantity if the physical count differs — this automatically ticks the item as verified</li>
                     <li>Tick the checkbox manually to confirm items where the count already matches</li>
                     <li>Submit when done — any quantity discrepancies are written back to the stockroom</li>
                   </ol>
-                  <button onClick={() => setInfoOpen(false)} className="mt-3 text-[14px] text-[#555555] hover:text-[#888888]">Dismiss</button>
+                  <button onClick={() => setInfoOpen(false)} className="mt-3 text-[14px] text-white hover:text-white">Dismiss</button>
                 </div>
               </>
             )}
@@ -373,17 +373,17 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
                         </button>
                         <div className="flex-1 min-w-0">
                           <p className="text-sm text-[#e0e0e0] leading-snug">{item.name}</p>
-                          <p className="text-[11px] text-[#888888] mt-0.5">{item.sku}</p>
-                          {item.location && <p className="text-[11px] text-[#888888] truncate">{item.location}</p>}
+                          <p className="text-[11px] text-white mt-0.5">{item.sku}</p>
+                          {item.location && <p className="text-[11px] text-white truncate">{item.location}</p>}
                         </div>
                         <div className="flex items-center gap-2 shrink-0">
                           {statusBadge(s)}
                           <div className="flex items-center gap-1">
-                            <button type="button" onClick={() => adjustQty(item.id, -1)} disabled={c.physicalQty === 0} className="w-6 h-6 rounded-md border border-[#2d2d2d] flex items-center justify-center text-[#888888] hover:border-[#0096C7] hover:text-[#0096C7] disabled:opacity-30 transition-colors">
+                            <button type="button" onClick={() => adjustQty(item.id, -1)} disabled={c.physicalQty === 0} className="w-6 h-6 rounded-md border border-[#2d2d2d] flex items-center justify-center text-white hover:border-[#0096C7] hover:text-[#0096C7] disabled:opacity-30 transition-colors">
                               <Minus size={10} />
                             </button>
                             <span className={`w-6 text-center text-sm font-semibold tabular-nums ${s === "Out" ? "text-red-400" : s === "Critical" ? "text-red-400" : s === "Low" ? "text-amber-400" : "text-[#e0e0e0]"}`}>{c.physicalQty}</span>
-                            <button type="button" onClick={() => adjustQty(item.id, 1)} className="w-6 h-6 rounded-md border border-[#2d2d2d] flex items-center justify-center text-[#888888] hover:border-[#0096C7] hover:text-[#0096C7] transition-colors">
+                            <button type="button" onClick={() => adjustQty(item.id, 1)} className="w-6 h-6 rounded-md border border-[#2d2d2d] flex items-center justify-center text-white hover:border-[#0096C7] hover:text-[#0096C7] transition-colors">
                               <Plus size={10} />
                             </button>
                           </div>
@@ -413,18 +413,18 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
                         <div className="px-3 py-3 border-r border-[#2d2d2d] flex-1 min-w-0 overflow-hidden">
                           <p className="text-[20px] text-[#e0e0e0] leading-snug truncate">{item.group ?? "—"}</p>
                           {item.supplier && (
-                            <p className="text-[20px] text-[#555555] mt-0.5 truncate">{item.supplier}</p>
+                            <p className="text-[20px] text-white mt-0.5 truncate">{item.supplier}</p>
                           )}
                         </div>
 
                         {/* SKU */}
                         <div className="px-3 py-3 border-r border-[#2d2d2d] shrink-0 overflow-hidden" style={{ width: colWidths.sku }}>
-                          <p className="text-[20px] font-mono text-[#888888] truncate">{item.sku}</p>
+                          <p className="text-[20px] font-mono text-white truncate">{item.sku}</p>
                         </div>
 
                         {/* Location */}
                         <div className="px-3 py-3 border-r border-[#2d2d2d] shrink-0 overflow-hidden" style={{ width: colWidths.loc }}>
-                          <p className="text-[20px] font-medium text-[#aaaaaa] truncate">
+                          <p className="text-[20px] font-medium text-white truncate">
                             {item.location
                               ? item.location.split("/").map((p) => p.trim()).filter(Boolean).join(" · ")
                               : "—"}
@@ -439,13 +439,13 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
 
                         {/* Qty controls */}
                         <div className="px-3 py-3 border-r border-[#2d2d2d] shrink-0 flex items-center justify-center gap-2" style={{ width: colWidths.qty }}>
-                          <button type="button" onClick={() => adjustQty(item.id, -1)} disabled={c.physicalQty === 0} className="w-9 h-9 rounded-lg border border-[#2d2d2d] flex items-center justify-center text-[#888888] hover:border-[#0096C7] hover:text-[#0096C7] disabled:opacity-30 transition-colors">
+                          <button type="button" onClick={() => adjustQty(item.id, -1)} disabled={c.physicalQty === 0} className="w-9 h-9 rounded-lg border border-[#2d2d2d] flex items-center justify-center text-white hover:border-[#0096C7] hover:text-[#0096C7] disabled:opacity-30 transition-colors">
                             <Minus size={15} />
                           </button>
                           <span className={`w-10 text-center text-[20px] font-semibold tabular-nums ${s === "Out" ? "text-red-400" : s === "Critical" ? "text-red-400" : s === "Low" ? "text-amber-400" : "text-[#e0e0e0]"}`}>
                             {c.physicalQty}
                           </span>
-                          <button type="button" onClick={() => adjustQty(item.id, 1)} className="w-9 h-9 rounded-lg border border-[#2d2d2d] flex items-center justify-center text-[#888888] hover:border-[#0096C7] hover:text-[#0096C7] transition-colors">
+                          <button type="button" onClick={() => adjustQty(item.id, 1)} className="w-9 h-9 rounded-lg border border-[#2d2d2d] flex items-center justify-center text-white hover:border-[#0096C7] hover:text-[#0096C7] transition-colors">
                             <Plus size={15} />
                           </button>
                         </div>
@@ -454,19 +454,19 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
                         <div className="px-3 py-3 shrink-0 overflow-hidden" style={{ width: colWidths.hist }}>
                           {item.history?.surgeon ? (
                             <p className="text-[20px] text-[#e0e0e0] leading-snug truncate">
-                              <span className="text-[14px] tracking-wide text-[#555555]">Last used </span>
+                              <span className="text-[14px] tracking-wide text-white">Last used </span>
                               {item.history.surgeon} · {item.history.usedDate}
                             </p>
                           ) : (
-                            <p className="text-[20px] text-[#333333]">—</p>
+                            <p className="text-[20px] text-white">—</p>
                           )}
                           {item.history?.checkedBy ? (
-                            <p className="text-[20px] text-[#aaaaaa] mt-1 leading-snug truncate">
-                              <span className="text-[14px] tracking-wide text-[#555555]">Checked </span>
+                            <p className="text-[20px] text-white mt-1 leading-snug truncate">
+                              <span className="text-[14px] tracking-wide text-white">Checked </span>
                               {item.history.checkedBy} · {item.history.checkedDate}
                             </p>
                           ) : (
-                            <p className="text-[20px] text-[#333333] mt-1">Not checked</p>
+                            <p className="text-[20px] text-white mt-1">Not checked</p>
                           )}
                         </div>
 
@@ -481,7 +481,7 @@ export default function ImplantCheckPanel({ implantSystem, procedureId, procedur
 
           {/* Submit bar */}
           <div className="border-t border-[#2d2d2d] px-4 py-3 flex items-center justify-between gap-3 bg-[#1a1a1a]">
-            <p className="text-xs text-[#888888] lg:text-[20px]">
+            <p className="text-xs text-white lg:text-[20px]">
               {verifiedCount === checks.length
                 ? "All items verified"
                 : `${verifiedCount} of ${checks.length} verified`}

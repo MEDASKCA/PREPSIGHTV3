@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import type { PointerEvent as ReactPointerEvent } from "react"
@@ -679,7 +679,7 @@ export default function MobileProcedureRepositoryView({
         <section className={`${compact ? "pb-3" : "border-b border-[#2d2d2d] pb-5"}`}>
           <div className="px-6">
             <h1 className={`${compact ? "text-[28px]" : "text-[36px]"} font-semibold leading-tight tracking-[-0.03em] text-white`}>{displayTitle}</h1>
-            <p className={`${compact ? "mt-1 text-[14px] leading-6" : "mt-2 text-[16px] leading-7"} text-[#888888]`}>{hierarchyLabel}</p>
+            <p className={`${compact ? "mt-1 text-[14px] leading-6" : "mt-2 text-[16px] leading-7"} text-white`}>{hierarchyLabel}</p>
           </div>
         </section>
 
@@ -688,7 +688,7 @@ export default function MobileProcedureRepositoryView({
             <div
               className={`${
                 compact ? "grid grid-cols-[minmax(0,1fr)_420px] items-start gap-6" : "flex items-start gap-3"
-              } ${compact ? "text-[14px] leading-6" : "text-[16px] leading-7"} text-[#888888]`}
+              } ${compact ? "text-[14px] leading-6" : "text-[16px] leading-7"} text-white`}
             >
               <div className="flex min-w-0 items-start gap-3">
                 <ShieldAlert size={20} className="mt-1 shrink-0 text-[#0096C7]" />
@@ -738,7 +738,7 @@ export default function MobileProcedureRepositoryView({
         </section>
 
         {showStatsRow ? (
-                <section className={`${compact ? "mt-3 gap-x-3 gap-y-2 px-6 text-[14px]" : "mt-4 gap-x-4 gap-y-3 px-6 text-[16px]"} flex flex-wrap text-[#888888]`}>
+                <section className={`${compact ? "mt-3 gap-x-3 gap-y-2 px-6 text-[14px]" : "mt-4 gap-x-4 gap-y-3 px-6 text-[16px]"} flex flex-wrap text-white`}>
             {bookmarkCount > 0 ? (
               <button type="button" onClick={handleToggleBookmark} className="inline-flex items-center gap-2 transition-colors hover:text-white">
                 <Bookmark size={17} />
@@ -766,7 +766,7 @@ export default function MobileProcedureRepositoryView({
             ) : null}
             {contributorCount > 0 ? (
               <button type="button" onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))} className="inline-flex items-center gap-2 transition-colors hover:text-white">
-                <span aria-hidden="true" className="inline-flex h-[17px] w-[17px] items-center justify-center text-[#888888]">
+                <span aria-hidden="true" className="inline-flex h-[17px] w-[17px] items-center justify-center text-white">
                   <svg viewBox="0 0 24 24" className="h-[17px] w-[17px] fill-current" focusable="false">
                     <path d="M12 12c2.76 0 5-2.46 5-5.5S14.76 1 12 1 7 3.46 7 6.5 9.24 12 12 12Zm0 2c-4.42 0-8 2.69-8 6v1h16v-1c0-3.31-3.58-6-8-6Z" />
                   </svg>
@@ -965,7 +965,7 @@ export default function MobileProcedureRepositoryView({
           <section className={`${compact ? "mt-3" : "mt-5"} border-t border-[#2d2d2d]`}>
             <div className={`flex items-center justify-between border-b border-[#2d2d2d] px-6 ${compact ? "py-2 text-[14px]" : "py-3 text-[16px]"} text-white`}>
               <span className="font-semibold">Published versions</span>
-              <span className="font-medium text-[#888888]">{versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}</span>
+              <span className="font-medium text-white">{versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}</span>
             </div>
             <div>
               {versionEntries.map((version) => (
@@ -977,19 +977,19 @@ export default function MobileProcedureRepositoryView({
                   >
                     <span className="min-w-0">
                       <span className="block truncate font-medium text-white">{version.name}</span>
-                      <span className="block truncate text-[14px] text-[#888888]">
+                      <span className="block truncate text-[14px] text-white">
                         Updated {formatUpdatedDate(version.updatedAt)}
                       </span>
                     </span>
                     <TriangleIcon
                       direction={openVersionId === version.id ? "up" : "down"}
                       size={10}
-                      className="shrink-0 text-[#888888]"
+                      className="shrink-0 text-white"
                     />
                   </button>
                   {openVersionId === version.id ? (
                     <div className="pt-2">
-                      <div className="text-[14px] leading-6 text-[#888888]">{version.detail}</div>
+                      <div className="text-[14px] leading-6 text-white">{version.detail}</div>
                       <button
                         type="button"
                         onClick={() => router.push(version.href)}
@@ -1020,7 +1020,7 @@ export default function MobileProcedureRepositoryView({
           <button
             type="button"
             onClick={() => setOpenVersionId((current) => (current ? "" : "global-current"))}
-            className="mt-0.5 inline-flex w-full items-center justify-end gap-2 text-right text-[#888888] transition-colors hover:text-white"
+            className="mt-0.5 inline-flex w-full items-center justify-end gap-2 text-right text-white transition-colors hover:text-white"
           >
             <span>
               {versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}
@@ -1028,7 +1028,7 @@ export default function MobileProcedureRepositoryView({
             <TriangleIcon
               direction={versionsOpen ? "up" : "down"}
               size={10}
-              className="shrink-0 text-[#888888]"
+              className="shrink-0 text-white"
             />
           </button>
           {versionsOpen ? (
@@ -1037,7 +1037,7 @@ export default function MobileProcedureRepositoryView({
                 <div key={version.id} className="flex items-center justify-between gap-3 py-2">
                   <div className="min-w-0 flex items-center gap-3 text-[14px]">
                     <span className="truncate font-medium text-white">{version.name}</span>
-                    <span className="truncate text-[13px] text-[#888888]">
+                    <span className="truncate text-[13px] text-white">
                       Updated {formatUpdatedDate(version.updatedAt)}
                     </span>
                   </div>
@@ -1167,7 +1167,7 @@ export default function MobileProcedureRepositoryView({
               </h2>
               {createNoticeStep === 1 ? (
                 <div className="mt-3 space-y-4">
-                  <p className="text-center text-[14px] leading-6 text-[#888888]">
+                  <p className="text-center text-[14px] leading-6 text-white">
                     Will this need more than one version because of different surgeon preferences, approaches, implant systems, or variants?
                   </p>
                   <div className="space-y-2">
@@ -1180,7 +1180,7 @@ export default function MobileProcedureRepositoryView({
                       className={`block w-full rounded-xl border px-4 py-3 text-left text-sm transition-colors ${
                         createNeedsVariants === "yes"
                           ? "border-[#0096C7] bg-[#001a2a] text-[#e0e0e0]"
-                          : "border-[#2d2d2d] text-[#888888] hover:bg-[#1c1c1c]"
+                          : "border-[#2d2d2d] text-white hover:bg-[#1c1c1c]"
                       }`}
                     >
                       Yes, there may be different versions
@@ -1194,7 +1194,7 @@ export default function MobileProcedureRepositoryView({
                       className={`block w-full rounded-xl border px-4 py-3 text-left text-sm transition-colors ${
                         createNeedsVariants === "no"
                           ? "border-[#0096C7] bg-[#001a2a] text-[#e0e0e0]"
-                          : "border-[#2d2d2d] text-[#888888] hover:bg-[#1c1c1c]"
+                          : "border-[#2d2d2d] text-white hover:bg-[#1c1c1c]"
                       }`}
                     >
                       No, one version is enough
@@ -1203,7 +1203,7 @@ export default function MobileProcedureRepositoryView({
                 </div>
               ) : (
                 <div className="mt-3 space-y-4">
-                  <p className="text-center text-[14px] leading-6 text-[#888888]">
+                  <p className="text-center text-[14px] leading-6 text-white">
                     Who is the surgeon for this version? This version will be saved to My Team&apos;s collection and also published in Community.
                   </p>
                   <div className="grid gap-3 sm:grid-cols-2">
@@ -1355,7 +1355,7 @@ export default function MobileProcedureRepositoryView({
         <main className="pb-28 lg:hidden">
           <section className={`mt-4 px-4 pb-4 ${mobileMetaOpen ? "border-b border-[#2d2d2d]" : ""}`}>
               <h1 className="text-[28px] font-semibold leading-tight tracking-[-0.03em] text-[#e0e0e0]">{displayTitle}</h1>
-            <p className="mt-2 text-[14px] leading-6 text-[#888888]">{hierarchyLabel}</p>
+            <p className="mt-2 text-[14px] leading-6 text-white">{hierarchyLabel}</p>
             <button
               type="button"
               onClick={() => setMobileMetaOpen((value) => !value)}
@@ -1369,7 +1369,7 @@ export default function MobileProcedureRepositoryView({
           {mobileMetaOpen ? (
           <>
           <section className="mt-3 border-b border-[#2d2d2d] px-4 pb-3">
-            <div className="flex items-start gap-3 text-[14px] leading-6 text-[#888888]">
+            <div className="flex items-start gap-3 text-[14px] leading-6 text-white">
               <ShieldAlert size={16} className="mt-0.5 shrink-0 text-[#0096C7]" />
               <p>
                 Community reference card · Updated {formatUpdatedDate(procedure.updatedAt)}. Adapt this card locally.
@@ -1415,7 +1415,7 @@ export default function MobileProcedureRepositoryView({
           </section>
 
           {showStatsRow ? (
-            <section className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-b border-[#2d2d2d] px-4 pb-3 text-[14px] text-[#888888]">
+            <section className="mt-4 flex flex-wrap gap-x-4 gap-y-2 border-b border-[#2d2d2d] px-4 pb-3 text-[14px] text-white">
               {bookmarkCount > 0 ? (
                 <button type="button" onClick={handleToggleBookmark} className="inline-flex items-center gap-1.5 transition-colors hover:text-white">
                   <Bookmark size={13} />
@@ -1642,7 +1642,7 @@ export default function MobileProcedureRepositoryView({
             <section className="mt-5 border-t border-[#2d2d2d]">
               <div className="flex items-center justify-between border-b border-[#2d2d2d] px-4 py-3 text-[14px] text-[#e0e0e0]">
                 <span className="font-semibold">Published versions</span>
-                <span className="font-medium text-[#888888]">{versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}</span>
+                <span className="font-medium text-white">{versionEntries.length} published version{versionEntries.length === 1 ? "" : "s"}</span>
               </div>
               <div>
                 {versionEntries.map((version) => (
@@ -1654,7 +1654,7 @@ export default function MobileProcedureRepositoryView({
                     >
                       <span className="min-w-0 flex-1">
                         <span className="block font-medium leading-snug text-[#e0e0e0]">{version.name}</span>
-                        <span className="mt-0.5 block text-[13px] text-[#aaaaaa]">
+                        <span className="mt-0.5 block text-[13px] text-white">
                           Updated {formatUpdatedDate(version.updatedAt)}
                         </span>
                       </span>
@@ -1666,7 +1666,7 @@ export default function MobileProcedureRepositoryView({
                     </button>
                     {openVersionId === version.id ? (
                       <div className="pt-2">
-                        <div className="text-[13px] leading-5 text-[#888888]">{version.detail}</div>
+                        <div className="text-[13px] leading-5 text-white">{version.detail}</div>
                         <button
                           type="button"
                           onClick={() => router.push(version.href)}
@@ -1771,7 +1771,7 @@ export default function MobileProcedureRepositoryView({
                 ) : null}
               </>
             ) : (
-              <div className="border-t border-[#2d2d2d] px-1 py-8 text-center text-[14px] text-[#888888]">
+              <div className="border-t border-[#2d2d2d] px-1 py-8 text-center text-[14px] text-white">
                 No sections match the current search.
               </div>
             )}
@@ -1876,7 +1876,7 @@ export default function MobileProcedureRepositoryView({
                         ) : null}
                       </>
                     ) : (
-                      <div className="px-6 py-8 text-center text-[14px] text-[#888888]">
+                      <div className="px-6 py-8 text-center text-[14px] text-white">
                         No sections match the current search.
                       </div>
                     )}

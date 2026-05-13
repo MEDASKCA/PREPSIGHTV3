@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
@@ -387,7 +387,7 @@ export default function AppTopBar({
                   </span>
                 ) : null}
                 {contextLabel ? (
-                  <span className="mt-0.5 block truncate text-[10px] tracking-[0.08em] text-white/40">
+                  <span className="mt-0.5 block truncate text-[10px] tracking-[0.08em] text-white">
                     {contextLabel}
                   </span>
                 ) : null}
@@ -429,7 +429,7 @@ export default function AppTopBar({
                   <button onClick={() => callStatus.toggleMute?.()}
                     className="flex h-6 w-6 items-center justify-center rounded-full bg-white/[0.08] hover:bg-white/[0.15]"
                     title={callStatus.muted ? "Unmute" : "Mute"}>
-                    {callStatus.muted ? <MicOff size={11} className="text-red-400" /> : <Mic size={11} className="text-white/60" />}
+                    {callStatus.muted ? <MicOff size={11} className="text-red-400" /> : <Mic size={11} className="text-white" />}
                   </button>
                 )}
                 {callStatus.state === "active" && callStatus.mediaMode === "video" && (
@@ -554,7 +554,7 @@ export default function AppTopBar({
                 setAccountMenuOpen(false)
                 setMobileGlobalSearchOpen(true)
               }}
-              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white/80 hover:text-white lg:hidden"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full text-white hover:text-white lg:hidden"
               aria-label="Open global search"
             >
               <Search size={20} />
@@ -568,7 +568,7 @@ export default function AppTopBar({
                 setAccountError(null)
                 setAccountMenuOpen((current) => !current)
               }}
-              className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full text-white/80 hover:text-white lg:hidden"
+              className="inline-flex h-9 w-9 items-center justify-center overflow-hidden rounded-full text-white hover:text-white lg:hidden"
               aria-label="Profile"
               aria-expanded={accountMenuOpen}
             >
@@ -579,7 +579,7 @@ export default function AppTopBar({
               <div className="absolute right-0 top-[calc(100%+10px)] z-50 w-[15rem] overflow-hidden rounded-[24px] border border-[#3a3a3d] bg-[linear-gradient(180deg,#262628_0%,#1d1d1f_100%)] shadow-[0_28px_80px_rgba(0,0,0,0.42)]">
                 <div className="border-b border-[#343437] px-4 py-3">
                   <div className="text-[14px] font-medium text-white">{displayName}</div>
-                  {displayEmail ? <div className="mt-0.5 text-[12px] text-[#8f8f8f]">{displayEmail}</div> : null}
+                  {displayEmail ? <div className="mt-0.5 text-[12px] text-white">{displayEmail}</div> : null}
                 </div>
 
                 <div className="p-2">
@@ -588,7 +588,7 @@ export default function AppTopBar({
                     onClick={() => openAccountPage("/settings/profile")}
                     className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#d8d8d8] hover:bg-[#2e2e31]"
                   >
-                    <UserRound size={16} className="text-[#8f8f8f]" />
+                    <UserRound size={16} className="text-white" />
                     <span>Profile</span>
                   </button>
                   <button
@@ -596,7 +596,7 @@ export default function AppTopBar({
                     onClick={() => openAccountPage("/settings/access")}
                     className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#d8d8d8] hover:bg-[#2e2e31]"
                   >
-                    <Settings2 size={16} className="text-[#8f8f8f]" />
+                    <Settings2 size={16} className="text-white" />
                     <span>Settings</span>
                   </button>
                   <div className="my-2 border-t border-[#343437]" />
@@ -606,7 +606,7 @@ export default function AppTopBar({
                     disabled={accountBusy}
                     className="flex w-full items-center gap-3 rounded-[14px] px-3 py-2.5 text-left text-[14px] text-[#d8d8d8] hover:bg-[#2e2e31] disabled:cursor-not-allowed disabled:opacity-60"
                   >
-                    <LogOut size={16} className="text-[#8f8f8f]" />
+                    <LogOut size={16} className="text-white" />
                     <span>Sign out</span>
                   </button>
                   {accountError ? (

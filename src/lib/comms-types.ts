@@ -32,6 +32,7 @@ export interface CommsUser {
   groupLabel?: string
   pinnedThreadIds?: string[]
   unlockedGroupIds?: string[]
+  pingShortcutSets?: Partial<Record<PingRole, string[]>>
   updatedAt: number
 }
 
@@ -114,11 +115,15 @@ export interface CommsCall {
 }
 
 export type PingCategory = "action" | "urgent" | "reminder" | "change" | "heads_up" | "question" | "confirmed"
+export type PingRole = "Surgeon" | "Anaesthetist" | "Scrub" | "ODP"
+export type PingShortcutSets = Record<PingRole, string[]>
+export type PingStatus = "sent" | "seen" | "accepted" | "completed" | "declined" | "escalated"
 
 export interface CommsPing {
   id: string
   category: PingCategory
   text: string
+  pingRole?: PingRole
   threadId: string
   threadName: string
   organizationId: string
@@ -128,4 +133,17 @@ export interface CommsPing {
   createdAt: number
   messageId?: string
   memberUids: string[]
+  recipientUid?: string
+  recipientDisplayName?: string
+  status?: PingStatus
+  seenAt?: number
+  acceptedAt?: number
+  completedAt?: number
+  declinedAt?: number
+  escalatedAt?: number
+  escalatedBy?: string
+  requiresAck?: boolean
+  requiresCompletion?: boolean
+  ackTimeoutMins?: number
+  completionTimeoutMins?: number
 }

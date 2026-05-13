@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useMemo, useState } from "react"
 import Link from "next/link"
@@ -349,9 +349,9 @@ export default function OperatingTheatreTabs({
                   {tab.name}
                 </span>
                 {isOpen ? (
-                  <TriangleIcon direction="up" size={10} className="shrink-0 text-white/80 lg:hidden" />
+                  <TriangleIcon direction="up" size={10} className="shrink-0 text-white lg:hidden" />
                 ) : (
-                  <TriangleIcon direction="down" size={10} className="shrink-0 text-white/80 lg:hidden" />
+                  <TriangleIcon direction="down" size={10} className="shrink-0 text-white lg:hidden" />
                 )}
               </button>
             )}
@@ -481,7 +481,7 @@ export default function OperatingTheatreTabs({
                                 <div className="relative">
                                   <div className="flex items-start justify-between gap-4">
                                     <span className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${
-                                      isActiveLine ? "border border-white/16 bg-white/10 text-white/76" : ""
+                                      isActiveLine ? "border border-white/16 bg-white/10 text-white" : ""
                                     }`}
                                     style={
                                       isActiveLine
@@ -499,7 +499,7 @@ export default function OperatingTheatreTabs({
                                 }`}>
                                   {formatSubspecialtyLabel(line.name)}
                                 </p>
-                                <p className={`mt-2 text-sm leading-6 ${isActiveLine ? "text-white/76" : "text-white/56"}`}>
+                                <p className={`mt-2 text-sm leading-6 ${isActiveLine ? "text-white" : "text-white"}`}>
                                   Select this folder to browse its anatomy files.
                                   </p>
                                 </div>
@@ -525,7 +525,7 @@ export default function OperatingTheatreTabs({
                                     <div className="flex items-start justify-between gap-4">
                                       <span
                                         className={`rounded-full px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.16em] ${
-                                          isActiveLine ? "border border-white/16 bg-white/10 text-white/76" : ""
+                                          isActiveLine ? "border border-white/16 bg-white/10 text-white" : ""
                                         }`}
                                         style={
                                           isActiveLine
@@ -544,7 +544,7 @@ export default function OperatingTheatreTabs({
                                     }`}>
                                       {formatSubspecialtyLabel(line.name)}
                                     </p>
-                                    <p className={`mt-2 text-sm leading-6 ${isActiveLine ? "text-white/76" : "text-white/56"}`}>
+                                    <p className={`mt-2 text-sm leading-6 ${isActiveLine ? "text-white" : "text-white"}`}>
                                       Select this folder to browse its anatomy files.
                                     </p>
                                   </div>
@@ -581,7 +581,7 @@ export default function OperatingTheatreTabs({
                                 <p className="app-display-font text-[38px] font-semibold tracking-[-0.06em] text-white">
                                   {formatSubspecialtyLabel(line.name)}
                                 </p>
-                                <p className="mt-1 text-[18px] text-white/58">
+                                <p className="mt-1 text-[18px] text-white">
                                   Anatomy files within this subspecialty.
                                 </p>
                               </div>
@@ -657,7 +657,7 @@ export default function OperatingTheatreTabs({
                                 })}
                               </div>
                             ) : (
-                              <p className="px-2 py-6 text-[18px] text-white/48">
+                              <p className="px-2 py-6 text-[18px] text-white">
                                 No anatomy nodes mapped for this subspecialty yet.
                               </p>
                             )}

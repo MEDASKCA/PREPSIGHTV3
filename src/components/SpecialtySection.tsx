@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useState } from "react"
 import TriangleIcon from "@/components/TriangleIcon"
@@ -25,8 +25,8 @@ export default function SpecialtySection({ specialty, procedures, defaultOpen = 
           {specialty}
         </h2>
         <div className="flex items-center gap-2 shrink-0">
-          {open ? <TriangleIcon direction="up" size={10} className="text-white/60" /> : <TriangleIcon direction="down" size={10} className="text-white/60" />}
-          <span className="text-white/60 text-xs tabular-nums text-right min-w-[7.5rem]">
+          {open ? <TriangleIcon direction="up" size={10} className="text-white" /> : <TriangleIcon direction="down" size={10} className="text-white" />}
+          <span className="text-white text-xs tabular-nums text-right min-w-[7.5rem]">
             {procedures.length} {procedures.length === 1 ? "procedure" : "procedures"}
           </span>
         </div>

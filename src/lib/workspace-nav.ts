@@ -58,9 +58,7 @@ export const WORKSPACE_NAV_GROUPS: WorkspaceNavGroup[] = [
   {
     key: "management",
     label: "Management",
-    items: [
-      { key: "user_accounts", label: "User Accounts", href: "/user-accounts", iconSrc: "/icons/navigation/workforce.svg" },
-    ],
+    items: [],
   },
 ]
 

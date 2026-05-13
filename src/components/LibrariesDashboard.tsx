@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { useMemo, useState, useSyncExternalStore } from "react"
@@ -130,7 +130,7 @@ function LibraryTreeContent({
   const lineColor = tone === "global" ? "#6FD3EA" : "#8ED9D6"
 
   if (libraries.length === 0) {
-    return <p className="py-2 text-[14px] text-[#888888]">{emptyMessage}</p>
+    return <p className="py-2 text-[14px] text-white">{emptyMessage}</p>
   }
 
   const topLevel = libraries.filter((lib) => !lib.parentId)
@@ -164,7 +164,7 @@ function LibraryTreeContent({
                   <p className="break-words text-[14px] leading-5 font-normal text-[#e0e0e0] hover:text-white lg:truncate lg:text-[15px]">
                     {label}
                   </p>
-                  <p className="mt-0.5 break-words text-[13px] leading-5 text-[#888888] lg:truncate lg:text-[14px]">
+                  <p className="mt-0.5 break-words text-[13px] leading-5 text-white lg:truncate lg:text-[14px]">
                     {formatMeta(count, getLibraryTypeLabel(lib))}
                   </p>
                 </div>
@@ -183,7 +183,7 @@ function LibraryTreeContent({
                   <p className="break-words text-[14px] leading-5 font-normal text-[#e0e0e0] hover:text-white lg:truncate lg:text-[15px]">
                     {label}
                   </p>
-                  <p className="mt-0.5 break-words text-[13px] leading-5 text-[#888888] lg:truncate lg:text-[14px]">
+                  <p className="mt-0.5 break-words text-[13px] leading-5 text-white lg:truncate lg:text-[14px]">
                     {formatMeta(count, getLibraryTypeLabel(lib))}
                   </p>
                 </div>
@@ -279,7 +279,7 @@ export function LibraryTree({
           </span>
           <TriangleIcon direction={open ? "up" : "down"} size={11} className="hidden shrink-0 text-[#0096C7] lg:block" />
         </button>
-        <div className="mt-1 text-[14px] text-[#888888]">{description}</div>
+        <div className="mt-1 text-[14px] text-white">{description}</div>
       </div>
 
       {open ? (
@@ -316,7 +316,7 @@ export function BookmarkList({
           View all
         </Link>
       </div>
-      {!hideDescription ? <div className="mt-1 text-[14px] text-[#888888]">Your saved procedure shortcuts.</div> : null}
+      {!hideDescription ? <div className="mt-1 text-[14px] text-white">Your saved procedure shortcuts.</div> : null}
 
       <div className="mt-3">
         {bookmarks.length > 0 ? (
@@ -328,12 +328,12 @@ export function BookmarkList({
                 className="block rounded-[10px] px-2.5 py-2 transition-colors hover:bg-[#2a2a2a]"
               >
                 <p className="truncate text-[14px] text-[#e0e0e0]">{bookmark.title}</p>
-                <p className="mt-0.5 truncate text-[13px] text-[#888888]">{bookmark.subtitle}</p>
+                <p className="mt-0.5 truncate text-[13px] text-white">{bookmark.subtitle}</p>
               </Link>
             ))}
           </div>
         ) : (
-          <p className="py-2 text-[14px] text-[#888888]">No bookmarks yet.</p>
+          <p className="py-2 text-[14px] text-white">No bookmarks yet.</p>
         )}
       </div>
     </div>
@@ -351,6 +351,7 @@ function MobileLibrariesTabbedContent({
   workspaceLabel,
   onSelectLibrary,
   onDeleteLibrary,
+  onGroupBackChange,
 }: {
   bookmarks: ReturnType<typeof getBookmarksSnapshot>
   libraries: ReturnType<typeof getLibrariesSnapshot>
@@ -360,6 +361,7 @@ function MobileLibrariesTabbedContent({
   workspaceLabel: string
   onSelectLibrary?: (libraryId: string) => void
   onDeleteLibrary?: (libraryId: string) => void
+  onGroupBackChange?: (fn: (() => void) | null) => void
 }) {
   const [activeTab, setActiveTab] = useState<MobileLibraryTab>("community")
   const [selectedWorkspace, setSelectedWorkspace] = useState<ClinicalSetting>(
@@ -417,7 +419,7 @@ function MobileLibrariesTabbedContent({
               className={`shrink-0 rounded-full px-4 py-1.5 text-sm transition-colors ${
                 activeTab === tab.key
                   ? "bg-[#0096C7] text-white"
-                  : "text-[#888888] hover:text-[#e0e0e0]"
+                  : "text-white hover:text-[#e0e0e0]"
               }`}
             >
               {tab.label}
@@ -434,10 +436,11 @@ function MobileLibrariesTabbedContent({
               libraryId={selectedSharedLibraryId}
               embedded
               hideEmbeddedHeader
+              onGroupBackChange={onGroupBackChange}
             />
           ) : (
             <div className="rounded-[12px] border border-[#2d2d2d] bg-[#1c1c1c] px-3 py-3 shadow-[0_10px_24px_rgba(0,0,0,0.3)]">
-              <p className="py-2 text-[14px] text-[#888888]">
+              <p className="py-2 text-[14px] text-white">
                 No shared collections are available yet for {selectedWorkspace}.
               </p>
             </div>
@@ -475,10 +478,12 @@ export function EmbeddedLibrariesDashboardMobile({
   query = "",
   onSelectLibrary,
   onDeleteLibrary,
+  onGroupBackChange,
 }: {
   query?: string
   onSelectLibrary?: (libraryId: string) => void
   onDeleteLibrary?: (libraryId: string) => void
+  onGroupBackChange?: (fn: (() => void) | null) => void
 }) {
   const libraries = useSyncExternalStore(
     subscribeLibraries,
@@ -535,6 +540,7 @@ export function EmbeddedLibrariesDashboardMobile({
       workspaceLabel={workspaceLabel}
       onSelectLibrary={onSelectLibrary}
       onDeleteLibrary={onDeleteLibrary}
+      onGroupBackChange={onGroupBackChange}
     />
   )
 }

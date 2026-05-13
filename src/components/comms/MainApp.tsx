@@ -27,11 +27,24 @@ import MobileGlobalSearchOverlay from "@/components/MobileGlobalSearchOverlay"
 import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import { clearCallStatus, getCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
 import { toggleDesktopCommsPreference } from "@/lib/desktop-comms"
+import {
+  DEFAULT_PING_SHORTCUTS,
+  getEffectivePingStatus,
+  getPingStatusLabel,
+  isPingActive,
+  markPingStatus,
+  normalizePingShortcutSets,
+  readCachedPingShortcutSets,
+  savePingShortcutSets,
+  subscribePingShortcutSets,
+} from "@/lib/comms-pings"
 import { createVideoBackgroundBlurProcessor, type VideoBackgroundBlurProcessor } from "@/lib/video-background-blur"
 import type {
   CommsAttachment,
   CommsPing,
   PingCategory,
+  PingRole,
+  PingShortcutSets,
   CommsOrg,
   CommsThread,
   CommsMessage,
@@ -67,6 +80,7 @@ import {
   ScanFace,
   Send,
   Settings,
+  Settings2,
   Smile,
   Trash2,
   Video,
@@ -121,6 +135,145 @@ const TOM_USER: CommsUser = {
   email: "tom@prepsight.local",
   clinicalRole: "PrepSight assistant",
   updatedAt: 0,
+}
+
+function PingShortcutSettingsPanel({
+  sets,
+  onSave,
+}: {
+  sets: PingShortcutSets
+  onSave: (next: PingShortcutSets) => void
+}) {
+  const [draft, setDraft] = useState<PingShortcutSets>(sets)
+  const [activeRole, setActiveRole] = useState<PingRole>("Surgeon")
+  const [newPing, setNewPing] = useState("")
+
+  useEffect(() => {
+    setDraft(sets)
+  }, [sets])
+
+  const activeCustomPings = draft[activeRole]
+
+  return (
+    <div className="flex h-full min-h-0 flex-col">
+      <div className="flex gap-1.5 overflow-x-auto pb-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        {(Object.keys(DEFAULT_PING_SHORTCUTS) as PingRole[]).map((role) => (
+          <button
+            key={role}
+            type="button"
+            onClick={() => setActiveRole(role)}
+            className={`shrink-0 rounded-full px-3 py-1.5 text-[12px] transition-colors ${
+              activeRole === role ? "bg-[#0096C7] font-medium text-white" : "bg-[#111111] text-white/75"
+            }`}
+          >
+            {role}
+          </button>
+        ))}
+      </div>
+
+      <div className="mt-5">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Role defaults</p>
+        <div className="mt-3 space-y-2">
+          {DEFAULT_PING_SHORTCUTS[activeRole].map((ping) => (
+            <div key={ping} className="rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5 text-[13px] text-white">
+              {ping}
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <div className="flex items-center justify-between">
+          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Your custom shortcuts</p>
+          <button
+            type="button"
+            onClick={() => setDraft((current) => ({ ...current, [activeRole]: [] }))}
+            className="text-[11px] font-semibold text-white/60 hover:text-white"
+          >
+            Clear role
+          </button>
+        </div>
+
+        <div className="mt-3 space-y-2">
+          {activeCustomPings.length === 0 ? (
+            <div className="rounded-[12px] border border-dashed border-white/10 bg-[#101010] px-3 py-3 text-[12px] text-white/55">
+              No custom shortcuts for {activeRole.toLowerCase()} yet.
+            </div>
+          ) : (
+            activeCustomPings.map((ping, index) => (
+              <div key={`${activeRole}-${index}`} className="flex items-center gap-2 rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5">
+                <input
+                  value={ping}
+                  onChange={(e) =>
+                    setDraft((current) => ({
+                      ...current,
+                      [activeRole]: current[activeRole].map((item, itemIndex) => itemIndex === index ? e.target.value : item),
+                    }))
+                  }
+                  className="flex-1 bg-transparent text-[13px] text-white outline-none"
+                />
+                <button
+                  type="button"
+                  onClick={() =>
+                    setDraft((current) => ({
+                      ...current,
+                      [activeRole]: current[activeRole].filter((_, itemIndex) => itemIndex !== index),
+                    }))
+                  }
+                  className="text-[11px] font-semibold text-[#f87171] hover:text-[#fb7185]"
+                >
+                  Remove
+                </button>
+              </div>
+            ))
+          )}
+        </div>
+      </div>
+
+      <div className="mt-6">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Add shortcut</p>
+        <div className="mt-3 flex gap-2">
+          <input
+            value={newPing}
+            onChange={(e) => setNewPing(e.target.value)}
+            placeholder={`Add a ${activeRole.toLowerCase()} shortcut`}
+            className="flex-1 rounded-[12px] border border-[#2a2a2a] bg-[#141414] px-4 py-3 text-[13px] text-white placeholder:text-white/35 outline-none focus:border-[#0096C7]/50"
+          />
+          <button
+            type="button"
+            disabled={!newPing.trim()}
+            onClick={() => {
+              setDraft((current) => ({
+                ...current,
+                [activeRole]: [...current[activeRole], newPing.trim()],
+              }))
+              setNewPing("")
+            }}
+            className="rounded-[12px] bg-[#0096C7] px-4 py-3 text-[13px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-35"
+          >
+            Add
+          </button>
+        </div>
+      </div>
+
+      <div className="mt-auto pt-6">
+        <button
+          type="button"
+          onClick={() =>
+            onSave({
+              Surgeon: draft.Surgeon.filter((item) => item.trim()),
+              Anaesthetist: draft.Anaesthetist.filter((item) => item.trim()),
+              Scrub: draft.Scrub.filter((item) => item.trim()),
+              ODP: draft.ODP.filter((item) => item.trim()),
+            })
+          }
+          className="w-full rounded-[12px] bg-[#0096C7] py-3 text-[13px] font-semibold text-white hover:bg-[#0087b3]"
+        >
+          Save shortcuts
+        </button>
+      </div>
+    </div>
+  )
 }
 type TomWatchTask = {
   id: string
@@ -671,6 +824,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [showPingPicker, setShowPingPicker] = useState<"composer" | "longpress" | null>(null)
   const [pendingPingCategory, setPendingPingCategory] = useState<PingCategory | null>(null)
   const [pings, setPings] = useState<CommsPing[]>([])
+  const [showPingSettings, setShowPingSettings] = useState(false)
+  const [pingShortcutSets, setPingShortcutSets] = useState<PingShortcutSets>(() => readCachedPingShortcutSets())
   const messageLongPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const suppressMessageTapRef = useRef(false)
 
@@ -1434,6 +1589,23 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }
 
+  async function handleSavePingShortcutSets(next: PingShortcutSets) {
+    setPingShortcutSets(next)
+    try {
+      await savePingShortcutSets(firestore, user.uid, next)
+    } catch {
+      setPermissionWarning("Unable to save ping shortcuts right now.")
+    }
+  }
+
+  async function handlePingAction(pingId: string, status: "seen" | "accepted" | "completed" | "declined" | "escalated") {
+    try {
+      await markPingStatus(firestore, pingId, status, user.uid)
+    } catch {
+      setPermissionWarning("Unable to update ping status right now.")
+    }
+  }
+
   async function markThreadRead(threadId: string) {
     const readAt = Date.now()
     setThreads(current =>
@@ -1642,6 +1814,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const allMembers = [TOM_USER, ...members.filter(member => member.uid !== TOM_UID)]
   const contactMembers = allMembers.filter(member => member.uid !== user.uid)
   const displayedContactMembers = dedupeDisplayedContacts(contactMembers)
+
+  useEffect(() => {
+    setPingShortcutSets(normalizePingShortcutSets(currentUserRecord?.pingShortcutSets))
+  }, [currentUserRecord?.pingShortcutSets])
+
+  useEffect(() => subscribePingShortcutSets(setPingShortcutSets), [])
+
   const hospitalLabel = profileHospital || currentUserRecord?.hospital?.trim() || org.name
   const departmentLabel = profileDepartment || currentUserRecord?.department?.trim() || ""
   const groupLabel = currentUserRecord?.groupLabel?.trim() || departmentLabel
@@ -1843,6 +2022,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       snap => {
         const sorted = snap.docs
           .map(d => ({ id: d.id, ...d.data() }) as CommsPing)
+          .filter((ping) => ping.createdBy === user.uid || ping.memberUids.includes(user.uid))
           .sort((a, b) => b.createdAt - a.createdAt)
         setPings(sorted)
       },
@@ -1851,7 +2031,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       },
     )
     return unsub
-  }, [filterTab, org?.id])
+  }, [filterTab, org?.id, user.uid])
 
   const filteredThreads = threads.filter(t => {
     if (filterTab === "chats" && t.type !== "direct") return false
@@ -4055,14 +4235,29 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       <div className={`relative flex-1 min-h-0 ${isFoldableSplitView ? "w-1/2" : ""}`}>
       <div className="h-full overflow-y-auto bg-black">
           {filterTab === "pings" ? (
-            pings.length === 0 ? (
+            <>
+              <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#1e1e1e] bg-black px-4 py-3">
+                <div>
+                  <p className="text-[14px] font-semibold text-white">Ping inbox</p>
+                  <p className="mt-0.5 text-[12px] text-white/60">Shortcut pings sent to you or created by you.</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setShowPingSettings(true)}
+                  className="inline-flex items-center gap-1.5 rounded-full border border-[#1f1f1f] bg-[#111111] px-3 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-[#171717]"
+                >
+                  <Settings2 size={13} className="text-[#67CFCF]" />
+                  Manage shortcuts
+                </button>
+              </div>
+              {pings.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-4 px-8 pt-24 text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#111111] text-[#0e7490]">
                   <Zap size={28} />
                 </div>
                 <div>
                   <p className="text-[16px] font-medium text-white">No pings yet</p>
-                  <p className="mt-1 text-[13px] text-white">Tap ⚡ in a chat to create a ping, or long-press a message to ping it.</p>
+                  <p className="mt-1 text-[13px] text-white">Right-click a user in Workforce or tap ⚡ in a chat to create a ping.</p>
                 </div>
               </div>
             ) : (
@@ -4079,8 +4274,30 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       </div>
                       {catPings.map(ping => (
                         <div key={ping.id} className="rounded-xl bg-[#111111] border border-[#1e1e1e] px-3 py-2.5 mb-1.5">
+                          {(() => {
+                            const effectiveStatus = getEffectivePingStatus(ping)
+                            const statusLabel = getPingStatusLabel(ping)
+                            const isRecipient = ping.recipientUid === user.uid
+                            const isSender = ping.createdBy === user.uid
+                            const canSeen = isRecipient && effectiveStatus === "sent"
+                            const canAccept = isRecipient && (effectiveStatus === "sent" || effectiveStatus === "seen")
+                            const canComplete = isRecipient && effectiveStatus === "accepted"
+                            const canDecline = isRecipient && effectiveStatus !== "completed" && effectiveStatus !== "declined"
+                            const canEscalate = (isRecipient || isSender) && isPingActive(ping) && effectiveStatus !== "escalated"
+                            const statusTone =
+                              effectiveStatus === "completed" ? "border-emerald-500/35 bg-emerald-500/10 text-emerald-300"
+                              : effectiveStatus === "declined" ? "border-zinc-500/35 bg-zinc-500/10 text-zinc-300"
+                              : effectiveStatus === "escalated" ? "border-rose-500/35 bg-rose-500/10 text-rose-300"
+                              : effectiveStatus === "accepted" ? "border-sky-500/35 bg-sky-500/10 text-sky-300"
+                              : effectiveStatus === "seen" ? "border-amber-500/35 bg-amber-500/10 text-amber-300"
+                              : "border-[#2b5d69] bg-[#0f2025] text-[#67CFCF]"
+                            return (
+                              <>
                           <p className="text-[14px] text-[#e0e0e0] leading-snug">{ping.text}</p>
                           <div className="flex items-center gap-2 mt-1.5 flex-wrap">
+                            <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium border ${statusTone}`}>
+                              {statusLabel}
+                            </span>
                             <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
                               ping.scope === "direct" ? "bg-[#1a3a4a] text-[#5bc8da]" :
                               ping.scope === "space" ? "bg-[#1a2a3a] text-[#7cb9e8]" :
@@ -4091,15 +4308,53 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                             {ping.threadName && (
                               <span className="text-[11px] text-white/60">{ping.threadName}</span>
                             )}
+                            {ping.recipientDisplayName ? (
+                              <span className="text-[11px] text-white/60">
+                                {ping.createdBy === user.uid ? `To ${ping.recipientDisplayName}` : `From ${ping.displayName}`}
+                              </span>
+                            ) : null}
                             <span className="text-[11px] text-white/60 ml-auto">{formatTime(ping.createdAt)}</span>
                           </div>
+                          {(canSeen || canAccept || canComplete || canDecline || canEscalate) ? (
+                            <div className="mt-2 flex flex-wrap gap-1.5">
+                              {canSeen ? (
+                                <button type="button" onClick={() => void handlePingAction(ping.id, "seen")} className="rounded-full border border-[#2c4a50] bg-[#102125] px-2.5 py-1 text-[11px] font-medium text-[#67CFCF]">
+                                  Acknowledge
+                                </button>
+                              ) : null}
+                              {canAccept ? (
+                                <button type="button" onClick={() => void handlePingAction(ping.id, "accepted")} className="rounded-full border border-sky-500/35 bg-sky-500/10 px-2.5 py-1 text-[11px] font-medium text-sky-300">
+                                  On it
+                                </button>
+                              ) : null}
+                              {canComplete ? (
+                                <button type="button" onClick={() => void handlePingAction(ping.id, "completed")} className="rounded-full border border-emerald-500/35 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-300">
+                                  Done
+                                </button>
+                              ) : null}
+                              {canDecline ? (
+                                <button type="button" onClick={() => void handlePingAction(ping.id, "declined")} className="rounded-full border border-zinc-500/35 bg-zinc-500/10 px-2.5 py-1 text-[11px] font-medium text-zinc-300">
+                                  Decline
+                                </button>
+                              ) : null}
+                              {canEscalate ? (
+                                <button type="button" onClick={() => void handlePingAction(ping.id, "escalated")} className="rounded-full border border-rose-500/35 bg-rose-500/10 px-2.5 py-1 text-[11px] font-medium text-rose-300">
+                                  Escalate
+                                </button>
+                              ) : null}
+                            </div>
+                          ) : null}
+                              </>
+                            )
+                          })()}
                         </div>
                       ))}
                     </div>
                   )
                 })}
               </div>
-            )
+            )}
+            </>
           ) : null}
           {filterTab !== "pings" && visibleThreads.length === 0 && filterTab === "spaces" ? (
             <div className="flex flex-col items-center justify-center gap-4 px-8 pt-24 text-center">
@@ -4375,6 +4630,39 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           </div>
         )
       })()}
+
+      {showPingSettings && (
+        <>
+          <div
+            className="absolute inset-0 z-30 bg-black/58"
+            style={{ animation: "mobileGlobalSearchFadeIn 260ms ease-out both" }}
+            onClick={() => setShowPingSettings(false)}
+          />
+          <div
+            className="absolute inset-y-0 right-0 z-40 flex h-full w-full max-w-[28rem] flex-col border-l border-[#2d2d2d] bg-black shadow-[-18px_0_40px_rgba(0,0,0,0.58)]"
+            style={{ animation: "mobileSlideInRight 280ms cubic-bezier(.22,.91,.31,1) both" }}
+          >
+            <div className="flex items-center justify-between border-b border-[#2d2d2d] px-4 py-3">
+              <div>
+                <p className="text-[15px] font-semibold text-white">Ping shortcuts</p>
+                <p className="mt-0.5 text-[12px] text-white/60">Manage the shortcuts available when you ping each role.</p>
+              </div>
+              <button type="button" onClick={() => setShowPingSettings(false)} className="text-white/70 hover:text-white">
+                <X size={16} />
+              </button>
+            </div>
+            <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
+              <PingShortcutSettingsPanel
+                sets={pingShortcutSets}
+                onSave={(next) => {
+                  void handleSavePingShortcutSets(next)
+                  setShowPingSettings(false)
+                }}
+              />
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Create Space side drawer */}
       {showCreateSpace && (

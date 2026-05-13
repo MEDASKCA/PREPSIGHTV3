@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import RootEntry from "@/components/RootEntry"
 import { getProfile } from "@/lib/profile"
@@ -29,7 +29,7 @@ export default function WorkforceBuilderPage() {
 
             <div className="mt-5 rounded-[18px] border border-[#2d2d2d] bg-[#101010] px-5 py-5">
               <h2 className="text-[25px] tracking-[-0.04em] text-white">Builder</h2>
-              <p className="mt-3 max-w-[760px] text-[14px] leading-7 text-[#9a9a9a]">
+              <p className="mt-3 max-w-[760px] text-[14px] leading-7 text-white">
                 Manager configuration surface for allocation templates, staffing rules, theatre setup, consultant
                 mapping, and assignment controls.
               </p>

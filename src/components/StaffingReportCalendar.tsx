@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useMemo, useState } from "react"
 import TriangleIcon from "@/components/TriangleIcon"
@@ -148,10 +148,10 @@ export default function StaffingReportCalendar({
         <div className="flex items-start justify-between gap-4">
           <div>
             <h2 className="text-[22px] tracking-[-0.04em] text-white lg:text-[25px]">{title}</h2>
-            <p className="mt-2 max-w-[760px] text-[13px] leading-6 text-[#9a9a9a]">{description}</p>
+            <p className="mt-2 max-w-[760px] text-[13px] leading-6 text-white">{description}</p>
           </div>
           <div className="shrink-0 text-right">
-            <p className="text-[12px] text-[#8f8f8f]">Reports loaded</p>
+            <p className="text-[12px] text-white">Reports loaded</p>
             <p className="mt-1 text-[18px] text-white">{reports.length}</p>
           </div>
         </div>
@@ -209,18 +209,18 @@ export default function StaffingReportCalendar({
             <p className="text-[16px] text-white">
               {selectedDate.label} {selectedDate.day} {selectedDate.month}
             </p>
-            <p className="mt-1 text-[12px] text-[#8f8f8f]">
+            <p className="mt-1 text-[12px] text-white">
               {selectedReports.length > 0
                 ? `${selectedReports.length} roster upload${selectedReports.length === 1 ? "" : "s"}`
                 : "No roster upload saved for this date"}
             </p>
           </div>
-          {loading ? <span className="text-[12px] text-[#8f8f8f]">Loading...</span> : null}
+          {loading ? <span className="text-[12px] text-white">Loading...</span> : null}
         </div>
 
         <div className="mt-3 space-y-2">
           {selectedReports.length === 0 ? (
-            <p className="text-[13px] text-white/35">Upload a staffing report and it will appear on its report date here.</p>
+            <p className="text-[13px] text-white">Upload a staffing report and it will appear on its report date here.</p>
           ) : (
             selectedReports.map((report) => (
               <div
@@ -229,15 +229,15 @@ export default function StaffingReportCalendar({
               >
                 <div className="min-w-0">
                   <p className="truncate text-[13px] text-white">{report.fileName}</p>
-                  <p className="mt-1 truncate text-[12px] text-white/35">{report.source || "Source not set"}</p>
+                  <p className="mt-1 truncate text-[12px] text-white">{report.source || "Source not set"}</p>
                 </div>
                 <div className="min-w-0">
-                  <p className="truncate text-[12px] text-white/65">{report.fulfilmentType || "Fulfilment not set"}</p>
-                  <p className="mt-1 truncate text-[12px] text-white/35">{report.weekLabel || "Week not set"}</p>
+                  <p className="truncate text-[12px] text-white">{report.fulfilmentType || "Fulfilment not set"}</p>
+                  <p className="mt-1 truncate text-[12px] text-white">{report.weekLabel || "Week not set"}</p>
                 </div>
                 <div className="text-left lg:text-right">
                   <p className="text-[12px] text-[#67CFCF]">{report.rowCount} rows</p>
-                  <p className="mt-1 text-[11px] text-white/35">
+                  <p className="mt-1 text-[11px] text-white">
                     Uploaded {new Date(report.uploadedAt).toLocaleDateString("en-GB")}
                   </p>
                 </div>

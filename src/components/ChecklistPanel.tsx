@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState, useTransition } from "react"
 import { CheckSquare, ClipboardCheck, Loader2 } from "lucide-react"
@@ -118,12 +118,12 @@ export default function ChecklistPanel({ cardKey, sections }: Props) {
           <ClipboardCheck size={18} className={isDark ? "text-[#7DD3FC]" : "text-[#1E293B] lg:text-[#7DD3FC]"} />
           <div>
             <h2 className={`text-sm font-bold lg:text-[24px] lg:font-semibold lg:tracking-[-0.04em] ${isDark ? "text-white" : "text-[#1E293B] lg:text-white"}`}>Case Prep Checklist</h2>
-            <p className={`text-xs lg:text-sm ${isDark ? "text-[#C7D2E0]" : "text-slate-500 lg:text-white/52"}`}>
+            <p className={`text-xs lg:text-sm ${isDark ? "text-[#C7D2E0]" : "text-slate-500 lg:text-white"}`}>
               Supplier-fixed items for this card
             </p>
           </div>
         </div>
-        <div className={`flex items-center gap-2 text-xs lg:text-sm ${isDark ? "text-[#C7D2E0]" : "text-slate-500 lg:text-white/56"}`}>
+        <div className={`flex items-center gap-2 text-xs lg:text-sm ${isDark ? "text-[#C7D2E0]" : "text-slate-500 lg:text-white"}`}>
           {loading || isPending ? (
             <Loader2 size={14} className="animate-spin" />
           ) : (
@@ -149,8 +149,8 @@ export default function ChecklistPanel({ cardKey, sections }: Props) {
             />
             <div className="min-w-0 flex-1">
               <p className={`text-sm font-semibold lg:text-[22px] lg:font-semibold lg:tracking-[-0.03em] ${isDark ? "text-white" : "text-slate-800 lg:text-white"}`}>{entry.itemName}</p>
-              <div className={`mt-1 flex flex-wrap gap-2 text-[11px] lg:mt-2 lg:text-sm ${isDark ? "text-[#C7D2E0]" : "text-slate-500 lg:text-white/56"}`}>
-                <span className={`rounded-full px-2 py-0.5 ${isDark ? "border border-[#334155] bg-[#243244] text-[#E5EEF9]" : "bg-slate-100 lg:border lg:border-white/10 lg:bg-white/8 lg:text-white/66"}`}>
+              <div className={`mt-1 flex flex-wrap gap-2 text-[11px] lg:mt-2 lg:text-sm ${isDark ? "text-[#C7D2E0]" : "text-slate-500 lg:text-white"}`}>
+                <span className={`rounded-full px-2 py-0.5 ${isDark ? "border border-[#334155] bg-[#243244] text-[#E5EEF9]" : "bg-slate-100 lg:border lg:border-white/10 lg:bg-white/8 lg:text-white"}`}>
                   {sectionLabel(entry.sectionType)}
                 </span>
                 <span>Qty: {entry.requiredQty ?? 1}</span>

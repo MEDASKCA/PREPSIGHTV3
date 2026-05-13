@@ -34,7 +34,18 @@ import { requestFoldOpenDm } from "@/lib/fold-open-dm"
 import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import TriangleIcon from "@/components/TriangleIcon"
 import { getProfile, getRelevantSettings } from "@/lib/profile"
-import type { CommsUser } from "@/lib/comms-types"
+import type { CommsUser, PingShortcutSets } from "@/lib/comms-types"
+import {
+  createDirectPing,
+  DEFAULT_PING_SHORTCUTS,
+  findActiveDuplicatePing,
+  getPingRoleFromClinicalRole,
+  getPingStatusLabel,
+  loadPingShortcutSets,
+  readCachedPingShortcutSets,
+  resolveCommsRecipientByDisplayName,
+  subscribePingShortcutSets,
+} from "@/lib/comms-pings"
 import type { WorkforceHospitalPin } from "@/components/WorkforceShiftMap"
 
 const MobileWorkforceShiftMap = dynamic(() => import("@/components/WorkforceShiftMap"), { ssr: false })
@@ -661,11 +672,6 @@ function FloatingStatusKeyBar({
 
 
 type ActiveModal =
-  | { kind: "ping";          memberName: string; theatre: string }
-  | { kind: "call";          memberName: string }
-  | { kind: "break";         memberName: string; theatre: string }
-  | { kind: "dispatch";      memberName: string; theatre: string }
-  | { kind: "shift_request"; memberName: string; theatre: string }
   | { kind: "toast";         message: string }
   | null
 
@@ -690,10 +696,9 @@ function RotaPanel({
   const [sortKey, setSortKey] = useState<"name" | "role" | "start" | null>(null)
   const SORT_CYCLE = [null, "name", "role", "start"] as const
   const swipeStartX = useRef<number | null>(null)
-  const [teamActionMember, setTeamActionMember] = useState<{ theatre: string; memberName: string } | null>(null)
-  const [sheetView, setSheetView] = useState<"actions" | "relief_select">("actions")
+  const [teamActionMember, setTeamActionMember] = useState<{ theatre: string; memberName: string; memberRole: string } | null>(null)
   const [activeModal, setActiveModal] = useState<ActiveModal>(null)
-  const [dispatchDest, setDispatchDest] = useState("")
+  const [pingShortcutSets, setPingShortcutSets] = useState<PingShortcutSets>(() => readCachedPingShortcutSets())
 
   const monthDays = useMemo(() => buildMonthCalendar(selectedDate).filter((d) => d.inMonth), [selectedDate])
   const selectedDateKey = selectedDate.toISOString().slice(0, 10)
@@ -765,7 +770,18 @@ function RotaPanel({
     }
   }, [activeModal])
 
-  function closeSheet() { setTeamActionMember(null); setSheetView("actions") }
+  useEffect(() => subscribePingShortcutSets(setPingShortcutSets), [])
+
+  useEffect(() => {
+    if (!db) return
+    const uid = auth?.currentUser?.uid
+    if (!uid) return
+    loadPingShortcutSets(db, uid)
+      .then((sets) => setPingShortcutSets(sets))
+      .catch(() => {})
+  }, [])
+
+  function closeSheet() { setTeamActionMember(null) }
 
   function openCommsAction() {
     const name = teamActionMember?.memberName
@@ -778,20 +794,68 @@ function RotaPanel({
     }
   }
 
-  function openSheetAction(kind: "ping" | "call" | "break" | "relief_select" | "dispatch" | "shift_request") {
-    const { memberName, theatre } = teamActionMember!
-    if (kind === "relief_select") { setSheetView("relief_select"); return }
-    closeSheet()
-    if (kind === "call")          setActiveModal({ kind: "call",          memberName })
-    else if (kind === "ping")     { setActiveModal({ kind: "ping",          memberName, theatre }) }
-    else if (kind === "break")    setActiveModal({ kind: "break",         memberName, theatre })
-    else if (kind === "dispatch") { setDispatchDest(""); setActiveModal({ kind: "dispatch", memberName, theatre }) }
-    else if (kind === "shift_request") setActiveModal({ kind: "shift_request", memberName, theatre })
+  async function resolveActiveOrganizationId() {
+    if (!db || !auth?.currentUser) return null
+    const firestore = db
+    const preferredOrgId = getProfile()?.activeOrganizationId?.trim()
+    const ownMembershipSnap = await getDocs(
+      query(
+        collection(firestore, "comms_v5_memberships"),
+        where("uid", "==", auth.currentUser.uid),
+        where("status", "==", "active"),
+      ),
+    )
+    const ownMemberships = ownMembershipSnap.docs.map((entry) => entry.data() as { orgId: string })
+    if (preferredOrgId && ownMemberships.some((membership) => membership.orgId === preferredOrgId)) {
+      return preferredOrgId
+    }
+    return ownMemberships[0]?.orgId ?? preferredOrgId ?? null
   }
 
   function confirmAction(message: string) { setActiveModal({ kind: "toast", message }) }
 
-  const COLS = "grid-cols-[26px_minmax(0,1.3fr)_minmax(0,0.95fr)_minmax(0,0.75fr)_38px_38px]"
+  async function sendPingShortcut(memberName: string, memberRole: string, message: string) {
+    closeSheet()
+    if (!db || !auth?.currentUser) {
+      confirmAction("Comms is not available right now.")
+      return
+    }
+
+    const organizationId = await resolveActiveOrganizationId()
+    if (!organizationId) {
+      confirmAction("No active organization found for Comms.")
+      return
+    }
+
+    try {
+      const recipient = await resolveCommsRecipientByDisplayName(db, organizationId, memberName)
+      if (!recipient) {
+        confirmAction(`Could not find ${memberName} in Comms.`)
+        return
+      }
+
+      const duplicate = await findActiveDuplicatePing(db, organizationId, recipient.uid, message)
+      if (duplicate) {
+        confirmAction(`${memberName} already has this ping: ${getPingStatusLabel(duplicate)}`)
+        return
+      }
+
+      await createDirectPing(db, {
+        organizationId,
+        senderUid: auth.currentUser.uid,
+        senderDisplayName: auth.currentUser.displayName || auth.currentUser.email || "User",
+        recipientUid: recipient.uid,
+        recipientDisplayName: recipient.displayName || memberName,
+        pingRole: getPingRoleFromClinicalRole(memberRole),
+        text: message,
+      })
+      confirmAction(`Ping sent to ${memberName}: ${message}`)
+    } catch {
+      confirmAction(`Unable to send ping to ${memberName} right now.`)
+    }
+  }
+
+  const COLS = "grid-cols-[26px_minmax(0,1.5fr)_minmax(0,1.1fr)_42px_42px]"
 
   return (
     <div className="relative flex flex-1 min-h-0 flex-col overflow-hidden">
@@ -1009,10 +1073,10 @@ function RotaPanel({
 
           return (
             <>
-              {visibleRows.map(({ card, member }) => (
+              {visibleRows.map(({ card, member }, rowIndex) => (
                 <div
-                  key={`${card.theatre}-${member.name}-${member.start}-${member.end}`}
-                  onContextMenu={(e) => { e.preventDefault(); setTeamActionMember({ theatre: card.theatre, memberName: member.name }) }}
+                  key={`${card.theatre}-${member.name}-${member.role}-${member.start}-${member.end}-${rowIndex}`}
+                  onContextMenu={(e) => { e.preventDefault(); setTeamActionMember({ theatre: card.theatre, memberName: member.name, memberRole: member.role }) }}
                   className={`grid w-full ${COLS} items-center gap-x-2 border-b border-black py-2 pl-2 pr-3 text-left ${STATUS_COLORS[member.status as StaffStatus]?.bg ?? "bg-[#0a0a0a]"}`}
                   style={{ WebkitTapHighlightColor: "transparent" }}
                 >
@@ -1029,7 +1093,6 @@ function RotaPanel({
                     )}
                     <span className={`truncate text-[11px] leading-snug ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{shortenRole(member.role)}</span>
                   </span>
-                  <span className={`truncate text-[11px] ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{shortenSpec(member.specialty)}</span>
                   <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{noColon(member.start)}</span>
                   <span className={`text-[11px] tabular-nums ${STATUS_COLORS[member.status as StaffStatus]?.sub ?? "text-white"}`}>{noColon(member.end)}</span>
                 </div>
@@ -1074,7 +1137,7 @@ function RotaPanel({
               </div>
               <div className="min-w-0 flex-1">
                 <p className="text-[17px] font-semibold leading-tight text-white">{teamActionMember.memberName}</p>
-                <p className="mt-0.5 text-[13px] text-white">{teamActionMember.theatre}</p>
+                <p className="mt-0.5 text-[13px] text-white">{getPingRoleFromClinicalRole(teamActionMember.memberRole)} · {teamActionMember.theatre}</p>
               </div>
               <button type="button" onClick={closeSheet}
                 className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#1a1a1a] text-white">
@@ -1082,171 +1145,53 @@ function RotaPanel({
               </button>
             </div>
 
-            {/* ── Actions list ── */}
-            {sheetView === "actions" && (
-              <div className="space-y-2">
-                <SheetAction icon={<MessageSquare size={17} className="text-[#38bdf8]" />} iconBg="bg-[#0096C7]/15"
-                  label="Chat" sub="Open direct message thread" onClick={openCommsAction} />
-                <SheetAction icon={<Bell size={17} className="text-[#fbbf24]" />} iconBg="bg-[#fbbf24]/15"
-                  label="Ping" sub="Send a quick ping via Comms"
-                  onClick={() => openSheetAction("ping")} />
-                <div className="my-1 border-t border-[#1e1e1e]" />
-                <SheetAction icon={<Phone size={17} className="text-[#34d399]" />} iconBg="bg-[#34d399]/15"
-                  label="Call Extension" sub="View extension number"
-                  onClick={() => openSheetAction("call")} />
-                <SheetAction icon={<Coffee size={17} className="text-[#fb923c]" />} iconBg="bg-[#fb923c]/15"
-                  label="Send for Break" sub="Notify team and send to break"
-                  onClick={() => openSheetAction("break")} />
-                <SheetAction icon={<Users size={17} className="text-[#a78bfa]" />} iconBg="bg-[#a78bfa]/15"
-                  label="Ask for Relief" sub="Select a relief from this theatre"
-                  onClick={() => openSheetAction("relief_select")} />
-                <SheetAction icon={<Navigation size={17} className="text-[#22d3ee]" />} iconBg="bg-[#22d3ee]/15"
-                  label="Dispatch" sub="Send to another location or task"
-                  onClick={() => openSheetAction("dispatch")} />
-                <div className="my-1 border-t border-[#1e1e1e]" />
-                {(() => {
-                  const isFuture = selectedDateKey > new Date().toISOString().slice(0, 10)
-                  return (
-                    <SheetAction icon={<ArrowRightLeft size={17} className={isFuture ? "text-[#34d399]" : "text-white"} />}
-                      iconBg={isFuture ? "bg-[#34d399]/15" : "bg-[#1a1a1a]"}
-                      label="Offer Swap" sub={isFuture ? "Propose a shift or slot swap" : "Only available on future dates"}
-                      onClick={isFuture ? closeSheet : undefined} disabled={!isFuture} />
-                  )
-                })()}
-                <SheetAction icon={<CalendarPlus size={17} className="text-[#38bdf8]" />} iconBg="bg-[#38bdf8]/15"
-                  label="Shift Request" sub="Ask about availability for a shift"
-                  onClick={() => openSheetAction("shift_request")} />
-              </div>
-            )}
+            <div className="px-1 pb-1">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Ping shortcuts</p>
+              <p className="mt-1 text-[11px] text-white/70">Quick-send shortcuts tailored to this role.</p>
+            </div>
 
-            {/* ── Relief: select person ── */}
-            {sheetView === "relief_select" && (
-              <>
-                <div className="mb-3 flex items-center gap-2">
-                  <button type="button" onClick={() => setSheetView("actions")}
-                    className="flex h-7 w-7 items-center justify-center rounded-full bg-[#1a1a1a] text-white">
-                    <ChevronLeft size={15} />
-                  </button>
-                  <p className="text-[14px] font-semibold text-white">Select relief for {teamActionMember.memberName}</p>
-                </div>
-                <div className="max-h-[260px] overflow-y-auto space-y-2 pb-1">
-                  {(cards.find(c => c.theatre === teamActionMember.theatre)?.staff ?? [])
-                    .filter(m => m.name !== teamActionMember.memberName)
-                    .map(m => (
-                      <button key={m.name} type="button"
-                        onClick={() => {
-                          confirmAction(`${m.name} asked to relieve ${teamActionMember.memberName}`)
-                          closeSheet()
-                        }}
-                        className="flex w-full items-center gap-3 rounded-[14px] bg-[#141414] px-4 py-3 text-left active:bg-[#1c1c1c]">
-                        <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#a78bfa]/20 text-[11px] font-bold text-[#a78bfa]">
-                          {m.name.split(" ").map((n: string) => n[0]).join("").slice(0, 2)}
-                        </div>
-                        <div>
-                          <p className="text-[14px] font-semibold text-white">{m.name}</p>
-                          <p className="text-[12px] text-white">{m.role}</p>
-                        </div>
-                      </button>
-                    ))
-                  }
-                </div>
-              </>
-            )}
+            <div className="mt-3 space-y-2">
+              {[...DEFAULT_PING_SHORTCUTS[getPingRoleFromClinicalRole(teamActionMember.memberRole)], ...pingShortcutSets[getPingRoleFromClinicalRole(teamActionMember.memberRole)]].map((ping, pingIndex) => (
+                <button
+                  key={`${ping}-${pingIndex}`}
+                  type="button"
+                  onClick={() => { void sendPingShortcut(teamActionMember.memberName, teamActionMember.memberRole, ping) }}
+                  className="flex w-full items-center gap-3 rounded-[14px] border border-[#232323] bg-[#141414] px-4 py-3 text-left transition-colors active:bg-[#1c1c1c]"
+                >
+                  <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#fbbf24]/15">
+                    <Bell size={15} className="text-[#fbbf24]" />
+                  </div>
+                  <p className="min-w-0 flex-1 truncate text-[14px] font-semibold text-white">{ping}</p>
+                </button>
+              ))}
+            </div>
+
+            <div className="my-3 border-t border-[#1e1e1e]" />
+
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={openCommsAction}
+                className="flex items-center justify-center gap-2 rounded-[14px] border border-[#232323] bg-[#141414] px-3 py-3 text-[13px] font-semibold text-white active:bg-[#1c1c1c]"
+              >
+                <MessageSquare size={14} className="text-[#38bdf8]" />
+                Open chat
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  closeSheet()
+                  router.push("/comms")
+                }}
+                className="flex items-center justify-center gap-2 rounded-[14px] border border-[#232323] bg-[#141414] px-3 py-3 text-[13px] font-semibold text-white active:bg-[#1c1c1c]"
+              >
+                <Bell size={14} className="text-[#67CFCF]" />
+                Manage pings
+              </button>
+            </div>
           </div>
         </div>
       ) : null}
-
-      {/* ── Action modals ── */}
-      {activeModal && activeModal.kind !== "toast" && (
-        <div className="fixed z-50 flex items-end bg-black/70 backdrop-blur-sm"
-             style={{ top: 0, bottom: 0, left: paneBoundsLeft, right: paneBoundsRight }}
-             onClick={() => setActiveModal(null)}>
-          <div className="w-full rounded-t-[28px] border-t border-[#222222] bg-[#0f0f0f] px-5 pb-[calc(env(safe-area-inset-bottom,0px)+24px)] pt-5"
-               onClick={(e) => e.stopPropagation()}>
-            <div className="mx-auto mb-5 h-1 w-10 rounded-full bg-[#2a2a2a]" />
-
-            {activeModal.kind === "ping" && (
-              <>
-                <MobileModalHeader icon={<Bell size={22} className="text-[#fbbf24]" />} bg="bg-[#fbbf24]/15"
-                  title={`Ping ${activeModal.memberName}`} sub={activeModal.theatre} />
-                <p className="mb-6 text-[14px] text-white">A ping will be sent to {activeModal.memberName} and logged in Comms.</p>
-                <div className="flex gap-3">
-                  <button type="button" onClick={() => setActiveModal(null)}
-                    className="flex-1 rounded-[14px] border border-[#2a2a2a] py-4 text-[14px] font-semibold text-white active:bg-[#141414]">No, Cancel</button>
-                  <button type="button"
-                    onClick={() => confirmAction(`Ping sent to ${activeModal.memberName}`)}
-                    className="flex-1 rounded-[14px] bg-[#fbbf24] py-4 text-[14px] font-bold text-black active:bg-[#f59e0b]">Yes, Send Ping</button>
-                </div>
-              </>
-            )}
-
-            {activeModal.kind === "call" && (
-              <>
-                <MobileModalHeader icon={<Phone size={22} className="text-[#34d399]" />} bg="bg-[#34d399]/15"
-                  title={`Call ${activeModal.memberName}`} sub="Extension number" />
-                <div className="mb-5 rounded-[14px] bg-[#141414] px-4 py-4 text-center">
-                  <p className="text-[11px] uppercase tracking-widest text-white">Extension</p>
-                  <p className="mt-1.5 text-[32px] font-black text-white">— —</p>
-                  <p className="mt-1 text-[12px] text-white">Available when hospital directory is connected</p>
-                </div>
-                <button type="button" onClick={() => setActiveModal(null)}
-                  className="w-full rounded-[14px] border border-[#2a2a2a] py-4 text-[14px] font-semibold text-white active:bg-[#141414]">Close</button>
-              </>
-            )}
-
-            {activeModal.kind === "break" && (
-              <>
-                <MobileModalHeader icon={<Coffee size={22} className="text-[#fb923c]" />} bg="bg-[#fb923c]/15"
-                  title={`Send ${activeModal.memberName} for break?`} sub={activeModal.theatre} />
-                <p className="mb-6 text-[14px] text-white">A break notification will be sent and visible to the team via Comms.</p>
-                <div className="flex gap-3">
-                  <button type="button" onClick={() => setActiveModal(null)}
-                    className="flex-1 rounded-[14px] border border-[#2a2a2a] py-4 text-[14px] font-semibold text-white active:bg-[#141414]">Cancel</button>
-                  <button type="button"
-                    onClick={() => confirmAction(`Break notification sent to ${activeModal.memberName}`)}
-                    className="flex-1 rounded-[14px] bg-[#fb923c] py-4 text-[14px] font-bold text-black active:bg-[#f97316]">Send for Break</button>
-                </div>
-              </>
-            )}
-
-            {activeModal.kind === "dispatch" && (
-              <>
-                <MobileModalHeader icon={<Navigation size={22} className="text-[#22d3ee]" />} bg="bg-[#22d3ee]/15"
-                  title={`Dispatch ${activeModal.memberName}`} sub={activeModal.theatre} />
-                <label className="mb-2 block text-[13px] text-white">Destination</label>
-                <input type="text" value={dispatchDest} onChange={(e) => setDispatchDest(e.target.value)}
-                  placeholder="e.g. Recovery Room, Theatre 3, ICU…"
-                  className="mb-5 w-full rounded-[14px] border border-[#2a2a2a] bg-[#141414] px-4 py-4 text-[14px] text-white placeholder-[#444444] outline-none focus:border-[#22d3ee]/50" />
-                <div className="flex gap-3">
-                  <button type="button" onClick={() => setActiveModal(null)}
-                    className="flex-1 rounded-[14px] border border-[#2a2a2a] py-4 text-[14px] font-semibold text-white active:bg-[#141414]">Cancel</button>
-                  <button type="button" disabled={!dispatchDest.trim()}
-                    onClick={() => confirmAction(`${activeModal.memberName} dispatched to ${dispatchDest.trim()}`)}
-                    className="flex-1 rounded-[14px] bg-[#22d3ee] py-4 text-[14px] font-bold text-black active:bg-[#06b6d4] disabled:opacity-40">Dispatch</button>
-                </div>
-              </>
-            )}
-
-            {activeModal.kind === "shift_request" && (
-              <>
-                <MobileModalHeader icon={<CalendarPlus size={22} className="text-[#38bdf8]" />} bg="bg-[#38bdf8]/15"
-                  title="Shift Request" sub={`${activeModal.memberName} · ${activeModal.theatre}`} />
-                <p className="mb-2 text-[14px] text-white">Send an availability request to {activeModal.memberName} for:</p>
-                <div className="mb-5 rounded-[14px] bg-[#141414] px-4 py-3 text-center">
-                  <p className="text-[16px] font-semibold text-white">{selectedDateKey}</p>
-                </div>
-                <div className="flex gap-3">
-                  <button type="button" onClick={() => setActiveModal(null)}
-                    className="flex-1 rounded-[14px] border border-[#2a2a2a] py-4 text-[14px] font-semibold text-white active:bg-[#141414]">Cancel</button>
-                  <button type="button"
-                    onClick={() => confirmAction(`Shift request sent to ${activeModal.memberName}`)}
-                    className="flex-1 rounded-[14px] bg-[#38bdf8] py-4 text-[14px] font-bold text-black active:bg-[#0ea5e9]">Send Request</button>
-                </div>
-              </>
-            )}
-          </div>
-        </div>
-      )}
 
       {/* ── Toast ── */}
       {activeModal?.kind === "toast" && (
@@ -1257,36 +1202,6 @@ function RotaPanel({
           </div>
         </div>
       )}
-    </div>
-  )
-}
-
-// ── Bottom sheet action row ────────────────────────────────────────────────
-
-function SheetAction({ icon, iconBg, label, sub, onClick, disabled }: {
-  icon: ReactNode; iconBg: string; label: string; sub: string
-  onClick?: () => void; disabled?: boolean
-}) {
-  return (
-    <button type="button" onClick={onClick} disabled={disabled}
-      className={`flex w-full items-center gap-4 rounded-[16px] bg-[#141414] px-4 py-3.5 text-left ${disabled ? "opacity-35" : "active:bg-[#1c1c1c]"}`}>
-      <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${iconBg}`}>{icon}</div>
-      <div className="min-w-0">
-        <p className="text-[15px] font-semibold text-white">{label}</p>
-        <p className="text-[12px] text-white">{sub}</p>
-      </div>
-    </button>
-  )
-}
-
-function MobileModalHeader({ icon, bg, title, sub }: { icon: ReactNode; bg: string; title: string; sub: string }) {
-  return (
-    <div className="mb-5 flex items-center gap-4">
-      <div className={`flex h-12 w-12 shrink-0 items-center justify-center rounded-full ${bg}`}>{icon}</div>
-      <div>
-        <p className="text-[17px] font-bold text-white">{title}</p>
-        <p className="text-[13px] text-white">{sub}</p>
-      </div>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { useState, useEffect, useRef } from "react"
@@ -831,7 +831,7 @@ export default function LoginPage() {
                 <p className="text-sm font-semibold text-white text-center">
                   {describeSessionUser(sessionUser)}
                 </p>
-                <p className="mt-2 text-xs text-[#7a7a7a] text-center leading-relaxed">
+                <p className="mt-2 text-xs text-white text-center leading-relaxed">
                   Continue with this account or sign out before using another one.
                 </p>
 
@@ -854,7 +854,7 @@ export default function LoginPage() {
                 <button
                   onClick={() => void handleExistingSessionSignOut()}
                   disabled={loading !== null}
-                  className="mt-3 w-full text-xs font-semibold text-[#7a7a7a] hover:text-[#d1d5db] transition-colors disabled:opacity-40"
+                  className="mt-3 w-full text-xs font-semibold text-white hover:text-[#d1d5db] transition-colors disabled:opacity-40"
                 >
                   Sign out
                 </button>
@@ -915,7 +915,7 @@ export default function LoginPage() {
               </p>
             ) : null}
             {loading && !error ? (
-              <p className="mt-4 text-xs text-[#7a7a7a] text-center">
+              <p className="mt-4 text-xs text-white text-center">
                 Completing sign-in...
               </p>
             ) : null}

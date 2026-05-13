@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
 import { WORKSPACE_NAV_ITEMS } from "@/lib/workspace-nav"
@@ -10,7 +10,7 @@ export default function AppMenuContent() {
         <Link
           key={item.key}
           href={item.href}
-          className="flex items-center gap-2.5 rounded-[10px] px-1.5 py-2.5 text-left text-[15px] font-medium text-[#D7E7F7] hover:bg-white/10 lg:text-[#10243E] lg:hover:bg-[rgba(244,251,255,0.72)]"
+          className="flex items-center gap-2.5 rounded-[10px] px-1.5 py-2.5 text-left text-[15px] font-medium text-white hover:bg-white/10 lg:text-[#10243E] lg:hover:bg-[rgba(244,251,255,0.72)]"
         >
           <img
             src={item.iconSrc}

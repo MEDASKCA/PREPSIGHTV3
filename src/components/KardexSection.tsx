@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import type { PointerEvent as ReactPointerEvent } from "react"
 import { useState } from "react"
@@ -251,31 +251,31 @@ export default function KardexSection({
               <div className="flex flex-wrap gap-x-6 gap-y-3">
                 {section.duration && (
                   <div>
-                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Duration</p>
+                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>Duration</p>
                     <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{section.duration}</p>
                   </div>
                 )}
                 {section.anaesthesiaType && (
                   <div>
-                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Anaesthesia</p>
+                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>Anaesthesia</p>
                     <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{section.anaesthesiaType}</p>
                   </div>
                 )}
                 {section.primarySystem && (
                   <div>
-                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>System</p>
+                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>System</p>
                     <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{section.primarySystem}</p>
                   </div>
                 )}
               </div>
               {section.alternatives && section.alternatives.length > 0 && (
                 <div>
-                  <p className={`text-xs tracking-wide lg:text-[18px] mb-1 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Alternatives</p>
+                  <p className={`text-xs tracking-wide lg:text-[18px] mb-1 ${isDark ? "text-white" : "text-[#61758B]"}`}>Alternatives</p>
                   <div className="flex flex-wrap gap-1.5">
                     {section.alternatives.map((alt) => (
                       <span
                         key={alt}
-                        className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a] text-[#aaaaaa]" : "border-[#D5EAF1] bg-[#F8FBFD] text-[#406175]"}`}
+                        className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a] text-white" : "border-[#D5EAF1] bg-[#F8FBFD] text-[#406175]"}`}
                       >
                         {alt}
                       </span>
@@ -292,10 +292,10 @@ export default function KardexSection({
               {editMode ? (
                 /* Edit mode — link inputs */
                 <div className="space-y-3">
-                  <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Edit references</p>
+                  <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>Edit references</p>
 
                   <div>
-                    <label className={`text-xs font-medium block mb-1.5 ${isDark ? "text-[#888888]" : "text-[#64748b]"}`}>
+                    <label className={`text-xs font-medium block mb-1.5 ${isDark ? "text-white" : "text-[#64748b]"}`}>
                       Operative Technique URL
                     </label>
                     <input
@@ -308,7 +308,7 @@ export default function KardexSection({
                   </div>
 
                   <div>
-                    <label className={`text-xs font-medium block mb-1.5 ${isDark ? "text-[#888888]" : "text-[#64748b]"}`}>
+                    <label className={`text-xs font-medium block mb-1.5 ${isDark ? "text-white" : "text-[#64748b]"}`}>
                       Implant Guide / Catalogue URL
                     </label>
                     <input
@@ -359,7 +359,7 @@ export default function KardexSection({
                 /* View mode — link list */
                 (localOpTechUrl || localImplantUrl || localExternalLinks.some((l) => l.url)) && (
                   <div className="space-y-2">
-                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>References</p>
+                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>References</p>
                     {localOpTechUrl && (
                       <a
                         href={localOpTechUrl}
@@ -403,7 +403,7 @@ export default function KardexSection({
           {/* ── NURSE PREP NOTES ───────────────────────────────────── */}
           {isNurseNotes && (
             <div className={`my-2 rounded-xl border p-4 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
-              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Nurse prep notes</p>
+              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Nurse prep notes</p>
               {editMode ? (
                 <textarea
                   value={notesDraft}
@@ -414,10 +414,10 @@ export default function KardexSection({
               ) : (
                 <>
                   <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
-                    {nurseNotes || <span className={isDark ? "text-[#555555]" : "text-[#5D8A97]"}>No prep notes added yet.</span>}
+                    {nurseNotes || <span className={isDark ? "text-white" : "text-[#5D8A97]"}>No prep notes added yet.</span>}
                   </p>
                   {notesLastEdited && (
-                    <p className={`mt-2 text-xs flex items-center gap-1 ${isDark ? "text-[#555555]" : "text-[#A7D8E2]"}`}>
+                    <p className={`mt-2 text-xs flex items-center gap-1 ${isDark ? "text-white" : "text-[#A7D8E2]"}`}>
                       <Clock size={11} /> Last edited by You · {notesLastEdited}
                     </p>
                   )}
@@ -429,7 +429,7 @@ export default function KardexSection({
           {/* ── PATIENT POSITIONING ────────────────────────────────── */}
           {isPositioning && (
             <div className={`mt-2 mb-3 rounded-xl border p-4 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
-              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Patient positioning</p>
+              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Patient positioning</p>
               {editMode ? (
                 <>
                   <textarea
@@ -445,7 +445,7 @@ export default function KardexSection({
               ) : (
                 <>
                   <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
-                    {positionText || <span className={isDark ? "text-[#555555]" : "text-[#5D8A97]"}>No positioning instructions set.</span>}
+                    {positionText || <span className={isDark ? "text-white" : "text-[#5D8A97]"}>No positioning instructions set.</span>}
                   </p>
                   {positionPending && (
                     <p className="mt-2 text-xs text-[#FFD58A] flex items-center gap-1">
@@ -460,7 +460,7 @@ export default function KardexSection({
           {/* ── POST-PROCEDURE CARE ────────────────────────────────── */}
           {isPostCare && section.recoveryNotes && (
             <div className={`my-2 rounded-xl border p-4 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
-              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Recovery notes</p>
+              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Recovery notes</p>
               <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>{section.recoveryNotes}</p>
             </div>
           )}
@@ -468,7 +468,7 @@ export default function KardexSection({
           {/* ── DISCHARGE CRITERIA ─────────────────────────────────── */}
           {isDischarge && section.dischargeCriteria && section.dischargeCriteria.length > 0 && (
             <div className="py-2">
-              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Discharge criteria</p>
+              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Discharge criteria</p>
               <ul className="space-y-1">
                 {section.dischargeCriteria.map((criterion, i) => (
                   <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] lg:text-base ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
@@ -483,7 +483,7 @@ export default function KardexSection({
           {/* ── COMPLICATIONS & ESCALATION ─────────────────────────── */}
           {isComplications && section.commonComplications && section.commonComplications.length > 0 && (
             <div className="py-2">
-              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Common complications</p>
+              <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Common complications</p>
               <ul className="space-y-1">
                 {section.commonComplications.map((c, i) => (
                   <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] lg:text-base ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
@@ -500,13 +500,13 @@ export default function KardexSection({
             <div className="space-y-4 py-2">
               {section.recoveryNotes && (
                 <div className={`rounded-xl border p-4 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
-                  <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Post-op care</p>
+                  <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Post-op care</p>
                   <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>{section.recoveryNotes}</p>
                 </div>
               )}
               {section.dischargeCriteria && section.dischargeCriteria.length > 0 && (
                 <div>
-                  <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Discharge criteria</p>
+                  <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Discharge criteria</p>
                   <ul className="space-y-1">
                     {section.dischargeCriteria.map((criterion, i) => (
                       <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
@@ -519,7 +519,7 @@ export default function KardexSection({
               )}
               {section.commonComplications && section.commonComplications.length > 0 && (
                 <div>
-                  <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-[#888888]" : "text-[#61758B]"}`}>Complications & escalation</p>
+                  <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Complications & escalation</p>
                   <ul className="space-y-1">
                     {section.commonComplications.map((c, i) => (
                       <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
@@ -564,10 +564,10 @@ export default function KardexSection({
               <div className={`hidden lg:flex items-center gap-5 border-b px-4 py-2 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
                 <div className="flex-1 min-w-0" />
                 <div className="w-60 shrink-0">
-                  <p className={`text-[20px] font-semibold ${isDark ? "text-[#888888]" : "text-[#A7D8E2]"}`}>Location</p>
+                  <p className={`text-[20px] font-semibold ${isDark ? "text-white" : "text-[#A7D8E2]"}`}>Location</p>
                 </div>
                 <div className="w-28 shrink-0 text-center">
-                  <p className={`text-[20px] font-semibold ${isDark ? "text-[#888888]" : "text-[#A7D8E2]"}`}>Quantity</p>
+                  <p className={`text-[20px] font-semibold ${isDark ? "text-white" : "text-[#A7D8E2]"}`}>Quantity</p>
                 </div>
               </div>
 

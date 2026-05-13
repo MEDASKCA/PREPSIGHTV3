@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
@@ -24,7 +24,7 @@ function SettingsRow({
       className="flex w-full items-center gap-3 border-b border-[#0085B2] py-3 text-left transition-colors hover:bg-white/6"
     >
       <span className="text-white">{icon}</span>
-      <p className="text-sm font-medium text-[#D7E7F7]">{title}</p>
+      <p className="text-sm font-medium text-white">{title}</p>
     </button>
   )
 }
@@ -111,7 +111,7 @@ export default function ProfileButton({
                 </div>
                 <div>
                   <p className="text-base font-medium text-white">{displayName}</p>
-                  <p className="mt-0.5 text-sm text-[#D7E7F7]">{displayRole}</p>
+                  <p className="mt-0.5 text-sm text-white">{displayRole}</p>
                 </div>
               </div>
               <button
@@ -122,7 +122,7 @@ export default function ProfileButton({
               </button>
             </div>
 
-            <div className="px-5 py-3 text-[#D7E7F7] sm:px-6">
+            <div className="px-5 py-3 text-white sm:px-6">
               {modeSwitch ? (
                 <SettingsRow
                   icon={<ArrowRightLeft size={16} />}
@@ -164,7 +164,7 @@ export default function ProfileButton({
                   </span>
                   <div className="min-w-0">
                     <p className="text-sm font-medium text-white">Sign out</p>
-                    <p className="text-xs text-[#D7E7F7]">{user?.email}</p>
+                    <p className="text-xs text-white">{user?.email}</p>
                   </div>
                 </button>
               </div>

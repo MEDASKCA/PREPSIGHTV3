@@ -1,7 +1,7 @@
-"use client"
+﻿"use client"
 
 import Link from "next/link"
-import { useEffect, useMemo, useState, useSyncExternalStore, type ReactNode } from "react"
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react"
 import TriangleIcon from "@/components/TriangleIcon"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
@@ -428,7 +428,7 @@ function TreeGroupContent({
               nodeColor="#1e5a6a"
               compact={compact}
             >
-              <p className="py-1 text-[14px] leading-5 font-normal text-[#888888]">Procedures</p>
+              <p className="py-1 text-[14px] leading-5 font-normal text-white">Procedures</p>
               <TreeLeafList cards={group.cards} libraryId={libraryId} compact={compact} onOpenCard={onOpenCard} />
             </TreeBranchNode>
           )
@@ -516,6 +516,10 @@ function TreeBranchContent({
   )
 }
 
+function totalForBranch(branch: TreeBranch): number {
+  return branch.cards.length + branch.branches.reduce((sum, child) => sum + totalForBranch(child), 0)
+}
+
 function TreeSelectedGroupContent({
   group,
   libraryId,
@@ -537,47 +541,44 @@ function TreeSelectedGroupContent({
   ]
 
   return (
-    <div className="border-t border-[#1e1e1e] px-4 py-2">
-      <div className="ml-3">
-        {directRows.map((row, index) => {
-          const isLast = index === directRows.length - 1
+    <div className="border-t border-[#1e1e1e]">
+      {directRows.map((row) => {
+        if (row.type === "branch") {
+          const { branch } = row
 
-          if (row.type === "branch") {
-            const { branch } = row
+          return (
+            <div key={branch.id} className="border-b border-[#1e1e1e] last:border-b-0">
+              <button
+                type="button"
+                onClick={() => toggleBranch(branch.id)}
+                className="grid w-full grid-cols-[36px_minmax(0,1fr)_44px] items-center gap-x-2 bg-black px-3 py-2 text-left font-normal transition-colors hover:bg-[#111111]"
+              >
+                <div className="flex items-center justify-center">
+                  <FolderBadge tone={folderTone} open={isBranchExpanded(branch.id)} size="lg" />
+                </div>
+                <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#e0e0e0]">
+                  {branch.label}
+                </p>
+                <span className="text-right text-[15px] font-normal text-white">{totalForBranch(branch)}</span>
+              </button>
 
-            return (
-              <div key={branch.id}>
-                <button
-                  type="button"
-                  onClick={() => toggleBranch(branch.id)}
-                  className="flex w-full items-center justify-between gap-3 py-1 text-left font-normal"
-                >
-                  <div className="flex items-center gap-2">
-                    <FolderBadge tone={folderTone} open={isBranchExpanded(branch.id)} size="md" />
-                    <p className="text-[14px] leading-5 font-normal text-[#e0e0e0]">
-                      {branch.label}
-                    </p>
-                  </div>
-                </button>
+              {isBranchExpanded(branch.id) ? (
+                <TreeBranchContent
+                  branch={branch}
+                  libraryId={libraryId}
+                  isBranchExpanded={isBranchExpanded}
+                  toggleBranch={toggleBranch}
+                  folderTone={folderTone}
+                  compact
+                  onOpenCard={onOpenCard}
+                />
+              ) : null}
+            </div>
+          )
+        }
 
-                {isBranchExpanded(branch.id) ? (
-                  <TreeBranchContent
-                    branch={branch}
-                    libraryId={libraryId}
-                    isBranchExpanded={isBranchExpanded}
-                    toggleBranch={toggleBranch}
-                    folderTone={folderTone}
-                    compact
-                    onOpenCard={onOpenCard}
-                  />
-                ) : null}
-              </div>
-            )
-          }
-
-          return null
-        })}
-      </div>
+        return null
+      })}
     </div>
   )
 }
@@ -587,11 +588,13 @@ export default function LibraryPageClient({
   embedded = false,
   hideEmbeddedHeader = false,
   onOpenCard,
+  onGroupBackChange,
 }: {
   libraryId: string
   embedded?: boolean
   hideEmbeddedHeader?: boolean
   onOpenCard?: (libraryId: string, cardId: string) => void
+  onGroupBackChange?: (fn: (() => void) | null) => void
 }) {
   const libraries = useSyncExternalStore(
     subscribeLibraries,
@@ -622,6 +625,22 @@ export default function LibraryPageClient({
   const [mobileExpandedBranches, setMobileExpandedBranches] = useState<Record<string, boolean>>({})
   const [mobileExpandedUpdates, setMobileExpandedUpdates] = useState<Record<string, boolean>>({})
   const [selectedMobileGroupId, setSelectedMobileGroupId] = useState<string | null>(null)
+  const onGroupBackChangeRef = useRef(onGroupBackChange)
+  onGroupBackChangeRef.current = onGroupBackChange
+  useEffect(() => {
+    if (!onGroupBackChangeRef.current) return
+    if (selectedMobileGroupId) {
+      onGroupBackChangeRef.current(() => {
+        setSelectedMobileGroupId(null)
+        setMobileExpandedBranches({})
+      })
+    } else {
+      onGroupBackChangeRef.current(null)
+    }
+  }, [selectedMobileGroupId])
+  useEffect(() => {
+    return () => { onGroupBackChangeRef.current?.(null) }
+  }, [])
   const displayName = library ? getLibraryDisplayName(library.name) : ""
   const ownerLabel = getLibraryOwnerLabel(library)
   const showOwnerName = Boolean(ownerLabel) && ownerLabel.trim().toLowerCase() !== "prepsight"
@@ -692,10 +711,6 @@ export default function LibraryPageClient({
     setMobileExpandedBranches({})
     setMobileExpandedGroups({})
   }, [libraryId])
-
-  function totalForBranch(branch: TreeBranch): number {
-    return branch.cards.length + branch.branches.reduce((sum, child) => sum + totalForBranch(child), 0)
-  }
 
   function totalForGroup(group: TreeGroup) {
     return group.cards.length + group.branches.reduce((sum, branch) => sum + totalForBranch(branch), 0)
@@ -795,7 +810,7 @@ export default function LibraryPageClient({
         <section className={`shrink-0 space-y-2 px-4 ${hideEmbeddedHeader ? "pt-0 pb-2" : "pt-3 pb-2"}`}>
           {!hideEmbeddedHeader ? (
             <div>
-              {showOwnerName ? <p className="text-[13px] text-[#888888]">{ownerLabel}</p> : null}
+              {showOwnerName ? <p className="text-[13px] text-white">{ownerLabel}</p> : null}
               <h1 className="mt-1 text-[26px] tracking-[-0.04em] text-white">{displayName}</h1>
             </div>
           ) : null}
@@ -808,7 +823,7 @@ export default function LibraryPageClient({
                 className={`border-b-2 pb-1 pt-3 transition-colors ${
                   activeTab === "procedures"
                     ? "border-[#0096C7] font-semibold text-[#0096C7]"
-                    : "border-transparent text-[#888888] hover:text-[#e0e0e0]"
+                    : "border-transparent text-white hover:text-[#e0e0e0]"
                 }`}
               >
                 Procedures {cards.length}
@@ -819,7 +834,7 @@ export default function LibraryPageClient({
                 className={`border-b-2 pb-1 pt-3 transition-colors ${
                   activeTab === "updates"
                     ? "border-[#0096C7] font-semibold text-[#0096C7]"
-                    : "border-transparent text-[#888888] hover:text-[#e0e0e0]"
+                    : "border-transparent text-white hover:text-[#e0e0e0]"
                 }`}
               >
                 Updates {updates.length}
@@ -832,32 +847,34 @@ export default function LibraryPageClient({
           <section className="flex min-h-0 flex-1 flex-col">
             {tree.length === 0 ? (
               <>
-                <div className="shrink-0 bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
+                <div className="shrink-0 bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-white">
                   <span className="whitespace-nowrap">
                     {selectedMobileGroup ? selectedMobileGroup.label : "Specialty hierarchy"} procedures {selectedMobileGroup ? totalForGroup(selectedMobileGroup) : cards.length}
                   </span>
                 </div>
-                <div className="px-4 py-5 text-[14px] text-[#888888]">{emptyProcedureMessage}</div>
+                <div className="px-4 py-5 text-[14px] text-white">{emptyProcedureMessage}</div>
               </>
             ) : (
               selectedMobileGroup ? (
                 <div className="flex min-h-0 flex-1 flex-col border-y border-[#1e1e1e] bg-black">
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedMobileGroupId(null)
-                      setMobileExpandedBranches({})
-                    }}
-                    className="shrink-0 border-b border-[#1e1e1e] px-4 py-3 text-[13px] text-[#0096C7]"
-                  >
-                    Back to specialties
-                  </button>
-                  <div className="shrink-0 border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
+                  {!onGroupBackChange && (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setSelectedMobileGroupId(null)
+                        setMobileExpandedBranches({})
+                      }}
+                      className="shrink-0 self-start rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
+                    >
+                      Back
+                    </button>
+                  )}
+                  <div className="shrink-0 border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-white">
                     <span className="whitespace-nowrap">
                       {selectedMobileGroup.label} procedures {totalForGroup(selectedMobileGroup)}
                     </span>
                   </div>
-                  <div className="min-h-0 flex-1 overflow-y-auto pb-[calc(env(safe-area-inset-bottom,0px)+88px)]">
+                  <div className="min-h-0 flex-1 overflow-y-auto pb-[calc(env(safe-area-inset-bottom,0px)+76px)]">
                     <TreeSelectedGroupContent
                       group={selectedMobileGroup}
                       libraryId={library.id}
@@ -870,10 +887,10 @@ export default function LibraryPageClient({
                 </div>
               ) : (
                 <div className="flex min-h-0 flex-1 flex-col border-y border-[#1e1e1e] bg-black">
-                  <div className="shrink-0 border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-[#888888]">
+                  <div className="shrink-0 border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-white">
                     <span className="whitespace-nowrap">Specialty hierarchy procedures {cards.length}</span>
                   </div>
-                  <div className="min-h-0 flex-1 overflow-y-auto pb-[calc(env(safe-area-inset-bottom,0px)+88px)]">
+                  <div className="min-h-0 flex-1 overflow-y-auto pb-[calc(env(safe-area-inset-bottom,0px)+76px)]">
                     {tree.map((group) => (
                       <section key={group.id} className="border-b border-[#1e1e1e] last:border-b-0">
                         <button
@@ -888,7 +905,7 @@ export default function LibraryPageClient({
                             <FolderBadge tone={folderTone} open size="lg" />
                           </div>
                           <p className="min-w-0 pr-2 text-[15px] leading-5 font-normal text-[#e0e0e0]">{group.label}</p>
-                          <span className="text-right text-[15px] font-normal text-[#888888]">{totalForGroup(group)}</span>
+                          <span className="text-right text-[15px] font-normal text-white">{totalForGroup(group)}</span>
                         </button>
                       </section>
                     ))}
@@ -899,7 +916,7 @@ export default function LibraryPageClient({
           </section>
         ) : (
           <section className="space-y-0">
-            <div className="bg-black px-4 py-3 text-[14px] font-medium text-[#888888]">Recent updates</div>
+            <div className="bg-black px-4 py-3 text-[14px] font-medium text-white">Recent updates</div>
             {updates.length > 0 ? (
               <div className="border-y border-[#1e1e1e] bg-black">
                 {updates.map((update) => (
@@ -910,14 +927,14 @@ export default function LibraryPageClient({
                       className="grid w-full grid-cols-[minmax(0,1fr)_auto_18px] items-center gap-x-2 bg-black px-3 py-2 text-left transition-colors hover:bg-[#111111]"
                     >
                       <p className="truncate text-[14px] font-medium text-[#e0e0e0]">{update.title}</p>
-                      <p className="text-[12px] text-[#888888]">{formatUpdateDate(update.timestamp)}</p>
-                      <span className="flex justify-end text-[#555555]">
+                      <p className="text-[12px] text-white">{formatUpdateDate(update.timestamp)}</p>
+                      <span className="flex justify-end text-white">
                         <MobileTriangle open={isMobileUpdateExpanded(update.id)} />
                       </span>
                     </button>
                     {isMobileUpdateExpanded(update.id) ? (
                       <div className="border-t border-[#1e1e1e] px-3 py-2">
-                        <p className="text-[14px] leading-5 text-[#888888]">{renderCompactUpdateMeta(update)}</p>
+                        <p className="text-[14px] leading-5 text-white">{renderCompactUpdateMeta(update)}</p>
                         {onOpenCard ? (
                           <button
                             type="button"
@@ -1110,13 +1127,13 @@ export default function LibraryPageClient({
           <div className="min-w-0 space-y-2 px-6 py-5">
             <section className="space-y-2 px-1">
               <div>
-                {showOwnerName ? <p className="text-[13px] text-[#888888]">{ownerLabel}</p> : null}
+                {showOwnerName ? <p className="text-[13px] text-white">{ownerLabel}</p> : null}
                 <h1 className="mt-1 text-[30px] tracking-[-0.04em] text-white">{displayName}</h1>
               </div>
             </section>
 
             <section className="overflow-x-auto border-b border-[#2d2d2d]">
-              <nav className="flex min-w-max items-center gap-6 text-[14px] text-[#888888]">
+              <nav className="flex min-w-max items-center gap-6 text-[14px] text-white">
                 <button
                   type="button"
                   onClick={() => setActiveTab("procedures")}
@@ -1136,13 +1153,13 @@ export default function LibraryPageClient({
 
             {activeTab === "procedures" ? (
             <section className="overflow-hidden rounded-[12px] border border-[#2d2d2d] bg-[#202020]">
-              <div className="border-b border-[#2d2d2d] bg-[#181818] px-4 py-3 text-[14px] text-[#888888]">
+              <div className="border-b border-[#2d2d2d] bg-[#181818] px-4 py-3 text-[14px] text-white">
                 Specialty hierarchy
               </div>
 
               <div>
                 {tree.length === 0 ? (
-                  <div className="px-4 py-5 text-[14px] text-[#888888]">
+                  <div className="px-4 py-5 text-[14px] text-white">
                     {library.libraryType === "local" ? (
                       <div className="space-y-3">
                         <p>Your hospital hasn&apos;t added any procedures yet.</p>
@@ -1171,7 +1188,7 @@ export default function LibraryPageClient({
                           <p className="truncate text-[14px] font-normal text-[#e0e0e0]">
                             {group.label}
                           </p>
-                          <span className="text-[14px] font-normal text-[#888888]">{totalForGroup(group)}</span>
+                          <span className="text-[14px] font-normal text-white">{totalForGroup(group)}</span>
                         </div>
                         <TriangleIcon
                           direction={isGroupExpanded(group.id) ? "up" : "down"}
@@ -1197,7 +1214,7 @@ export default function LibraryPageClient({
             </section>
             ) : (
               <section className="overflow-hidden rounded-[12px] border border-[#2d2d2d] bg-[#202020]">
-                <div className="border-b border-[#2d2d2d] bg-[#181818] px-4 py-3 text-[14px] text-[#888888]">
+                <div className="border-b border-[#2d2d2d] bg-[#181818] px-4 py-3 text-[14px] text-white">
                   Recent updates
                 </div>
                 {updates.length > 0 ? (
@@ -1212,7 +1229,7 @@ export default function LibraryPageClient({
                         >
                           <div className="min-w-0">
                             <p className="text-[14px] font-medium text-[#e0e0e0]">{update.title}</p>
-                            <p className="mt-1 text-[12px] leading-5 text-[#888888]">{renderCompactUpdateMeta(update)}</p>
+                            <p className="mt-1 text-[12px] leading-5 text-white">{renderCompactUpdateMeta(update)}</p>
                           </div>
                         </button>
                       ) : (
@@ -1223,14 +1240,14 @@ export default function LibraryPageClient({
                         >
                           <div className="min-w-0">
                             <p className="text-[14px] font-medium text-[#e0e0e0]">{update.title}</p>
-                            <p className="mt-1 text-[12px] leading-5 text-[#888888]">{renderCompactUpdateMeta(update)}</p>
+                            <p className="mt-1 text-[12px] leading-5 text-white">{renderCompactUpdateMeta(update)}</p>
                           </div>
                         </Link>
                       )
                     ))}
                   </div>
                 ) : (
-                  <div className="px-4 py-5 text-[14px] text-[#888888]">{updateEmptyMessage}</div>
+                  <div className="px-4 py-5 text-[14px] text-white">{updateEmptyMessage}</div>
                 )}
               </section>
             )}
