@@ -1919,7 +1919,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   function getPingDisplayElapsed(ping: CommsPing, now: number) {
-    const stopAt = ping.seenAt ?? now
+    const stopAt = ping.seenAt ?? ping.escalatedAt ?? ping.completedAt ?? ping.declinedAt ?? now
     return formatPingElapsed(ping.createdAt, stopAt)
   }
 
@@ -2140,6 +2140,56 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         return right.createdAt - left.createdAt
       })[0] ?? null
   }, [allPings, pingNow, selectedThread])
+
+  function renderPinnedActivePingBar() {
+    if (!activeThreadPing) return null
+    const status = getEffectivePingStatus(activeThreadPing, pingNow)
+    const tone = getPingLiveTone(activeThreadPing, pingNow)
+    const elapsed = getPingDisplayElapsed(activeThreadPing, pingNow)
+    const fromSelf = activeThreadPing.createdBy === user.uid
+    const canReopen = fromSelf && (status === "seen" || status === "escalated")
+    const statusLabel =
+      status === "sent" ? "Active ping"
+      : status === "seen" ? "Seen"
+      : status === "escalated" ? "Escalated"
+      : getPingStatusLabel(activeThreadPing)
+
+    return (
+      <div className="mb-2 w-full rounded-[20px] border border-[#2d2d2d] bg-[#0f0f0f] px-4 py-3 shadow-[0_-8px_30px_rgba(0,0,0,0.26)]">
+        <div className="flex items-start gap-3">
+          <div className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${tone.bubble}`}>
+            <Pin size={15} className="text-white" />
+          </div>
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center justify-between gap-3">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/58">
+                {fromSelf ? "Your active ping" : "Active ping"}
+              </p>
+              <div className={`shrink-0 text-[12px] font-semibold tabular-nums ${tone.timerTone}`}>
+                {elapsed}
+              </div>
+            </div>
+            <p className="mt-1 text-[14px] font-semibold leading-tight text-white">{activeThreadPing.text}</p>
+            <div className="mt-2 flex items-center justify-between gap-3">
+              <div className="min-w-0 text-[12px] text-white/62">
+                <span className="font-medium text-white/82">{statusLabel}</span>
+                {activeThreadPing.displayName ? <span>{` · ${activeThreadPing.displayName}`}</span> : null}
+              </div>
+              {canReopen ? (
+                <button
+                  type="button"
+                  onClick={() => void reopenPing(activeThreadPing)}
+                  className="shrink-0 rounded-full border border-white/14 bg-white/6 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-white/10"
+                >
+                  Reopen
+                </button>
+              ) : null}
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   useEffect(() => {
     setPingShortcutSets(normalizePingShortcutSets(currentUserRecord?.pingShortcutSets))
@@ -3091,9 +3141,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               ? "calc(env(safe-area-inset-bottom, 0px) + 16px)"
               : minimalHeader
                 ? "calc(env(safe-area-inset-bottom, 0px) + 6px)"
-                : "calc(env(safe-area-inset-bottom, 0px) + 6px)",
+              : "calc(env(safe-area-inset-bottom, 0px) + 6px)",
           }}
         >
+          {renderPinnedActivePingBar()}
           {composerError ? (
             <div className="mb-2 rounded-xl border border-[#5a3d08] bg-[#2c1f05] px-3 py-2 text-[12px] text-[#f7c873]">
               {composerError}
@@ -5614,6 +5665,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             className="bg-black shrink-0 relative px-4 pt-2"
             style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 6px)" }}
           >
+            {renderPinnedActivePingBar()}
             {composerError ? (
               <div className="mb-2 rounded-xl border border-[#5a3d08] bg-[#2c1f05] px-3 py-2 text-[12px] text-[#f7c873]">
                 {composerError}
