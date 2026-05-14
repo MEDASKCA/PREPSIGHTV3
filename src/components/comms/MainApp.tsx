@@ -2127,7 +2127,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }, [allPings])
   const activeThreadPing = useMemo(() => {
     if (!selectedThread) return null
-    return allPings
+    const livePing = allPings
       .filter((ping) => ping.threadId === selectedThread.id)
       .filter((ping) => {
         const status = getEffectivePingStatus(ping, pingNow)
@@ -2139,7 +2139,33 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         if (leftSeen !== rightSeen) return rightSeen - leftSeen
         return right.createdAt - left.createdAt
       })[0] ?? null
-  }, [allPings, pingNow, selectedThread])
+    if (livePing) return livePing
+
+    const fallbackMessage = [...messages]
+      .reverse()
+      .find((message) => message.threadId === selectedThread.id && message.ping)
+    if (!fallbackMessage?.ping) return null
+
+    return {
+      id: fallbackMessage.ping.pingId,
+      category: "action",
+      text: fallbackMessage.text,
+      pingRole: undefined,
+      quickReplies: fallbackMessage.ping.quickReplies,
+      threadId: fallbackMessage.threadId,
+      threadName: selectedThread.name ?? fallbackMessage.ping.recipientDisplayName,
+      organizationId: org.id,
+      scope: "direct",
+      createdBy: fallbackMessage.uid,
+      displayName: fallbackMessage.displayName,
+      createdAt: fallbackMessage.createdAt,
+      messageId: fallbackMessage.id,
+      memberUids: fallbackMessage.memberUids,
+      recipientUid: fallbackMessage.ping.recipientUid,
+      recipientDisplayName: fallbackMessage.ping.recipientDisplayName,
+      status: "sent",
+    } satisfies CommsPing
+  }, [allPings, messages, org.id, pingNow, selectedThread])
 
   function renderPinnedActivePingBar() {
     if (!activeThreadPing) return null
@@ -2155,7 +2181,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       : getPingStatusLabel(activeThreadPing)
 
     return (
-      <div className="mb-2 w-full rounded-[20px] border border-[#2d2d2d] bg-[#0f0f0f] px-4 py-3 shadow-[0_-8px_30px_rgba(0,0,0,0.26)]">
+      <div className="mb-2 -mx-4 border-y border-[#232323] bg-[#0f0f0f] px-4 py-3 shadow-[0_-10px_30px_rgba(0,0,0,0.24)]">
         <div className="flex items-start gap-3">
           <div className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${tone.bubble}`}>
             <Pin size={15} className="text-white" />
