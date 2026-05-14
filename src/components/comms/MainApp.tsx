@@ -2007,6 +2007,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     await sendTomPingUpdate(thread, "Ping reopened.")
   }
 
+  async function stopPing(ping: CommsPing) {
+    const thread = threads.find((entry) => entry.id === ping.threadId) ?? selectedThread
+    if (!thread) return
+    await updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
+      status: "completed",
+      completedAt: Date.now(),
+    })
+    await sendTomPingUpdate(thread, "Ping stopped.")
+  }
+
   function getPingReplyVisual(label: string) {
     const lower = label.trim().toLowerCase()
 
@@ -2174,6 +2184,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const elapsed = getPingDisplayElapsed(activeThreadPing, pingNow)
     const fromSelf = activeThreadPing.createdBy === user.uid
     const canReopen = fromSelf && (status === "seen" || status === "escalated")
+    const canStop = fromSelf && status !== "completed" && status !== "declined"
     const seenMembers = fromSelf
       ? (selectedThread?.memberUids ?? [])
           .filter((uid) => uid !== user.uid && uid !== TOM_UID)
@@ -2197,6 +2208,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       : status === "seen"
         ? "border-amber-700/70 bg-gradient-to-r from-[#4b3210] via-[#65400f] to-[#472c09]"
       : "border-emerald-700/70 bg-gradient-to-r from-[#113224] via-[#14402a] to-[#102e1f]"
+    const showAnimatedDots = status === "sent"
 
     return (
       <div className={`mb-2 -mx-4 border-y px-4 py-3 shadow-[0_-10px_30px_rgba(0,0,0,0.24)] ${dockTone}`}>
@@ -2206,9 +2218,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/72">
-                {fromSelf ? "Your active ping" : "Active ping"}
-              </p>
+              <div className="flex min-w-0 items-center gap-2 text-[12px] font-semibold text-white/92">
+                <span>{statusLabel}</span>
+                {showAnimatedDots ? (
+                  <span className="inline-flex items-center gap-0.5" aria-hidden="true">
+                    <span className="h-1 w-1 rounded-full bg-white/90 animate-pulse" />
+                    <span className="h-1 w-1 rounded-full bg-white/75 animate-pulse [animation-delay:180ms]" />
+                    <span className="h-1 w-1 rounded-full bg-white/60 animate-pulse [animation-delay:360ms]" />
+                  </span>
+                ) : null}
+                <span className="truncate text-white/68">{fromSelf ? "You sent this" : activeThreadPing.displayName}</span>
+              </div>
               <div className={`shrink-0 text-[12px] font-semibold tabular-nums ${tone.timerTone}`}>
                 {elapsed}
               </div>
@@ -2216,10 +2236,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <p className="mt-1 text-[14px] font-semibold leading-tight text-white">{activeThreadPing.text}</p>
             <div className="mt-2 flex items-center justify-between gap-3">
               <div className="min-w-0 text-[12px] text-white/74">
-                <span className="font-medium text-white">{statusLabel}</span>
-                {activeThreadPing.displayName ? <span>{` · ${activeThreadPing.displayName}`}</span> : null}
                 {visibleSeenMembers.length > 0 ? (
-                  <span className="ml-3 inline-flex items-center gap-1.5 align-middle">
+                  <span className="inline-flex items-center gap-1.5 align-middle">
+                    <span className="text-white/74">Seen by</span>
                     <span className="flex -space-x-1.5">
                       {visibleSeenMembers.map(({ member, uid }) =>
                         member ? (
@@ -2230,17 +2249,30 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       )}
                     </span>
                   </span>
+                ) : (
+                  <span className="text-white/68">{status === "sent" ? "Waiting to be seen" : statusLabel}</span>
+                )}
+              </div>
+              <div className="flex items-center gap-2">
+                {canStop ? (
+                  <button
+                    type="button"
+                    onClick={() => void stopPing(activeThreadPing)}
+                    className="shrink-0 rounded-full border border-white/20 bg-black/15 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-black/25"
+                  >
+                    Stop
+                  </button>
+                ) : null}
+                {canReopen ? (
+                  <button
+                    type="button"
+                    onClick={() => void reopenPing(activeThreadPing)}
+                    className="shrink-0 rounded-full border border-white/20 bg-black/15 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-black/25"
+                  >
+                    Reopen
+                  </button>
                 ) : null}
               </div>
-              {canReopen ? (
-                <button
-                  type="button"
-                  onClick={() => void reopenPing(activeThreadPing)}
-                  className="shrink-0 rounded-full border border-white/20 bg-black/15 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-black/25"
-                >
-                  Reopen
-                </button>
-              ) : null}
             </div>
           </div>
         </div>
