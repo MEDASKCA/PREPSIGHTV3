@@ -3271,13 +3271,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <button onClick={() => fileInputRef.current?.click()} className="text-white shrink-0">
               <Paperclip size={17} />
             </button>
-            <button
-              onClick={() => setShowPingPicker(showPingPicker === "composer" ? null : "composer")}
-              className="shrink-0"
-              aria-label="Ping"
-            >
-              <Zap size={17} strokeWidth={2} className={pendingPingCategory ? "text-[#0e7490]" : "text-[#00b8d4]"} fill={pendingPingCategory ? "#0e7490" : "none"} />
-            </button>
+            {!isTomConversation ? (
+              <button
+                onClick={() => setShowPingPicker(showPingPicker === "composer" ? null : "composer")}
+                className="shrink-0"
+                aria-label="Ping"
+              >
+                <Zap size={17} strokeWidth={2} className={pendingPingCategory ? "text-[#0e7490]" : "text-[#00b8d4]"} fill={pendingPingCategory ? "#0e7490" : "none"} />
+              </button>
+            ) : null}
             <input type="file" ref={fileInputRef} className="hidden"
               onChange={e => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); e.target.value = "" }} />
             {pendingPingCategory && !isRecordingVoice && !recordedVoiceBlob && (
@@ -5794,13 +5796,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <button onClick={() => fileInputRef.current?.click()} className="text-white shrink-0">
                 <Paperclip size={17} />
               </button>
-              <button
-                onClick={() => setShowPingPicker(showPingPicker === "composer" ? null : "composer")}
-                className="shrink-0"
-                aria-label="Ping"
-              >
-                <Zap size={17} strokeWidth={2} className={pendingPingCategory ? "text-[#0e7490]" : "text-[#00b8d4]"} fill={pendingPingCategory ? "#0e7490" : "none"} />
-              </button>
+              {!isTomConversation ? (
+                <button
+                  onClick={() => setShowPingPicker(showPingPicker === "composer" ? null : "composer")}
+                  className="shrink-0"
+                  aria-label="Ping"
+                >
+                  <Zap size={17} strokeWidth={2} className={pendingPingCategory ? "text-[#0e7490]" : "text-[#00b8d4]"} fill={pendingPingCategory ? "#0e7490" : "none"} />
+                </button>
+              ) : null}
               <input type="file" ref={fileInputRef} className="hidden"
                 onChange={e => { const f = e.target.files?.[0]; if (f) handleFileUpload(f); e.target.value = "" }} />
               {pendingPingCategory && !isRecordingVoice && !recordedVoiceBlob && (
@@ -6028,7 +6032,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               >
                 <Forward size={18} className="transition group-hover:translate-x-0.5" />
               </button>
-              {!actionMessage.deleted ? (
+              {!actionMessage.deleted && !isTomConversation ? (
                 <button
                   onClick={() => {
                     triggerHapticPulse()
