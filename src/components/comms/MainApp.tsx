@@ -824,6 +824,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [recordedVoiceUrl, setRecordedVoiceUrl] = useState<string | null>(null)
   const [isVoicePreviewPlaying, setIsVoicePreviewPlaying] = useState(false)
   const [permissionWarning, setPermissionWarning] = useState("")
+  const [tomOperatorTypingThreadId, setTomOperatorTypingThreadId] = useState<string | null>(null)
   const [joinCodeThread, setJoinCodeThread] = useState<CommsThread | null>(null)
   const [joinCodeInput, setJoinCodeInput] = useState("")
   const [joinCodeError, setJoinCodeError] = useState("")
@@ -1952,21 +1953,27 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   async function sendTomPingUpdate(thread: CommsThread, text: string) {
-    const createdAt = Date.now()
-    await addDoc(collection(firestore, "comms_v5_messages"), {
-      threadId: thread.id,
-      uid: TOM_UID,
-      displayName: "TOM",
-      text,
-      type: "text",
-      organizationId: org.id,
-      memberUids: Array.from(new Set([...thread.memberUids, TOM_UID])),
-      createdAt,
-    })
-    await updateDoc(doc(firestore, "comms_v5_threads", thread.id), {
-      updatedAt: createdAt,
-      lastMessage: text,
-    })
+    setTomOperatorTypingThreadId(thread.id)
+    try {
+      await new Promise((resolve) => window.setTimeout(resolve, 1200))
+      const createdAt = Date.now()
+      await addDoc(collection(firestore, "comms_v5_messages"), {
+        threadId: thread.id,
+        uid: TOM_UID,
+        displayName: "TOM",
+        text,
+        type: "text",
+        organizationId: org.id,
+        memberUids: Array.from(new Set([...thread.memberUids, TOM_UID])),
+        createdAt,
+      })
+      await updateDoc(doc(firestore, "comms_v5_threads", thread.id), {
+        updatedAt: createdAt,
+        lastMessage: text,
+      })
+    } finally {
+      setTomOperatorTypingThreadId((current) => (current === thread.id ? null : current))
+    }
   }
 
   function getPingReplyVisual(label: string) {
@@ -2448,6 +2455,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     typeof otherPresence.typingUpdatedAt === "number" &&
     Date.now() - otherPresence.typingUpdatedAt < 6000
   const showTomTyping = !!selectedThread && selectedThread.type === "direct" && selectedOtherUid === TOM_UID && tomTyping
+  const showTomOperatorTyping = !!selectedThread && tomOperatorTypingThreadId === selectedThread.id
   const tomDefaultThread = visibleThreads.find(
     (thread) => thread.type === "direct" && thread.memberUids.includes(TOM_UID),
   ) ?? null
@@ -2965,12 +2973,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 </div>
               )
             })}
-            {(otherIsTyping || showTomTyping) && (
+            {(otherIsTyping || showTomTyping || showTomOperatorTyping) && (
               <div className="flex items-end gap-0.5">
                 <div className="w-1 shrink-0" />
                 <div className="flex max-w-[84%] flex-col items-start">
                   <div className="rounded-2xl rounded-bl-sm bg-[#003d54] px-3 py-1.5 text-left text-[14px] leading-snug text-white">
-                    <TypingDots tone={showTomTyping ? "tom" : "default"} />
+                    <TypingDots tone={showTomTyping || showTomOperatorTyping ? "tom" : "default"} />
                   </div>
                 </div>
               </div>
@@ -5479,12 +5487,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 </div>
               )
             })}
-            {(otherIsTyping || showTomTyping) && (
+            {(otherIsTyping || showTomTyping || showTomOperatorTyping) && (
               <div className="flex items-end gap-0.5">
                 <div className="w-1 shrink-0" />
                 <div className="flex max-w-[84%] flex-col items-start">
                   <div className="rounded-2xl rounded-bl-sm bg-[#003d54] px-3 py-1.5 text-left text-[14px] leading-snug text-white">
-                    <TypingDots tone={showTomTyping ? "tom" : "default"} />
+                    <TypingDots tone={showTomTyping || showTomOperatorTyping ? "tom" : "default"} />
                   </div>
                 </div>
               </div>
