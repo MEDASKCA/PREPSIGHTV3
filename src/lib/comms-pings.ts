@@ -445,6 +445,7 @@ export async function markThreadPingsSeen(
   threadId: string,
   recipientUid: string,
 ): Promise<CommsPing[]> {
+  const now = Date.now()
   const snap = await getDocs(
     query(collection(firestore, "comms_v5_pings"), where("threadId", "==", threadId)),
   )
@@ -453,8 +454,16 @@ export async function markThreadPingsSeen(
     .filter((ping) => ping.recipientUid === recipientUid)
     .filter((ping) => getEffectivePingStatus(ping) === "sent")
 
-  await Promise.all(pending.map((ping) => markPingStatus(firestore, ping.id, "seen", recipientUid)))
-  return pending
+  await Promise.all(
+    pending.map((ping) =>
+      updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
+        status: "completed",
+        seenAt: now,
+        completedAt: now,
+      }),
+    ),
+  )
+  return pending.map((ping) => ({ ...ping, status: "completed", seenAt: now, completedAt: now }))
 }
 
 export async function findActiveDuplicatePing(

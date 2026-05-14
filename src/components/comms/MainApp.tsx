@@ -1688,10 +1688,20 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       lastMessage: content,
     })
     if (ping.recipientUid === user.uid && getEffectivePingStatus(ping) === "sent") {
-      await markPingStatus(firestore, ping.id, "seen", user.uid)
+      await updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
+        status: "completed",
+        seenAt: createdAt,
+        completedAt: createdAt,
+        ...(kind === "quick" ? { acceptedAt: createdAt } : {}),
+      })
+    } else if (kind === "quick") {
+      await updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
+        status: "completed",
+        acceptedAt: createdAt,
+        completedAt: createdAt,
+      })
     }
     if (kind === "quick") {
-      await markPingStatus(firestore, ping.id, "accepted", user.uid)
       await sendTomPingUpdate(thread, `Response received after ${formatPingElapsed(ping.createdAt, createdAt)} — ${label}.`)
     }
   }
@@ -1713,7 +1723,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       setPings((current) =>
         current.map((ping) =>
           ping.threadId === threadId && ping.recipientUid === user.uid && getEffectivePingStatus(ping) === "sent"
-            ? { ...ping, status: "seen", seenAt: readAt }
+            ? { ...ping, status: "completed", seenAt: readAt, completedAt: readAt }
             : ping,
         ),
       )
@@ -2225,7 +2235,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const showAnimatedDots = status === "sent"
 
     return (
-      <div className={`mb-2 -mx-4 border-y px-4 py-2.5 shadow-[0_-10px_30px_rgba(0,0,0,0.24)] ${dockTone}`}>
+      <div className={`mb-2 -mx-4 border-y px-4 py-2 shadow-[0_-10px_30px_rgba(0,0,0,0.24)] ${dockTone}`}>
         <div className="flex items-start gap-2.5">
           <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black/20">
             <Pin size={14} className="text-white" />
@@ -2245,7 +2255,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <span className="truncate text-white/68">{fromSelf ? "You sent this" : activeThreadPing.displayName}</span>
               </div>
                 <p className="mt-0.5 text-[13px] font-semibold leading-tight text-white">{activeThreadPing.text}</p>
-                <div className="mt-1.5 min-w-0 text-[11px] text-white/74">
+                <div className="mt-1 min-w-0 text-[11px] text-white/74">
                   {visibleSeenMembers.length > 0 ? (
                     <span className="inline-flex items-center gap-1.5 align-middle">
                       <span className="text-white/74">Seen by</span>
@@ -2265,7 +2275,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 </div>
               </div>
               <div className="flex shrink-0 flex-col items-end gap-1.5">
-                <div className={`text-[12px] font-semibold tabular-nums ${tone.timerTone}`}>
+                <div className={`text-[15px] font-semibold tabular-nums leading-none ${tone.timerTone}`}>
                   {elapsed}
                 </div>
                 <div className="flex items-center gap-1.5">
