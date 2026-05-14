@@ -144,6 +144,18 @@ const TOM_USER: CommsUser = {
   updatedAt: 0,
 }
 
+function PingSignalIcon({ className = "" }: { className?: string }) {
+  return (
+    <svg viewBox="0 0 24 24" aria-hidden="true" className={className}>
+      <circle cx="12" cy="12" r="2.1" fill="currentColor" />
+      <path d="M8.8 8.4c-2.1 2-2.1 5.2 0 7.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M15.2 8.4c2.1 2 2.1 5.2 0 7.2" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M6.2 6.1c-3.4 3.2-3.4 8.6 0 11.8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+      <path d="M17.8 6.1c3.4 3.2 3.4 8.6 0 11.8" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
+    </svg>
+  )
+}
+
 function PingShortcutSettingsPanel({
   sets,
   onSave,
@@ -2197,6 +2209,18 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const allMembers = [TOM_USER, ...members.filter(member => member.uid !== TOM_UID)]
   const contactMembers = allMembers.filter(member => member.uid !== user.uid)
   const displayedContactMembers = dedupeDisplayedContacts(contactMembers)
+  const directPingTarget = useMemo(() => {
+    if (!selectedThread || selectedThread.type !== "direct" || selectedThread.memberUids.includes(TOM_UID)) return null
+    const recipientUid = selectedThread.memberUids.find((uid) => uid !== user.uid && uid !== TOM_UID)
+    if (!recipientUid) return null
+    const recipient = allMembers.find((member) => member.uid === recipientUid) ?? null
+    if (!recipient) return null
+    const pingRole = getPingRoleFromClinicalRole(recipient.clinicalRole || recipient.groupLabel || "Practitioner")
+    const shortcuts = [...DEFAULT_PING_SHORTCUTS[pingRole], ...pingShortcutSets[pingRole]].filter(
+      (entry, index, list) => list.findIndex((value) => value.toLowerCase() === entry.toLowerCase()) === index,
+    )
+    return { recipientUid, recipient, pingRole, shortcuts }
+  }, [allMembers, pingShortcutSets, selectedThread, user.uid])
   const recentPings = useMemo(
     () =>
       allPings
@@ -3324,32 +3348,55 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             </div>
           )}
           {showPingPicker && (
-            <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col"
+            <div className={`absolute right-0 inset-y-0 z-[25] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col ${
+              showPingPicker === "composer" && directPingTarget ? "w-[238px]" : "w-[162px]"
+            }`}
               style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
               <div className="border-b border-[#2d2d2d] px-3 py-2 flex items-center justify-between shrink-0">
-                <span className="text-[11px] font-medium text-white uppercase tracking-wide">Ping type</span>
+                <div className="min-w-0">
+                  <span className="text-[11px] font-medium text-white uppercase tracking-wide">
+                    {showPingPicker === "composer" && directPingTarget ? "Ping shortcuts" : "Ping type"}
+                  </span>
+                  {showPingPicker === "composer" && directPingTarget ? (
+                    <p className="truncate text-[11px] text-white/56">
+                      {directPingTarget.recipient.displayName} · {directPingTarget.pingRole}
+                    </p>
+                  ) : null}
+                </div>
                 <button onClick={() => setShowPingPicker(null)}><X size={12} className="text-white" /></button>
               </div>
               <div className="flex-1 overflow-y-auto py-2 px-2 flex flex-col gap-1">
-                {PING_CATEGORIES.map(cat => (
-                  <button
-                    key={cat.id}
-                    onClick={() => {
-                      if (showPingPicker === "composer") {
-                        setPendingPingCategory(cat.id)
-                        setShowPingPicker(null)
-                      } else if (showPingPicker === "longpress" && actionMessage) {
-                        const msg = actionMessage
-                        setShowPingPicker(null)
-                        setActionMessage(null)
-                        void createPing(cat.id, repairMojibake(msg.text), selectedThread!, msg.id)
-                      }
-                    }}
-                    className="w-full text-left px-3 py-2 rounded-xl text-[13px] text-[#e0e0e0] bg-[#1c1c1c] hover:bg-[#242424] active:bg-[#2e2e2e] transition-colors"
-                  >
-                    {cat.label}
-                  </button>
-                ))}
+                {showPingPicker === "composer" && directPingTarget ? (
+                  directPingTarget.shortcuts.map((shortcut) => (
+                    <button
+                      key={shortcut}
+                      onClick={() => void sendThreadShortcutPing(shortcut, selectedThread!)}
+                      className="w-full text-left px-3 py-2.5 rounded-xl text-[13px] text-[#e0e0e0] bg-[#151515] hover:bg-[#1d1d1d] active:bg-[#262626] transition-colors"
+                    >
+                      {shortcut}
+                    </button>
+                  ))
+                ) : (
+                  PING_CATEGORIES.map(cat => (
+                    <button
+                      key={cat.id}
+                      onClick={() => {
+                        if (showPingPicker === "composer") {
+                          setPendingPingCategory(cat.id)
+                          setShowPingPicker(null)
+                        } else if (showPingPicker === "longpress" && actionMessage) {
+                          const msg = actionMessage
+                          setShowPingPicker(null)
+                          setActionMessage(null)
+                          void createPing(cat.id, repairMojibake(msg.text), selectedThread!, msg.id)
+                        }
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl text-[13px] text-[#e0e0e0] bg-[#1c1c1c] hover:bg-[#242424] active:bg-[#2e2e2e] transition-colors"
+                    >
+                      {cat.label}
+                    </button>
+                  ))
+                )}
               </div>
             </div>
           )}
@@ -3389,10 +3436,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             {!isTomConversation ? (
               <button
                 onClick={() => setShowPingPicker(showPingPicker === "composer" ? null : "composer")}
-                className="shrink-0"
+                className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_10px_22px_rgba(0,150,199,0.24)] transition-opacity hover:opacity-90"
                 aria-label="Ping"
               >
-                <Zap size={17} strokeWidth={2} className={pendingPingCategory ? "text-[#0e7490]" : "text-[#00b8d4]"} fill={pendingPingCategory ? "#0e7490" : "none"} />
+                <PingSignalIcon className="h-[18px] w-[18px] text-white" />
               </button>
             ) : null}
             <input type="file" ref={fileInputRef} className="hidden"
@@ -3599,6 +3646,40 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         memberUids: thread.memberUids ?? [],
         ...(messageId ? { messageId } : {}),
       })
+    } catch (error) {
+      if (error instanceof Error && error.message === "ACTIVE_PING_EXISTS") {
+        setComposerError("Only one active ping is allowed per recipient at a time.")
+        return
+      }
+      throw error
+    }
+  }
+
+  async function sendThreadShortcutPing(shortcut: string, thread: CommsThread) {
+    if (thread.type !== "direct") return
+    if (thread.memberUids.includes(TOM_UID)) {
+      setComposerError("Pings can’t be created in TOM chat. Open the colleague’s direct thread or send from Workforce.")
+      return
+    }
+    const recipientUid = thread.memberUids.find((uid) => uid !== user.uid && uid !== TOM_UID)
+    const recipient = recipientUid ? allMembers.find((member) => member.uid === recipientUid) ?? null : null
+    if (!recipientUid || !recipient) {
+      setComposerError("That colleague can’t be resolved for ping right now.")
+      return
+    }
+    try {
+      await createDirectPing(firestore, {
+        organizationId: org.id,
+        senderUid: user.uid,
+        senderDisplayName: user.displayName || "User",
+        recipientUid,
+        recipientDisplayName: recipient.displayName || "Recipient",
+        pingRole: getPingRoleFromClinicalRole(recipient.clinicalRole || recipient.groupLabel || "Practitioner"),
+        text: shortcut,
+      })
+      setShowPingPicker(null)
+      setPendingPingCategory(null)
+      setComposerError("")
     } catch (error) {
       if (error instanceof Error && error.message === "ACTIVE_PING_EXISTS") {
         setComposerError("Only one active ping is allowed per recipient at a time.")
@@ -4962,13 +5043,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 <ChevronRight size={15} className="shrink-0 text-white/45" />
               </button>
               {pings.length === 0 ? (
-              <div className="flex flex-col items-center justify-center gap-4 px-8 pt-24 text-center">
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#111111] text-[#0e7490]">
-                  <Zap size={28} />
+              <div className="flex flex-col items-center justify-center gap-3 px-6 pt-8 text-center">
+                <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#111111] text-[#0e7490]">
+                  <Zap size={22} />
                 </div>
                 <div>
-                  <p className="text-[16px] font-medium text-white">No pings yet</p>
-                  <p className="mt-1 text-[13px] text-white">Right-click a user in Workforce or tap ⚡ in a chat to create a ping.</p>
+                  <p className="text-[15px] font-medium text-white">No active pings</p>
+                  <p className="mt-1 text-[12px] text-white/68">Right-click a user in Workforce or tap ⚡ in chat to send one.</p>
                 </div>
               </div>
             ) : (
@@ -5048,11 +5129,18 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             )}
             {recentPings.length > 0 ? (
               <div className="border-t border-[#121212]">
-                <div className="px-4 py-2 text-[11px] font-medium uppercase tracking-[0.16em] text-white/42">Recent</div>
+                <div className="px-4 py-2 text-[12px] font-medium text-white/52">Recent</div>
                 {recentPings.map((ping) => {
                   const effectiveStatus = getEffectivePingStatus(ping, pingNow)
                   const statusLabel = getPingStatusLabel(ping, pingNow)
                   const endedAt = ping.cancelledAt ?? ping.completedAt ?? ping.declinedAt ?? ping.seenAt ?? ping.createdAt
+                  const outcomeLabel =
+                    effectiveStatus === "cancelled" ? "Outcome: Cancelled by sender"
+                    : effectiveStatus === "completed" ? "Outcome: Completed"
+                    : effectiveStatus === "declined" ? "Outcome: Declined"
+                    : effectiveStatus === "seen" ? "Outcome: Seen"
+                    : effectiveStatus === "escalated" ? "Outcome: Redirected"
+                    : `Outcome: ${statusLabel}`
                   const statusTone =
                     effectiveStatus === "cancelled" ? "text-zinc-300"
                     : effectiveStatus === "completed" ? "text-emerald-300"
@@ -5071,7 +5159,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         <div className="truncate text-[13px] text-white">
                           {ping.displayName} <span className="text-white/36">·</span> {ping.text}
                         </div>
-                        <div className={`mt-0.5 text-[11px] ${statusTone}`}>{statusLabel}</div>
+                        <div className={`mt-0.5 text-[11px] ${statusTone}`}>{outcomeLabel}</div>
                       </div>
                       <div className="shrink-0 text-[11px] tabular-nums text-white/42">{formatTime(endedAt)}</div>
                     </button>
@@ -5887,32 +5975,55 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             </div>
           )}
           {showPingPicker && (
-            <div className="absolute right-0 inset-y-0 z-[25] w-[162px] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col"
+            <div className={`absolute right-0 inset-y-0 z-[25] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col ${
+              showPingPicker === "composer" && directPingTarget ? "w-[238px]" : "w-[162px]"
+            }`}
               style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
               <div className="border-b border-[#2d2d2d] px-3 py-2 flex items-center justify-between shrink-0">
-                <span className="text-[11px] font-medium text-white uppercase tracking-wide">Ping type</span>
+                <div className="min-w-0">
+                  <span className="text-[11px] font-medium text-white uppercase tracking-wide">
+                    {showPingPicker === "composer" && directPingTarget ? "Ping shortcuts" : "Ping type"}
+                  </span>
+                  {showPingPicker === "composer" && directPingTarget ? (
+                    <p className="truncate text-[11px] text-white/56">
+                      {directPingTarget.recipient.displayName} · {directPingTarget.pingRole}
+                    </p>
+                  ) : null}
+                </div>
                 <button onClick={() => setShowPingPicker(null)}><X size={12} className="text-white" /></button>
               </div>
               <div className="flex-1 overflow-y-auto py-2 px-2 flex flex-col gap-1">
-                {PING_CATEGORIES.map(cat => (
-                  <button
-                    key={cat.id}
-                    onClick={() => {
-                      if (showPingPicker === "composer") {
-                        setPendingPingCategory(cat.id)
-                        setShowPingPicker(null)
-                      } else if (showPingPicker === "longpress" && actionMessage) {
-                        const msg = actionMessage
-                        setShowPingPicker(null)
-                        setActionMessage(null)
-                        void createPing(cat.id, repairMojibake(msg.text), selectedThread!, msg.id)
-                      }
-                    }}
-                    className="w-full text-left px-3 py-2 rounded-xl text-[13px] text-[#e0e0e0] bg-[#1c1c1c] hover:bg-[#242424] active:bg-[#2e2e2e] transition-colors"
-                  >
-                    {cat.label}
-                  </button>
-                ))}
+                {showPingPicker === "composer" && directPingTarget ? (
+                  directPingTarget.shortcuts.map((shortcut) => (
+                    <button
+                      key={shortcut}
+                      onClick={() => void sendThreadShortcutPing(shortcut, selectedThread!)}
+                      className="w-full text-left px-3 py-2.5 rounded-xl text-[13px] text-[#e0e0e0] bg-[#151515] hover:bg-[#1d1d1d] active:bg-[#262626] transition-colors"
+                    >
+                      {shortcut}
+                    </button>
+                  ))
+                ) : (
+                  PING_CATEGORIES.map(cat => (
+                    <button
+                      key={cat.id}
+                      onClick={() => {
+                        if (showPingPicker === "composer") {
+                          setPendingPingCategory(cat.id)
+                          setShowPingPicker(null)
+                        } else if (showPingPicker === "longpress" && actionMessage) {
+                          const msg = actionMessage
+                          setShowPingPicker(null)
+                          setActionMessage(null)
+                          void createPing(cat.id, repairMojibake(msg.text), selectedThread!, msg.id)
+                        }
+                      }}
+                      className="w-full text-left px-3 py-2 rounded-xl text-[13px] text-[#e0e0e0] bg-[#1c1c1c] hover:bg-[#242424] active:bg-[#2e2e2e] transition-colors"
+                    >
+                      {cat.label}
+                    </button>
+                  ))
+                )}
               </div>
             </div>
           )}
@@ -5948,10 +6059,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               {!isTomConversation ? (
                 <button
                   onClick={() => setShowPingPicker(showPingPicker === "composer" ? null : "composer")}
-                  className="shrink-0"
+                  className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] shadow-[0_10px_22px_rgba(0,150,199,0.24)] transition-opacity hover:opacity-90"
                   aria-label="Ping"
                 >
-                  <Zap size={17} strokeWidth={2} className={pendingPingCategory ? "text-[#0e7490]" : "text-[#00b8d4]"} fill={pendingPingCategory ? "#0e7490" : "none"} />
+                  <PingSignalIcon className="h-[18px] w-[18px] text-white" />
                 </button>
               ) : null}
               <input type="file" ref={fileInputRef} className="hidden"
