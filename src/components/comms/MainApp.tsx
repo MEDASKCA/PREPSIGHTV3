@@ -6,6 +6,7 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
+  deleteDoc,
   deleteField,
   doc,
   getDoc,
@@ -2078,13 +2079,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   async function stopPing(ping: CommsPing) {
     const thread = threads.find((entry) => entry.id === ping.threadId) ?? selectedThread
     if (!thread) return
-    const now = Date.now()
     setAllPings((current) => current.filter((entry) => entry.id !== ping.id))
     setPings((current) => current.filter((entry) => entry.id !== ping.id))
-    await updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
-      status: "completed",
-      completedAt: now,
-    })
+    await deleteDoc(doc(firestore, "comms_v5_pings", ping.id))
     await sendTomPingUpdate(thread, "Ping stopped.")
   }
 
