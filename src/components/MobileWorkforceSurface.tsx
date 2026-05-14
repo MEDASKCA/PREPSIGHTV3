@@ -38,7 +38,7 @@ import type { CommsUser, PingShortcutSets } from "@/lib/comms-types"
 import {
   createDirectPing,
   DEFAULT_PING_SHORTCUTS,
-  findActiveDuplicatePing,
+  findActivePingForRecipient,
   getPingRoleFromClinicalRole,
   getPingStatusLabel,
   loadPingShortcutSets,
@@ -834,9 +834,9 @@ function RotaPanel({
         return
       }
 
-      const duplicate = await findActiveDuplicatePing(db, organizationId, recipient.uid, message)
-      if (duplicate) {
-        confirmAction(`${memberName} already has this ping: ${getPingStatusLabel(duplicate)}`)
+      const activePing = await findActivePingForRecipient(db, organizationId, recipient.uid)
+      if (activePing) {
+        confirmAction(`${memberName} already has an active ping: ${getPingStatusLabel(activePing)}`)
         return
       }
 
@@ -856,7 +856,11 @@ function RotaPanel({
         })
       }
       confirmAction(`Ping sent to ${memberName}: ${message}`)
-    } catch {
+    } catch (error) {
+      if (error instanceof Error && error.message === "ACTIVE_PING_EXISTS") {
+        confirmAction(`${memberName} already has an active ping.`)
+        return
+      }
       confirmAction(`Unable to send ping to ${memberName} right now.`)
     }
   }

@@ -316,6 +316,14 @@ export async function createDirectPing(
     input.senderUid,
     input.recipientUid,
   )
+  const activePing = await findActivePingForRecipient(
+    firestore,
+    input.organizationId,
+    input.recipientUid,
+  )
+  if (activePing) {
+    throw new Error("ACTIVE_PING_EXISTS")
+  }
   const rule = getPingRule(input.text)
   const createdAt = Date.now()
   const pingRef = doc(collection(firestore, "comms_v5_pings"))
@@ -465,6 +473,22 @@ export async function findActiveDuplicatePing(
     .filter((ping) => isPingActive(ping, now))
     .sort((a, b) => b.createdAt - a.createdAt)[0] ?? null
   return candidate
+}
+
+export async function findActivePingForRecipient(
+  firestore: Firestore,
+  organizationId: string,
+  recipientUid: string,
+): Promise<CommsPing | null> {
+  const snap = await getDocs(
+    query(collection(firestore, "comms_v5_pings"), where("organizationId", "==", organizationId)),
+  )
+  const now = Date.now()
+  return snap.docs
+    .map((entry) => ({ id: entry.id, ...entry.data() }) as CommsPing)
+    .filter((ping) => ping.recipientUid === recipientUid)
+    .filter((ping) => isPingActive(ping, now))
+    .sort((a, b) => b.createdAt - a.createdAt)[0] ?? null
 }
 
 export function subscribeOrganizationPings(

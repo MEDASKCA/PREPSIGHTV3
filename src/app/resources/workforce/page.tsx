@@ -8,7 +8,7 @@ import { auth, db } from "@/lib/firebase"
 import {
   createDirectPing,
   DEFAULT_PING_SHORTCUTS,
-  findActiveDuplicatePing,
+  findActivePingForRecipient,
   getEffectivePingStatus,
   getPingRoleFromClinicalRole,
   getPingStatusLabel,
@@ -733,9 +733,9 @@ export default function WorkforcePage() {
         return
       }
 
-      const duplicate = await findActiveDuplicatePing(db, organizationId, recipient.uid, message)
-      if (duplicate) {
-        setActiveModal({ kind: "toast", message: `${memberName} already has this ping: ${getPingStatusLabel(duplicate)}` })
+      const activePing = await findActivePingForRecipient(db, organizationId, recipient.uid)
+      if (activePing) {
+        setActiveModal({ kind: "toast", message: `${memberName} already has an active ping: ${getPingStatusLabel(activePing)}` })
         return
       }
 
@@ -755,7 +755,11 @@ export default function WorkforcePage() {
         })
       }
       setActiveModal({ kind: "toast", message: `Ping sent to ${memberName}: ${message}` })
-    } catch {
+    } catch (error) {
+      if (error instanceof Error && error.message === "ACTIVE_PING_EXISTS") {
+        setActiveModal({ kind: "toast", message: `${memberName} already has an active ping.` })
+        return
+      }
       setActiveModal({ kind: "toast", message: `Unable to send ping to ${memberName} right now.` })
     }
   }

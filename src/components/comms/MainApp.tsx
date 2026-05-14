@@ -1918,6 +1918,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
   }
 
+  function getPingDisplayElapsed(ping: CommsPing, now: number) {
+    const stopAt = ping.seenAt ?? now
+    return formatPingElapsed(ping.createdAt, stopAt)
+  }
+
   function getPingLiveTone(ping: CommsPing | null, now: number) {
     if (!ping) {
       return {
@@ -1928,7 +1933,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
 
     const status = getEffectivePingStatus(ping, now)
-    const ageMs = Math.max(0, now - ping.createdAt)
+    const ageMs = Math.max(0, (ping.seenAt ?? now) - ping.createdAt)
 
     if (status === "escalated") {
       return {
@@ -1938,11 +1943,19 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       }
     }
 
-    if (ageMs >= 120_000 || status === "seen") {
+    if (status === "seen") {
       return {
         bubble: "bg-gradient-to-br from-[#c18a1d] to-[#8b5c06] text-white",
         timerTone: "text-amber-200",
-        label: status === "seen" ? "Seen" : "Pending",
+        label: "Seen",
+      }
+    }
+
+    if (ageMs >= 120_000) {
+      return {
+        bubble: "bg-gradient-to-br from-[#c18a1d] to-[#8b5c06] text-white",
+        timerTone: "text-amber-200",
+        label: "Pending",
       }
     }
 
@@ -1975,6 +1988,23 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     } finally {
       setTomOperatorTypingThreadId((current) => (current === thread.id ? null : current))
     }
+  }
+
+  async function reopenPing(ping: CommsPing) {
+    const thread = threads.find((entry) => entry.id === ping.threadId) ?? selectedThread
+    if (!thread) return
+    const now = Date.now()
+    await updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
+      status: "sent",
+      createdAt: now,
+      seenAt: deleteField(),
+      acceptedAt: deleteField(),
+      completedAt: deleteField(),
+      declinedAt: deleteField(),
+      escalatedAt: deleteField(),
+      escalatedBy: deleteField(),
+    })
+    await sendTomPingUpdate(thread, "Ping reopened.")
   }
 
   function getPingReplyVisual(label: string) {
@@ -2095,6 +2125,21 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     for (const ping of allPings) map.set(ping.id, ping)
     return map
   }, [allPings])
+  const activeThreadPing = useMemo(() => {
+    if (!selectedThread) return null
+    return allPings
+      .filter((ping) => ping.threadId === selectedThread.id)
+      .filter((ping) => {
+        const status = getEffectivePingStatus(ping, pingNow)
+        return status !== "completed" && status !== "declined"
+      })
+      .sort((left, right) => {
+        const leftSeen = left.seenAt ?? 0
+        const rightSeen = right.seenAt ?? 0
+        if (leftSeen !== rightSeen) return rightSeen - leftSeen
+        return right.createdAt - left.createdAt
+      })[0] ?? null
+  }, [allPings, pingNow, selectedThread])
 
   useEffect(() => {
     setPingShortcutSets(normalizePingShortcutSets(currentUserRecord?.pingShortcutSets))
@@ -2758,10 +2803,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const isSystem = msg.type === "system"
               const prevMsg = messages[idx - 1]
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
+              const showIncomingAvatar = !isOwn && (showSenderName || isTom)
               const messageText = repairMojibake(msg.text)
               const pingState = msg.ping ? (pingById.get(msg.ping.pingId) ?? null) : null
               const pingTone = getPingLiveTone(pingState, pingNow)
-              const pingElapsed = pingState ? formatPingElapsed(pingState.createdAt, pingNow) : null
+              const pingElapsed = pingState ? getPingDisplayElapsed(pingState, pingNow) : null
               const pingHeadline = msg.ping
                 ? (isOwn ? `You pinged ${msg.ping.recipientDisplayName}` : `${msg.displayName} pinged you`)
                 : null
@@ -2813,8 +2859,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   className={`flex ${isOwn ? "flex-row-reverse" : "flex-row"} items-end ${showSenderName ? "gap-2" : "gap-0.5"} group`}
                 >
                   {!isOwn ? (
-                    <div className={`shrink-0 ${showSenderName ? "w-8" : "w-1"}`}>
-                      {showSenderName && <Avatar name={msg.displayName} size={32} uid={msg.uid} />}
+                    <div className={`shrink-0 ${showIncomingAvatar ? "w-8" : "w-1"}`}>
+                      {showIncomingAvatar && <Avatar name={msg.displayName} size={32} uid={msg.uid} />}
                     </div>
                   ) : null}
 
@@ -3232,37 +3278,45 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   async function createPing(category: PingCategory, text: string, thread: CommsThread, messageId?: string) {
-    if (thread.type === "direct") {
-      const recipientUid = thread.memberUids.find((uid) => uid !== user.uid && uid !== TOM_UID)
-      const recipient = recipientUid ? allMembers.find((member) => member.uid === recipientUid) ?? null : null
-      if (recipientUid && recipient) {
-        await createDirectPing(firestore, {
-          organizationId: org.id,
-          senderUid: user.uid,
-          senderDisplayName: user.displayName || "User",
-          recipientUid,
-          recipientDisplayName: recipient.displayName || "Recipient",
-          pingRole: getPingRoleFromClinicalRole(recipient.clinicalRole || recipient.groupLabel || "Practitioner"),
-          text,
-          category,
-          existingMessageId: messageId,
-        })
+    try {
+      if (thread.type === "direct") {
+        const recipientUid = thread.memberUids.find((uid) => uid !== user.uid && uid !== TOM_UID)
+        const recipient = recipientUid ? allMembers.find((member) => member.uid === recipientUid) ?? null : null
+        if (recipientUid && recipient) {
+          await createDirectPing(firestore, {
+            organizationId: org.id,
+            senderUid: user.uid,
+            senderDisplayName: user.displayName || "User",
+            recipientUid,
+            recipientDisplayName: recipient.displayName || "Recipient",
+            pingRole: getPingRoleFromClinicalRole(recipient.clinicalRole || recipient.groupLabel || "Practitioner"),
+            text,
+            category,
+            existingMessageId: messageId,
+          })
+          return
+        }
+      }
+      await addDoc(collection(firestore, "comms_v5_pings"), {
+        category,
+        text: text.trim(),
+        threadId: thread.id,
+        threadName: thread.name ?? (thread.type === "direct" ? "Direct Message" : "Channel"),
+        organizationId: org.id,
+        scope: getThreadPingScope(thread),
+        createdBy: user.uid,
+        displayName: user.displayName || "User",
+        createdAt: Date.now(),
+        memberUids: thread.memberUids ?? [],
+        ...(messageId ? { messageId } : {}),
+      })
+    } catch (error) {
+      if (error instanceof Error && error.message === "ACTIVE_PING_EXISTS") {
+        setComposerError("Only one active ping is allowed per recipient at a time.")
         return
       }
+      throw error
     }
-    await addDoc(collection(firestore, "comms_v5_pings"), {
-      category,
-      text: text.trim(),
-      threadId: thread.id,
-      threadName: thread.name ?? (thread.type === "direct" ? "Direct Message" : "Channel"),
-      organizationId: org.id,
-      scope: getThreadPingScope(thread),
-      createdBy: user.uid,
-      displayName: user.displayName || "User",
-      createdAt: Date.now(),
-      memberUids: thread.memberUids ?? [],
-      ...(messageId ? { messageId } : {}),
-    })
   }
 
   async function sendMessage(text?: string, attachments?: { name: string; url: string; type: "image" | "file" | "audio"; size: number }[]) {
@@ -5275,10 +5329,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const isSystem = msg.type === "system"
               const prevMsg = messages[idx - 1]
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
+              const showIncomingAvatar = !isOwn && (showSenderName || isTom)
               const messageText = repairMojibake(msg.text)
               const pingState = msg.ping ? (pingById.get(msg.ping.pingId) ?? null) : null
               const pingTone = getPingLiveTone(pingState, pingNow)
-              const pingElapsed = pingState ? formatPingElapsed(pingState.createdAt, pingNow) : null
+              const pingElapsed = pingState ? getPingDisplayElapsed(pingState, pingNow) : null
               const pingHeadline = msg.ping
                 ? (isOwn ? `You pinged ${msg.ping.recipientDisplayName}` : `${msg.displayName} pinged you`)
                 : null
@@ -5327,8 +5382,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   className={`flex ${isOwn ? "flex-row-reverse" : "flex-row"} items-end ${showSenderName ? "gap-2" : "gap-0.5"} group`}
                 >
                   {!isOwn ? (
-                    <div className={`shrink-0 ${showSenderName ? "w-8" : "w-1"}`}>
-                      {showSenderName && <Avatar name={msg.displayName} size={32} uid={msg.uid} />}
+                    <div className={`shrink-0 ${showIncomingAvatar ? "w-8" : "w-1"}`}>
+                      {showIncomingAvatar && <Avatar name={msg.displayName} size={32} uid={msg.uid} />}
                     </div>
                   ) : null}
 
