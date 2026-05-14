@@ -1288,7 +1288,7 @@ function InlinePingState({ livePing }: { livePing: CommsPing | null }) {
   const pingTone =
     !livePing ? ""
     : pingLabel === "Done" ? "border-emerald-500/35 bg-emerald-500/10 text-emerald-300"
-    : pingLabel === "Escalated" ? "border-rose-500/35 bg-rose-500/10 text-rose-300"
+    : pingLabel === "Redirected" ? "border-rose-500/35 bg-rose-500/10 text-rose-300"
     : pingLabel === "On it" ? "border-sky-500/35 bg-sky-500/10 text-sky-300"
     : pingLabel === "Seen" ? "border-amber-500/35 bg-amber-500/10 text-amber-300"
     : "border-[#2b5d69] bg-[#0f2025] text-[#67CFCF]"

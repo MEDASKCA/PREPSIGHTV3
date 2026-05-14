@@ -82,6 +82,7 @@ import {
   Plus,
   Play,
   Reply,
+  RotateCcw,
   Search,
   ScanFace,
   Send,
@@ -1939,7 +1940,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       return {
         bubble: "bg-gradient-to-br from-[#c93853] to-[#8f1630] text-white",
         timerTone: "text-rose-200",
-        label: "Escalated",
+        label: "Redirected",
       }
     }
 
@@ -2020,7 +2021,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   function getPingReplyVisual(label: string) {
     const lower = label.trim().toLowerCase()
 
-    if (lower.includes("escalate")) {
+    if (lower.includes("escalate") || lower.includes("redirect")) {
       return {
         icon: ArrowUp,
         tone: "text-white",
@@ -2200,7 +2201,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const statusLabel =
       status === "sent" ? "Active ping"
       : status === "seen" ? "Seen"
-      : status === "escalated" ? "Escalated"
+      : status === "escalated" ? "Redirected"
       : getPingStatusLabel(activeThreadPing)
     const dockTone =
       status === "escalated"
@@ -2211,14 +2212,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const showAnimatedDots = status === "sent"
 
     return (
-      <div className={`mb-2 -mx-4 border-y px-4 py-3 shadow-[0_-10px_30px_rgba(0,0,0,0.24)] ${dockTone}`}>
-        <div className="flex items-start gap-3">
-          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black/20">
-            <Pin size={15} className="text-white" />
+      <div className={`mb-2 -mx-4 border-y px-4 py-2.5 shadow-[0_-10px_30px_rgba(0,0,0,0.24)] ${dockTone}`}>
+        <div className="flex items-start gap-2.5">
+          <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black/20">
+            <Pin size={14} className="text-white" />
           </div>
           <div className="min-w-0 flex-1">
-            <div className="flex items-center justify-between gap-3">
-              <div className="flex min-w-0 items-center gap-2 text-[12px] font-semibold text-white/92">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0 flex-1">
+                <div className="flex min-w-0 items-center gap-2 text-[12px] font-semibold text-white/92">
                 <span>{statusLabel}</span>
                 {showAnimatedDots ? (
                   <span className="inline-flex items-center gap-0.5" aria-hidden="true">
@@ -2229,49 +2231,54 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 ) : null}
                 <span className="truncate text-white/68">{fromSelf ? "You sent this" : activeThreadPing.displayName}</span>
               </div>
-              <div className={`shrink-0 text-[12px] font-semibold tabular-nums ${tone.timerTone}`}>
-                {elapsed}
-              </div>
-            </div>
-            <p className="mt-1 text-[14px] font-semibold leading-tight text-white">{activeThreadPing.text}</p>
-            <div className="mt-2 flex items-center justify-between gap-3">
-              <div className="min-w-0 text-[12px] text-white/74">
-                {visibleSeenMembers.length > 0 ? (
-                  <span className="inline-flex items-center gap-1.5 align-middle">
-                    <span className="text-white/74">Seen by</span>
-                    <span className="flex -space-x-1.5">
-                      {visibleSeenMembers.map(({ member, uid }) =>
-                        member ? (
-                          <span key={uid} className="rounded-full ring-2 ring-black/25">
-                            <Avatar name={member.displayName} size={18} uid={member.uid} />
-                          </span>
-                        ) : null,
-                      )}
+                <p className="mt-0.5 text-[13px] font-semibold leading-tight text-white">{activeThreadPing.text}</p>
+                <div className="mt-1.5 min-w-0 text-[11px] text-white/74">
+                  {visibleSeenMembers.length > 0 ? (
+                    <span className="inline-flex items-center gap-1.5 align-middle">
+                      <span className="text-white/74">Seen by</span>
+                      <span className="flex -space-x-1.5">
+                        {visibleSeenMembers.map(({ member, uid }) =>
+                          member ? (
+                            <span key={uid} className="rounded-full ring-2 ring-black/25">
+                              <Avatar name={member.displayName} size={16} uid={member.uid} />
+                            </span>
+                          ) : null,
+                        )}
+                      </span>
                     </span>
-                  </span>
-                ) : (
-                  <span className="text-white/68">{status === "sent" ? "Waiting to be seen" : statusLabel}</span>
-                )}
+                  ) : (
+                    <span className="text-white/68">{status === "sent" ? "Waiting to be seen" : statusLabel}</span>
+                  )}
+                </div>
               </div>
-              <div className="flex items-center gap-2">
+              <div className="flex shrink-0 flex-col items-end gap-1.5">
+                <div className={`text-[12px] font-semibold tabular-nums ${tone.timerTone}`}>
+                  {elapsed}
+                </div>
+                <div className="flex items-center gap-1.5">
                 {canStop ? (
                   <button
                     type="button"
                     onClick={() => void stopPing(activeThreadPing)}
-                    className="shrink-0 rounded-full border border-white/20 bg-black/15 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-black/25"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/15 text-white transition-colors hover:bg-black/25"
+                    aria-label="Stop ping"
+                    title="Stop ping"
                   >
-                    Stop
+                    <Square size={13} fill="currentColor" />
                   </button>
                 ) : null}
                 {canReopen ? (
                   <button
                     type="button"
                     onClick={() => void reopenPing(activeThreadPing)}
-                    className="shrink-0 rounded-full border border-white/20 bg-black/15 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-black/25"
+                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/15 text-white transition-colors hover:bg-black/25"
+                    aria-label="Reopen ping"
+                    title="Reopen ping"
                   >
-                    Reopen
+                    <RotateCcw size={13} />
                   </button>
                 ) : null}
+                </div>
               </div>
             </div>
           </div>
@@ -2543,7 +2550,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       const thread = threads.find((entry) => entry.id === ping.threadId)
       if (!thread) continue
       escalatedPingIdsRef.current.add(ping.id)
-      void sendTomPingUpdate(thread, `No response after ${formatPingElapsed(ping.createdAt, pingNow)}. Escalation recommended.`)
+      void sendTomPingUpdate(thread, `No response after ${formatPingElapsed(ping.createdAt, pingNow)}. Redirect recommended.`)
     }
   }, [allPings, pingNow, threads])
 
@@ -3417,6 +3424,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
   async function createPing(category: PingCategory, text: string, thread: CommsThread, messageId?: string) {
     try {
+      if (thread.type === "direct" && thread.memberUids.includes(TOM_UID)) {
+        setComposerError("Pings can’t be created in TOM chat. Open the colleague’s direct thread or send from Workforce.")
+        return
+      }
       if (thread.type === "direct") {
         const recipientUid = thread.memberUids.find((uid) => uid !== user.uid && uid !== TOM_UID)
         const recipient = recipientUid ? allMembers.find((member) => member.uid === recipientUid) ?? null : null

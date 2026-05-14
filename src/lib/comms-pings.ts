@@ -413,7 +413,7 @@ export function getPingStatusLabel(ping: CommsPing, now = Date.now()): string {
   if (status === "accepted") return ping.requiresCompletion ? "On it" : "Accepted"
   if (status === "completed") return "Done"
   if (status === "declined") return "Declined"
-  return "Escalated"
+  return "Redirected"
 }
 
 export function isPingActive(ping: CommsPing, now = Date.now()): boolean {
