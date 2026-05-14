@@ -2174,21 +2174,39 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const elapsed = getPingDisplayElapsed(activeThreadPing, pingNow)
     const fromSelf = activeThreadPing.createdBy === user.uid
     const canReopen = fromSelf && (status === "seen" || status === "escalated")
+    const seenMembers = fromSelf
+      ? (selectedThread?.memberUids ?? [])
+          .filter((uid) => uid !== user.uid && uid !== TOM_UID)
+          .map((uid) => ({
+            uid,
+            member: allMembers.find((member) => member.uid === uid) ?? null,
+            readAt: selectedThread?.readBy?.[uid] ?? 0,
+          }))
+          .filter((entry) => entry.member && entry.readAt >= activeThreadPing.createdAt)
+          .sort((left, right) => right.readAt - left.readAt)
+      : []
+    const visibleSeenMembers = seenMembers.slice(0, 3)
     const statusLabel =
       status === "sent" ? "Active ping"
       : status === "seen" ? "Seen"
       : status === "escalated" ? "Escalated"
       : getPingStatusLabel(activeThreadPing)
+    const dockTone =
+      status === "escalated"
+        ? "border-rose-700/70 bg-gradient-to-r from-[#48111c] via-[#5e1826] to-[#411019]"
+      : status === "seen"
+        ? "border-amber-700/70 bg-gradient-to-r from-[#4b3210] via-[#65400f] to-[#472c09]"
+      : "border-emerald-700/70 bg-gradient-to-r from-[#113224] via-[#14402a] to-[#102e1f]"
 
     return (
-      <div className="mb-2 -mx-4 border-y border-[#232323] bg-[#0f0f0f] px-4 py-3 shadow-[0_-10px_30px_rgba(0,0,0,0.24)]">
+      <div className={`mb-2 -mx-4 border-y px-4 py-3 shadow-[0_-10px_30px_rgba(0,0,0,0.24)] ${dockTone}`}>
         <div className="flex items-start gap-3">
-          <div className={`mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full ${tone.bubble}`}>
+          <div className="mt-0.5 flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-black/20">
             <Pin size={15} className="text-white" />
           </div>
           <div className="min-w-0 flex-1">
             <div className="flex items-center justify-between gap-3">
-              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/58">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-white/72">
                 {fromSelf ? "Your active ping" : "Active ping"}
               </p>
               <div className={`shrink-0 text-[12px] font-semibold tabular-nums ${tone.timerTone}`}>
@@ -2197,15 +2215,28 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             </div>
             <p className="mt-1 text-[14px] font-semibold leading-tight text-white">{activeThreadPing.text}</p>
             <div className="mt-2 flex items-center justify-between gap-3">
-              <div className="min-w-0 text-[12px] text-white/62">
-                <span className="font-medium text-white/82">{statusLabel}</span>
+              <div className="min-w-0 text-[12px] text-white/74">
+                <span className="font-medium text-white">{statusLabel}</span>
                 {activeThreadPing.displayName ? <span>{` · ${activeThreadPing.displayName}`}</span> : null}
+                {visibleSeenMembers.length > 0 ? (
+                  <span className="ml-3 inline-flex items-center gap-1.5 align-middle">
+                    <span className="flex -space-x-1.5">
+                      {visibleSeenMembers.map(({ member, uid }) =>
+                        member ? (
+                          <span key={uid} className="rounded-full ring-2 ring-black/25">
+                            <Avatar name={member.displayName} size={18} uid={member.uid} />
+                          </span>
+                        ) : null,
+                      )}
+                    </span>
+                  </span>
+                ) : null}
               </div>
               {canReopen ? (
                 <button
                   type="button"
                   onClick={() => void reopenPing(activeThreadPing)}
-                  className="shrink-0 rounded-full border border-white/14 bg-white/6 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-white/10"
+                  className="shrink-0 rounded-full border border-white/20 bg-black/15 px-3 py-1.5 text-[11px] font-semibold text-white transition-colors hover:bg-black/25"
                 >
                   Reopen
                 </button>
@@ -3004,9 +3035,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                                 : isTom
                                   ? "overflow-hidden rounded-[22px] bg-[#0e7490] p-[3px] text-white shadow-[0_16px_34px_rgba(14,116,144,0.3)]"
                                   : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
-                              : msg.ping
-                                ? `px-3 py-1.5 rounded-2xl ${pingTone.bubble} ${isOwn ? "rounded-br-sm" : "rounded-bl-sm"}`
-                                : isOwn
+                              : isOwn
                                   ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
                                 : isTom
                                   ? "px-3 py-1.5 rounded-2xl bg-[#0e7490] text-white rounded-bl-sm"
@@ -3026,7 +3055,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           </div>
                         ) : null}
                         {msg.ping && pingTone.label ? (
-                          <div className="mb-1 text-[11px] text-white/74">{pingTone.label}</div>
+                          <div className={`mb-1 text-[11px] ${isOwn ? "text-white/74" : "text-white/58"}`}>{pingTone.label}</div>
                         ) : null}
                         {emojiOnly ? (() => {
                           const segs = segmentEmoji(messageText)
@@ -5528,9 +5557,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                                 : isTom
                                   ? "overflow-hidden rounded-[22px] bg-[#0e7490] p-[3px] text-white shadow-[0_16px_34px_rgba(14,116,144,0.3)]"
                                   : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
-                              : msg.ping
-                                ? `px-3 py-1.5 rounded-2xl ${pingTone.bubble} ${isOwn ? "rounded-br-sm" : "rounded-bl-sm"}`
-                                : isOwn
+                              : isOwn
                                   ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
                                 : isTom
                                   ? "px-3 py-1.5 rounded-2xl bg-[#0e7490] text-white rounded-bl-sm"
@@ -5550,7 +5577,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           </div>
                         ) : null}
                         {msg.ping && pingTone.label ? (
-                          <div className="mb-1 text-[11px] text-white/74">{pingTone.label}</div>
+                          <div className={`mb-1 text-[11px] ${isOwn ? "text-white/74" : "text-white/58"}`}>{pingTone.label}</div>
                         ) : null}
                         {emojiOnly ? (() => {
                           const segs = segmentEmoji(messageText)
