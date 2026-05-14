@@ -56,6 +56,7 @@ import type {
 import {
   ArrowLeft,
   ArrowLeftRight,
+  ArrowUp,
   ArrowRight,
   Check,
   Clock3,
@@ -1894,19 +1895,46 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   function getPingReplyVisual(label: string) {
     const lower = label.trim().toLowerCase()
 
-    if (lower.includes("way") || lower.includes("coming") || lower.includes("bringing")) {
-      return { icon: Send, tone: "text-sky-300", ring: "border-sky-500/35 bg-sky-500/10" }
+    if (lower.includes("escalate")) {
+      return {
+        icon: ArrowUp,
+        tone: "text-white",
+        surface: "border-red-500/75 bg-gradient-to-b from-[#ff4d5d] to-[#df0b24] shadow-[0_0_28px_rgba(255,59,76,0.45)]",
+      }
+    }
+    if (lower.includes("acknowledge") || lower.includes("seen")) {
+      return {
+        icon: Check,
+        tone: "text-white",
+        surface: "border-sky-500/75 bg-gradient-to-b from-[#3aa7ff] to-[#0b69d9] shadow-[0_0_28px_rgba(41,182,216,0.45)]",
+      }
+    }
+    if (lower.includes("way") || lower.includes("coming") || lower.includes("bringing") || lower.includes("on it") || lower.includes("covering") || lower.includes("supporting")) {
+      return {
+        icon: Check,
+        tone: "text-white",
+        surface: "border-emerald-500/75 bg-gradient-to-b from-[#52d64d] to-[#17982c] shadow-[0_0_28px_rgba(73,208,85,0.42)]",
+      }
     }
     if (lower.includes("review") || lower.includes("check") || lower.includes("finding") || lower.includes("arranging")) {
-      return { icon: Search, tone: "text-amber-300", ring: "border-amber-500/35 bg-amber-500/10" }
+      return {
+        icon: Search,
+        tone: "text-white",
+        surface: "border-amber-500/75 bg-gradient-to-b from-[#f7bb45] to-[#dc7a12] shadow-[0_0_28px_rgba(245,158,11,0.42)]",
+      }
     }
     if (lower.includes("unable") || lower.includes("can't")) {
-      return { icon: X, tone: "text-rose-300", ring: "border-rose-500/35 bg-rose-500/10" }
+      return {
+        icon: X,
+        tone: "text-white",
+        surface: "border-red-500/75 bg-gradient-to-b from-[#ff4d5d] to-[#df0b24] shadow-[0_0_28px_rgba(255,59,76,0.45)]",
+      }
     }
-    if (lower.includes("seen")) {
-      return { icon: Clock3, tone: "text-zinc-300", ring: "border-zinc-500/35 bg-zinc-500/10" }
+    return {
+      icon: Clock3,
+      tone: "text-white",
+      surface: "border-zinc-400/70 bg-gradient-to-b from-[#686868] to-[#343434] shadow-[0_0_20px_rgba(255,255,255,0.14)]",
     }
-    return { icon: Check, tone: "text-emerald-300", ring: "border-emerald-500/35 bg-emerald-500/10" }
   }
 
   function renderPingMessageActions(message: CommsMessage) {
@@ -1947,10 +1975,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   "quick",
                   reply.label,
                 )}
-                className="flex w-[58px] flex-col items-center gap-1.5 text-center"
+                className="flex w-[52px] flex-col items-center gap-1.5 text-center"
               >
-                <span className={`flex h-11 w-11 items-center justify-center rounded-full border transition-colors hover:brightness-110 ${visual.ring}`}>
-                  <Icon size={15} className={visual.tone} />
+                <span className={`flex h-9 w-9 items-center justify-center rounded-full border transition-transform hover:scale-[1.04] ${visual.surface}`}>
+                  <Icon size={14} className={visual.tone} />
                 </span>
                 <span className="text-[10px] leading-tight text-white/72">{reply.label}</span>
               </button>
@@ -1962,9 +1990,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
           onClick={() => {
             setReplyTo(message)
           }}
-          className="flex w-[58px] flex-col items-center gap-1.5 text-center"
+          className="flex w-[52px] flex-col items-center gap-1.5 text-center"
         >
-          <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2d2d2d] bg-[#111111] text-white transition-colors hover:bg-[#151515]">
+          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#2d2d2d] bg-[#111111] text-white transition-colors hover:bg-[#151515]">
             <Reply size={14} />
           </span>
           <span className="text-[10px] leading-tight text-white/72">Reply</span>
@@ -4523,10 +4551,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                                 key={reply.id}
                                 type="button"
                                 onClick={() => void sendPingReply(ping, reply.message, "quick", reply.label)}
-                                className="flex w-[58px] flex-col items-center gap-1.5 text-center"
+                                className="flex w-[52px] flex-col items-center gap-1.5 text-center"
                               >
-                                <span className={`flex h-11 w-11 items-center justify-center rounded-full border transition-colors hover:brightness-110 ${visual.ring}`}>
-                                  <Icon size={15} className={visual.tone} />
+                                <span className={`flex h-9 w-9 items-center justify-center rounded-full border transition-transform hover:scale-[1.04] ${visual.surface}`}>
+                                  <Icon size={14} className={visual.tone} />
                                 </span>
                                 <span className="text-[10px] leading-tight text-white/72">{reply.label}</span>
                               </button>
@@ -4535,9 +4563,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           <button
                             type="button"
                             onClick={() => openPingThread(ping, true)}
-                            className="flex w-[58px] flex-col items-center gap-1.5 text-center"
+                            className="flex w-[52px] flex-col items-center gap-1.5 text-center"
                           >
-                            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2d2d2d] bg-[#111111] text-[11px] font-semibold text-white transition-colors hover:bg-[#151515]">
+                            <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#2d2d2d] bg-[#111111] text-[11px] font-semibold text-white transition-colors hover:bg-[#151515]">
                               <Reply size={14} />
                             </span>
                             <span className="text-[10px] leading-tight text-white/72">Reply</span>
