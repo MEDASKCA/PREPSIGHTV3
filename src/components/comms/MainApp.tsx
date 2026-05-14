@@ -837,6 +837,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [showPingSettings, setShowPingSettings] = useState(false)
   const [pingShortcutSets, setPingShortcutSets] = useState<PingShortcutSets>(() => readCachedPingShortcutSets())
   const notifiedPingIdsRef = useRef<Set<string>>(new Set())
+  const alertedIncomingPingIdsRef = useRef<Set<string>>(new Set())
   const escalatedPingIdsRef = useRef<Set<string>>(new Set())
   const messageLongPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const suppressMessageTapRef = useRef(false)
@@ -1688,6 +1689,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       lastMessage: content,
     })
     if (ping.recipientUid === user.uid && getEffectivePingStatus(ping) === "sent") {
+      setAllPings((current) =>
+        current.map((entry) =>
+          entry.id === ping.id
+            ? { ...entry, status: "completed", seenAt: createdAt, acceptedAt: kind === "quick" ? createdAt : entry.acceptedAt, completedAt: createdAt }
+            : entry,
+        ),
+      )
+      setPings((current) => current.filter((entry) => entry.id !== ping.id))
       await updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
         status: "completed",
         seenAt: createdAt,
@@ -1695,6 +1704,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         ...(kind === "quick" ? { acceptedAt: createdAt } : {}),
       })
     } else if (kind === "quick") {
+      setAllPings((current) =>
+        current.map((entry) =>
+          entry.id === ping.id
+            ? { ...entry, status: "completed", acceptedAt: createdAt, completedAt: createdAt }
+            : entry,
+        ),
+      )
       await updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
         status: "completed",
         acceptedAt: createdAt,
@@ -1723,7 +1739,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       setPings((current) =>
         current.map((ping) =>
           ping.threadId === threadId && ping.recipientUid === user.uid && getEffectivePingStatus(ping) === "sent"
-            ? { ...ping, status: "completed", seenAt: readAt, completedAt: readAt }
+            ? { ...ping, status: "seen", seenAt: readAt, completedAt: undefined }
+            : ping,
+        ),
+      )
+      setAllPings((current) =>
+        current.map((ping) =>
+          ping.threadId === threadId && ping.recipientUid === user.uid && getEffectivePingStatus(ping) === "sent"
+            ? { ...ping, status: "seen", seenAt: readAt, completedAt: undefined }
             : ping,
         ),
       )
@@ -2193,86 +2216,45 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     for (const ping of allPings) map.set(ping.id, ping)
     return map
   }, [allPings])
-  const activeThreadPing = useMemo(() => {
-    if (!selectedThread) return null
-    const threadPings = allPings
+  const activeThreadPings = useMemo(() => {
+    if (!selectedThread) return { incoming: null, outgoing: null }
+    const livePings = allPings
       .filter((ping) => ping.threadId === selectedThread.id)
-      .sort((left, right) => right.createdAt - left.createdAt)
-    const livePing = threadPings
-      .filter((ping) => {
-        const status = getEffectivePingStatus(ping, pingNow)
-        return status !== "completed" && status !== "declined"
-      })
+      .filter((ping) => isPingActive(ping, pingNow))
       .sort((left, right) => {
         const leftSeen = left.seenAt ?? 0
         const rightSeen = right.seenAt ?? 0
         if (leftSeen !== rightSeen) return rightSeen - leftSeen
         return right.createdAt - left.createdAt
-      })[0] ?? null
-    if (livePing) return livePing
-    const latestThreadPing = threadPings[0] ?? null
-    if (latestThreadPing) {
-      const latestStatus = getEffectivePingStatus(latestThreadPing, pingNow)
-      if (
-        (latestStatus === "completed" && latestThreadPing.completedAt && pingNow - latestThreadPing.completedAt < 5 * 60_000) ||
-        (latestStatus === "declined" && latestThreadPing.declinedAt && pingNow - latestThreadPing.declinedAt < 5 * 60_000)
-      ) {
-        return latestThreadPing
-      }
-      return null
-    }
-
-    const fallbackMessage = [...messages]
-      .reverse()
-      .find((message) => message.threadId === selectedThread.id && message.ping)
-    if (!fallbackMessage?.ping) return null
-
+      })
     return {
-      id: fallbackMessage.ping.pingId,
-      category: "action",
-      text: fallbackMessage.text,
-      pingRole: undefined,
-      quickReplies: fallbackMessage.ping.quickReplies,
-      threadId: fallbackMessage.threadId,
-      threadName: selectedThread.name ?? fallbackMessage.ping.recipientDisplayName,
-      organizationId: org.id,
-      scope: "direct",
-      createdBy: fallbackMessage.uid,
-      displayName: fallbackMessage.displayName,
-      createdAt: fallbackMessage.createdAt,
-      messageId: fallbackMessage.id,
-      memberUids: fallbackMessage.memberUids,
-      recipientUid: fallbackMessage.ping.recipientUid,
-      recipientDisplayName: fallbackMessage.ping.recipientDisplayName,
-      status: "sent",
-    } satisfies CommsPing
-  }, [allPings, messages, org.id, pingNow, selectedThread])
+      incoming: livePings.find((ping) => ping.recipientUid === user.uid) ?? null,
+      outgoing: livePings.find((ping) => ping.createdBy === user.uid && ping.recipientUid !== user.uid) ?? null,
+    }
+  }, [allPings, pingNow, selectedThread, user.uid])
 
-  function renderPinnedActivePingBar() {
+  function renderOutgoingPingBar() {
+    const activeThreadPing = activeThreadPings.outgoing
     if (!activeThreadPing) return null
     const status = getEffectivePingStatus(activeThreadPing, pingNow)
     const tone = getPingLiveTone(activeThreadPing, pingNow)
     const elapsed = getPingDisplayElapsed(activeThreadPing, pingNow)
-    const fromSelf = activeThreadPing.createdBy === user.uid
-    const canReopen = fromSelf && (status === "seen" || status === "escalated")
-    const canStop = fromSelf && status !== "completed" && status !== "declined"
-    const seenMembers = fromSelf
-      ? (selectedThread?.memberUids ?? [])
-          .filter((uid) => uid !== user.uid && uid !== TOM_UID)
-          .map((uid) => ({
-            uid,
-            member: allMembers.find((member) => member.uid === uid) ?? null,
-            readAt: selectedThread?.readBy?.[uid] ?? 0,
-          }))
-          .filter((entry) => entry.member && entry.readAt >= activeThreadPing.createdAt)
-          .sort((left, right) => right.readAt - left.readAt)
-      : []
+    const canReopen = status === "seen" || status === "escalated"
+    const canStop = status !== "completed" && status !== "declined"
+    const seenMembers = (selectedThread?.memberUids ?? [])
+      .filter((uid) => uid !== user.uid && uid !== TOM_UID)
+      .map((uid) => ({
+        uid,
+        member: allMembers.find((member) => member.uid === uid) ?? null,
+        readAt: selectedThread?.readBy?.[uid] ?? 0,
+      }))
+      .filter((entry) => entry.member && entry.readAt >= activeThreadPing.createdAt)
+      .sort((left, right) => right.readAt - left.readAt)
     const visibleSeenMembers = seenMembers.slice(0, 3)
     const statusLabel =
       status === "sent" ? "Active ping"
       : status === "seen" ? "Seen"
       : status === "escalated" ? "Redirected"
-      : status === "completed" ? "Completed"
       : getPingStatusLabel(activeThreadPing)
     const dockTone =
       status === "escalated"
@@ -2280,7 +2262,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       : status === "seen"
         ? "border-amber-700/70 bg-gradient-to-r from-[#4b3210] via-[#65400f] to-[#472c09]"
       : "border-emerald-700/70 bg-gradient-to-r from-[#113224] via-[#14402a] to-[#102e1f]"
-    const showAnimatedDots = status === "sent"
 
     return (
       <div className={`mb-2 -mx-4 border-y px-4 py-2 shadow-[0_-10px_30px_rgba(0,0,0,0.24)] ${dockTone}`}>
@@ -2292,25 +2273,23 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0 flex-1">
                 <div className="flex min-w-0 items-center gap-2 text-[12px] font-semibold text-white/92">
-                <span>{statusLabel}</span>
-                {showAnimatedDots ? (
-                  <span className="inline-flex items-center gap-0.5" aria-hidden="true">
-                    <span className="h-1 w-1 rounded-full bg-white/90 animate-pulse" />
-                    <span className="h-1 w-1 rounded-full bg-white/75 animate-pulse [animation-delay:180ms]" />
-                    <span className="h-1 w-1 rounded-full bg-white/60 animate-pulse [animation-delay:360ms]" />
-                  </span>
-                ) : null}
-                <span className="truncate text-white/68">{fromSelf ? "You sent this" : activeThreadPing.displayName}</span>
-              </div>
+                  <span>{statusLabel}</span>
+                  {status === "sent" ? (
+                    <span className="inline-flex items-center gap-0.5" aria-hidden="true">
+                      <span className="h-1 w-1 rounded-full bg-white/90 animate-pulse" />
+                      <span className="h-1 w-1 rounded-full bg-white/75 animate-pulse [animation-delay:180ms]" />
+                      <span className="h-1 w-1 rounded-full bg-white/60 animate-pulse [animation-delay:360ms]" />
+                    </span>
+                  ) : null}
+                  <span className="truncate text-white/68">You sent this</span>
+                </div>
                 <p className="mt-0.5 text-[13px] font-semibold leading-tight text-white">{activeThreadPing.text}</p>
                 <div className="mt-1 min-w-0 text-[11px] text-white/74">
                   <span className="text-white/68">{status === "sent" ? "Waiting to be seen" : statusLabel}</span>
                 </div>
               </div>
               <div className="flex shrink-0 flex-col items-end gap-1.5">
-                <div className={`text-[15px] font-semibold tabular-nums leading-none ${tone.timerTone}`}>
-                  {elapsed}
-                </div>
+                <div className={`text-[15px] font-semibold tabular-nums leading-none ${tone.timerTone}`}>{elapsed}</div>
                 <div className="flex items-center gap-1.5">
                   {visibleSeenMembers.length > 0 ? (
                     <>
@@ -2330,28 +2309,28 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   ) : null}
                 </div>
                 <div className="flex items-center gap-1.5">
-                {canStop ? (
-                  <button
-                    type="button"
-                    onClick={() => void stopPing(activeThreadPing)}
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/15 text-white transition-colors hover:bg-black/25"
-                    aria-label="Stop ping"
-                    title="Stop ping"
-                  >
-                    <Square size={13} fill="currentColor" />
-                  </button>
-                ) : null}
-                {canReopen ? (
-                  <button
-                    type="button"
-                    onClick={() => void reopenPing(activeThreadPing)}
-                    className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/15 text-white transition-colors hover:bg-black/25"
-                    aria-label="Reopen ping"
-                    title="Reopen ping"
-                  >
-                    <RotateCcw size={13} />
-                  </button>
-                ) : null}
+                  {canStop ? (
+                    <button
+                      type="button"
+                      onClick={() => void stopPing(activeThreadPing)}
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/15 text-white transition-colors hover:bg-black/25"
+                      aria-label="Stop ping"
+                      title="Stop ping"
+                    >
+                      <Square size={13} fill="currentColor" />
+                    </button>
+                  ) : null}
+                  {canReopen ? (
+                    <button
+                      type="button"
+                      onClick={() => void reopenPing(activeThreadPing)}
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/15 text-white transition-colors hover:bg-black/25"
+                      aria-label="Reopen ping"
+                      title="Reopen ping"
+                    >
+                      <RotateCcw size={13} />
+                    </button>
+                  ) : null}
                 </div>
               </div>
             </div>
@@ -2360,6 +2339,91 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       </div>
     )
   }
+
+  function renderIncomingPingPanel() {
+    const activeIncomingPing = activeThreadPings.incoming
+    if (!activeIncomingPing) return null
+    const status = getEffectivePingStatus(activeIncomingPing, pingNow)
+    const tone = getPingLiveTone(activeIncomingPing, pingNow)
+    const elapsed = getPingDisplayElapsed(activeIncomingPing, pingNow)
+    const incomingReplies = activeIncomingPing.quickReplies ?? []
+
+    return (
+      <div
+        className={`mb-2 -mx-4 border-y px-4 py-2.5 shadow-[0_-12px_30px_rgba(0,0,0,0.28)] ${
+          status === "escalated"
+            ? "border-rose-700/70 bg-gradient-to-r from-[#4a101b] via-[#661726] to-[#481019]"
+            : status === "seen"
+              ? "border-amber-700/70 bg-gradient-to-r from-[#4b3210] via-[#6a4311] to-[#492d09]"
+              : "border-[#0f6a7a]/80 bg-gradient-to-r from-[#063642] via-[#085464] to-[#063642]"
+        }`}
+      >
+        <div className="flex items-start justify-between gap-3">
+          <div className="min-w-0 flex-1">
+            <div className="flex items-center gap-2 text-[12px] font-semibold text-white/92">
+              <span>Incoming ping</span>
+              {status === "sent" ? (
+                <span className="inline-flex items-center gap-0.5" aria-hidden="true">
+                  <span className="h-1 w-1 rounded-full bg-white/90 animate-pulse" />
+                  <span className="h-1 w-1 rounded-full bg-white/75 animate-pulse [animation-delay:180ms]" />
+                  <span className="h-1 w-1 rounded-full bg-white/60 animate-pulse [animation-delay:360ms]" />
+                </span>
+              ) : null}
+              <span className="truncate text-white/72">{activeIncomingPing.displayName}</span>
+            </div>
+            <p className="mt-0.5 text-[13px] font-semibold leading-tight text-white">{activeIncomingPing.text}</p>
+            <div className="mt-1 text-[11px] text-white/76">
+              {status === "sent" ? "Choose a response or reply in thread." : status === "seen" ? "Seen. Response still pending." : "Redirect attention if needed."}
+            </div>
+          </div>
+          <div className="flex shrink-0 flex-col items-end gap-1.5">
+            <div className={`text-[16px] font-semibold tabular-nums leading-none ${tone.timerTone}`}>{elapsed}</div>
+            <div className="flex items-start gap-1.5">
+              {incomingReplies.slice(0, 3).map((reply) => {
+                const visual = getPingReplyVisual(reply.label)
+                const Icon = visual.icon
+                return (
+                  <button
+                    key={`${activeIncomingPing.id}-${reply.id}`}
+                    type="button"
+                    onClick={() => void sendPingReply(activeIncomingPing, reply.message, "quick", reply.label)}
+                    className="flex w-[54px] flex-col items-center gap-1 text-center"
+                  >
+                    <span className={`flex h-9 w-9 items-center justify-center rounded-full border transition-transform hover:scale-[1.04] ${visual.surface}`}>
+                      <Icon size={14} className={visual.tone} />
+                    </span>
+                    <span className="text-[10px] leading-tight text-white/78">{reply.label}</span>
+                  </button>
+                )
+              })}
+              <button
+                type="button"
+                onClick={() => {
+                  if (activeIncomingPing.messageId) setPendingPingReplyMessageId(activeIncomingPing.messageId)
+                }}
+                className="flex w-[54px] flex-col items-center gap-1 text-center"
+              >
+                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/15 text-white transition-colors hover:bg-black/25">
+                  <Reply size={14} />
+                </span>
+                <span className="text-[10px] leading-tight text-white/78">Reply</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  useEffect(() => {
+    const activeIncomingPing = activeThreadPings.incoming
+    if (!activeIncomingPing) return
+    if (alertedIncomingPingIdsRef.current.has(activeIncomingPing.id)) return
+    alertedIncomingPingIdsRef.current.add(activeIncomingPing.id)
+    if (typeof navigator !== "undefined" && "vibrate" in navigator) {
+      navigator.vibrate?.([120, 90, 120])
+    }
+  }, [activeThreadPings.incoming])
 
   useEffect(() => {
     setPingShortcutSets(normalizePingShortcutSets(currentUserRecord?.pingShortcutSets))
@@ -2574,7 +2638,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         setPings(
           sorted
             .filter((ping) => ping.recipientUid === user.uid)
-            .filter((ping) => getEffectivePingStatus(ping) === "sent"),
+            .filter((ping) => isPingActive(ping)),
         )
       },
       err => {
@@ -3312,7 +3376,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               : "calc(env(safe-area-inset-bottom, 0px) + 6px)",
           }}
         >
-          {renderPinnedActivePingBar()}
+          {renderIncomingPingPanel()}
+          {renderOutgoingPingBar()}
           {composerError ? (
             <div className="mb-2 rounded-xl border border-[#5a3d08] bg-[#2c1f05] px-3 py-2 text-[12px] text-[#f7c873]">
               {composerError}
@@ -5837,7 +5902,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             className="bg-black shrink-0 relative px-4 pt-2"
             style={{ paddingBottom: "calc(env(safe-area-inset-bottom, 0px) + 6px)" }}
           >
-            {renderPinnedActivePingBar()}
+            {renderIncomingPingPanel()}
+            {renderOutgoingPingBar()}
             {composerError ? (
               <div className="mb-2 rounded-xl border border-[#5a3d08] bg-[#2c1f05] px-3 py-2 text-[12px] text-[#f7c873]">
                 {composerError}
