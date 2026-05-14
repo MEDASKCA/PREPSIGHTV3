@@ -28,9 +28,11 @@ import MobileSurfaceHeader from "@/components/MobileSurfaceHeader"
 import { clearCallStatus, getCallStatus, publishCallStatus, resetCallStatus } from "@/lib/call-state"
 import { toggleDesktopCommsPreference } from "@/lib/desktop-comms"
 import {
+  createDirectPing,
   DEFAULT_PING_SHORTCUTS,
   getEffectivePingStatus,
   getPingStatusLabel,
+  getPingRoleFromClinicalRole,
   isPingActive,
   markPingStatus,
   markThreadPingsSeen,
@@ -1680,8 +1682,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (kind === "quick") {
       await markPingStatus(firestore, ping.id, "accepted", user.uid)
     }
-    setFilterTab("chats")
-    selectThread(thread)
   }
 
   async function markThreadRead(threadId: string) {
@@ -3124,6 +3124,24 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   async function createPing(category: PingCategory, text: string, thread: CommsThread, messageId?: string) {
+    if (thread.type === "direct") {
+      const recipientUid = thread.memberUids.find((uid) => uid !== user.uid && uid !== TOM_UID)
+      const recipient = recipientUid ? allMembers.find((member) => member.uid === recipientUid) ?? null : null
+      if (recipientUid && recipient) {
+        await createDirectPing(firestore, {
+          organizationId: org.id,
+          senderUid: user.uid,
+          senderDisplayName: user.displayName || "User",
+          recipientUid,
+          recipientDisplayName: recipient.displayName || "Recipient",
+          pingRole: getPingRoleFromClinicalRole(recipient.clinicalRole || recipient.groupLabel || "Practitioner"),
+          text,
+          category,
+          existingMessageId: messageId,
+        })
+        return
+      }
+    }
     await addDoc(collection(firestore, "comms_v5_pings"), {
       category,
       text: text.trim(),

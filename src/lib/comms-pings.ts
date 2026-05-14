@@ -307,6 +307,7 @@ export async function createDirectPing(
     pingRole: PingRole
     text: string
     category?: PingCategory
+    existingMessageId?: string
   },
 ): Promise<CommsThread> {
   const thread = await ensureDirectThread(
@@ -319,22 +320,37 @@ export async function createDirectPing(
   const createdAt = Date.now()
   const pingRef = doc(collection(firestore, "comms_v5_pings"))
   const quickReplies = getPingQuickReplies(input.text)
-  const messageRef = await addDoc(collection(firestore, "comms_v5_messages"), {
-    threadId: thread.id,
-    uid: input.senderUid,
-    displayName: input.senderDisplayName,
-    text: input.text.trim(),
-    type: "text",
-    organizationId: input.organizationId,
-    memberUids: thread.memberUids,
-    createdAt,
-    ping: {
-      pingId: pingRef.id,
-      recipientUid: input.recipientUid,
-      recipientDisplayName: input.recipientDisplayName,
-      quickReplies,
-    },
-  } satisfies Omit<CommsMessage, "id">)
+  let messageId = input.existingMessageId ?? ""
+
+  if (input.existingMessageId) {
+    await updateDoc(doc(firestore, "comms_v5_messages", input.existingMessageId), {
+      ping: {
+        pingId: pingRef.id,
+        recipientUid: input.recipientUid,
+        recipientDisplayName: input.recipientDisplayName,
+        quickReplies,
+      },
+    })
+    messageId = input.existingMessageId
+  } else {
+    const messageRef = await addDoc(collection(firestore, "comms_v5_messages"), {
+      threadId: thread.id,
+      uid: input.senderUid,
+      displayName: input.senderDisplayName,
+      text: input.text.trim(),
+      type: "text",
+      organizationId: input.organizationId,
+      memberUids: thread.memberUids,
+      createdAt,
+      ping: {
+        pingId: pingRef.id,
+        recipientUid: input.recipientUid,
+        recipientDisplayName: input.recipientDisplayName,
+        quickReplies,
+      },
+    } satisfies Omit<CommsMessage, "id">)
+    messageId = messageRef.id
+  }
 
   await setDoc(pingRef, {
     category: input.category ?? rule.category,
@@ -348,7 +364,7 @@ export async function createDirectPing(
     createdBy: input.senderUid,
     displayName: input.senderDisplayName,
     createdAt,
-    messageId: messageRef.id,
+    messageId,
     memberUids: thread.memberUids,
     recipientUid: input.recipientUid,
     recipientDisplayName: input.recipientDisplayName,
