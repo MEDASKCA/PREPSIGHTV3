@@ -1,10 +1,20 @@
 "use client"
 
 import { useEffect } from "react"
+import { isNativeApp } from "@/lib/capacitor-push"
 
 export default function PWARegistrar() {
   useEffect(() => {
     if (typeof window === "undefined" || !("serviceWorker" in navigator)) {
+      return
+    }
+
+    if (isNativeApp()) {
+      navigator.serviceWorker.getRegistrations().then((registrations) => {
+        registrations.forEach((registration) => {
+          void registration.unregister()
+        })
+      }).catch(() => {})
       return
     }
 

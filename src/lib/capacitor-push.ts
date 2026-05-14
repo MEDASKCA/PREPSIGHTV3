@@ -1,7 +1,9 @@
 "use client"
 
-import { doc, setDoc, arrayUnion } from "firebase/firestore"
+import { arrayUnion, doc, setDoc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
+
+let initializedForUid: string | null = null
 
 export function isNativeApp(): boolean {
   if (typeof window === "undefined") return false
@@ -15,27 +17,31 @@ export function isNativeApp(): boolean {
 
 export async function setupCapacitorPush(uid: string): Promise<void> {
   if (!isNativeApp()) return
+  if (initializedForUid === uid) return
 
-  const { PushNotifications } = await import("@capacitor/push-notifications")
+  try {
+    const { PushNotifications } = await import("@capacitor/push-notifications")
 
-  const permission = await PushNotifications.requestPermissions()
-  if (permission.receive !== "granted") return
+    const permission = await PushNotifications.requestPermissions()
+    if (permission.receive !== "granted") return
 
-  await PushNotifications.register()
+    await PushNotifications.register()
 
-  PushNotifications.addListener("registration", async (token) => {
-    if (!token.value || !db) return
-    await setDoc(doc(db, "comms_v5_users", uid), { fcmTokens: arrayUnion(token.value) }, { merge: true })
-  })
+    PushNotifications.addListener("registration", async (token) => {
+      if (!token.value || !db) return
+      await setDoc(doc(db, "comms_v5_users", uid), { fcmTokens: arrayUnion(token.value) }, { merge: true })
+    })
 
-  // Foreground notification received — Capacitor surfaces it here on native
-  PushNotifications.addListener("pushNotificationReceived", (notification) => {
-    console.log("Push received in foreground:", notification)
-  })
+    PushNotifications.addListener("pushNotificationReceived", (notification) => {
+      console.log("Push received in foreground:", notification)
+    })
 
-  // User tapped a notification
-  PushNotifications.addListener("pushNotificationActionPerformed", (action) => {
-    console.log("Notification tapped:", action)
-    // Could navigate to comms here in future
-  })
+    PushNotifications.addListener("pushNotificationActionPerformed", (action) => {
+      console.log("Notification tapped:", action)
+    })
+
+    initializedForUid = uid
+  } catch (error) {
+    console.warn("Capacitor push setup failed:", error)
+  }
 }
