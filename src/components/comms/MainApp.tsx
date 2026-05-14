@@ -2225,6 +2225,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       status === "sent" ? "Active ping"
       : status === "seen" ? "Seen"
       : status === "escalated" ? "Redirected"
+      : status === "completed" ? "Completed"
       : getPingStatusLabel(activeThreadPing)
     const dockTone =
       status === "escalated"
@@ -2256,9 +2257,19 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               </div>
                 <p className="mt-0.5 text-[13px] font-semibold leading-tight text-white">{activeThreadPing.text}</p>
                 <div className="mt-1 min-w-0 text-[11px] text-white/74">
+                  <span className="text-white/68">{status === "sent" ? "Waiting to be seen" : statusLabel}</span>
+                </div>
+              </div>
+              <div className="flex shrink-0 flex-col items-end gap-1.5">
+                <div className={`text-[15px] font-semibold tabular-nums leading-none ${tone.timerTone}`}>
+                  {elapsed}
+                </div>
+                <div className="flex items-center gap-1.5">
                   {visibleSeenMembers.length > 0 ? (
-                    <span className="inline-flex items-center gap-1.5 align-middle">
-                      <span className="text-white/74">Seen by</span>
+                    <>
+                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1d6fd6] text-white">
+                        <Check size={14} />
+                      </span>
                       <span className="flex -space-x-1.5">
                         {visibleSeenMembers.map(({ member, uid }) =>
                           member ? (
@@ -2268,15 +2279,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           ) : null,
                         )}
                       </span>
-                    </span>
-                  ) : (
-                    <span className="text-white/68">{status === "sent" ? "Waiting to be seen" : statusLabel}</span>
-                  )}
-                </div>
-              </div>
-              <div className="flex shrink-0 flex-col items-end gap-1.5">
-                <div className={`text-[15px] font-semibold tabular-nums leading-none ${tone.timerTone}`}>
-                  {elapsed}
+                    </>
+                  ) : null}
                 </div>
                 <div className="flex items-center gap-1.5">
                 {canStop ? (
