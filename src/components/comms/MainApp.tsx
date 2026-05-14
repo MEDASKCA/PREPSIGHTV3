@@ -3072,12 +3072,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                               ? isOwn
                                 ? "overflow-hidden rounded-[22px] bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] p-[3px] text-white shadow-[0_16px_34px_rgba(0,150,199,0.22)]"
                                 : isTom
-                                  ? "overflow-hidden rounded-[22px] bg-[#0e7490] p-[3px] text-white shadow-[0_16px_34px_rgba(14,116,144,0.3)]"
+                                  ? "overflow-hidden rounded-[22px] bg-[#138496] p-[3px] text-white shadow-[0_16px_34px_rgba(19,132,150,0.3)]"
                                   : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
                               : isOwn
                                   ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
                                 : isTom
-                                  ? "px-3 py-1.5 rounded-2xl bg-[#0e7490] text-white rounded-bl-sm"
+                                  ? "px-3 py-1.5 rounded-2xl bg-[#138496] text-white rounded-bl-sm"
                                   : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
@@ -3156,7 +3156,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <div className="flex items-end gap-0.5">
                 <div className="w-1 shrink-0" />
                 <div className="flex max-w-[84%] flex-col items-start">
-                  <div className="rounded-2xl rounded-bl-sm bg-[#003d54] px-3 py-1.5 text-left text-[14px] leading-snug text-white">
+                  <div className="rounded-2xl rounded-bl-sm bg-[#138496] px-3 py-1.5 text-left text-[14px] leading-snug text-white">
                     <TypingDots tone={showTomTyping || showTomOperatorTyping ? "tom" : "default"} />
                   </div>
                 </div>
@@ -5598,12 +5598,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                               ? isOwn
                                 ? "overflow-hidden rounded-[22px] bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] p-[3px] text-white shadow-[0_16px_34px_rgba(0,150,199,0.22)]"
                                 : isTom
-                                  ? "overflow-hidden rounded-[22px] bg-[#0e7490] p-[3px] text-white shadow-[0_16px_34px_rgba(14,116,144,0.3)]"
+                                  ? "overflow-hidden rounded-[22px] bg-[#138496] p-[3px] text-white shadow-[0_16px_34px_rgba(19,132,150,0.3)]"
                                   : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
                               : isOwn
                                   ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
                                 : isTom
-                                  ? "px-3 py-1.5 rounded-2xl bg-[#0e7490] text-white rounded-bl-sm"
+                                  ? "px-3 py-1.5 rounded-2xl bg-[#138496] text-white rounded-bl-sm"
                                   : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
@@ -5682,7 +5682,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               <div className="flex items-end gap-0.5">
                 <div className="w-1 shrink-0" />
                 <div className="flex max-w-[84%] flex-col items-start">
-                  <div className="rounded-2xl rounded-bl-sm bg-[#003d54] px-3 py-1.5 text-left text-[14px] leading-snug text-white">
+                  <div className="rounded-2xl rounded-bl-sm bg-[#138496] px-3 py-1.5 text-left text-[14px] leading-snug text-white">
                     <TypingDots tone={showTomTyping || showTomOperatorTyping ? "tom" : "default"} />
                   </div>
                 </div>
