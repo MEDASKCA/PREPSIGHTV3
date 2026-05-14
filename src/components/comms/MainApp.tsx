@@ -2070,18 +2070,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             )
           })()
         ))}
-        <button
-          type="button"
-          onClick={() => {
-            setReplyTo(message)
-          }}
-          className="flex w-[52px] flex-col items-center gap-1.5 text-center"
-        >
-          <span className="flex h-9 w-9 items-center justify-center rounded-full border border-[#2d2d2d] bg-[#111111] text-white transition-colors hover:bg-[#151515]">
-            <Reply size={14} />
-          </span>
-          <span className="text-[10px] leading-tight text-white/72">Reply</span>
-        </button>
       </div>
     )
   }
