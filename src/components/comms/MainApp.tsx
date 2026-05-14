@@ -830,11 +830,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [showPingPicker, setShowPingPicker] = useState<"composer" | "longpress" | null>(null)
   const [pendingPingCategory, setPendingPingCategory] = useState<PingCategory | null>(null)
   const [pings, setPings] = useState<CommsPing[]>([])
+  const [allPings, setAllPings] = useState<CommsPing[]>([])
   const [showPingSettings, setShowPingSettings] = useState(false)
   const [pingShortcutSets, setPingShortcutSets] = useState<PingShortcutSets>(() => readCachedPingShortcutSets())
   const notifiedPingIdsRef = useRef<Set<string>>(new Set())
+  const escalatedPingIdsRef = useRef<Set<string>>(new Set())
   const messageLongPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const suppressMessageTapRef = useRef(false)
+  const [pingNow, setPingNow] = useState(() => Date.now())
 
   useEffect(() => {
     if (!embedded || !showContacts) return
@@ -865,6 +868,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     setReplyTo(match)
     setPendingPingReplyMessageId(null)
   }, [messages, pendingPingReplyMessageId])
+
+  useEffect(() => {
+    const timer = window.setInterval(() => setPingNow(Date.now()), 1000)
+    return () => window.clearInterval(timer)
+  }, [])
 
   useEffect(() => {
     return () => {
@@ -1681,6 +1689,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
     if (kind === "quick") {
       await markPingStatus(firestore, ping.id, "accepted", user.uid)
+      await sendTomPingUpdate(thread, `Update: response received after ${formatPingElapsed(ping.createdAt, createdAt)} — ${label}.`)
     }
   }
 
@@ -1697,7 +1706,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       await updateDoc(doc(firestore, "comms_v5_threads", threadId), {
         [`readBy.${user.uid}`]: readAt,
       })
-      await markThreadPingsSeen(firestore, threadId, user.uid)
+      const seenPings = await markThreadPingsSeen(firestore, threadId, user.uid)
       setPings((current) =>
         current.map((ping) =>
           ping.threadId === threadId && ping.recipientUid === user.uid && getEffectivePingStatus(ping) === "sent"
@@ -1705,6 +1714,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             : ping,
         ),
       )
+      const thread = threads.find((entry) => entry.id === threadId) ?? selectedThread
+      if (thread) {
+        for (const ping of seenPings) {
+          await sendTomPingUpdate(thread, `Update: seen after ${formatPingElapsed(ping.createdAt, readAt)}.`)
+        }
+      }
     } catch {
       // keep local clear even if remote write lags
     }
@@ -1892,6 +1907,68 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     )
   }
 
+  function formatPingElapsed(startedAt: number, now: number) {
+    const totalSeconds = Math.max(0, Math.floor((now - startedAt) / 1000))
+    const hours = Math.floor(totalSeconds / 3600)
+    const minutes = Math.floor((totalSeconds % 3600) / 60)
+    const seconds = totalSeconds % 60
+    if (hours > 0) return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+    return `${String(minutes).padStart(2, "0")}:${String(seconds).padStart(2, "0")}`
+  }
+
+  function getPingLiveTone(ping: CommsPing | null, now: number) {
+    if (!ping) {
+      return {
+        bubble: "",
+        timerTone: "text-white/60",
+        label: "",
+      }
+    }
+
+    const status = getEffectivePingStatus(ping, now)
+    const ageMs = Math.max(0, now - ping.createdAt)
+
+    if (status === "escalated") {
+      return {
+        bubble: "bg-gradient-to-br from-[#c93853] to-[#8f1630] text-white",
+        timerTone: "text-rose-200",
+        label: "Escalated",
+      }
+    }
+
+    if (ageMs >= 120_000 || status === "seen") {
+      return {
+        bubble: "bg-gradient-to-br from-[#c18a1d] to-[#8b5c06] text-white",
+        timerTone: "text-amber-200",
+        label: status === "seen" ? "Seen" : "Pending",
+      }
+    }
+
+    return {
+      bubble: "bg-gradient-to-br from-[#228b57] to-[#17663f] text-white",
+      timerTone: "text-emerald-200",
+      label: "Pending",
+    }
+  }
+
+  async function sendTomPingUpdate(thread: CommsThread, text: string) {
+    const createdAt = Date.now()
+    await addDoc(collection(firestore, "comms_v5_messages"), {
+      threadId: thread.id,
+      uid: TOM_UID,
+      displayName: "TOM",
+      text,
+      type: "text",
+      organizationId: org.id,
+      memberUids: Array.from(new Set([...thread.memberUids, TOM_UID])),
+      createdAt,
+    })
+    await updateDoc(doc(firestore, "comms_v5_threads", thread.id), {
+      updatedAt: createdAt,
+      lastMessage: text,
+    })
+  }
+
   function getPingReplyVisual(label: string) {
     const lower = label.trim().toLowerCase()
 
@@ -2017,6 +2094,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const allMembers = [TOM_USER, ...members.filter(member => member.uid !== TOM_UID)]
   const contactMembers = allMembers.filter(member => member.uid !== user.uid)
   const displayedContactMembers = dedupeDisplayedContacts(contactMembers)
+  const pingById = useMemo(() => {
+    const map = new Map<string, CommsPing>()
+    for (const ping of allPings) map.set(ping.id, ping)
+    return map
+  }, [allPings])
 
   useEffect(() => {
     setPingShortcutSets(normalizePingShortcutSets(currentUserRecord?.pingShortcutSets))
@@ -2215,7 +2297,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }, [sessionsLoaded, orgTeams.length, org.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (filterTab !== "pings" || !org?.id) return
+    if (!org?.id) return
     const q = query(
       collection(firestore, "comms_v5_pings"),
       where("organizationId", "==", org.id),
@@ -2225,17 +2307,21 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       snap => {
         const sorted = snap.docs
           .map(d => ({ id: d.id, ...d.data() }) as CommsPing)
-          .filter((ping) => ping.recipientUid === user.uid)
-          .filter((ping) => getEffectivePingStatus(ping) === "sent")
+          .filter((ping) => ping.createdBy === user.uid || ping.memberUids.includes(user.uid))
           .sort((a, b) => b.createdAt - a.createdAt)
-        setPings(sorted)
+        setAllPings(sorted)
+        setPings(
+          sorted
+            .filter((ping) => ping.recipientUid === user.uid)
+            .filter((ping) => getEffectivePingStatus(ping) === "sent"),
+        )
       },
       err => {
         if (err.code !== "permission-denied") console.error("pings listener:", err)
       },
     )
     return unsub
-  }, [filterTab, org?.id, user.uid])
+  }, [org?.id, user.uid])
 
   useEffect(() => {
     if (!org?.id) return
@@ -2245,8 +2331,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       where("organizationId", "==", org.id),
     )
     return onSnapshot(q, (snap) => {
-      const incoming = snap.docs
-        .map((entry) => ({ id: entry.id, ...entry.data() }) as CommsPing)
+      const incoming = (allPings.length
+        ? allPings
+        : snap.docs.map((entry) => ({ id: entry.id, ...entry.data() }) as CommsPing))
         .filter((ping) => ping.recipientUid === user.uid)
         .filter((ping) => getEffectivePingStatus(ping) === "sent")
 
@@ -2267,7 +2354,18 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         }
       }
     }, () => {})
-  }, [org?.id, user.uid])
+  }, [allPings, org?.id, user.uid])
+
+  useEffect(() => {
+    const escalated = allPings.filter((ping) => getEffectivePingStatus(ping, pingNow) === "escalated")
+    for (const ping of escalated) {
+      if (escalatedPingIdsRef.current.has(ping.id)) continue
+      const thread = threads.find((entry) => entry.id === ping.threadId)
+      if (!thread) continue
+      escalatedPingIdsRef.current.add(ping.id)
+      void sendTomPingUpdate(thread, `Update: no response after ${formatPingElapsed(ping.createdAt, pingNow)}. Escalation recommended.`)
+    }
+  }, [allPings, pingNow, threads])
 
   const filteredThreads = threads.filter(t => {
     if (filterTab === "chats" && t.type !== "direct") return false
@@ -2664,6 +2762,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const prevMsg = messages[idx - 1]
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
               const messageText = repairMojibake(msg.text)
+              const pingState = msg.ping ? (pingById.get(msg.ping.pingId) ?? null) : null
+              const pingTone = getPingLiveTone(pingState, pingNow)
+              const pingElapsed = pingState ? formatPingElapsed(pingState.createdAt, pingNow) : null
               const pingHeadline = msg.ping
                 ? (isOwn ? `You pinged ${msg.ping.recipientDisplayName}` : `${msg.displayName} pinged you`)
                 : null
@@ -2784,17 +2885,29 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                                 : isTom
                                   ? "overflow-hidden rounded-[22px] bg-[#0e7490] p-[3px] text-white shadow-[0_16px_34px_rgba(14,116,144,0.3)]"
                                   : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
-                              : isOwn
-                                ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
+                              : msg.ping
+                                ? `px-3 py-1.5 rounded-2xl ${pingTone.bubble} ${isOwn ? "rounded-br-sm" : "rounded-bl-sm"}`
+                                : isOwn
+                                  ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
                                 : isTom
                                   ? "px-3 py-1.5 rounded-2xl bg-[#0e7490] text-white rounded-bl-sm"
                                   : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
                         {pingHeadline ? (
-                          <div className="mb-1 text-[11px] font-medium uppercase tracking-[0.08em] text-white/70">
-                            {pingHeadline}
+                          <div className="mb-1 flex items-center justify-between gap-3">
+                            <div className="text-[11px] font-medium uppercase tracking-[0.08em] text-white/78">
+                              {pingHeadline}
+                            </div>
+                            {pingElapsed ? (
+                              <div className={`shrink-0 text-[11px] font-medium tabular-nums ${pingTone.timerTone}`}>
+                                {pingElapsed}
+                              </div>
+                            ) : null}
                           </div>
+                        ) : null}
+                        {msg.ping && pingTone.label ? (
+                          <div className="mb-1 text-[11px] text-white/74">{pingTone.label}</div>
                         ) : null}
                         {emojiOnly ? (() => {
                           const segs = segmentEmoji(messageText)
@@ -2830,8 +2943,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white" : "text-white"}`}>(edited)</span>}
                       </div>
                     )}
-
-                    {msg.ping ? renderPingMessageActions(msg) : null}
 
                     {msg.reactions && Object.entries(msg.reactions).filter(([, uids]) => uids.length > 0).length > 0 && (
                       <div className="mt-1 flex flex-wrap gap-1.5">
@@ -5168,6 +5279,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const prevMsg = messages[idx - 1]
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
               const messageText = repairMojibake(msg.text)
+              const pingState = msg.ping ? (pingById.get(msg.ping.pingId) ?? null) : null
+              const pingTone = getPingLiveTone(pingState, pingNow)
+              const pingElapsed = pingState ? formatPingElapsed(pingState.createdAt, pingNow) : null
               const pingHeadline = msg.ping
                 ? (isOwn ? `You pinged ${msg.ping.recipientDisplayName}` : `${msg.displayName} pinged you`)
                 : null
@@ -5285,17 +5399,29 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                                 : isTom
                                   ? "overflow-hidden rounded-[22px] bg-[#0e7490] p-[3px] text-white shadow-[0_16px_34px_rgba(14,116,144,0.3)]"
                                   : "overflow-hidden rounded-[22px] bg-[#0b4b63] p-[3px] text-white shadow-[0_16px_34px_rgba(0,0,0,0.2)]"
-                              : isOwn
-                                ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
+                              : msg.ping
+                                ? `px-3 py-1.5 rounded-2xl ${pingTone.bubble} ${isOwn ? "rounded-br-sm" : "rounded-bl-sm"}`
+                                : isOwn
+                                  ? "px-3 py-1.5 rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white rounded-br-sm"
                                 : isTom
                                   ? "px-3 py-1.5 rounded-2xl bg-[#0e7490] text-white rounded-bl-sm"
                                   : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
                         {pingHeadline ? (
-                          <div className="mb-1 text-[11px] font-medium uppercase tracking-[0.08em] text-white/70">
-                            {pingHeadline}
+                          <div className="mb-1 flex items-center justify-between gap-3">
+                            <div className="text-[11px] font-medium uppercase tracking-[0.08em] text-white/78">
+                              {pingHeadline}
+                            </div>
+                            {pingElapsed ? (
+                              <div className={`shrink-0 text-[11px] font-medium tabular-nums ${pingTone.timerTone}`}>
+                                {pingElapsed}
+                              </div>
+                            ) : null}
                           </div>
+                        ) : null}
+                        {msg.ping && pingTone.label ? (
+                          <div className="mb-1 text-[11px] text-white/74">{pingTone.label}</div>
                         ) : null}
                         {emojiOnly ? (() => {
                           const segs = segmentEmoji(messageText)
@@ -5331,8 +5457,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white" : "text-white"}`}>(edited)</span>}
                       </div>
                     )}
-
-                    {msg.ping ? renderPingMessageActions(msg) : null}
 
                     {msg.reactions && Object.entries(msg.reactions).filter(([, uids]) => uids.length > 0).length > 0 && (
                       <div className="mt-1 flex flex-wrap gap-1.5">
