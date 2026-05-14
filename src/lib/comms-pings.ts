@@ -392,6 +392,7 @@ export async function createDirectPing(
 }
 
 export function getEffectivePingStatus(ping: CommsPing, now = Date.now()): PingStatus {
+  if (ping.status === "cancelled" || ping.cancelledAt) return "cancelled"
   if (ping.status === "completed" || ping.completedAt) return "completed"
   if (ping.status === "declined" || ping.declinedAt) return "declined"
   if (ping.status === "escalated" || ping.escalatedAt) return "escalated"
@@ -411,6 +412,7 @@ export function getPingStatusLabel(ping: CommsPing, now = Date.now()): string {
   if (status === "sent") return ping.requiresAck ? "Awaiting ack" : "Sent"
   if (status === "seen") return "Seen"
   if (status === "accepted") return ping.requiresCompletion ? "On it" : "Accepted"
+  if (status === "cancelled") return "Cancelled"
   if (status === "completed") return "Done"
   if (status === "declined") return "Declined"
   return "Redirected"
@@ -418,7 +420,7 @@ export function getPingStatusLabel(ping: CommsPing, now = Date.now()): string {
 
 export function isPingActive(ping: CommsPing, now = Date.now()): boolean {
   const status = getEffectivePingStatus(ping, now)
-  return status !== "completed" && status !== "declined"
+  return status !== "completed" && status !== "declined" && status !== "cancelled"
 }
 
 export async function markPingStatus(
@@ -431,6 +433,7 @@ export async function markPingStatus(
   const patch: Record<string, number | string> = { status }
   if (status === "seen") patch.seenAt = now
   if (status === "accepted") patch.acceptedAt = now
+  if (status === "cancelled") patch.cancelledAt = now
   if (status === "completed") patch.completedAt = now
   if (status === "declined") patch.declinedAt = now
   if (status === "escalated") {

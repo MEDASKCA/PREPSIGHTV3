@@ -6,7 +6,6 @@ import {
   arrayRemove,
   arrayUnion,
   collection,
-  deleteDoc,
   deleteField,
   doc,
   getDoc,
@@ -1626,7 +1625,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }
 
-  async function handlePingAction(pingId: string, status: "seen" | "accepted" | "completed" | "declined" | "escalated") {
+  async function handlePingAction(pingId: string, status: "seen" | "accepted" | "completed" | "declined" | "escalated" | "cancelled") {
     try {
       await markPingStatus(firestore, pingId, status, user.uid)
     } catch {
@@ -1945,7 +1944,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   function getPingDisplayElapsed(ping: CommsPing, now: number) {
-    const stopAt = ping.seenAt ?? ping.escalatedAt ?? ping.completedAt ?? ping.declinedAt ?? now
+    const stopAt = ping.seenAt ?? ping.escalatedAt ?? ping.cancelledAt ?? ping.completedAt ?? ping.declinedAt ?? now
     return formatPingElapsed(ping.createdAt, stopAt)
   }
 
@@ -2029,6 +2028,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               createdAt: now,
               seenAt: undefined,
               acceptedAt: undefined,
+              cancelledAt: undefined,
               completedAt: undefined,
               declinedAt: undefined,
               escalatedAt: undefined,
@@ -2046,6 +2046,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               createdAt: now,
               seenAt: undefined,
               acceptedAt: undefined,
+              cancelledAt: undefined,
               completedAt: undefined,
               declinedAt: undefined,
               escalatedAt: undefined,
@@ -2059,6 +2060,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       createdAt: now,
       seenAt: deleteField(),
       acceptedAt: deleteField(),
+      cancelledAt: deleteField(),
       completedAt: deleteField(),
       declinedAt: deleteField(),
       escalatedAt: deleteField(),
@@ -2067,9 +2069,19 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   async function stopPing(ping: CommsPing) {
-    setAllPings((current) => current.filter((entry) => entry.id !== ping.id))
+    const now = Date.now()
+    setAllPings((current) =>
+      current.map((entry) =>
+        entry.id === ping.id
+          ? { ...entry, status: "cancelled", cancelledAt: now }
+          : entry,
+      ),
+    )
     setPings((current) => current.filter((entry) => entry.id !== ping.id))
-    await deleteDoc(doc(firestore, "comms_v5_pings", ping.id))
+    await updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
+      status: "cancelled",
+      cancelledAt: now,
+    })
   }
 
   function getPingReplyVisual(label: string) {
@@ -2185,6 +2197,19 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const allMembers = [TOM_USER, ...members.filter(member => member.uid !== TOM_UID)]
   const contactMembers = allMembers.filter(member => member.uid !== user.uid)
   const displayedContactMembers = dedupeDisplayedContacts(contactMembers)
+  const recentPings = useMemo(
+    () =>
+      allPings
+        .filter((ping) => ping.recipientUid === user.uid)
+        .filter((ping) => !isPingActive(ping, pingNow))
+        .sort((left, right) => {
+          const leftEnded = left.cancelledAt ?? left.completedAt ?? left.declinedAt ?? left.seenAt ?? left.createdAt
+          const rightEnded = right.cancelledAt ?? right.completedAt ?? right.declinedAt ?? right.seenAt ?? right.createdAt
+          return rightEnded - leftEnded
+        })
+        .slice(0, 12),
+    [allPings, pingNow, user.uid],
+  )
   const pingById = useMemo(() => {
     const map = new Map<string, CommsPing>()
     for (const ping of allPings) map.set(ping.id, ping)
@@ -5021,6 +5046,39 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 })}
               </div>
             )}
+            {recentPings.length > 0 ? (
+              <div className="border-t border-[#121212]">
+                <div className="px-4 py-2 text-[11px] font-medium uppercase tracking-[0.16em] text-white/42">Recent</div>
+                {recentPings.map((ping) => {
+                  const effectiveStatus = getEffectivePingStatus(ping, pingNow)
+                  const statusLabel = getPingStatusLabel(ping, pingNow)
+                  const endedAt = ping.cancelledAt ?? ping.completedAt ?? ping.declinedAt ?? ping.seenAt ?? ping.createdAt
+                  const statusTone =
+                    effectiveStatus === "cancelled" ? "text-zinc-300"
+                    : effectiveStatus === "completed" ? "text-emerald-300"
+                    : effectiveStatus === "declined" ? "text-zinc-300"
+                    : effectiveStatus === "seen" ? "text-amber-300"
+                    : effectiveStatus === "escalated" ? "text-rose-300"
+                    : "text-sky-300"
+                  return (
+                    <button
+                      key={`recent-${ping.id}`}
+                      type="button"
+                      onClick={() => openPingThread(ping)}
+                      className="flex w-full items-center justify-between gap-3 border-b border-black px-4 py-2 text-left active:bg-[#0f0f0f]"
+                    >
+                      <div className="min-w-0 flex-1">
+                        <div className="truncate text-[13px] text-white">
+                          {ping.displayName} <span className="text-white/36">·</span> {ping.text}
+                        </div>
+                        <div className={`mt-0.5 text-[11px] ${statusTone}`}>{statusLabel}</div>
+                      </div>
+                      <div className="shrink-0 text-[11px] tabular-nums text-white/42">{formatTime(endedAt)}</div>
+                    </button>
+                  )
+                })}
+              </div>
+            ) : null}
             </>
           ) : null}
           {filterTab !== "pings" && visibleThreads.length === 0 && filterTab === "spaces" ? (

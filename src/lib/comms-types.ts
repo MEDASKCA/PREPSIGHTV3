@@ -138,7 +138,7 @@ export interface CommsCall {
 export type PingCategory = "action" | "urgent" | "reminder" | "change" | "heads_up" | "question" | "confirmed"
 export type PingRole = "Surgeon" | "Anaesthetist" | "Scrub" | "ODP"
 export type PingShortcutSets = Record<PingRole, string[]>
-export type PingStatus = "sent" | "seen" | "accepted" | "completed" | "declined" | "escalated"
+export type PingStatus = "sent" | "seen" | "accepted" | "completed" | "declined" | "escalated" | "cancelled"
 
 export interface CommsPing {
   id: string
@@ -162,6 +162,7 @@ export interface CommsPing {
   acceptedAt?: number
   completedAt?: number
   declinedAt?: number
+  cancelledAt?: number
   escalatedAt?: number
   escalatedBy?: string
   requiresAck?: boolean
