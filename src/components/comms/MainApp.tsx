@@ -1718,9 +1718,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         completedAt: createdAt,
       })
     }
-    if (kind === "quick") {
-      await sendTomPingUpdate(thread, `Response received after ${formatPingElapsed(ping.createdAt, createdAt)} — ${label}.`)
-    }
   }
 
   async function markThreadRead(threadId: string) {
@@ -1751,12 +1748,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             : ping,
         ),
       )
-      const thread = threads.find((entry) => entry.id === threadId) ?? selectedThread
-      if (thread) {
-        for (const ping of seenPings) {
-          await sendTomPingUpdate(thread, `Seen after ${formatPingElapsed(ping.createdAt, readAt)}.`)
-        }
-      }
     } catch {
       // keep local clear even if remote write lags
     }
@@ -2073,16 +2064,12 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       escalatedAt: deleteField(),
       escalatedBy: deleteField(),
     })
-    await sendTomPingUpdate(thread, "Ping reopened.")
   }
 
   async function stopPing(ping: CommsPing) {
-    const thread = threads.find((entry) => entry.id === ping.threadId) ?? selectedThread
-    if (!thread) return
     setAllPings((current) => current.filter((entry) => entry.id !== ping.id))
     setPings((current) => current.filter((entry) => entry.id !== ping.id))
     await deleteDoc(doc(firestore, "comms_v5_pings", ping.id))
-    await sendTomPingUpdate(thread, "Ping stopped.")
   }
 
   function getPingReplyVisual(label: string) {
