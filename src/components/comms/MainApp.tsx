@@ -2138,8 +2138,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }, [allPings])
   const activeThreadPing = useMemo(() => {
     if (!selectedThread) return null
-    const livePing = allPings
+    const threadPings = allPings
       .filter((ping) => ping.threadId === selectedThread.id)
+      .sort((left, right) => right.createdAt - left.createdAt)
+    const livePing = threadPings
       .filter((ping) => {
         const status = getEffectivePingStatus(ping, pingNow)
         return status !== "completed" && status !== "declined"
@@ -2151,6 +2153,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         return right.createdAt - left.createdAt
       })[0] ?? null
     if (livePing) return livePing
+    const latestThreadPing = threadPings[0] ?? null
+    if (latestThreadPing) {
+      const latestStatus = getEffectivePingStatus(latestThreadPing, pingNow)
+      if (
+        (latestStatus === "completed" && latestThreadPing.completedAt && pingNow - latestThreadPing.completedAt < 5 * 60_000) ||
+        (latestStatus === "declined" && latestThreadPing.declinedAt && pingNow - latestThreadPing.declinedAt < 5 * 60_000)
+      ) {
+        return latestThreadPing
+      }
+      return null
+    }
 
     const fallbackMessage = [...messages]
       .reverse()
