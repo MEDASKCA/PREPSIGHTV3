@@ -99,8 +99,8 @@ const PING_RULES: Record<string, PingRule> = {
 }
 
 const DEFAULT_PING_QUICK_REPLIES: CommsPingQuickReply[] = [
-  { id: "seen", label: "Seen", message: "Seen." },
-  { id: "reply", label: "Reply", message: "" },
+  { id: "on-it", label: "On it", message: "On it." },
+  { id: "unable", label: "Unable", message: "Unable right now." },
 ]
 
 const PING_QUICK_REPLIES: Record<string, CommsPingQuickReply[]> = {

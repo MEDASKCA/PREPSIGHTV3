@@ -92,6 +92,7 @@ import {
   VideoOff,
   Volume2,
   SwitchCamera,
+  ThumbsUp,
   Maximize2,
   Minimize2,
   PanelRight,
@@ -1690,7 +1691,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
     if (kind === "quick") {
       await markPingStatus(firestore, ping.id, "accepted", user.uid)
-      await sendTomPingUpdate(thread, `Update: response received after ${formatPingElapsed(ping.createdAt, createdAt)} — ${label}.`)
+      await sendTomPingUpdate(thread, `Response received after ${formatPingElapsed(ping.createdAt, createdAt)} — ${label}.`)
     }
   }
 
@@ -1718,7 +1719,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       const thread = threads.find((entry) => entry.id === threadId) ?? selectedThread
       if (thread) {
         for (const ping of seenPings) {
-          await sendTomPingUpdate(thread, `Update: seen after ${formatPingElapsed(ping.createdAt, readAt)}.`)
+          await sendTomPingUpdate(thread, `Seen after ${formatPingElapsed(ping.createdAt, readAt)}.`)
         }
       }
     } catch {
@@ -1995,7 +1996,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
     if (lower.includes("way") || lower.includes("coming") || lower.includes("bringing") || lower.includes("on it") || lower.includes("covering") || lower.includes("supporting")) {
       return {
-        icon: Check,
+        icon: ThumbsUp,
         tone: "text-white",
         surface: "border-emerald-500/75 bg-gradient-to-b from-[#52d64d] to-[#17982c] shadow-[0_0_28px_rgba(73,208,85,0.42)]",
       }
@@ -2370,7 +2371,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       const thread = threads.find((entry) => entry.id === ping.threadId)
       if (!thread) continue
       escalatedPingIdsRef.current.add(ping.id)
-      void sendTomPingUpdate(thread, `Update: no response after ${formatPingElapsed(ping.createdAt, pingNow)}. Escalation recommended.`)
+      void sendTomPingUpdate(thread, `No response after ${formatPingElapsed(ping.createdAt, pingNow)}. Escalation recommended.`)
     }
   }, [allPings, pingNow, threads])
 
@@ -2904,7 +2905,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
                         {pingHeadline ? (
                           <div className="mb-1 flex items-center justify-between gap-3">
-                            <div className="text-[11px] font-medium uppercase tracking-[0.08em] text-white/78">
+                            <div className="text-[11px] font-medium text-white/78">
                               {pingHeadline}
                             </div>
                             {pingElapsed ? (
@@ -5418,7 +5419,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
                         {pingHeadline ? (
                           <div className="mb-1 flex items-center justify-between gap-3">
-                            <div className="text-[11px] font-medium uppercase tracking-[0.08em] text-white/78">
+                            <div className="text-[11px] font-medium text-white/78">
                               {pingHeadline}
                             </div>
                             {pingElapsed ? (
