@@ -2012,7 +2012,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         text,
         type: "text",
         organizationId: org.id,
-        memberUids: Array.from(new Set([...thread.memberUids, TOM_UID])),
+        memberUids: thread.memberUids,
         createdAt,
       })
       await updateDoc(doc(firestore, "comms_v5_threads", thread.id), {
@@ -2079,17 +2079,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const thread = threads.find((entry) => entry.id === ping.threadId) ?? selectedThread
     if (!thread) return
     const now = Date.now()
-    setAllPings((current) =>
-      current.map((entry) =>
-        entry.id === ping.id
-          ? {
-              ...entry,
-              status: "completed",
-              completedAt: now,
-            }
-          : entry,
-      ),
-    )
+    setAllPings((current) => current.filter((entry) => entry.id !== ping.id))
     setPings((current) => current.filter((entry) => entry.id !== ping.id))
     await updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
       status: "completed",
