@@ -19,6 +19,7 @@ import type {
   CommsPingQuickReply,
   CommsThread,
   CommsUser,
+  PingEscalationSettings,
   PingCategory,
   PingRole,
   PingShortcutSets,
@@ -27,6 +28,14 @@ import type {
 
 const PING_SHORTCUTS_STORAGE_KEY = "prepsight_ping_shortcuts"
 const PING_SHORTCUTS_EVENT = "prepsight:ping-shortcuts-changed"
+const PING_ESCALATION_STORAGE_KEY = "prepsight_ping_escalation"
+const PING_ESCALATION_EVENT = "prepsight:ping-escalation-changed"
+
+export const DEFAULT_PING_ESCALATION_SETTINGS: PingEscalationSettings = {
+  autoRedirectEnabled: true,
+  ackTimeoutMins: 2,
+  completionTimeoutMins: 5,
+}
 
 export const DEFAULT_PING_SHORTCUTS: PingShortcutSets = {
   Surgeon: [
@@ -164,10 +173,35 @@ export function normalizePingShortcutSets(
   }
 }
 
+export function normalizePingEscalationSettings(
+  input?: Partial<PingEscalationSettings> | null,
+): PingEscalationSettings {
+  const ackTimeout =
+    typeof input?.ackTimeoutMins === "number" && Number.isFinite(input.ackTimeoutMins)
+      ? input.ackTimeoutMins
+      : DEFAULT_PING_ESCALATION_SETTINGS.ackTimeoutMins
+  const completionTimeout =
+    typeof input?.completionTimeoutMins === "number" && Number.isFinite(input.completionTimeoutMins)
+      ? input.completionTimeoutMins
+      : DEFAULT_PING_ESCALATION_SETTINGS.completionTimeoutMins
+
+  return {
+    autoRedirectEnabled: input?.autoRedirectEnabled ?? DEFAULT_PING_ESCALATION_SETTINGS.autoRedirectEnabled,
+    ackTimeoutMins: Math.min(60, Math.max(1, Math.round(ackTimeout))),
+    completionTimeoutMins: Math.min(240, Math.max(1, Math.round(completionTimeout))),
+  }
+}
+
 function publishPingShortcutSets(sets: PingShortcutSets) {
   if (typeof window === "undefined") return
   window.localStorage.setItem(PING_SHORTCUTS_STORAGE_KEY, JSON.stringify(sets))
   window.dispatchEvent(new CustomEvent<PingShortcutSets>(PING_SHORTCUTS_EVENT, { detail: sets }))
+}
+
+function publishPingEscalationSettings(settings: PingEscalationSettings) {
+  if (typeof window === "undefined") return
+  window.localStorage.setItem(PING_ESCALATION_STORAGE_KEY, JSON.stringify(settings))
+  window.dispatchEvent(new CustomEvent<PingEscalationSettings>(PING_ESCALATION_EVENT, { detail: settings }))
 }
 
 export function readCachedPingShortcutSets(): PingShortcutSets {
@@ -178,6 +212,17 @@ export function readCachedPingShortcutSets(): PingShortcutSets {
     return normalizePingShortcutSets(JSON.parse(raw) as Partial<Record<PingRole, string[]>>)
   } catch {
     return normalizePingShortcutSets()
+  }
+}
+
+export function readCachedPingEscalationSettings(): PingEscalationSettings {
+  if (typeof window === "undefined") return normalizePingEscalationSettings()
+  try {
+    const raw = window.localStorage.getItem(PING_ESCALATION_STORAGE_KEY)
+    if (!raw) return normalizePingEscalationSettings()
+    return normalizePingEscalationSettings(JSON.parse(raw) as Partial<PingEscalationSettings>)
+  } catch {
+    return normalizePingEscalationSettings()
   }
 }
 
@@ -201,6 +246,26 @@ export function subscribePingShortcutSets(listener: (sets: PingShortcutSets) => 
   }
 }
 
+export function subscribePingEscalationSettings(listener: (settings: PingEscalationSettings) => void): () => void {
+  if (typeof window === "undefined") return () => {}
+
+  const handleCustom = (event: Event) => {
+    const detail = (event as CustomEvent<PingEscalationSettings>).detail
+    listener(normalizePingEscalationSettings(detail))
+  }
+  const handleStorage = (event: StorageEvent) => {
+    if (event.key !== PING_ESCALATION_STORAGE_KEY) return
+    listener(readCachedPingEscalationSettings())
+  }
+
+  window.addEventListener(PING_ESCALATION_EVENT, handleCustom as EventListener)
+  window.addEventListener("storage", handleStorage)
+  return () => {
+    window.removeEventListener(PING_ESCALATION_EVENT, handleCustom as EventListener)
+    window.removeEventListener("storage", handleStorage)
+  }
+}
+
 export async function loadPingShortcutSets(
   firestore: Firestore,
   uid: string,
@@ -210,6 +275,17 @@ export async function loadPingShortcutSets(
   const sets = normalizePingShortcutSets(data?.pingShortcutSets)
   publishPingShortcutSets(sets)
   return sets
+}
+
+export async function loadPingEscalationSettings(
+  firestore: Firestore,
+  uid: string,
+): Promise<PingEscalationSettings> {
+  const snap = await getDoc(doc(firestore, "comms_v5_users", uid))
+  const data = snap.exists() ? (snap.data() as Partial<CommsUser>) : null
+  const settings = normalizePingEscalationSettings(data?.pingEscalationSettings)
+  publishPingEscalationSettings(settings)
+  return settings
 }
 
 export async function savePingShortcutSets(
@@ -226,6 +302,22 @@ export async function savePingShortcutSets(
     { merge: true },
   )
   publishPingShortcutSets(sets)
+}
+
+export async function savePingEscalationSettings(
+  firestore: Firestore,
+  uid: string,
+  settings: PingEscalationSettings,
+): Promise<void> {
+  await setDoc(
+    doc(firestore, "comms_v5_users", uid),
+    {
+      pingEscalationSettings: normalizePingEscalationSettings(settings),
+      updatedAt: Date.now(),
+    },
+    { merge: true },
+  )
+  publishPingEscalationSettings(settings)
 }
 
 export async function resolveCommsRecipientByDisplayName(
@@ -308,6 +400,7 @@ export async function createDirectPing(
     text: string
     category?: PingCategory
     existingMessageId?: string
+    escalationSettings?: PingEscalationSettings
   },
 ): Promise<CommsThread> {
   const thread = await ensureDirectThread(
@@ -325,6 +418,11 @@ export async function createDirectPing(
     throw new Error("ACTIVE_PING_EXISTS")
   }
   const rule = getPingRule(input.text)
+  const escalationSettings = normalizePingEscalationSettings(input.escalationSettings)
+  const ackTimeoutMins =
+    escalationSettings.autoRedirectEnabled && rule.requiresAck ? escalationSettings.ackTimeoutMins : undefined
+  const completionTimeoutMins =
+    escalationSettings.autoRedirectEnabled && rule.requiresCompletion ? escalationSettings.completionTimeoutMins : undefined
   const createdAt = Date.now()
   const pingRef = doc(collection(firestore, "comms_v5_pings"))
   const quickReplies = getPingQuickReplies(input.text)
@@ -379,8 +477,8 @@ export async function createDirectPing(
     status: "sent",
     requiresAck: rule.requiresAck,
     requiresCompletion: rule.requiresCompletion,
-    ackTimeoutMins: rule.ackTimeoutMins,
-    completionTimeoutMins: rule.completionTimeoutMins,
+    ackTimeoutMins,
+    completionTimeoutMins,
   })
 
   await updateDoc(doc(firestore, "comms_v5_threads", thread.id), {

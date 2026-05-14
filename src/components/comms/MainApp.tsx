@@ -30,15 +30,21 @@ import { toggleDesktopCommsPreference } from "@/lib/desktop-comms"
 import {
   createDirectPing,
   DEFAULT_PING_SHORTCUTS,
+  DEFAULT_PING_ESCALATION_SETTINGS,
   getEffectivePingStatus,
   getPingStatusLabel,
   getPingRoleFromClinicalRole,
   isPingActive,
+  loadPingEscalationSettings,
   markPingStatus,
   markThreadPingsSeen,
   normalizePingShortcutSets,
+  normalizePingEscalationSettings,
+  readCachedPingEscalationSettings,
   readCachedPingShortcutSets,
+  savePingEscalationSettings,
   savePingShortcutSets,
+  subscribePingEscalationSettings,
   subscribePingShortcutSets,
 } from "@/lib/comms-pings"
 import { createVideoBackgroundBlurProcessor, type VideoBackgroundBlurProcessor } from "@/lib/video-background-blur"
@@ -54,6 +60,7 @@ import type {
   CommsPresence,
   CommsUser,
   CommsCall,
+  PingEscalationSettings,
 } from "@/lib/comms-types"
 import {
   ArrowLeft,
@@ -158,18 +165,25 @@ function PingSignalIcon({ className = "" }: { className?: string }) {
 
 function PingShortcutSettingsPanel({
   sets,
+  escalation,
   onSave,
 }: {
   sets: PingShortcutSets
-  onSave: (next: PingShortcutSets) => void
+  escalation: PingEscalationSettings
+  onSave: (next: PingShortcutSets, nextEscalation: PingEscalationSettings) => void
 }) {
   const [draft, setDraft] = useState<PingShortcutSets>(sets)
+  const [draftEscalation, setDraftEscalation] = useState<PingEscalationSettings>(escalation)
   const [activeRole, setActiveRole] = useState<PingRole>("Surgeon")
   const [newPing, setNewPing] = useState("")
 
   useEffect(() => {
     setDraft(sets)
   }, [sets])
+
+  useEffect(() => {
+    setDraftEscalation(escalation)
+  }, [escalation])
 
   const activeCustomPings = draft[activeRole]
 
@@ -191,7 +205,7 @@ function PingShortcutSettingsPanel({
       </div>
 
       <div className="mt-5">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Role defaults</p>
+        <p className="text-[12px] font-semibold text-[#67CFCF]">Role defaults</p>
         <div className="mt-3 space-y-2">
           {DEFAULT_PING_SHORTCUTS[activeRole].map((ping) => (
             <div key={ping} className="rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5 text-[13px] text-white">
@@ -203,7 +217,7 @@ function PingShortcutSettingsPanel({
 
       <div className="mt-6">
         <div className="flex items-center justify-between">
-          <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Your custom shortcuts</p>
+          <p className="text-[12px] font-semibold text-[#67CFCF]">Your custom shortcuts</p>
           <button
             type="button"
             onClick={() => setDraft((current) => ({ ...current, [activeRole]: [] }))}
@@ -250,7 +264,7 @@ function PingShortcutSettingsPanel({
       </div>
 
       <div className="mt-6">
-        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Add shortcut</p>
+        <p className="text-[12px] font-semibold text-[#67CFCF]">Add shortcut</p>
         <div className="mt-3 flex gap-2">
           <input
             value={newPing}
@@ -275,6 +289,79 @@ function PingShortcutSettingsPanel({
         </div>
       </div>
 
+      <div className="mt-6 rounded-[16px] border border-[#1f1f1f] bg-[#101010] p-4">
+        <div>
+          <p className="text-[13px] font-semibold text-white">Redirect settings</p>
+          <p className="mt-1 text-[12px] text-white/58">Applied to new pings you send from chat and Workforce.</p>
+        </div>
+
+        <div className="mt-4 flex items-center justify-between gap-3 rounded-[12px] border border-[#1b1b1b] bg-[#141414] px-3 py-3">
+          <div>
+            <p className="text-[13px] font-medium text-white">Automatic redirect</p>
+            <p className="mt-0.5 text-[12px] text-white/50">Let TOM suggest redirect timing automatically.</p>
+          </div>
+          <button
+            type="button"
+            onClick={() =>
+              setDraftEscalation((current) => ({
+                ...current,
+                autoRedirectEnabled: !current.autoRedirectEnabled,
+              }))
+            }
+            className={`relative h-7 w-12 rounded-full transition-colors ${
+              draftEscalation.autoRedirectEnabled ? "bg-[#0096C7]" : "bg-[#2a2a2a]"
+            }`}
+          >
+            <span
+              className={`absolute top-1 h-5 w-5 rounded-full bg-white transition-transform ${
+                draftEscalation.autoRedirectEnabled ? "translate-x-6" : "translate-x-1"
+              }`}
+            />
+          </button>
+        </div>
+
+        <div className="mt-4 grid grid-cols-1 gap-3 sm:grid-cols-2">
+          <label className="rounded-[12px] border border-[#1b1b1b] bg-[#141414] px-3 py-3">
+            <span className="text-[12px] font-medium text-white/72">Redirect if no response after</span>
+            <div className="mt-2 flex items-center gap-2">
+              <input
+                type="number"
+                min={1}
+                max={60}
+                value={draftEscalation.ackTimeoutMins}
+                onChange={(e) =>
+                  setDraftEscalation((current) => ({
+                    ...current,
+                    ackTimeoutMins: Number(e.target.value || DEFAULT_PING_ESCALATION_SETTINGS.ackTimeoutMins),
+                  }))
+                }
+                className="w-20 rounded-[10px] border border-[#2a2a2a] bg-black px-3 py-2 text-[13px] text-white outline-none focus:border-[#0096C7]/50"
+              />
+              <span className="text-[12px] text-white/54">mins</span>
+            </div>
+          </label>
+          <label className="rounded-[12px] border border-[#1b1b1b] bg-[#141414] px-3 py-3">
+            <span className="text-[12px] font-medium text-white/72">Redirect if still unresolved after</span>
+            <div className="mt-2 flex items-center gap-2">
+              <input
+                type="number"
+                min={1}
+                max={240}
+                value={draftEscalation.completionTimeoutMins}
+                onChange={(e) =>
+                  setDraftEscalation((current) => ({
+                    ...current,
+                    completionTimeoutMins: Number(e.target.value || DEFAULT_PING_ESCALATION_SETTINGS.completionTimeoutMins),
+                  }))
+                }
+                className="w-20 rounded-[10px] border border-[#2a2a2a] bg-black px-3 py-2 text-[13px] text-white outline-none focus:border-[#0096C7]/50"
+              />
+              <span className="text-[12px] text-white/54">mins</span>
+            </div>
+          </label>
+        </div>
+      </div>
+
       <div className="mt-auto pt-6">
         <button
           type="button"
@@ -284,7 +371,7 @@ function PingShortcutSettingsPanel({
               Anaesthetist: draft.Anaesthetist.filter((item) => item.trim()),
               Scrub: draft.Scrub.filter((item) => item.trim()),
               ODP: draft.ODP.filter((item) => item.trim()),
-            })
+            }, normalizePingEscalationSettings(draftEscalation))
           }
           className="w-full rounded-[12px] bg-[#0096C7] py-3 text-[13px] font-semibold text-white hover:bg-[#0087b3]"
         >
@@ -848,6 +935,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [allPings, setAllPings] = useState<CommsPing[]>([])
   const [showPingSettings, setShowPingSettings] = useState(false)
   const [pingShortcutSets, setPingShortcutSets] = useState<PingShortcutSets>(() => readCachedPingShortcutSets())
+  const [pingEscalationSettings, setPingEscalationSettings] = useState<PingEscalationSettings>(() => readCachedPingEscalationSettings())
   const notifiedPingIdsRef = useRef<Set<string>>(new Set())
   const alertedIncomingPingIdsRef = useRef<Set<string>>(new Set())
   const escalatedPingIdsRef = useRef<Set<string>>(new Set())
@@ -1634,6 +1722,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       await savePingShortcutSets(firestore, user.uid, next)
     } catch {
       setPermissionWarning("Unable to save ping shortcuts right now.")
+    }
+  }
+
+  async function handleSavePingEscalationSettings(next: PingEscalationSettings) {
+    setPingEscalationSettings(next)
+    try {
+      await savePingEscalationSettings(firestore, user.uid, next)
+    } catch {
+      setPermissionWarning("Unable to save redirect settings right now.")
     }
   }
 
@@ -2453,6 +2550,18 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }, [currentUserRecord?.pingShortcutSets])
 
   useEffect(() => subscribePingShortcutSets(setPingShortcutSets), [])
+
+  useEffect(() => {
+    setPingEscalationSettings(normalizePingEscalationSettings(currentUserRecord?.pingEscalationSettings))
+  }, [currentUserRecord?.pingEscalationSettings])
+
+  useEffect(() => subscribePingEscalationSettings(setPingEscalationSettings), [])
+
+  useEffect(() => {
+    void loadPingEscalationSettings(firestore, user.uid)
+      .then((settings) => setPingEscalationSettings(settings))
+      .catch(() => {})
+  }, [firestore, user.uid])
 
   const hospitalLabel = profileHospital || currentUserRecord?.hospital?.trim() || org.name
   const departmentLabel = profileDepartment || currentUserRecord?.department?.trim() || ""
@@ -3629,6 +3738,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             text,
             category,
             existingMessageId: messageId,
+            escalationSettings: pingEscalationSettings,
           })
           return
         }
@@ -3676,6 +3786,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         recipientDisplayName: recipient.displayName || "Recipient",
         pingRole: getPingRoleFromClinicalRole(recipient.clinicalRole || recipient.groupLabel || "Practitioner"),
         text: shortcut,
+        escalationSettings: pingEscalationSettings,
       })
       setShowPingPicker(null)
       setPendingPingCategory(null)
@@ -5458,7 +5569,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="flex items-center justify-between border-b border-[#2d2d2d] px-4 py-3">
               <div>
                 <p className="text-[15px] font-semibold text-white">Ping shortcuts</p>
-                <p className="mt-0.5 text-[12px] text-white/60">Manage the shortcuts available when you ping each role.</p>
+                <p className="mt-0.5 text-[12px] text-white/60">Manage shortcuts and redirect timings for each role.</p>
               </div>
               <button type="button" onClick={() => setShowPingSettings(false)} className="text-white/70 hover:text-white">
                 <X size={16} />
@@ -5467,8 +5578,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
               <PingShortcutSettingsPanel
                 sets={pingShortcutSets}
-                onSave={(next) => {
+                escalation={pingEscalationSettings}
+                onSave={(next, nextEscalation) => {
                   void handleSavePingShortcutSets(next)
+                  void handleSavePingEscalationSettings(nextEscalation)
                   setShowPingSettings(false)
                 }}
               />

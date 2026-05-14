@@ -13,14 +13,17 @@ import {
   getPingRoleFromClinicalRole,
   getPingStatusLabel,
   isPingActive,
+  loadPingEscalationSettings,
   loadPingShortcutSets,
+  readCachedPingEscalationSettings,
   readCachedPingShortcutSets,
   resolveCommsRecipientByDisplayName,
   savePingShortcutSets,
+  subscribePingEscalationSettings,
   subscribeOrganizationPings,
   subscribePingShortcutSets,
 } from "@/lib/comms-pings"
-import type { CommsPing, CommsUser, PingShortcutSets } from "@/lib/comms-types"
+import type { CommsPing, CommsUser, PingEscalationSettings, PingShortcutSets } from "@/lib/comms-types"
 import { getProfile } from "@/lib/profile"
 import { canonicalSpecialtyName } from "@/lib/specialty-normalization"
 import RootEntry from "@/components/RootEntry"
@@ -270,6 +273,7 @@ export default function WorkforcePage() {
   const [activeModal, setActiveModal] = useState<ActiveModal>(null)
   const [pingConfigDrawer, setPingConfigDrawer] = useState<PingConfigDrawer>(null)
   const [pingShortcutSets, setPingShortcutSets] = useState<PingShortcutSets>(() => readCachedPingShortcutSets())
+  const [pingEscalationSettings, setPingEscalationSettings] = useState<PingEscalationSettings>(() => readCachedPingEscalationSettings())
   const [activePingsByMember, setActivePingsByMember] = useState<Record<string, CommsPing>>({})
   const [seedVersion, setSeedVersion] = useState(0)
   const [isSeedingSession, setIsSeedingSession] = useState(false)
@@ -395,6 +399,7 @@ export default function WorkforcePage() {
   }, [activeModal])
 
   useEffect(() => subscribePingShortcutSets(setPingShortcutSets), [])
+  useEffect(() => subscribePingEscalationSettings(setPingEscalationSettings), [])
 
   useEffect(() => {
     if (!db) return
@@ -402,6 +407,9 @@ export default function WorkforcePage() {
     if (!uid) return
     loadPingShortcutSets(db, uid)
       .then((sets) => setPingShortcutSets(sets))
+      .catch(() => {})
+    loadPingEscalationSettings(db, uid)
+      .then((settings) => setPingEscalationSettings(settings))
       .catch(() => {})
   }, [])
 
@@ -747,6 +755,7 @@ export default function WorkforcePage() {
         recipientDisplayName: recipient.displayName || memberName,
         pingRole: getPingRoleFromClinicalRole(memberRole),
         text: message,
+        escalationSettings: pingEscalationSettings,
       })
       if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
         new Notification(`You have pinged ${memberName}`, {
