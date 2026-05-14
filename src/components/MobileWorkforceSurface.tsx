@@ -849,6 +849,12 @@ function RotaPanel({
         pingRole: getPingRoleFromClinicalRole(memberRole),
         text: message,
       })
+      if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
+        new Notification(`You have pinged ${memberName}`, {
+          body: message,
+          icon: "/logo.png",
+        })
+      }
       confirmAction(`Ping sent to ${memberName}: ${message}`)
     } catch {
       confirmAction(`Unable to send ping to ${memberName} right now.`)

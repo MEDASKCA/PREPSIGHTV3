@@ -33,6 +33,7 @@ import {
   getPingStatusLabel,
   isPingActive,
   markPingStatus,
+  markThreadPingsSeen,
   normalizePingShortcutSets,
   readCachedPingShortcutSets,
   savePingShortcutSets,
@@ -57,7 +58,9 @@ import {
   ArrowLeftRight,
   ArrowRight,
   Check,
+  Clock3,
   ChevronDown,
+  ChevronRight,
   Edit2,
   Forward,
   LockKeyhole,
@@ -80,7 +83,6 @@ import {
   ScanFace,
   Send,
   Settings,
-  Settings2,
   Smile,
   Trash2,
   Video,
@@ -786,6 +788,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [inputText, setInputText] = useState("")
   const [composerError, setComposerError] = useState("")
   const [replyTo, setReplyTo] = useState<CommsMessage | null>(null)
+  const [pendingPingReplyMessageId, setPendingPingReplyMessageId] = useState<string | null>(null)
   const [editingMessage, setEditingMessage] = useState<CommsMessage | null>(null)
   const [editText, setEditText] = useState("")
   const [showEmojiPicker, setShowEmojiPicker] = useState<string | null>(null)
@@ -826,6 +829,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [pings, setPings] = useState<CommsPing[]>([])
   const [showPingSettings, setShowPingSettings] = useState(false)
   const [pingShortcutSets, setPingShortcutSets] = useState<PingShortcutSets>(() => readCachedPingShortcutSets())
+  const notifiedPingIdsRef = useRef<Set<string>>(new Set())
   const messageLongPressTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const suppressMessageTapRef = useRef(false)
 
@@ -850,6 +854,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       window.removeEventListener("scroll", updateBounds, true)
     }
   }, [embedded, showContacts])
+
+  useEffect(() => {
+    if (!pendingPingReplyMessageId) return
+    const match = messages.find((entry) => entry.id === pendingPingReplyMessageId)
+    if (!match) return
+    setReplyTo(match)
+    setPendingPingReplyMessageId(null)
+  }, [messages, pendingPingReplyMessageId])
 
   useEffect(() => {
     return () => {
@@ -1606,6 +1618,71 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }
 
+  function getThreadById(threadId: string) {
+    return threads.find((thread) => thread.id === threadId) ?? null
+  }
+
+  function openPingThread(ping: CommsPing, withCustomReply = false) {
+    const thread = getThreadById(ping.threadId)
+    if (!thread) return
+    setFilterTab("chats")
+    if (withCustomReply && ping.messageId) {
+      setPendingPingReplyMessageId(ping.messageId)
+    }
+    selectThread(thread)
+  }
+
+  async function sendPingReply(ping: CommsPing, replyText: string, kind: "quick" | "custom", label: string) {
+    const thread = getThreadById(ping.threadId)
+    if (!thread) {
+      setPermissionWarning("Unable to find the ping thread right now.")
+      return
+    }
+    const content = replyText.trim()
+    if (!content) return
+
+    const createdAt = Date.now()
+    const sourceMessage = ping.messageId ? messages.find((entry) => entry.id === ping.messageId) ?? null : null
+
+    await addDoc(collection(firestore, "comms_v5_messages"), {
+      threadId: thread.id,
+      uid: user.uid,
+      displayName: user.displayName || "User",
+      text: content,
+      type: "text",
+      organizationId: org.id,
+      memberUids: thread.memberUids,
+      createdAt,
+      pingReply: {
+        pingId: ping.id,
+        kind,
+        label,
+      },
+      ...(sourceMessage
+        ? {
+            replyTo: {
+              messageId: sourceMessage.id,
+              uid: sourceMessage.uid,
+              displayName: sourceMessage.displayName,
+              text: sourceMessage.text,
+            },
+          }
+        : {}),
+    })
+    await updateDoc(doc(firestore, "comms_v5_threads", thread.id), {
+      updatedAt: createdAt,
+      lastMessage: content,
+    })
+    if (ping.recipientUid === user.uid && getEffectivePingStatus(ping) === "sent") {
+      await markPingStatus(firestore, ping.id, "seen", user.uid)
+    }
+    if (kind === "quick") {
+      await markPingStatus(firestore, ping.id, "accepted", user.uid)
+    }
+    setFilterTab("chats")
+    selectThread(thread)
+  }
+
   async function markThreadRead(threadId: string) {
     const readAt = Date.now()
     setThreads(current =>
@@ -1619,6 +1696,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       await updateDoc(doc(firestore, "comms_v5_threads", threadId), {
         [`readBy.${user.uid}`]: readAt,
       })
+      await markThreadPingsSeen(firestore, threadId, user.uid)
+      setPings((current) =>
+        current.map((ping) =>
+          ping.threadId === threadId && ping.recipientUid === user.uid && getEffectivePingStatus(ping) === "sent"
+            ? { ...ping, status: "seen", seenAt: readAt }
+            : ping,
+        ),
+      )
     } catch {
       // keep local clear even if remote write lags
     }
@@ -1678,6 +1763,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       .filter(message => message.threadId === thread.id && !message.deleted)
       .sort((left, right) => right.createdAt - left.createdAt)[0]
 
+    if (latest?.ping) {
+      return latest.uid === user.uid
+        ? `You pinged ${latest.ping.recipientDisplayName} - ${latest.text.trim()}`
+        : `Pinged you - ${latest.text.trim()}`
+    }
+    if (latest?.pingReply?.label && latest?.text?.trim()) {
+      return `${latest.pingReply.label} - ${latest.text.trim()}`
+    }
     if (latest?.text?.trim()) return latest.text.trim()
     if (latest?.attachments?.length) return getAttachmentPreviewLabel(latest.attachments)
     if (thread.type === "direct" && thread.memberUids.includes(TOM_UID)) return "Ask me anything"
@@ -1794,6 +1887,88 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             ) : null}
           </div>
         ) : null}
+      </div>
+    )
+  }
+
+  function getPingReplyVisual(label: string) {
+    const lower = label.trim().toLowerCase()
+
+    if (lower.includes("way") || lower.includes("coming") || lower.includes("bringing")) {
+      return { icon: Send, tone: "text-sky-300", ring: "border-sky-500/35 bg-sky-500/10" }
+    }
+    if (lower.includes("review") || lower.includes("check") || lower.includes("finding") || lower.includes("arranging")) {
+      return { icon: Search, tone: "text-amber-300", ring: "border-amber-500/35 bg-amber-500/10" }
+    }
+    if (lower.includes("unable") || lower.includes("can't")) {
+      return { icon: X, tone: "text-rose-300", ring: "border-rose-500/35 bg-rose-500/10" }
+    }
+    if (lower.includes("seen")) {
+      return { icon: Clock3, tone: "text-zinc-300", ring: "border-zinc-500/35 bg-zinc-500/10" }
+    }
+    return { icon: Check, tone: "text-emerald-300", ring: "border-emerald-500/35 bg-emerald-500/10" }
+  }
+
+  function renderPingMessageActions(message: CommsMessage) {
+    if (!message.ping || message.ping.recipientUid !== user.uid) return null
+
+    const alreadyReplied = messages.some((entry) => entry.uid === user.uid && entry.pingReply?.pingId === message.ping?.pingId)
+    if (alreadyReplied) return null
+
+    return (
+      <div className="mt-2 flex flex-wrap gap-3" data-no-long-press="true">
+        {message.ping.quickReplies.map((reply) => (
+          (() => {
+            const visual = getPingReplyVisual(reply.label)
+            const Icon = visual.icon
+            return (
+              <button
+                key={`${message.id}-${reply.id}`}
+                type="button"
+                onClick={() => void sendPingReply(
+                  {
+                    id: message.ping!.pingId,
+                    category: "action",
+                    text: message.text,
+                    threadId: message.threadId,
+                    threadName: selectedThread?.name ?? "Direct Message",
+                    organizationId: org.id,
+                    scope: "direct",
+                    createdBy: message.uid,
+                    displayName: message.displayName,
+                    createdAt: message.createdAt,
+                    memberUids: message.memberUids,
+                    recipientUid: message.ping!.recipientUid,
+                    recipientDisplayName: message.ping!.recipientDisplayName,
+                    messageId: message.id,
+                    quickReplies: message.ping!.quickReplies,
+                  },
+                  reply.message,
+                  "quick",
+                  reply.label,
+                )}
+                className="flex w-[58px] flex-col items-center gap-1.5 text-center"
+              >
+                <span className={`flex h-11 w-11 items-center justify-center rounded-full border transition-colors hover:brightness-110 ${visual.ring}`}>
+                  <Icon size={15} className={visual.tone} />
+                </span>
+                <span className="text-[10px] leading-tight text-white/72">{reply.label}</span>
+              </button>
+            )
+          })()
+        ))}
+        <button
+          type="button"
+          onClick={() => {
+            setReplyTo(message)
+          }}
+          className="flex w-[58px] flex-col items-center gap-1.5 text-center"
+        >
+          <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2d2d2d] bg-[#111111] text-white transition-colors hover:bg-[#151515]">
+            <Reply size={14} />
+          </span>
+          <span className="text-[10px] leading-tight text-white/72">Reply</span>
+        </button>
       </div>
     )
   }
@@ -2022,7 +2197,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       snap => {
         const sorted = snap.docs
           .map(d => ({ id: d.id, ...d.data() }) as CommsPing)
-          .filter((ping) => ping.createdBy === user.uid || ping.memberUids.includes(user.uid))
+          .filter((ping) => ping.recipientUid === user.uid)
+          .filter((ping) => getEffectivePingStatus(ping) === "sent")
           .sort((a, b) => b.createdAt - a.createdAt)
         setPings(sorted)
       },
@@ -2032,6 +2208,38 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     )
     return unsub
   }, [filterTab, org?.id, user.uid])
+
+  useEffect(() => {
+    if (!org?.id) return
+    let seeded = false
+    const q = query(
+      collection(firestore, "comms_v5_pings"),
+      where("organizationId", "==", org.id),
+    )
+    return onSnapshot(q, (snap) => {
+      const incoming = snap.docs
+        .map((entry) => ({ id: entry.id, ...entry.data() }) as CommsPing)
+        .filter((ping) => ping.recipientUid === user.uid)
+        .filter((ping) => getEffectivePingStatus(ping) === "sent")
+
+      if (!seeded) {
+        notifiedPingIdsRef.current = new Set(incoming.map((ping) => ping.id))
+        seeded = true
+        return
+      }
+
+      for (const ping of incoming) {
+        if (notifiedPingIdsRef.current.has(ping.id)) continue
+        notifiedPingIdsRef.current.add(ping.id)
+        if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
+          new Notification("You have been pinged", {
+            body: `${ping.displayName}: ${ping.text}`,
+            icon: "/logo.png",
+          })
+        }
+      }
+    }, () => {})
+  }, [org?.id, user.uid])
 
   const filteredThreads = threads.filter(t => {
     if (filterTab === "chats" && t.type !== "direct") return false
@@ -2428,6 +2636,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const prevMsg = messages[idx - 1]
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
               const messageText = repairMojibake(msg.text)
+              const pingHeadline = msg.ping
+                ? (isOwn ? `You pinged ${msg.ping.recipientDisplayName}` : `${msg.displayName} pinged you`)
+                : null
               const emojiOnly = !msg.attachments?.length && !msg.deleted && isEmojiOnly(messageText)
               const hasImageAttachment = Boolean(msg.attachments?.some((att) => att.type === "image"))
               const hasNonImageAttachment = Boolean(msg.attachments?.some((att) => att.type !== "image"))
@@ -2552,6 +2763,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                                   : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
+                        {pingHeadline ? (
+                          <div className="mb-1 text-[11px] font-medium uppercase tracking-[0.08em] text-white/70">
+                            {pingHeadline}
+                          </div>
+                        ) : null}
                         {emojiOnly ? (() => {
                           const segs = segmentEmoji(messageText)
                           const sz = segs.length === 1 ? 64 : segs.length <= 3 ? 52 : 44
@@ -2586,6 +2802,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white" : "text-white"}`}>(edited)</span>}
                       </div>
                     )}
+
+                    {msg.ping ? renderPingMessageActions(msg) : null}
 
                     {msg.reactions && Object.entries(msg.reactions).filter(([, uids]) => uids.length > 0).length > 0 && (
                       <div className="mt-1 flex flex-wrap gap-1.5">
@@ -4236,20 +4454,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       <div className="h-full overflow-y-auto bg-black">
           {filterTab === "pings" ? (
             <>
-              <div className="sticky top-0 z-10 flex items-center justify-between border-b border-[#1e1e1e] bg-black px-4 py-3">
-                <div>
-                  <p className="text-[14px] font-semibold text-white">Ping inbox</p>
-                  <p className="mt-0.5 text-[12px] text-white/60">Shortcut pings sent to you or created by you.</p>
+              <button
+                type="button"
+                onClick={() => setShowPingSettings(true)}
+                className="sticky top-0 z-10 flex w-full items-center justify-between border-b border-[#1e1e1e] bg-black px-4 py-3 text-left transition-colors hover:bg-[#0f0f0f]"
+              >
+                <div className="min-w-0">
+                  <p className="text-[14px] font-medium text-white">Manage shortcuts</p>
                 </div>
-                <button
-                  type="button"
-                  onClick={() => setShowPingSettings(true)}
-                  className="inline-flex items-center gap-1.5 rounded-full border border-[#1f1f1f] bg-[#111111] px-3 py-1.5 text-[12px] font-medium text-white transition-colors hover:bg-[#171717]"
-                >
-                  <Settings2 size={13} className="text-[#67CFCF]" />
-                  Manage shortcuts
-                </button>
-              </div>
+                <ChevronRight size={15} className="shrink-0 text-white/45" />
+              </button>
               {pings.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-4 px-8 pt-24 text-center">
                 <div className="flex h-16 w-16 items-center justify-center rounded-full bg-[#111111] text-[#0e7490]">
@@ -4261,94 +4475,75 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 </div>
               </div>
             ) : (
-              <div className="px-4 py-4 space-y-2">
-                {PING_CATEGORIES.map(cat => {
-                  const catPings = pings.filter(p => p.category === cat.id)
-                  if (catPings.length === 0) return null
+              <div>
+                {pings.map(ping => {
+                  const effectiveStatus = getEffectivePingStatus(ping)
+                  const statusLabel = effectiveStatus === "sent" ? "New ping" : getPingStatusLabel(ping)
+                  const isRecipient = ping.recipientUid === user.uid
+                  const statusTone =
+                    effectiveStatus === "completed" ? "text-emerald-300"
+                    : effectiveStatus === "declined" ? "text-zinc-300"
+                    : effectiveStatus === "escalated" ? "text-rose-300"
+                    : effectiveStatus === "accepted" ? "text-sky-300"
+                    : effectiveStatus === "seen" ? "text-amber-300"
+                    : "text-[#67CFCF]"
+                  const urgencyTone =
+                    ping.category === "urgent" ? "bg-amber-400"
+                    : ping.category === "action" ? "bg-sky-400"
+                    : "bg-zinc-500"
+                  const actorLabel = ping.displayName || "Sender"
+                  const quickReplies = (ping.quickReplies ?? []).filter((entry) => entry.message.trim())
                   return (
-                    <div key={cat.id}>
-                      <div className="flex items-center gap-2 mb-2 mt-3 first:mt-0">
-                        <Zap size={12} className="text-[#0e7490] shrink-0" />
-                        <span className="text-[11px] font-semibold text-[#0e7490] uppercase tracking-wider">{cat.label}</span>
-                        <div className="flex-1 h-px bg-[#1e1e1e]" />
-                      </div>
-                      {catPings.map(ping => (
-                        <div key={ping.id} className="rounded-xl bg-[#111111] border border-[#1e1e1e] px-3 py-2.5 mb-1.5">
-                          {(() => {
-                            const effectiveStatus = getEffectivePingStatus(ping)
-                            const statusLabel = getPingStatusLabel(ping)
-                            const isRecipient = ping.recipientUid === user.uid
-                            const isSender = ping.createdBy === user.uid
-                            const canSeen = isRecipient && effectiveStatus === "sent"
-                            const canAccept = isRecipient && (effectiveStatus === "sent" || effectiveStatus === "seen")
-                            const canComplete = isRecipient && effectiveStatus === "accepted"
-                            const canDecline = isRecipient && effectiveStatus !== "completed" && effectiveStatus !== "declined"
-                            const canEscalate = (isRecipient || isSender) && isPingActive(ping) && effectiveStatus !== "escalated"
-                            const statusTone =
-                              effectiveStatus === "completed" ? "border-emerald-500/35 bg-emerald-500/10 text-emerald-300"
-                              : effectiveStatus === "declined" ? "border-zinc-500/35 bg-zinc-500/10 text-zinc-300"
-                              : effectiveStatus === "escalated" ? "border-rose-500/35 bg-rose-500/10 text-rose-300"
-                              : effectiveStatus === "accepted" ? "border-sky-500/35 bg-sky-500/10 text-sky-300"
-                              : effectiveStatus === "seen" ? "border-amber-500/35 bg-amber-500/10 text-amber-300"
-                              : "border-[#2b5d69] bg-[#0f2025] text-[#67CFCF]"
-                            return (
-                              <>
-                          <p className="text-[14px] text-[#e0e0e0] leading-snug">{ping.text}</p>
-                          <div className="flex items-center gap-2 mt-1.5 flex-wrap">
-                            <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium border ${statusTone}`}>
-                              {statusLabel}
-                            </span>
-                            <span className={`text-[10px] px-1.5 py-0.5 rounded-full font-medium ${
-                              ping.scope === "direct" ? "bg-[#1a3a4a] text-[#5bc8da]" :
-                              ping.scope === "space" ? "bg-[#1a2a3a] text-[#7cb9e8]" :
-                              "bg-[#1a1a3a] text-[#a89ee8]"
-                            }`}>
-                              {ping.scope === "direct" ? "Direct" : ping.scope === "space" ? "Space" : "Org"}
-                            </span>
-                            {ping.threadName && (
-                              <span className="text-[11px] text-white/60">{ping.threadName}</span>
-                            )}
-                            {ping.recipientDisplayName ? (
-                              <span className="text-[11px] text-white/60">
-                                {ping.createdBy === user.uid ? `To ${ping.recipientDisplayName}` : `From ${ping.displayName}`}
-                              </span>
-                            ) : null}
-                            <span className="text-[11px] text-white/60 ml-auto">{formatTime(ping.createdAt)}</span>
-                          </div>
-                          {(canSeen || canAccept || canComplete || canDecline || canEscalate) ? (
-                            <div className="mt-2 flex flex-wrap gap-1.5">
-                              {canSeen ? (
-                                <button type="button" onClick={() => void handlePingAction(ping.id, "seen")} className="rounded-full border border-[#2c4a50] bg-[#102125] px-2.5 py-1 text-[11px] font-medium text-[#67CFCF]">
-                                  Acknowledge
-                                </button>
-                              ) : null}
-                              {canAccept ? (
-                                <button type="button" onClick={() => void handlePingAction(ping.id, "accepted")} className="rounded-full border border-sky-500/35 bg-sky-500/10 px-2.5 py-1 text-[11px] font-medium text-sky-300">
-                                  On it
-                                </button>
-                              ) : null}
-                              {canComplete ? (
-                                <button type="button" onClick={() => void handlePingAction(ping.id, "completed")} className="rounded-full border border-emerald-500/35 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-300">
-                                  Done
-                                </button>
-                              ) : null}
-                              {canDecline ? (
-                                <button type="button" onClick={() => void handlePingAction(ping.id, "declined")} className="rounded-full border border-zinc-500/35 bg-zinc-500/10 px-2.5 py-1 text-[11px] font-medium text-zinc-300">
-                                  Decline
-                                </button>
-                              ) : null}
-                              {canEscalate ? (
-                                <button type="button" onClick={() => void handlePingAction(ping.id, "escalated")} className="rounded-full border border-rose-500/35 bg-rose-500/10 px-2.5 py-1 text-[11px] font-medium text-rose-300">
-                                  Escalate
-                                </button>
-                              ) : null}
-                            </div>
-                          ) : null}
-                              </>
-                            )
-                          })()}
+                    <div key={ping.id} className="border-b border-black px-4 py-3">
+                      <button
+                        type="button"
+                        onClick={() => openPingThread(ping)}
+                        className="w-full text-left active:bg-[#0f0f0f]"
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <span className="truncate text-[15px] font-medium leading-tight text-white">{actorLabel}</span>
+                          <span className="shrink-0 text-[11px] tabular-nums text-white/42">{formatTime(ping.createdAt)}</span>
                         </div>
-                      ))}
+                        <div className="mt-1.5 flex items-center gap-2">
+                          <div className={`h-2 w-2 shrink-0 rounded-full ${urgencyTone}`} />
+                          <p className="min-w-0 flex-1 text-[13px] leading-tight text-white/82">{ping.text}</p>
+                        </div>
+                        <div className="mt-1.5 flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px]">
+                          <span className={`font-medium ${statusTone}`}>{statusLabel}</span>
+                          <span className="text-white/40">Tap to open thread</span>
+                        </div>
+                      </button>
+                      {isRecipient ? (
+                        <div className="mt-3 flex flex-wrap gap-3">
+                          {quickReplies.map((reply) => {
+                            const visual = getPingReplyVisual(reply.label)
+                            const Icon = visual.icon
+                            return (
+                              <button
+                                key={reply.id}
+                                type="button"
+                                onClick={() => void sendPingReply(ping, reply.message, "quick", reply.label)}
+                                className="flex w-[58px] flex-col items-center gap-1.5 text-center"
+                              >
+                                <span className={`flex h-11 w-11 items-center justify-center rounded-full border transition-colors hover:brightness-110 ${visual.ring}`}>
+                                  <Icon size={15} className={visual.tone} />
+                                </span>
+                                <span className="text-[10px] leading-tight text-white/72">{reply.label}</span>
+                              </button>
+                            )
+                          })}
+                          <button
+                            type="button"
+                            onClick={() => openPingThread(ping, true)}
+                            className="flex w-[58px] flex-col items-center gap-1.5 text-center"
+                          >
+                            <span className="flex h-11 w-11 items-center justify-center rounded-full border border-[#2d2d2d] bg-[#111111] text-[11px] font-semibold text-white transition-colors hover:bg-[#151515]">
+                              <Reply size={14} />
+                            </span>
+                            <span className="text-[10px] leading-tight text-white/72">Reply</span>
+                          </button>
+                        </div>
+                      ) : null}
                     </div>
                   )
                 })}
@@ -4927,6 +5122,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const prevMsg = messages[idx - 1]
               const showSenderName = selectedThread.type === "channel" && !isOwn && (!prevMsg || prevMsg.uid !== msg.uid)
               const messageText = repairMojibake(msg.text)
+              const pingHeadline = msg.ping
+                ? (isOwn ? `You pinged ${msg.ping.recipientDisplayName}` : `${msg.displayName} pinged you`)
+                : null
               const emojiOnly = !msg.attachments?.length && !msg.deleted && isEmojiOnly(messageText)
               const hasImageAttachment = Boolean(msg.attachments?.some((att) => att.type === "image"))
               const hasNonImageAttachment = Boolean(msg.attachments?.some((att) => att.type !== "image"))
@@ -5048,6 +5246,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                                   : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
+                        {pingHeadline ? (
+                          <div className="mb-1 text-[11px] font-medium uppercase tracking-[0.08em] text-white/70">
+                            {pingHeadline}
+                          </div>
+                        ) : null}
                         {emojiOnly ? (() => {
                           const segs = segmentEmoji(messageText)
                           const sz = segs.length === 1 ? 64 : segs.length <= 3 ? 52 : 44
@@ -5082,6 +5285,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white" : "text-white"}`}>(edited)</span>}
                       </div>
                     )}
+
+                    {msg.ping ? renderPingMessageActions(msg) : null}
 
                     {msg.reactions && Object.entries(msg.reactions).filter(([, uids]) => uids.length > 0).length > 0 && (
                       <div className="mt-1 flex flex-wrap gap-1.5">

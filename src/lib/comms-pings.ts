@@ -13,7 +13,17 @@ import {
   where,
   type Firestore,
 } from "firebase/firestore"
-import type { CommsPing, CommsThread, CommsUser, PingCategory, PingRole, PingShortcutSets, PingStatus } from "@/lib/comms-types"
+import type {
+  CommsMessage,
+  CommsPing,
+  CommsPingQuickReply,
+  CommsThread,
+  CommsUser,
+  PingCategory,
+  PingRole,
+  PingShortcutSets,
+  PingStatus,
+} from "@/lib/comms-types"
 
 const PING_SHORTCUTS_STORAGE_KEY = "prepsight_ping_shortcuts"
 const PING_SHORTCUTS_EVENT = "prepsight:ping-shortcuts-changed"
@@ -88,6 +98,44 @@ const PING_RULES: Record<string, PingRule> = {
   "Recovery handoff": { category: "action", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 8 },
 }
 
+const DEFAULT_PING_QUICK_REPLIES: CommsPingQuickReply[] = [
+  { id: "seen", label: "Seen", message: "Seen." },
+  { id: "reply", label: "Reply", message: "" },
+]
+
+const PING_QUICK_REPLIES: Record<string, CommsPingQuickReply[]> = {
+  "Need you in theatre": [
+    { id: "on-my-way", label: "On my way", message: "On my way." },
+    { id: "in-theatre", label: "In theatre", message: "I am in theatre." },
+    { id: "cant-attend", label: "Can't attend", message: "I can't attend right now." },
+  ],
+  "Need review": [
+    { id: "reviewing", label: "Reviewing", message: "Reviewing now." },
+    { id: "attending", label: "Will attend", message: "I will attend shortly." },
+    { id: "unable", label: "Unable", message: "Unable to review right now." },
+  ],
+  "Need cover": [
+    { id: "covering", label: "Covering", message: "Covering now." },
+    { id: "finding-cover", label: "Finding cover", message: "Finding cover now." },
+    { id: "unable", label: "Unable", message: "Unable to cover right now." },
+  ],
+  "Need instrument": [
+    { id: "bringing", label: "Bringing", message: "Bringing it now." },
+    { id: "checking", label: "Checking", message: "Checking availability now." },
+    { id: "unavailable", label: "Unavailable", message: "It is unavailable right now." },
+  ],
+  "Break relief needed": [
+    { id: "relieving", label: "Relieving", message: "Coming to relieve you now." },
+    { id: "arranging", label: "Arranging", message: "Arranging relief now." },
+    { id: "unable", label: "Unable", message: "Unable to relieve right now." },
+  ],
+  "Anaes support needed": [
+    { id: "coming", label: "Coming", message: "Coming now." },
+    { id: "supporting", label: "Supporting", message: "Supporting now." },
+    { id: "unable", label: "Unable", message: "Unable to support right now." },
+  ],
+}
+
 export function getPingRoleFromClinicalRole(role: string): PingRole {
   const lower = role.trim().toLowerCase()
   if (lower.includes("surgical assistant") || lower.includes("assistant surgeon") || lower.includes("surgeon")) return "Surgeon"
@@ -98,6 +146,11 @@ export function getPingRoleFromClinicalRole(role: string): PingRole {
 
 export function getPingRule(text: string): PingRule {
   return PING_RULES[text] ?? DEFAULT_PING_RULE
+}
+
+export function getPingQuickReplies(text: string): CommsPingQuickReply[] {
+  const replies = PING_QUICK_REPLIES[text]
+  return replies ? replies.map((reply) => ({ ...reply })) : DEFAULT_PING_QUICK_REPLIES.map((reply) => ({ ...reply }))
 }
 
 export function normalizePingShortcutSets(
@@ -263,18 +316,39 @@ export async function createDirectPing(
     input.recipientUid,
   )
   const rule = getPingRule(input.text)
+  const createdAt = Date.now()
+  const pingRef = doc(collection(firestore, "comms_v5_pings"))
+  const quickReplies = getPingQuickReplies(input.text)
+  const messageRef = await addDoc(collection(firestore, "comms_v5_messages"), {
+    threadId: thread.id,
+    uid: input.senderUid,
+    displayName: input.senderDisplayName,
+    text: input.text.trim(),
+    type: "text",
+    organizationId: input.organizationId,
+    memberUids: thread.memberUids,
+    createdAt,
+    ping: {
+      pingId: pingRef.id,
+      recipientUid: input.recipientUid,
+      recipientDisplayName: input.recipientDisplayName,
+      quickReplies,
+    },
+  } satisfies Omit<CommsMessage, "id">)
 
-  await addDoc(collection(firestore, "comms_v5_pings"), {
+  await setDoc(pingRef, {
     category: input.category ?? rule.category,
     text: input.text.trim(),
     pingRole: input.pingRole,
+    quickReplies,
     threadId: thread.id,
     threadName: input.recipientDisplayName,
     organizationId: input.organizationId,
     scope: "direct",
     createdBy: input.senderUid,
     displayName: input.senderDisplayName,
-    createdAt: Date.now(),
+    createdAt,
+    messageId: messageRef.id,
     memberUids: thread.memberUids,
     recipientUid: input.recipientUid,
     recipientDisplayName: input.recipientDisplayName,
@@ -283,6 +357,11 @@ export async function createDirectPing(
     requiresCompletion: rule.requiresCompletion,
     ackTimeoutMins: rule.ackTimeoutMins,
     completionTimeoutMins: rule.completionTimeoutMins,
+  })
+
+  await updateDoc(doc(firestore, "comms_v5_threads", thread.id), {
+    updatedAt: createdAt,
+    lastMessage: `Ping: ${input.text.trim()}`,
   })
 
   return thread
@@ -335,6 +414,22 @@ export async function markPingStatus(
     patch.escalatedBy = actorUid
   }
   await updateDoc(doc(firestore, "comms_v5_pings", pingId), patch)
+}
+
+export async function markThreadPingsSeen(
+  firestore: Firestore,
+  threadId: string,
+  recipientUid: string,
+): Promise<void> {
+  const snap = await getDocs(
+    query(collection(firestore, "comms_v5_pings"), where("threadId", "==", threadId)),
+  )
+  const pending = snap.docs
+    .map((entry) => ({ id: entry.id, ...entry.data() }) as CommsPing)
+    .filter((ping) => ping.recipientUid === recipientUid)
+    .filter((ping) => getEffectivePingStatus(ping) === "sent")
+
+  await Promise.all(pending.map((ping) => markPingStatus(firestore, ping.id, "seen", recipientUid)))
 }
 
 export async function findActiveDuplicatePing(

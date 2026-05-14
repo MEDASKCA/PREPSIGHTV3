@@ -748,6 +748,12 @@ export default function WorkforcePage() {
         pingRole: getPingRoleFromClinicalRole(memberRole),
         text: message,
       })
+      if (typeof window !== "undefined" && "Notification" in window && Notification.permission === "granted") {
+        new Notification(`You have pinged ${memberName}`, {
+          body: message,
+          icon: "/logo.png",
+        })
+      }
       setActiveModal({ kind: "toast", message: `Ping sent to ${memberName}: ${message}` })
     } catch {
       setActiveModal({ kind: "toast", message: `Unable to send ping to ${memberName} right now.` })

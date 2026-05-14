@@ -66,6 +66,25 @@ export interface CommsReplyRef {
   text: string
 }
 
+export interface CommsPingQuickReply {
+  id: string
+  label: string
+  message: string
+}
+
+export interface CommsPingMessageMeta {
+  pingId: string
+  recipientUid: string
+  recipientDisplayName: string
+  quickReplies: CommsPingQuickReply[]
+}
+
+export interface CommsPingReplyMeta {
+  pingId: string
+  kind: "quick" | "custom"
+  label: string
+}
+
 export interface CommsMessage {
   id: string
   threadId: string
@@ -91,6 +110,8 @@ export interface CommsMessage {
   callAnswered?: boolean
   callDuration?: number
   callMode?: "audio" | "video"
+  ping?: CommsPingMessageMeta
+  pingReply?: CommsPingReplyMeta
 }
 
 export interface CommsPresence {
@@ -124,6 +145,7 @@ export interface CommsPing {
   category: PingCategory
   text: string
   pingRole?: PingRole
+  quickReplies?: CommsPingQuickReply[]
   threadId: string
   threadName: string
   organizationId: string
