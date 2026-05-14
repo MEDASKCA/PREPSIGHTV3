@@ -2005,6 +2005,40 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const thread = threads.find((entry) => entry.id === ping.threadId) ?? selectedThread
     if (!thread) return
     const now = Date.now()
+    setAllPings((current) =>
+      current.map((entry) =>
+        entry.id === ping.id
+          ? {
+              ...entry,
+              status: "sent",
+              createdAt: now,
+              seenAt: undefined,
+              acceptedAt: undefined,
+              completedAt: undefined,
+              declinedAt: undefined,
+              escalatedAt: undefined,
+              escalatedBy: undefined,
+            }
+          : entry,
+      ),
+    )
+    setPings((current) =>
+      current.map((entry) =>
+        entry.id === ping.id
+          ? {
+              ...entry,
+              status: "sent",
+              createdAt: now,
+              seenAt: undefined,
+              acceptedAt: undefined,
+              completedAt: undefined,
+              declinedAt: undefined,
+              escalatedAt: undefined,
+              escalatedBy: undefined,
+            }
+          : entry,
+      ),
+    )
     await updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
       status: "sent",
       createdAt: now,
@@ -2021,9 +2055,22 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   async function stopPing(ping: CommsPing) {
     const thread = threads.find((entry) => entry.id === ping.threadId) ?? selectedThread
     if (!thread) return
+    const now = Date.now()
+    setAllPings((current) =>
+      current.map((entry) =>
+        entry.id === ping.id
+          ? {
+              ...entry,
+              status: "completed",
+              completedAt: now,
+            }
+          : entry,
+      ),
+    )
+    setPings((current) => current.filter((entry) => entry.id !== ping.id))
     await updateDoc(doc(firestore, "comms_v5_pings", ping.id), {
       status: "completed",
-      completedAt: Date.now(),
+      completedAt: now,
     })
     await sendTomPingUpdate(thread, "Ping stopped.")
   }
