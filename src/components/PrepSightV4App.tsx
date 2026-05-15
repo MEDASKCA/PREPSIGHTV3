@@ -870,6 +870,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const [mobileCalendarView, setMobileCalendarView] = useState<MobileCalendarView>("monthly")
   const [activeTab, setActiveTab] = useState<TabKey>(initialSurface === "updates" ? "updates" : "library")
   const [mobileTab, setMobileTab] = useState<TabKey>(initialSurface)
+  const [isDesktopViewport, setIsDesktopViewport] = useState(false)
   const [isFoldableMobileViewport, setIsFoldableMobileViewport] = useState(false)
   const foldCommsThread = useSyncExternalStore(subscribeFoldCommsThread, getFoldCommsThread, getFoldCommsThread)
   const isFoldCommsThreadActive = Boolean(foldCommsThread)
@@ -892,7 +893,9 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const [isFoldSplitSwapped, setIsFoldSplitSwapped] = useState(false)
   const callStatus = useCallStatus()
   const pipVideoRef = useRef<HTMLVideoElement>(null)
+  const pipLocalVideoRef = useRef<HTMLVideoElement>(null)
   const desktopPipVideoRef = useRef<HTMLVideoElement>(null)
+  const desktopPipLocalVideoRef = useRef<HTMLVideoElement>(null)
   const mobilePipRef = useRef<HTMLDivElement>(null)
   const [desktopPipPos, setDesktopPipPos] = useState({ x: -1, y: -1 }) // -1 = not yet positioned
   const [mobilePipPos, setMobilePipPos] = useState<{ x: number; y: number } | null>(null)
@@ -929,6 +932,15 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const mobileProfileInitial = mobileDisplayName.charAt(0).toUpperCase()
   const mobileEmail = mobileUser?.email || ""
   const mobilePhotoURL = mobileUser?.photoURL || null
+
+  useEffect(() => {
+    if (typeof window === "undefined") return
+    const mediaQuery = window.matchMedia("(min-width: 1024px)")
+    const syncViewport = () => setIsDesktopViewport(mediaQuery.matches)
+    syncViewport()
+    mediaQuery.addEventListener("change", syncViewport)
+    return () => mediaQuery.removeEventListener("change", syncViewport)
+  }, [])
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -1094,6 +1106,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   useEffect(() => {
     if (pipVideoRef.current) {
       if (callStatus.remoteStream) {
+        pipVideoRef.current.muted = true
         pipVideoRef.current.srcObject = callStatus.remoteStream
         pipVideoRef.current.play().catch(() => {})
       } else {
@@ -1101,6 +1114,18 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
       }
     }
   }, [callStatus.remoteStream, callStatus.minimized])
+
+  useEffect(() => {
+    if (pipLocalVideoRef.current) {
+      if (callStatus.localStream) {
+        pipLocalVideoRef.current.muted = true
+        pipLocalVideoRef.current.srcObject = callStatus.localStream
+        pipLocalVideoRef.current.play().catch(() => {})
+      } else {
+        pipLocalVideoRef.current.srcObject = null
+      }
+    }
+  }, [callStatus.localStream, callStatus.minimized])
 
   useEffect(() => {
     if (desktopPipVideoRef.current) {
@@ -1112,6 +1137,18 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
       }
     }
   }, [callStatus.remoteStream, callStatus.minimized])
+
+  useEffect(() => {
+    if (desktopPipLocalVideoRef.current) {
+      if (callStatus.localStream) {
+        desktopPipLocalVideoRef.current.muted = true
+        desktopPipLocalVideoRef.current.srcObject = callStatus.localStream
+        desktopPipLocalVideoRef.current.play().catch(() => {})
+      } else {
+        desktopPipLocalVideoRef.current.srcObject = null
+      }
+    }
+  }, [callStatus.localStream, callStatus.minimized])
 
   // ── Reset desktop pip position when a new call starts ──
   useEffect(() => {
@@ -1132,11 +1169,21 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     return `${String(m).padStart(2, "0")}:${String(ss).padStart(2, "0")}`
   }
 
-  const mobileFloatingHasVideo =
-    callStatus.state === "active" &&
+  const mobileFloatingIsVideoCall =
+    callStatus.state !== "idle" &&
+    callStatus.mediaMode === "video"
+  const mobileFloatingHasRemoteVideo =
+    mobileFloatingIsVideoCall &&
     hasLiveVideoTrack(callStatus.remoteStream)
-  const mobilePipWidth = mobileFloatingHasVideo ? 128 : 248
-  const mobilePipHeight = mobileFloatingHasVideo ? 210 : 72
+  const mobileFloatingHasLocalVideo =
+    mobileFloatingIsVideoCall &&
+    hasLiveVideoTrack(callStatus.localStream)
+  const mobileFloatingRemoteName =
+    callStatus.state === "incoming"
+      ? callStatus.callerName || "Caller"
+      : callStatus.calleeName || "Caller"
+  const mobilePipWidth = mobileFloatingIsVideoCall ? 192 : 248
+  const mobilePipHeight = mobileFloatingIsVideoCall ? 198 : 72
   const portalRoot = typeof document !== "undefined" ? document.body : null
 
   function onDesktopPipPointerDown(e: React.PointerEvent<HTMLDivElement>) {
@@ -1793,17 +1840,17 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
       {portalRoot ? createPortal(
         <>
           {/* ── Mobile: floating minimized call window ── */}
-          {callStatus.state !== "idle" && callStatus.minimized && (
+          {!isDesktopViewport && callStatus.state !== "idle" && callStatus.minimized && (
             <div
               ref={mobilePipRef}
-              className={`fixed z-[9999] overflow-hidden rounded-[18px] select-none lg:hidden ${isMobilePipDragging ? "scale-[1.02]" : ""}`}
+              className={`fixed z-[9999] overflow-hidden rounded-[18px] select-none ${isMobilePipDragging ? "scale-[1.02]" : ""}`}
               style={{
                 ...(mobilePipPos
                   ? { left: mobilePipPos.x, top: mobilePipPos.y, right: "auto", bottom: "auto" }
                   : { bottom: 76, right: 12 }),
                 width: mobilePipWidth,
                 height: mobilePipHeight,
-                background: mobileFloatingHasVideo ? "#000" : "#181818",
+                background: mobileFloatingIsVideoCall ? "#000" : "#181818",
                 boxShadow: isMobilePipDragging
                   ? "0 14px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.16)"
                   : "0 8px 32px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.08)",
@@ -1817,15 +1864,57 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
               onPointerUp={onMobilePipPointerEnd}
               onPointerCancel={onMobilePipPointerEnd}
             >
-              {mobileFloatingHasVideo ? (
+              {mobileFloatingIsVideoCall ? (
                 <>
-                  <video
-                    ref={pipVideoRef}
-                    autoPlay
-                    playsInline
-                    className="h-full w-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-black/30" />
+                  <div className="absolute inset-0 grid grid-cols-[1.15fr_0.85fr] bg-black">
+                    <div className="relative overflow-hidden border-r border-white/10">
+                      {mobileFloatingHasRemoteVideo ? (
+                        <video
+                          ref={pipVideoRef}
+                          autoPlay
+                          playsInline
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full flex-col items-center justify-center px-2 text-center">
+                          <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#1b242d] text-[15px] font-semibold text-white ring-2 ring-white/10">
+                            {mobileFloatingRemoteName.charAt(0).toUpperCase()}
+                          </div>
+                          <p className="mt-2 text-[10px] text-white/78">
+                            {callStatus.state === "incoming" ? "Incoming video" : "Camera off"}
+                          </p>
+                        </div>
+                      )}
+                      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
+                      <div className="pointer-events-none absolute bottom-2 left-2 right-2">
+                        <p className="truncate text-[11px] font-medium text-white">
+                          {mobileFloatingRemoteName}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="relative overflow-hidden bg-[#0f1115]">
+                      {mobileFloatingHasLocalVideo ? (
+                        <video
+                          ref={pipLocalVideoRef}
+                          autoPlay
+                          playsInline
+                          muted
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full flex-col items-center justify-center px-2 text-center">
+                          <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#1b242d] text-[13px] font-semibold text-white ring-2 ring-white/10">
+                            {mobileDisplayName.charAt(0).toUpperCase()}
+                          </div>
+                          <p className="mt-2 text-[10px] text-white/78">You</p>
+                        </div>
+                      )}
+                      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/70 to-transparent" />
+                      <div className="pointer-events-none absolute bottom-2 left-2 right-2">
+                        <p className="truncate text-right text-[10px] font-medium text-white/92">You</p>
+                      </div>
+                    </div>
+                  </div>
                   <div className="absolute left-2 right-2 top-2 flex items-center justify-between">
                     <button
                       onClick={() => {
@@ -1943,15 +2032,15 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
           )}
 
           {/* ── Desktop: draggable floating pip (call minimized within open comms panel) ── */}
-          {callStatus.state !== "idle" && callStatus.minimized && (
+          {isDesktopViewport && callStatus.state !== "idle" && callStatus.minimized && (
             <div
-              className="fixed z-[9999] hidden select-none lg:block"
+              className="fixed z-[9999] select-none"
               style={{
                 right: desktopPipPos.x < 0 ? 24 : undefined,
                 bottom: desktopPipPos.x < 0 ? 32 : undefined,
                 left: desktopPipPos.x >= 0 ? desktopPipPos.x : undefined,
                 top: desktopPipPos.y >= 0 ? desktopPipPos.y : undefined,
-                width: 200,
+                width: 208,
                 pointerEvents: "auto",
                 touchAction: "none",
               }}
@@ -1962,17 +2051,57 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 background: "#0a0a0a",
                 boxShadow: "0 12px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07)",
               }}>
-                {callStatus.state === "active" && hasLiveVideoTrack(callStatus.remoteStream) && (
-                  <div className="relative" style={{ height: 160 }}>
-                    <video
-                      ref={desktopPipVideoRef}
-                      autoPlay
-                      playsInline
-                      className="h-full w-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                {callStatus.mediaMode === "video" ? (
+                  <div className="relative grid grid-cols-[1.15fr_0.85fr] bg-black" style={{ height: 150 }}>
+                    <div className="relative overflow-hidden border-r border-white/10">
+                      {hasLiveVideoTrack(callStatus.remoteStream) ? (
+                        <video
+                          ref={desktopPipVideoRef}
+                          autoPlay
+                          playsInline
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full flex-col items-center justify-center px-2 text-center">
+                          <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#1b242d] text-[15px] font-semibold text-white ring-2 ring-white/10">
+                            {mobileFloatingRemoteName.charAt(0).toUpperCase()}
+                          </div>
+                          <p className="mt-2 text-[10px] text-white/78">
+                            {callStatus.state === "incoming" ? "Incoming video" : "Camera off"}
+                          </p>
+                        </div>
+                      )}
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+                      <div className="pointer-events-none absolute bottom-2 left-2 right-2">
+                        <p className="truncate text-[11px] font-medium text-white">
+                          {mobileFloatingRemoteName}
+                        </p>
+                      </div>
+                    </div>
+                    <div className="relative overflow-hidden bg-[#0f1115]">
+                      {mobileFloatingHasLocalVideo ? (
+                        <video
+                          ref={desktopPipLocalVideoRef}
+                          autoPlay
+                          playsInline
+                          muted
+                          className="h-full w-full object-cover"
+                        />
+                      ) : (
+                        <div className="flex h-full flex-col items-center justify-center px-2 text-center">
+                          <div className="flex h-[34px] w-[34px] items-center justify-center rounded-full bg-[#1b242d] text-[13px] font-semibold text-white ring-2 ring-white/10">
+                            {mobileDisplayName.charAt(0).toUpperCase()}
+                          </div>
+                          <p className="mt-2 text-[10px] text-white/78">You</p>
+                        </div>
+                      )}
+                      <div className="pointer-events-none absolute inset-x-0 bottom-0 h-14 bg-gradient-to-t from-black/70 to-transparent" />
+                      <div className="pointer-events-none absolute bottom-2 left-2 right-2">
+                        <p className="truncate text-right text-[10px] font-medium text-white/92">You</p>
+                      </div>
+                    </div>
                   </div>
-                )}
+                ) : null}
                 <div className="flex items-center gap-2 px-3 py-2.5 cursor-grab active:cursor-grabbing">
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[12px] font-semibold text-white">

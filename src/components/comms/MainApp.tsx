@@ -551,6 +551,7 @@ function getFirstName(name: string) {
 
 function triggerHapticPulse(duration = 12) {
   if (typeof navigator === "undefined" || !("vibrate" in navigator)) return
+  if (typeof navigator.userActivation !== "undefined" && !navigator.userActivation.isActive) return
   navigator.vibrate(duration)
 }
 
@@ -1346,6 +1347,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       videoBlurEnabled,
       muted: callMuted,
       minimized: callViewMode === "floating",
+      localStream: localPreviewStreamRef.current ?? localStreamRef.current,
     })
   }, [callState, callMediaMode, videoBlurEnabled, callMuted, callViewMode, ownsGlobalCallStatus])
 
@@ -1361,6 +1363,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       if (stream) {
         localVideoRef.current.play().catch(() => {})
       }
+    }
+    if (ownsGlobalCallStatus) {
+      publishCallStatus({ localStream: stream })
     }
   }
 
@@ -1475,9 +1480,15 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   // â"€â"€ Vibrate on incoming call â"€â"€
   useEffect(() => {
     if (!ownsGlobalCallStatus || callState !== "incoming" || !("vibrate" in navigator)) return
+    if (typeof navigator.userActivation !== "undefined" && !navigator.userActivation.isActive) return
     // Ring pattern: 400ms on, 200ms off, repeat
     const interval = setInterval(() => navigator.vibrate([400, 200, 400, 200, 400]), 1400)
-    return () => { clearInterval(interval); navigator.vibrate(0) }
+    return () => {
+      clearInterval(interval)
+      if (typeof navigator.userActivation === "undefined" || navigator.userActivation.isActive) {
+        navigator.vibrate(0)
+      }
+    }
   }, [callState, ownsGlobalCallStatus])
 
   // â"€â"€ Ringtone on incoming call (web + Capacitor foreground — CallRingtoneService handles background) â"€â"€
@@ -2150,7 +2161,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   }
 
   function getPingDisplayElapsed(ping: CommsPing, now: number) {
-    const stopAt = ping.seenAt ?? ping.escalatedAt ?? ping.cancelledAt ?? ping.completedAt ?? ping.declinedAt ?? now
+    const stopAt = isPingActive(ping, now)
+      ? now
+      : ping.escalatedAt ?? ping.cancelledAt ?? ping.completedAt ?? ping.declinedAt ?? ping.seenAt ?? now
     return formatPingElapsed(ping.createdAt, stopAt)
   }
 
@@ -2408,14 +2421,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       .sort((left, right) => right.createdAt - left.createdAt)[0] ?? null
     const responseText = pingState?.responseText?.trim() || legacyReplyMessage?.text?.trim() || ""
     const effectiveStatus = pingState ? getEffectivePingStatus(pingState, pingNow) : "sent"
-    const statusLabel =
-      effectiveStatus === "completed" ? "Completed"
-      : effectiveStatus === "cancelled" ? "Cancelled"
-      : effectiveStatus === "declined" ? "Cancelled"
-      : effectiveStatus === "escalated" ? "Redirected"
-      : effectiveStatus === "accepted" ? "Started"
-      : effectiveStatus === "seen" ? "Seen"
-      : "Pending"
     const directionLabel = isOwn ? "Outgoing ping" : "Incoming ping"
     const counterpartLabel = isOwn ? `To ${message.ping.recipientDisplayName}` : `From ${message.displayName}`
     const responseActorLabel = isOwn ? message.ping.recipientDisplayName : "You"
@@ -2424,6 +2429,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       : null
     const isPingFromTom = message.uid === TOM_UID
     const isActivePing = pingState ? isPingActive(pingState, pingNow) : false
+    const statusLabel = isActivePing ? "Active" : "Resolved"
     const shellClass = isActivePing
       ? "border border-[#154659] bg-[#143645]"
       : "border border-[#252525] bg-[#1d2228]"
@@ -2435,6 +2441,20 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         ? "bg-[#138496]"
         : "bg-[#003d54]"
     const footerClass = isActivePing ? "border-t border-[#0e4456] bg-[#12303d]" : "border-t border-[#2a2a2a] bg-[#171b20]"
+    const milestoneRows = pingState ? (() => {
+      const rows: { label: string; value: string }[] = []
+      if (pingState.acceptedAt) rows.push({ label: "Started", value: formatTime(pingState.acceptedAt) })
+      if (pingState.seenAt) rows.push({ label: "Seen", value: formatTime(pingState.seenAt) })
+      if (pingState.respondedAt && responseText) rows.push({ label: "Response", value: formatTime(pingState.respondedAt) })
+      if (!responseText && (effectiveStatus === "escalated" || effectiveStatus === "cancelled" || effectiveStatus === "declined")) {
+        rows.push({ label: "Response", value: "No response" })
+      }
+      if (pingState.completedAt) rows.push({ label: "Completed", value: formatTime(pingState.completedAt) })
+      if (pingState.cancelledAt) rows.push({ label: "Cancelled", value: formatTime(pingState.cancelledAt) })
+      if (pingState.declinedAt) rows.push({ label: "Declined", value: formatTime(pingState.declinedAt) })
+      if (pingState.escalatedAt) rows.push({ label: "Redirected", value: formatTime(pingState.escalatedAt) })
+      return rows
+    })() : []
 
     return (
       <div
@@ -2454,9 +2474,19 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         ) : null}
 
         <div className="px-3 py-3 text-center">
-          <p className="break-words text-[13px] leading-[1.4] text-white">{messageText}</p>
+          <p className="break-words text-[13px] font-medium leading-[1.45] text-white">{messageText}</p>
           {responseSummary ? (
-            <p className="mt-2 break-words text-[12px] italic leading-[1.4] text-white/72">{responseSummary}</p>
+            <p className="mt-2 break-words text-[12px] italic leading-[1.45] text-white/82">{responseSummary}</p>
+          ) : null}
+          {!isActivePing && milestoneRows.length > 0 ? (
+            <div className="mx-auto mt-3 grid max-w-[11rem] grid-cols-[4.5rem_minmax(0,1fr)] gap-x-2 gap-y-1.5 text-[11px] leading-tight text-white/78">
+              {milestoneRows.map((row) => (
+                <div key={`${row.label}-${row.value}`} className="contents">
+                  <span className="text-right font-medium text-white/58">{row.label}:</span>
+                  <span className="text-left text-white/82">{row.value}</span>
+                </div>
+              ))}
+            </div>
           ) : null}
           {message.edited ? <span className="mt-1 inline-block text-[11px] text-white/60">(edited)</span> : null}
           {renderPingMessageActions(message)}
@@ -2467,7 +2497,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             <span className={`inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold ${pingTone.bubble}`}>
               {statusLabel}
             </span>
-            {pingElapsed ? (
+            {isActivePing && pingElapsed ? (
               <span className={`shrink-0 text-[11px] font-semibold tabular-nums ${pingTone.timerTone}`}>
                 {pingElapsed}
               </span>

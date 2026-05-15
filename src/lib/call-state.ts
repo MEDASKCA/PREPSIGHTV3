@@ -14,6 +14,7 @@ export type CallStatusState = {
   calleeName: string
   calleeUid: string
   remoteStream: MediaStream | null
+  localStream: MediaStream | null
   incomingVideoRequest: { uid: string; name: string } | null
   // action callbacks registered by MainApp
   end: (() => void) | null
@@ -40,6 +41,7 @@ const IDLE: CallStatusState = {
   calleeName: "",
   calleeUid: "",
   remoteStream: null,
+  localStream: null,
   incomingVideoRequest: null,
   end: null,
   answer: null,
