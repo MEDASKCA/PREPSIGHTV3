@@ -20,6 +20,7 @@ import type {
   CommsThread,
   CommsUser,
   PingEscalationSettings,
+  PingShortcutEntry,
   PingCategory,
   PingRole,
   PingShortcutSets,
@@ -39,32 +40,32 @@ export const DEFAULT_PING_ESCALATION_SETTINGS: PingEscalationSettings = {
 
 export const DEFAULT_PING_SHORTCUTS: PingShortcutSets = {
   Surgeon: [
-    "In theatre now",
-    "Case ready",
-    "Delay 10 mins",
-    "Need review",
-    "Patient in room",
+    { text: "In theatre now", category: "notify" },
+    { text: "Case ready", category: "notify" },
+    { text: "Delay 10 mins", category: "notify" },
+    { text: "Need review", category: "task" },
+    { text: "Patient in room", category: "notify" },
   ],
   Anaesthetist: [
-    "Patient ready",
-    "Need you in theatre",
-    "Anaesthetic delay?",
-    "Recovery update",
-    "Proceed now",
+    { text: "Patient ready", category: "notify" },
+    { text: "Need you in theatre", category: "task" },
+    { text: "Anaesthetic delay?", category: "question" },
+    { text: "Recovery update", category: "question" },
+    { text: "Proceed now", category: "task" },
   ],
   Scrub: [
-    "Need cover",
-    "Need instrument",
-    "Set not complete",
-    "Ready to scrub",
-    "Break relief needed",
+    { text: "Need cover", category: "task" },
+    { text: "Need instrument", category: "task" },
+    { text: "Set not complete", category: "notify" },
+    { text: "Ready to scrub", category: "notify" },
+    { text: "Break relief needed", category: "task" },
   ],
   ODP: [
-    "Anaes support needed",
-    "Patient transfer",
-    "Room reset",
-    "Equipment check",
-    "Recovery handoff",
+    { text: "Anaes support needed", category: "task" },
+    { text: "Patient transfer", category: "task" },
+    { text: "Room reset", category: "task" },
+    { text: "Equipment check", category: "task" },
+    { text: "Recovery handoff", category: "task" },
   ],
 }
 
@@ -77,7 +78,7 @@ type PingRule = {
 }
 
 const DEFAULT_PING_RULE: PingRule = {
-  category: "action",
+  category: "task",
   requiresAck: true,
   requiresCompletion: true,
   ackTimeoutMins: 2,
@@ -85,26 +86,34 @@ const DEFAULT_PING_RULE: PingRule = {
 }
 
 const PING_RULES: Record<string, PingRule> = {
-  "In theatre now": { category: "heads_up", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
-  "Case ready": { category: "confirmed", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
-  "Delay 10 mins": { category: "change", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
-  "Need review": { category: "urgent", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 8 },
-  "Patient in room": { category: "heads_up", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
-  "Patient ready": { category: "confirmed", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
-  "Need you in theatre": { category: "urgent", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 6 },
+  "In theatre now": { category: "notify", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
+  "Case ready": { category: "notify", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
+  "Delay 10 mins": { category: "notify", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
+  "Need review": { category: "task", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 8 },
+  "Patient in room": { category: "notify", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
+  "Patient ready": { category: "notify", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
+  "Need you in theatre": { category: "task", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 6 },
   "Anaesthetic delay?": { category: "question", requiresAck: true, requiresCompletion: false, ackTimeoutMins: 2, completionTimeoutMins: 0 },
   "Recovery update": { category: "question", requiresAck: true, requiresCompletion: false, ackTimeoutMins: 4, completionTimeoutMins: 0 },
-  "Proceed now": { category: "action", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 5 },
-  "Need cover": { category: "urgent", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 5 },
-  "Need instrument": { category: "urgent", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 4 },
-  "Set not complete": { category: "change", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 8 },
-  "Ready to scrub": { category: "confirmed", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
-  "Break relief needed": { category: "urgent", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 5 },
-  "Anaes support needed": { category: "urgent", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 5 },
-  "Patient transfer": { category: "action", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 10 },
-  "Room reset": { category: "action", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 10 },
-  "Equipment check": { category: "action", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 10 },
-  "Recovery handoff": { category: "action", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 8 },
+  "Proceed now": { category: "task", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 5 },
+  "Need cover": { category: "task", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 5 },
+  "Need instrument": { category: "task", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 4 },
+  "Set not complete": { category: "notify", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 8 },
+  "Ready to scrub": { category: "notify", requiresAck: false, requiresCompletion: false, ackTimeoutMins: 0, completionTimeoutMins: 0 },
+  "Break relief needed": { category: "task", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 5 },
+  "Anaes support needed": { category: "task", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 1, completionTimeoutMins: 5 },
+  "Patient transfer": { category: "task", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 10 },
+  "Room reset": { category: "task", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 10 },
+  "Equipment check": { category: "task", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 10 },
+  "Recovery handoff": { category: "task", requiresAck: true, requiresCompletion: true, ackTimeoutMins: 2, completionTimeoutMins: 8 },
+}
+
+function normalizeLegacyPingCategory(category?: string | null): PingCategory {
+  if (category === "question") return "question"
+  if (category === "notify") return "notify"
+  if (category === "task") return "task"
+  if (category === "heads_up" || category === "confirmed" || category === "change") return "notify"
+  return "task"
 }
 
 const DEFAULT_PING_QUICK_REPLIES: CommsPingQuickReply[] = [
@@ -163,13 +172,30 @@ export function getPingQuickReplies(text: string): CommsPingQuickReply[] {
 }
 
 export function normalizePingShortcutSets(
-  input?: Partial<Record<PingRole, string[]>> | null,
+  input?: Partial<Record<PingRole, (string | PingShortcutEntry)[]>> | null,
 ): PingShortcutSets {
+  const normalizeEntries = (entries?: (string | PingShortcutEntry)[] | null) =>
+    [...(entries ?? [])]
+      .map((entry) => {
+        if (typeof entry === "string") {
+          const text = entry.trim()
+          if (!text) return null
+          return { text, category: getPingRule(text).category }
+        }
+        const text = entry?.text?.trim?.() ?? ""
+        if (!text) return null
+        return {
+          text,
+          category: normalizeLegacyPingCategory(entry.category),
+        } satisfies PingShortcutEntry
+      })
+      .filter((entry): entry is PingShortcutEntry => Boolean(entry))
+
   return {
-    Surgeon: [...(input?.Surgeon ?? [])].filter(Boolean),
-    Anaesthetist: [...(input?.Anaesthetist ?? [])].filter(Boolean),
-    Scrub: [...(input?.Scrub ?? [])].filter(Boolean),
-    ODP: [...(input?.ODP ?? [])].filter(Boolean),
+    Surgeon: normalizeEntries(input?.Surgeon),
+    Anaesthetist: normalizeEntries(input?.Anaesthetist),
+    Scrub: normalizeEntries(input?.Scrub),
+    ODP: normalizeEntries(input?.ODP),
   }
 }
 
@@ -209,7 +235,7 @@ export function readCachedPingShortcutSets(): PingShortcutSets {
   try {
     const raw = window.localStorage.getItem(PING_SHORTCUTS_STORAGE_KEY)
     if (!raw) return normalizePingShortcutSets()
-    return normalizePingShortcutSets(JSON.parse(raw) as Partial<Record<PingRole, string[]>>)
+    return normalizePingShortcutSets(JSON.parse(raw) as Partial<Record<PingRole, (string | PingShortcutEntry)[]>>)
   } catch {
     return normalizePingShortcutSets()
   }
@@ -511,7 +537,7 @@ export function getPingStatusLabel(ping: CommsPing, now = Date.now()): string {
   if (status === "seen") return "Seen"
   if (status === "accepted") return ping.requiresCompletion ? "On it" : "Accepted"
   if (status === "cancelled") return "Cancelled"
-  if (status === "completed") return "Done"
+  if (status === "completed") return ping.responseLabel?.trim() || "Done"
   if (status === "declined") return "Declined"
   return "Redirected"
 }

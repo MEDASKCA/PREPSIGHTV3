@@ -1163,15 +1163,15 @@ function RotaPanel({
             <div className="mt-3 space-y-2">
               {[...DEFAULT_PING_SHORTCUTS[getPingRoleFromClinicalRole(teamActionMember.memberRole)], ...pingShortcutSets[getPingRoleFromClinicalRole(teamActionMember.memberRole)]].map((ping, pingIndex) => (
                 <button
-                  key={`${ping}-${pingIndex}`}
+                  key={`${ping.text}-${pingIndex}`}
                   type="button"
-                  onClick={() => { void sendPingShortcut(teamActionMember.memberName, teamActionMember.memberRole, ping) }}
+                  onClick={() => { void sendPingShortcut(teamActionMember.memberName, teamActionMember.memberRole, ping.text) }}
                   className="flex w-full items-center gap-3 rounded-[14px] border border-[#232323] bg-[#141414] px-4 py-3 text-left transition-colors active:bg-[#1c1c1c]"
                 >
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-[#fbbf24]/15">
                     <Bell size={15} className="text-[#fbbf24]" />
                   </div>
-                  <p className="min-w-0 flex-1 truncate text-[14px] font-semibold text-white">{ping}</p>
+                  <p className="min-w-0 flex-1 truncate text-[14px] font-semibold text-white">{ping.text}</p>
                 </button>
               ))}
             </div>

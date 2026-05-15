@@ -53,6 +53,7 @@ import type {
   CommsPing,
   PingCategory,
   PingRole,
+  PingShortcutEntry,
   PingShortcutSets,
   CommsOrg,
   CommsThread,
@@ -67,7 +68,9 @@ import {
   ArrowLeftRight,
   ArrowUp,
   ArrowRight,
+  Bell,
   Check,
+  CircleHelp,
   Clock3,
   ChevronDown,
   ChevronRight,
@@ -78,6 +81,7 @@ import {
   Mic,
   MicOff,
   MoreVertical,
+  ListChecks,
   Pause,
   Paperclip,
   Phone,
@@ -115,14 +119,28 @@ import {
 const QUICK_REACT = ["👍", "❤️", "😂", "😮", "😢", "🙏", "🔥", "✅"]
 
 const PING_CATEGORIES: { id: PingCategory; label: string }[] = [
-  { id: "action",    label: "Action"    },
-  { id: "urgent",    label: "Urgent"    },
-  { id: "reminder",  label: "Reminder"  },
-  { id: "change",    label: "Change"    },
-  { id: "heads_up",  label: "Heads Up"  },
-  { id: "question",  label: "Question"  },
-  { id: "confirmed", label: "Confirmed" },
+  { id: "notify", label: "Notify" },
+  { id: "question", label: "Question" },
+  { id: "task", label: "Task" },
 ]
+
+const PING_CATEGORY_META: Record<PingCategory, { description: string; accentClass: string; icon: typeof Bell }> = {
+  notify: {
+    description: "Share an update without expecting a task back.",
+    accentClass: "bg-[#0f2c35] text-[#7edff0]",
+    icon: Bell,
+  },
+  question: {
+    description: "Ask for a reply or clarification.",
+    accentClass: "bg-[#2e2142] text-[#d8a9ff]",
+    icon: CircleHelp,
+  },
+  task: {
+    description: "Ask someone to do something.",
+    accentClass: "bg-[#183227] text-[#7ce1ab]",
+    icon: ListChecks,
+  },
+}
 const INCOMING_RING_TIMEOUT_MS = 12000
 const DEFAULT_THEATRE_GROUPS = [
   "Trauma and Orthopaedics",
@@ -176,6 +194,7 @@ function PingShortcutSettingsPanel({
   const [draftEscalation, setDraftEscalation] = useState<PingEscalationSettings>(escalation)
   const [activeRole, setActiveRole] = useState<PingRole>("Surgeon")
   const [newPing, setNewPing] = useState("")
+  const [newPingCategory, setNewPingCategory] = useState<PingCategory>("task")
 
   useEffect(() => {
     setDraft(sets)
@@ -208,9 +227,21 @@ function PingShortcutSettingsPanel({
         <p className="text-[12px] font-semibold text-[#67CFCF]">Role defaults</p>
         <div className="mt-3 space-y-2">
           {DEFAULT_PING_SHORTCUTS[activeRole].map((ping) => (
-            <div key={ping} className="rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5 text-[13px] text-white">
-              {ping}
-            </div>
+            (() => {
+              const meta = PING_CATEGORY_META[ping.category]
+              const Icon = meta.icon
+              return (
+                <div key={ping.text} className="flex items-center gap-3 rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5 text-[13px] text-white">
+                  <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ${meta.accentClass}`}>
+                    <Icon size={14} />
+                  </span>
+                  <div className="min-w-0 flex-1">
+                    <p className="truncate">{ping.text}</p>
+                    <p className="mt-0.5 text-[11px] text-white/48">{PING_CATEGORIES.find((entry) => entry.id === ping.category)?.label}</p>
+                  </div>
+                </div>
+              )
+            })()
           ))}
         </div>
       </div>
@@ -236,15 +267,34 @@ function PingShortcutSettingsPanel({
             activeCustomPings.map((ping, index) => (
               <div key={`${activeRole}-${index}`} className="flex items-center gap-2 rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5">
                 <input
-                  value={ping}
+                  value={ping.text}
                   onChange={(e) =>
                     setDraft((current) => ({
                       ...current,
-                      [activeRole]: current[activeRole].map((item, itemIndex) => itemIndex === index ? e.target.value : item),
+                      [activeRole]: current[activeRole].map((item, itemIndex) => itemIndex === index ? { ...item, text: e.target.value } : item),
                     }))
                   }
                   className="flex-1 bg-transparent text-[13px] text-white outline-none"
                 />
+                <div className="flex shrink-0 rounded-full bg-[#171717] p-1">
+                  {PING_CATEGORIES.map((category) => (
+                    <button
+                      key={`${activeRole}-${index}-${category.id}`}
+                      type="button"
+                      onClick={() =>
+                        setDraft((current) => ({
+                          ...current,
+                          [activeRole]: current[activeRole].map((item, itemIndex) => itemIndex === index ? { ...item, category: category.id } : item),
+                        }))
+                      }
+                      className={`rounded-full px-2 py-1 text-[10px] font-semibold ${
+                        ping.category === category.id ? "bg-[#0096C7] text-white" : "text-white/55"
+                      }`}
+                    >
+                      {category.label}
+                    </button>
+                  ))}
+                </div>
                 <button
                   type="button"
                   onClick={() =>
@@ -265,27 +315,44 @@ function PingShortcutSettingsPanel({
 
       <div className="mt-6">
         <p className="text-[12px] font-semibold text-[#67CFCF]">Add shortcut</p>
-        <div className="mt-3 flex gap-2">
+        <div className="mt-3 flex flex-col gap-2">
           <input
             value={newPing}
             onChange={(e) => setNewPing(e.target.value)}
             placeholder={`Add a ${activeRole.toLowerCase()} shortcut`}
             className="flex-1 rounded-[12px] border border-[#2a2a2a] bg-[#141414] px-4 py-3 text-[13px] text-white placeholder:text-white/35 outline-none focus:border-[#0096C7]/50"
           />
-          <button
-            type="button"
-            disabled={!newPing.trim()}
-            onClick={() => {
-              setDraft((current) => ({
-                ...current,
-                [activeRole]: [...current[activeRole], newPing.trim()],
-              }))
-              setNewPing("")
-            }}
-            className="rounded-[12px] bg-[#0096C7] px-4 py-3 text-[13px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-35"
-          >
-            Add
-          </button>
+          <div className="flex items-center gap-2">
+            <div className="flex flex-1 rounded-[12px] bg-[#111111] p-1">
+              {PING_CATEGORIES.map((category) => (
+                <button
+                  key={`new-${category.id}`}
+                  type="button"
+                  onClick={() => setNewPingCategory(category.id)}
+                  className={`flex-1 rounded-[10px] px-3 py-2 text-[12px] font-semibold ${
+                    newPingCategory === category.id ? "bg-[#0096C7] text-white" : "text-white/58"
+                  }`}
+                >
+                  {category.label}
+                </button>
+              ))}
+            </div>
+            <button
+              type="button"
+              disabled={!newPing.trim()}
+              onClick={() => {
+                setDraft((current) => ({
+                  ...current,
+                  [activeRole]: [...current[activeRole], { text: newPing.trim(), category: newPingCategory }],
+                }))
+                setNewPing("")
+                setNewPingCategory("task")
+              }}
+              className="rounded-[12px] bg-[#0096C7] px-4 py-3 text-[13px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-35"
+            >
+              Add
+            </button>
+          </div>
         </div>
       </div>
 
@@ -313,8 +380,8 @@ function PingShortcutSettingsPanel({
             }`}
           >
             <span
-              className={`absolute top-1 h-5 w-5 rounded-full bg-white transition-transform ${
-                draftEscalation.autoRedirectEnabled ? "translate-x-6" : "translate-x-1"
+              className={`absolute left-1 top-1 h-5 w-5 rounded-full bg-white transition-transform ${
+                draftEscalation.autoRedirectEnabled ? "translate-x-5" : "translate-x-0"
               }`}
             />
           </button>
@@ -367,10 +434,10 @@ function PingShortcutSettingsPanel({
           type="button"
           onClick={() =>
             onSave({
-              Surgeon: draft.Surgeon.filter((item) => item.trim()),
-              Anaesthetist: draft.Anaesthetist.filter((item) => item.trim()),
-              Scrub: draft.Scrub.filter((item) => item.trim()),
-              ODP: draft.ODP.filter((item) => item.trim()),
+              Surgeon: draft.Surgeon.filter((item) => item.text.trim()),
+              Anaesthetist: draft.Anaesthetist.filter((item) => item.text.trim()),
+              Scrub: draft.Scrub.filter((item) => item.text.trim()),
+              ODP: draft.ODP.filter((item) => item.text.trim()),
             }, normalizePingEscalationSettings(draftEscalation))
           }
           className="w-full rounded-[12px] bg-[#0096C7] py-3 text-[13px] font-semibold text-white hover:bg-[#0087b3]"
@@ -934,6 +1001,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   const [pings, setPings] = useState<CommsPing[]>([])
   const [allPings, setAllPings] = useState<CommsPing[]>([])
   const [showPingSettings, setShowPingSettings] = useState(false)
+  const [quickPingCategoryOverrides, setQuickPingCategoryOverrides] = useState<Record<string, PingCategory>>({})
+  const [isPingTypeEditMode, setIsPingTypeEditMode] = useState(false)
+  const [newQuickPingText, setNewQuickPingText] = useState("")
+  const [newQuickPingCategory, setNewQuickPingCategory] = useState<PingCategory>("task")
   const [pingShortcutSets, setPingShortcutSets] = useState<PingShortcutSets>(() => readCachedPingShortcutSets())
   const [pingEscalationSettings, setPingEscalationSettings] = useState<PingEscalationSettings>(() => readCachedPingEscalationSettings())
   const notifiedPingIdsRef = useRef<Set<string>>(new Set())
@@ -1766,42 +1837,24 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     if (!content) return
 
     const createdAt = Date.now()
-    const sourceMessage = ping.messageId ? messages.find((entry) => entry.id === ping.messageId) ?? null : null
-
-    await addDoc(collection(firestore, "comms_v5_messages"), {
-      threadId: thread.id,
-      uid: user.uid,
-      displayName: user.displayName || "User",
-      text: content,
-      type: "text",
-      organizationId: org.id,
-      memberUids: thread.memberUids,
-      createdAt,
-      pingReply: {
-        pingId: ping.id,
-        kind,
-        label,
-      },
-      ...(sourceMessage
-        ? {
-            replyTo: {
-              messageId: sourceMessage.id,
-              uid: sourceMessage.uid,
-              displayName: sourceMessage.displayName,
-              text: sourceMessage.text,
-            },
-          }
-        : {}),
-    })
     await updateDoc(doc(firestore, "comms_v5_threads", thread.id), {
       updatedAt: createdAt,
-      lastMessage: content,
+      lastMessage: `${label}: ${content}`,
     })
     if (ping.recipientUid === user.uid && getEffectivePingStatus(ping) === "sent") {
       setAllPings((current) =>
         current.map((entry) =>
           entry.id === ping.id
-            ? { ...entry, status: "completed", seenAt: createdAt, acceptedAt: kind === "quick" ? createdAt : entry.acceptedAt, completedAt: createdAt }
+            ? {
+                ...entry,
+                status: "completed",
+                seenAt: createdAt,
+                acceptedAt: kind === "quick" ? createdAt : entry.acceptedAt,
+                completedAt: createdAt,
+                responseLabel: label,
+                responseText: content,
+                respondedAt: createdAt,
+              }
             : entry,
         ),
       )
@@ -1810,13 +1863,24 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         status: "completed",
         seenAt: createdAt,
         completedAt: createdAt,
+        responseLabel: label,
+        responseText: content,
+        respondedAt: createdAt,
         ...(kind === "quick" ? { acceptedAt: createdAt } : {}),
       })
     } else if (kind === "quick") {
       setAllPings((current) =>
         current.map((entry) =>
           entry.id === ping.id
-            ? { ...entry, status: "completed", acceptedAt: createdAt, completedAt: createdAt }
+            ? {
+                ...entry,
+                status: "completed",
+                acceptedAt: createdAt,
+                completedAt: createdAt,
+                responseLabel: label,
+                responseText: content,
+                respondedAt: createdAt,
+              }
             : entry,
         ),
       )
@@ -1824,6 +1888,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         status: "completed",
         acceptedAt: createdAt,
         completedAt: createdAt,
+        responseLabel: label,
+        responseText: content,
+        respondedAt: createdAt,
       })
     }
   }
@@ -2019,11 +2086,41 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const seenMembers = getSeenReceiptMembers(liveSelectedThread, message)
     const visibleSeenMembers = seenMembers.slice(0, 3)
     const hiddenSeenCount = Math.max(0, seenMembers.length - visibleSeenMembers.length)
+    const shouldShowSeenReceipts = isOwn && !hasLaterVisibleThreadMessage(message)
 
     return (
       <div className="mt-1 flex w-full items-center justify-between gap-3 px-1">
         <span className="text-xs text-white/60">{formatTime(message.createdAt)}</span>
-        {isOwn && visibleSeenMembers.length > 0 ? (
+        {shouldShowSeenReceipts && visibleSeenMembers.length > 0 ? (
+          <div className="flex items-center gap-1.5">
+            <div className="flex -space-x-1.5">
+              {visibleSeenMembers.map(({ member, uid }) =>
+                member ? (
+                  <div key={uid} className="rounded-full ring-2 ring-black">
+                    <Avatar name={member.displayName} size={18} uid={member.uid} />
+                  </div>
+                ) : null,
+              )}
+            </div>
+            {hiddenSeenCount > 0 ? (
+              <span className="text-[11px] text-[#7f96a3]">{hiddenSeenCount} more</span>
+            ) : null}
+          </div>
+        ) : null}
+      </div>
+    )
+  }
+
+  function renderPingMessageMeta(message: CommsMessage, isOwn: boolean) {
+    const seenMembers = getSeenReceiptMembers(liveSelectedThread, message)
+    const visibleSeenMembers = seenMembers.slice(0, 3)
+    const hiddenSeenCount = Math.max(0, seenMembers.length - visibleSeenMembers.length)
+    const shouldShowSeenReceipts = isOwn && !hasLaterVisibleThreadMessage(message)
+
+    return (
+      <div className="mt-1 flex w-full items-center justify-between gap-3 px-1">
+        <span className="text-xs text-white/60">{formatTime(message.createdAt)}</span>
+        {shouldShowSeenReceipts && visibleSeenMembers.length > 0 ? (
           <div className="flex items-center gap-1.5">
             <div className="flex -space-x-1.5">
               {visibleSeenMembers.map(({ member, uid }) =>
@@ -2241,11 +2338,17 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   function renderPingMessageActions(message: CommsMessage) {
     if (!message.ping || message.ping.recipientUid !== user.uid) return null
 
-    const alreadyReplied = messages.some((entry) => entry.uid === user.uid && entry.pingReply?.pingId === message.ping?.pingId)
-    if (alreadyReplied) return null
+    const pingState = pingById.get(message.ping.pingId) ?? null
+    const isStillActionable = pingState ? isPingActive(pingState, pingNow) : true
+    const hasRecordedResponse = Boolean(
+      pingState?.responseText?.trim() ||
+      pingState?.responseLabel?.trim() ||
+      pingState?.respondedAt,
+    )
+    if (!isStillActionable || hasRecordedResponse) return null
 
     return (
-      <div className="mt-2 flex flex-wrap gap-3" data-no-long-press="true">
+      <div className="mt-3 flex flex-wrap justify-center gap-3" data-no-long-press="true">
         {message.ping.quickReplies.map((reply) => (
           (() => {
             const visual = getPingReplyVisual(reply.label)
@@ -2257,7 +2360,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 onClick={() => void sendPingReply(
                   {
                     id: message.ping!.pingId,
-                    category: "action",
+                    category: "task",
                     text: message.text,
                     threadId: message.threadId,
                     threadName: selectedThread?.name ?? "Direct Message",
@@ -2290,10 +2393,110 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     )
   }
 
+  function renderPingMessageCard(
+    message: CommsMessage,
+    isOwn: boolean,
+    pingState: CommsPing | null,
+    pingTone: ReturnType<typeof getPingLiveTone>,
+    pingElapsed: string | null,
+    messageText: string,
+  ) {
+    if (!message.ping) return null
+
+    const legacyReplyMessage = messages
+      .filter((entry) => entry.pingReply?.pingId === message.ping?.pingId && !entry.deleted)
+      .sort((left, right) => right.createdAt - left.createdAt)[0] ?? null
+    const responseText = pingState?.responseText?.trim() || legacyReplyMessage?.text?.trim() || ""
+    const effectiveStatus = pingState ? getEffectivePingStatus(pingState, pingNow) : "sent"
+    const statusLabel =
+      effectiveStatus === "completed" ? "Completed"
+      : effectiveStatus === "cancelled" ? "Cancelled"
+      : effectiveStatus === "declined" ? "Cancelled"
+      : effectiveStatus === "escalated" ? "Redirected"
+      : effectiveStatus === "accepted" ? "Started"
+      : effectiveStatus === "seen" ? "Seen"
+      : "Pending"
+    const directionLabel = isOwn ? "Outgoing ping" : "Incoming ping"
+    const counterpartLabel = isOwn ? `To ${message.ping.recipientDisplayName}` : `From ${message.displayName}`
+    const responseActorLabel = isOwn ? message.ping.recipientDisplayName : "You"
+    const responseSummary = responseText
+      ? `${responseActorLabel} responded: ${responseText}`
+      : null
+    const isPingFromTom = message.uid === TOM_UID
+    const isActivePing = pingState ? isPingActive(pingState, pingNow) : false
+    const shellClass = isActivePing
+      ? "border border-[#154659] bg-[#143645]"
+      : "border border-[#252525] bg-[#1d2228]"
+    const headerClass = isOwn
+      ? isActivePing
+        ? "bg-gradient-to-br from-[#29b6d8] to-[#1a86c8]"
+        : "bg-[#1a86c8]"
+      : isPingFromTom
+        ? "bg-[#138496]"
+        : "bg-[#003d54]"
+    const footerClass = isActivePing ? "border-t border-[#0e4456] bg-[#12303d]" : "border-t border-[#2a2a2a] bg-[#171b20]"
+
+    return (
+      <div
+        className={`relative inline-block w-fit max-w-[15.5rem] overflow-hidden rounded-[22px] text-white shadow-[0_18px_38px_rgba(0,0,0,0.24)] ${shellClass}`}
+      >
+        <div className={`px-3 py-2.5 ${headerClass}`}>
+          <div className="min-w-0">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.08em] text-white/54">{directionLabel}</p>
+            <p className="mt-1 break-words text-[13px] font-semibold leading-tight text-white/92">{counterpartLabel}</p>
+          </div>
+        </div>
+
+        {message.attachments?.length ? (
+          <div className="px-3 pt-3">
+            {message.attachments.map((att, ai) => renderMessageAttachment(att, ai, isOwn, message))}
+          </div>
+        ) : null}
+
+        <div className="px-3 py-3 text-center">
+          <p className="break-words text-[13px] leading-[1.4] text-white">{messageText}</p>
+          {responseSummary ? (
+            <p className="mt-2 break-words text-[12px] italic leading-[1.4] text-white/72">{responseSummary}</p>
+          ) : null}
+          {message.edited ? <span className="mt-1 inline-block text-[11px] text-white/60">(edited)</span> : null}
+          {renderPingMessageActions(message)}
+        </div>
+
+        <div className={`flex items-center justify-between gap-3 px-3 py-2 ${footerClass}`}>
+          <div className="flex min-w-0 items-center gap-2">
+            <span className={`inline-flex rounded-full px-2.5 py-1 text-[11px] font-semibold ${pingTone.bubble}`}>
+              {statusLabel}
+            </span>
+            {pingElapsed ? (
+              <span className={`shrink-0 text-[11px] font-semibold tabular-nums ${pingTone.timerTone}`}>
+                {pingElapsed}
+              </span>
+            ) : null}
+          </div>
+        </div>
+      </div>
+    )
+  }
+
   function isNestedInteractiveTarget(target: EventTarget | null, currentTarget: HTMLElement) {
     if (!(target instanceof HTMLElement)) return false
     if (target === currentTarget) return false
     return Boolean(target.closest("button,a,input,textarea,select,summary,[data-no-long-press='true']"))
+  }
+
+  function shouldHideStandalonePingReply(message: CommsMessage) {
+    if (!message.pingReply?.pingId) return false
+    return messages.some((entry) => entry.ping?.pingId === message.pingReply?.pingId)
+  }
+
+  function hasLaterVisibleThreadMessage(message: CommsMessage) {
+    return messages.some((entry) => {
+      if (entry.id === message.id) return false
+      if (entry.threadId !== message.threadId) return false
+      if (entry.deleted) return false
+      if (shouldHideStandalonePingReply(entry)) return false
+      return entry.createdAt > message.createdAt
+    })
   }
 
   function isOnline(uid: string) {
@@ -2313,8 +2516,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     const recipient = allMembers.find((member) => member.uid === recipientUid) ?? null
     if (!recipient) return null
     const pingRole = getPingRoleFromClinicalRole(recipient.clinicalRole || recipient.groupLabel || "Practitioner")
-    const shortcuts = [...DEFAULT_PING_SHORTCUTS[pingRole], ...pingShortcutSets[pingRole]].filter(
-      (entry, index, list) => list.findIndex((value) => value.toLowerCase() === entry.toLowerCase()) === index,
+    const shortcuts = [...DEFAULT_PING_SHORTCUTS[pingRole], ...pingShortcutSets[pingRole]].filter((entry, index, list) =>
+      list.findIndex((value) => value.text.toLowerCase() === entry.text.toLowerCase()) === index,
     )
     return { recipientUid, recipient, pingRole, shortcuts }
   }, [allMembers, pingShortcutSets, selectedThread, user.uid])
@@ -2352,125 +2555,90 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       outgoing: livePings.find((ping) => ping.createdBy === user.uid && ping.recipientUid !== user.uid) ?? null,
     }
   }, [allPings, pingNow, selectedThread, user.uid])
+  const activePingByThreadId = useMemo(() => {
+    const map = new Map<string, CommsPing>()
+    for (const ping of allPings.filter((entry) => isPingActive(entry, pingNow))) {
+      const current = map.get(ping.threadId)
+      if (!current || ping.createdAt > current.createdAt) {
+        map.set(ping.threadId, ping)
+      }
+    }
+    return map
+  }, [allPings, pingNow])
+
+  function pingHasLaterMessages(messageId?: string) {
+    if (!messageId) return false
+    const pingIndex = messages.findIndex((entry) => entry.id === messageId)
+    return pingIndex !== -1 && pingIndex < messages.length - 1
+  }
 
   function renderOutgoingPingBar() {
     const activeThreadPing = activeThreadPings.outgoing
     if (!activeThreadPing) return null
+    if (!pingHasLaterMessages(activeThreadPing.messageId)) return null
     const status = getEffectivePingStatus(activeThreadPing, pingNow)
     const tone = getPingLiveTone(activeThreadPing, pingNow)
     const elapsed = getPingDisplayElapsed(activeThreadPing, pingNow)
-    const canReopen = status === "seen" || status === "escalated"
-    const canStop = status !== "completed" && status !== "declined"
-    const seenMembers = (selectedThread?.memberUids ?? [])
-      .filter((uid) => uid !== user.uid && uid !== TOM_UID)
-      .map((uid) => ({
-        uid,
-        member: allMembers.find((member) => member.uid === uid) ?? null,
-        readAt: selectedThread?.readBy?.[uid] ?? 0,
-      }))
-      .filter((entry) => entry.member && entry.readAt >= activeThreadPing.createdAt)
-      .sort((left, right) => right.readAt - left.readAt)
-    const visibleSeenMembers = seenMembers.slice(0, 3)
     const statusLabel =
       status === "sent" ? "Active ping"
       : status === "seen" ? "Seen"
       : status === "escalated" ? "Redirected"
       : getPingStatusLabel(activeThreadPing)
-    const dockTone =
-      status === "escalated"
-        ? "border-rose-700/70 bg-gradient-to-r from-[#48111c] via-[#5e1826] to-[#411019]"
-      : status === "seen"
-        ? "border-amber-700/70 bg-gradient-to-r from-[#4b3210] via-[#65400f] to-[#472c09]"
-      : "border-emerald-700/70 bg-gradient-to-r from-[#113224] via-[#14402a] to-[#102e1f]"
+    const dockTone = status === "sent"
+      ? "border-[#0f6a7a]/80 bg-[#0b2a33]"
+      : "border-[#2a2a2a] bg-[#171b20]"
+    const jumpToPing = () => {
+      if (!activeThreadPing.messageId) return
+      const target = document.querySelector<HTMLElement>(`[data-message-id="${activeThreadPing.messageId}"]`)
+      target?.scrollIntoView({ behavior: "smooth", block: "center" })
+    }
 
     return (
-      <div className={`mb-2 -mx-4 border-y px-4 py-2 shadow-[0_-10px_30px_rgba(0,0,0,0.24)] ${dockTone}`}>
-        <div className="flex items-start gap-2.5">
-          <div className="mt-0.5 flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-black/20">
-            <Pin size={14} className="text-white" />
+      <button
+        type="button"
+        onClick={jumpToPing}
+        className={`mb-2 -mx-4 block w-[calc(100%+2rem)] border-y px-4 py-2 text-left shadow-[0_-10px_30px_rgba(0,0,0,0.18)] ${dockTone}`}
+      >
+        <div className="flex items-center gap-3">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-black/20">
+            <PingSignalIcon className="h-3.5 w-3.5 text-white" />
           </div>
-          <div className="min-w-0 flex-1">
-            <div className="flex items-start justify-between gap-3">
-              <div className="min-w-0 flex-1">
-                <div className="flex min-w-0 items-center gap-2 text-[12px] font-semibold text-white/92">
-                  <span>{statusLabel}</span>
-                  {status === "sent" ? (
-                    <span className="inline-flex items-center gap-0.5" aria-hidden="true">
-                      <span className="h-1 w-1 rounded-full bg-white/90 animate-pulse" />
-                      <span className="h-1 w-1 rounded-full bg-white/75 animate-pulse [animation-delay:180ms]" />
-                      <span className="h-1 w-1 rounded-full bg-white/60 animate-pulse [animation-delay:360ms]" />
-                    </span>
-                  ) : null}
-                  <span className="truncate text-white/68">You sent this</span>
-                </div>
-                <p className="mt-0.5 text-[13px] font-semibold leading-tight text-white">{activeThreadPing.text}</p>
-                <div className="mt-1 min-w-0 text-[11px] text-white/74">
-                  <span className="text-white/68">{status === "sent" ? "Waiting to be seen" : statusLabel}</span>
-                </div>
-              </div>
-              <div className="flex shrink-0 flex-col items-end gap-1.5">
-                <div className={`text-[15px] font-semibold tabular-nums leading-none ${tone.timerTone}`}>{elapsed}</div>
-                <div className="flex items-center gap-1.5">
-                  {visibleSeenMembers.length > 0 ? (
-                    <>
-                      <span className="flex h-8 w-8 items-center justify-center rounded-full bg-[#1d6fd6] text-white">
-                        <Check size={14} />
-                      </span>
-                      <span className="flex -space-x-1.5">
-                        {visibleSeenMembers.map(({ member, uid }) =>
-                          member ? (
-                            <span key={uid} className="rounded-full ring-2 ring-black/25">
-                              <Avatar name={member.displayName} size={16} uid={member.uid} />
-                            </span>
-                          ) : null,
-                        )}
-                      </span>
-                    </>
-                  ) : null}
-                </div>
-                <div className="flex items-center gap-1.5">
-                  {canStop ? (
-                    <button
-                      type="button"
-                      onClick={() => void stopPing(activeThreadPing)}
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/15 text-white transition-colors hover:bg-black/25"
-                      aria-label="Stop ping"
-                      title="Stop ping"
-                    >
-                      <Square size={13} fill="currentColor" />
-                    </button>
-                  ) : null}
-                  {canReopen ? (
-                    <button
-                      type="button"
-                      onClick={() => void reopenPing(activeThreadPing)}
-                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full border border-white/20 bg-black/15 text-white transition-colors hover:bg-black/25"
-                      aria-label="Reopen ping"
-                      title="Reopen ping"
-                    >
-                      <RotateCcw size={13} />
-                    </button>
-                  ) : null}
-                </div>
-              </div>
-            </div>
+          <div className="min-w-0 flex flex-1 items-center gap-2">
+            <span className="truncate text-[12px] font-semibold text-white">You have an active outgoing ping</span>
+            <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${tone.bubble}`}>
+              {statusLabel}
+            </span>
+            <span className={`shrink-0 text-[12px] font-semibold tabular-nums ${tone.timerTone}`}>{elapsed}</span>
           </div>
+          <ChevronRight size={16} className="shrink-0 text-white/46" />
         </div>
-      </div>
+      </button>
     )
   }
 
   function renderIncomingPingPanel() {
     const activeIncomingPing = activeThreadPings.incoming
     if (!activeIncomingPing) return null
+    if (!pingHasLaterMessages(activeIncomingPing.messageId)) return null
     const status = getEffectivePingStatus(activeIncomingPing, pingNow)
     const tone = getPingLiveTone(activeIncomingPing, pingNow)
     const elapsed = getPingDisplayElapsed(activeIncomingPing, pingNow)
-    const incomingReplies = activeIncomingPing.quickReplies ?? []
+    const statusLabel =
+      status === "sent" ? "Incoming"
+      : status === "seen" ? "Seen"
+      : status === "escalated" ? "Redirected"
+      : getPingStatusLabel(activeIncomingPing)
+    const jumpToPing = () => {
+      if (!activeIncomingPing.messageId) return
+      const target = document.querySelector<HTMLElement>(`[data-message-id="${activeIncomingPing.messageId}"]`)
+      target?.scrollIntoView({ behavior: "smooth", block: "center" })
+    }
 
     return (
-      <div
-        className={`mb-2 -mx-4 border-y px-4 py-2.5 shadow-[0_-12px_30px_rgba(0,0,0,0.28)] ${
+      <button
+        type="button"
+        onClick={jumpToPing}
+        className={`mb-2 -mx-4 block w-[calc(100%+2rem)] border-y px-4 py-2.5 text-left shadow-[0_-12px_30px_rgba(0,0,0,0.28)] ${
           status === "escalated"
             ? "border-rose-700/70 bg-gradient-to-r from-[#4a101b] via-[#661726] to-[#481019]"
             : status === "seen"
@@ -2478,60 +2646,20 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               : "border-[#0f6a7a]/80 bg-gradient-to-r from-[#063642] via-[#085464] to-[#063642]"
         }`}
       >
-        <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0 flex-1">
-            <div className="flex items-center gap-2 text-[12px] font-semibold text-white/92">
-              <span>Incoming ping</span>
-              {status === "sent" ? (
-                <span className="inline-flex items-center gap-0.5" aria-hidden="true">
-                  <span className="h-1 w-1 rounded-full bg-white/90 animate-pulse" />
-                  <span className="h-1 w-1 rounded-full bg-white/75 animate-pulse [animation-delay:180ms]" />
-                  <span className="h-1 w-1 rounded-full bg-white/60 animate-pulse [animation-delay:360ms]" />
-                </span>
-              ) : null}
-              <span className="truncate text-white/72">{activeIncomingPing.displayName}</span>
-            </div>
-            <p className="mt-0.5 text-[13px] font-semibold leading-tight text-white">{activeIncomingPing.text}</p>
-            <div className="mt-1 text-[11px] text-white/76">
-              {status === "sent" ? "Choose a response or reply in thread." : status === "seen" ? "Seen. Response still pending." : "Redirect attention if needed."}
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-black/20">
+            <PingSignalIcon className="h-3.5 w-3.5 text-white" />
           </div>
-          <div className="flex shrink-0 flex-col items-end gap-1.5">
-            <div className={`text-[16px] font-semibold tabular-nums leading-none ${tone.timerTone}`}>{elapsed}</div>
-            <div className="flex items-start gap-1.5">
-              {incomingReplies.slice(0, 3).map((reply) => {
-                const visual = getPingReplyVisual(reply.label)
-                const Icon = visual.icon
-                return (
-                  <button
-                    key={`${activeIncomingPing.id}-${reply.id}`}
-                    type="button"
-                    onClick={() => void sendPingReply(activeIncomingPing, reply.message, "quick", reply.label)}
-                    className="flex w-[54px] flex-col items-center gap-1 text-center"
-                  >
-                    <span className={`flex h-9 w-9 items-center justify-center rounded-full border transition-transform hover:scale-[1.04] ${visual.surface}`}>
-                      <Icon size={14} className={visual.tone} />
-                    </span>
-                    <span className="text-[10px] leading-tight text-white/78">{reply.label}</span>
-                  </button>
-                )
-              })}
-              <button
-                type="button"
-                onClick={() => {
-                  if (activeIncomingPing.messageId) setPendingPingReplyMessageId(activeIncomingPing.messageId)
-                }}
-                className="flex w-[54px] flex-col items-center gap-1 text-center"
-              >
-                <span className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-black/15 text-white transition-colors hover:bg-black/25">
-                  <Reply size={14} />
-                </span>
-                <span className="text-[10px] leading-tight text-white/78">Reply</span>
-              </button>
-            </div>
+          <div className="min-w-0 flex flex-1 items-center gap-2">
+            <span className="truncate text-[12px] font-semibold text-white">You have an active incoming ping</span>
+            <span className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-semibold ${tone.bubble}`}>
+              {statusLabel}
+            </span>
+            <span className={`shrink-0 text-[12px] font-semibold tabular-nums ${tone.timerTone}`}>{elapsed}</span>
           </div>
+          <ChevronRight size={16} className="shrink-0 text-white/46" />
         </div>
-      </div>
+      </button>
     )
   }
 
@@ -3214,6 +3342,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             style={{ WebkitOverflowScrolling: "touch" }}
           >
             {messages.map((msg, idx) => {
+              if (shouldHideStandalonePingReply(msg)) return null
               const isOwn = msg.uid === user.uid
               const isTom = msg.uid === TOM_UID
               const isSystem = msg.type === "system"
@@ -3224,9 +3353,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const pingState = msg.ping ? (pingById.get(msg.ping.pingId) ?? null) : null
               const pingTone = getPingLiveTone(pingState, pingNow)
               const pingElapsed = pingState ? getPingDisplayElapsed(pingState, pingNow) : null
-              const pingHeadline = msg.ping
-                ? (isOwn ? `You pinged ${msg.ping.recipientDisplayName}` : `${msg.displayName} pinged you`)
-                : null
               const emojiOnly = !msg.attachments?.length && !msg.deleted && isEmojiOnly(messageText)
               const hasImageAttachment = Boolean(msg.attachments?.some((att) => att.type === "image"))
               const hasNonImageAttachment = Boolean(msg.attachments?.some((att) => att.type !== "image"))
@@ -3235,9 +3361,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 !hasNonImageAttachment &&
                 !messageText.trim() &&
                 !msg.replyTo
-              const seenMembers = getSeenReceiptMembers(liveSelectedThread, msg)
-              const visibleSeenMembers = seenMembers.slice(0, 3)
-              const hiddenSeenCount = Math.max(0, seenMembers.length - visibleSeenMembers.length)
 
               if (msg.type === "call" || (isSystem && messageText.startsWith("📞"))) {
                 const answered = msg.callAnswered ?? messageText.includes("Voice call")
@@ -3272,6 +3395,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
               return (
                 <div key={msg.id}
+                  data-message-id={msg.id}
                   className={`flex ${isOwn ? "flex-row-reverse" : "flex-row"} items-end ${showSenderName ? "gap-2" : "gap-0.5"} group`}
                 >
                   {!isOwn ? (
@@ -3336,7 +3460,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         onPointerCancel={() => clearMessageLongPress()}
                         onPointerLeave={() => clearMessageLongPress()}
                         className={`relative text-left text-[14px] leading-snug ${
-                          emojiOnly
+                          msg.ping
+                            ? "w-fit max-w-[15.5rem]"
+                            : emojiOnly
                             ? ""
                             : imageOnlyMessage
                               ? isOwn
@@ -3350,22 +3476,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                                   ? "px-3 py-1.5 rounded-2xl bg-[#138496] text-white rounded-bl-sm"
                                   : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
+                        {msg.ping
+                          ? renderPingMessageCard(msg, isOwn, pingState, pingTone, pingElapsed, messageText)
+                          : (
+                        <>
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
-                        {pingHeadline ? (
-                          <div className="mb-1 flex items-center justify-between gap-3">
-                            <div className="text-[11px] font-medium text-white/78">
-                              {pingHeadline}
-                            </div>
-                            {pingElapsed ? (
-                              <div className={`shrink-0 text-[11px] font-medium tabular-nums ${pingTone.timerTone}`}>
-                                {pingElapsed}
-                              </div>
-                            ) : null}
-                          </div>
-                        ) : null}
-                        {msg.ping && pingTone.label ? (
-                          <div className={`mb-1 text-[11px] ${isOwn ? "text-white/74" : "text-white/58"}`}>{pingTone.label}</div>
-                        ) : null}
                         {emojiOnly ? (() => {
                           const segs = segmentEmoji(messageText)
                           const sz = segs.length === 1 ? 64 : segs.length <= 3 ? 52 : 44
@@ -3398,6 +3513,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           )
                         })() : messageText}
                         {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white" : "text-white"}`}>(edited)</span>}
+                        </>
+                          )}
                       </div>
                     )}
 
@@ -3416,7 +3533,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       </div>
                     )}
 
-                    {renderMessageMeta(msg, isOwn)}
+                    {msg.ping ? renderPingMessageMeta(msg, isOwn) : renderMessageMeta(msg, isOwn)}
                   </div>
 
                 </div>
@@ -3454,59 +3571,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 }}
                 onClose={() => setShowEmojiPicker(null)}
               />
-            </div>
-          )}
-          {showPingPicker && (
-            <div className={`absolute right-0 inset-y-0 z-[25] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col ${
-              showPingPicker === "composer" && directPingTarget ? "w-[238px]" : "w-[162px]"
-            }`}
-              style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
-              <div className="border-b border-[#2d2d2d] px-3 py-2 flex items-center justify-between shrink-0">
-                <div className="min-w-0">
-                  <span className="text-[11px] font-medium text-white uppercase tracking-wide">
-                    {showPingPicker === "composer" && directPingTarget ? "Ping shortcuts" : "Ping type"}
-                  </span>
-                  {showPingPicker === "composer" && directPingTarget ? (
-                    <p className="truncate text-[11px] text-white/56">
-                      {directPingTarget.recipient.displayName} · {directPingTarget.pingRole}
-                    </p>
-                  ) : null}
-                </div>
-                <button onClick={() => setShowPingPicker(null)}><X size={12} className="text-white" /></button>
-              </div>
-              <div className="flex-1 overflow-y-auto py-2 px-2 flex flex-col gap-1">
-                {showPingPicker === "composer" && directPingTarget ? (
-                  directPingTarget.shortcuts.map((shortcut) => (
-                    <button
-                      key={shortcut}
-                      onClick={() => void sendThreadShortcutPing(shortcut, selectedThread!)}
-                      className="w-full text-left px-3 py-2.5 rounded-xl text-[13px] text-[#e0e0e0] bg-[#151515] hover:bg-[#1d1d1d] active:bg-[#262626] transition-colors"
-                    >
-                      {shortcut}
-                    </button>
-                  ))
-                ) : (
-                  PING_CATEGORIES.map(cat => (
-                    <button
-                      key={cat.id}
-                      onClick={() => {
-                        if (showPingPicker === "composer") {
-                          setPendingPingCategory(cat.id)
-                          setShowPingPicker(null)
-                        } else if (showPingPicker === "longpress" && actionMessage) {
-                          const msg = actionMessage
-                          setShowPingPicker(null)
-                          setActionMessage(null)
-                          void createPing(cat.id, repairMojibake(msg.text), selectedThread!, msg.id)
-                        }
-                      }}
-                      className="w-full text-left px-3 py-2 rounded-xl text-[13px] text-[#e0e0e0] bg-[#1c1c1c] hover:bg-[#242424] active:bg-[#2e2e2e] transition-colors"
-                    >
-                      {cat.label}
-                    </button>
-                  ))
-                )}
-              </div>
             </div>
           )}
         </div>
@@ -3765,7 +3829,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     }
   }
 
-  async function sendThreadShortcutPing(shortcut: string, thread: CommsThread) {
+  async function sendThreadShortcutPing(shortcut: PingShortcutEntry, thread: CommsThread, categoryOverride?: PingCategory) {
     if (thread.type !== "direct") return
     if (thread.memberUids.includes(TOM_UID)) {
       setComposerError("Pings can’t be created in TOM chat. Open the colleague’s direct thread or send from Workforce.")
@@ -3785,7 +3849,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         recipientUid,
         recipientDisplayName: recipient.displayName || "Recipient",
         pingRole: getPingRoleFromClinicalRole(recipient.clinicalRole || recipient.groupLabel || "Practitioner"),
-        text: shortcut,
+        text: shortcut.text,
+        category: categoryOverride ?? shortcut.category,
         escalationSettings: pingEscalationSettings,
       })
       setShowPingPicker(null)
@@ -3798,6 +3863,419 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
       }
       throw error
     }
+  }
+
+  function closePingPicker() {
+    setShowPingPicker(null)
+    setIsPingTypeEditMode(false)
+    setNewQuickPingText("")
+    setNewQuickPingCategory("task")
+  }
+
+  function updatePingTimingSettings(updates: Partial<PingEscalationSettings>) {
+    const next = normalizePingEscalationSettings({
+      ...pingEscalationSettings,
+      ...updates,
+    })
+    void handleSavePingEscalationSettings(next)
+  }
+
+  function addCustomQuickPing(role: PingRole) {
+    const text = newQuickPingText.trim()
+    if (!text) return
+
+    const existingEntries = [...DEFAULT_PING_SHORTCUTS[role], ...pingShortcutSets[role]]
+    const duplicateExists = existingEntries.some((entry) => entry.text.trim().toLowerCase() === text.toLowerCase())
+    if (duplicateExists) {
+      setComposerError("That ping shortcut already exists.")
+      return
+    }
+
+    const next: PingShortcutSets = {
+      ...pingShortcutSets,
+      [role]: [...pingShortcutSets[role], { text, category: newQuickPingCategory }],
+    }
+    void handleSavePingShortcutSets(next)
+    setNewQuickPingText("")
+    setNewQuickPingCategory("task")
+    setComposerError("")
+  }
+
+  function renderPingSettingsPane() {
+    if (!showPingSettings) return null
+
+    const constrainToThreadPane = isFoldableSplitView && !!selectedThread
+
+    return (
+      <div
+        className={`absolute z-40 flex flex-col bg-[#050505] ${constrainToThreadPane ? "inset-y-0 right-0 left-1/2" : "inset-0"}`}
+        style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+      >
+        <div className="flex items-center gap-3 border-b border-[#161616] px-4 py-3">
+          <button
+            type="button"
+            onClick={() => setShowPingSettings(false)}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#121212] text-white"
+            aria-label="Back"
+          >
+            <ArrowLeft size={18} />
+          </button>
+          <div className="min-w-0 flex-1">
+            <p className="text-[16px] font-semibold text-white">Timing settings</p>
+            <p className="truncate text-[12px] text-white/60">Defaults for the pings you send.</p>
+          </div>
+        </div>
+
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
+          <div className="overflow-hidden rounded-[22px] border border-[#171717] bg-[#0e0e0e]">
+            <div className="flex items-center gap-4 border-b border-[#171717] px-4 py-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#123241] text-[#7edff0]">
+                <ArrowRight size={18} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[15px] font-medium leading-tight text-white">Automatic redirect</p>
+                <p className="mt-1 text-[12px] leading-snug text-white/52">Let TOM raise redirect guidance automatically.</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => updatePingTimingSettings({ autoRedirectEnabled: !pingEscalationSettings.autoRedirectEnabled })}
+                className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${
+                  pingEscalationSettings.autoRedirectEnabled ? "bg-[#0096C7]" : "bg-[#2a2a2a]"
+                }`}
+              >
+                <span
+                  className={`absolute left-1 top-1 h-5 w-5 rounded-full bg-white transition-transform ${
+                    pingEscalationSettings.autoRedirectEnabled ? "translate-x-5" : "translate-x-0"
+                  }`}
+                />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-4 border-b border-[#171717] px-4 py-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#312616] text-[#f3c96b]">
+                <Clock3 size={18} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[15px] font-medium leading-tight text-white">No response timeout</p>
+                <p className="mt-1 text-[12px] leading-snug text-white/52">Redirect after {pingEscalationSettings.ackTimeoutMins} min if nobody replies.</p>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => updatePingTimingSettings({ ackTimeoutMins: Math.max(1, pingEscalationSettings.ackTimeoutMins - 1) })}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#171717] text-white"
+                  aria-label="Decrease no response timeout"
+                >
+                  -
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updatePingTimingSettings({ ackTimeoutMins: Math.min(60, pingEscalationSettings.ackTimeoutMins + 1) })}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#171717] text-white"
+                  aria-label="Increase no response timeout"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 border-b border-[#171717] px-4 py-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#183227] text-[#7ce1ab]">
+                <RotateCcw size={18} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[15px] font-medium leading-tight text-white">Unresolved timeout</p>
+                <p className="mt-1 text-[12px] leading-snug text-white/52">Redirect after {pingEscalationSettings.completionTimeoutMins} min if still unresolved.</p>
+              </div>
+              <div className="flex shrink-0 items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => updatePingTimingSettings({ completionTimeoutMins: Math.max(1, pingEscalationSettings.completionTimeoutMins - 1) })}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#171717] text-white"
+                  aria-label="Decrease unresolved timeout"
+                >
+                  -
+                </button>
+                <button
+                  type="button"
+                  onClick={() => updatePingTimingSettings({ completionTimeoutMins: Math.min(240, pingEscalationSettings.completionTimeoutMins + 1) })}
+                  className="flex h-9 w-9 items-center justify-center rounded-full bg-[#171717] text-white"
+                  aria-label="Increase unresolved timeout"
+                >
+                  +
+                </button>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-4 px-4 py-4">
+              <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#2e2142] text-[#d8a9ff]">
+                <Users size={18} />
+              </div>
+              <div className="min-w-0 flex-1">
+                <p className="text-[15px] font-medium leading-tight text-white">Redirect destination</p>
+                <p className="mt-1 text-[12px] leading-snug text-white/52">TOM posts redirect guidance in the current thread.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    )
+  }
+
+  function renderPingPickerPane() {
+    if (!showPingPicker) return null
+
+    const isComposerPing = showPingPicker === "composer"
+    const constrainToThreadPane = isFoldableSplitView && !!selectedThread
+    const title = isComposerPing ? "New ping" : "Ping message"
+    const subtitle = isComposerPing
+      ? directPingTarget
+        ? `${directPingTarget.recipient.displayName} · ${directPingTarget.pingRole}`
+        : "Choose a ping type for the message you are composing."
+      : "Choose how this message should be sent as a ping."
+
+    return (
+      <div
+        className={`absolute z-40 flex flex-col bg-[#050505] ${constrainToThreadPane ? "inset-y-0 right-0 left-1/2" : "inset-0"}`}
+        style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}
+      >
+        <div className="flex items-center gap-3 border-b border-[#161616] px-4 py-3">
+          <button
+            type="button"
+            onClick={closePingPicker}
+            className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-[#121212] text-white"
+            aria-label="Back"
+          >
+            <ArrowLeft size={18} />
+          </button>
+          <div className="min-w-0 flex-1">
+            <p className="text-[16px] font-semibold text-white">{title}</p>
+            <p className="truncate text-[12px] text-white/60">{subtitle}</p>
+          </div>
+          {isComposerPing ? (
+            <button
+              type="button"
+              onClick={() => setIsPingTypeEditMode((current) => !current)}
+              className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full transition-colors ${
+                isPingTypeEditMode ? "bg-[#0e3444] text-[#7edff0]" : "bg-[#121212] text-white/78"
+              }`}
+              aria-label={isPingTypeEditMode ? "Done editing ping settings" : "Edit ping settings"}
+              aria-pressed={isPingTypeEditMode ? "true" : "false"}
+            >
+              <Settings size={17} />
+            </button>
+          ) : null}
+        </div>
+
+        <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
+          {isComposerPing && directPingTarget ? (
+            <section>
+              <div className="mb-2 border-b border-[#141414] pb-3">
+                <p className="text-[12px] font-semibold text-white/52">Quick pings</p>
+                <p className="mt-1 text-[12px] text-white/68">
+                  {isPingTypeEditMode ? "Edit the type before sending." : "Send a saved shortcut immediately."}
+                </p>
+              </div>
+              <div className="overflow-hidden">
+                {directPingTarget.shortcuts.map((shortcut) => (
+                  (() => {
+                    const activeCategory = quickPingCategoryOverrides[shortcut.text] ?? shortcut.category
+                    const meta = PING_CATEGORY_META[activeCategory]
+                    const QuickPingIcon = meta.icon
+                    return (
+                      <div
+                        key={shortcut.text}
+                        role="button"
+                        tabIndex={0}
+                        onClick={() => void sendThreadShortcutPing(
+                          shortcut,
+                          selectedThread!,
+                        )}
+                        onKeyDown={(event) => {
+                          if (event.key !== "Enter" && event.key !== " ") return
+                          event.preventDefault()
+                          void sendThreadShortcutPing(
+                            shortcut,
+                            selectedThread!,
+                          )
+                        }}
+                        className="flex w-full items-center gap-4 border-b border-[#141414] px-0 py-4 text-left transition-colors last:border-b-0 hover:bg-[#0c0c0c] active:bg-[#121212]"
+                      >
+                        <div className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full ${meta.accentClass}`}>
+                          <QuickPingIcon className="h-4 w-4" />
+                        </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate text-[14px] font-medium leading-tight text-white">{shortcut.text}</p>
+                      <p className="mt-1 text-[12px] leading-snug text-white/52">Sends straight away in this direct thread.</p>
+                    </div>
+                        {isPingTypeEditMode ? (
+                          <div className="flex shrink-0 items-center gap-2">
+                            <span className="text-[11px] font-medium text-white/48">Type</span>
+                            <button
+                              type="button"
+                              data-no-long-press="true"
+                              onClick={(event) => {
+                                event.stopPropagation()
+                                const currentIndex = PING_CATEGORIES.findIndex((entry) => entry.id === activeCategory)
+                                const nextCategory = PING_CATEGORIES[(currentIndex + 1) % PING_CATEGORIES.length]
+                                setQuickPingCategoryOverrides((current) => ({
+                                  ...current,
+                                  [shortcut.text]: nextCategory.id,
+                                }))
+                              }}
+                              className={`inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-[11px] font-semibold ${meta.accentClass}`}
+                            >
+                              <QuickPingIcon className="h-3.5 w-3.5" />
+                              {PING_CATEGORIES.find((entry) => entry.id === activeCategory)?.label}
+                            </button>
+                          </div>
+                        ) : null}
+                      </div>
+                    )
+                  })()
+                ))}
+              </div>
+              {isPingTypeEditMode ? (
+                <div className="mt-4 border-t border-[#141414] pt-4">
+                  <p className="text-[12px] font-semibold text-white/52">Add custom ping</p>
+                  <div className="mt-3 flex flex-col gap-2">
+                    <input
+                      value={newQuickPingText}
+                      onChange={(event) => setNewQuickPingText(event.target.value)}
+                      placeholder="Add a custom ping"
+                      className="w-full rounded-[12px] border border-[#2a2a2a] bg-[#141414] px-4 py-3 text-[13px] text-white placeholder:text-white/35 outline-none focus:border-[#0096C7]/50"
+                    />
+                    <div className="flex items-center gap-2">
+                      <div className="flex flex-1 rounded-[12px] bg-[#111111] p-1">
+                        {PING_CATEGORIES.map((category) => (
+                          <button
+                            key={`inline-new-${category.id}`}
+                            type="button"
+                            onClick={() => setNewQuickPingCategory(category.id)}
+                            className={`flex-1 rounded-[10px] px-3 py-2 text-[12px] font-semibold ${
+                              newQuickPingCategory === category.id ? "bg-[#0096C7] text-white" : "text-white/58"
+                            }`}
+                          >
+                            {category.label}
+                          </button>
+                        ))}
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => addCustomQuickPing(directPingTarget.pingRole)}
+                        disabled={!newQuickPingText.trim()}
+                        className="rounded-[12px] bg-[#0096C7] px-4 py-3 text-[13px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-35"
+                      >
+                        Add
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              ) : null}
+            </section>
+          ) : null}
+
+          {isPingTypeEditMode ? (
+            <section className={isComposerPing && directPingTarget ? "mt-6" : ""}>
+              <div className="mb-2 border-b border-[#141414] pb-3">
+                <p className="text-[12px] font-semibold text-white/52">Timing settings</p>
+                <p className="mt-1 text-[12px] text-white/68">Set sender defaults for redirect timing.</p>
+              </div>
+              <div className="overflow-hidden">
+                <div className="flex items-center gap-4 border-b border-[#141414] px-0 py-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#123241] text-[#7edff0]">
+                    <ArrowRight size={18} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[15px] font-medium leading-tight text-white">Automatic redirect</p>
+                    <p className="mt-1 text-[12px] leading-snug text-white/52">Let TOM raise redirect guidance automatically.</p>
+                  </div>
+                  <button
+                    type="button"
+                    onClick={() => updatePingTimingSettings({ autoRedirectEnabled: !pingEscalationSettings.autoRedirectEnabled })}
+                    className={`relative h-7 w-12 shrink-0 rounded-full transition-colors ${
+                      pingEscalationSettings.autoRedirectEnabled ? "bg-[#0096C7]" : "bg-[#2a2a2a]"
+                    }`}
+                  >
+                    <span
+                      className={`absolute left-1 top-1 h-5 w-5 rounded-full bg-white transition-transform ${
+                        pingEscalationSettings.autoRedirectEnabled ? "translate-x-5" : "translate-x-0"
+                      }`}
+                    />
+                  </button>
+                </div>
+
+                <div className="flex items-center gap-4 border-b border-[#141414] px-0 py-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#312616] text-[#f3c96b]">
+                    <Clock3 size={18} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[15px] font-medium leading-tight text-white">No response timeout</p>
+                    <p className="mt-1 text-[12px] leading-snug text-white/52">Redirect after {pingEscalationSettings.ackTimeoutMins} min if nobody replies.</p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => updatePingTimingSettings({ ackTimeoutMins: Math.max(1, pingEscalationSettings.ackTimeoutMins - 1) })}
+                      className="flex h-9 w-9 items-center justify-center rounded-full bg-[#171717] text-white"
+                      aria-label="Decrease no response timeout"
+                    >
+                      -
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => updatePingTimingSettings({ ackTimeoutMins: Math.min(60, pingEscalationSettings.ackTimeoutMins + 1) })}
+                      className="flex h-9 w-9 items-center justify-center rounded-full bg-[#171717] text-white"
+                      aria-label="Increase no response timeout"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 border-b border-[#141414] px-0 py-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#183227] text-[#7ce1ab]">
+                    <RotateCcw size={18} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[15px] font-medium leading-tight text-white">Unresolved timeout</p>
+                    <p className="mt-1 text-[12px] leading-snug text-white/52">Redirect after {pingEscalationSettings.completionTimeoutMins} min if still unresolved.</p>
+                  </div>
+                  <div className="flex shrink-0 items-center gap-2">
+                    <button
+                      type="button"
+                      onClick={() => updatePingTimingSettings({ completionTimeoutMins: Math.max(1, pingEscalationSettings.completionTimeoutMins - 1) })}
+                      className="flex h-9 w-9 items-center justify-center rounded-full bg-[#171717] text-white"
+                      aria-label="Decrease unresolved timeout"
+                    >
+                      -
+                    </button>
+                    <button
+                      type="button"
+                      onClick={() => updatePingTimingSettings({ completionTimeoutMins: Math.min(240, pingEscalationSettings.completionTimeoutMins + 1) })}
+                      className="flex h-9 w-9 items-center justify-center rounded-full bg-[#171717] text-white"
+                      aria-label="Increase unresolved timeout"
+                    >
+                      +
+                    </button>
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-4 px-0 py-4">
+                  <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full bg-[#2e2142] text-[#d8a9ff]">
+                    <Users size={18} />
+                  </div>
+                  <div className="min-w-0 flex-1">
+                    <p className="text-[15px] font-medium leading-tight text-white">Redirect destination</p>
+                    <p className="mt-1 text-[12px] leading-snug text-white/52">TOM posts redirect guidance in the current thread.</p>
+                  </div>
+                </div>
+              </div>
+            </section>
+          ) : null}
+        </div>
+      </div>
+    )
   }
 
   async function sendMessage(text?: string, attachments?: { name: string; url: string; type: "image" | "file" | "audio"; size: number }[]) {
@@ -5156,11 +5634,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               {pings.length === 0 ? (
               <div className="flex flex-col items-center justify-center gap-3 px-6 pt-8 text-center">
                 <div className="flex h-12 w-12 items-center justify-center rounded-full bg-[#111111] text-[#0e7490]">
-                  <Zap size={22} />
+                  <PingSignalIcon className="h-[22px] w-[22px]" />
                 </div>
                 <div>
                   <p className="text-[15px] font-medium text-white">No active pings</p>
-                  <p className="mt-1 text-[12px] text-white/68">Right-click a user in Workforce or tap ⚡ in chat to send one.</p>
+                  <p className="mt-1 text-[12px] text-white/68">Right-click a user in Workforce or tap Ping in chat to send one.</p>
                 </div>
               </div>
             ) : (
@@ -5177,9 +5655,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     : effectiveStatus === "seen" ? "text-amber-300"
                     : "text-[#67CFCF]"
                   const urgencyTone =
-                    ping.category === "urgent" ? "bg-amber-400"
-                    : ping.category === "action" ? "bg-sky-400"
-                    : "bg-zinc-500"
+                    ping.category === "question" ? "bg-violet-400"
+                    : ping.category === "task" ? "bg-emerald-400"
+                    : "bg-sky-400"
                   const actorLabel = ping.displayName || "Sender"
                   const quickReplies = (ping.quickReplies ?? []).filter((entry) => entry.message.trim())
                   return (
@@ -5300,6 +5778,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             const otherUid = thread.type === "direct" ? getOtherUid(thread) : ""
             const online = otherUid ? isOnline(otherUid) : false
             const name = getThreadName(thread)
+            const activeThreadPing = activePingByThreadId.get(thread.id) ?? null
+            const hasActivePing = Boolean(activeThreadPing)
+            const activePingStatus = activeThreadPing ? getEffectivePingStatus(activeThreadPing, pingNow) : null
+            const activePingIconTone =
+              activePingStatus === "escalated" ? "text-rose-400 drop-shadow-[0_0_10px_rgba(251,113,133,0.55)]"
+              : activePingStatus === "accepted" ? "text-emerald-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.55)]"
+              : activePingStatus === "seen" ? "text-amber-300 drop-shadow-[0_0_10px_rgba(252,211,77,0.5)]"
+              : "text-[#67CFCF] drop-shadow-[0_0_10px_rgba(103,207,207,0.55)]"
 
             return (
               <button
@@ -5332,11 +5818,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                     <span className={`truncate text-[15px] leading-tight ${unread ? "font-semibold text-white" : "font-medium text-white"}`}>
                       {name}
                     </span>
-                    <div className="flex shrink-0 items-center gap-2">
-                      {isThreadPinned(thread.id) ? <Pin size={12} className="fill-white text-white" /> : null}
-                      <span className="text-[11px] text-white/60">
-                        {thread.updatedAt ? formatTime(thread.updatedAt) : ""}
-                      </span>
+                    <div className="relative flex shrink-0 items-center gap-2">
+                        {isThreadPinned(thread.id) ? <Pin size={12} className="fill-white text-white" /> : null}
+                        <span className="text-[11px] text-white/60">
+                          {thread.updatedAt ? formatTime(thread.updatedAt) : ""}
+                        </span>
+                      {hasActivePing ? (
+                        <span className={`pointer-events-none absolute right-0 top-full mt-2 inline-flex items-center ${activePingIconTone}`}>
+                          <PingSignalIcon className="h-[15px] w-[15px] scale-[3] animate-pulse" />
+                        </span>
+                      ) : null}
                     </div>
                   </div>
                   <div className="mt-px flex items-center justify-between gap-3 leading-tight">
@@ -5373,6 +5864,14 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             const renderSpaceRow = (thread: CommsThread) => {
               const unread = unreadCounts[thread.id] || 0
               const name = getThreadName(thread)
+              const activeThreadPing = activePingByThreadId.get(thread.id) ?? null
+              const hasActivePing = Boolean(activeThreadPing)
+              const activePingStatus = activeThreadPing ? getEffectivePingStatus(activeThreadPing, pingNow) : null
+              const activePingIconTone =
+                activePingStatus === "escalated" ? "text-rose-400 drop-shadow-[0_0_10px_rgba(251,113,133,0.55)]"
+                : activePingStatus === "accepted" ? "text-emerald-400 drop-shadow-[0_0_10px_rgba(74,222,128,0.55)]"
+                : activePingStatus === "seen" ? "text-amber-300 drop-shadow-[0_0_10px_rgba(252,211,77,0.5)]"
+                : "text-[#67CFCF] drop-shadow-[0_0_10px_rgba(103,207,207,0.55)]"
               return (
                 <button
                   key={thread.id}
@@ -5394,11 +5893,16 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       <span className={`truncate text-[15px] leading-tight ${unread ? "font-semibold text-white" : "font-medium text-white"}`}>
                         {name}
                       </span>
-                      <div className="flex shrink-0 items-center gap-2">
-                        {isThreadPinned(thread.id) ? <Pin size={12} className="fill-white text-white" /> : null}
-                        <span className="text-[11px] text-white/60">
-                          {thread.updatedAt ? formatTime(thread.updatedAt) : ""}
-                        </span>
+                      <div className="relative flex shrink-0 items-center gap-2">
+                          {isThreadPinned(thread.id) ? <Pin size={12} className="fill-white text-white" /> : null}
+                          <span className="text-[11px] text-white/60">
+                            {thread.updatedAt ? formatTime(thread.updatedAt) : ""}
+                          </span>
+                        {hasActivePing ? (
+                          <span className={`pointer-events-none absolute right-0 top-full mt-2 inline-flex items-center ${activePingIconTone}`}>
+                            <PingSignalIcon className="h-[15px] w-[15px] scale-[3] animate-pulse" />
+                          </span>
+                        ) : null}
                       </div>
                     </div>
                     <div className="mt-px flex items-center justify-between gap-3 leading-tight">
@@ -5555,40 +6059,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
         )
       })()}
 
-      {showPingSettings && (
-        <>
-          <div
-            className="absolute inset-0 z-30 bg-black/58"
-            style={{ animation: "mobileGlobalSearchFadeIn 260ms ease-out both" }}
-            onClick={() => setShowPingSettings(false)}
-          />
-          <div
-            className="absolute inset-y-0 right-0 z-40 flex h-full w-full max-w-[28rem] flex-col border-l border-[#2d2d2d] bg-black shadow-[-18px_0_40px_rgba(0,0,0,0.58)]"
-            style={{ animation: "mobileSlideInRight 280ms cubic-bezier(.22,.91,.31,1) both" }}
-          >
-            <div className="flex items-center justify-between border-b border-[#2d2d2d] px-4 py-3">
-              <div>
-                <p className="text-[15px] font-semibold text-white">Ping shortcuts</p>
-                <p className="mt-0.5 text-[12px] text-white/60">Manage shortcuts and redirect timings for each role.</p>
-              </div>
-              <button type="button" onClick={() => setShowPingSettings(false)} className="text-white/70 hover:text-white">
-                <X size={16} />
-              </button>
-            </div>
-            <div className="min-h-0 flex-1 overflow-y-auto px-4 py-4">
-              <PingShortcutSettingsPanel
-                sets={pingShortcutSets}
-                escalation={pingEscalationSettings}
-                onSave={(next, nextEscalation) => {
-                  void handleSavePingShortcutSets(next)
-                  void handleSavePingEscalationSettings(nextEscalation)
-                  setShowPingSettings(false)
-                }}
-              />
-            </div>
-          </div>
-        </>
-      )}
+      {showPingPicker && renderPingPickerPane()}
+
+      {renderPingSettingsPane()}
 
       {/* Create Space side drawer */}
       {showCreateSpace && (
@@ -5847,6 +6320,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
             style={{ WebkitOverflowScrolling: "touch" }}
           >
             {messages.map((msg, idx) => {
+              if (shouldHideStandalonePingReply(msg)) return null
               const isOwn = msg.uid === user.uid
               const isTom = msg.uid === TOM_UID
               const isSystem = msg.type === "system"
@@ -5857,9 +6331,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
               const pingState = msg.ping ? (pingById.get(msg.ping.pingId) ?? null) : null
               const pingTone = getPingLiveTone(pingState, pingNow)
               const pingElapsed = pingState ? getPingDisplayElapsed(pingState, pingNow) : null
-              const pingHeadline = msg.ping
-                ? (isOwn ? `You pinged ${msg.ping.recipientDisplayName}` : `${msg.displayName} pinged you`)
-                : null
               const emojiOnly = !msg.attachments?.length && !msg.deleted && isEmojiOnly(messageText)
               const hasImageAttachment = Boolean(msg.attachments?.some((att) => att.type === "image"))
               const hasNonImageAttachment = Boolean(msg.attachments?.some((att) => att.type !== "image"))
@@ -5902,6 +6373,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
 
               return (
                 <div key={msg.id}
+                  data-message-id={msg.id}
                   className={`flex ${isOwn ? "flex-row-reverse" : "flex-row"} items-end ${showSenderName ? "gap-2" : "gap-0.5"} group`}
                 >
                   {!isOwn ? (
@@ -5966,7 +6438,9 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                         onPointerCancel={() => clearMessageLongPress()}
                         onPointerLeave={() => clearMessageLongPress()}
                         className={`relative text-left text-[14px] leading-snug ${
-                          emojiOnly
+                          msg.ping
+                            ? "w-fit max-w-[15.5rem]"
+                            : emojiOnly
                             ? ""
                             : imageOnlyMessage
                               ? isOwn
@@ -5980,22 +6454,11 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                                   ? "px-3 py-1.5 rounded-2xl bg-[#138496] text-white rounded-bl-sm"
                                   : "px-3 py-1.5 rounded-2xl bg-[#003d54] text-white rounded-bl-sm"
                         }`}>
+                        {msg.ping
+                          ? renderPingMessageCard(msg, isOwn, pingState, pingTone, pingElapsed, messageText)
+                          : (
+                        <>
                         {msg.attachments?.map((att, ai) => renderMessageAttachment(att, ai, isOwn, msg))}
-                        {pingHeadline ? (
-                          <div className="mb-1 flex items-center justify-between gap-3">
-                            <div className="text-[11px] font-medium text-white/78">
-                              {pingHeadline}
-                            </div>
-                            {pingElapsed ? (
-                              <div className={`shrink-0 text-[11px] font-medium tabular-nums ${pingTone.timerTone}`}>
-                                {pingElapsed}
-                              </div>
-                            ) : null}
-                          </div>
-                        ) : null}
-                        {msg.ping && pingTone.label ? (
-                          <div className={`mb-1 text-[11px] ${isOwn ? "text-white/74" : "text-white/58"}`}>{pingTone.label}</div>
-                        ) : null}
                         {emojiOnly ? (() => {
                           const segs = segmentEmoji(messageText)
                           const sz = segs.length === 1 ? 64 : segs.length <= 3 ? 52 : 44
@@ -6028,6 +6491,8 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                           )
                         })() : messageText}
                         {msg.edited && !emojiOnly && <span className={`ml-1 text-xs ${isOwn ? "text-white" : "text-white"}`}>(edited)</span>}
+                        </>
+                          )}
                       </div>
                     )}
 
@@ -6046,7 +6511,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                       </div>
                     )}
 
-                    {renderMessageMeta(msg, isOwn)}
+                    {msg.ping ? renderPingMessageMeta(msg, isOwn) : renderMessageMeta(msg, isOwn)}
                   </div>
 
                 </div>
@@ -6085,59 +6550,6 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                 }}
                 onClose={() => setShowEmojiPicker(null)}
               />
-            </div>
-          )}
-          {showPingPicker && (
-            <div className={`absolute right-0 inset-y-0 z-[25] bg-black border-l border-[#2d2d2d] overflow-hidden flex flex-col ${
-              showPingPicker === "composer" && directPingTarget ? "w-[238px]" : "w-[162px]"
-            }`}
-              style={{ paddingTop: "env(safe-area-inset-top, 0px)", paddingBottom: "env(safe-area-inset-bottom, 0px)" }}>
-              <div className="border-b border-[#2d2d2d] px-3 py-2 flex items-center justify-between shrink-0">
-                <div className="min-w-0">
-                  <span className="text-[11px] font-medium text-white uppercase tracking-wide">
-                    {showPingPicker === "composer" && directPingTarget ? "Ping shortcuts" : "Ping type"}
-                  </span>
-                  {showPingPicker === "composer" && directPingTarget ? (
-                    <p className="truncate text-[11px] text-white/56">
-                      {directPingTarget.recipient.displayName} · {directPingTarget.pingRole}
-                    </p>
-                  ) : null}
-                </div>
-                <button onClick={() => setShowPingPicker(null)}><X size={12} className="text-white" /></button>
-              </div>
-              <div className="flex-1 overflow-y-auto py-2 px-2 flex flex-col gap-1">
-                {showPingPicker === "composer" && directPingTarget ? (
-                  directPingTarget.shortcuts.map((shortcut) => (
-                    <button
-                      key={shortcut}
-                      onClick={() => void sendThreadShortcutPing(shortcut, selectedThread!)}
-                      className="w-full text-left px-3 py-2.5 rounded-xl text-[13px] text-[#e0e0e0] bg-[#151515] hover:bg-[#1d1d1d] active:bg-[#262626] transition-colors"
-                    >
-                      {shortcut}
-                    </button>
-                  ))
-                ) : (
-                  PING_CATEGORIES.map(cat => (
-                    <button
-                      key={cat.id}
-                      onClick={() => {
-                        if (showPingPicker === "composer") {
-                          setPendingPingCategory(cat.id)
-                          setShowPingPicker(null)
-                        } else if (showPingPicker === "longpress" && actionMessage) {
-                          const msg = actionMessage
-                          setShowPingPicker(null)
-                          setActionMessage(null)
-                          void createPing(cat.id, repairMojibake(msg.text), selectedThread!, msg.id)
-                        }
-                      }}
-                      className="w-full text-left px-3 py-2 rounded-xl text-[13px] text-[#e0e0e0] bg-[#1c1c1c] hover:bg-[#242424] active:bg-[#2e2e2e] transition-colors"
-                    >
-                      {cat.label}
-                    </button>
-                  ))
-                )}
-              </div>
             </div>
           )}
           </div>{/* end messages container */}
@@ -6415,7 +6827,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
                   className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-[#29b6d8] to-[#1a86c8] text-white shadow-[0_10px_24px_rgba(26,134,200,0.28)] transition hover:scale-[1.03]"
                   aria-label="Ping"
                 >
-                  <Zap size={17} />
+                  <PingSignalIcon className="h-[17px] w-[17px]" />
                 </button>
               ) : null}
               {actionMessage.uid === user.uid && !actionMessage.deleted ? (

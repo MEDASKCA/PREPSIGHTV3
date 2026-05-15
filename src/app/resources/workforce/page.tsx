@@ -23,7 +23,7 @@ import {
   subscribeOrganizationPings,
   subscribePingShortcutSets,
 } from "@/lib/comms-pings"
-import type { CommsPing, CommsUser, PingEscalationSettings, PingShortcutSets } from "@/lib/comms-types"
+import type { CommsPing, CommsUser, PingCategory, PingEscalationSettings, PingShortcutEntry, PingShortcutSets } from "@/lib/comms-types"
 import { getProfile } from "@/lib/profile"
 import { canonicalSpecialtyName } from "@/lib/specialty-normalization"
 import RootEntry from "@/components/RootEntry"
@@ -1110,16 +1110,16 @@ export default function WorkforcePage() {
               <div className="space-y-1 overflow-y-auto px-1 pb-1">
                 {[...DEFAULT_PING_SHORTCUTS[getPingRoleFromClinicalRole(contextMenu.memberRole)], ...pingShortcutSets[getPingRoleFromClinicalRole(contextMenu.memberRole)]].map((ping) => (
                   <button
-                    key={ping}
+                    key={ping.text}
                     type="button"
-                    onClick={() => { void sendPing(contextMenu.memberName, contextMenu.memberRole, ping) }}
+                    onClick={() => { void sendPing(contextMenu.memberName, contextMenu.memberRole, ping.text) }}
                     className="flex w-full items-center gap-3 rounded-[12px] border border-[#232323] bg-[#141414] px-3 py-3 text-left transition-colors hover:border-[#2f4d56] hover:bg-[#191c1d]"
                   >
                     <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-[#fbbf24]/15">
                       <Bell size={14} className="text-[#fbbf24]" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <p className="truncate text-[13px] font-semibold text-white">{ping}</p>
+                      <p className="truncate text-[13px] font-semibold text-white">{ping.text}</p>
                     </div>
                   </button>
                 ))}
@@ -1323,12 +1323,13 @@ function PingConfigPanel({
 }: {
   pingRole: PingRole
   memberName: string
-  customPings: string[]
+  customPings: PingShortcutEntry[]
   onClose: () => void
-  onSave: (next: string[]) => void
+  onSave: (next: PingShortcutEntry[]) => void
 }) {
-  const [draft, setDraft] = useState<string[]>(customPings)
+  const [draft, setDraft] = useState<PingShortcutEntry[]>(customPings)
   const [newPing, setNewPing] = useState("")
+  const [newPingCategory, setNewPingCategory] = useState<PingCategory>("task")
 
   return (
     <div className="absolute inset-0 z-30 flex">
@@ -1349,8 +1350,8 @@ function PingConfigPanel({
             <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#67CFCF]">Role defaults</p>
             <div className="mt-3 space-y-2">
               {DEFAULT_PING_SHORTCUTS[pingRole].map((ping) => (
-                <div key={ping} className="rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5 text-[13px] text-white">
-                  {ping}
+                <div key={ping.text} className="rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5 text-[13px] text-white">
+                  {ping.text}
                 </div>
               ))}
             </div>
@@ -1375,12 +1376,21 @@ function PingConfigPanel({
                 </div>
               ) : (
                 draft.map((ping, index) => (
-                  <div key={`${ping}-${index}`} className="flex items-center gap-2 rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5">
+                  <div key={`${ping.text}-${index}`} className="flex items-center gap-2 rounded-[12px] border border-[#1f1f1f] bg-[#121212] px-3 py-2.5">
                     <input
-                      value={ping}
-                      onChange={(e) => setDraft((prev) => prev.map((item, i) => i === index ? e.target.value : item))}
+                      value={ping.text}
+                      onChange={(e) => setDraft((prev) => prev.map((item, i) => i === index ? { ...item, text: e.target.value } : item))}
                       className="flex-1 bg-transparent text-[13px] text-white outline-none"
                     />
+                    <select
+                      value={ping.category}
+                      onChange={(e) => setDraft((prev) => prev.map((item, i) => i === index ? { ...item, category: e.target.value as PingCategory } : item))}
+                      className="rounded-[10px] border border-[#2a2a2a] bg-[#141414] px-2 py-2 text-[11px] text-white outline-none"
+                    >
+                      <option value="notify">Notify</option>
+                      <option value="question">Question</option>
+                      <option value="task">Task</option>
+                    </select>
                     <button
                       type="button"
                       onClick={() => setDraft((prev) => prev.filter((_, i) => i !== index))}
@@ -1403,12 +1413,22 @@ function PingConfigPanel({
                 placeholder={`Add a ${pingRole.toLowerCase()} shortcut`}
                 className="flex-1 rounded-[12px] border border-[#2a2a2a] bg-[#141414] px-4 py-3 text-[13px] text-white placeholder:text-white/35 outline-none focus:border-[#0096C7]/50"
               />
+              <select
+                value={newPingCategory}
+                onChange={(e) => setNewPingCategory(e.target.value as PingCategory)}
+                className="rounded-[12px] border border-[#2a2a2a] bg-[#141414] px-3 py-3 text-[12px] text-white outline-none"
+              >
+                <option value="notify">Notify</option>
+                <option value="question">Question</option>
+                <option value="task">Task</option>
+              </select>
               <button
                 type="button"
                 disabled={!newPing.trim()}
                 onClick={() => {
-                  setDraft((prev) => [...prev, newPing.trim()])
+                  setDraft((prev) => [...prev, { text: newPing.trim(), category: newPingCategory }])
                   setNewPing("")
+                  setNewPingCategory("task")
                 }}
                 className="rounded-[12px] bg-[#0096C7] px-4 py-3 text-[13px] font-semibold text-white disabled:cursor-not-allowed disabled:opacity-35"
               >
@@ -1430,7 +1450,7 @@ function PingConfigPanel({
             <button
               type="button"
               onClick={() => {
-                onSave(draft.filter((item) => item.trim()))
+                onSave(draft.filter((item) => item.text.trim()))
                 onClose()
               }}
               className="flex-1 rounded-[12px] bg-[#0096C7] py-3 text-[13px] font-semibold text-white hover:bg-[#0087b3]"
