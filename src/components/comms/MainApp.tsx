@@ -1087,6 +1087,7 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   // â"€â"€ Call state â"€â"€
   const [callState, setCallState] = useState<"idle" | "outgoing" | "incoming" | "active">("idle")
   const [activeCall, setActiveCall] = useState<CommsCall | null>(null)
+  const activeCallStateRef = useRef<CommsCall | null>(null)
   const [callerInfo, setCallerInfo] = useState<CommsUser | null>(null)
   const [callMediaMode, setCallMediaMode] = useState<"audio" | "video">("audio")
   const [videoBlurEnabled, setVideoBlurEnabled] = useState(false)
@@ -1318,6 +1319,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   useEffect(() => () => clearMessageLongPress(), [])
 
   // â"€â"€ Reset floating position when entering floating mode â"€â"€
+  useEffect(() => {
+    activeCallStateRef.current = activeCall
+  }, [activeCall])
+
   useEffect(() => {
     if (callViewMode === "floating") setFloatingPos(null)
   }, [callViewMode])
@@ -4735,6 +4740,10 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     return pc
   }
 
+  function isRtcPeerUsable(pc: RTCPeerConnection | null) {
+    return !!pc && pcRef.current === pc && pc.signalingState !== "closed"
+  }
+
   function attachRemoteAudio(pc: RTCPeerConnection) {
     pc.ontrack = e => {
       // Prefer the stream from the event; fall back to building one from the track
@@ -5053,10 +5062,13 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
   async function answerCall() {
     if (!activeCall) return
     triggerHapticPulse()
+    const callId = activeCall.id
+    setShowConnectingOverlay(true)
     let stream: MediaStream
     try {
       stream = await navigator.mediaDevices.getUserMedia({ audio: true, video: activeCall.mode === "video" })
     } catch {
+      setShowConnectingOverlay(false)
       alert(activeCall.mode === "video" ? "Camera or microphone permission denied" : "Microphone permission denied")
       return
     }
@@ -5067,33 +5079,66 @@ export default function MainApp({ user, org, onSignOut, onSwitchOrg, embedded = 
     stream.getTracks().forEach(t => pc.addTrack(t, stream))
 
     // Get offer SDP from Firestore
-    const callSnap = await getDoc(doc(firestore, "comms_v5_calls", activeCall.id))
+    const callSnap = await getDoc(doc(firestore, "comms_v5_calls", callId))
+    if (!isRtcPeerUsable(pc) || activeCallStateRef.current?.id !== callId) {
+      stream.getTracks().forEach((track) => track.stop())
+      setShowConnectingOverlay(false)
+      return
+    }
     const offerData = callSnap.data()?.offer
-    if (!offerData) return
+    if (!offerData) {
+      stream.getTracks().forEach((track) => track.stop())
+      setShowConnectingOverlay(false)
+      return
+    }
 
-    await pc.setRemoteDescription(new RTCSessionDescription(offerData))
+    if (!isRtcPeerUsable(pc)) {
+      stream.getTracks().forEach((track) => track.stop())
+      setShowConnectingOverlay(false)
+      return
+    }
+    try {
+      await pc.setRemoteDescription(new RTCSessionDescription(offerData))
+    } catch (error) {
+      console.warn("setRemoteDescription(offer) failed:", error)
+      stream.getTracks().forEach((track) => track.stop())
+      setShowConnectingOverlay(false)
+      if (pcRef.current === pc) {
+        try { pc.close() } catch {}
+        pcRef.current = null
+      }
+      return
+    }
 
     // Set handler BEFORE setLocalDescription — ICE gathering starts on setLocalDescription,
     // and any candidates fired before the handler is attached are silently dropped.
     pc.onicecandidate = e => {
-      if (e.candidate) addDoc(collection(firestore, "comms_v5_calls", activeCall.id, "callee_candidates"), e.candidate.toJSON())
+      if (e.candidate) addDoc(collection(firestore, "comms_v5_calls", callId, "callee_candidates"), e.candidate.toJSON())
     }
 
+    if (!isRtcPeerUsable(pc)) return
     const answer = await pc.createAnswer()
+    if (!isRtcPeerUsable(pc)) return
     await pc.setLocalDescription(answer)
-
-    await updateDoc(doc(firestore, "comms_v5_calls", activeCall.id), {
-      answer: { type: answer.type, sdp: answer.sdp },
-      status: "active",
-      answeredAt: Date.now(),
-    })
 
     callStartTimeRef.current = Date.now()
     setCallState("active")
-    subscribeToCallStatus(activeCall.id)
+    subscribeToCallStatus(callId)
+    setShowConnectingOverlay(false)
+
+    if (!isRtcPeerUsable(pc)) return
+    try {
+      await updateDoc(doc(firestore, "comms_v5_calls", callId), {
+        answer: { type: answer.type, sdp: answer.sdp },
+        status: "active",
+        answeredAt: Date.now(),
+      })
+    } catch (error) {
+      console.warn("updateDoc(answer) failed:", error)
+    }
 
     // Listen for caller ICE candidates
-    onSnapshot(collection(firestore, "comms_v5_calls", activeCall.id, "caller_candidates"), snap => {
+    onSnapshot(collection(firestore, "comms_v5_calls", callId, "caller_candidates"), snap => {
       snap.docChanges().forEach(change => {
         if (change.type === "added") {
           pc.addIceCandidate(new RTCIceCandidate(change.doc.data())).catch(() => {})

@@ -1170,7 +1170,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   }
 
   const mobileFloatingIsVideoCall =
-    callStatus.state !== "idle" &&
+    callStatus.state === "active" &&
     callStatus.mediaMode === "video"
   const mobileFloatingHasRemoteVideo =
     mobileFloatingIsVideoCall &&
@@ -1880,9 +1880,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                           <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#1b242d] text-[15px] font-semibold text-white ring-2 ring-white/10">
                             {mobileFloatingRemoteName.charAt(0).toUpperCase()}
                           </div>
-                          <p className="mt-2 text-[10px] text-white/78">
-                            {callStatus.state === "incoming" ? "Incoming video" : "Camera off"}
-                          </p>
+                          <p className="mt-2 text-[10px] text-white/78">Camera off</p>
                         </div>
                       )}
                       <div className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-black/75 via-black/15 to-transparent" />
@@ -2051,7 +2049,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 background: "#0a0a0a",
                 boxShadow: "0 12px 40px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.07)",
               }}>
-                {callStatus.mediaMode === "video" ? (
+                {callStatus.state === "active" && callStatus.mediaMode === "video" ? (
                   <div className="relative grid grid-cols-[1.15fr_0.85fr] bg-black" style={{ height: 150 }}>
                     <div className="relative overflow-hidden border-r border-white/10">
                       {hasLiveVideoTrack(callStatus.remoteStream) ? (
@@ -2066,9 +2064,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                           <div className="flex h-[42px] w-[42px] items-center justify-center rounded-full bg-[#1b242d] text-[15px] font-semibold text-white ring-2 ring-white/10">
                             {mobileFloatingRemoteName.charAt(0).toUpperCase()}
                           </div>
-                          <p className="mt-2 text-[10px] text-white/78">
-                            {callStatus.state === "incoming" ? "Incoming video" : "Camera off"}
-                          </p>
+                          <p className="mt-2 text-[10px] text-white/78">Camera off</p>
                         </div>
                       )}
                       <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
@@ -2105,13 +2101,10 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                 <div className="flex items-center gap-2 px-3 py-2.5 cursor-grab active:cursor-grabbing">
                   <div className="min-w-0 flex-1">
                     <p className="truncate text-[12px] font-semibold text-white">
-                      {callStatus.state === "incoming" ? callStatus.callerName || "Incoming" : callStatus.calleeName || "Call"}
+                      {callStatus.calleeName || "Call"}
                     </p>
                     <p className="text-[10px] text-[#0096C7]/80">
-                      {callStatus.state === "incoming" ? (callStatus.mediaMode === "video" ? "Incoming video" : "Incoming call")
-                        : callStatus.state === "outgoing" ? "Calling…"
-                        : callStatus.mediaMode === "video" ? `📹 ${fmtDur(callStatus.elapsed)}`
-                        : `🎙 ${fmtDur(callStatus.elapsed)}`}
+                      {callStatus.mediaMode === "video" ? `📹 ${fmtDur(callStatus.elapsed)}` : `🎙 ${fmtDur(callStatus.elapsed)}`}
                     </p>
                   </div>
                 </div>
