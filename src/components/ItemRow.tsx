@@ -1,7 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from "react"
-import { Package, Check, Trash2, X, Pencil, Phone, ExternalLink, ImagePlus } from "lucide-react"
+import { Package, Check, Trash2, X, Pencil, Phone, ExternalLink, ImagePlus, ChevronDown } from "lucide-react"
 import { doc, getDoc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
 import { Item, ItemDisplayInfo, SectionType } from "@/lib/types"
@@ -20,6 +20,13 @@ const URGENCY: Record<UrgencyLevel, { label: string; colour: string }> = {
   advisory: { label: "Advisory", colour: "bg-amber-100 text-amber-700" },
   urgent:   { label: "Urgent",   colour: "bg-orange-100 text-orange-700" },
   critical: { label: "Critical", colour: "bg-red-100 text-red-700" },
+}
+
+const URGENCY_DOT: Record<UrgencyLevel, string> = {
+  info: "bg-[#3ea6ff]",
+  advisory: "bg-[#e0a458]",
+  urgent: "bg-[#d97757]",
+  critical: "bg-[#d36b76]",
 }
 
 function todayLabel() {
@@ -70,6 +77,7 @@ export default function ItemRow({
   const [comments, setComments] = useState<Comment[]>([])
   const [newComment, setNewComment] = useState("")
   const [newUrgency, setNewUrgency] = useState<UrgencyLevel>("info")
+  const [urgencyMenuOpen, setUrgencyMenuOpen] = useState(false)
 
   useEffect(() => {
     const [a, b, c] = locParts(item.location ?? "")
@@ -176,6 +184,7 @@ export default function ItemRow({
       date: todayLabel(),
     }, ...prev])
     setNewComment("")
+    setUrgencyMenuOpen(false)
   }
 
   const locDisplay = item.location
@@ -194,7 +203,7 @@ export default function ItemRow({
   return (
     <>
       {/* ── Row ─────────────────────────────────────────────────────────── */}
-      <div className={`flex items-center gap-2 border-b py-1.5 lg:gap-5 lg:py-4 ${editMode ? "border-[#2d2d2d] bg-[#171717]" : isDark ? "border-[#334155] bg-[#111E30]" : "border-[#D5DCE3]"}`}>
+      <div className={`border-b py-1.5 lg:py-4 ${editMode ? "border-[#2d2d2d] bg-[#171717]" : isDark ? "border-[#334155] bg-[#111E30]" : "border-[#D5DCE3]"}`}>
         <input
           ref={imageInputRef}
           type="file"
@@ -202,23 +211,36 @@ export default function ItemRow({
           onChange={handleImageUpload}
           className="hidden"
         />
+        <div className={`flex ${editMode ? "items-start gap-3" : "items-center gap-2"} lg:gap-5`}>
 
         {/* Thumbnail — mobile only */}
-        <button
-          type="button"
-          onClick={handleImageSelect}
-          className="shrink-0 rounded-lg overflow-hidden lg:hidden"
-          aria-label={`Preview image for ${item.name}`}
-        >
-          {localImage ? (
-            // eslint-disable-next-line @next/next/no-img-element
-            <img src={localImage} alt={item.name} className="h-12 w-12 object-cover rounded-lg" />
-          ) : (
-            <div className={`flex h-12 w-12 items-center justify-center rounded-lg ${isDark ? "bg-[#1A2840]" : "bg-[#EEF2F6]"}`}>
-              <Package size={18} className={isDark ? "text-[#64748B]" : "text-[#94a3b8]"} />
-            </div>
-          )}
-        </button>
+        <div className={`shrink-0 lg:hidden ${editMode ? "pt-1" : ""}`}>
+          <button
+            type="button"
+            onClick={editMode ? () => imageInputRef.current?.click() : handleImageSelect}
+            className={`overflow-hidden rounded-lg ${editMode ? "block" : ""}`}
+            aria-label={editMode ? `Update image for ${item.name}` : `Preview image for ${item.name}`}
+          >
+            {localImage ? (
+              // eslint-disable-next-line @next/next/no-img-element
+              <img src={localImage} alt={item.name} className={`${editMode ? "h-14 w-14" : "h-12 w-12"} object-cover rounded-lg`} />
+            ) : (
+              <div className={`flex ${editMode ? "h-14 w-14" : "h-12 w-12"} items-center justify-center rounded-lg ${isDark ? "bg-[#1A2840]" : "bg-[#EEF2F6]"}`}>
+                <Package size={editMode ? 20 : 18} className={isDark ? "text-[#64748B]" : "text-[#94a3b8]"} />
+              </div>
+            )}
+          </button>
+          {editMode ? (
+            <button
+              type="button"
+              onClick={() => imageInputRef.current?.click()}
+              className="mt-2 inline-flex h-8 w-14 items-center justify-center rounded-lg border border-[#3b3b3b] bg-[#111111] text-[#d9d9d9]"
+              aria-label={localImage ? "Update image" : "Add image"}
+            >
+              <ImagePlus size={14} />
+            </button>
+          ) : null}
+        </div>
 
         {/* Name + meta */}
         {editMode ? (
@@ -261,14 +283,6 @@ export default function ItemRow({
                 <input key={ph} type="text" value={val} onChange={(e) => set(e.target.value)} onBlur={saveLocation} placeholder={ph} className={inputCls} />
               ))}
               <input type="number" value={draftQty} onChange={(e) => setDraftQty(e.target.value)} onBlur={saveQty} placeholder="Req. Qty" min={0} className={inputCls} />
-              <button
-                type="button"
-                onClick={() => imageInputRef.current?.click()}
-                className="mt-1 inline-flex items-center gap-2 rounded-lg border border-[#3b3b3b] bg-[#111111] px-3 py-2 text-[13px] font-medium text-[#d9d9d9]"
-              >
-                <ImagePlus size={14} />
-                {localImage ? "Update image" : "Add image"}
-              </button>
             </div>
           )}
         </div>
@@ -314,7 +328,7 @@ export default function ItemRow({
 
         {/* Edit mode: delete button */}
         {editMode && onDelete && (
-          <button onClick={onDelete} className="shrink-0 w-7 h-7 rounded-full bg-[#F87171]/10 flex items-center justify-center text-[#F87171] hover:bg-[#F87171]/20 transition-colors lg:w-11 lg:h-11 lg:rounded-xl" aria-label="Remove item">
+          <button onClick={onDelete} className={`shrink-0 ${editMode ? "mt-2" : ""} w-7 h-7 rounded-full bg-[#F87171]/10 flex items-center justify-center text-[#F87171] hover:bg-[#F87171]/20 transition-colors lg:w-11 lg:h-11 lg:rounded-xl`} aria-label="Remove item">
             <Trash2 size={13} className="lg:hidden" />
             <Trash2 size={20} className="hidden lg:block" />
           </button>
@@ -332,6 +346,7 @@ export default function ItemRow({
             {isChecked && <Check size={16} className="hidden lg:block text-white" />}
           </button>
         )}
+        </div>
       </div>
 
       {imagePreviewOpen && localImage ? (
@@ -506,22 +521,41 @@ export default function ItemRow({
                     placeholder="Write a comment…"
                     className="w-full resize-none bg-transparent text-[15px] leading-relaxed text-white placeholder:text-[#7d7d7d] focus:outline-none"
                   />
-                  <div className="flex items-center gap-1.5 mt-2.5 flex-wrap">
-                    {(["info", "advisory", "urgent", "critical"] as UrgencyLevel[]).map((u) => (
+                  <div className="mt-3 flex items-center gap-2">
+                    <div className="relative">
                       <button
-                        key={u}
                         type="button"
-                        onClick={() => setNewUrgency(u)}
-                        className={`rounded-full px-2.5 py-0.5 text-[12px] font-semibold border-2 transition-colors ${URGENCY[u].colour} ${newUrgency === u ? "border-current" : "border-transparent opacity-50"}`}
+                        onClick={() => setUrgencyMenuOpen((open) => !open)}
+                        className="inline-flex items-center gap-2 rounded-full border border-[#3b3b3b] bg-[#1f1f1f] px-3 py-2 text-[13px] font-medium text-white"
                       >
-                        {URGENCY[u].label}
+                        <span className={`h-2.5 w-2.5 rounded-full ${URGENCY_DOT[newUrgency]}`} />
+                        <span>{URGENCY[newUrgency].label}</span>
+                        <ChevronDown size={14} className={`transition-transform ${urgencyMenuOpen ? "rotate-180" : ""}`} />
                       </button>
-                    ))}
+                      {urgencyMenuOpen ? (
+                        <div className="absolute left-0 top-[calc(100%+8px)] z-20 min-w-[11rem] overflow-hidden rounded-2xl border border-[#353535] bg-[#282828] shadow-[0_18px_48px_rgba(0,0,0,0.45)]">
+                          {(["info", "advisory", "urgent", "critical"] as UrgencyLevel[]).map((u) => (
+                            <button
+                              key={u}
+                              type="button"
+                              onClick={() => {
+                                setNewUrgency(u)
+                                setUrgencyMenuOpen(false)
+                              }}
+                              className="flex w-full items-center gap-3 px-3 py-3 text-left text-[13px] text-white hover:bg-[#333333]"
+                            >
+                              <span className={`h-2.5 w-2.5 rounded-full ${URGENCY_DOT[u]}`} />
+                              <span>{URGENCY[u].label}</span>
+                            </button>
+                          ))}
+                        </div>
+                      ) : null}
+                    </div>
                     <button
                       type="button"
                       onClick={addComment}
                       disabled={!newComment.trim()}
-                      className="ml-auto rounded-lg bg-[#4DA3FF] px-4 py-1.5 text-[14px] font-semibold text-white disabled:opacity-40"
+                      className="ml-auto rounded-xl bg-[#3f6ea4] px-4 py-2 text-[14px] font-semibold text-white disabled:opacity-40"
                     >
                       Add
                     </button>
