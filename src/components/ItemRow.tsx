@@ -125,6 +125,10 @@ export default function ItemRow({
     handleSelect()
   }
 
+  function handleMobileLinkAction() {
+    setInfoOpen(true)
+  }
+
   function saveLocation() {
     if (!onItemSave) return
     const combined = [draftLocA, draftLocB, draftLocC].map(s => s.trim()).filter(Boolean).join("/")
@@ -185,10 +189,10 @@ export default function ItemRow({
         >
           {localImage ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={localImage} alt={item.name} className="w-9 h-9 object-cover rounded-lg" />
+            <img src={localImage} alt={item.name} className="h-12 w-12 object-cover rounded-lg" />
           ) : (
-            <div className={`w-9 h-9 rounded-lg flex items-center justify-center ${isDark ? "bg-[#1A2840]" : "bg-[#EEF2F6]"}`}>
-              <Package size={16} className={isDark ? "text-[#64748B]" : "text-[#94a3b8]"} />
+            <div className={`flex h-12 w-12 items-center justify-center rounded-lg ${isDark ? "bg-[#1A2840]" : "bg-[#EEF2F6]"}`}>
+              <Package size={18} className={isDark ? "text-[#64748B]" : "text-[#94a3b8]"} />
             </div>
           )}
         </button>
@@ -198,7 +202,7 @@ export default function ItemRow({
         <div className="flex-1 min-w-0">
           {/* Item name — mobile: 15px blue underlined tap target; desktop: 22px dark no underline */}
           <button
-            onClick={handleSelect}
+            onClick={handleMobileLinkAction}
             className={`w-full text-left text-[15px] font-semibold leading-snug underline underline-offset-2 lg:text-[22px] lg:no-underline lg:leading-tight ${isDark ? "text-white" : "text-[#2F8EF7] lg:text-[#10243E]"}`}
           >
             {item.name}
@@ -240,9 +244,9 @@ export default function ItemRow({
         ) : (
         <button
           type="button"
-          onClick={handleSelect}
+          onClick={handleMobileLinkAction}
           className="flex-1 min-w-0 text-left"
-          aria-label={`Open details for ${item.name}`}
+          aria-label={`Open notes and comments for ${item.name}`}
         >
           <span className={`block w-full text-[15px] font-semibold leading-snug underline underline-offset-2 lg:text-[22px] lg:no-underline lg:leading-tight ${isDark ? "text-white" : "text-[#2F8EF7] lg:text-[#10243E]"}`}>
             {item.name}
@@ -276,18 +280,6 @@ export default function ItemRow({
             {item.defaultQty != null ? item.defaultQty : "—"}
           </p>
         </div>
-
-        {/* Mobile "i" button */}
-        {!editMode && (
-          <button
-            type="button"
-            onClick={() => setInfoOpen(true)}
-            className={`shrink-0 lg:hidden w-7 h-7 rounded-full border-2 flex items-center justify-center text-[13px] font-bold transition-colors ${isDark ? "border-[#334155] text-[#64748B]" : "border-[#D5DCE3] text-[#94a3b8]"}`}
-            aria-label="Notes and comments"
-          >
-            i
-          </button>
-        )}
 
         {/* Edit mode: delete button */}
         {editMode && onDelete && (
@@ -333,7 +325,7 @@ export default function ItemRow({
       {detailOpen && (
         <div className="lg:hidden">
           <div className="fixed inset-0 z-40 bg-black/58" onClick={() => setDetailOpen(false)} />
-          <div className={`fixed inset-x-2 bottom-2 top-[max(72px,env(safe-area-inset-top)+20px)] z-50 flex flex-col overflow-hidden rounded-[26px] border shadow-2xl ${mobileSheetSurface}`}>
+          <div className={`fixed inset-x-3 bottom-3 top-[max(132px,env(safe-area-inset-top)+56px)] z-50 flex flex-col overflow-hidden rounded-[26px] border shadow-2xl ${mobileSheetSurface}`}>
             <div className="flex justify-center pt-2">
               <div className="h-1 w-10 rounded-full bg-[#5c5c5c]" />
             </div>
@@ -417,7 +409,7 @@ export default function ItemRow({
       {infoOpen && (
         <div className="lg:hidden">
           <div className="fixed inset-0 z-40 bg-black/58" onClick={() => setInfoOpen(false)} />
-          <div className={`fixed inset-x-2 bottom-2 top-[max(72px,env(safe-area-inset-top)+20px)] z-50 flex flex-col overflow-hidden rounded-[26px] border shadow-2xl ${mobileSheetSurface}`}>
+          <div className={`fixed inset-x-3 bottom-3 top-[max(132px,env(safe-area-inset-top)+56px)] z-50 flex flex-col overflow-hidden rounded-[26px] border shadow-2xl ${mobileSheetSurface}`}>
             <div className="flex justify-center pt-2">
               <div className="h-1 w-10 rounded-full bg-[#5c5c5c]" />
             </div>
@@ -427,9 +419,19 @@ export default function ItemRow({
                   <p className={`mt-1 text-[13px] ${mobileSheetMuted}`}>Notes & Comments</p>
                 </div>
                 <button type="button" onClick={() => setInfoOpen(false)} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border border-white/10 bg-[#2b2b2b] text-white"><X size={18} /></button>
-              </div>
+            </div>
             <div className={`border-t ${mobileSheetDivider}`} />
             <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-6 pt-4">
+              <button
+                type="button"
+                onClick={() => {
+                  setInfoOpen(false)
+                  setDetailOpen(true)
+                }}
+                className="mb-4 inline-flex items-center rounded-[12px] bg-[#0d8bd8] px-4 py-2 text-[14px] font-semibold text-white"
+              >
+                Open item details
+              </button>
 
               <div className="pb-5">
                 <div className="flex items-center justify-between mb-2.5">
