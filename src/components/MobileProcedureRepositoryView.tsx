@@ -253,25 +253,6 @@ function buildProcedureDisplayTitle({
   return `${prefix} ${procedureName}`.replace(/\s{2,}/g, " ").trim()
 }
 
-function readLocalCustomSections(cardKey: string): Section[] {
-  if (typeof window === "undefined") return []
-  try {
-    const raw = window.localStorage.getItem(`prepsight_custom_sections__${cardKey}`)
-    if (!raw) return []
-    const parsed = JSON.parse(raw)
-    return Array.isArray(parsed) ? (parsed as Section[]) : []
-  } catch {
-    return []
-  }
-}
-
-function writeLocalCustomSections(cardKey: string, sections: Section[]) {
-  if (typeof window === "undefined") return
-  try {
-    window.localStorage.setItem(`prepsight_custom_sections__${cardKey}`, JSON.stringify(sections))
-  } catch {}
-}
-
 function getPersistableSections(sections: Section[]): Section[] {
   return sections
 }
@@ -353,6 +334,7 @@ export default function MobileProcedureRepositoryView({
   const [newSectionLayout, setNewSectionLayout] = useState<NewSectionLayout | "">("")
   const [createMessage, setCreateMessage] = useState("")
   const [isCreating, setIsCreating] = useState(false)
+  const [saveWarning, setSaveWarning] = useState<string | null>(null)
   const [openVersionId, setOpenVersionId] = useState<string>("global-current")
   const [sectionsState, setSectionsState] = useState(sections)
   const [uid, setUid] = useState<string | null>(null)
@@ -483,17 +465,7 @@ export default function MobileProcedureRepositoryView({
   useEffect(() => onAuthChange((user) => setUid(user?.uid ?? null)), [])
 
   useEffect(() => {
-    const localOverrides = readLocalCustomSections(cardKey)
-    if (!localOverrides.length) {
-      setSectionsState(sections)
-      return
-    }
-    setSectionsState(
-      sections.map((section) => {
-        const override = localOverrides.find((entry) => entry.id === section.id)
-        return override ?? section
-      }),
-    )
+    setSectionsState(sections)
   }, [cardKey, sections])
 
   useEffect(() => {
@@ -515,19 +487,13 @@ export default function MobileProcedureRepositoryView({
     }
   }, [cardKey, uid])
 
-  useEffect(() => {
-    if (!uid) return
-    const localOverrides = readLocalCustomSections(cardKey)
-    if (!localOverrides.length) return
-    startTransition(() => {
-      void saveCardCustomSections(uid, cardKey, getPersistableSections(localOverrides))
-    })
-  }, [cardKey, uid])
-
   function persistEditableSections(next: Section[]) {
     const persistableSections = getPersistableSections(next)
-    writeLocalCustomSections(cardKey, persistableSections)
-    if (!uid) return
+    if (!uid) {
+      setSaveWarning("This device is not signed in, so changes cannot sync yet.")
+      return
+    }
+    setSaveWarning(null)
     startTransition(() => {
       void saveCardCustomSections(uid, cardKey, persistableSections)
     })
@@ -1792,6 +1758,11 @@ export default function MobileProcedureRepositoryView({
           ) : null}
 
           <section className="mt-5">
+            {saveWarning ? (
+              <div className="mb-3 rounded-[14px] border border-[#4a2327] bg-[#1a0608] px-4 py-3 text-[13px] text-[#f5b7b1]">
+                {saveWarning}
+              </div>
+            ) : null}
             {sectionsState.length > 0 ? (
               <>
                 {createOpen && authoringMode === "edit" ? (
