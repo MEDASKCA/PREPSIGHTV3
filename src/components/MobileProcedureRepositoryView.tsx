@@ -16,6 +16,7 @@ import {
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
 import DesktopCommsPanel from "@/components/DesktopCommsPanel"
+import LibraryMobileHeaderTabs from "@/components/LibraryMobileHeaderTabs"
 import TriangleIcon from "@/components/TriangleIcon"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import CollectionPanel from "@/components/CollectionPanel"
@@ -30,6 +31,7 @@ import {
   getDefaultLocalLibraryId,
   getLibraryCardsSnapshot,
   getPublishedCardsByFamilySnapshot,
+  getSharedLibraryId,
 } from "@/lib/libraries"
 import { getDesktopCommsPreference, getDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
 import { formatProcedureHierarchy } from "@/lib/procedure-hierarchy"
@@ -1210,7 +1212,13 @@ export default function MobileProcedureRepositoryView({
           title="Library"
           hospital={hospitalLabel}
           department={departmentLabel}
-        />
+        >
+          <LibraryMobileHeaderTabs
+            currentTab="community"
+            selectedWorkspace={procedure.setting}
+            onWorkspaceChange={(setting) => router.push(`/libraries/${getSharedLibraryId(setting)}`)}
+          />
+        </MobileSurfaceHeader>
       </div>
 
         {createNoticeOpen ? (

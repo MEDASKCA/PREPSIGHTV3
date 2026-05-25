@@ -7,6 +7,7 @@ import { ArrowDown, ArrowUp, Bookmark, Download, Eye, Heart, MessageCircle, Plus
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
 import DesktopCommsPanel from "@/components/DesktopCommsPanel"
+import LibraryMobileHeaderTabs from "@/components/LibraryMobileHeaderTabs"
 import TriangleIcon from "@/components/TriangleIcon"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import { getBookmarksSnapshot, removeBookmark, saveBookmark, subscribeBookmarks } from "@/lib/bookmarks"
@@ -16,6 +17,7 @@ import {
   getDefaultLocalLibraryId,
   getLibrariesSnapshot,
   getPublishedCardsByFamilySnapshot,
+  getSharedLibraryId,
   subscribeLibraries,
 } from "@/lib/libraries"
 import { formatProcedureHierarchy } from "@/lib/procedure-hierarchy"
@@ -673,7 +675,13 @@ export default function SharedProcedureIndexView({
           title="Library"
           hospital={hospitalLabel}
           department={departmentLabel}
-        />
+        >
+          <LibraryMobileHeaderTabs
+            currentTab="community"
+            selectedWorkspace={procedure.setting}
+            onWorkspaceChange={(setting) => router.push(`/libraries/${getSharedLibraryId(setting)}`)}
+          />
+        </MobileSurfaceHeader>
       </div>
 
       <main className={`w-full ${embeddedPane ? "min-h-0 flex-1 px-4 pb-4 pt-2" : "px-4 pb-28 pt-4"} lg:p-0 lg:pb-0`}>
