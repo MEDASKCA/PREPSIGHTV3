@@ -479,20 +479,18 @@ export default function MobileProcedureRepositoryView({
   useEffect(() => onAuthChange((user) => setUid(user?.uid ?? null)), [])
 
   useEffect(() => {
-    setSectionsState(sections)
-  }, [sections])
-
-  useEffect(() => {
     const localOverrides = readLocalCustomSections(cardKey)
-    if (localOverrides.length) {
-      setSectionsState((current) =>
-        current.map((section) => {
-          const override = localOverrides.find((entry) => entry.id === section.id)
-          return override ?? section
-        }),
-      )
+    if (!localOverrides.length) {
+      setSectionsState(sections)
+      return
     }
-  }, [cardKey])
+    setSectionsState(
+      sections.map((section) => {
+        const override = localOverrides.find((entry) => entry.id === section.id)
+        return override ?? section
+      }),
+    )
+  }, [cardKey, sections])
 
   useEffect(() => {
     let cancelled = false
