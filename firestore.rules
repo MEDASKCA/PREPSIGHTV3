@@ -194,6 +194,13 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    match /shared_card_sections/{docId} {
+      allow read: if isSignedIn();
+      allow create, update: if isSignedIn() &&
+        request.resource.data.updatedBy == request.auth.uid;
+      allow delete: if false;
+    }
+
     match /item_images/{itemId} {
       allow read: if isSignedIn();
       allow create, update, delete: if isSignedIn();

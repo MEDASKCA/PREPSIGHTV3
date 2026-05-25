@@ -1038,6 +1038,10 @@ function checklistDocId(uid: string, cardKey: string) {
   return `${uid}__${cardKey.replace(/[^a-z0-9_-]+/gi, "-")}`
 }
 
+function sharedCardSectionsDocId(cardKey: string) {
+  return cardKey.replace(/[^a-z0-9_-]+/gi, "-")
+}
+
 export async function getCardChecklist(
   uid: string,
   cardKey: string,
@@ -1101,6 +1105,39 @@ export async function saveCardCustomSections(
     })
   } catch (err) {
     console.warn("[PrepSight] Firestore saveCardCustomSections failed:", err)
+  }
+}
+
+export async function getSharedCardSections(
+  cardKey: string,
+): Promise<Section[]> {
+  if (!db) return []
+  try {
+    const snap = await getDoc(doc(db, "shared_card_sections", sharedCardSectionsDocId(cardKey)))
+    if (!snap.exists()) return []
+    const sections = snap.data().sections
+    return Array.isArray(sections) ? (sections as Section[]) : []
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getSharedCardSections failed:", err)
+    return []
+  }
+}
+
+export async function saveSharedCardSections(
+  uid: string,
+  cardKey: string,
+  sections: Section[],
+): Promise<void> {
+  if (!db) return
+  try {
+    await setDoc(doc(db, "shared_card_sections", sharedCardSectionsDocId(cardKey)), {
+      sections,
+      updatedAt: new Date().toISOString(),
+      updatedBy: uid,
+      cardKey,
+    })
+  } catch (err) {
+    console.warn("[PrepSight] Firestore saveSharedCardSections failed:", err)
   }
 }
 

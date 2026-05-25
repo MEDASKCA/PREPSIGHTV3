@@ -24,7 +24,7 @@ import ItemDetailPanel from "@/components/ItemDetailPanel"
 import KardexSection from "@/components/KardexSection"
 import { onAuthChange } from "@/lib/auth"
 import { getBookmarksSnapshot, removeBookmark, saveBookmark, subscribeBookmarks } from "@/lib/bookmarks"
-import { getCardCustomSections, saveCardCustomSections } from "@/lib/firestore"
+import { getSharedCardSections, saveSharedCardSections } from "@/lib/firestore"
 import {
   addCardToLocalLibrary,
   createLocalLibrary,
@@ -474,7 +474,7 @@ export default function MobileProcedureRepositoryView({
     let cancelled = false
     async function load() {
       if (!uid) return
-      const overrides = await getCardCustomSections(uid, cardKey)
+      const overrides = await getSharedCardSections(cardKey)
       if (cancelled || !overrides.length) return
       setSectionsState((current) =>
         current.map((section) => {
@@ -497,7 +497,7 @@ export default function MobileProcedureRepositoryView({
     }
     setSaveWarning(null)
     startTransition(() => {
-      void saveCardCustomSections(uid, cardKey, persistableSections)
+      void saveSharedCardSections(uid, cardKey, persistableSections)
     })
   }
 
