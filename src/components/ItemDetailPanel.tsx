@@ -442,14 +442,14 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
         {/* ── Detail fields ───────────────────────────────────────────── */}
         {isEditing ? (
           <div className="space-y-4">
-            {/* Product ref */}
+            {/* Product name */}
             <div>
-              <label className="text-[13px] uppercase tracking-wide text-[#94a3b8] block mb-1.5">Product ref</label>
+              <label className="text-[13px] uppercase tracking-wide text-[#94a3b8] block mb-1.5">Product name</label>
               <input
                 type="text"
                 value={draftProduct}
                 onChange={(e) => setDraftProduct(e.target.value)}
-                placeholder="e.g. REF-12345"
+                placeholder="e.g. Biogel"
                 className="w-full text-[20px] bg-white border border-[#D5DCE3] rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4DA3FF] placeholder:text-[#D5DCE3]"
               />
             </div>
@@ -533,7 +533,7 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
           <div className="grid grid-cols-2 gap-3">
             {item.product && (
               <div className="col-span-2 rounded-2xl bg-white border border-[#D5DCE3] px-4 py-3">
-                <p className="text-[13px] uppercase tracking-wide text-[#94a3b8] mb-1">Product ref</p>
+                <p className="text-[13px] uppercase tracking-wide text-[#94a3b8] mb-1">Product name</p>
                 <p className="text-[20px] font-semibold text-[#3F4752]">{item.product}</p>
               </div>
             )}
