@@ -194,6 +194,11 @@ service cloud.firestore {
       allow delete: if false;
     }
 
+    match /item_images/{itemId} {
+      allow read: if isSignedIn();
+      allow create, update, delete: if isSignedIn();
+    }
+
     match /collection_runs/{runId} {
       allow read, create: if isSignedIn() &&
         (
