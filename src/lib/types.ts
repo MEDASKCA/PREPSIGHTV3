@@ -46,6 +46,7 @@ export interface Item {
   sku?: string
   description?: string
   product?: string
+  manufacturer?: string
   supplier?: Supplier
   imageUrl?: string
   notes?: string

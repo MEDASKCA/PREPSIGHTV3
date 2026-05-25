@@ -64,6 +64,9 @@ export default function ItemRow({
   const [draftLocB, setDraftLocB] = useState(() => locParts(item.location ?? "")[1])
   const [draftLocC, setDraftLocC] = useState(() => locParts(item.location ?? "")[2])
   const [draftQty, setDraftQty] = useState(item.defaultQty != null ? String(item.defaultQty) : "")
+  const [draftName, setDraftName] = useState(item.name)
+  const [draftManufacturer, setDraftManufacturer] = useState(item.manufacturer ?? "")
+  const [draftSku, setDraftSku] = useState(item.sku ?? "")
 
   // Mobile detail drawer
   const [detailOpen, setDetailOpen] = useState(false)
@@ -87,17 +90,23 @@ export default function ItemRow({
     const [a, b, c] = locParts(item.location ?? "")
     setDraftLocA(a); setDraftLocB(b); setDraftLocC(c)
     setDraftQty(item.defaultQty != null ? String(item.defaultQty) : "")
+    setDraftName(item.name)
+    setDraftManufacturer(item.manufacturer ?? "")
+    setDraftSku(item.sku ?? "")
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item.location, item.defaultQty])
+  }, [item.location, item.defaultQty, item.name, item.manufacturer, item.sku])
 
   useEffect(() => {
     if (!editMode) {
       const [a, b, c] = locParts(item.location ?? "")
       setDraftLocA(a); setDraftLocB(b); setDraftLocC(c)
       setDraftQty(item.defaultQty != null ? String(item.defaultQty) : "")
+      setDraftName(item.name)
+      setDraftManufacturer(item.manufacturer ?? "")
+      setDraftSku(item.sku ?? "")
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editMode, item.location, item.defaultQty])
+  }, [editMode, item.location, item.defaultQty, item.name, item.manufacturer, item.sku])
 
   useEffect(() => {
     setInstruction(item.notes ?? "")
@@ -214,6 +223,20 @@ export default function ItemRow({
     onItemSave({ ...item, defaultQty: parsed })
   }
 
+  function saveIdentityFields() {
+    if (!onItemSave) return
+    const nextName = draftName.trim() || item.name
+    const nextManufacturer = draftManufacturer.trim() || undefined
+    const nextSku = draftSku.trim() || undefined
+    if (nextName === item.name && nextManufacturer === item.manufacturer && nextSku === item.sku) return
+    onItemSave({
+      ...item,
+      name: nextName,
+      manufacturer: nextManufacturer,
+      sku: nextSku,
+    })
+  }
+
   function saveInstruction() {
     if (!onItemSave) return
     onItemSave({ ...item, notes: instructionDraft.trim() || undefined })
@@ -277,9 +300,9 @@ export default function ItemRow({
           >
             {localImage ? (
               // eslint-disable-next-line @next/next/no-img-element
-              <img src={localImage} alt={item.name} className={`${editMode ? "h-14 w-14" : "h-12 w-12"} object-cover rounded-lg`} />
+              <img src={localImage} alt={item.name} className={`${editMode ? "h-14 w-14 rounded-lg" : "h-16 w-16 rounded-xl"} object-cover`} />
             ) : (
-              <div className={`flex ${editMode ? "h-14 w-14" : "h-12 w-12"} items-center justify-center rounded-lg ${isDark ? "bg-[#1A2840]" : "bg-[#EEF2F6]"}`}>
+              <div className={`flex ${editMode ? "h-14 w-14 rounded-lg" : "h-16 w-16 rounded-xl"} items-center justify-center ${isDark ? "bg-[#1A2840]" : "bg-[#EEF2F6]"}`}>
                 <Package size={editMode ? 20 : 18} className={isDark ? "text-[#64748B]" : "text-[#94a3b8]"} />
               </div>
             )}
@@ -313,18 +336,42 @@ export default function ItemRow({
         {/* Name + meta */}
         {editMode ? (
         <div className="flex-1 min-w-0">
-          {/* Item name — mobile: 15px blue underlined tap target; desktop: 22px dark no underline */}
-          <button
-            onClick={handleMobileLinkAction}
-            className={`w-full text-left text-[15px] font-semibold leading-snug underline underline-offset-2 lg:text-[22px] lg:no-underline lg:leading-tight ${isDark ? "text-white" : "text-[#2F8EF7] lg:text-[#10243E]"}`}
-          >
-            {item.name}
-          </button>
+          <div className="flex flex-col gap-1">
+            <input
+              type="text"
+              value={draftName}
+              onChange={(e) => setDraftName(e.target.value)}
+              onBlur={saveIdentityFields}
+              placeholder="Item name"
+              className={inputCls}
+            />
+            <input
+              type="text"
+              value={draftManufacturer}
+              onChange={(e) => setDraftManufacturer(e.target.value)}
+              onBlur={saveIdentityFields}
+              placeholder="Manufacturer"
+              className={inputCls}
+            />
+            <input
+              type="text"
+              value={draftSku}
+              onChange={(e) => setDraftSku(e.target.value)}
+              onBlur={saveIdentityFields}
+              placeholder="SKU / Reference"
+              className={inputCls}
+            />
+          </div>
 
-          {/* Product ref */}
           {item.product && (
             <p className={`mt-0.5 text-[13px] leading-snug lg:text-[18px] lg:mt-1 ${isDark ? "text-[#C7D2E0]" : "text-[#94a3b8]"}`}>
               {item.product}
+            </p>
+          )}
+
+          {!item.product && item.manufacturer && (
+            <p className={`mt-0.5 text-[13px] leading-snug lg:text-[18px] lg:mt-1 ${isDark ? "text-[#C7D2E0]" : "text-[#94a3b8]"}`}>
+              {item.manufacturer}
             </p>
           )}
 
