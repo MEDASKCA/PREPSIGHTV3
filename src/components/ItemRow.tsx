@@ -336,42 +336,45 @@ export default function ItemRow({
         {/* Name + meta */}
         {editMode ? (
         <div className="flex-1 min-w-0">
-          <div className="flex flex-col gap-1">
-            <input
-              type="text"
-              value={draftName}
-              onChange={(e) => setDraftName(e.target.value)}
-              onBlur={saveIdentityFields}
-              placeholder="Item name"
-              className={inputCls}
-            />
-            <input
-              type="text"
-              value={draftManufacturer}
-              onChange={(e) => setDraftManufacturer(e.target.value)}
-              onBlur={saveIdentityFields}
-              placeholder="Manufacturer"
-              className={inputCls}
-            />
-            <input
-              type="text"
-              value={draftSku}
-              onChange={(e) => setDraftSku(e.target.value)}
-              onBlur={saveIdentityFields}
-              placeholder="SKU / Reference"
-              className={inputCls}
-            />
+          <div className="space-y-2">
+            <div>
+              <p className="mb-1 text-[11px] font-medium uppercase tracking-[0.12em] text-[#8f8f8f]">Item name</p>
+              <input
+                type="text"
+                value={draftName}
+                onChange={(e) => setDraftName(e.target.value)}
+                onBlur={saveIdentityFields}
+                placeholder="Item name"
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <p className="mb-1 text-[11px] font-medium uppercase tracking-[0.12em] text-[#8f8f8f]">Manufacturer</p>
+              <input
+                type="text"
+                value={draftManufacturer}
+                onChange={(e) => setDraftManufacturer(e.target.value)}
+                onBlur={saveIdentityFields}
+                placeholder="Manufacturer"
+                className={inputCls}
+              />
+            </div>
+            <div>
+              <p className="mb-1 text-[11px] font-medium uppercase tracking-[0.12em] text-[#8f8f8f]">SKU / Reference</p>
+              <input
+                type="text"
+                value={draftSku}
+                onChange={(e) => setDraftSku(e.target.value)}
+                onBlur={saveIdentityFields}
+                placeholder="SKU / Reference"
+                className={inputCls}
+              />
+            </div>
           </div>
 
           {item.product && (
             <p className={`mt-0.5 text-[13px] leading-snug lg:text-[18px] lg:mt-1 ${isDark ? "text-[#C7D2E0]" : "text-[#94a3b8]"}`}>
               {item.product}
-            </p>
-          )}
-
-          {!item.product && item.manufacturer && (
-            <p className={`mt-0.5 text-[13px] leading-snug lg:text-[18px] lg:mt-1 ${isDark ? "text-[#C7D2E0]" : "text-[#94a3b8]"}`}>
-              {item.manufacturer}
             </p>
           )}
 
