@@ -153,6 +153,11 @@ export default function ItemRow({
     event.target.value = ""
   }
 
+  function handleImageRemove() {
+    setLocalImage(null)
+    onItemSave?.({ ...item, imageUrl: undefined })
+  }
+
   function saveLocation() {
     if (!onItemSave) return
     const combined = [draftLocA, draftLocB, draftLocC].map(s => s.trim()).filter(Boolean).join("/")
@@ -231,14 +236,26 @@ export default function ItemRow({
             )}
           </button>
           {editMode ? (
-            <button
-              type="button"
-              onClick={() => imageInputRef.current?.click()}
-              className="mt-2 inline-flex h-8 w-14 items-center justify-center rounded-lg border border-[#3b3b3b] bg-[#111111] text-[#d9d9d9]"
-              aria-label={localImage ? "Update image" : "Add image"}
-            >
-              <ImagePlus size={14} />
-            </button>
+            <div className="mt-2 flex gap-2">
+              <button
+                type="button"
+                onClick={() => imageInputRef.current?.click()}
+                className="inline-flex h-8 w-14 items-center justify-center rounded-lg border border-[#3b3b3b] bg-[#111111] text-[#d9d9d9]"
+                aria-label={localImage ? "Update image" : "Add image"}
+              >
+                <ImagePlus size={14} />
+              </button>
+              {localImage ? (
+                <button
+                  type="button"
+                  onClick={handleImageRemove}
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#4a2327] bg-[#251417] text-[#f28b82]"
+                  aria-label="Remove image"
+                >
+                  <Trash2 size={14} />
+                </button>
+              ) : null}
+            </div>
           ) : null}
         </div>
 
@@ -328,8 +345,8 @@ export default function ItemRow({
 
         {/* Edit mode: delete button */}
         {editMode && onDelete && (
-          <button onClick={onDelete} className={`shrink-0 ${editMode ? "mt-2" : ""} w-7 h-7 rounded-full bg-[#F87171]/10 flex items-center justify-center text-[#F87171] hover:bg-[#F87171]/20 transition-colors lg:w-11 lg:h-11 lg:rounded-xl`} aria-label="Remove item">
-            <Trash2 size={13} className="lg:hidden" />
+          <button onClick={onDelete} className={`shrink-0 ${editMode ? "mt-2" : ""} h-8 w-8 rounded-full bg-[#F87171]/10 flex items-center justify-center text-[#F87171] hover:bg-[#F87171]/20 transition-colors lg:h-11 lg:w-11 lg:rounded-xl`} aria-label="Remove item">
+            <Trash2 size={15} className="lg:hidden" />
             <Trash2 size={20} className="hidden lg:block" />
           </button>
         )}
