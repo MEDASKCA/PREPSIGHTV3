@@ -1,7 +1,7 @@
 ﻿"use client"
 
 import type { PointerEvent as ReactPointerEvent } from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { ExternalLink, Save, Check, Clock, SquarePen, Plus, Trash2, GripVertical } from "lucide-react"
 import TriangleIcon from "@/components/TriangleIcon"
 import ItemRow from "./ItemRow"
@@ -59,6 +59,18 @@ export default function KardexSection({
   const [savedFeedback, setSavedFeedback] = useState(false)
   const [localItems, setLocalItems] = useState<Item[]>(section.items)
 
+  // Overview
+  const [overviewSummary, setOverviewSummary] = useState(section.summary ?? "")
+  const [overviewSummaryDraft, setOverviewSummaryDraft] = useState(section.summary ?? "")
+  const [overviewDuration, setOverviewDuration] = useState(section.duration ?? "")
+  const [overviewDurationDraft, setOverviewDurationDraft] = useState(section.duration ?? "")
+  const [overviewAnaesthesia, setOverviewAnaesthesia] = useState(section.anaesthesiaType ?? "")
+  const [overviewAnaesthesiaDraft, setOverviewAnaesthesiaDraft] = useState(section.anaesthesiaType ?? "")
+  const [overviewPrimarySystem, setOverviewPrimarySystem] = useState(section.primarySystem ?? "")
+  const [overviewPrimarySystemDraft, setOverviewPrimarySystemDraft] = useState(section.primarySystem ?? "")
+  const [overviewAlternatives, setOverviewAlternatives] = useState(section.alternatives ?? [])
+  const [overviewAlternativesDraft, setOverviewAlternativesDraft] = useState((section.alternatives ?? []).join("\n"))
+
   // Nurse prep notes
   const [nurseNotes, setNurseNotes]             = useState(section.nurseNotes ?? "")
   const [notesDraft, setNotesDraft]             = useState(section.nurseNotes ?? "")
@@ -77,9 +89,53 @@ export default function KardexSection({
   )
   const [showCataloguePicker, setShowCataloguePicker] = useState(false)
 
+  // Other text-only sections
+  const [recoveryNotes, setRecoveryNotes] = useState(section.recoveryNotes ?? "")
+  const [recoveryNotesDraft, setRecoveryNotesDraft] = useState(section.recoveryNotes ?? "")
+  const [dischargeCriteria, setDischargeCriteria] = useState(section.dischargeCriteria ?? [])
+  const [dischargeCriteriaDraft, setDischargeCriteriaDraft] = useState((section.dischargeCriteria ?? []).join("\n"))
+  const [commonComplications, setCommonComplications] = useState(section.commonComplications ?? [])
+  const [commonComplicationsDraft, setCommonComplicationsDraft] = useState((section.commonComplications ?? []).join("\n"))
+
+  useEffect(() => {
+    setLocalItems(section.items)
+    setOverviewSummary(section.summary ?? "")
+    setOverviewSummaryDraft(section.summary ?? "")
+    setOverviewDuration(section.duration ?? "")
+    setOverviewDurationDraft(section.duration ?? "")
+    setOverviewAnaesthesia(section.anaesthesiaType ?? "")
+    setOverviewAnaesthesiaDraft(section.anaesthesiaType ?? "")
+    setOverviewPrimarySystem(section.primarySystem ?? "")
+    setOverviewPrimarySystemDraft(section.primarySystem ?? "")
+    setOverviewAlternatives(section.alternatives ?? [])
+    setOverviewAlternativesDraft((section.alternatives ?? []).join("\n"))
+    setNurseNotes(section.nurseNotes ?? "")
+    setNotesDraft(section.nurseNotes ?? "")
+    setPositionText(section.patientPositionInstructions ?? "")
+    setPositionDraft(section.patientPositionInstructions ?? "")
+    setLocalOpTechUrl(section.operativeTechniqueUrl ?? "")
+    setLocalImplantUrl(section.implantGuideUrl ?? "")
+    setLocalExternalLinks(section.externalLinks ?? [])
+    setRecoveryNotes(section.recoveryNotes ?? "")
+    setRecoveryNotesDraft(section.recoveryNotes ?? "")
+    setDischargeCriteria(section.dischargeCriteria ?? [])
+    setDischargeCriteriaDraft((section.dischargeCriteria ?? []).join("\n"))
+    setCommonComplications(section.commonComplications ?? [])
+    setCommonComplicationsDraft((section.commonComplications ?? []).join("\n"))
+  }, [section])
+
   function handleEditSave() {
     if (!canEditSection) return
     if (editMode) {
+      const nextAlternatives = overviewAlternativesDraft.split("\n").map((entry) => entry.trim()).filter(Boolean)
+      const nextDischargeCriteria = dischargeCriteriaDraft.split("\n").map((entry) => entry.trim()).filter(Boolean)
+      const nextCommonComplications = commonComplicationsDraft.split("\n").map((entry) => entry.trim()).filter(Boolean)
+
+      setOverviewSummary(overviewSummaryDraft)
+      setOverviewDuration(overviewDurationDraft)
+      setOverviewAnaesthesia(overviewAnaesthesiaDraft)
+      setOverviewPrimarySystem(overviewPrimarySystemDraft)
+      setOverviewAlternatives(nextAlternatives)
       // Commit nurse notes
       if (notesDraft !== nurseNotes) {
         setNurseNotes(notesDraft)
@@ -90,22 +146,41 @@ export default function KardexSection({
         setPositionText(positionDraft)
         setPositionPending(true)
       }
+      setRecoveryNotes(recoveryNotesDraft)
+      setDischargeCriteria(nextDischargeCriteria)
+      setCommonComplications(nextCommonComplications)
       emitSectionChange({
         items: localItems,
+        summary: overviewSummaryDraft.trim() || undefined,
+        duration: overviewDurationDraft.trim() || undefined,
+        anaesthesiaType: overviewAnaesthesiaDraft.trim() || undefined,
+        primarySystem: overviewPrimarySystemDraft.trim() || undefined,
+        alternatives: nextAlternatives,
         nurseNotes: notesDraft,
         patientPositionInstructions: positionDraft,
         operativeTechniqueUrl: localOpTechUrl,
         implantGuideUrl: localImplantUrl,
         externalLinks: localExternalLinks,
+        recoveryNotes: recoveryNotesDraft.trim() || undefined,
+        dischargeCriteria: nextDischargeCriteria,
+        commonComplications: nextCommonComplications,
       })
       setEditMode(false)
       setSavedFeedback(true)
       setTimeout(() => setSavedFeedback(false), 1500)
       onSave?.()
     } else {
+      setOverviewSummaryDraft(overviewSummary)
+      setOverviewDurationDraft(overviewDuration)
+      setOverviewAnaesthesiaDraft(overviewAnaesthesia)
+      setOverviewPrimarySystemDraft(overviewPrimarySystem)
+      setOverviewAlternativesDraft(overviewAlternatives.join("\n"))
       // Enter edit mode — sync drafts from committed values
       setNotesDraft(nurseNotes)
       setPositionDraft(positionText)
+      setRecoveryNotesDraft(recoveryNotes)
+      setDischargeCriteriaDraft(dischargeCriteria.join("\n"))
+      setCommonComplicationsDraft(commonComplications.join("\n"))
       setEditMode(true)
     }
   }
@@ -179,10 +254,18 @@ export default function KardexSection({
       ...section,
       items: localItems,
       nurseNotes,
+      summary: overviewSummary,
+      duration: overviewDuration,
+      anaesthesiaType: overviewAnaesthesia,
+      primarySystem: overviewPrimarySystem,
+      alternatives: overviewAlternatives,
       patientPositionInstructions: positionText,
       operativeTechniqueUrl: localOpTechUrl,
       implantGuideUrl: localImplantUrl,
       externalLinks: localExternalLinks,
+      recoveryNotes,
+      dischargeCriteria,
+      commonComplications,
       ...overrides,
     })
   }
@@ -243,45 +326,101 @@ export default function KardexSection({
         <div className={`kardex-section-body px-4 py-2 lg:px-7 lg:py-4 ${isDark ? "bg-black text-[#e0e0e0]" : "bg-white"}`}>
 
           {/* ── OVERVIEW ───────────────────────────────────────────── */}
-          {isOverview && (section.summary || section.duration || section.anaesthesiaType || section.primarySystem || section.alternatives?.length) && (
+          {isOverview && (
             <div className="py-2 space-y-3">
-              {section.summary && (
-                <p className={`text-base leading-relaxed lg:text-[20px] lg:text-lg lg:leading-8 ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{section.summary}</p>
-              )}
-              <div className="flex flex-wrap gap-x-6 gap-y-3">
-                {section.duration && (
-                  <div>
-                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>Duration</p>
-                    <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{section.duration}</p>
+              {editMode ? (
+                <div className="space-y-3">
+                  <textarea
+                    value={overviewSummaryDraft}
+                    onChange={(e) => setOverviewSummaryDraft(e.target.value)}
+                    rows={4}
+                    placeholder="Overview summary"
+                    className={`w-full resize-none rounded-xl border px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
+                  />
+                  <div className="grid gap-3 lg:grid-cols-3">
+                    <div>
+                      <p className={`mb-1 text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>Duration</p>
+                      <input
+                        type="text"
+                        value={overviewDurationDraft}
+                        onChange={(e) => setOverviewDurationDraft(e.target.value)}
+                        placeholder="e.g. 90 mins"
+                        className={`w-full rounded-xl border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
+                      />
+                    </div>
+                    <div>
+                      <p className={`mb-1 text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>Anaesthesia</p>
+                      <input
+                        type="text"
+                        value={overviewAnaesthesiaDraft}
+                        onChange={(e) => setOverviewAnaesthesiaDraft(e.target.value)}
+                        placeholder="e.g. Spinal"
+                        className={`w-full rounded-xl border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
+                      />
+                    </div>
+                    <div>
+                      <p className={`mb-1 text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>System</p>
+                      <input
+                        type="text"
+                        value={overviewPrimarySystemDraft}
+                        onChange={(e) => setOverviewPrimarySystemDraft(e.target.value)}
+                        placeholder="Primary system"
+                        className={`w-full rounded-xl border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
+                      />
+                    </div>
                   </div>
-                )}
-                {section.anaesthesiaType && (
                   <div>
-                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>Anaesthesia</p>
-                    <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{section.anaesthesiaType}</p>
-                  </div>
-                )}
-                {section.primarySystem && (
-                  <div>
-                    <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>System</p>
-                    <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{section.primarySystem}</p>
-                  </div>
-                )}
-              </div>
-              {section.alternatives && section.alternatives.length > 0 && (
-                <div>
-                  <p className={`text-xs tracking-wide lg:text-[18px] mb-1 ${isDark ? "text-white" : "text-[#61758B]"}`}>Alternatives</p>
-                  <div className="flex flex-wrap gap-1.5">
-                    {section.alternatives.map((alt) => (
-                      <span
-                        key={alt}
-                        className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a] text-white" : "border-[#D5EAF1] bg-[#F8FBFD] text-[#406175]"}`}
-                      >
-                        {alt}
-                      </span>
-                    ))}
+                    <p className={`mb-1 text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>Alternatives</p>
+                    <textarea
+                      value={overviewAlternativesDraft}
+                      onChange={(e) => setOverviewAlternativesDraft(e.target.value)}
+                      rows={4}
+                      placeholder="One alternative per line"
+                      className={`w-full resize-none rounded-xl border px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
+                    />
                   </div>
                 </div>
+              ) : (
+                <>
+                  {overviewSummary && (
+                    <p className={`text-base leading-relaxed lg:text-[20px] lg:text-lg lg:leading-8 ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{overviewSummary}</p>
+                  )}
+                  <div className="flex flex-wrap gap-x-6 gap-y-3">
+                    {overviewDuration && (
+                      <div>
+                        <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>Duration</p>
+                        <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{overviewDuration}</p>
+                      </div>
+                    )}
+                    {overviewAnaesthesia && (
+                      <div>
+                        <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>Anaesthesia</p>
+                        <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{overviewAnaesthesia}</p>
+                      </div>
+                    )}
+                    {overviewPrimarySystem && (
+                      <div>
+                        <p className={`text-xs tracking-wide lg:text-[18px] ${isDark ? "text-white" : "text-[#61758B]"}`}>System</p>
+                        <p className={`text-sm font-semibold lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#10243E]"}`}>{overviewPrimarySystem}</p>
+                      </div>
+                    )}
+                  </div>
+                  {overviewAlternatives.length > 0 && (
+                    <div>
+                      <p className={`text-xs tracking-wide lg:text-[18px] mb-1 ${isDark ? "text-white" : "text-[#61758B]"}`}>Alternatives</p>
+                      <div className="flex flex-wrap gap-1.5">
+                        {overviewAlternatives.map((alt) => (
+                          <span
+                            key={alt}
+                            className={`rounded-full border px-2.5 py-0.5 text-xs font-medium ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a] text-white" : "border-[#D5EAF1] bg-[#F8FBFD] text-[#406175]"}`}
+                          >
+                            {alt}
+                          </span>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
           )}
@@ -458,76 +597,134 @@ export default function KardexSection({
           )}
 
           {/* ── POST-PROCEDURE CARE ────────────────────────────────── */}
-          {isPostCare && section.recoveryNotes && (
+          {isPostCare && (
             <div className={`my-2 rounded-xl border p-4 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
               <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Recovery notes</p>
-              <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>{section.recoveryNotes}</p>
+              {editMode ? (
+                <textarea
+                  value={recoveryNotesDraft}
+                  onChange={(e) => setRecoveryNotesDraft(e.target.value)}
+                  rows={5}
+                  className={`w-full resize-none rounded-xl border px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0]" : "border-[#D5DCE3] bg-white text-[#10243E]"}`}
+                />
+              ) : (
+                <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>{recoveryNotes || "No recovery notes added yet."}</p>
+              )}
             </div>
           )}
 
           {/* ── DISCHARGE CRITERIA ─────────────────────────────────── */}
-          {isDischarge && section.dischargeCriteria && section.dischargeCriteria.length > 0 && (
+          {isDischarge && (
             <div className="py-2">
               <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Discharge criteria</p>
-              <ul className="space-y-1">
-                {section.dischargeCriteria.map((criterion, i) => (
-                  <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] lg:text-base ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
-                    <span className="text-emerald-500 mt-0.5">✓</span>
-                    {criterion}
-                  </li>
-                ))}
-              </ul>
+              {editMode ? (
+                <textarea
+                  value={dischargeCriteriaDraft}
+                  onChange={(e) => setDischargeCriteriaDraft(e.target.value)}
+                  rows={5}
+                  placeholder="One criterion per line"
+                  className={`w-full resize-none rounded-xl border px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
+                />
+              ) : (
+                <ul className="space-y-1">
+                  {dischargeCriteria.map((criterion, i) => (
+                    <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] lg:text-base ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
+                      <span className="text-emerald-500 mt-0.5">✓</span>
+                      {criterion}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
 
           {/* ── COMPLICATIONS & ESCALATION ─────────────────────────── */}
-          {isComplications && section.commonComplications && section.commonComplications.length > 0 && (
+          {isComplications && (
             <div className="py-2">
               <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Common complications</p>
-              <ul className="space-y-1">
-                {section.commonComplications.map((c, i) => (
-                  <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] lg:text-base ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
-                    <span className="text-amber-500 mt-0.5">⚠</span>
-                    {c}
-                  </li>
-                ))}
-              </ul>
+              {editMode ? (
+                <textarea
+                  value={commonComplicationsDraft}
+                  onChange={(e) => setCommonComplicationsDraft(e.target.value)}
+                  rows={5}
+                  placeholder="One complication per line"
+                  className={`w-full resize-none rounded-xl border px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
+                />
+              ) : (
+                <ul className="space-y-1">
+                  {commonComplications.map((c, i) => (
+                    <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] lg:text-base ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
+                      <span className="text-amber-500 mt-0.5">⚠</span>
+                      {c}
+                    </li>
+                  ))}
+                </ul>
+              )}
             </div>
           )}
 
           {/* ── HANDOVER NOTES ─────────────────────────────────────── */}
           {isHandover && (
             <div className="space-y-4 py-2">
-              {section.recoveryNotes && (
+              {(editMode || recoveryNotes) && (
                 <div className={`rounded-xl border p-4 ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a]" : "border-[#D5EAF1] bg-[#F8FBFD]"}`}>
                   <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Post-op care</p>
-                  <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>{section.recoveryNotes}</p>
+                  {editMode ? (
+                    <textarea
+                      value={recoveryNotesDraft}
+                      onChange={(e) => setRecoveryNotesDraft(e.target.value)}
+                      rows={4}
+                      className={`w-full resize-none rounded-xl border px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0]" : "border-[#D5DCE3] bg-white text-[#10243E]"}`}
+                    />
+                  ) : (
+                    <p className={`whitespace-pre-wrap text-base leading-relaxed lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>{recoveryNotes}</p>
+                  )}
                 </div>
               )}
-              {section.dischargeCriteria && section.dischargeCriteria.length > 0 && (
+              {(editMode || dischargeCriteria.length > 0) && (
                 <div>
                   <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Discharge criteria</p>
-                  <ul className="space-y-1">
-                    {section.dischargeCriteria.map((criterion, i) => (
-                      <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
-                        <span className="text-emerald-500 mt-0.5">✓</span>
-                        {criterion}
-                      </li>
-                    ))}
-                  </ul>
+                  {editMode ? (
+                    <textarea
+                      value={dischargeCriteriaDraft}
+                      onChange={(e) => setDischargeCriteriaDraft(e.target.value)}
+                      rows={4}
+                      placeholder="One criterion per line"
+                      className={`w-full resize-none rounded-xl border px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
+                    />
+                  ) : (
+                    <ul className="space-y-1">
+                      {dischargeCriteria.map((criterion, i) => (
+                        <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
+                          <span className="text-emerald-500 mt-0.5">✓</span>
+                          {criterion}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               )}
-              {section.commonComplications && section.commonComplications.length > 0 && (
+              {(editMode || commonComplications.length > 0) && (
                 <div>
                   <p className={`text-xs tracking-wide lg:text-[18px] mb-2 ${isDark ? "text-white" : "text-[#61758B]"}`}>Complications & escalation</p>
-                  <ul className="space-y-1">
-                    {section.commonComplications.map((c, i) => (
-                      <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
-                        <span className="text-amber-500 mt-0.5">⚠</span>
-                        {c}
-                      </li>
-                    ))}
-                  </ul>
+                  {editMode ? (
+                    <textarea
+                      value={commonComplicationsDraft}
+                      onChange={(e) => setCommonComplicationsDraft(e.target.value)}
+                      rows={4}
+                      placeholder="One complication per line"
+                      className={`w-full resize-none rounded-xl border px-3 py-2.5 text-base focus:outline-none focus:ring-2 focus:ring-[#00B4D8] ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0] placeholder:text-[#555555]" : "border-[#D5DCE3] bg-white text-[#10243E] placeholder:text-[#7A8DA3]"}`}
+                    />
+                  ) : (
+                    <ul className="space-y-1">
+                      {commonComplications.map((c, i) => (
+                        <li key={i} className={`flex items-start gap-2 text-sm lg:text-[20px] ${isDark ? "text-[#e0e0e0]" : "text-[#475569]"}`}>
+                          <span className="text-amber-500 mt-0.5">⚠</span>
+                          {c}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               )}
             </div>
