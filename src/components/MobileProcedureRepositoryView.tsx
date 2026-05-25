@@ -1778,10 +1778,10 @@ export default function MobileProcedureRepositoryView({
           </section>
         </main>
 
-        <div className={`hidden lg:grid lg:min-h-screen lg:gap-0 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}>
+        <div className={`hidden lg:grid lg:h-screen lg:overflow-hidden lg:gap-0 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}>
           <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
-          <div className="flex min-w-0 flex-col">
+          <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
             <div className="hidden lg:block">
               <AppTopBar menuOpen={false} onToggleMenu={handleToggleNavigation} searchPlaceholder="Search anywhere..." sectionLabel="Library Collections" />
             </div>
@@ -1792,7 +1792,7 @@ export default function MobileProcedureRepositoryView({
                   : "lg:grid-cols-[440px_minmax(0,1fr)_440px]"
               }`}>
                 {!commsRailOpen ? (
-                  <aside className="flex min-h-0 h-full flex-col border-r border-[#2d2d2d] bg-black">
+                  <aside className="flex min-h-0 h-full flex-col overflow-hidden border-r border-[#2d2d2d] bg-black">
                     <div className="min-h-0 flex-1 overflow-y-auto py-6">{renderDesktopMetaPanel()}</div>
                   </aside>
                 ) : null}
@@ -1806,7 +1806,7 @@ export default function MobileProcedureRepositoryView({
                   </>
                 ) : null}
 
-                <section className={`bg-black ${commsRailOpen ? "min-w-0 border-r border-[#2d2d2d]" : "border-r border-[#2d2d2d]"}`}>
+                <section className={`min-h-0 bg-black ${commsRailOpen ? "min-w-0 border-r border-[#2d2d2d]" : "border-r border-[#2d2d2d]"}`}>
                   <div className={`h-full overflow-y-auto ${commsRailOpen ? "py-0" : "py-6"}`}>
                     {sectionsState.length > 0 ? (
                       <>
@@ -1883,8 +1883,8 @@ export default function MobileProcedureRepositoryView({
                   </div>
                 </section>
 
-                <aside className={`h-full bg-black ${commsRailOpen ? "min-h-0" : ""}`}>
-                  <div className="h-full overflow-hidden flex flex-col">
+                <aside className={`h-full min-h-0 bg-black ${commsRailOpen ? "min-h-0" : ""}`}>
+                  <div className="flex h-full min-h-0 flex-col overflow-hidden">
                     <ItemDetailPanel
                       className="shared-desktop-item-panel"
                       info={selectedItemInfo}
