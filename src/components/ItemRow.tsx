@@ -205,7 +205,7 @@ export default function ItemRow({
   const textPrimary = isDark ? "text-white" : "text-[#10243E]"
   const textMuted = isDark ? "text-[#94a3b8]" : "text-[#94a3b8]"
   const divider = isDark ? "border-[#334155]" : "border-[#E2EDF2]"
-  const inputCls = "w-full rounded border border-[#3b3b3b] bg-[#111111] px-2.5 py-1.5 text-[14px] text-white placeholder:text-[#7d7d7d] focus:outline-none focus:ring-1 focus:ring-[#4DA3FF]"
+  const inputCls = "w-full rounded border border-[#2d2d2d] bg-black px-2.5 py-1.5 text-[14px] text-white placeholder:text-[#7d7d7d] focus:outline-none focus:ring-1 focus:ring-[#4DA3FF]"
   const mobileSheetSurface = "bg-[#1f1f1f] border-[#1f1f1f] text-white"
   const mobileSheetMuted = "text-[#b8b8b8]"
   const mobileSheetSubtle = "text-[#d6d6d6]"
@@ -214,7 +214,7 @@ export default function ItemRow({
   return (
     <>
       {/* ── Row ─────────────────────────────────────────────────────────── */}
-      <div className={`border-b py-1.5 lg:py-4 ${editMode ? "border-[#2d2d2d] bg-[#171717]" : isDark ? "border-[#334155] bg-[#111E30]" : "border-[#D5DCE3]"}`}>
+      <div className={`border-b py-1.5 lg:py-4 ${editMode ? "border-[#2d2d2d] bg-black" : isDark ? "border-[#334155] bg-[#111E30]" : "border-[#D5DCE3]"}`}>
         <input
           ref={imageInputRef}
           type="file"
@@ -222,7 +222,7 @@ export default function ItemRow({
           onChange={handleImageUpload}
           className="hidden"
         />
-        <div className={`flex ${editMode ? "items-start gap-3" : "items-center gap-2"} lg:gap-5`}>
+        <div className={`${editMode ? "grid grid-cols-[56px_minmax(0,1fr)_32px] items-start gap-3" : "flex items-center gap-2"} lg:gap-5`}>
 
         {/* Thumbnail — mobile only */}
         <div className={`shrink-0 lg:hidden ${editMode ? "pt-1" : ""}`}>
@@ -246,7 +246,7 @@ export default function ItemRow({
               <button
                 type="button"
                 onClick={() => imageInputRef.current?.click()}
-                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#3b3b3b] bg-[#111111] text-[#d9d9d9]"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#2d2d2d] bg-black text-[#d9d9d9]"
                 aria-label={localImage ? "Update image" : "Add image"}
               >
                 <ImagePlus size={14} />
@@ -255,7 +255,7 @@ export default function ItemRow({
                 <button
                   type="button"
                   onClick={handleImageRemove}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#4a2327] bg-[#251417] text-[#f28b82]"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#4a2327] bg-black text-[#f28b82]"
                   aria-label="Remove image"
                 >
                   <span className="text-[18px] leading-none">-</span>
@@ -351,7 +351,7 @@ export default function ItemRow({
 
         {/* Edit mode: delete button */}
         {editMode && onDelete && (
-          <button onClick={onDelete} className={`shrink-0 ${editMode ? "mt-2" : ""} h-8 w-8 rounded-full bg-[#F87171]/10 flex items-center justify-center text-[#F87171] hover:bg-[#F87171]/20 transition-colors lg:h-11 lg:w-11 lg:rounded-xl`} aria-label="Remove item">
+          <button onClick={onDelete} className={`shrink-0 ${editMode ? "mt-2" : ""} h-8 w-8 rounded-full border border-[#4a2327] bg-black flex items-center justify-center text-[#F87171] hover:bg-[#1a0608] transition-colors lg:h-11 lg:w-11 lg:rounded-xl`} aria-label="Remove item">
             <span className="text-[18px] leading-none lg:hidden">-</span>
             <Trash2 size={20} className="hidden lg:block" />
           </button>

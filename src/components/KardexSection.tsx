@@ -216,10 +216,10 @@ export default function KardexSection({
           ) : (
             <button
               onClick={handleEditSave}
-              className={`ml-2 flex items-center gap-1.5 rounded-lg px-3 py-1.5 text-xs font-bold transition-colors shrink-0 lg:mr-4 lg:px-5 lg:py-2.5 lg:text-[20px] ${
+              className={`ml-2 flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-bold transition-colors shrink-0 lg:mr-4 lg:px-5 lg:py-2.5 lg:text-[20px] ${
                 editMode
-                  ? "bg-[#0F4C5C] text-white hover:bg-[#136275]"
-                  : isDark ? "bg-white/10 text-[#e0e0e0] hover:bg-white/15" : "bg-white/80 text-[#10243E] hover:bg-[#EEF9FC]"
+                  ? "border-[#0F4C5C] bg-[#0F4C5C] text-white hover:bg-[#136275]"
+                  : isDark ? "border-[#2d2d2d] bg-black text-[#e0e0e0] hover:bg-[#111111]" : "bg-white/80 text-[#10243E] hover:bg-[#EEF9FC]"
               }`}
               aria-label={editMode ? "Save changes" : "Edit section"}
             >
