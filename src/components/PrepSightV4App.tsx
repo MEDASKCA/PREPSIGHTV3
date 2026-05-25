@@ -18,16 +18,14 @@ import {
   LibraryTree,
 } from "@/components/LibrariesDashboard"
 import LibraryCardRouteClient from "@/components/LibraryCardRouteClient"
-import LibraryMobileHeaderTabs from "@/components/LibraryMobileHeaderTabs"
 import LibraryPageClient from "@/components/LibraryPageClient"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import { getBookmarksSnapshot, subscribeBookmarks } from "@/lib/bookmarks"
 import { getDesktopCommsPreference, getDesktopCommsWidth, getDesktopCommsWidthBounds, setDesktopCommsWidth, subscribeDesktopCommsPreference } from "@/lib/desktop-comms"
 import { isFoldableMobileViewport as detectFoldableMobileViewport } from "@/lib/foldable"
 import { getFoldCommsThread, setFoldCommsThread, subscribeFoldCommsThread } from "@/lib/fold-comms-thread"
-import { getLibrariesSnapshot, getLibraryCardsSnapshot, getSharedLibraryId, subscribeLibraries } from "@/lib/libraries"
+import { getLibrariesSnapshot, getLibraryCardsSnapshot, subscribeLibraries } from "@/lib/libraries"
 import { clearProfile, getProfile, getRelevantSettings } from "@/lib/profile"
-import { CLINICAL_SETTINGS } from "@/lib/settings"
 import { subscribeTeams } from "@/lib/team-workspaces"
 import { TAB_ITEMS, UPDATES } from "@/v4/data"
 import type { TabKey, UpdateKey } from "@/v4/types"
@@ -924,11 +922,6 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     getDesktopCommsWidth,
     getDesktopCommsWidth,
   )
-  const libraries = useSyncExternalStore(
-    subscribeLibraries,
-    getLibrariesSnapshot,
-    getLibrariesSnapshot,
-  )
   const { min: minCommsWidth, max: maxCommsWidth } = getDesktopCommsWidthBounds()
   const mobileProfile = getProfile()
   const mobileSettings = useMemo(() => (mobileProfile ? getRelevantSettings(mobileProfile) : []), [mobileProfile])
@@ -939,20 +932,6 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
   const mobileProfileInitial = mobileDisplayName.charAt(0).toUpperCase()
   const mobileEmail = mobileUser?.email || ""
   const mobilePhotoURL = mobileUser?.photoURL || null
-  const selectedLibraryRecord = useMemo(
-    () => libraries.find((library) => library.id === selectedLibraryId) ?? null,
-    [libraries, selectedLibraryId],
-  )
-  const mobileWorkspaceSetting = useMemo(() => {
-    const matchedSharedSetting = CLINICAL_SETTINGS.find(
-      (setting) => getSharedLibraryId(setting) === selectedLibraryRecord?.id,
-    )
-    if (matchedSharedSetting) return matchedSharedSetting
-    const preferredSetting = mobileSettings[0]
-    return CLINICAL_SETTINGS.includes(preferredSetting as (typeof CLINICAL_SETTINGS)[number])
-      ? preferredSetting
-      : "Operating Theatre"
-  }, [mobileSettings, selectedLibraryRecord])
 
   useEffect(() => {
     if (typeof window === "undefined") return
@@ -1316,17 +1295,12 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
         <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-0">
           {selectedLibraryId ? (
             <div className="flex h-full min-h-0 flex-col">
-              {selectedLibraryCard ? (
-                <div className="pb-3">
-                  <LibraryMobileHeaderTabs currentTab="community" selectedWorkspace={mobileWorkspaceSetting} />
-                </div>
-              ) : null}
               <div className="min-h-0 flex-1 overflow-hidden">
                 {selectedLibraryCard ? (
                   <LibraryCardRouteClient
                     libraryId={selectedLibraryCard.libraryId}
                     cardId={selectedLibraryCard.cardId}
-                    hideMobileHeader
+                    hideMobileHeader={false}
                     paneBoundsLeft={surfacePaneBoundsLeft}
                     paneBoundsRight={surfacePaneBoundsRight}
                   />
@@ -1660,17 +1634,12 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                   <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-0">
                     {selectedLibraryId ? (
                       <div className="flex h-full min-h-0 flex-col">
-                        {selectedLibraryCard ? (
-                          <div className="pb-3">
-                            <LibraryMobileHeaderTabs currentTab="community" selectedWorkspace={mobileWorkspaceSetting} />
-                          </div>
-                        ) : null}
                         <div className="min-h-0 flex-1 overflow-hidden">
                           {selectedLibraryCard ? (
                             <LibraryCardRouteClient
                               libraryId={selectedLibraryCard.libraryId}
                               cardId={selectedLibraryCard.cardId}
-                              hideMobileHeader
+                              hideMobileHeader={false}
                             />
                           ) : (
                             <LibraryPageClient
