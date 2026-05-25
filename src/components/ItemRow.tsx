@@ -1,7 +1,7 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { Package, Check, Trash2, X, Pencil, Phone, ExternalLink } from "lucide-react"
+import { useState, useEffect, useRef } from "react"
+import { Package, Check, Trash2, X, Pencil, Phone, ExternalLink, ImagePlus } from "lucide-react"
 import { doc, getDoc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
 import { Item, ItemDisplayInfo, SectionType } from "@/lib/types"
@@ -49,6 +49,7 @@ export default function ItemRow({
 }: Props) {
   const [isDark, setIsDark] = useState(false)
   const [localImage, setLocalImage] = useState<string | null>(item.imageUrl ?? null)
+  const imageInputRef = useRef<HTMLInputElement>(null)
 
   // Mobile edit state — location split into 3 parts
   const locParts = (val: string) => { const p = val.split("/").map(s => s.trim()); return [p[0]??"", p[1]??"", p[2]??""] }
@@ -129,6 +130,21 @@ export default function ItemRow({
     setInfoOpen(true)
   }
 
+  function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
+    const file = event.target.files?.[0]
+    if (!file) return
+
+    const reader = new FileReader()
+    reader.onload = () => {
+      const nextImage = typeof reader.result === "string" ? reader.result : null
+      if (!nextImage) return
+      setLocalImage(nextImage)
+      onItemSave?.({ ...item, imageUrl: nextImage })
+    }
+    reader.readAsDataURL(file)
+    event.target.value = ""
+  }
+
   function saveLocation() {
     if (!onItemSave) return
     const combined = [draftLocA, draftLocB, draftLocC].map(s => s.trim()).filter(Boolean).join("/")
@@ -169,7 +185,7 @@ export default function ItemRow({
   const textPrimary = isDark ? "text-white" : "text-[#10243E]"
   const textMuted = isDark ? "text-[#94a3b8]" : "text-[#94a3b8]"
   const divider = isDark ? "border-[#334155]" : "border-[#E2EDF2]"
-  const inputCls = `w-full rounded border px-2.5 py-1.5 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#4DA3FF] ${isDark ? "border-[#334155] bg-[#1A2840] text-white placeholder:text-[#475569]" : "border-[#D5DCE3] bg-white text-[#3F4752] placeholder:text-[#94a3b8]"}`
+  const inputCls = "w-full rounded border border-[#3b3b3b] bg-[#111111] px-2.5 py-1.5 text-[14px] text-white placeholder:text-[#7d7d7d] focus:outline-none focus:ring-1 focus:ring-[#4DA3FF]"
   const mobileSheetSurface = "bg-[#1f1f1f] border-[#1f1f1f] text-white"
   const mobileSheetMuted = "text-[#b8b8b8]"
   const mobileSheetSubtle = "text-[#d6d6d6]"
@@ -178,7 +194,14 @@ export default function ItemRow({
   return (
     <>
       {/* ── Row ─────────────────────────────────────────────────────────── */}
-      <div className={`flex items-center gap-2 border-b py-1.5 lg:gap-5 lg:py-4 ${isDark ? "border-[#334155] bg-[#111E30]" : "border-[#D5DCE3]"} ${editMode ? (isDark ? "bg-[#1A2433]" : "bg-[#fff8f5]") : ""}`}>
+      <div className={`flex items-center gap-2 border-b py-1.5 lg:gap-5 lg:py-4 ${editMode ? "border-[#2d2d2d] bg-[#171717]" : isDark ? "border-[#334155] bg-[#111E30]" : "border-[#D5DCE3]"}`}>
+        <input
+          ref={imageInputRef}
+          type="file"
+          accept="image/*"
+          onChange={handleImageUpload}
+          className="hidden"
+        />
 
         {/* Thumbnail — mobile only */}
         <button
@@ -238,6 +261,14 @@ export default function ItemRow({
                 <input key={ph} type="text" value={val} onChange={(e) => set(e.target.value)} onBlur={saveLocation} placeholder={ph} className={inputCls} />
               ))}
               <input type="number" value={draftQty} onChange={(e) => setDraftQty(e.target.value)} onBlur={saveQty} placeholder="Req. Qty" min={0} className={inputCls} />
+              <button
+                type="button"
+                onClick={() => imageInputRef.current?.click()}
+                className="mt-1 inline-flex items-center gap-2 rounded-lg border border-[#3b3b3b] bg-[#111111] px-3 py-2 text-[13px] font-medium text-[#d9d9d9]"
+              >
+                <ImagePlus size={14} />
+                {localImage ? "Update image" : "Add image"}
+              </button>
             </div>
           )}
         </div>
