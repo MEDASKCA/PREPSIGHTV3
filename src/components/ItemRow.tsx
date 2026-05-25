@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Package, Check, Trash2, X, Pencil, Phone, ExternalLink, ImagePlus, ChevronDown } from "lucide-react"
-import { doc, getDoc } from "firebase/firestore"
+import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore"
 import { db } from "@/lib/firebase"
 import { Item, ItemDisplayInfo, SectionType } from "@/lib/types"
 
@@ -147,6 +147,9 @@ export default function ItemRow({
       const nextImage = typeof reader.result === "string" ? reader.result : null
       if (!nextImage) return
       setLocalImage(nextImage)
+      if (db) {
+        void setDoc(doc(db, "item_images", item.id), { url: nextImage }).catch(() => undefined)
+      }
       onItemSave?.({ ...item, imageUrl: nextImage })
     }
     reader.readAsDataURL(file)
@@ -155,6 +158,9 @@ export default function ItemRow({
 
   function handleImageRemove() {
     setLocalImage(null)
+    if (db) {
+      void deleteDoc(doc(db, "item_images", item.id)).catch(() => undefined)
+    }
     onItemSave?.({ ...item, imageUrl: undefined })
   }
 
