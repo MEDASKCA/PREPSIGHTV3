@@ -57,7 +57,6 @@ export default function ItemRow({
 }: Props) {
   const [isDark, setIsDark] = useState(false)
   const [localImage, setLocalImage] = useState<string | null>(item.imageUrl ?? null)
-  const imageInputRef = useRef<HTMLInputElement>(null)
 
   // Mobile edit state — location split into 3 parts
   const locParts = (val: string) => { const p = val.split("/").map(s => s.trim()); return [p[0]??"", p[1]??"", p[2]??""] }
@@ -69,6 +68,7 @@ export default function ItemRow({
   // Mobile detail drawer
   const [detailOpen, setDetailOpen] = useState(false)
   const [imagePreviewOpen, setImagePreviewOpen] = useState(false)
+  const [imagePickerOpen, setImagePickerOpen] = useState(false)
 
   // Mobile "i" notes + comments drawer
   const [infoOpen, setInfoOpen] = useState(false)
@@ -80,6 +80,8 @@ export default function ItemRow({
   const [newUrgency, setNewUrgency] = useState<UrgencyLevel>("info")
   const [urgencyMenuOpen, setUrgencyMenuOpen] = useState(false)
   const [imageSaving, setImageSaving] = useState(false)
+  const uploadImageInputRef = useRef<HTMLInputElement>(null)
+  const cameraImageInputRef = useRef<HTMLInputElement>(null)
 
   useEffect(() => {
     const [a, b, c] = locParts(item.location ?? "")
@@ -138,6 +140,10 @@ export default function ItemRow({
 
   function handleMobileLinkAction() {
     setInfoOpen(true)
+  }
+
+  function openImagePicker() {
+    setImagePickerOpen(true)
   }
 
   async function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
@@ -245,9 +251,17 @@ export default function ItemRow({
       {/* ── Row ─────────────────────────────────────────────────────────── */}
       <div className={`border-b py-1.5 lg:py-4 ${editMode ? "border-[#2d2d2d] bg-black" : isDark ? "border-[#334155] bg-[#111E30]" : "border-[#D5DCE3]"}`}>
         <input
-          ref={imageInputRef}
+          ref={uploadImageInputRef}
           type="file"
           accept="image/*"
+          onChange={handleImageUpload}
+          className="hidden"
+        />
+        <input
+          ref={cameraImageInputRef}
+          type="file"
+          accept="image/*"
+          capture="environment"
           onChange={handleImageUpload}
           className="hidden"
         />
@@ -257,7 +271,7 @@ export default function ItemRow({
         <div className={`shrink-0 lg:hidden ${editMode ? "pt-1" : ""}`}>
           <button
             type="button"
-            onClick={editMode ? () => imageInputRef.current?.click() : handleImageSelect}
+            onClick={editMode ? openImagePicker : handleImageSelect}
             className={`overflow-hidden rounded-lg ${editMode ? "block" : ""}`}
             aria-label={editMode ? `Update image for ${item.name}` : `Preview image for ${item.name}`}
           >
@@ -274,7 +288,7 @@ export default function ItemRow({
             <div className="mt-2 flex gap-1">
               <button
                 type="button"
-                onClick={() => imageInputRef.current?.click()}
+                onClick={openImagePicker}
                 className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#2d2d2d] bg-black text-[#d9d9d9] disabled:opacity-50"
                 aria-label={localImage ? "Update image" : "Add image"}
                 disabled={imageSaving}
@@ -402,6 +416,48 @@ export default function ItemRow({
         )}
         </div>
       </div>
+
+      {imagePickerOpen ? (
+        <div className="lg:hidden">
+          <div className="fixed inset-0 z-40 bg-black/60" onClick={() => setImagePickerOpen(false)} />
+          <div className="fixed inset-x-3 bottom-3 z-50 overflow-hidden rounded-[24px] border border-[#252525] bg-[#1a1a1a] shadow-2xl">
+            <div className="px-5 pb-2 pt-4 text-center">
+              <p className="text-[16px] font-semibold text-white">{localImage ? "Update image" : "Add image"}</p>
+            </div>
+            <div className="px-3 pb-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setImagePickerOpen(false)
+                  cameraImageInputRef.current?.click()
+                }}
+                className="flex w-full items-center justify-between rounded-[16px] bg-black px-4 py-3 text-left text-[15px] text-white"
+              >
+                <span>Take photo</span>
+                <span className="text-[#8f8f8f]">Camera</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setImagePickerOpen(false)
+                  uploadImageInputRef.current?.click()
+                }}
+                className="mt-2 flex w-full items-center justify-between rounded-[16px] bg-black px-4 py-3 text-left text-[15px] text-white"
+              >
+                <span>Upload image</span>
+                <span className="text-[#8f8f8f]">Files</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setImagePickerOpen(false)}
+                className="mt-2 w-full rounded-[16px] bg-[#242424] px-4 py-3 text-[15px] font-medium text-[#d0d0d0]"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {imagePreviewOpen && localImage ? (
         <div className="lg:hidden">

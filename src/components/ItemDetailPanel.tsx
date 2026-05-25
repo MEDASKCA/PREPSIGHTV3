@@ -59,6 +59,7 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
   const [deletingImage, setDeletingImage]         = useState(false)
   const [confirmDeleteImg, setConfirmDeleteImg]   = useState(false)
   const [imageError, setImageError]               = useState<string | null>(null)
+  const [imagePickerOpen, setImagePickerOpen]     = useState(false)
 
   // Notes / comments
   const [instruction, setInstruction]                     = useState("")
@@ -69,7 +70,8 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
   const [newComment, setNewComment] = useState("")
   const [newUrgency, setNewUrgency] = useState<UrgencyLevel>("info")
 
-  const fileInputRef = useRef<HTMLInputElement>(null)
+  const uploadInputRef = useRef<HTMLInputElement>(null)
+  const cameraInputRef = useRef<HTMLInputElement>(null)
 
   // Reset all state when a different item is selected
   useEffect(() => {
@@ -155,6 +157,10 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
     e.target.value = ""
   }
 
+  function openImagePicker() {
+    setImagePickerOpen(true)
+  }
+
   async function saveImage() {
     if (!pendingImage || !info) return
     setSavingImage(true)
@@ -232,7 +238,7 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
   const canEdit = !item.isFixed && !!onItemSave
 
   return (
-    <div className={`flex h-full flex-col bg-[#F4F7FA] ${className}`}>
+    <div className={`relative flex h-full flex-col bg-[#F4F7FA] ${className}`}>
 
       {/* ── Header ─────────────────────────────────────────────────────── */}
       <div className={`flex items-start gap-3 border-b border-[#D5DCE3] bg-white ${compact ? "px-5 py-3" : "px-6 py-5"} shrink-0`}>
@@ -295,6 +301,47 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
       </div>
 
       {/* ── Scrollable body ─────────────────────────────────────────────── */}
+      {imagePickerOpen ? (
+        <div className="absolute inset-0 z-20 flex items-end bg-black/45 p-3">
+          <div className="w-full overflow-hidden rounded-[24px] border border-[#252525] bg-[#1a1a1a] shadow-2xl">
+            <div className="px-5 pb-2 pt-4 text-center">
+              <p className="text-[16px] font-semibold text-white">{localImage ? "Update image" : "Add image"}</p>
+            </div>
+            <div className="px-3 pb-3">
+              <button
+                type="button"
+                onClick={() => {
+                  setImagePickerOpen(false)
+                  cameraInputRef.current?.click()
+                }}
+                className="flex w-full items-center justify-between rounded-[16px] bg-black px-4 py-3 text-left text-[15px] text-white"
+              >
+                <span>Take photo</span>
+                <span className="text-[#8f8f8f]">Camera</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => {
+                  setImagePickerOpen(false)
+                  uploadInputRef.current?.click()
+                }}
+                className="mt-2 flex w-full items-center justify-between rounded-[16px] bg-black px-4 py-3 text-left text-[15px] text-white"
+              >
+                <span>Upload image</span>
+                <span className="text-[#8f8f8f]">Files</span>
+              </button>
+              <button
+                type="button"
+                onClick={() => setImagePickerOpen(false)}
+                className="mt-2 w-full rounded-[16px] bg-[#242424] px-4 py-3 text-[15px] font-medium text-[#d0d0d0]"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       <div className="flex-1 overflow-y-auto px-6 py-5 space-y-5">
 
         {/* ── Image ──────────────────────────────────────────────────── */}
@@ -351,7 +398,7 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={localImage} alt={item.name} className="w-full h-56 object-cover rounded-2xl border border-[#D5DCE3] mb-3" />
                 <button
-                  onClick={() => fileInputRef.current?.click()}
+                  onClick={openImagePicker}
                   className="w-full flex items-center justify-center gap-2 border border-dashed border-[#cbd5e1] rounded-xl py-2 text-[14px] text-[#94a3b8] hover:border-[#4DA3FF] hover:text-[#4DA3FF] transition-colors mb-2"
                 >
                   <ImagePlus size={14} /> Replace image
@@ -366,13 +413,14 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
             )
           ) : (
             <button
-              onClick={() => fileInputRef.current?.click()}
+              onClick={openImagePicker}
               className="w-full flex items-center justify-center gap-2 border border-dashed border-[#cbd5e1] rounded-2xl py-8 text-[15px] text-[#94a3b8] hover:border-[#4DA3FF] hover:text-[#4DA3FF] transition-colors"
             >
               <ImagePlus size={20} /> Add image
             </button>
           )}
-          <input ref={fileInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+          <input ref={uploadInputRef} type="file" accept="image/*" className="hidden" onChange={handleImageUpload} />
+          <input ref={cameraInputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleImageUpload} />
         </div>
 
         {/* ── Description ────────────────────────────────────────────── */}
