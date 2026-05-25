@@ -240,7 +240,7 @@ export default function KardexSection({
       </div>
 
       {open && (
-        <div className={`kardex-section-body px-4 py-2 lg:px-7 lg:py-4 ${isDark ? "bg-[#111111] text-[#e0e0e0]" : "bg-white"}`}>
+        <div className={`kardex-section-body px-4 py-2 lg:px-7 lg:py-4 ${isDark ? "bg-black text-[#e0e0e0]" : "bg-white"}`}>
 
           {/* ── OVERVIEW ───────────────────────────────────────────── */}
           {isOverview && (section.summary || section.duration || section.anaesthesiaType || section.primarySystem || section.alternatives?.length) && (
@@ -551,7 +551,7 @@ export default function KardexSection({
             <div className="mb-3 flex justify-end">
               <button
                 onClick={() => setShowCataloguePicker(true)}
-                className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold transition-colors ${isDark ? "border-[#2d2d2d] bg-[#1a1a1a] text-[#e0e0e0] hover:bg-[#222222]" : "border-[#D5EAF1] bg-[#F8FBFD] text-[#10243E] hover:bg-[#EEF9FC]"}`}
+                className={`inline-flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-semibold transition-colors ${isDark ? "border-[#2d2d2d] bg-[#111111] text-[#e0e0e0] hover:bg-[#171717]" : "border-[#D5EAF1] bg-[#F8FBFD] text-[#10243E] hover:bg-[#EEF9FC]"}`}
               >
                 <Plus size={13} /> Add from catalogue
               </button>
