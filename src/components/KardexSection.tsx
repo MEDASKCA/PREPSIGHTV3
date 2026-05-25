@@ -302,7 +302,7 @@ export default function KardexSection({
               className={`ml-2 flex items-center gap-1.5 rounded-lg border px-3 py-1.5 text-xs font-bold transition-colors shrink-0 lg:mr-4 lg:px-5 lg:py-2.5 lg:text-[20px] ${
                 editMode
                   ? "border-[#0F4C5C] bg-[#0F4C5C] text-white hover:bg-[#136275]"
-                  : isDark ? "border-[#0b5f7d] bg-black text-[#0096C7] hover:bg-[#05131a]" : "border-[#8CCFDF] bg-white/80 text-[#0096C7] hover:bg-[#EEF9FC]"
+                  : "border-[#0096C7] bg-[#0096C7] text-white hover:bg-[#007aa3]"
               }`}
               aria-label={editMode ? "Save changes" : "Edit section"}
             >

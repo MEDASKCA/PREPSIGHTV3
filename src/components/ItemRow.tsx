@@ -648,11 +648,31 @@ export default function ItemRow({
 
               {item.product && (
                 <div className={`pb-4 ${mobileSheetSubtle}`}>
-                  <p className={`text-[12px] font-semibold uppercase tracking-wide ${mobileSheetMuted}`}>Product Ref</p>
+                  <p className={`text-[12px] font-semibold uppercase tracking-wide ${mobileSheetMuted}`}>Product name</p>
                   <p className="mt-1 text-[15px] text-white">{item.product}</p>
                 </div>
               )}
-              <div className={`border-t ${mobileSheetDivider}`} />
+              {item.product ? <div className={`border-t ${mobileSheetDivider}`} /> : null}
+
+              {item.manufacturer && (
+                <>
+                  <div className={`py-4 ${mobileSheetSubtle}`}>
+                    <p className={`text-[12px] font-semibold uppercase tracking-wide ${mobileSheetMuted}`}>Manufacturer</p>
+                    <p className="mt-1 text-[15px] text-white">{item.manufacturer}</p>
+                  </div>
+                  <div className={`border-t ${mobileSheetDivider}`} />
+                </>
+              )}
+
+              {item.sku && (
+                <>
+                  <div className={`py-4 ${mobileSheetSubtle}`}>
+                    <p className={`text-[12px] font-semibold uppercase tracking-wide ${mobileSheetMuted}`}>SKU / Reference</p>
+                    <p className="mt-1 text-[15px] text-white">{item.sku}</p>
+                  </div>
+                  <div className={`border-t ${mobileSheetDivider}`} />
+                </>
+              )}
 
               {item.description && (
                 <div className="py-4">

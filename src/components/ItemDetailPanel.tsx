@@ -45,6 +45,8 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
   const [draftName, setDraftName]           = useState("")
   const [draftSize, setDraftSize]           = useState("")
   const [draftProduct, setDraftProduct]     = useState("")
+  const [draftManufacturer, setDraftManufacturer] = useState("")
+  const [draftSku, setDraftSku]             = useState("")
   const [draftLocFloor, setDraftLocFloor]   = useState("")
   const [draftLocRoom, setDraftLocRoom]     = useState("")
   const [draftLocShelf, setDraftLocShelf]   = useState("")
@@ -110,6 +112,8 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
     setDraftName(item.name)
     setDraftSize(item.size ?? "")
     setDraftProduct(item.product ?? "")
+    setDraftManufacturer(item.manufacturer ?? "")
+    setDraftSku(item.sku ?? "")
     setDraftLocFloor(locParts[0]?.trim() ?? "")
     setDraftLocRoom(locParts[1]?.trim() ?? "")
     setDraftLocShelf(locParts[2]?.trim() ?? "")
@@ -131,6 +135,8 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
       name: draftName.trim() || info.item.name,
       size: draftSize.trim() || undefined,
       product: draftProduct.trim() || undefined,
+      manufacturer: draftManufacturer.trim() || undefined,
+      sku: draftSku.trim() || undefined,
       location: [draftLocFloor, draftLocRoom, draftLocShelf].filter(Boolean).join("/") || undefined,
       defaultQty: draftQty !== "" ? Number(draftQty) : undefined,
       description: draftDescription.trim() || undefined,
@@ -468,6 +474,28 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
               />
             </div>
 
+            <div>
+              <label className="text-[13px] uppercase tracking-wide text-[#94a3b8] block mb-1.5">Manufacturer</label>
+              <input
+                type="text"
+                value={draftManufacturer}
+                onChange={(e) => setDraftManufacturer(e.target.value)}
+                placeholder="e.g. Molnlycke"
+                className="w-full text-[20px] bg-white border border-[#D5DCE3] rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4DA3FF] placeholder:text-[#D5DCE3]"
+              />
+            </div>
+
+            <div>
+              <label className="text-[13px] uppercase tracking-wide text-[#94a3b8] block mb-1.5">SKU / Reference</label>
+              <input
+                type="text"
+                value={draftSku}
+                onChange={(e) => setDraftSku(e.target.value)}
+                placeholder="e.g. 1234"
+                className="w-full text-[20px] bg-white border border-[#D5DCE3] rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4DA3FF] placeholder:text-[#D5DCE3]"
+              />
+            </div>
+
             {/* Location */}
             <div>
               <label className="text-[13px] uppercase tracking-wide text-[#94a3b8] block mb-1.5">Location</label>
@@ -549,6 +577,20 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
               <div className="col-span-2 rounded-2xl bg-white border border-[#D5DCE3] px-4 py-3">
                 <p className="text-[13px] uppercase tracking-wide text-[#94a3b8] mb-1">Product name</p>
                 <p className="text-[20px] font-semibold text-[#3F4752]">{item.product}</p>
+              </div>
+            )}
+
+            {item.manufacturer && (
+              <div className="rounded-2xl bg-white border border-[#D5DCE3] px-4 py-3">
+                <p className="text-[13px] uppercase tracking-wide text-[#94a3b8] mb-1">Manufacturer</p>
+                <p className="text-[20px] font-semibold text-[#3F4752]">{item.manufacturer}</p>
+              </div>
+            )}
+
+            {item.sku && (
+              <div className="rounded-2xl bg-white border border-[#D5DCE3] px-4 py-3">
+                <p className="text-[13px] uppercase tracking-wide text-[#94a3b8] mb-1">SKU / Reference</p>
+                <p className="text-[20px] font-semibold text-[#3F4752]">{item.sku}</p>
               </div>
             )}
 
