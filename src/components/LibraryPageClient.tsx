@@ -2,6 +2,7 @@
 
 import Link from "next/link"
 import { useEffect, useMemo, useRef, useState, useSyncExternalStore, type ReactNode } from "react"
+import LibraryMobileHeaderTabs from "@/components/LibraryMobileHeaderTabs"
 import TriangleIcon from "@/components/TriangleIcon"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
@@ -1002,6 +1003,16 @@ export default function LibraryPageClient({
 
       <main className="w-full px-0 pt-0 pb-0 lg:p-0">
         <div className="space-y-0 lg:hidden">
+          <section className="px-4 pb-2 pt-2">
+            <LibraryMobileHeaderTabs
+              currentTab={library.libraryType === "shared" ? "community" : "group"}
+              selectedWorkspace={activeSetting}
+              onWorkspaceChange={(setting) => {
+                window.location.href = `/libraries/${getSharedLibraryId(setting)}`
+              }}
+            />
+          </section>
+
           <section className="space-y-2 px-4 pt-3 pb-2">
             <div>
               {showOwnerName ? <p className="text-[13px] text-[#5B7A8A]">{ownerLabel}</p> : null}
