@@ -272,6 +272,10 @@ function writeLocalCustomSections(cardKey: string, sections: Section[]) {
   } catch {}
 }
 
+function getPersistableSections(sections: Section[]): Section[] {
+  return sections
+}
+
 function cardMatchesVersionContext(
   card: Procedure,
   options: {
@@ -511,12 +515,21 @@ export default function MobileProcedureRepositoryView({
     }
   }, [cardKey, uid])
 
+  useEffect(() => {
+    if (!uid) return
+    const localOverrides = readLocalCustomSections(cardKey)
+    if (!localOverrides.length) return
+    startTransition(() => {
+      void saveCardCustomSections(uid, cardKey, getPersistableSections(localOverrides))
+    })
+  }, [cardKey, uid])
+
   function persistEditableSections(next: Section[]) {
-    const editableSections = next.filter((section) => section.contentMode !== "fixed")
-    writeLocalCustomSections(cardKey, editableSections)
+    const persistableSections = getPersistableSections(next)
+    writeLocalCustomSections(cardKey, persistableSections)
     if (!uid) return
     startTransition(() => {
-      void saveCardCustomSections(uid, cardKey, editableSections)
+      void saveCardCustomSections(uid, cardKey, persistableSections)
     })
   }
 
