@@ -1300,7 +1300,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                   <LibraryCardRouteClient
                     libraryId={selectedLibraryCard.libraryId}
                     cardId={selectedLibraryCard.cardId}
-                    hideMobileHeader={false}
+                    hideMobileHeader
                     paneBoundsLeft={surfacePaneBoundsLeft}
                     paneBoundsRight={surfacePaneBoundsRight}
                   />
@@ -1639,7 +1639,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                             <LibraryCardRouteClient
                               libraryId={selectedLibraryCard.libraryId}
                               cardId={selectedLibraryCard.cardId}
-                              hideMobileHeader={false}
+                              hideMobileHeader
                             />
                           ) : (
                             <LibraryPageClient

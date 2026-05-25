@@ -669,7 +669,7 @@ export default function SharedProcedureIndexView({
   }
 
   return (
-    <div className={`${embeddedPane ? "flex h-full min-h-0 flex-col" : "min-h-screen"} bg-black text-[#e0e0e0]`}>
+    <div className={`${embeddedPane ? "flex h-full min-h-0 flex-col overflow-hidden" : "min-h-screen"} bg-black text-[#e0e0e0]`}>
       <div className={`lg:hidden ${hideMobileHeader ? "hidden" : ""}`}>
         <MobileSurfaceHeader
           title="Library"
@@ -678,7 +678,7 @@ export default function SharedProcedureIndexView({
         />
       </div>
 
-      <main className={`w-full ${embeddedPane ? "min-h-0 flex-1 px-4 pb-4 pt-2" : "px-4 pb-28 pt-4"} lg:p-0 lg:pb-0`}>
+      <main className={`w-full ${embeddedPane ? "min-h-0 flex-1 overflow-y-auto px-4 pb-28 pt-2" : "px-4 pb-28 pt-4"} lg:p-0 lg:pb-0`}>
         <div
           className={`${embeddedPane ? "min-h-0 flex-1" : ""} lg:grid lg:min-h-screen lg:gap-0 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}
         >
