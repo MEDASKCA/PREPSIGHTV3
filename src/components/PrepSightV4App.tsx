@@ -192,7 +192,7 @@ function MobileSectionHeader({
       )}
     >
       {inlineSearchEnabled && showSearch ? (
-        <div className="mt-3 flex items-center gap-3 rounded-2xl border border-[#2d2d2d] bg-[#111111] px-4 py-2">
+        <div className="mt-3 flex items-center gap-3 rounded-2xl border border-black bg-[#111111] px-4 py-2">
           <Search size={14} className="shrink-0 text-white" />
           <input
             autoFocus
@@ -339,7 +339,7 @@ function MobileCalendarSurface({
         onChange={setSource}
       />
 
-      <div className="px-4 pb-4">
+      <div className="px-4 pb-0">
         {view === "daily" ? (
           <div className="space-y-3">
             <div className="overflow-x-auto px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
@@ -516,7 +516,7 @@ function MobileConnectorsSurface() {
         active={filter}
         onChange={setFilter}
       />
-      <div className="space-y-2 px-4 pb-4">
+      <div className="space-y-2 px-4 pb-0">
         {visibleConnectors.map((connector) => (
           <button
             key={connector.title}
@@ -593,7 +593,7 @@ function MobileSharedProfileDrawer({
         className="fixed inset-y-0 z-30 flex h-[100dvh] flex-col rounded-l-[32px] rounded-r-none border-l border-t border-[#3a3a3d] bg-[linear-gradient(180deg,#262628_0%,#1d1d1f_100%)] text-white shadow-[-18px_0_44px_rgba(0,0,0,0.5)]"
         style={{ paddingTop: "env(safe-area-inset-top)", paddingBottom: "env(safe-area-inset-bottom)", right: drawerRight, width: drawerWidth }}
       >
-        <div className="border-b border-[#343437] px-5 pt-6 pb-6">
+        <div className="border-b border-[#343437] px-5 pt-6 pb-0">
           <div className="mb-6 flex items-start justify-end">
             <button
               type="button"
@@ -794,7 +794,7 @@ function LibraryOverview({
           <button
             type="button"
             onClick={onBackToCollections}
-            className="rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-2 text-[14px] text-[#0096C7]"
+            className="rounded-[12px] border border-black bg-black px-3 py-2 text-[14px] text-[#0096C7]"
           >
             Back
           </button>
@@ -1286,7 +1286,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
       const surfacePaneBoundsLeft = isMixedSplitCommsPaneOnLeft ? "50%" : "0"
       const surfacePaneBoundsRight = isMixedSplitCommsPaneOnLeft ? "0" : "50%"
       return (
-        <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-4">
+        <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-0">
           {selectedLibraryId ? (
             <div className="flex h-full min-h-0 flex-col">
               <div className="min-h-0 flex-1 overflow-hidden">
@@ -1343,7 +1343,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     }
 
     return (
-      <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-4">
+      <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-0">
         <UpdatesPanel activeKey={activeUpdateKey} onSelect={setActiveUpdateKey} surfaceLabel="Insights" />
       </div>
     )
@@ -1422,7 +1422,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                   <button
                     type="button"
                     onClick={handleSplitLibraryBack}
-                    className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
+                    className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-[12px] border border-black bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
                   >
                     Back
                   </button>
@@ -1439,7 +1439,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                   <button
                     type="button"
                     onClick={handleSplitLibraryBack}
-                    className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
+                    className="absolute left-0 top-1/2 z-10 -translate-y-1/2 rounded-[12px] border border-black bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
                   >
                     Back
                   </button>
@@ -1538,7 +1538,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                       <button
                         type="button"
                         onClick={handleSplitLibraryBack}
-                        className="absolute left-0 top-1/2 -translate-y-1/2 rounded-[12px] border border-[#2d2d2d] bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
+                        className="absolute left-0 top-1/2 -translate-y-1/2 rounded-[12px] border border-black bg-black px-3 py-1.5 text-[13px] text-[#0096C7]"
                       >
                         Back
                       </button>
@@ -1619,7 +1619,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                       setSelectedLibraryId(null)
                     } : undefined}
                   />
-                  <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-4">
+                  <div className="min-h-0 flex-1 overflow-hidden bg-black px-4 pb-0">
                     {selectedLibraryId ? (
                       <div className="flex h-full min-h-0 flex-col">
                         <div className="min-h-0 flex-1 overflow-hidden">
@@ -1688,7 +1688,7 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                     inlineSearchEnabled={false}
                     onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
                   />
-                  <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-4">
+                  <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-0">
                     <UpdatesPanel activeKey={activeUpdateKey} onSelect={setActiveUpdateKey} surfaceLabel="Insights" />
                   </div>
                 </div>

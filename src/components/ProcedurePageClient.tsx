@@ -10,6 +10,7 @@ import CollectionPanel from "./CollectionPanel"
 import HistoryBackButton from "./HistoryBackButton"
 import ItemDetailPanel from "./ItemDetailPanel"
 import RelatedWalkthroughs from "./RelatedWalkthroughs"
+import { CardVersionHistory } from "./CardVersionHistory"
 import WorkspaceNavRail from "./WorkspaceNavRail"
 import { Procedure, Section, ItemDisplayInfo, SectionType } from "@/lib/types"
 import { getMockWalkthroughs } from "@/lib/video-mocks"
@@ -536,6 +537,8 @@ export default function ProcedurePageClient({
               )}
 
               {!isSharedPublishedCard ? <RelatedWalkthroughs videos={walkthroughs} /> : null}
+
+              <CardVersionHistory cardId={procedure.id} />
 
               <footer className="mt-6 border-t border-[#D5EAF1] px-4 pt-4 lg:mt-8 lg:px-7 lg:pt-6">
                 <p className="text-[13px] text-[#61758B] lg:text-sm">

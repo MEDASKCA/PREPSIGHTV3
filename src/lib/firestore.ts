@@ -1,10 +1,11 @@
 import {
   addDoc,
   doc, getDoc, setDoc, deleteDoc,
-  collection, getDocs, query, where, onSnapshot,
+  collection, getDocs, query, where, onSnapshot, orderBy,
 } from "firebase/firestore"
 import { db } from "./firebase"
 import {
+  CardVersion,
   ChecklistEntry,
   GovernanceMembershipRecord,
   OrganizationMembershipRecord,
@@ -34,6 +35,7 @@ const VNEXT_TEAMS_WORKSPACE_CONFIGS_COLLECTION = "vnext_teams_workspace_configs"
 const VNEXT_TEAMS_MIRROR_LOG_COLLECTION = "vnext_teams_mirror_log"
 const STAFFING_REPORTS_COLLECTION = "staffing_reports"
 const STAFFING_STAFF_POOL_COLLECTION = "staffing_staff_pool"
+const CARD_VERSIONS_COLLECTION = "card_versions"
 
 function slugify(value: string): string {
   return value.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "")
@@ -1130,5 +1132,94 @@ export async function saveCollectionRun(run: CollectionRun): Promise<void> {
     await setDoc(doc(db, "collection_runs", id), run)
   } catch (err) {
     console.warn("[PrepSight] Firestore saveCollectionRun failed:", err)
+  }
+}
+
+// ── Card versions (versioning + approval workflow) ────────────────────────────
+
+export async function saveCardVersion(version: CardVersion): Promise<void> {
+  if (!db) return
+  try {
+    await setDoc(doc(db, CARD_VERSIONS_COLLECTION, version.id), version)
+  } catch (err) {
+    console.warn("[PrepSight] Firestore saveCardVersion failed:", err)
+  }
+}
+
+export async function getCardVersion(versionId: string): Promise<CardVersion | null> {
+  if (!db) return null
+  try {
+    const snap = await getDoc(doc(db, CARD_VERSIONS_COLLECTION, versionId))
+    return snap.exists() ? (snap.data() as CardVersion) : null
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getCardVersion failed:", err)
+    return null
+  }
+}
+
+export async function getCardVersionsByCardId(cardId: string): Promise<CardVersion[]> {
+  if (!db) return []
+  try {
+    const snap = await getDocs(
+      query(
+        collection(db, CARD_VERSIONS_COLLECTION),
+        where("cardId", "==", cardId),
+        orderBy("versionNumber", "desc"),
+      ),
+    )
+    return snap.docs.map((d) => d.data() as CardVersion)
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getCardVersionsByCardId failed:", err)
+    return []
+  }
+}
+
+export async function getCardVersionsByStatus(status: "draft" | "pending_review" | "published"): Promise<CardVersion[]> {
+  if (!db) return []
+  try {
+    const snap = await getDocs(
+      query(
+        collection(db, CARD_VERSIONS_COLLECTION),
+        where("status", "==", status),
+        orderBy("createdAt", "desc"),
+      ),
+    )
+    return snap.docs.map((d) => d.data() as CardVersion)
+  } catch (err) {
+    console.warn("[PrepSight] Firestore getCardVersionsByStatus failed:", err)
+    return []
+  }
+}
+
+export async function updateCardVersionStatus(
+  versionId: string,
+  status: "draft" | "pending_review" | "published",
+  approverInfo?: { approvedBy: string; approvedByName?: string },
+): Promise<CardVersion | null> {
+  if (!db) return null
+  try {
+    const versionRef = doc(db, CARD_VERSIONS_COLLECTION, versionId)
+    const snap = await getDoc(versionRef)
+    if (!snap.exists()) return null
+
+    const current = snap.data() as CardVersion
+    const updated: CardVersion = {
+      ...current,
+      status,
+      updatedAt: new Date().toISOString(),
+      ...(status === "published" && approverInfo
+        ? {
+            approvedAt: new Date().toISOString(),
+            approvedBy: approverInfo.approvedBy,
+            approvedByName: approverInfo.approvedByName,
+          }
+        : {}),
+    }
+
+    await setDoc(versionRef, updated)
+    return updated
+  } catch (err) {
+    console.warn("[PrepSight] Firestore updateCardVersionStatus failed:", err)
+    return null
   }
 }

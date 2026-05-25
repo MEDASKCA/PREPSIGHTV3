@@ -6,6 +6,7 @@ import TriangleIcon from "@/components/TriangleIcon"
 import AppMenuContent from "@/components/AppMenuContent"
 import AppTopBar from "@/components/AppTopBar"
 import WorkspaceNavRail from "@/components/WorkspaceNavRail"
+import { CardStatusBadge } from "@/components/CardStatusBadge"
 import {
   getLibrariesSnapshot,
   getLibraryByIdSnapshot,
@@ -19,7 +20,7 @@ import { CLINICAL_SETTINGS } from "@/lib/settings"
 import { getActiveTeamSnapshot } from "@/lib/team-workspaces"
 import type { ClinicalSetting, Procedure } from "@/lib/types"
 
-type LibraryTab = "procedures" | "updates"
+type LibraryTab = "procedures" | "updates" | "pending_review"
 
 type LibraryUpdateItem = {
   id: string
@@ -331,22 +332,25 @@ function TreeLeafList({
           nodeColor="#1e5a6a"
           compact={compact}
         >
-          {onOpenCard ? (
-            <button
-              type="button"
-              onClick={() => onOpenCard(libraryId, card.id)}
-              className="block py-1 text-[14px] leading-6 text-[#e0e0e0] transition-colors hover:text-white lg:text-[15px]"
-            >
-              {card.name}
-            </button>
-          ) : (
-            <Link
-              href={`/libraries/${libraryId}/cards/${card.id}`}
-              className="block py-1 text-[14px] leading-6 text-[#e0e0e0] transition-colors hover:text-white lg:text-[15px]"
-            >
-              {card.name}
-            </Link>
-          )}
+          <div className="flex items-center gap-2">
+            {onOpenCard ? (
+              <button
+                type="button"
+                onClick={() => onOpenCard(libraryId, card.id)}
+                className="block py-1 text-[14px] leading-6 text-[#e0e0e0] transition-colors hover:text-white lg:text-[15px]"
+              >
+                {card.name}
+              </button>
+            ) : (
+              <Link
+                href={`/libraries/${libraryId}/cards/${card.id}`}
+                className="block py-1 text-[14px] leading-6 text-[#e0e0e0] transition-colors hover:text-white lg:text-[15px]"
+              >
+                {card.name}
+              </Link>
+            )}
+            <CardStatusBadge card={card} />
+          </div>
         </TreeBranchNode>
       ))}
     </div>
@@ -376,7 +380,7 @@ function TreeGroupContent({
   ]
 
   return (
-    <div className="border-t border-[#1e1e1e] px-4 py-2">
+    <div className="border-t border-black px-4 py-2">
       <div className="ml-3">
         {directRows.map((row, index) => {
           const isLast = index === directRows.length - 1
@@ -541,13 +545,13 @@ function TreeSelectedGroupContent({
   ]
 
   return (
-    <div className="border-t border-[#1e1e1e]">
+    <div className="border-t border-black">
       {directRows.map((row) => {
         if (row.type === "branch") {
           const { branch } = row
 
           return (
-            <div key={branch.id} className="border-b border-[#1e1e1e] last:border-b-0">
+            <div key={branch.id} className="border-b border-black last:border-b-0">
               <button
                 type="button"
                 onClick={() => toggleBranch(branch.id)}
@@ -692,12 +696,16 @@ export default function LibraryPageClient({
     if (!library) return []
     return buildLibraryUpdates(cards, library.libraryType, library.id, localOrganization)
   }, [cards, library])
+  const pendingReviewCards = useMemo(() => {
+    return cards.filter((card) => card.status === "pending_review")
+  }, [cards])
   const emptyProcedureMessage = library?.libraryType === "local"
     ? "Your hospital hasn't added any procedures yet."
     : "No procedures are available here yet."
   const updateEmptyMessage = library?.libraryType === "shared"
     ? "No community updates have been recorded for this collection yet."
     : "No My Team updates have been recorded for this collection yet."
+  const pendingEmptyMessage = "No procedures are pending review."
   const selectedMobileGroup = selectedMobileGroupId
     ? tree.find((group) => group.id === selectedMobileGroupId) ?? null
     : null
@@ -839,6 +847,19 @@ export default function LibraryPageClient({
               >
                 Updates {updates.length}
               </button>
+              {pendingReviewCards.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("pending_review")}
+                  className={`border-b-2 pb-1 pt-3 transition-colors ${
+                    activeTab === "pending_review"
+                      ? "border-[#0096C7] font-semibold text-[#0096C7]"
+                      : "border-transparent text-white hover:text-[#e0e0e0]"
+                  }`}
+                >
+                  Pending Review {pendingReviewCards.length}
+                </button>
+              )}
             </nav>
           )}
         </section>
@@ -856,7 +877,7 @@ export default function LibraryPageClient({
               </>
             ) : (
               selectedMobileGroup ? (
-                <div className="flex min-h-0 flex-1 flex-col border-y border-[#1e1e1e] bg-black">
+                <div className="flex min-h-0 flex-1 flex-col border-y border-black bg-black">
                   {!onGroupBackChange && (
                     <button
                       type="button"
@@ -869,7 +890,7 @@ export default function LibraryPageClient({
                       Back
                     </button>
                   )}
-                  <div className="shrink-0 border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-white">
+                  <div className="shrink-0 border-b border-black bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-white">
                     <span className="whitespace-nowrap">
                       {selectedMobileGroup.label} procedures {totalForGroup(selectedMobileGroup)}
                     </span>
@@ -886,13 +907,13 @@ export default function LibraryPageClient({
                   </div>
                 </div>
               ) : (
-                <div className="flex min-h-0 flex-1 flex-col border-y border-[#1e1e1e] bg-black">
-                  <div className="shrink-0 border-b border-[#1e1e1e] bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-white">
+                <div className="flex min-h-0 flex-1 flex-col border-y border-black bg-black">
+                  <div className="shrink-0 border-b border-black bg-black pl-3 pr-4 py-3 text-[14px] font-medium leading-tight text-white">
                     <span className="whitespace-nowrap">Specialty hierarchy procedures {cards.length}</span>
                   </div>
                   <div className="min-h-0 flex-1 overflow-y-auto pb-[calc(env(safe-area-inset-bottom,0px)+76px)]">
                     {tree.map((group) => (
-                      <section key={group.id} className="border-b border-[#1e1e1e] last:border-b-0">
+                      <section key={group.id} className="border-b border-black last:border-b-0">
                         <button
                           type="button"
                           onClick={() => {
@@ -918,9 +939,9 @@ export default function LibraryPageClient({
           <section className="space-y-0">
             <div className="bg-black px-4 py-3 text-[14px] font-medium text-white">Recent updates</div>
             {updates.length > 0 ? (
-              <div className="border-y border-[#1e1e1e] bg-black">
+              <div className="border-y border-black bg-black">
                 {updates.map((update) => (
-                  <section key={update.id} className="border-b border-[#1e1e1e] last:border-b-0">
+                  <section key={update.id} className="border-b border-black last:border-b-0">
                     <button
                       type="button"
                       onClick={() => toggleMobileUpdate(update.id)}
@@ -933,7 +954,7 @@ export default function LibraryPageClient({
                       </span>
                     </button>
                     {isMobileUpdateExpanded(update.id) ? (
-                      <div className="border-t border-[#1e1e1e] px-3 py-2">
+                      <div className="border-t border-black px-3 py-2">
                         <p className="text-[14px] leading-5 text-white">{renderCompactUpdateMeta(update)}</p>
                         {onOpenCard ? (
                           <button
@@ -1012,6 +1033,19 @@ export default function LibraryPageClient({
               >
                 Updates {updates.length}
               </button>
+              {pendingReviewCards.length > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setActiveTab("pending_review")}
+                  className={`rounded-[10px] border px-3 py-2 font-medium transition-colors ${
+                    activeTab === "pending_review"
+                      ? "border-[#4FAFCD] bg-[#EAF7FD] text-[#10243E]"
+                      : "border-[#BFEAF5] bg-white text-[#406175]"
+                  }`}
+                >
+                  Pending Review {pendingReviewCards.length}
+                </button>
+              )}
             </nav>
           </section>
 
@@ -1069,7 +1103,7 @@ export default function LibraryPageClient({
                 </div>
               )}
             </section>
-          ) : (
+          ) : activeTab === "updates" ? (
             <section className="space-y-0">
               <div className="bg-[#10243E] px-4 py-3 text-[14px] font-medium text-white">
                 Recent updates
@@ -1118,6 +1152,54 @@ export default function LibraryPageClient({
                 <div className="px-4 py-3 text-[14px] text-[#61758B]">{updateEmptyMessage}</div>
               )}
             </section>
+          ) : (
+            <section className="space-y-0">
+              <div className="bg-[#10243E] px-4 py-3 text-[14px] font-medium text-white">
+                Pending review
+              </div>
+              {pendingReviewCards.length > 0 ? (
+                <div className="border-y border-[#D7E9EE] bg-white">
+                  {pendingReviewCards.map((card, idx) => (
+                    <section key={card.id} className="border-b border-[#E8EFF6] last:border-b-0">
+                      <button
+                        type="button"
+                        onClick={() => setMobileExpandedUpdates((current) => ({ ...current, [`pending:${card.id}`]: !current[`pending:${card.id}`] }))}
+                        className="grid w-full grid-cols-[minmax(0,1fr)_18px] items-center gap-x-2 bg-[#EAF7FD] px-3 py-2 text-left transition-colors hover:bg-[#DDF2F8]"
+                      >
+                        <p className="truncate text-[14px] font-medium text-[#10243E]">{card.name}</p>
+                        <span className="flex justify-end">
+                          <MobileTriangle open={Boolean(mobileExpandedUpdates[`pending:${card.id}`])} />
+                        </span>
+                      </button>
+
+                      {mobileExpandedUpdates[`pending:${card.id}`] ? (
+                        <div className="border-t border-[#EEF4F7] px-3 py-2">
+                          <p className="text-[12px] leading-5 text-[#0F4C5C]">{getUpdateContextLabel(card)}</p>
+                          {onOpenCard ? (
+                            <button
+                              type="button"
+                              onClick={() => onOpenCard(library.id, card.id)}
+                              className="mt-2 inline-flex items-center justify-center rounded-xl bg-[#0096C7] px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-[#0085B2] active:bg-[#0077B6]"
+                            >
+                              Review procedure
+                            </button>
+                          ) : (
+                            <Link
+                              href={`/libraries/${library.id}/cards/${card.id}`}
+                              className="mt-2 inline-flex items-center justify-center rounded-xl bg-[#0096C7] px-4 py-2 text-[14px] font-semibold text-white transition-colors hover:bg-[#0085B2] active:bg-[#0077B6]"
+                            >
+                              Review procedure
+                            </Link>
+                          )}
+                        </div>
+                      ) : null}
+                    </section>
+                  ))}
+                </div>
+              ) : (
+                <div className="px-4 py-3 text-[14px] text-[#61758B]">{pendingEmptyMessage}</div>
+              )}
+            </section>
           )}
         </div>
 
@@ -1148,6 +1230,15 @@ export default function LibraryPageClient({
                 >
                   Updates {updates.length}
                 </button>
+                {pendingReviewCards.length > 0 && (
+                  <button
+                    type="button"
+                    onClick={() => setActiveTab("pending_review")}
+                    className={`px-1 py-3 ${activeTab === "pending_review" ? "border-b-2 border-[#0096C7] text-white" : ""}`}
+                  >
+                    Pending Review {pendingReviewCards.length}
+                  </button>
+                )}
               </nav>
             </section>
 
@@ -1212,7 +1303,7 @@ export default function LibraryPageClient({
                 )}
               </div>
             </section>
-            ) : (
+            ) : activeTab === "updates" ? (
               <section className="overflow-hidden rounded-[12px] border border-[#2d2d2d] bg-[#202020]">
                 <div className="border-b border-[#2d2d2d] bg-[#181818] px-4 py-3 text-[14px] text-white">
                   Recent updates
@@ -1248,6 +1339,44 @@ export default function LibraryPageClient({
                   </div>
                 ) : (
                   <div className="px-4 py-5 text-[14px] text-white">{updateEmptyMessage}</div>
+                )}
+              </section>
+            ) : (
+              <section className="overflow-hidden rounded-[12px] border border-[#2d2d2d] bg-[#202020]">
+                <div className="border-b border-[#2d2d2d] bg-[#181818] px-4 py-3 text-[14px] text-white">
+                  Pending review
+                </div>
+                {pendingReviewCards.length > 0 ? (
+                  <div className="divide-y divide-[#2d2d2d]">
+                    {pendingReviewCards.map((card) => (
+                      onOpenCard ? (
+                        <button
+                          key={card.id}
+                          type="button"
+                          onClick={() => onOpenCard(library.id, card.id)}
+                          className="block w-full px-4 py-3 text-left transition-colors hover:bg-[#252525]"
+                        >
+                          <div className="min-w-0">
+                            <p className="text-[14px] font-medium text-[#e0e0e0]">{card.name}</p>
+                            <p className="mt-1 text-[12px] leading-5 text-white">{getUpdateContextLabel(card)}</p>
+                          </div>
+                        </button>
+                      ) : (
+                        <Link
+                          key={card.id}
+                          href={`/libraries/${library.id}/cards/${card.id}`}
+                          className="block px-4 py-3 transition-colors hover:bg-[#252525]"
+                        >
+                          <div className="min-w-0">
+                            <p className="text-[14px] font-medium text-[#e0e0e0]">{card.name}</p>
+                            <p className="mt-1 text-[12px] leading-5 text-white">{getUpdateContextLabel(card)}</p>
+                          </div>
+                        </Link>
+                      )
+                    ))}
+                  </div>
+                ) : (
+                  <div className="px-4 py-5 text-[14px] text-white">{pendingEmptyMessage}</div>
                 )}
               </section>
             )}

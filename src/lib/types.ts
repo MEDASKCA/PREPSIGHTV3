@@ -136,6 +136,33 @@ export interface ProcedureFamily {
   tags?: string[]         // searchable aliases e.g. ["THR", "hip arthroplasty"]
 }
 
+export interface CardChange {
+  sectionId: string
+  sectionTitle: string
+  before: Item[]
+  after: Item[]
+  changeType: "added" | "modified" | "removed"
+}
+
+export interface CardVersion {
+  id: string
+  cardId: string
+  versionNumber: number
+  status: "draft" | "pending_review" | "published"
+  createdAt: string
+  createdBy: string
+  createdByName?: string
+  updatedAt: string
+  updatedBy?: string
+  updatedByName?: string
+  approvedAt?: string
+  approvedBy?: string
+  approvedByName?: string
+  rejectionReason?: string
+  changes: CardChange[]
+  snapshot: Procedure
+}
+
 export interface Procedure {
   id: string
   familyId: string        // links to ProcedureFamily
@@ -143,6 +170,9 @@ export interface Procedure {
   name: string            // procedure name (usually = family name)
   cardScope?: "shared" | "local"
   publishState?: "draft" | "published"
+  status?: string         // "draft" | "pending_review" | "published" | other legacy values
+  currentVersionId?: string
+  versionNumber?: number
   setting: ClinicalSetting
   specialty: string
   specialty_id?: string
@@ -151,7 +181,6 @@ export interface Procedure {
   subanatomy_group?: string
   aliases?: string[]
   description?: string
-  status?: string
   approach?: string
   implantSystem?: string
   sections: Section[]
