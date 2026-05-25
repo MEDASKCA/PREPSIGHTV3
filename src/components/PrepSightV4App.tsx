@@ -1021,7 +1021,13 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
     effectiveSurfaceTab === "library" &&
     (Boolean(selectedLibraryId) || mobileLibraryHasGroupBack)
   function handleSplitLibraryBack() {
-    if (selectedLibraryCard) { setSelectedLibraryCard(null); return }
+    if (selectedLibraryCard) {
+      setSelectedLibraryCard(null)
+      setMobileLibraryHasGroupBack(false)
+      mobileLibraryGroupBackRef.current = null
+      setSelectedLibraryId(null)
+      return
+    }
     if (mobileLibraryHasGroupBack) { mobileLibraryGroupBackRef.current?.(); return }
     setMobileLibraryHasGroupBack(false)
     mobileLibraryGroupBackRef.current = null
@@ -1612,7 +1618,13 @@ export default function PrepSightV4App({ initialSurface = "library" }: { initial
                     inlineSearchEnabled={false}
                     onSearchButtonClick={() => setShowMobileGlobalSearch(true)}
                     onBack={(selectedLibraryId || mobileLibraryHasGroupBack) ? () => {
-                      if (selectedLibraryCard) { setSelectedLibraryCard(null); return }
+                      if (selectedLibraryCard) {
+                        setSelectedLibraryCard(null)
+                        setMobileLibraryHasGroupBack(false)
+                        mobileLibraryGroupBackRef.current = null
+                        setSelectedLibraryId(null)
+                        return
+                      }
                       if (mobileLibraryHasGroupBack) { mobileLibraryGroupBackRef.current?.(); return }
                       setMobileLibraryHasGroupBack(false)
                       mobileLibraryGroupBackRef.current = null

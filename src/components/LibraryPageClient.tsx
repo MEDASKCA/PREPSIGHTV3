@@ -816,16 +816,6 @@ export default function LibraryPageClient({
   if (embedded) {
     return (
       <div className="flex h-full min-h-0 flex-col">
-        <section className="px-4 pb-2 pt-2 lg:hidden">
-          <LibraryMobileHeaderTabs
-            currentTab={library.libraryType === "shared" ? "community" : "group"}
-            selectedWorkspace={activeSetting}
-            onWorkspaceChange={(setting) => {
-              window.location.href = `/libraries/${getSharedLibraryId(setting)}`
-            }}
-          />
-        </section>
-
         <section className={`shrink-0 space-y-2 px-4 ${hideEmbeddedHeader ? "pt-0 pb-2" : "pt-3 pb-2"}`}>
           {!hideEmbeddedHeader ? (
             <div>
