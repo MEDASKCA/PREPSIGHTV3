@@ -604,7 +604,7 @@ export default function ItemRow({
             <button
               type="button"
               onClick={() => setImagePreviewOpen(false)}
-              className="absolute right-4 top-[calc(env(safe-area-inset-top)+12px)] flex h-11 w-11 items-center justify-center rounded-[14px] border border-white/10 bg-[#2b2b2b] text-white"
+              className="absolute right-4 top-[calc(env(safe-area-inset-top)+12px)] flex h-11 w-11 items-center justify-center rounded-[14px] border border-[#0b5f7d] bg-[#2b2b2b] text-[#0096C7]"
               aria-label="Close image preview"
             >
               <X size={18} />
@@ -631,7 +631,7 @@ export default function ItemRow({
               <button
                 type="button"
                 onClick={() => setDetailOpen(false)}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border border-white/10 bg-[#2b2b2b] text-white"
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border border-[#0b5f7d] bg-[#2b2b2b] text-[#0096C7]"
               >
                 <X size={18} />
               </button>
@@ -712,7 +712,7 @@ export default function ItemRow({
                   <h3 className="text-[18px] font-bold leading-snug text-white">{item.name}</h3>
                   <p className={`mt-1 text-[13px] ${mobileSheetMuted}`}>Notes & Comments</p>
                 </div>
-                <button type="button" onClick={() => setInfoOpen(false)} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border border-white/10 bg-[#2b2b2b] text-white"><X size={18} /></button>
+                <button type="button" onClick={() => setInfoOpen(false)} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border border-[#0b5f7d] bg-[#2b2b2b] text-[#0096C7]"><X size={18} /></button>
             </div>
             <div className={`border-t ${mobileSheetDivider}`} />
             <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-6 pt-4">

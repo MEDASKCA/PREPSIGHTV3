@@ -295,7 +295,7 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
           )}
           <button
             onClick={onClose}
-            className="w-9 h-9 rounded-full bg-[#F4F7FA] flex items-center justify-center text-[#64748b] hover:bg-[#E2EDF2] transition-colors"
+            className="w-9 h-9 rounded-full bg-[#F4F7FA] flex items-center justify-center text-[#0096C7] hover:bg-[#E2EDF2] transition-colors"
             aria-label="Close detail panel"
           >
             <X size={16} />
