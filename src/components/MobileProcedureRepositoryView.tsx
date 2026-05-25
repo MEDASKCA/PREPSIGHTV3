@@ -1150,7 +1150,11 @@ export default function MobileProcedureRepositoryView({
   }, [dragPreview, dragTargetSectionId, draggingSectionId, sectionsState])
 
   return (
-    <div className="flex min-h-screen min-h-0 flex-col bg-black text-[#e0e0e0] lg:h-screen lg:overflow-hidden">
+    <div
+      className={`flex min-h-0 flex-col bg-black text-[#e0e0e0] ${
+        hideMobileHeader ? "h-full" : "min-h-screen"
+      } lg:h-screen lg:overflow-hidden`}
+    >
       <div className={`lg:hidden ${hideMobileHeader ? "hidden" : ""}`}>
         <MobileSurfaceHeader
           title="Library"
