@@ -85,6 +85,7 @@ export default function ItemRow({
   const [imageSaving, setImageSaving] = useState(false)
   const uploadImageInputRef = useRef<HTMLInputElement>(null)
   const cameraImageInputRef = useRef<HTMLInputElement>(null)
+  const wasEditingRef = useRef(editMode)
 
   useEffect(() => {
     const [a, b, c] = locParts(item.location ?? "")
@@ -130,6 +131,14 @@ export default function ItemRow({
     window.addEventListener("prepsight:preferences-changed", sync as EventListener)
     return () => window.removeEventListener("prepsight:preferences-changed", sync as EventListener)
   }, [])
+
+  useEffect(() => {
+    if (wasEditingRef.current && !editMode) {
+      commitDraftFields()
+    }
+    wasEditingRef.current = editMode
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [editMode])
 
   function handleSelect() {
     if (onSelect) {
@@ -237,6 +246,33 @@ export default function ItemRow({
     })
   }
 
+  function commitDraftFields() {
+    if (!onItemSave) return
+    const nextName = draftName.trim() || item.name
+    const nextManufacturer = draftManufacturer.trim() || undefined
+    const nextSku = draftSku.trim() || undefined
+    const nextLocation = [draftLocA, draftLocB, draftLocC].map((s) => s.trim()).filter(Boolean).join("/") || undefined
+    const parsedQty = draftQty.trim() === "" ? undefined : Number(draftQty)
+    const nextQty = Number.isNaN(parsedQty as number) ? item.defaultQty : parsedQty
+
+    if (
+      nextName === item.name &&
+      nextManufacturer === item.manufacturer &&
+      nextSku === item.sku &&
+      nextLocation === item.location &&
+      nextQty === item.defaultQty
+    ) return
+
+    onItemSave({
+      ...item,
+      name: nextName,
+      manufacturer: nextManufacturer,
+      sku: nextSku,
+      location: nextLocation,
+      defaultQty: nextQty,
+    })
+  }
+
   function saveInstruction() {
     if (!onItemSave) return
     onItemSave({ ...item, notes: instructionDraft.trim() || undefined })
@@ -268,6 +304,11 @@ export default function ItemRow({
   const mobileSheetMuted = "text-[#b8b8b8]"
   const mobileSheetSubtle = "text-[#d6d6d6]"
   const mobileSheetDivider = "border-[#1f1f1f]"
+  const secondaryLabel = item.manufacturer || item.product || item.supplier?.name
+  const skuLabel = item.sku
+  const locationLabel = item.location
+    ? item.location.split("/").map((p) => p.trim()).filter(Boolean).join(", ")
+    : ""
 
   return (
     <>
@@ -372,11 +413,6 @@ export default function ItemRow({
             </div>
           </div>
 
-          {item.product && (
-            <p className={`mt-0.5 text-[13px] leading-snug lg:text-[18px] lg:mt-1 ${isDark ? "text-[#C7D2E0]" : "text-[#94a3b8]"}`}>
-              {item.product}
-            </p>
-          )}
 
           {/* Mobile meta: location + req qty — display mode */}
           {!editMode && (
@@ -415,11 +451,17 @@ export default function ItemRow({
             {item.name}
           </span>
 
-          {item.product && (
+          {secondaryLabel && (
             <span className={`mt-0.5 block text-[13px] leading-snug lg:mt-1 lg:text-[18px] ${isDark ? "text-[#C7D2E0]" : "text-[#94a3b8]"}`}>
-              {item.product}
+              {secondaryLabel}
             </span>
           )}
+
+          {skuLabel ? (
+            <span className={`mt-0.5 block text-[13px] leading-tight ${isDark ? "text-[#64748B]" : "text-[#94a3b8]"}`}>
+              Ref: {skuLabel}
+            </span>
+          ) : null}
 
           <span className={`mt-0.5 block lg:hidden text-[13px] leading-tight ${isDark ? "text-[#64748B]" : "text-[#94a3b8]"}`}>
             <span className={`block ${item.location ? "" : (isDark ? "text-[#475569]" : "text-[#C5D0DB]")}`}>
