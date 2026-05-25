@@ -675,13 +675,7 @@ export default function SharedProcedureIndexView({
           title="Library"
           hospital={hospitalLabel}
           department={departmentLabel}
-        >
-          <LibraryMobileHeaderTabs
-            currentTab="community"
-            selectedWorkspace={procedure.setting}
-            onWorkspaceChange={(setting) => router.push(`/libraries/${getSharedLibraryId(setting)}`)}
-          />
-        </MobileSurfaceHeader>
+        />
       </div>
 
       <main className={`w-full ${embeddedPane ? "min-h-0 flex-1 px-4 pb-4 pt-2" : "px-4 pb-28 pt-4"} lg:p-0 lg:pb-0`}>
@@ -699,8 +693,15 @@ export default function SharedProcedureIndexView({
             <div className="flex min-h-0 flex-1">
               <div className="min-w-0 flex-1">
                 <div className="lg:px-8 lg:pt-4">
+            <section className="px-1 pb-2 lg:hidden">
+              <LibraryMobileHeaderTabs
+                currentTab="community"
+                selectedWorkspace={procedure.setting}
+                onWorkspaceChange={(setting) => router.push(`/libraries/${getSharedLibraryId(setting)}`)}
+              />
+            </section>
+
             <section className="px-1 pb-2">
-              <p className="text-[13px] text-white">Community</p>
               <h1 className="mt-1 text-[28px] tracking-[-0.04em] text-white lg:text-[30px]">
                 {procedure.name}
               </h1>

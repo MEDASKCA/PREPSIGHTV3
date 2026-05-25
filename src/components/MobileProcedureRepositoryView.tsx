@@ -1212,14 +1212,18 @@ export default function MobileProcedureRepositoryView({
           title="Library"
           hospital={hospitalLabel}
           department={departmentLabel}
-        >
-          <LibraryMobileHeaderTabs
-            currentTab="community"
-            selectedWorkspace={procedure.setting}
-            onWorkspaceChange={(setting) => router.push(`/libraries/${getSharedLibraryId(setting)}`)}
-          />
-        </MobileSurfaceHeader>
+        />
       </div>
+
+        {!hideMobileHeader ? (
+          <section className="px-4 pb-2 pt-2 lg:hidden">
+            <LibraryMobileHeaderTabs
+              currentTab="community"
+              selectedWorkspace={procedure.setting}
+              onWorkspaceChange={(setting) => router.push(`/libraries/${getSharedLibraryId(setting)}`)}
+            />
+          </section>
+        ) : null}
 
         {createNoticeOpen ? (
           <div className="fixed inset-0 z-50 flex items-center justify-center bg-[rgba(16,36,62,0.42)] px-4">
