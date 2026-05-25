@@ -43,6 +43,7 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
 
   // Draft fields (populated when edit starts)
   const [draftName, setDraftName]           = useState("")
+  const [draftSize, setDraftSize]           = useState("")
   const [draftProduct, setDraftProduct]     = useState("")
   const [draftLocFloor, setDraftLocFloor]   = useState("")
   const [draftLocRoom, setDraftLocRoom]     = useState("")
@@ -107,6 +108,7 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
     const { item } = info
     const locParts = (item.location ?? "").split("/")
     setDraftName(item.name)
+    setDraftSize(item.size ?? "")
     setDraftProduct(item.product ?? "")
     setDraftLocFloor(locParts[0]?.trim() ?? "")
     setDraftLocRoom(locParts[1]?.trim() ?? "")
@@ -127,6 +129,7 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
     const updatedItem: Item = {
       ...info.item,
       name: draftName.trim() || info.item.name,
+      size: draftSize.trim() || undefined,
       product: draftProduct.trim() || undefined,
       location: [draftLocFloor, draftLocRoom, draftLocShelf].filter(Boolean).join("/") || undefined,
       defaultQty: draftQty !== "" ? Number(draftQty) : undefined,
@@ -443,6 +446,17 @@ export default function ItemDetailPanel({ info, onClose, onItemSave, className =
         {isEditing ? (
           <div className="space-y-4">
             {/* Product name */}
+            <div>
+              <label className="text-[13px] uppercase tracking-wide text-[#94a3b8] block mb-1.5">Size</label>
+              <input
+                type="text"
+                value={draftSize}
+                onChange={(e) => setDraftSize(e.target.value)}
+                placeholder="e.g. XL-L or 178cm"
+                className="w-full text-[20px] bg-white border border-[#D5DCE3] rounded-xl px-3 py-2.5 focus:outline-none focus:ring-2 focus:ring-[#4DA3FF] placeholder:text-[#D5DCE3]"
+              />
+            </div>
+
             <div>
               <label className="text-[13px] uppercase tracking-wide text-[#94a3b8] block mb-1.5">Product name</label>
               <input

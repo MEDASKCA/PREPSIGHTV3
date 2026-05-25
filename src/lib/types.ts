@@ -43,6 +43,7 @@ export interface Supplier {
 export interface Item {
   id: string
   name: string
+  size?: string
   sku?: string
   description?: string
   product?: string

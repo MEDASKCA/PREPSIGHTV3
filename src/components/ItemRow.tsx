@@ -65,6 +65,7 @@ export default function ItemRow({
   const [draftLocC, setDraftLocC] = useState(() => locParts(item.location ?? "")[2])
   const [draftQty, setDraftQty] = useState(item.defaultQty != null ? String(item.defaultQty) : "")
   const [draftName, setDraftName] = useState(item.name)
+  const [draftSize, setDraftSize] = useState(item.size ?? "")
   const [draftProduct, setDraftProduct] = useState(item.product ?? "")
   const [draftManufacturer, setDraftManufacturer] = useState(item.manufacturer ?? "")
   const [draftSku, setDraftSku] = useState(item.sku ?? "")
@@ -93,11 +94,12 @@ export default function ItemRow({
     setDraftLocA(a); setDraftLocB(b); setDraftLocC(c)
     setDraftQty(item.defaultQty != null ? String(item.defaultQty) : "")
     setDraftName(item.name)
+    setDraftSize(item.size ?? "")
     setDraftProduct(item.product ?? "")
     setDraftManufacturer(item.manufacturer ?? "")
     setDraftSku(item.sku ?? "")
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [item.location, item.defaultQty, item.name, item.product, item.manufacturer, item.sku])
+  }, [item.location, item.defaultQty, item.name, item.size, item.product, item.manufacturer, item.sku])
 
   useEffect(() => {
     if (!editMode) {
@@ -105,12 +107,13 @@ export default function ItemRow({
       setDraftLocA(a); setDraftLocB(b); setDraftLocC(c)
       setDraftQty(item.defaultQty != null ? String(item.defaultQty) : "")
       setDraftName(item.name)
+      setDraftSize(item.size ?? "")
       setDraftProduct(item.product ?? "")
       setDraftManufacturer(item.manufacturer ?? "")
       setDraftSku(item.sku ?? "")
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [editMode, item.location, item.defaultQty, item.name, item.product, item.manufacturer, item.sku])
+  }, [editMode, item.location, item.defaultQty, item.name, item.size, item.product, item.manufacturer, item.sku])
 
   useEffect(() => {
     setInstruction(item.notes ?? "")
@@ -238,13 +241,15 @@ export default function ItemRow({
   function saveIdentityFields() {
     if (!onItemSave) return
     const nextName = draftName.trim() || item.name
+    const nextSize = draftSize.trim() || undefined
     const nextProduct = draftProduct.trim() || undefined
     const nextManufacturer = draftManufacturer.trim() || undefined
     const nextSku = draftSku.trim() || undefined
-    if (nextName === item.name && nextProduct === item.product && nextManufacturer === item.manufacturer && nextSku === item.sku) return
+    if (nextName === item.name && nextSize === item.size && nextProduct === item.product && nextManufacturer === item.manufacturer && nextSku === item.sku) return
     onItemSave({
       ...item,
       name: nextName,
+      size: nextSize,
       product: nextProduct,
       manufacturer: nextManufacturer,
       sku: nextSku,
@@ -254,6 +259,7 @@ export default function ItemRow({
   function commitDraftFields() {
     if (!onItemSave) return
     const nextName = draftName.trim() || item.name
+    const nextSize = draftSize.trim() || undefined
     const nextProduct = draftProduct.trim() || undefined
     const nextManufacturer = draftManufacturer.trim() || undefined
     const nextSku = draftSku.trim() || undefined
@@ -263,6 +269,7 @@ export default function ItemRow({
 
     if (
       nextName === item.name &&
+      nextSize === item.size &&
       nextProduct === item.product &&
       nextManufacturer === item.manufacturer &&
       nextSku === item.sku &&
@@ -273,6 +280,7 @@ export default function ItemRow({
     onItemSave({
       ...item,
       name: nextName,
+      size: nextSize,
       product: nextProduct,
       manufacturer: nextManufacturer,
       sku: nextSku,
@@ -318,6 +326,7 @@ export default function ItemRow({
   const locationLabel = item.location
     ? item.location.split("/").map((p) => p.trim()).filter(Boolean).join(", ")
     : ""
+  const displayName = item.size?.trim() ? `${item.name} ${item.size.trim()}` : item.name
 
   return (
     <>
@@ -399,6 +408,17 @@ export default function ItemRow({
               />
             </div>
             <div>
+              <p className="mb-1 text-[11px] font-medium uppercase tracking-[0.12em] text-[#8f8f8f]">Size</p>
+              <input
+                type="text"
+                value={draftSize}
+                onChange={(e) => setDraftSize(e.target.value)}
+                onBlur={saveIdentityFields}
+                placeholder="e.g. XL-L or 178cm"
+                className={inputCls}
+              />
+            </div>
+            <div>
               <p className="mb-1 text-[11px] font-medium uppercase tracking-[0.12em] text-[#8f8f8f]">Product name</p>
               <input
                 type="text"
@@ -468,7 +488,7 @@ export default function ItemRow({
           aria-label={`Open notes and comments for ${item.name}`}
         >
           <span className={`block w-full text-[15px] font-semibold leading-snug underline underline-offset-2 lg:text-[22px] lg:no-underline lg:leading-tight ${isDark ? "text-white" : "text-[#2F8EF7] lg:text-[#10243E]"}`}>
-            {item.name}
+            {displayName}
           </span>
 
           {productLabel && (

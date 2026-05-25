@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import type { PointerEvent as ReactPointerEvent } from "react"
-import { useEffect, useMemo, useRef, useState, useSyncExternalStore } from "react"
+import { useEffect, useMemo, useRef, useState, useSyncExternalStore, useTransition } from "react"
 import { useRouter } from "next/navigation"
 import {
   Bookmark,
@@ -21,7 +21,9 @@ import WorkspaceNavRail from "@/components/WorkspaceNavRail"
 import CollectionPanel from "@/components/CollectionPanel"
 import ItemDetailPanel from "@/components/ItemDetailPanel"
 import KardexSection from "@/components/KardexSection"
+import { onAuthChange } from "@/lib/auth"
 import { getBookmarksSnapshot, removeBookmark, saveBookmark, subscribeBookmarks } from "@/lib/bookmarks"
+import { getCardCustomSections, saveCardCustomSections } from "@/lib/firestore"
 import {
   addCardToLocalLibrary,
   createLocalLibrary,
@@ -330,6 +332,7 @@ export default function MobileProcedureRepositoryView({
   const [isCreating, setIsCreating] = useState(false)
   const [openVersionId, setOpenVersionId] = useState<string>("global-current")
   const [sectionsState, setSectionsState] = useState(sections)
+  const [uid, setUid] = useState<string | null>(null)
   const [checkedItems, setCheckedItems] = useState<Set<string>>(new Set())
   const [selectedItemInfo, setSelectedItemInfo] = useState<ItemDisplayInfo | null>(null)
   const [draggingSectionId, setDraggingSectionId] = useState<string | null>(null)
@@ -348,6 +351,7 @@ export default function MobileProcedureRepositoryView({
   const desktopEditAvailableListRef = useRef<HTMLDivElement | null>(null)
   const desktopEditExistingListRef = useRef<HTMLDivElement | null>(null)
   const sectionElementRefs = useRef<Record<string, HTMLDivElement | null>>({})
+  const [, startTransition] = useTransition()
   const hierarchyLabel = formatProcedureHierarchy(sourceProcedure ?? procedure)
   const displayTitle = buildProcedureDisplayTitle({
     procedureName: procedure.name,
@@ -358,6 +362,10 @@ export default function MobileProcedureRepositoryView({
   const bookmarks = useSyncExternalStore(subscribeBookmarks, getBookmarksSnapshot, getBookmarksSnapshot)
   const currentProcedureId = sourceProcedure?.id ?? procedure.id
   const currentFamilyId = sourceProcedure?.familyId ?? procedure.familyId
+  const cardKey = useMemo(
+    () => ["shared-prepsight-reference", currentProcedureId, selectedVariantId || "base", selectedSystemId || "base"].join("__"),
+    [currentProcedureId, selectedSystemId, selectedVariantId],
+  )
   const sharedCardHref = `/libraries/shared-prepsight-reference/cards/${currentProcedureId}${selectedVariantId && selectedSystemId ? `?variant=${encodeURIComponent(selectedVariantId)}&system=${encodeURIComponent(selectedSystemId)}` : ""}`
   const publishedCards = useMemo(
     () => getPublishedCardsByFamilySnapshot(currentFamilyId),
@@ -448,6 +456,39 @@ export default function MobileProcedureRepositoryView({
         href: `/libraries/${localLibraryId}/cards/${card.id}`,
       }))
   }, [currentFamilyId])
+
+  useEffect(() => onAuthChange((user) => setUid(user?.uid ?? null)), [])
+
+  useEffect(() => {
+    setSectionsState(sections)
+  }, [sections])
+
+  useEffect(() => {
+    let cancelled = false
+    async function load() {
+      if (!uid) return
+      const overrides = await getCardCustomSections(uid, cardKey)
+      if (cancelled || !overrides.length) return
+      setSectionsState((current) =>
+        current.map((section) => {
+          const override = overrides.find((entry) => entry.id === section.id)
+          return override ?? section
+        }),
+      )
+    }
+    void load()
+    return () => {
+      cancelled = true
+    }
+  }, [cardKey, uid])
+
+  function persistEditableSections(next: Section[]) {
+    if (!uid) return
+    const editableSections = next.filter((section) => section.contentMode !== "fixed")
+    startTransition(() => {
+      void saveCardCustomSections(uid, cardKey, editableSections)
+    })
+  }
 
   const surgeonDisplayName = useMemo(() => {
     return [surgeonGrade.trim(), surgeonTitle.trim(), surgeonFirstName.trim(), surgeonLastName.trim()]
@@ -1747,15 +1788,17 @@ export default function MobileProcedureRepositoryView({
                         implantSystem={procedure.implantSystem}
                         procedureId={procedure.id}
                         procedureName={procedure.name}
-                        uid={null}
-                        onSave={() => undefined}
+                        uid={uid}
+                        onSave={() => persistEditableSections(sectionsState)}
                         editHighlight={createOpen && authoringMode === "edit"}
                         reorderActive={createOpen && authoringMode === "edit"}
                         onReorderPointerDown={(event) => beginSectionReorder(section.id, event)}
                         onSectionChange={(updatedSection) =>
-                          setSectionsState((current) =>
-                            current.map((entry) => (entry.id === updatedSection.id ? updatedSection : entry)),
-                          )
+                          setSectionsState((current) => {
+                            const next = current.map((entry) => (entry.id === updatedSection.id ? updatedSection : entry))
+                            persistEditableSections(next)
+                            return next
+                          })
                         }
                         isDark={true}
                       />
@@ -1769,7 +1812,7 @@ export default function MobileProcedureRepositoryView({
                     checkedItems={checkedItems}
                     procedureId={procedure.id}
                     procedureName={procedure.name}
-                    uid={null}
+                    uid={uid}
                     isDark={true}
                   />
                 ) : null}
@@ -1851,15 +1894,17 @@ export default function MobileProcedureRepositoryView({
                                 implantSystem={procedure.implantSystem}
                                 procedureId={procedure.id}
                                 procedureName={procedure.name}
-                                uid={null}
-                                onSave={() => undefined}
+                                uid={uid}
+                                onSave={() => persistEditableSections(sectionsState)}
                                 editHighlight={createOpen && authoringMode === "edit"}
                                 reorderActive={createOpen && authoringMode === "edit"}
                                 onReorderPointerDown={(event) => beginSectionReorder(section.id, event)}
                                 onSectionChange={(updatedSection) =>
-                                  setSectionsState((current) =>
-                                    current.map((entry) => (entry.id === updatedSection.id ? updatedSection : entry)),
-                                  )
+                                  setSectionsState((current) => {
+                                    const next = current.map((entry) => (entry.id === updatedSection.id ? updatedSection : entry))
+                                    persistEditableSections(next)
+                                    return next
+                                  })
                                 }
                                 onItemSelect={setSelectedItemInfo}
                                 isDark={true}
@@ -1874,7 +1919,7 @@ export default function MobileProcedureRepositoryView({
                             checkedItems={checkedItems}
                             procedureId={procedure.id}
                             procedureName={procedure.name}
-                            uid={null}
+                            uid={uid}
                             isDark={true}
                           />
                         ) : null}
