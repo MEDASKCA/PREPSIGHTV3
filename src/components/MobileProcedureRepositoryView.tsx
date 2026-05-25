@@ -1150,7 +1150,7 @@ export default function MobileProcedureRepositoryView({
   }, [dragPreview, dragTargetSectionId, draggingSectionId, sectionsState])
 
   return (
-    <div className="min-h-screen bg-black text-[#e0e0e0]">
+    <div className="min-h-screen bg-black text-[#e0e0e0] lg:h-screen lg:overflow-hidden">
       <div className={`lg:hidden ${hideMobileHeader ? "hidden" : ""}`}>
         <MobileSurfaceHeader
           title="Library"
@@ -1778,7 +1778,7 @@ export default function MobileProcedureRepositoryView({
           </section>
         </main>
 
-        <div className={`hidden lg:grid lg:h-screen lg:overflow-hidden lg:gap-0 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}>
+        <div className={`hidden lg:grid lg:h-full lg:min-h-0 lg:overflow-hidden lg:gap-0 ${desktopNavOpen ? "lg:grid-cols-[240px_minmax(0,1fr)]" : "lg:grid-cols-[80px_minmax(0,1fr)]"}`}>
           <WorkspaceNavRail currentNav="collections" collapsed={!desktopNavOpen} onToggleCollapsed={() => setDesktopNavOpen((value) => !value)} />
 
           <div className="flex min-h-0 min-w-0 flex-1 flex-col overflow-hidden">
@@ -1786,7 +1786,7 @@ export default function MobileProcedureRepositoryView({
               <AppTopBar menuOpen={false} onToggleMenu={handleToggleNavigation} searchPlaceholder="Search anywhere..." sectionLabel="Library Collections" />
             </div>
             <div className="flex min-h-0 flex-1 overflow-hidden">
-              <main className={`min-w-0 flex-1 lg:grid lg:min-h-0 lg:gap-0 ${
+              <main className={`min-h-0 min-w-0 flex-1 overflow-hidden lg:grid lg:h-full lg:gap-0 ${
                 commsRailOpen
                   ? "lg:grid-cols-[minmax(0,1fr)_420px] lg:grid-rows-[auto_minmax(0,1fr)]"
                   : "lg:grid-cols-[440px_minmax(0,1fr)_440px]"
@@ -1806,8 +1806,8 @@ export default function MobileProcedureRepositoryView({
                   </>
                 ) : null}
 
-                <section className={`min-h-0 bg-black ${commsRailOpen ? "min-w-0 border-r border-[#2d2d2d]" : "border-r border-[#2d2d2d]"}`}>
-                  <div className={`h-full overflow-y-auto ${commsRailOpen ? "py-0" : "py-6"}`}>
+                <section className={`flex min-h-0 flex-col overflow-hidden bg-black ${commsRailOpen ? "min-w-0 border-r border-[#2d2d2d]" : "border-r border-[#2d2d2d]"}`}>
+                  <div className={`min-h-0 flex-1 overflow-y-auto ${commsRailOpen ? "py-0" : "py-6"}`}>
                     {sectionsState.length > 0 ? (
                       <>
                         {createOpen && authoringMode === "edit" ? (
