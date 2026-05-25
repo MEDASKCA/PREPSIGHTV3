@@ -59,6 +59,7 @@ export default function ItemRow({
 
   // Mobile detail drawer
   const [detailOpen, setDetailOpen] = useState(false)
+  const [imagePreviewOpen, setImagePreviewOpen] = useState(false)
 
   // Mobile "i" notes + comments drawer
   const [infoOpen, setInfoOpen] = useState(false)
@@ -116,6 +117,14 @@ export default function ItemRow({
     }
   }
 
+  function handleImageSelect() {
+    if (localImage) {
+      setImagePreviewOpen(true)
+      return
+    }
+    handleSelect()
+  }
+
   function saveLocation() {
     if (!onItemSave) return
     const combined = [draftLocA, draftLocB, draftLocC].map(s => s.trim()).filter(Boolean).join("/")
@@ -153,11 +162,14 @@ export default function ItemRow({
     ? item.location.split("/").map((p) => p.trim()).filter(Boolean).join(" · ")
     : "—"
 
-  const sheetBg = isDark ? "bg-[#1A2433] border-[#334155]" : "bg-white border-[#D5DCE3]"
   const textPrimary = isDark ? "text-white" : "text-[#10243E]"
   const textMuted = isDark ? "text-[#94a3b8]" : "text-[#94a3b8]"
   const divider = isDark ? "border-[#334155]" : "border-[#E2EDF2]"
   const inputCls = `w-full rounded border px-2.5 py-1.5 text-[14px] focus:outline-none focus:ring-1 focus:ring-[#4DA3FF] ${isDark ? "border-[#334155] bg-[#1A2840] text-white placeholder:text-[#475569]" : "border-[#D5DCE3] bg-white text-[#3F4752] placeholder:text-[#94a3b8]"}`
+  const mobileSheetSurface = "bg-[#1f1f1f] border-[#1f1f1f] text-white"
+  const mobileSheetMuted = "text-[#b8b8b8]"
+  const mobileSheetSubtle = "text-[#d6d6d6]"
+  const mobileSheetDivider = "border-[#1f1f1f]"
 
   return (
     <>
@@ -167,9 +179,9 @@ export default function ItemRow({
         {/* Thumbnail — mobile only */}
         <button
           type="button"
-          onClick={handleSelect}
+          onClick={handleImageSelect}
           className="shrink-0 rounded-lg overflow-hidden lg:hidden"
-          aria-label={`View details for ${item.name}`}
+          aria-label={`Preview image for ${item.name}`}
         >
           {localImage ? (
             // eslint-disable-next-line @next/next/no-img-element
@@ -182,6 +194,7 @@ export default function ItemRow({
         </button>
 
         {/* Name + meta */}
+        {editMode ? (
         <div className="flex-1 min-w-0">
           {/* Item name — mobile: 15px blue underlined tap target; desktop: 22px dark no underline */}
           <button
@@ -224,6 +237,33 @@ export default function ItemRow({
             </div>
           )}
         </div>
+        ) : (
+        <button
+          type="button"
+          onClick={handleSelect}
+          className="flex-1 min-w-0 text-left"
+          aria-label={`Open details for ${item.name}`}
+        >
+          <span className={`block w-full text-[15px] font-semibold leading-snug underline underline-offset-2 lg:text-[22px] lg:no-underline lg:leading-tight ${isDark ? "text-white" : "text-[#2F8EF7] lg:text-[#10243E]"}`}>
+            {item.name}
+          </span>
+
+          {item.product && (
+            <span className={`mt-0.5 block text-[13px] leading-snug lg:mt-1 lg:text-[18px] ${isDark ? "text-[#C7D2E0]" : "text-[#94a3b8]"}`}>
+              {item.product}
+            </span>
+          )}
+
+          <span className={`mt-0.5 block lg:hidden text-[13px] leading-tight ${isDark ? "text-[#64748B]" : "text-[#94a3b8]"}`}>
+            <span className={`block ${item.location ? "" : (isDark ? "text-[#475569]" : "text-[#C5D0DB]")}`}>
+              {item.location
+                ? item.location.split("/").map((p) => p.trim()).filter(Boolean).join(", ")
+                : "—"}
+            </span>
+            {item.defaultQty != null && <span className="block">Req. Qty: {item.defaultQty}</span>}
+          </span>
+        </button>
+        )}
 
         {/* Desktop: Location column */}
         <div className="hidden lg:block lg:w-60 shrink-0">
@@ -271,56 +311,94 @@ export default function ItemRow({
         )}
       </div>
 
-      {/* ── Mobile: Item detail drawer ───────────────────────────────────── */}
+      {imagePreviewOpen && localImage ? (
+        <div className="lg:hidden">
+          <div className="fixed inset-0 z-50 bg-black/88" onClick={() => setImagePreviewOpen(false)} />
+          <div className="fixed inset-0 z-[60] flex items-center justify-center px-4 py-6">
+            <button
+              type="button"
+              onClick={() => setImagePreviewOpen(false)}
+              className="absolute right-4 top-[calc(env(safe-area-inset-top)+12px)] flex h-11 w-11 items-center justify-center rounded-[14px] border border-white/10 bg-[#2b2b2b] text-white"
+              aria-label="Close image preview"
+            >
+              <X size={18} />
+            </button>
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src={localImage} alt={item.name} className="max-h-full w-full rounded-[20px] object-contain" />
+          </div>
+        </div>
+      ) : null}
+
+      {/* ── Mobile: Item detail sheet ───────────────────────────────────── */}
       {detailOpen && (
         <div className="lg:hidden">
-          <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setDetailOpen(false)} />
-          <div className={`fixed inset-x-0 bottom-0 z-50 rounded-t-2xl border-t shadow-2xl max-h-[80vh] overflow-y-auto ${sheetBg}`}>
-            <div className="flex justify-center pt-3 pb-1">
-              <div className={`w-10 h-1 rounded-full ${isDark ? "bg-[#334155]" : "bg-[#D5DCE3]"}`} />
+          <div className="fixed inset-0 z-40 bg-black/58" onClick={() => setDetailOpen(false)} />
+          <div className={`fixed inset-x-2 bottom-2 top-[max(72px,env(safe-area-inset-top)+20px)] z-50 flex flex-col overflow-hidden rounded-[26px] border shadow-2xl ${mobileSheetSurface}`}>
+            <div className="flex justify-center pt-2">
+              <div className="h-1 w-10 rounded-full bg-[#5c5c5c]" />
             </div>
-            <div className="px-5 pb-10 pt-2">
-
-              {/* Header */}
-              <div className="flex items-start justify-between mb-4">
-                <h3 className={`text-[18px] font-bold leading-snug pr-4 ${textPrimary}`}>{item.name}</h3>
-                <button type="button" onClick={() => setDetailOpen(false)} className={textMuted}><X size={22} /></button>
+            <div className="flex items-start justify-between px-5 pb-3 pt-3">
+              <div className="min-w-0 pr-4">
+                <h3 className="text-[18px] font-bold leading-snug text-white">{item.name}</h3>
+                <p className={`mt-1 text-[13px] ${mobileSheetMuted}`}>Item details</p>
               </div>
+              <button
+                type="button"
+                onClick={() => setDetailOpen(false)}
+                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border border-white/10 bg-[#2b2b2b] text-white"
+              >
+                <X size={18} />
+              </button>
+            </div>
+            <div className={`border-t ${mobileSheetDivider}`} />
+            <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-6 pt-4">
 
-              {/* Image */}
               {localImage && (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={localImage} alt={item.name} className="w-full max-h-52 object-contain rounded-xl mb-5 bg-[#F4F7FA]" />
+                <button type="button" onClick={() => setImagePreviewOpen(true)} className="mb-5 block w-full overflow-hidden rounded-[18px] bg-[#181818]">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={localImage} alt={item.name} className="max-h-[36vh] w-full object-contain" />
+                </button>
               )}
 
-              {/* Product ref */}
               {item.product && (
-                <div className={`mb-4 pb-4 border-b ${divider}`}>
-                  <p className={`text-[12px] font-semibold uppercase tracking-wide mb-1 ${textMuted}`}>Product Ref</p>
-                  <p className={`text-[15px] ${textPrimary}`}>{item.product}</p>
+                <div className={`pb-4 ${mobileSheetSubtle}`}>
+                  <p className={`text-[12px] font-semibold uppercase tracking-wide ${mobileSheetMuted}`}>Product Ref</p>
+                  <p className="mt-1 text-[15px] text-white">{item.product}</p>
                 </div>
               )}
+              <div className={`border-t ${mobileSheetDivider}`} />
 
-              {/* Description */}
               {item.description && (
-                <div className={`mb-4 pb-4 border-b ${divider}`}>
-                  <p className={`text-[12px] font-semibold uppercase tracking-wide mb-1 ${textMuted}`}>Description</p>
-                  <p className={`text-[15px] leading-relaxed ${isDark ? "text-[#C7D2E0]" : "text-[#526579]"}`}>{item.description}</p>
+                <div className="py-4">
+                  <p className={`text-[12px] font-semibold uppercase tracking-wide ${mobileSheetMuted}`}>Description</p>
+                  <p className="mt-1 text-[15px] leading-relaxed text-[#e2e2e2]">{item.description}</p>
                 </div>
               )}
+              {item.description && <div className={`border-t ${mobileSheetDivider}`} />}
 
-              {/* Supplier */}
+              <div className="py-4">
+                <p className={`text-[12px] font-semibold uppercase tracking-wide ${mobileSheetMuted}`}>Location</p>
+                <p className="mt-1 text-[15px] text-white">{item.location ? item.location.split("/").map((p) => p.trim()).filter(Boolean).join(" / ") : "—"}</p>
+              </div>
+              <div className={`border-t ${mobileSheetDivider}`} />
+
+              <div className="py-4">
+                <p className={`text-[12px] font-semibold uppercase tracking-wide ${mobileSheetMuted}`}>Required quantity</p>
+                <p className="mt-1 text-[15px] text-white">{item.defaultQty != null ? item.defaultQty : "—"}</p>
+              </div>
+              <div className={`border-t ${mobileSheetDivider}`} />
+
               {item.supplier?.name && (
-                <div>
-                  <p className={`text-[12px] font-semibold uppercase tracking-wide mb-1 ${textMuted}`}>Supplier</p>
-                  <p className={`text-[16px] font-semibold ${textPrimary}`}>{item.supplier.name}</p>
+                <div className="py-4">
+                  <p className={`text-[12px] font-semibold uppercase tracking-wide ${mobileSheetMuted}`}>Supplier</p>
+                  <p className="mt-1 text-[16px] font-semibold text-white">{item.supplier.name}</p>
                   {item.supplier.contact && (
-                    <a href={`tel:${item.supplier.contact.replace(/\s/g, "")}`} className="mt-2 flex items-center gap-2 text-[15px] text-[#4DA3FF]">
+                    <a href={`tel:${item.supplier.contact.replace(/\s/g, "")}`} className="mt-2 flex items-center gap-2 text-[15px] text-[#2aa7ff]">
                       <Phone size={15} />{item.supplier.contact}
                     </a>
                   )}
                   {item.supplier.url && (
-                    <a href={item.supplier.url} target="_blank" rel="noopener noreferrer" className="mt-1.5 flex items-center gap-2 text-[15px] text-[#4DA3FF]">
+                    <a href={item.supplier.url} target="_blank" rel="noopener noreferrer" className="mt-1.5 flex items-center gap-2 text-[15px] text-[#2aa7ff]">
                       <ExternalLink size={15} />Visit supplier
                     </a>
                   )}
@@ -328,36 +406,34 @@ export default function ItemRow({
               )}
 
               {(!item.product && !item.description && !item.supplier?.name) && (
-                <p className={`text-[15px] text-center py-6 ${textMuted}`}>No additional details available.</p>
+                <p className={`py-6 text-center text-[15px] ${mobileSheetMuted}`}>No additional details available.</p>
               )}
             </div>
           </div>
         </div>
       )}
 
-      {/* ── Mobile: Notes & Comments drawer ─────────────────────────────── */}
+      {/* ── Mobile: Notes & Comments sheet ─────────────────────────────── */}
       {infoOpen && (
         <div className="lg:hidden">
-          <div className="fixed inset-0 z-40 bg-black/50" onClick={() => setInfoOpen(false)} />
-          <div className={`fixed inset-x-0 bottom-0 z-50 rounded-t-2xl border-t shadow-2xl max-h-[88vh] overflow-y-auto ${sheetBg}`}>
-            <div className="flex justify-center pt-3 pb-1">
-              <div className={`w-10 h-1 rounded-full ${isDark ? "bg-[#334155]" : "bg-[#D5DCE3]"}`} />
+          <div className="fixed inset-0 z-40 bg-black/58" onClick={() => setInfoOpen(false)} />
+          <div className={`fixed inset-x-2 bottom-2 top-[max(72px,env(safe-area-inset-top)+20px)] z-50 flex flex-col overflow-hidden rounded-[26px] border shadow-2xl ${mobileSheetSurface}`}>
+            <div className="flex justify-center pt-2">
+              <div className="h-1 w-10 rounded-full bg-[#5c5c5c]" />
             </div>
-            <div className="px-5 pb-10 pt-2">
-
-              {/* Header */}
-              <div className="flex items-start justify-between mb-5">
-                <div>
-                  <h3 className={`text-[18px] font-bold leading-snug ${textPrimary}`}>{item.name}</h3>
-                  <p className={`text-[13px] mt-0.5 ${textMuted}`}>Notes & Comments</p>
+            <div className="flex items-start justify-between px-5 pb-3 pt-3">
+              <div className="min-w-0 pr-4">
+                  <h3 className="text-[18px] font-bold leading-snug text-white">{item.name}</h3>
+                  <p className={`mt-1 text-[13px] ${mobileSheetMuted}`}>Notes & Comments</p>
                 </div>
-                <button type="button" onClick={() => setInfoOpen(false)} className={textMuted}><X size={22} /></button>
+                <button type="button" onClick={() => setInfoOpen(false)} className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[14px] border border-white/10 bg-[#2b2b2b] text-white"><X size={18} /></button>
               </div>
+            <div className={`border-t ${mobileSheetDivider}`} />
+            <div className="min-h-0 flex-1 overflow-y-auto px-5 pb-6 pt-4">
 
-              {/* Custom Instructions */}
-              <div className={`mb-5 pb-5 border-b ${divider}`}>
+              <div className="pb-5">
                 <div className="flex items-center justify-between mb-2.5">
-                  <p className={`text-[13px] font-semibold uppercase tracking-wide ${textMuted}`}>Custom Instructions</p>
+                  <p className={`text-[13px] font-semibold uppercase tracking-wide ${mobileSheetMuted}`}>Custom Instructions</p>
                   {!item.isFixed && onItemSave && !editingInstruction && (
                     <button type="button" onClick={() => { setInstructionDraft(instruction); setEditingInstruction(true) }} className="flex items-center gap-1.5 text-[14px] text-[#4DA3FF] font-medium">
                       <Pencil size={13} /> Edit
@@ -371,32 +447,31 @@ export default function ItemRow({
                       onChange={(e) => setInstructionDraft(e.target.value)}
                       rows={4}
                       placeholder="Add custom instructions…"
-                      className={`w-full rounded-xl border px-3.5 py-3 text-[15px] leading-relaxed resize-none focus:outline-none focus:ring-2 focus:ring-[#4DA3FF] ${isDark ? "border-[#334155] bg-[#111E30] text-white placeholder:text-[#475569]" : "border-[#D5DCE3] bg-[#F8FAFC] text-[#3F4752] placeholder:text-[#94a3b8]"}`}
+                      className="w-full rounded-xl border border-[#353535] bg-[#2a2a2a] px-3.5 py-3 text-[15px] leading-relaxed text-white resize-none placeholder:text-[#7d7d7d] focus:outline-none focus:ring-2 focus:ring-[#4DA3FF]"
                     />
                     <div className="flex gap-2 mt-3">
                       <button onClick={saveInstruction} className="flex-1 rounded-xl bg-[#4DA3FF] py-2.5 text-[15px] font-semibold text-white">Save</button>
-                      <button onClick={() => setEditingInstruction(false)} className={`flex-1 rounded-xl border py-2.5 text-[15px] font-semibold ${isDark ? "border-[#334155] text-[#94a3b8]" : "border-[#D5DCE3] text-[#64748b]"}`}>Cancel</button>
+                      <button onClick={() => setEditingInstruction(false)} className="flex-1 rounded-xl border border-[#353535] py-2.5 text-[15px] font-semibold text-[#c7c7c7]">Cancel</button>
                     </div>
                   </>
                 ) : (
-                  <p className={`text-[15px] leading-relaxed ${instruction ? (isDark ? "text-[#C7D2E0]" : "text-[#526579]") : textMuted}`}>
+                  <p className={`text-[15px] leading-relaxed ${instruction ? "text-[#e2e2e2]" : mobileSheetMuted}`}>
                     {instruction || "No custom instructions added."}
                   </p>
                 )}
               </div>
+              <div className={`border-t ${mobileSheetDivider}`} />
 
-              {/* Comments */}
-              <div>
-                <p className={`text-[13px] font-semibold uppercase tracking-wide mb-3 ${textMuted}`}>Comments</p>
+              <div className="pt-5">
+                <p className={`mb-3 text-[13px] font-semibold uppercase tracking-wide ${mobileSheetMuted}`}>Comments</p>
 
-                {/* Add comment box */}
-                <div className={`rounded-xl border p-3.5 mb-4 ${isDark ? "border-[#334155] bg-[#111E30]" : "border-[#D5DCE3] bg-[#F8FAFC]"}`}>
+                <div className="mb-4 rounded-xl border border-[#353535] bg-[#2a2a2a] p-3.5">
                   <textarea
                     value={newComment}
                     onChange={(e) => setNewComment(e.target.value)}
                     rows={2}
                     placeholder="Write a comment…"
-                    className={`w-full bg-transparent text-[15px] leading-relaxed resize-none focus:outline-none ${isDark ? "text-white placeholder:text-[#475569]" : "text-[#3F4752] placeholder:text-[#94a3b8]"}`}
+                    className="w-full resize-none bg-transparent text-[15px] leading-relaxed text-white placeholder:text-[#7d7d7d] focus:outline-none"
                   />
                   <div className="flex items-center gap-1.5 mt-2.5 flex-wrap">
                     {(["info", "advisory", "urgent", "critical"] as UrgencyLevel[]).map((u) => (
@@ -420,24 +495,22 @@ export default function ItemRow({
                   </div>
                 </div>
 
-                {/* Comment list */}
                 {comments.length === 0 ? (
-                  <p className={`text-[14px] text-center py-3 ${textMuted}`}>No comments yet.</p>
+                  <p className={`py-3 text-center text-[14px] ${mobileSheetMuted}`}>No comments yet.</p>
                 ) : (
                   <div className="space-y-2.5">
                     {comments.map((c) => (
-                      <div key={c.id} className={`rounded-xl p-3.5 border ${isDark ? "bg-[#111E30] border-[#334155]" : "bg-white border-[#E2EDF2]"}`}>
+                      <div key={c.id} className="rounded-xl border border-[#353535] bg-[#2a2a2a] p-3.5">
                         <div className="flex items-center gap-2 mb-1.5">
                           <span className={`rounded-full px-2.5 py-0.5 text-[12px] font-semibold ${URGENCY[c.urgency].colour}`}>{URGENCY[c.urgency].label}</span>
-                          <span className={`text-[13px] ${textMuted}`}>{c.date}</span>
+                          <span className={`text-[13px] ${mobileSheetMuted}`}>{c.date}</span>
                         </div>
-                        <p className={`text-[15px] leading-relaxed ${isDark ? "text-[#C7D2E0]" : "text-[#526579]"}`}>{c.text}</p>
+                        <p className="text-[15px] leading-relaxed text-[#e2e2e2]">{c.text}</p>
                       </div>
                     ))}
                   </div>
                 )}
               </div>
-
             </div>
           </div>
         </div>
