@@ -253,6 +253,25 @@ function buildProcedureDisplayTitle({
   return `${prefix} ${procedureName}`.replace(/\s{2,}/g, " ").trim()
 }
 
+function readLocalCustomSections(cardKey: string): Section[] {
+  if (typeof window === "undefined") return []
+  try {
+    const raw = window.localStorage.getItem(`prepsight_custom_sections__${cardKey}`)
+    if (!raw) return []
+    const parsed = JSON.parse(raw)
+    return Array.isArray(parsed) ? (parsed as Section[]) : []
+  } catch {
+    return []
+  }
+}
+
+function writeLocalCustomSections(cardKey: string, sections: Section[]) {
+  if (typeof window === "undefined") return
+  try {
+    window.localStorage.setItem(`prepsight_custom_sections__${cardKey}`, JSON.stringify(sections))
+  } catch {}
+}
+
 function cardMatchesVersionContext(
   card: Procedure,
   options: {
@@ -464,6 +483,18 @@ export default function MobileProcedureRepositoryView({
   }, [sections])
 
   useEffect(() => {
+    const localOverrides = readLocalCustomSections(cardKey)
+    if (localOverrides.length) {
+      setSectionsState((current) =>
+        current.map((section) => {
+          const override = localOverrides.find((entry) => entry.id === section.id)
+          return override ?? section
+        }),
+      )
+    }
+  }, [cardKey])
+
+  useEffect(() => {
     let cancelled = false
     async function load() {
       if (!uid) return
@@ -483,8 +514,9 @@ export default function MobileProcedureRepositoryView({
   }, [cardKey, uid])
 
   function persistEditableSections(next: Section[]) {
-    if (!uid) return
     const editableSections = next.filter((section) => section.contentMode !== "fixed")
+    writeLocalCustomSections(cardKey, editableSections)
+    if (!uid) return
     startTransition(() => {
       void saveCardCustomSections(uid, cardKey, editableSections)
     })
