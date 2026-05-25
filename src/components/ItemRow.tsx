@@ -3,7 +3,8 @@
 import { useState, useEffect, useRef } from "react"
 import { Package, Check, Trash2, X, Pencil, Phone, ExternalLink, ImagePlus, ChevronDown } from "lucide-react"
 import { deleteDoc, doc, getDoc, setDoc } from "firebase/firestore"
-import { db } from "@/lib/firebase"
+import { deleteObject, getDownloadURL, ref as storageRef, uploadBytes } from "firebase/storage"
+import { db, storage } from "@/lib/firebase"
 import { Item, ItemDisplayInfo, SectionType } from "@/lib/types"
 
 type UrgencyLevel = "info" | "advisory" | "urgent" | "critical"
@@ -78,6 +79,7 @@ export default function ItemRow({
   const [newComment, setNewComment] = useState("")
   const [newUrgency, setNewUrgency] = useState<UrgencyLevel>("info")
   const [urgencyMenuOpen, setUrgencyMenuOpen] = useState(false)
+  const [imageSaving, setImageSaving] = useState(false)
 
   useEffect(() => {
     const [a, b, c] = locParts(item.location ?? "")
@@ -138,30 +140,57 @@ export default function ItemRow({
     setInfoOpen(true)
   }
 
-  function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
+  async function handleImageUpload(event: React.ChangeEvent<HTMLInputElement>) {
     const file = event.target.files?.[0]
     if (!file) return
-
-    const reader = new FileReader()
-    reader.onload = () => {
-      const nextImage = typeof reader.result === "string" ? reader.result : null
-      if (!nextImage) return
-      setLocalImage(nextImage)
-      if (db) {
-        void setDoc(doc(db, "item_images", item.id), { url: nextImage }).catch(() => undefined)
-      }
-      onItemSave?.({ ...item, imageUrl: nextImage })
-    }
-    reader.readAsDataURL(file)
     event.target.value = ""
+
+    setImageSaving(true)
+    try {
+      if (storage && db) {
+        const imageRef = storageRef(storage, `item-images/${item.id}`)
+        await uploadBytes(imageRef, file)
+        const url = await getDownloadURL(imageRef)
+        await setDoc(doc(db, "item_images", item.id), { url })
+        setLocalImage(url)
+        onItemSave?.({ ...item, imageUrl: url })
+        return
+      }
+
+      const reader = new FileReader()
+      reader.onload = () => {
+        const nextImage = typeof reader.result === "string" ? reader.result : null
+        if (!nextImage) return
+        setLocalImage(nextImage)
+        onItemSave?.({ ...item, imageUrl: nextImage })
+      }
+      reader.readAsDataURL(file)
+    } catch (error) {
+      console.error("[PrepSight] mobile item image save failed", error)
+      if (typeof window !== "undefined") {
+        window.alert("Image failed to save. Firestore or Storage permission may be blocking it.")
+      }
+    } finally {
+      setImageSaving(false)
+    }
   }
 
-  function handleImageRemove() {
+  async function handleImageRemove() {
     setLocalImage(null)
-    if (db) {
-      void deleteDoc(doc(db, "item_images", item.id)).catch(() => undefined)
+    try {
+      if (storage) {
+        await deleteObject(storageRef(storage, `item-images/${item.id}`)).catch(() => undefined)
+      }
+      if (db) {
+        await deleteDoc(doc(db, "item_images", item.id))
+      }
+      onItemSave?.({ ...item, imageUrl: undefined })
+    } catch (error) {
+      console.error("[PrepSight] mobile item image delete failed", error)
+      if (typeof window !== "undefined") {
+        window.alert("Image failed to delete. Firestore or Storage permission may be blocking it.")
+      }
     }
-    onItemSave?.({ ...item, imageUrl: undefined })
   }
 
   function saveLocation() {
@@ -246,8 +275,9 @@ export default function ItemRow({
               <button
                 type="button"
                 onClick={() => imageInputRef.current?.click()}
-                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#2d2d2d] bg-black text-[#d9d9d9]"
+                className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#2d2d2d] bg-black text-[#d9d9d9] disabled:opacity-50"
                 aria-label={localImage ? "Update image" : "Add image"}
+                disabled={imageSaving}
               >
                 <ImagePlus size={14} />
               </button>
@@ -255,8 +285,9 @@ export default function ItemRow({
                 <button
                   type="button"
                   onClick={handleImageRemove}
-                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#4a2327] bg-black text-[#f28b82]"
+                  className="inline-flex h-8 w-8 items-center justify-center rounded-lg border border-[#4a2327] bg-black text-[#f28b82] disabled:opacity-50"
                   aria-label="Remove image"
+                  disabled={imageSaving}
                 >
                   <span className="text-[18px] leading-none">-</span>
                 </button>
